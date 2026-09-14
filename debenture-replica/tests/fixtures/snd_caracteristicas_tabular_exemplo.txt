@@ -1,0 +1,6 @@
+PARA CONSULTAR CARACTERISTICAS E DOCUMENTOS DE DEBENTURES, ACESSE DATA.ANBIMA.COM.BR.
+
+Empresas com Registro no SND (*)- Gerado em 11/09/2026 10:48:59
+
+Codigo do Ativo	Empresa        	Serie	Emissao	Situacao	ISIN	Data de Emissao	Data de Vencimento	Garantia/Especie	Classe	Quantidade Emitida	Quantidade em Mercado	Valor Nominal Atual	indice	Percentual Multiplicador/Rentabilidade	Agente Fiduciario	CNPJ	Deb. Incent. (Lei 12.431)	Resgate Antecipado
+PETR27	PETROLEO BRASILEIRO S/A - PETROBRAS	002	007	Registrado	BRPETRDBS0C2	15/08/2019	15/09/2034	Quirografaria	Simples	1478670	000001478670	1465,04499	IPCA	3,9	PENTAGONO S/A DTVM	33000167000101	S	N

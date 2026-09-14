@@ -1,0 +1,4 @@
+﻿asset_code,isin,issuer_name,issuer_cnpj,issue_number,series,status,data_emissao,data_vencimento,garantia,classe,quantidade_emitida,quantidade_em_mercado,valor_nominal,indexador,agente_fiduciario,incentivada,resgate_antecipado,open_conflicts
+CEPEA1,BRCEPEDBS0E2,COMPANHIA ENERGETICA DE PERNAMBUCO-CELPE,10835932000108,011,001,active,2021-10-15,2026-10-15,Quirografária,Simples,100000,100000,1000,DI,PENTAGONO S/A DTVM,Nao,Sim,0
+PETR27,BRPETRDBS0C2,PETROLEO BRASILEIRO S/A - PETROBRAS,33000167000101,007,002,active,2019-08-15,2034-09-15,Quirografária,Simples,1478670,1478670,1460.23387,IPCA,PENTAGONO S/A DTVM,Sim,Nao,0
+SBSPC9,BRSBSPDBS2D9,CIA SANEAMENTO BASICO EST. SP - SABESP,43776517000180,039,UNI,active,2026-08-13,2034-12-26,Quirografária,Simples,178035714,178035714,1,PRÉ,VORTX DTVM LTDA.,Nao,Sim,0

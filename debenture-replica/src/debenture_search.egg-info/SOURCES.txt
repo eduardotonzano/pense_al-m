@@ -1,0 +1,17 @@
+README.md
+pyproject.toml
+src/debenture_search/__init__.py
+src/debenture_search/__main__.py
+src/debenture_search/aggregator.py
+src/debenture_search/cache.py
+src/debenture_search/http_client.py
+src/debenture_search/models.py
+src/debenture_search.egg-info/PKG-INFO
+src/debenture_search.egg-info/SOURCES.txt
+src/debenture_search.egg-info/dependency_links.txt
+src/debenture_search.egg-info/requires.txt
+src/debenture_search.egg-info/top_level.txt
+src/debenture_search/providers/base.py
+src/debenture_search/providers/manual.py
+src/debenture_search/providers/snd.py
+tests/test_core.py

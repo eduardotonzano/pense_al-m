@@ -1,0 +1,2 @@
+﻿asset_code,isin,issuer_name,issuer_cnpj,issue_number,series,status,data_emissao,data_vencimento,garantia,classe,quantidade_emitida,quantidade_em_mercado,valor_nominal,indexador,agente_fiduciario,incentivada,resgate_antecipado,open_conflicts
+PETR27,BRPETRDBS0C2,PETROLEO BRASILEIRO S/A - PETROBRAS,33000167000101,007,002,active,2019-08-15,2034-09-15,Quirografária,Simples,1478670,1478670,1460.23387,IPCA,PENTAGONO S/A DTVM,Sim,Nao,0

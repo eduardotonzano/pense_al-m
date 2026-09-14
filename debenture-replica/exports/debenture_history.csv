@@ -1,0 +1,39 @@
+﻿asset_code,field_name,value_type,value,unit,source_code,observed_at,confidence
+CEPEA1,agente_fiduciario,text,PENTAGONO S/A DTVM,,SND,2026-09-11T20:01:28.142147+00:00,reported
+CEPEA1,classe,text,Simples,,SND,2026-09-11T20:01:21.495496+00:00,reported
+CEPEA1,data_emissao,date,2021-10-15,,SND,2026-09-11T20:01:18.887718+00:00,reported
+CEPEA1,data_vencimento,date,2026-10-15,,SND,2026-09-11T20:01:19.964076+00:00,reported
+CEPEA1,garantia,text,Quirografária,,SND,2026-09-11T20:01:20.700759+00:00,reported
+CEPEA1,incentivada,boolean,Nao,,SND,2026-09-11T20:01:29.034308+00:00,reported
+CEPEA1,indexador,text,DI,,SND,2026-09-11T20:01:26.230924+00:00,reported
+CEPEA1,quantidade_em_mercado,numeric,100000,titulos,SND,2026-09-11T20:01:23.317095+00:00,reported
+CEPEA1,quantidade_emitida,numeric,100000,titulos,SND,2026-09-11T20:01:22.283673+00:00,reported
+CEPEA1,resgate_antecipado,boolean,Sim,,SND,2026-09-11T20:01:30.024832+00:00,reported
+CEPEA1,spread,numeric,100,percentual,SND,2026-09-11T20:01:27.289502+00:00,reported
+CEPEA1,valor_nominal,numeric,1000,BRL,SND,2026-09-11T20:01:25.266027+00:00,reported
+CEPEA1,valor_nominal_emissao,numeric,1000,BRL,SND,2026-09-11T20:01:24.131668+00:00,reported
+PETR27,agente_fiduciario,text,PENTAGONO S/A DTVM,,SND,2026-09-11T16:46:22.366688+00:00,reported
+PETR27,classe,text,Simples,,SND,2026-09-11T16:46:17.357085+00:00,reported
+PETR27,data_emissao,date,2019-08-15,,SND,2026-09-11T16:46:15.190702+00:00,reported
+PETR27,data_vencimento,date,2034-09-15,,SND,2026-09-11T16:46:15.867735+00:00,reported
+PETR27,garantia,text,Quirografária,,SND,2026-09-11T16:46:16.605942+00:00,reported
+PETR27,incentivada,boolean,Sim,,SND,2026-09-11T16:46:23.145684+00:00,reported
+PETR27,indexador,text,IPCA,,SND,2026-09-11T16:46:21.538830+00:00,reported
+PETR27,quantidade_em_mercado,numeric,1478670,titulos,SND,2026-09-11T16:46:19.133320+00:00,reported
+PETR27,quantidade_emitida,numeric,1478670,titulos,SND,2026-09-11T16:46:18.127005+00:00,reported
+PETR27,resgate_antecipado,boolean,Nao,,SND,2026-09-11T16:46:23.870844+00:00,reported
+PETR27,valor_nominal,numeric,1460.23387,BRL,SND,2026-09-14T10:54:55.223275+00:00,reported
+PETR27,valor_nominal,numeric,1465.60931,BRL,SND,2026-09-11T16:46:20.753789+00:00,reported
+PETR27,valor_nominal_emissao,numeric,1000,BRL,SND,2026-09-11T16:46:19.811144+00:00,reported
+SBSPC9,agente_fiduciario,text,VORTX DTVM LTDA.,,SND,2026-09-11T20:01:45.725236+00:00,reported
+SBSPC9,classe,text,Simples,,SND,2026-09-11T20:01:39.442997+00:00,reported
+SBSPC9,data_emissao,date,2026-08-13,,SND,2026-09-11T20:01:36.041369+00:00,reported
+SBSPC9,data_vencimento,date,2034-12-26,,SND,2026-09-11T20:01:37.271189+00:00,reported
+SBSPC9,garantia,text,Quirografária,,SND,2026-09-11T20:01:38.509997+00:00,reported
+SBSPC9,incentivada,boolean,Nao,,SND,2026-09-11T20:01:46.901702+00:00,reported
+SBSPC9,indexador,text,PRÉ,,SND,2026-09-11T20:01:44.546335+00:00,reported
+SBSPC9,quantidade_em_mercado,numeric,178035714,titulos,SND,2026-09-11T20:01:41.526740+00:00,reported
+SBSPC9,quantidade_emitida,numeric,178035714,titulos,SND,2026-09-11T20:01:40.387552+00:00,reported
+SBSPC9,resgate_antecipado,boolean,Sim,,SND,2026-09-11T20:01:47.911205+00:00,reported
+SBSPC9,valor_nominal,numeric,1,BRL,SND,2026-09-11T20:01:43.459120+00:00,reported
+SBSPC9,valor_nominal_emissao,numeric,1,BRL,SND,2026-09-11T20:01:42.616052+00:00,reported

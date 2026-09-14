@@ -1,0 +1,721 @@
+PROJETO: MOTOR DE BUSCA DE DEBENTURES
+RELATORIO DE ANDAMENTO
+Data de atualizacao: 10/09/2026
+
+======================================================================
+1. OBJETIVO DO PROJETO
+======================================================================
+
+Construir uma ferramenta confiavel para pesquisar uma debenture por:
+
+- Codigo do ativo
+- ISIN
+- Nome ou CNPJ do emissor
+
+A ferramenta devera montar uma ficha unica do ativo, consolidando dados de
+fontes diferentes e exibindo a origem de cada informacao.
+
+Principios do projeto:
+
+- Nao inventar nem estimar dados ausentes.
+- Preservar o historico dos valores.
+- Registrar a fonte e a data de cada informacao.
+- Nao sobrescrever silenciosamente dados validos.
+- Manter o sistema funcionando quando uma fonte estiver indisponivel.
+- Rejeitar duplicidades e dados inconsistentes.
+- Registrar alteracoes manuais em auditoria.
+
+======================================================================
+2. AMBIENTE DE DESENVOLVIMENTO CONCLUIDO
+======================================================================
+
+O ambiente local foi configurado com sucesso.
+
+Itens concluidos:
+
+- Python 3.14.5 instalado.
+- Projeto aberto no Visual Studio Code.
+- Ambiente virtual local criado em:
+
+  C:\Users\eduardo.tonzano\debenture-venv
+
+- Projeto instalado em modo editavel.
+- Pytest instalado.
+- Interpretador correto selecionado no Visual Studio Code.
+- Execucao de testes funcionando.
+
+Comando padrao para executar os testes:
+
+  & "$env:USERPROFILE\debenture-venv\Scripts\python.exe" -m pytest -q
+
+Observacao:
+
+Existe uma pasta .venv dentro da pasta de rede que apresentou problemas.
+O ambiente confiavel e utilizado no projeto e o debenture-venv localizado
+na pasta do usuario.
+
+======================================================================
+3. BANCO DE DADOS CONCLUIDO
+======================================================================
+
+Foi criado um banco SQLite em:
+
+  data/debenture.db
+
+O SQLite foi adotado porque o computador corporativo nao permite instalar
+o PostgreSQL com privilegios administrativos. A estrutura foi preparada
+para uma futura migracao para PostgreSQL.
+
+Configuracoes aplicadas:
+
+- Foreign keys ativadas.
+- Journal mode WAL ativado.
+- Synchronous FULL.
+- Busy timeout configurado.
+- Verificacao de integridade.
+- Verificacao de chaves estrangeiras.
+- Transacoes atomicas.
+- Rollback automatico em falhas.
+
+Migration criada:
+
+  migrations/001_initial_schema.sql
+
+Script para aplicar a migration:
+
+  scripts/apply_migration.py
+
+Comando para aplicar a migration:
+
+  & "$env:USERPROFILE\debenture-venv\Scripts\python.exe" scriptspply_migration.py
+
+Resultado confirmado:
+
+- Migration aplicada com sucesso.
+- Journal mode: WAL.
+- Integrity check: OK.
+- Foreign key errors: nenhum.
+
+======================================================================
+4. TABELAS CRIADAS
+======================================================================
+
+4.1. schema_migrations
+
+Controla a versao do esquema do banco e quais migrations ja foram
+aplicadas.
+
+4.2. issuers
+
+Armazena os emissores das debentures.
+
+Campos principais:
+
+- ID interno
+- CNPJ
+- Razao social
+- Nome fantasia
+- Data de criacao
+- Data de atualizacao
+
+Protecoes:
+
+- CNPJ unico.
+- CNPJ com 14 digitos quando informado.
+- Razao social obrigatoria.
+
+4.3. debentures
+
+Armazena a identidade de cada debenture.
+
+Campos principais:
+
+- ID interno
+- Emissor
+- Codigo do ativo
+- ISIN
+- Numero da emissao
+- Serie
+- Status
+- Data de criacao
+- Data de atualizacao
+- Data de inativacao
+
+Protecoes:
+
+- Codigo do ativo unico.
+- ISIN unico.
+- Obrigatoriedade de codigo ou ISIN.
+- Codigo armazenado em maiusculas.
+- ISIN com 12 caracteres.
+- Status limitado aos valores permitidos.
+- Relacao com emissor protegida por foreign key.
+
+4.4. sources
+
+Armazena as fontes de dados e suas prioridades.
+
+Fontes iniciais:
+
+- SND
+- CVM
+- ANBIMA_API
+- MANUAL
+
+4.5. collection_runs
+
+Registra cada execucao de coleta.
+
+Informacoes previstas:
+
+- Fonte utilizada
+- Inicio e fim
+- Status
+- Quantidade solicitada
+- Quantidade processada
+- Quantidade com falha
+- Resumo de erros
+
+4.6. raw_records
+
+Armazena as respostas brutas recebidas das fontes antes do parsing.
+
+Informacoes previstas:
+
+- URL consultada
+- Parametros
+- Conteudo HTML ou JSON
+- Hash SHA-256
+- Status HTTP
+- Versao do parser
+- Status do processamento
+- Erro de processamento
+
+Objetivo:
+
+Permitir reprocessar os dados sem consultar novamente a fonte externa.
+
+4.7. observations
+
+Armazena os valores historicos de cada campo da debenture.
+
+Exemplos de campos:
+
+- Rating
+- Spread
+- Indexador
+- Valor nominal
+- Quantidade emitida
+- Quantidade em mercado
+- Vencimento
+
+Cada observacao guarda:
+
+- Debenture
+- Fonte
+- Campo
+- Tipo do valor
+- Valor
+- Unidade
+- Data observada
+- Data coletada
+- Nivel de confianca
+- Checksum contra duplicidade
+
+4.8. data_conflicts
+
+Registra divergencias entre fontes sem apagar nenhum dos valores.
+
+4.9. audit_log
+
+Registra alteracoes manuais e administrativas.
+
+Informacoes previstas:
+
+- Usuario ou processo responsavel
+- Acao
+- Entidade alterada
+- Valor anterior
+- Valor novo
+- Motivo
+- Data e hora
+
+4.10. current_observations
+
+View que seleciona o valor consolidado atual de cada campo, considerando:
+
+- Prioridade da fonte
+- Data observada
+- Data coletada
+- Registro mais recente
+
+======================================================================
+5. CAMADA PYTHON DO BANCO CONCLUIDA
+======================================================================
+
+Arquivo criado:
+
+  src/debenture_search/database.py
+
+Recursos implementados:
+
+- Abertura segura de conexoes.
+- Fechamento automatico.
+- Foreign keys ativadas em cada conexao.
+- Context manager para conexoes.
+- Context manager para transacoes.
+- Commit automatico em sucesso.
+- Rollback automatico em erro.
+- Integrity check.
+- Foreign key check.
+- Verificacao da existencia de tabelas.
+- Escritas transacionais.
+- Consulta de uma linha.
+- Consulta de varias linhas.
+
+Validacoes confirmadas:
+
+- Integridade: OK.
+- Tabela debentures encontrada.
+- Nenhum erro de foreign key.
+
+======================================================================
+6. REPOSITORIO DE EMISSORES CONCLUIDO
+======================================================================
+
+Arquivo criado:
+
+  src/debenture_search/repositories/issuer_repository.py
+
+Recursos implementados:
+
+- Cadastro de emissor.
+- Normalizacao de CNPJ.
+- Remocao de pontuacao do CNPJ.
+- Validacao de 14 digitos.
+- Normalizacao da razao social.
+- Normalizacao do nome fantasia.
+- Rejeicao de CNPJ duplicado.
+- Busca por ID.
+- Busca por CNPJ.
+- Busca por razao social.
+- Busca por nome fantasia.
+- Listagem paginada.
+- Contagem de emissores.
+- Atualizacao de nomes.
+- Metodo get_or_create.
+- Uso de transacoes.
+
+Arquivo de testes:
+
+  tests/test_issuer_repository.py
+
+Resultado confirmado:
+
+- 24 testes especificos do repositorio de emissores aprovados.
+
+======================================================================
+7. TESTES DA BASE CONCLUIDOS
+======================================================================
+
+Arquivos existentes:
+
+- tests/test_core.py
+- tests/test_database_integrity.py
+- tests/test_database_transactions.py
+- tests/test_issuer_repository.py
+
+Cobertura confirmada:
+
+- Migration registrada.
+- Fontes iniciais criadas.
+- CNPJ invalido rejeitado.
+- CNPJ duplicado rejeitado.
+- Codigo de ativo em minusculas rejeitado pelo banco.
+- Codigo de ativo duplicado rejeitado.
+- ISIN invalido rejeitado.
+- Debenture sem identificador rejeitada.
+- Foreign key invalida rejeitada.
+- Status invalido rejeitado.
+- Observacao inconsistente rejeitada.
+- Commit de transacao valida.
+- Rollback apos excecao.
+- Rollback apos erro de integridade.
+- Persistencia depois de reabrir o banco.
+- Foreign keys ativas em cada conexao.
+- Integridade preservada.
+- Operacoes do repositorio de emissores.
+
+Ultimo total integral confirmado antes dos testes de debentures:
+
+  46 testes aprovados
+
+======================================================================
+8. REPOSITORIO DE DEBENTURES EM ANDAMENTO
+======================================================================
+
+Arquivo criado:
+
+  src/debenture_search/repositories/debenture_repository.py
+
+Funcionalidades implementadas ou planejadas no arquivo:
+
+- Cadastro por codigo do ativo.
+- Cadastro por ISIN.
+- Cadastro com codigo e ISIN.
+- Associacao da debenture a um emissor.
+- Normalizacao do codigo para maiusculas.
+- Normalizacao e validacao do ISIN.
+- Validacao do status.
+- Rejeicao de emissor inexistente.
+- Rejeicao de codigo duplicado.
+- Rejeicao de ISIN duplicado.
+- Busca por ID.
+- Busca por codigo.
+- Busca por ISIN.
+- Pesquisa por emissor, serie e identificadores.
+- Listagem por emissor.
+- Paginacao.
+- Contagem por status.
+- Atualizacao da identificacao.
+- Atualizacao do status.
+- Preenchimento de inactive_at.
+- Reativacao sem apagar o registro.
+- Metodo get_or_create.
+- Rollback em conflitos.
+
+Situacao atual:
+
+- A sintaxe e a importacao do debenture_repository.py foram validadas.
+- O arquivo de testes de debentures esta sendo corrigido e validado.
+
+Arquivo em andamento:
+
+  tests/test_debenture_repository.py
+
+Proximo marco:
+
+- Fazer todos os testes desse arquivo passarem.
+- Rodar a suite completa.
+- Confirmar o novo total real de testes no terminal.
+
+Importante:
+
+O total de 69 testes ainda nao deve ser considerado concluido ate que o
+terminal mostre o resultado real da suite completa.
+
+======================================================================
+9. PROXIMOS PASSOS IMEDIATOS
+======================================================================
+
+PASSO 1
+Validar a sintaxe do teste de debentures:
+
+  & "$env:USERPROFILE\debenture-venv\Scripts\python.exe" -m py_compile ".	ests	est_debenture_repository.py"
+
+PASSO 2
+Executar somente os testes de debentures:
+
+  & "$env:USERPROFILE\debenture-venv\Scripts\python.exe" -m pytest ".	ests	est_debenture_repository.py" -q
+
+PASSO 3
+Corrigir eventuais incompatibilidades entre:
+
+- debenture_repository.py
+- test_debenture_repository.py
+- 001_initial_schema.sql
+
+PASSO 4
+Executar a suite completa:
+
+  & "$env:USERPROFILE\debenture-venv\Scripts\python.exe" -m pytest -q
+
+PASSO 5
+Registrar o novo total confirmado de testes.
+
+======================================================================
+10. PROXIMAS CAMADAS DA BASE DE DADOS
+======================================================================
+
+10.1. ObservationRepository
+
+Arquivo previsto:
+
+  src/debenture_search/repositories/observation_repository.py
+
+Responsabilidades:
+
+- Registrar observacoes historicas.
+- Gerar checksums.
+- Impedir duplicidade.
+- Preservar valores antigos.
+- Consultar o valor atual.
+- Consultar o historico por campo.
+- Comparar valores de fontes diferentes.
+- Nunca apagar um valor valido por ausencia em uma coleta nova.
+
+10.2. RawRecordRepository
+
+Arquivo previsto:
+
+  src/debenture_search/repositories/raw_record_repository.py
+
+Responsabilidades:
+
+- Salvar HTML e JSON brutos.
+- Calcular SHA-256.
+- Impedir payload duplicado por fonte.
+- Registrar status HTTP.
+- Registrar versao do parser.
+- Permitir reprocessamento.
+
+10.3. CollectionRepository
+
+Arquivo previsto:
+
+  src/debenture_search/repositories/collection_repository.py
+
+Responsabilidades:
+
+- Iniciar uma coleta.
+- Finalizar uma coleta.
+- Registrar sucesso, falha ou resultado parcial.
+- Contabilizar os itens processados.
+- Guardar o resumo dos erros.
+
+10.4. AuditRepository
+
+Arquivo previsto:
+
+  src/debenture_search/repositories/audit_repository.py
+
+Responsabilidades:
+
+- Registrar inclusoes manuais.
+- Registrar atualizacoes.
+- Preservar os valores anterior e novo.
+- Registrar responsavel e motivo.
+
+10.5. ConflictRepository
+
+Arquivo previsto:
+
+  src/debenture_search/repositories/conflict_repository.py
+
+Responsabilidades:
+
+- Detectar divergencias entre fontes.
+- Abrir conflitos.
+- Resolver ou ignorar conflitos.
+- Preservar todas as observacoes envolvidas.
+
+======================================================================
+11. INTEGRACOES EXTERNAS QUE AINDA FALTAM
+======================================================================
+
+11.1. SND
+
+O provider do SND ainda precisa ser transformado em uma integracao real.
+
+Fluxo desejado:
+
+1. Consultar a fonte com rate limit.
+2. Registrar a execucao da coleta.
+3. Salvar a resposta bruta.
+4. Executar o parser.
+5. Validar os campos.
+6. Cadastrar ou localizar o emissor.
+7. Cadastrar ou localizar a debenture.
+8. Criar observacoes historicas.
+9. Detectar conflitos.
+10. Finalizar a coleta.
+
+Campos desejados:
+
+- Codigo
+- ISIN
+- Emissor
+- CNPJ
+- Indexador
+- Spread
+- Garantia
+- Classe
+- Quantidade emitida
+- Quantidade em mercado
+- Valor nominal
+- Agente fiduciario
+- Situacao
+- Rating
+- Datas relevantes
+
+11.2. Entrada manual
+
+A entrada manual devera criar:
+
+- Observacao historica
+- Registro de auditoria
+- Fonte declarada
+- Data e hora
+- Justificativa
+
+11.3. CVM
+
+Integracao prevista para:
+
+- Escritura
+- Prospecto
+- Aditamentos
+- Fatos relevantes
+- Documentos da emissao
+
+11.4. ANBIMA
+
+A integracao devera utilizar somente API oficial e autorizada. O provider
+devera permanecer desligado quando nao houver credencial.
+
+======================================================================
+12. AGREGADOR QUE AINDA FALTA ADAPTAR
+======================================================================
+
+O DebentureAggregator devera ser integrado ao novo banco.
+
+Responsabilidades futuras:
+
+- Resolver busca por codigo, ISIN ou emissor.
+- Detectar multiplas series.
+- Solicitar dados aos providers disponiveis.
+- Continuar funcionando quando um provider falhar.
+- Consolidar valores por prioridade de fonte.
+- Nao substituir valor valido por indisponivel.
+- Expor divergencias.
+- Utilizar o historico do banco.
+
+======================================================================
+13. API E INTERFACE QUE AINDA FALTAM
+======================================================================
+
+Depois da base e das integracoes, deverao ser criadas:
+
+API:
+
+- Busca por codigo ou ISIN.
+- Busca por emissor.
+- Ficha consolidada.
+- Historico de um campo.
+- Conflitos.
+- Entrada manual.
+- Status da ultima coleta.
+
+Interface:
+
+- Campo de busca.
+- Tela de desambiguacao.
+- Ficha unica da debenture.
+- Fonte exibida em cada campo.
+- Data de atualizacao.
+- Historico.
+- Conflitos.
+- Entrada manual.
+- Documentos.
+
+======================================================================
+14. BACKUP E OPERACAO QUE AINDA FALTAM
+======================================================================
+
+Antes de considerar o sistema pronto para uso continuo:
+
+- Criar rotina de backup do arquivo SQLite.
+- Copiar o backup para local diferente da pasta de rede principal.
+- Validar o backup com integrity_check.
+- Testar restauracao.
+- Criar rotacao de backups.
+- Registrar logs das coletas.
+- Criar verificacao de saude do banco.
+- Preparar migracao futura para PostgreSQL.
+
+======================================================================
+15. ROADMAP RESUMIDO
+======================================================================
+
+FASE 1 - CONCLUIDA
+
+- Ambiente Python
+- Visual Studio Code
+- Ambiente virtual
+- Migration inicial
+- SQLite com WAL
+- Integridade e foreign keys
+- Transacoes e rollback
+- Repositorio de emissores
+- 46 testes confirmados
+
+FASE 2 - EM ANDAMENTO
+
+- Repositorio de debentures
+- Testes do repositorio de debentures
+
+FASE 3 - PENDENTE
+
+- Observacoes historicas
+- Registros brutos
+- Controle de coletas
+- Auditoria
+- Conflitos
+
+FASE 4 - PENDENTE
+
+- Integracao real com SND
+- Entrada manual integrada ao banco
+- CVM
+- ANBIMA oficial, se houver credencial
+
+FASE 5 - PENDENTE
+
+- Agregador integrado ao banco
+- Regras de precedencia
+- Desambiguacao
+- Tratamento de falhas dos providers
+
+FASE 6 - PENDENTE
+
+- API
+- Interface de busca
+- Ficha da debenture
+- Historico
+- Conflitos
+- Documentos
+
+FASE 7 - PENDENTE
+
+- Exportacao
+- Backup automatizado
+- Restauracao testada
+- Logs
+- Monitoramento
+- Preparacao para producao
+
+======================================================================
+16. PROXIMO PONTO PARA RETOMAR
+======================================================================
+
+Retomar pelo arquivo:
+
+  tests/test_debenture_repository.py
+
+Executar:
+
+  & "$env:USERPROFILE\debenture-venv\Scripts\python.exe" -m py_compile ".	ests	est_debenture_repository.py"
+
+Depois:
+
+  & "$env:USERPROFILE\debenture-venv\Scripts\python.exe" -m pytest ".	ests	est_debenture_repository.py" -q
+
+Quando os testes especificos passarem, executar:
+
+  & "$env:USERPROFILE\debenture-venv\Scripts\python.exe" -m pytest -q
+
+Somente depois registrar o novo total oficial de testes aprovados.
+
+======================================================================
+FIM DO RELATORIO
+======================================================================

@@ -1,0 +1,8 @@
+{
+    "python.defaultInterpreterPath": "${env:USERPROFILE}\\debenture-venv\\Scripts\\python.exe",
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestArgs": [
+        "tests"
+    ]
+}

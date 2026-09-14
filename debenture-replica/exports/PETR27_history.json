@@ -1,0 +1,132 @@
+[
+  {
+    "asset_code": "PETR27",
+    "field_name": "agente_fiduciario",
+    "value_type": "text",
+    "value": "PENTAGONO S/A DTVM",
+    "unit": "",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:22.366688+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "classe",
+    "value_type": "text",
+    "value": "Simples",
+    "unit": "",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:17.357085+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "data_emissao",
+    "value_type": "date",
+    "value": "2019-08-15",
+    "unit": "",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:15.190702+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "data_vencimento",
+    "value_type": "date",
+    "value": "2034-09-15",
+    "unit": "",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:15.867735+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "garantia",
+    "value_type": "text",
+    "value": "Quirografária",
+    "unit": "",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:16.605942+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "incentivada",
+    "value_type": "boolean",
+    "value": "Sim",
+    "unit": "",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:23.145684+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "indexador",
+    "value_type": "text",
+    "value": "IPCA",
+    "unit": "",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:21.538830+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "quantidade_em_mercado",
+    "value_type": "numeric",
+    "value": "1478670",
+    "unit": "titulos",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:19.133320+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "quantidade_emitida",
+    "value_type": "numeric",
+    "value": "1478670",
+    "unit": "titulos",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:18.127005+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "resgate_antecipado",
+    "value_type": "boolean",
+    "value": "Nao",
+    "unit": "",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:23.870844+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "valor_nominal",
+    "value_type": "numeric",
+    "value": "1460.23387",
+    "unit": "BRL",
+    "source_code": "SND",
+    "observed_at": "2026-09-14T10:54:55.223275+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "valor_nominal",
+    "value_type": "numeric",
+    "value": "1465.60931",
+    "unit": "BRL",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:20.753789+00:00",
+    "confidence": "reported"
+  },
+  {
+    "asset_code": "PETR27",
+    "field_name": "valor_nominal_emissao",
+    "value_type": "numeric",
+    "value": "1000",
+    "unit": "BRL",
+    "source_code": "SND",
+    "observed_at": "2026-09-11T16:46:19.811144+00:00",
+    "confidence": "reported"
+  }
+]

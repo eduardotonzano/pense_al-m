@@ -1,0 +1,6 @@
+# Lista sintetica para testes offline
+PETR27
+CEPEA1
+
+SBSPC9
+PETR27

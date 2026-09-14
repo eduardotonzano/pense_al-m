@@ -1,0 +1,13 @@
+# Word temporary files
+~$*
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+.venv/
+venv/
+
+# SQLite
+*.db
