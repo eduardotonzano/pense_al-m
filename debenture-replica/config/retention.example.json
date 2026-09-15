@@ -1,0 +1,18 @@
+{
+  "backup_days": 30,
+  "log_days": 90,
+  "report_days": 90,
+  "export_days": 90,
+  "temporary_days": 7,
+  "code_backup_days": 30,
+  "keep_latest_backup": true,
+  "keep_latest_report": true,
+  "protected_files": [
+    "exports/debentures.csv",
+    "exports/debentures.json",
+    "exports/debenture_history.csv",
+    "logs/collection_last.json",
+    "logs/debenture_collection.log",
+    "logs/debenture_collection.jsonl"
+  ]
+}

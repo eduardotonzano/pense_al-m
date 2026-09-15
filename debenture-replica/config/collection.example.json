@@ -1,0 +1,17 @@
+{
+  "asset_codes": [
+    "PETR27",
+    "CEPEA1",
+    "SBSPC9"
+  ],
+  "request_timeout_seconds": 20,
+  "request_interval_seconds": 2,
+  "max_items": 20,
+  "max_attempts": 1,
+  "stale_run_minutes": 60,
+  "create_backup": true,
+  "export_csv": true,
+  "export_json": true,
+  "export_history": true,
+  "export_dir": "exports"
+}

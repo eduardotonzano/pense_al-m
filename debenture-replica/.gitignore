@@ -1,0 +1,68 @@
+﻿# Ambientes virtuais
+.venv/
+venv/
+env/
+
+# Cache e arquivos compilados do Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Locks operacionais
+runtime/*.lock
+
+# Arquivos temporarios
+runtime/*.tmp
+*.tmp
+*.temp
+
+# Logs gerados pela aplicacao
+logs/*.log
+logs/*.jsonl
+
+# Relatorios operacionais gerados
+logs/collection_last.json
+logs/quality_last.json
+logs/quality_history.jsonl
+logs/health_last.json
+logs/health_history.jsonl
+
+# Exportacoes geradas
+exports/*.csv
+exports/*.json
+
+# Backups do banco
+data/backups/
+
+# Copias de seguranca de codigo
+*.bak
+*.before_*.bak
+*.broken.bak
+
+# Bancos locais
+*.db
+*.sqlite
+*.sqlite3
+*.db-shm
+*.db-wal
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Configuracoes locais do editor
+.vscode/
+.idea/
+
+# Credenciais e configuracoes locais
+.env
+.env.*
+!.env.example
+
+# Configuracao real de producao
+config/collection.production.json
