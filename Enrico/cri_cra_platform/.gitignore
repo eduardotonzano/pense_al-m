@@ -8,5 +8,7 @@ data/documents/*
 !data/documents/.gitkeep
 logs/*.log
 reports/*.json
+!reports/validacao_fundosnet_cri_fallback.json
+!reports/validacao_fundosnet_cri_fallback.md
 reports/fundosnet_capturas.jsonl
 reports/fundosnet_capturas.txt

@@ -1,0 +1,137 @@
+{
+  "teste_cri_isin": {
+    "status": "aprovado",
+    "tipo_fundo": 5,
+    "administrador_id": 1338,
+    "id_fundo": 13003,
+    "certificado_retornado": {
+      "id": 13003,
+      "texto": "OPEA CRI Emissão:301 Série:1 ALMEIDA JUNIOR SHOPP 08/2024 BRRBRACRIP13",
+      "isin": "BRRBRACRIP13",
+      "emissao": "301",
+      "serie": "1",
+      "securitizadora": "OPEA",
+      "codigo_cetip_informado_para_conferencia": "24G2100031"
+    },
+    "total_documentos": 42,
+    "amostra_documentos": [
+      {
+        "id": 1300985,
+        "descricao_fundo": "OPEA CRI Emissão:301 Série:1 ALMEIDA JUNIOR SHOPP 08/2024 BRRBRACRIP13",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal de CRI",
+        "data_referencia": "07/2026",
+        "data_entrega": "26/08/2026 17:14",
+        "status": "AC"
+      },
+      {
+        "id": 1298856,
+        "descricao_fundo": "OPEA CRI Emissão:301 Série:1 ALMEIDA JUNIOR SHOPP 08/2024 BRRBRACRIP13",
+        "categoria": "Informes Periódicos",
+        "tipo": "Demonstrações Financeiras",
+        "data_referencia": "30/06/2026",
+        "data_entrega": "24/08/2026 12:22",
+        "status": "AC"
+      },
+      {
+        "id": 1264371,
+        "descricao_fundo": "OPEA CRI Emissão:301 Série:1 ALMEIDA JUNIOR SHOPP 08/2024 BRRBRACRIP13",
+        "categoria": "Informes Periódicos",
+        "tipo": "Informe Mensal de CRI",
+        "data_referencia": "06/2026",
+        "data_entrega": "27/07/2026 10:28",
+        "status": "AC"
+      }
+    ],
+    "erros": [
+      "O código CETIP 24G2100031 foi mantido apenas como conferência e não foi usado como filtro. A descrição retornada pelo endpoint contém o ISIN BRRBRACRIP13 e foi considerada a identificação principal."
+    ]
+  },
+  "teste_fallback_sem_isin": {
+    "status": "reprovado",
+    "caso_utilizado": "Virgo CRA JBS",
+    "tipo_fundo": 6,
+    "administrador_id": null,
+    "termos_testados": [
+      {
+        "endpoint": "buscarAdministrador",
+        "term": "Virgo",
+        "resultados": []
+      },
+      {
+        "endpoint": "buscarAdministrador",
+        "term": "Virgo Securitizadora",
+        "resultados": []
+      },
+      {
+        "endpoint": "buscarAdministrador",
+        "term": "VIRGO COMPANHIA",
+        "resultados": []
+      },
+      {
+        "endpoint": "listarFundos",
+        "term": "JBS",
+        "idTipoFundo": 6,
+        "idAdm": 0,
+        "resultados": [
+          {"id": 8573, "text": "ISEC CRA Emissão:122 Série(s):1 (+2) CORP JBS IV 09/2022 BRIMWLCRA523"},
+          {"id": 10566, "text": "ISEC CRA Emissão:176 Série(s):1 (+4) CORP JBS V 09/2023 BRIMWLCRA6S8"},
+          {"id": 12245, "text": "ISEC CRA Emissão:204 Série(s):1 (+3) CORP JBS VI 05/2024 BRIMWLCRA804"},
+          {"id": 13087, "text": "ISEC CRA Emissão:218 Série(s):1 (+2) CORP SEARA (JBS) 09/2024 BRIMWLCRA8Q8"},
+          {"id": 17421, "text": "ISEC CRA Emissão:263 Série(s):1 (+2) CORP SEARA (JBS) II 02/2025 BRIMWLCRAAD4"},
+          {"id": 19706, "text": "ISEC CRA Emissão:269 Série(s):1 (+2) CORP SEARA (JBS) III 05/2025 BRIMWLCRAAO1"},
+          {"id": 5887, "text": "ISEC CRA Emissão:28 Série(s):1 (+1) XP JBS 04/2021 BRIMWLCRA119"},
+          {"id": 7041, "text": "ISEC CRA Emissão:59 Série(s):1 (+1) CORP JBS II 12/2021 BRIMWLCRA267"},
+          {"id": 7698, "text": "ISEC CRA Emissão:98 Série(s):1 (+2) CORP JBS III 04/2022 BRIMWLCRA3R7"},
+          {"id": 3787, "text": "RBCAPITALRES CRA Emissão:12 Série:1 JBS S.A 11/2020 BRRBRACRA0R5"},
+          {"id": 5693, "text": "RBCAPITALRES CRA Emissão:12 Série:2 JBS S.A 11/2020 BRRBRACRA0S3"},
+          {"id": 2693, "text": "RBCAPITALRES CRA Emissão:5 Série:1 JBS S.A 10/2019 BRRBRACRA0L8"},
+          {"id": 3051, "text": "RBCAPITALRES CRA Emissão:5 Série:2 JBS S.A. 10/2019 BRRBRACRA0M6"}
+        ]
+      },
+      {
+        "endpoint": "listarFundos",
+        "term": "SEARA",
+        "idTipoFundo": 6,
+        "idAdm": 0,
+        "resultados": [
+          {"id": 22796, "text": "ECO SEC AGRO CRA Emissão:419 Série(s):1 (+4) SEARA ALIMENTOS 10/2025 BRECOACRAL20"},
+          {"id": 26398, "text": "ECO SEC AGRO CRA Emissão:454 Série(s):1 (+3) SEARA ALIMENTOS LTDA 06/2026 BRECOACRAMT5"},
+          {"id": 13087, "text": "ISEC CRA Emissão:218 Série(s):1 (+2) CORP SEARA (JBS) 09/2024 BRIMWLCRA8Q8"},
+          {"id": 17421, "text": "ISEC CRA Emissão:263 Série(s):1 (+2) CORP SEARA (JBS) II 02/2025 BRIMWLCRAAD4"},
+          {"id": 19706, "text": "ISEC CRA Emissão:269 Série(s):1 (+2) CORP SEARA (JBS) III 05/2025 BRIMWLCRAAO1"}
+        ]
+      },
+      {
+        "endpoint": "listarFundos",
+        "term": "JBS 190",
+        "idTipoFundo": 6,
+        "idAdm": 0,
+        "resultados": []
+      }
+    ],
+    "quantidade_resultados_por_tentativa": [
+      {"term": "Virgo", "endpoint": "buscarAdministrador", "quantidade": 0},
+      {"term": "Virgo Securitizadora", "endpoint": "buscarAdministrador", "quantidade": 0},
+      {"term": "VIRGO COMPANHIA", "endpoint": "buscarAdministrador", "quantidade": 0},
+      {"term": "JBS", "endpoint": "listarFundos", "quantidade": 13},
+      {"term": "SEARA", "endpoint": "listarFundos", "quantidade": 5},
+      {"term": "JBS 190", "endpoint": "listarFundos", "quantidade": 0}
+    ],
+    "id_fundo": null,
+    "certificado_retornado": null,
+    "ambiguidades": [
+      "A securitizadora Virgo não foi localizada por buscarAdministrador; portanto não há administrador_id confiável para restringir a busca.",
+      "A busca por JBS sem administrador retornou 13 candidatos de diferentes securitizadoras e emissões.",
+      "Nenhum candidato foi escolhido automaticamente e o endpoint não permitiu validar a operação Virgo."
+    ],
+    "erros": [
+      "O cadastro atual do Fundos.NET não retornou Virgo nos termos testados."
+    ]
+  },
+  "conclusao": {
+    "cadeia_cri_equivalente_ao_cra": true,
+    "fallback_emissao_serie_validado": false,
+    "recomendacao_para_tarefa_c": "Implementar a cadeia CRI usando buscarAdministrador, tipoFundo=5, listarFundos por ISIN e pesquisarGerenciadorDocumentosDados por idFundo. Não aprovar fallback sem ISIN ainda; exigir administrador identificado e correspondência inequívoca de securitizadora, emissão e série. Tratar ausência de administrador ou múltiplos candidatos como resultado não validado."
+  }
+}
