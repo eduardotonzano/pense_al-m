@@ -6,7 +6,7 @@ Os testes foram executados com Playwright usando Microsoft Edge headless. O flux
 
 No Teste 1 foram usados `buscarAdministrador` para Opea, `listarFundos` com o ISIN `BRRBRACRIP13` e `pesquisarGerenciadorDocumentosDados` com o `idFundo` retornado.
 
-No Teste 2 foi escolhido o caso **Virgo CRA JBS**. Foram testados termos progressivos sem enviar ISIN. Nenhum candidato foi escolhido quando a resposta foi ambígua.
+No Teste 2 foi escolhido o caso **Virgo CRA JBS**. Foram testados termos progressivos sem enviar ISIN, e nenhum candidato foi escolhido automaticamente sem validação do administrador, emissão, série e descrição.
 
 ## Teste 1 — CRI por ISIN
 
@@ -21,13 +21,25 @@ Resultado: **aprovado**.
 
 O código CETIP `24G2100031` foi usado somente como dado de conferência e não como filtro. Ele não aparece na descrição retornada para o ISIN consultado; a identificação operacional confiável neste teste foi o próprio ISIN e o `idFundo`.
 
-## Teste 2 — fallback sem ISIN
+## Teste 2 — fallback sem ISIN (retomado)
 
-Resultado: **reprovado / não validado**.
+Resultado: **aprovado para o caso testado**.
 
-O tipo CRA foi confirmado como `tipoFundo=6`, mas `buscarAdministrador` não retornou Virgo para `Virgo`, `Virgo Securitizadora` ou `VIRGO COMPANHIA`. Sem `administrador_id`, a busca por `JBS` ficou ampla e retornou 13 certificados de várias securitizadoras e emissões. A busca por `SEARA` retornou 5 candidatos e a combinação `JBS 190` retornou zero.
+A antiga Virgo foi localizada no cadastro atual como `RIZA SECURITIZADORA S.A.`:
 
-Esse comportamento não permite confirmar o caso Virgo de forma inequívoca. Nenhum `idFundo` foi escolhido e o endpoint documental não foi chamado para o fallback.
+- `buscarAdministrador("Riza")` retornou Riza e Riza II; a escolha não foi feita por aproximação.
+- `buscarAdministrador("Riza Securitizadora")` retornou somente `id=1320`.
+- `buscarAdministrador("Riza Securitizadora S.A.")` confirmou novamente somente `id=1320`.
+- O caso usado foi **Virgo CRA JBS**, com `tipoFundo=6`, emissão 122 e série principal 1.
+- `listarFundos` com `idAdm=1320` e `term=122` retornou exatamente um certificado: `idFundo=8573`.
+- `listarFundos` com `idAdm=1320` e `term=JBS IV` também retornou exatamente esse certificado.
+- `listarFundos` com `term=CORP JBS IV` retornou exatamente esse certificado.
+- Os termos literais `122 1` e `JBS IV 122 1` retornaram zero; o endpoint não trata essa composição como busca textual válida.
+- O certificado retornado foi `ISEC CRA Emissão:122 Série(s):1 (+2) CORP JBS IV 09/2022 BRIMWLCRA523`.
+
+`pesquisarGerenciadorDocumentosDados` com `idFundo=8573` retornou HTTP 200 e 105 documentos. Os 105 registros tinham uma única descrição de operação, exatamente a do certificado, portanto os documentos foram confirmados como exclusivos da operação esperada.
+
+O fallback foi considerado aprovado porque a combinação do administrador atual da antiga Virgo (`1320`), tipo CRA (`6`), emissão/operação e validação da descrição retornou exatamente um certificado correto. A aprovação é específica deste caso. A operação é multissérie (`Série(s):1 (+2)`), então não se deve interpretar o retorno como uma série única isolada.
 
 ## Regras recomendadas para a Tarefa C
 
@@ -36,11 +48,13 @@ Esse comportamento não permite confirmar o caso Virgo de forma inequívoca. Nen
 3. Localizar a securitizadora com `buscarAdministrador` e exigir uma correspondência única antes de chamar `listarFundos`.
 4. Usar o `idFundo` retornado para buscar documentos.
 5. Validar que todas as descrições documentais correspondem ao certificado escolhido.
-6. Manter o fallback emissão+série desabilitado como regra aprovada até que administrador, securitizadora, emissão e série produzam exatamente um certificado.
+6. O fallback pode ser habilitado para casos equivalentes quando o administrador for identificado sem ambiguidade e a combinação de tipo, emissão/operação e série confirmada no texto do certificado produzir exatamente um certificado.
+7. Como o endpoint rejeitou `122 1` e `JBS IV 122 1`, a implementação deve fazer tentativas progressivas e validar o texto retornado, nunca assumir que um termo composto vazio significa ausência da operação.
 
 ## Hipóteses rejeitadas e limitações
 
-- Não foi aceito que uma busca ampla por devedor/operação identifique Virgo: os resultados foram múltiplos ou vazios.
+- Não foi aceito usar somente o nome do devedor sem filtrar o administrador; a busca controlada por `idAdm=1320` foi necessária.
+- A identidade `ISEC` exibida no certificado não foi tratada como contradição: a associação com a antiga Virgo/Riza foi feita pelo filtro `idAdm=1320`.
 - Não foi usado o CETIP como filtro principal.
 - Não foram alterados banco, schema, `FundosNetCollector` ou `main`.
 - Não houve CAPTCHA ou bloqueio durante as chamadas realizadas; o site retornou HTTP 200.
