@@ -7,3 +7,5 @@ data/documents/*
 !data/documents/.gitkeep
 logs/*.log
 reports/*.json
+reports/fundosnet_capturas.jsonl
+reports/fundosnet_capturas.txt
