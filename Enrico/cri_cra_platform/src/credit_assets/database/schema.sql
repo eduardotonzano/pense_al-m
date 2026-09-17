@@ -27,9 +27,19 @@ CREATE TABLE IF NOT EXISTS assets (
 
 CREATE TABLE IF NOT EXISTS documents (
     document_pk INTEGER PRIMARY KEY AUTOINCREMENT,
-    source_document_id TEXT,
+    source_document_id TEXT NOT NULL,
     asset_id INTEGER NOT NULL,
-    category TEXT NOT NULL,
+    category TEXT NOT NULL CHECK (category IN (
+        'Termo de Securitização',
+        'Aditamento',
+        'Informe Mensal',
+        'Ata/Edital',
+        'Fato Relevante',
+        'Relatório Agente Fiduciário',
+        'Relatório de Rating',
+        'Anúncio de Encerramento',
+        'Outro'
+    )),
     document_name TEXT NOT NULL,
     reference_date TEXT,
     publication_date TEXT,
@@ -37,12 +47,16 @@ CREATE TABLE IF NOT EXISTS documents (
     source_url TEXT NOT NULL,
     download_status TEXT NOT NULL DEFAULT 'pending',
     file_hash TEXT,
-    collected_at TEXT NOT NULL,
-    run_id TEXT NOT NULL,
-    UNIQUE(source, source_document_id),
+    collected_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    run_id TEXT,
+    UNIQUE(source_document_id, source),
     FOREIGN KEY(asset_id) REFERENCES assets(asset_id),
     FOREIGN KEY(run_id) REFERENCES executions(run_id)
 );
+
+CREATE UNIQUE INDEX IF NOT EXISTS uq_documents_file_hash_nonempty
+    ON documents(file_hash)
+    WHERE file_hash IS NOT NULL AND file_hash <> '';
 
 CREATE TABLE IF NOT EXISTS collection_attempts (
     attempt_id INTEGER PRIMARY KEY AUTOINCREMENT,

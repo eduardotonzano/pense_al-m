@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .env
 data/*.db
+data/catalogo_documentos.csv
 data/documents/*
 !data/documents/.gitkeep
 logs/*.log
