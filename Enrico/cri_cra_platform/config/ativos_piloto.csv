@@ -1,2 +1,3 @@
-codigo_cetip,securitizadora,cnpj_securitizadora,emissao,serie,tipo_ativo,devedor,cnpj_devedor,ativo
-CRA022009VM,Eco Securitizadora de Direitos Creditórios do Agronegócio S.A.,10.753.164/0001-43,190,unica,CRA,Café Brasil Indústria Comércio Importação e Exportação S.A.,01.486.546/0001-67,true
+codigo_cetip,isin,securitizadora,cnpj_securitizadora,emissao,serie,tipo_ativo,devedor,cnpj_devedor,ativo
+BRECOACRABX0,BRECOACRABX0,Eco Securitizadora de Direitos Creditórios do Agronegócio S.A.,10.753.164/0001-43,190,1,CRA,Café Brasil Indústria Comércio Importação e Exportação S.A.,01.486.546/0001-67,true
+BRRBRACRIP13,BRRBRACRIP13,Opea Securitizadora S.A.,,301,unica,CRI,Almeida Junior,,true

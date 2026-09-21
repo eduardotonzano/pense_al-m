@@ -14,6 +14,10 @@ class DocumentRepository:
         self.connection = connection
 
     def upsert(self, document: Document) -> int:
+        document_pk, _ = self.upsert_with_status(document)
+        return document_pk
+
+    def upsert_with_status(self, document: Document) -> tuple[int, str]:
         if document.category not in DOCUMENT_CATEGORIES:
             raise ValueError(f"Categoria de documento inválida: {document.category}")
         if not document.source or not document.source_url:
@@ -24,12 +28,12 @@ class DocumentRepository:
         existing = None
         if file_hash:
             existing = self.connection.execute(
-                "SELECT document_pk FROM documents WHERE file_hash = ?",
+                "SELECT * FROM documents WHERE file_hash = ?",
                 (file_hash,),
             ).fetchone()
         if existing is None:
             existing = self.connection.execute(
-                """SELECT document_pk FROM documents
+                """SELECT * FROM documents
                    WHERE source_document_id = ? AND source = ?""",
                 (source_document_id, document.source),
             ).fetchone()
@@ -59,8 +63,22 @@ class DocumentRepository:
                 values,
             )
             document_pk = int(cursor.lastrowid)
+            status = "inserted"
         else:
             document_pk = int(existing["document_pk"])
+            incoming = {
+                "asset_id": document.asset_id,
+                "category": document.category,
+                "document_name": document.document_name or existing["document_name"],
+                "reference_date": document.reference_date or existing["reference_date"],
+                "publication_date": document.publication_date or existing["publication_date"],
+                "source": document.source,
+                "source_url": document.source_url or existing["source_url"],
+                "download_status": document.download_status or existing["download_status"],
+                "file_hash": file_hash or existing["file_hash"],
+            }
+            current = {key: existing[key] for key in incoming}
+            status = "updated" if incoming != current else "unchanged"
             self.connection.execute(
                 """UPDATE documents SET
                     source_document_id = COALESCE(NULLIF(?, ''), source_document_id),
@@ -79,7 +97,23 @@ class DocumentRepository:
                 values + (document_pk,),
             )
         self.connection.commit()
-        return document_pk
+        return document_pk, status
+
+    def count(self) -> int:
+        return int(self.connection.execute("SELECT COUNT(*) FROM documents").fetchone()[0])
+
+    def count_by_asset_id(self, asset_id: int) -> int:
+        return int(
+            self.connection.execute(
+                "SELECT COUNT(*) FROM documents WHERE asset_id = ?", (asset_id,)
+            ).fetchone()[0]
+        )
+
+    def find_by_source_document(self, source_document_id: str, source: str):
+        return self.connection.execute(
+            "SELECT * FROM documents WHERE source_document_id = ? AND source = ?",
+            (source_document_id, source),
+        ).fetchone()
 
     def find_by_hash(self, file_hash: str) -> Optional[sqlite3.Row]:
         normalized_hash = self._value(file_hash)

@@ -4,6 +4,10 @@ __pycache__/
 .env
 data/*.db
 data/catalogo_documentos.csv
+reports/fundosnet_session_diagnostics.json
+reports/fundosnet_native_ui_diagnostic.json
+reports/document_catalog_latest.json
+reports/document_catalog_runs.json
 data/documents/*
 !data/documents/.gitkeep
 logs/*.log

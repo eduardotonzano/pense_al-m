@@ -1,5 +1,6 @@
 from __future__ import annotations
 import csv, json, sys, time, uuid
+import logging
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,10 +30,23 @@ def main():
             if row.get("ativo", "").lower() != "true":
                 continue
             try:
-                asset = Asset(row["codigo_cetip"], validate_asset_type(row["tipo_ativo"]), row["securitizadora"], row["cnpj_securitizadora"], row["emissao"], row["serie"], row.get("devedor", ""), row.get("cnpj_devedor", ""))
+                asset = Asset(
+                    codigo_cetip=row["codigo_cetip"],
+                    tipo_ativo=validate_asset_type(row["tipo_ativo"]),
+                    securitizadora=row["securitizadora"],
+                    cnpj_securitizadora=row["cnpj_securitizadora"],
+                    emissao=row["emissao"],
+                    serie=row["serie"],
+                    devedor=row.get("devedor", ""),
+                    cnpj_devedor=row.get("cnpj_devedor", ""),
+                    isin=row.get("isin", ""),
+                )
                 assets_repo.upsert(asset)
                 processed += 1
             except Exception:
+                logging.getLogger(__name__).exception(
+                    "Falha ao carregar ativo %s", row.get("codigo_cetip", "<sem código>")
+                )
                 errors += 1
     duration = round(time.perf_counter() - started, 4)
     status = "success" if errors == 0 else "partial"

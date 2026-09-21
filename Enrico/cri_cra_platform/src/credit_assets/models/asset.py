@@ -1,4 +1,6 @@
 from dataclasses import dataclass
+from typing import Optional
+
 
 @dataclass(frozen=True)
 class Asset:
@@ -10,3 +12,5 @@ class Asset:
     serie: str
     devedor: str = ""
     cnpj_devedor: str = ""
+    isin: str = ""
+    asset_id: Optional[int] = None
