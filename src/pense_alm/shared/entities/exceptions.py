@@ -19,3 +19,25 @@ class DuplicateEntityError(EntityLayerError):
 
 class ProvenanceValidationError(EntityLayerError, ValueError):
     """Proveniencia ausente ou invalida."""
+
+
+class EntityNotFoundError(EntityLayerError, LookupError):
+    """Entidade solicitada nao foi encontrada."""
+
+
+class RelationshipNotFoundError(
+    EntityLayerError,
+    LookupError,
+):
+    """Relacionamento solicitado nao foi encontrado."""
+
+
+class DuplicateRelationshipError(EntityLayerError):
+    """Relacionamento duplicado ou inconsistente."""
+
+
+class RepositoryValidationError(
+    EntityLayerError,
+    ValueError,
+):
+    """Operacao de repositorio invalida."""

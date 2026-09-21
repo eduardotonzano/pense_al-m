@@ -13,15 +13,23 @@ from .enums import (
 )
 from .exceptions import (
     DuplicateEntityError,
+    DuplicateRelationshipError,
     EntityLayerError,
+    EntityNotFoundError,
     EntityValidationError,
     IdentifierValidationError,
     ProvenanceValidationError,
+    RelationshipNotFoundError,
+    RepositoryValidationError,
 )
 from .identifiers import (
     EntityIdentifier,
     normalize_cnpj,
     normalize_identifier,
+)
+from .in_memory_repositories import (
+    InMemoryEntityRepository,
+    InMemoryRelationshipRepository,
 )
 from .matching import (
     EntityMatcher,
@@ -38,26 +46,38 @@ from .relationships import (
     EntityRelationship,
     normalize_relationship_notes,
 )
+from .repository_protocols import (
+    EntityRepository,
+    RelationshipRepository,
+)
 
 __all__ = [
     "DataProvenance",
     "DuplicateEntityError",
+    "DuplicateRelationshipError",
     "Entity",
     "EntityIdentifier",
     "EntityLayerError",
     "EntityMatcher",
     "EntityMatchResult",
+    "EntityNotFoundError",
     "EntityRelationship",
+    "EntityRepository",
     "EntityStatus",
     "EntityType",
     "EntityValidationError",
     "IdentifierType",
     "IdentifierValidationError",
+    "InMemoryEntityRepository",
+    "InMemoryRelationshipRepository",
     "MatchDecision",
     "MatchStrength",
     "ProvenanceValidationError",
+    "RelationshipNotFoundError",
+    "RelationshipRepository",
     "RelationshipStatus",
     "RelationshipType",
+    "RepositoryValidationError",
     "SourceType",
     "ValidationStatus",
     "normalize_cnpj",
