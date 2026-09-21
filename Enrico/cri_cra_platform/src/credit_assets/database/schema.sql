@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS assets (
     serie TEXT NOT NULL,
     devedor TEXT,
     cnpj_devedor TEXT,
+    isin TEXT,
     active INTEGER NOT NULL DEFAULT 1,
     created_at TEXT NOT NULL,
     updated_at TEXT NOT NULL

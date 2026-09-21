@@ -134,3 +134,21 @@ def test_list_by_asset_and_cetip_and_export_csv(tmp_path):
         "pending",
         "hash-1",
     ]
+
+
+def test_upsert_status_distinguishes_unchanged_and_updated(tmp_path):
+    connection = connect(tmp_path / "documents.db")
+    initialize_database(connection)
+    asset_id = make_asset(connection)
+    repository = DocumentRepository(connection)
+    document = make_document(asset_id)
+
+    _, first = repository.upsert_with_status(document)
+    _, unchanged = repository.upsert_with_status(document)
+    _, updated = repository.upsert_with_status(
+        make_document(asset_id, document_name="Informe corrigido")
+    )
+
+    assert first == "inserted"
+    assert unchanged == "unchanged"
+    assert updated == "updated"

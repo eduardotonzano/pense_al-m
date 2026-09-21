@@ -16,6 +16,12 @@ def connect(database_path: str | Path) -> sqlite3.Connection:
 def initialize_database(connection: sqlite3.Connection) -> None:
     schema_path = Path(__file__).with_name("schema.sql")
     connection.executescript(schema_path.read_text(encoding="utf-8"))
+    columns = {
+        row["name"]
+        for row in connection.execute("PRAGMA table_info(assets)")
+    }
+    if "isin" not in columns:
+        connection.execute("ALTER TABLE assets ADD COLUMN isin TEXT")
     # This index is additive and does not rewrite or remove any existing rows.
     connection.execute(
         """CREATE UNIQUE INDEX IF NOT EXISTS uq_documents_file_hash_nonempty
