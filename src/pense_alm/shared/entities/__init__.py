@@ -6,6 +6,8 @@ from .enums import (
     IdentifierType,
     MatchDecision,
     MatchStrength,
+    RelationshipStatus,
+    RelationshipType,
     SourceType,
     ValidationStatus,
 )
@@ -32,6 +34,10 @@ from .models import (
     normalize_optional_text,
 )
 from .provenance import DataProvenance
+from .relationships import (
+    EntityRelationship,
+    normalize_relationship_notes,
+)
 
 __all__ = [
     "DataProvenance",
@@ -41,6 +47,7 @@ __all__ = [
     "EntityLayerError",
     "EntityMatcher",
     "EntityMatchResult",
+    "EntityRelationship",
     "EntityStatus",
     "EntityType",
     "EntityValidationError",
@@ -49,6 +56,8 @@ __all__ = [
     "MatchDecision",
     "MatchStrength",
     "ProvenanceValidationError",
+    "RelationshipStatus",
+    "RelationshipType",
     "SourceType",
     "ValidationStatus",
     "normalize_cnpj",
@@ -56,4 +65,5 @@ __all__ = [
     "normalize_matching_name",
     "normalize_name",
     "normalize_optional_text",
+    "normalize_relationship_notes",
 ]

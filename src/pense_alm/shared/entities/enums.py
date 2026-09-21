@@ -80,3 +80,33 @@ class MatchDecision(StrEnum):
     REVIEW = "review"
     AUTO_MATCH = "auto_match"
     BLOCKED = "blocked"
+
+
+class RelationshipType(StrEnum):
+    """Natureza da conexao entre duas entidades."""
+
+    CONTROLS = "controls"
+    CONTROLLED_BY = "controlled_by"
+    BELONGS_TO_GROUP = "belongs_to_group"
+    MANAGES = "manages"
+    ADMINISTERED_BY = "administered_by"
+    ISSUES = "issues"
+    ORIGINATES = "originates"
+    SECURITIZES = "securitizes"
+    ASSIGNS_RECEIVABLES_TO = "assigns_receivables_to"
+    GUARANTEES = "guarantees"
+    DISTRIBUTES = "distributes"
+    PROVIDES_SERVICES_TO = "provides_services_to"
+    SUCCEEDS = "succeeds"
+    PREDECESSOR_OF = "predecessor_of"
+    OTHER = "other"
+
+
+class RelationshipStatus(StrEnum):
+    """Situacao conhecida de um relacionamento."""
+
+    ACTIVE = "active"
+    INACTIVE = "inactive"
+    PENDING_REVIEW = "pending_review"
+    DISPUTED = "disputed"
+    UNKNOWN = "unknown"
