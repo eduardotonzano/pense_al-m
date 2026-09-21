@@ -61,3 +61,22 @@ class ValidationStatus(StrEnum):
     VALID = "valid"
     INVALID = "invalid"
     CONFLICT = "conflict"
+
+
+class MatchStrength(StrEnum):
+    """Forca da evidencia encontrada entre duas entidades."""
+
+    NONE = "none"
+    WEAK = "weak"
+    MODERATE = "moderate"
+    STRONG = "strong"
+    CONFLICT = "conflict"
+
+
+class MatchDecision(StrEnum):
+    """Decisao recomendada pelo mecanismo de matching."""
+
+    NO_MATCH = "no_match"
+    REVIEW = "review"
+    AUTO_MATCH = "auto_match"
+    BLOCKED = "blocked"
