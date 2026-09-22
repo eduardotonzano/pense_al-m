@@ -10,6 +10,9 @@ from .import_result import (
     EntityImportAction,
     EntityImportResult,
 )
+from .legacy_issuer_reader import (
+    LegacyDebentureIssuerReader,
+)
 from .records import DebentureIssuerRecord
 
 __all__ = [
@@ -18,4 +21,5 @@ __all__ = [
     "DebentureIssuerRecord",
     "EntityImportAction",
     "EntityImportResult",
+    "LegacyDebentureIssuerReader",
 ]
