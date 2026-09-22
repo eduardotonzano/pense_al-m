@@ -1,4 +1,4 @@
-﻿"""Servico conservador de importacao de emissores."""
+"""Servico conservador de importacao de emissores."""
 
 from pense_alm.shared.entities import (
     EntityMatcher,
@@ -6,6 +6,7 @@ from pense_alm.shared.entities import (
     EntityType,
     IdentifierType,
     MatchDecision,
+    normalize_matching_name,
 )
 
 from .debenture_issuer_adapter import (
@@ -72,9 +73,26 @@ class DebentureIssuerImportService:
                     match_result=match_result,
                 )
 
+        incoming_names = {
+            normalize_matching_name(incoming.legal_name),
+            normalize_matching_name(incoming.display_name),
+        }
+
         for existing in self._repository.list_all(
             EntityType.COMPANY
         ):
+            existing_names = {
+                normalize_matching_name(
+                    existing.legal_name
+                ),
+                normalize_matching_name(
+                    existing.display_name
+                ),
+            }
+
+            if incoming_names.isdisjoint(existing_names):
+                continue
+
             match_result = self._matcher.compare(
                 incoming,
                 existing,

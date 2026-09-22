@@ -1,7 +1,11 @@
 ﻿"""Integracoes graduais com modulos legados."""
 
+from .batch_import_report import BatchImportReport
 from .debenture_issuer_adapter import (
     DebentureIssuerAdapter,
+)
+from .debenture_issuer_batch_import_service import (
+    DebentureIssuerBatchImportService,
 )
 from .debenture_issuer_import_service import (
     DebentureIssuerImportService,
@@ -16,7 +20,9 @@ from .legacy_issuer_reader import (
 from .records import DebentureIssuerRecord
 
 __all__ = [
+    "BatchImportReport",
     "DebentureIssuerAdapter",
+    "DebentureIssuerBatchImportService",
     "DebentureIssuerImportService",
     "DebentureIssuerRecord",
     "EntityImportAction",
