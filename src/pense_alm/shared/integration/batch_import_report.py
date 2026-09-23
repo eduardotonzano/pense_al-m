@@ -2,6 +2,8 @@
 
 from dataclasses import dataclass
 
+from .batch_import_error import BatchImportError
+
 
 @dataclass(frozen=True, slots=True)
 class BatchImportReport:
@@ -14,6 +16,7 @@ class BatchImportReport:
     blocked: int = 0
     errors: int = 0
     dry_run: bool = False
+    error_details: tuple[BatchImportError, ...] = ()
 
     def __post_init__(self) -> None:
         counters = (
@@ -56,6 +59,31 @@ class BatchImportReport:
             raise TypeError(
                 "dry_run deve ser booleano."
             )
+
+        if not isinstance(self.error_details, tuple):
+            raise TypeError(
+                "error_details deve ser uma tupla."
+            )
+
+        if any(
+            not isinstance(detail, BatchImportError)
+            for detail in self.error_details
+        ):
+            raise TypeError(
+                "error_details deve conter BatchImportError."
+            )
+
+        if len(self.error_details) != self.errors:
+            raise ValueError(
+                "A quantidade de detalhes deve ser igual "
+                "ao contador de erros."
+            )
+
+        object.__setattr__(
+            self,
+            "error_details",
+            tuple(self.error_details),
+        )
 
     @property
     def successful(self) -> int:

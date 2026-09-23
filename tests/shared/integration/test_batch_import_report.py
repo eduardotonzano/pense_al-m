@@ -3,6 +3,7 @@
 import pytest
 
 from pense_alm.shared.integration import (
+    BatchImportError,
     BatchImportReport,
 )
 
@@ -25,6 +26,18 @@ def test_report_calculates_aggregates():
         review=2,
         blocked=1,
         errors=2,
+        error_details=(
+            BatchImportError(
+                legacy_id=9,
+                error_type="ValueError",
+                message="Primeiro erro.",
+            ),
+            BatchImportError(
+                legacy_id=10,
+                error_type="TypeError",
+                message="Segundo erro.",
+            ),
+        ),
     )
 
     assert report.successful == 5

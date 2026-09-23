@@ -5,6 +5,7 @@ from pense_alm.shared.entities import (
     InMemoryEntityRepository,
 )
 
+from .batch_import_error import BatchImportError
 from .batch_import_report import BatchImportReport
 from .debenture_issuer_import_service import (
     DebentureIssuerImportService,
@@ -80,6 +81,7 @@ class DebentureIssuerBatchImportService:
 
         total_read = 0
         errors = 0
+        error_details = []
 
         for record in self._reader.iter_records(
             batch_size=batch_size
@@ -90,8 +92,15 @@ class DebentureIssuerBatchImportService:
                 result = import_service.import_record(
                     record
                 )
-            except Exception:
+            except Exception as error:
                 errors += 1
+                error_details.append(
+                    BatchImportError(
+                        legacy_id=record.legacy_id,
+                        error_type=type(error).__name__,
+                        message=str(error),
+                    )
+                )
                 continue
 
             counters[result.action] += 1
@@ -112,6 +121,7 @@ class DebentureIssuerBatchImportService:
             ],
             errors=errors,
             dry_run=dry_run,
+            error_details=tuple(error_details),
         )
 
     def _create_simulation_repository(

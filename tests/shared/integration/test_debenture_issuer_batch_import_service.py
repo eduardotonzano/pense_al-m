@@ -153,3 +153,51 @@ def test_dry_run_does_not_modify_repository(
     assert report.created == 3
     assert report.dry_run is True
     assert repository.count() == 0
+
+
+def test_batch_records_error_and_continues(
+    legacy_database_path,
+):
+    connection = sqlite3.connect(
+        legacy_database_path
+    )
+
+    try:
+        connection.execute(
+            """
+            UPDATE issuers
+            SET created_at = ?
+            WHERE id = ?
+            """,
+            (
+                "data-invalida",
+                2,
+            ),
+        )
+        connection.commit()
+    finally:
+        connection.close()
+
+    service, repository = create_service(
+        legacy_database_path
+    )
+
+    report = service.run(batch_size=1)
+
+    assert report.total_read == 3
+    assert report.created == 2
+    assert report.matched == 0
+    assert report.review == 0
+    assert report.blocked == 0
+    assert report.errors == 1
+    assert repository.count() == 2
+
+    assert len(report.error_details) == 1
+
+    detail = report.error_details[0]
+
+    assert detail.legacy_id == 2
+    assert detail.error_type == "ValueError"
+    assert detail.message == (
+        "Timestamp legado invalido."
+    )
