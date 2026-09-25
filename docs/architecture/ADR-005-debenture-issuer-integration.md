@@ -115,23 +115,159 @@ A implementação pode utilizar:
 - comportamento idempotente;
 - base reutilizável para outros módulos.
 
-## Limitações
+## Leitura do banco legado
 
-Nesta primeira versão:
+O banco legado e acessado por caminho explicito.
 
-- não há leitura direta do banco legado;
-- não há importação em lote;
-- não há fila persistente de revisão;
-- não há atualização automática de entidades existentes;
-- não há integração de Debêntures como ativos;
-- apenas emissores são convertidos.
+O LegacyDebentureIssuerReader:
+
+- valida a existencia do arquivo;
+- ativa PRAGMA query_only;
+- le a tabela issuers;
+- pagina os registros por ID;
+- preserva uma ordem deterministica;
+- converte cada linha em DebentureIssuerRecord;
+- nao altera o banco de origem.
+
+## Importacao em lote
+
+O DebentureIssuerBatchImportService conecta:
+
+- LegacyDebentureIssuerReader;
+- DebentureIssuerImportService;
+- EntityRepository;
+- BatchImportReport.
+
+O processamento continua apos erros individuais.
+
+Cada registro e classificado como:
+
+- CREATED;
+- MATCHED;
+- REVIEW;
+- BLOCKED;
+- ERROR.
+
+## Modo de simulacao
+
+O modo dry-run copia o estado atual do repositorio para um InMemoryEntityRepository temporario.
+
+A simulacao:
+
+- nao grava entidades no repositorio real;
+- considera correspondencias entre registros do proprio lote;
+- produz os mesmos contadores operacionais;
+- permite validar o processo antes da persistencia.
+
+## Relatorio agregado
+
+O BatchImportReport registra:
+
+- total lido;
+- entidades criadas;
+- correspondencias;
+- registros para revisao;
+- registros bloqueados;
+- erros;
+- indicacao de dry-run.
+
+O relatorio exige que a soma dos resultados seja igual ao total lido.
+
+## Detalhes de erros
+
+Cada erro e representado por BatchImportError, contendo:
+
+- legacy_id;
+- tipo da excecao;
+- mensagem normalizada.
+
+A quantidade de detalhes deve ser igual ao contador de erros.
+
+## Entrada operacional
+
+A integracao pode ser executada como modulo Python.
+
+Exemplo:
+
+    python -m pense_alm.shared.integration.cli
+        --legacy-db "<banco-legado>"
+        --target-db "<banco-destino>"
+        --batch-size 100
+        --dry-run
+
+A CLI exige caminhos explicitos e rejeita:
+
+- banco legado inexistente;
+- tamanho de lote menor ou igual a zero;
+- uso do mesmo arquivo como origem e destino.
+
+## Codigos de saida
+
+A entrada operacional utiliza:
+
+- 0 para execucao sem pendencias;
+- 2 para erros durante o processamento;
+- 3 para registros bloqueados;
+- 4 para registros que exigem revisao.
+
+Erros de argumentos tambem utilizam o codigo 2 do argparse.
+
+## Validacao operacional
+
+O fluxo foi validado com um backup real contendo tres emissores.
+
+Foram confirmados:
+
+- leitura dos tres registros;
+- dry-run com zero entidades persistidas;
+- primeira execucao com tres entidades criadas;
+- segunda execucao com tres correspondencias;
+- ausencia de duplicidades;
+- tres CNPJs unicos;
+- persistencia apos reabertura do SQLite;
+- ausencia de alteracao no banco legado.
+
+A validacao automatizada tambem cobre:
+
+- criacao de entidades;
+- correspondencia por CNPJ;
+- revisao por nome sem identificador compartilhado;
+- bloqueio por conflito de CNPJ;
+- erro individual sem interrupcao do lote;
+- codigos operacionais 0, 2, 3 e 4.
+
+## Limitacoes atuais
+
+Nesta versao:
+
+- a fila de revisao ainda nao e persistente;
+- registros bloqueados nao sao armazenados em fila propria;
+- entidades existentes nao sao atualizadas automaticamente;
+- nao existem regras de precedencia entre fontes;
+- Debentures ainda nao sao integradas como ativos;
+- somente emissores sao importados;
+- a CLI ainda nao esta registrada como comando instalavel;
+- os caminhos dos bancos devem ser informados explicitamente.
+
+## Consequencias positivas adicionais
+
+- execucao operacional controlada;
+- validacao antes da gravacao;
+- continuidade apos erros individuais;
+- erros auditaveis por registro;
+- reexecucao idempotente;
+- compatibilidade com repositorios em memoria e SQLite;
+- protecao contra alteracao do banco legado;
+- base reutilizavel para outros modulos.
 
 ## Fora do escopo
 
-- alterações no módulo legado;
-- migração do banco de Debêntures;
+- alteracoes no modulo legado;
+- migracao destrutiva do banco de Debentures;
+- integracao de Debentures como ativos;
 - CRI e CRA;
 - FIDC;
 - FIAGRO;
-- coletores;
+- coletores compartilhados;
+- fila persistente de revisao;
 - interface e layout.

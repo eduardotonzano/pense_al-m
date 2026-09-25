@@ -201,3 +201,81 @@ def test_batch_records_error_and_continues(
     assert detail.message == (
         "Timestamp legado invalido."
     )
+
+
+def test_batch_requires_review_for_same_name_without_shared_cnpj(
+    legacy_database_path,
+):
+    from pense_alm.shared.integration import (
+        DebentureIssuerAdapter,
+        DebentureIssuerRecord,
+    )
+
+    repository = InMemoryEntityRepository()
+
+    existing = DebentureIssuerAdapter().convert(
+        DebentureIssuerRecord(
+            legacy_id=99,
+            legal_name="Empresa Alfa S.A.",
+            trade_name="Empresa Alfa",
+            cnpj=None,
+            created_at="2026-09-19 10:00:00",
+            updated_at="2026-09-19 12:00:00",
+        )
+    )
+
+    repository.save(existing)
+
+    service, repository = create_service(
+        legacy_database_path,
+        repository=repository,
+    )
+
+    report = service.run(batch_size=2)
+
+    assert report.total_read == 3
+    assert report.created == 2
+    assert report.matched == 0
+    assert report.review == 1
+    assert report.blocked == 0
+    assert report.errors == 0
+    assert repository.count() == 3
+
+
+def test_batch_blocks_same_name_with_conflicting_cnpj(
+    legacy_database_path,
+):
+    from pense_alm.shared.integration import (
+        DebentureIssuerAdapter,
+        DebentureIssuerRecord,
+    )
+
+    repository = InMemoryEntityRepository()
+
+    existing = DebentureIssuerAdapter().convert(
+        DebentureIssuerRecord(
+            legacy_id=99,
+            legal_name="Empresa Alfa S.A.",
+            trade_name="Empresa Alfa",
+            cnpj="99999999000199",
+            created_at="2026-09-19 10:00:00",
+            updated_at="2026-09-19 12:00:00",
+        )
+    )
+
+    repository.save(existing)
+
+    service, repository = create_service(
+        legacy_database_path,
+        repository=repository,
+    )
+
+    report = service.run(batch_size=2)
+
+    assert report.total_read == 3
+    assert report.created == 2
+    assert report.matched == 0
+    assert report.review == 0
+    assert report.blocked == 1
+    assert report.errors == 0
+    assert repository.count() == 3

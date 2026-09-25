@@ -385,3 +385,265 @@ def test_run_import_persists_and_is_idempotent(
     assert "Correspondentes: 1" in second_output
 
     assert repository.count() == 1
+
+
+def test_run_import_returns_two_when_record_fails(
+    tmp_path,
+    capsys,
+):
+    import sqlite3
+
+    from pense_alm.shared.integration.cli import (
+        run_import,
+    )
+
+    legacy_path = tmp_path / "legacy_error.sqlite3"
+    target_path = tmp_path / "target_error.sqlite3"
+
+    connection = sqlite3.connect(legacy_path)
+
+    try:
+        connection.execute(
+            """
+            CREATE TABLE issuers (
+                id INTEGER PRIMARY KEY,
+                cnpj TEXT,
+                legal_name TEXT NOT NULL,
+                trade_name TEXT,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            )
+            """
+        )
+
+        connection.execute(
+            """
+            INSERT INTO issuers (
+                id,
+                cnpj,
+                legal_name,
+                trade_name,
+                created_at,
+                updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (
+                1,
+                "12345678000199",
+                "Empresa com Erro S.A.",
+                None,
+                "data-invalida",
+                "2026-09-21 12:00:00",
+            ),
+        )
+
+        connection.commit()
+    finally:
+        connection.close()
+
+    exit_code = run_import(
+        legacy_db=legacy_path,
+        target_db=target_path,
+        batch_size=1,
+        dry_run=False,
+    )
+
+    output = capsys.readouterr().out
+
+    assert exit_code == 2
+    assert "Erros: 1" in output
+    assert "legacy_id=1" in output
+    assert "tipo=ValueError" in output
+    assert "Timestamp legado invalido." in output
+
+
+def test_run_import_returns_three_when_record_is_blocked(
+    tmp_path,
+    capsys,
+):
+    import sqlite3
+
+    from pense_alm.shared.integration import (
+        DebentureIssuerAdapter,
+        DebentureIssuerRecord,
+    )
+    from pense_alm.shared.integration.cli import (
+        run_import,
+    )
+    from pense_alm.shared.persistence import (
+        SQLiteConnectionManager,
+        SQLiteEntityRepository,
+    )
+
+    legacy_path = tmp_path / "legacy_blocked.sqlite3"
+    target_path = tmp_path / "target_blocked.sqlite3"
+
+    connection = sqlite3.connect(legacy_path)
+
+    try:
+        connection.execute(
+            """
+            CREATE TABLE issuers (
+                id INTEGER PRIMARY KEY,
+                cnpj TEXT,
+                legal_name TEXT NOT NULL,
+                trade_name TEXT,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            )
+            """
+        )
+
+        connection.execute(
+            """
+            INSERT INTO issuers (
+                id,
+                cnpj,
+                legal_name,
+                trade_name,
+                created_at,
+                updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (
+                1,
+                "12345678000199",
+                "Empresa Conflitante S.A.",
+                "Empresa Conflitante",
+                "2026-09-20 10:00:00",
+                "2026-09-21 12:00:00",
+            ),
+        )
+
+        connection.commit()
+    finally:
+        connection.close()
+
+    repository = SQLiteEntityRepository(
+        SQLiteConnectionManager(target_path)
+    )
+
+    existing = DebentureIssuerAdapter().convert(
+        DebentureIssuerRecord(
+            legacy_id=99,
+            legal_name="Empresa Conflitante S.A.",
+            trade_name="Empresa Conflitante",
+            cnpj="99999999000199",
+            created_at="2026-09-19 10:00:00",
+            updated_at="2026-09-19 12:00:00",
+        )
+    )
+
+    repository.save(existing)
+
+    exit_code = run_import(
+        legacy_db=legacy_path,
+        target_db=target_path,
+        batch_size=1,
+        dry_run=False,
+    )
+
+    output = capsys.readouterr().out
+
+    assert exit_code == 3
+    assert "Bloqueados: 1" in output
+    assert "Erros: 0" in output
+    assert repository.count() == 1
+
+
+def test_run_import_returns_four_when_record_requires_review(
+    tmp_path,
+    capsys,
+):
+    import sqlite3
+
+    from pense_alm.shared.integration import (
+        DebentureIssuerAdapter,
+        DebentureIssuerRecord,
+    )
+    from pense_alm.shared.integration.cli import (
+        run_import,
+    )
+    from pense_alm.shared.persistence import (
+        SQLiteConnectionManager,
+        SQLiteEntityRepository,
+    )
+
+    legacy_path = tmp_path / "legacy_review.sqlite3"
+    target_path = tmp_path / "target_review.sqlite3"
+
+    connection = sqlite3.connect(legacy_path)
+
+    try:
+        connection.execute(
+            """
+            CREATE TABLE issuers (
+                id INTEGER PRIMARY KEY,
+                cnpj TEXT,
+                legal_name TEXT NOT NULL,
+                trade_name TEXT,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            )
+            """
+        )
+
+        connection.execute(
+            """
+            INSERT INTO issuers (
+                id,
+                cnpj,
+                legal_name,
+                trade_name,
+                created_at,
+                updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (
+                1,
+                None,
+                "Empresa para Revisao S.A.",
+                "Empresa para Revisao",
+                "2026-09-20 10:00:00",
+                "2026-09-21 12:00:00",
+            ),
+        )
+
+        connection.commit()
+    finally:
+        connection.close()
+
+    repository = SQLiteEntityRepository(
+        SQLiteConnectionManager(target_path)
+    )
+
+    existing = DebentureIssuerAdapter().convert(
+        DebentureIssuerRecord(
+            legacy_id=99,
+            legal_name="Empresa para Revisao S.A.",
+            trade_name="Empresa para Revisao",
+            cnpj=None,
+            created_at="2026-09-19 10:00:00",
+            updated_at="2026-09-19 12:00:00",
+        )
+    )
+
+    repository.save(existing)
+
+    exit_code = run_import(
+        legacy_db=legacy_path,
+        target_db=target_path,
+        batch_size=1,
+        dry_run=False,
+    )
+
+    output = capsys.readouterr().out
+
+    assert exit_code == 4
+    assert "Revisao: 1" in output
+    assert "Bloqueados: 0" in output
+    assert "Erros: 0" in output
+    assert repository.count() == 1
