@@ -37,13 +37,16 @@ def load_assets(path: Path, only: str | None = None) -> list[Asset]:
             for row in csv.DictReader(source)
             if row.get("ativo", "").strip().lower() == "true"
             and row.get("isin", "").strip()
-            and row["codigo_cetip"] in {"BRECOACRABX0", "BRRBRACRIP13"}
-            and (only is None or row["codigo_cetip"] == only)
+            and row["isin"].strip().upper() in {"BRECOACRABX0", "BRRBRACRIP13"}
+            and (
+                only is None
+                or only in {row["codigo_cetip"].strip(), row["isin"].strip()}
+            )
         ]
 
 
 def fixture_documents(asset: Asset) -> list[dict]:
-    prefix = "cafe" if asset.codigo_cetip == "BRECOACRABX0" else "almeida"
+    prefix = "cafe" if asset.isin == "BRECOACRABX0" else "almeida"
     return [
         {
             "id": f"{prefix}-001",

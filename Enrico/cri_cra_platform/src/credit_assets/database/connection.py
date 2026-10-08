@@ -16,16 +16,53 @@ def connect(database_path: str | Path) -> sqlite3.Connection:
 def initialize_database(connection: sqlite3.Connection) -> None:
     schema_path = Path(__file__).with_name("schema.sql")
     connection.executescript(schema_path.read_text(encoding="utf-8"))
+    # Older catalogs enforced a global unique hash on documents. Physical hashes
+    # belong to document_versions and may legitimately be shared by documents.
+    connection.execute("DROP INDEX IF EXISTS uq_documents_file_hash_nonempty")
+    connection.execute(
+        """CREATE INDEX IF NOT EXISTS ix_documents_file_hash
+           ON documents(file_hash)
+           WHERE file_hash IS NOT NULL AND file_hash <> ''"""
+    )
+    version_columns = {
+        row["name"] for row in connection.execute("PRAGMA table_info(document_versions)")
+    }
+    if "error_message" not in version_columns:
+        connection.execute(
+            "ALTER TABLE document_versions ADD COLUMN error_message TEXT"
+        )
     columns = {
         row["name"]
         for row in connection.execute("PRAGMA table_info(assets)")
     }
     if "isin" not in columns:
         connection.execute("ALTER TABLE assets ADD COLUMN isin TEXT")
-    # This index is additive and does not rewrite or remove any existing rows.
+    attempt_columns = {
+        row["name"] for row in connection.execute("PRAGMA table_info(collection_attempts)")
+    }
+    additive_attempt_columns = {
+        "document_id": "INTEGER REFERENCES documents(document_pk)",
+        "attempt_number": "INTEGER",
+        "response_content_type": "TEXT",
+        "final_url": "TEXT",
+    }
+    for column_name, column_type in additive_attempt_columns.items():
+        if column_name not in attempt_columns:
+            connection.execute(
+                f"ALTER TABLE collection_attempts ADD COLUMN {column_name} {column_type}"
+            )
     connection.execute(
-        """CREATE UNIQUE INDEX IF NOT EXISTS uq_documents_file_hash_nonempty
-           ON documents(file_hash)
-           WHERE file_hash IS NOT NULL AND file_hash <> ''"""
+        """CREATE INDEX IF NOT EXISTS ix_collection_attempts_document_id
+           ON collection_attempts(document_id)"""
+    )
+    connection.execute(
+        """CREATE UNIQUE INDEX IF NOT EXISTS uq_assets_isin_normalized_nonempty
+           ON assets(UPPER(REPLACE(TRIM(isin), ' ', '')))
+           WHERE isin IS NOT NULL AND TRIM(isin) <> ''"""
+    )
+    connection.execute(
+        """CREATE UNIQUE INDEX IF NOT EXISTS uq_assets_codigo_cetip_normalized_nonempty
+           ON assets(UPPER(REPLACE(TRIM(codigo_cetip), ' ', '')))
+           WHERE codigo_cetip IS NOT NULL AND TRIM(codigo_cetip) <> ''"""
     )
     connection.commit()

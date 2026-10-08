@@ -1,0 +1,212 @@
+{
+  "status": "migrated_and_validated",
+  "generated_at": "2026-10-08T19:08:00-03:00",
+  "scope": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0",
+    "canonical_asset_id": 1,
+    "database": "data/cri_cra.db",
+    "pilot_config": "config/ativos_piloto.csv",
+    "canonical_issue": "190",
+    "canonical_series": "1",
+    "display_series": "Série única (1ª série)"
+  },
+  "root_cause": {
+    "previous_upsert": "Matched and conflicted only on exact codigo_cetip; it did not search by ISIN.",
+    "duplicate_creation": "The pilot row changed codigo_cetip from CRA022009VM to BRECOACRABX0 while adding the same BRECOACRABX0 value as ISIN. The existing CETIP unique constraint did not conflict, and no ISIN unique index existed.",
+    "configuration_history": {
+      "original_cetip": "CRA022009VM",
+      "original_series": "unica",
+      "changed_in_commit": "7dbe497c408bf45c59f046ec65a023bda557ef76",
+      "commit_date": "2026-09-21",
+      "later_cetip": "BRECOACRABX0",
+      "later_isin": "BRECOACRABX0",
+      "later_series": "1"
+    },
+    "empty_or_malformed_identifier_caused_duplicate": false,
+    "asset_creation_run_ids_are_inferred": true
+  },
+  "assets_before": [
+    {
+      "asset_id": 1,
+      "codigo_cetip": "CRA022009VM",
+      "isin": "BRECOACRABX0",
+      "tipo_ativo": "CRA",
+      "securitizadora": "Eco Securitizadora de Direitos Creditórios do Agronegócio S.A.",
+      "cnpj_securitizadora": "10.753.164/0001-43",
+      "emissao": "190",
+      "serie": "unica",
+      "devedor": "Café Brasil Indústria Comércio Importação e Exportação S.A.",
+      "cnpj_devedor": "01.486.546/0001-67",
+      "active": 1,
+      "created_at": "2026-09-17T18:15:01.067150+00:00",
+      "updated_at": "2026-09-18T18:54:07.528502+00:00",
+      "counts": {
+        "documents": 0,
+        "document_versions": 0,
+        "collection_attempts": 0,
+        "alerts": 0
+      },
+      "creation_execution_inferred": "782165cbde024c22805bdfb0c01b9088"
+    },
+    {
+      "asset_id": 6,
+      "codigo_cetip": "BRECOACRABX0",
+      "isin": "BRECOACRABX0",
+      "tipo_ativo": "CRA",
+      "securitizadora": "Eco Securitizadora de Direitos Creditórios do Agronegócio S.A.",
+      "cnpj_securitizadora": "10.753.164/0001-43",
+      "emissao": "190",
+      "serie": "1",
+      "devedor": "Café Brasil Indústria Comércio Importação e Exportação S.A.",
+      "cnpj_devedor": "01.486.546/0001-67",
+      "active": 1,
+      "created_at": "2026-09-18T18:55:14.283555+00:00",
+      "updated_at": "2026-10-08T21:38:24.545229+00:00",
+      "counts": {
+        "documents": 124,
+        "document_versions": 2,
+        "collection_attempts": 6,
+        "alerts": 0
+      },
+      "document_source": "Fundos.NET",
+      "documents_had_null_run_id": true,
+      "creation_execution_inferred": "52895e9627de42c4935f8d808c52a067"
+    }
+  ],
+  "migration": {
+    "transaction": "BEGIN IMMEDIATE / COMMIT; all relationship moves and duplicate removal were atomic",
+    "canonical_asset_id": 1,
+    "source_asset_id": 6,
+    "document_conflict_checks": {
+      "duplicate_source_document_id_and_source": 0,
+      "conflicting_file_hash": 0,
+      "conflicting_url": 0,
+      "conflicting_category": 0,
+      "conflicting_reference_date": 0
+    },
+    "documents_moved": 124,
+    "equivalent_documents_merged": 0,
+    "document_versions_preserved_via_documents": 2,
+    "collection_attempts_moved": 6,
+    "alerts_moved": 0,
+    "other_direct_asset_references_moved": {},
+    "source_asset_removed": true,
+    "source_asset_deactivated": false,
+    "references_remaining_to_source_asset": {}
+  },
+  "assets_after": [
+    {
+      "asset_id": 1,
+      "codigo_cetip": "CRA022009VM",
+      "isin": "BRECOACRABX0",
+      "tipo_ativo": "CRA",
+      "emissao": "190",
+      "serie": "1",
+      "active": 1
+    },
+    {
+      "asset_id": 7,
+      "codigo_cetip": "24G2100031",
+      "isin": "BRRBRACRIP13",
+      "tipo_ativo": "CRI",
+      "emissao": "301",
+      "serie": "1",
+      "active": 1
+    }
+  ],
+  "final_database_validation": {
+    "assets_total": 2,
+    "matching_isin_count": 1,
+    "matching_cetip_count": 1,
+    "both_identifiers_resolve_to_asset_id": 1,
+    "asset_6_exists": false,
+    "asset_6_references_remaining": {},
+    "cafe_documents": 126,
+    "cafe_documents_before_live_catalog_refresh": 124,
+    "new_live_documents_added": 2,
+    "all_cafe_documents_source_fundos_net": true,
+    "duplicate_document_keys": 0,
+    "total_documents_database": 168,
+    "versions_total": 2,
+    "versions_valid": 2,
+    "versions_current": 2,
+    "versions_missing_hash": 0,
+    "distinct_version_hashes": 2,
+    "physical_files": 2,
+    "collection_attempts_for_canonical_asset": 12
+  },
+  "prevention": {
+    "upsert_matches_isin_then_cetip": true,
+    "normalization": [
+      "trim",
+      "uppercase",
+      "remove whitespace",
+      "remove invisible control/format characters",
+      "blank identifiers excluded from matching"
+    ],
+    "isin_format_validation": true,
+    "conflicting_isin_and_cetip_raise_error": true,
+    "reject_isin_as_codigo_cetip": true,
+    "normalize_unique_series_to_1": true,
+    "partial_unique_indexes": [
+      "uq_assets_isin_normalized_nonempty",
+      "uq_assets_codigo_cetip_normalized_nonempty"
+    ],
+    "cafe_pilot_config": {
+      "codigo_cetip": "CRA022009VM",
+      "isin": "BRECOACRABX0",
+      "emissao": "190",
+      "serie": "1"
+    }
+  },
+  "validation_runs": {
+    "foundation": {
+      "run_id": "74b4237a7d4947d8a8a42cf2f9ce852e",
+      "health": "healthy",
+      "error_count": 0,
+      "assets_processed": 2
+    },
+    "pytest": {
+      "result": "67 passed"
+    },
+    "live_catalog_first_refresh": {
+      "run_id": "75bf1e9d5d704f858cfbe06889d76d62",
+      "documents_received": 126,
+      "pages": 13,
+      "inserted": 2,
+      "updated": 2,
+      "unchanged": 122,
+      "errors": 0
+    },
+    "live_catalog_repeat": {
+      "run_id": "d99e634ae36e4f24a9259248ea89337c",
+      "documents_received": 126,
+      "pages": 13,
+      "inserted": 0,
+      "updated": 4,
+      "unchanged": 122,
+      "errors": 0
+    },
+    "sample_download_final": {
+      "run_id": "bd034834859c4b2ab0c6afe959f4893a",
+      "asset_id": 1,
+      "inserted": 0,
+      "updated": 0,
+      "unchanged": 2,
+      "new_version": 0,
+      "failed": 0,
+      "attempts_recorded": 2
+    }
+  },
+  "limitations": [
+    "The latest Fundos.NET catalog contained 126 rather than the prior 124 rows because two new documents were returned. No duplicate keys were created.",
+    "The repeated catalog refreshed four metadata records; the live service returned changed metadata. It inserted no rows and reported no errors.",
+    "An initial sample attempt against the two new, not-yet-downloaded documents timed out while navigating to the Fundos.NET grid. The final sample prioritized two previously validated physical versions and completed successfully."
+  ],
+  "reports": {
+    "diagnostic_json": "reports/duplicate_assets_diagnostic.json",
+    "diagnostic_markdown": "reports/duplicate_assets_diagnostic.md",
+    "sample_markdown": "reports/cafe_brasil_sample_download_latest.md"
+  }
+}

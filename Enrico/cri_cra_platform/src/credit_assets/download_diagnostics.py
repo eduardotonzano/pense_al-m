@@ -2,7 +2,9 @@ from __future__ import annotations
 
 import hashlib
 import re
+import unicodedata
 from collections import Counter, defaultdict
+from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -20,21 +22,82 @@ SAMPLE_CATEGORIES = (
 
 
 def safe_filename(name: str, fallback: str = "documento") -> str:
-    value = re.sub(r"[^\w.-]+", "_", name, flags=re.UNICODE).strip("._")
+    basename = str(name).replace("\\", "/").split("/")[-1]
+    value = unicodedata.normalize("NFKC", basename)
+    value = re.sub(r"[^\w.-]+", "_", value, flags=re.UNICODE).strip("._")
+    value = re.sub(r"\.{2,}", ".", value)
+    if value.upper() in {"CON", "PRN", "AUX", "NUL"} or re.fullmatch(r"(COM|LPT)[1-9]", value.upper()):
+        value = f"_{value}"
     return (value[:120] or fallback) + ".bin"
+
+
+def safe_document_filename(
+    reference_date: str | None,
+    source_document_id: str,
+    document_name: str,
+    extension: str,
+) -> str:
+    raw_date = (reference_date or "").strip()
+    date = ""
+    for date_format in ("%Y-%m-%d", "%Y-%m", "%d/%m/%Y", "%m/%Y", "%d/%m/%Y %H:%M"):
+        try:
+            parsed_date = datetime.strptime(raw_date, date_format)
+            date = parsed_date.strftime(
+                "%Y-%m" if date_format in ("%m/%Y", "%Y-%m") else "%Y-%m-%d"
+            )
+            break
+        except ValueError:
+            pass
+    if not date and raw_date:
+        date = raw_date.replace("/", "-").replace("\\", "-")
+        date = re.sub(r"[^\w.-]", "-", date, flags=re.UNICODE).strip(".-_")
+    elif not date:
+        date = "sem_data"
+
+    identifier = re.sub(r"[^A-Za-z0-9_-]", "_", str(source_document_id)).strip("_")
+    label = unicodedata.normalize("NFKC", str(document_name))
+    label = label.replace("/", "_").replace("\\", "_")
+    label = re.sub(r"[^\w.-]+", "_", label, flags=re.UNICODE).strip("._")
+    label = re.sub(r"\.{2,}", ".", label)
+    label = label[:80] or "documento"
+    ext = re.sub(r"[^a-z0-9]", "", extension.lower().lstrip("."))
+    if not ext:
+        ext = "bin"
+    base = f"{date}_{identifier or 'sem_id'}_{label}"
+    return f"{base[:88].rstrip('._-')}.{ext}"
 
 
 def detect_content(data: bytes, content_type: str = "") -> dict[str, Any]:
     prefix = data[:16]
+    leading = data[:4096].lstrip(b"\xef\xbb\xbf \t\r\n").lower()
     lowered = content_type.lower()
     if prefix.startswith(b"%PDF-"):
         kind = "PDF"
-    elif prefix.startswith(b"PK\x03\x04"):
+    elif prefix.startswith((b"PK\x03\x04", b"PK\x05\x06", b"PK\x07\x08")):
         kind = "ZIP"
-    elif prefix.lstrip().startswith(b"<?xml"):
-        kind = "XML"
-    elif b"<html" in data[:2048].lower() or "text/html" in lowered:
+    elif (
+        leading.startswith((b"<!doctype html", b"<html"))
+        or b"<html" in leading
+        or "text/html" in lowered
+    ):
         kind = "HTML"
+    elif (
+        leading.startswith(b"<?xml")
+        or (leading.startswith(b"<") and ("xml" in lowered or b"</" in leading))
+    ):
+        kind = "XML"
+    elif leading.startswith((b"{", b"[")) and (
+        "json" in lowered or leading[:1] in (b"{", b"[")
+    ):
+        kind = "JSON"
+    elif prefix.startswith(b"\x89PNG\r\n\x1a\n"):
+        kind = "PNG"
+    elif prefix.startswith(b"\xff\xd8\xff"):
+        kind = "JPEG"
+    elif leading.startswith(b"{\\rtf"):
+        kind = "RTF"
+    elif prefix.startswith(b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1"):
+        kind = "OLE"
     else:
         kind = "outro"
     return {
@@ -59,7 +122,12 @@ def validate_download(data: bytes, content_type: str, max_bytes: int) -> dict[st
         if data and result["within_limit"] and not result["is_html"]
         else None
     )
-    result["accepted"] = bool(data) and result["within_limit"] and not result["is_html"]
+    result["accepted"] = (
+        bool(data)
+        and result["within_limit"]
+        and not result["is_html"]
+        and result["format"] != "outro"
+    )
     return result
 
 

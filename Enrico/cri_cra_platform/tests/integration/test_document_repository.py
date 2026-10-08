@@ -29,7 +29,7 @@ def make_document(asset_id, **changes):
     return Document(**values)
 
 
-def test_schema_has_categories_and_safe_hash_uniqueness(tmp_path):
+def test_schema_has_categories_and_allows_shared_physical_hashes(tmp_path):
     connection = connect(tmp_path / "documents.db")
     initialize_database(connection)
     columns = {
@@ -40,10 +40,33 @@ def test_schema_has_categories_and_safe_hash_uniqueness(tmp_path):
     }
     assert {"category", "file_hash", "asset_id"} <= columns
     assert len(DOCUMENT_CATEGORIES) == 9
-    indexes = connection.execute(
-        "SELECT name FROM sqlite_master WHERE type='index'"
-    ).fetchall()
-    assert any(row[0] == "uq_documents_file_hash_nonempty" for row in indexes)
+    indexes = {
+        row["name"]: row["sql"]
+        for row in connection.execute(
+            "SELECT name, sql FROM sqlite_master WHERE type='index'"
+        )
+    }
+    assert "uq_documents_file_hash_nonempty" not in indexes
+    assert indexes["ix_documents_file_hash"] is not None
+    asset_id = make_asset(connection)
+    connection.execute(
+        """INSERT INTO documents (
+            source_document_id, asset_id, category, document_name, source,
+            source_url, file_hash
+        ) VALUES ('first', ?, 'Outro', 'A', 'Fundos.NET', 'https://example/1', ?)""",
+        (asset_id, "a" * 64),
+    )
+    connection.execute(
+        """INSERT INTO documents (
+            source_document_id, asset_id, category, document_name, source,
+            source_url, file_hash
+        ) VALUES ('second', ?, 'Outro', 'B', 'Fundos.NET', 'https://example/2', ?)""",
+        (asset_id, "a" * 64),
+    )
+    connection.commit()
+    assert connection.execute(
+        "SELECT COUNT(*) FROM documents WHERE file_hash = ?", ("a" * 64,)
+    ).fetchone()[0] == 2
 
 
 def test_upsert_by_hash_and_does_not_replace_values_with_empty(tmp_path):

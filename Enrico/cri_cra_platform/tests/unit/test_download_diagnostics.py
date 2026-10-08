@@ -1,3 +1,7 @@
+import hashlib
+import tempfile
+from pathlib import Path
+
 from credit_assets.download_diagnostics import (
     build_inventory,
     detect_content,
@@ -19,7 +23,7 @@ def test_detect_pdf_and_html():
 def test_sha256_and_size_limit():
     data = b"content"
     assert sha256_bytes(data) == "ed7002b439e9ac845f22357d822bac1444730fbdb6016d3ec9432297b9ec9f73"
-    assert validate_download(data, "application/pdf", 100)["accepted"]
+    assert validate_download(b"%PDF-1.7\nbody", "application/pdf", 100)["accepted"]
     assert not validate_download(data, "text/html", 100)["accepted"]
     assert not validate_download(data, "application/pdf", 2)["within_limit"]
 
@@ -102,6 +106,3 @@ def test_browser_session_requirement_does_not_expose_cookies():
     result = {"requires_browser_session": True, "cookies": []}
     assert result["requires_browser_session"] is True
     assert result["cookies"] == []
-import hashlib
-import tempfile
-from pathlib import Path
