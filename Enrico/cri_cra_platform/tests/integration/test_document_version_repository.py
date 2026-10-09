@@ -13,6 +13,12 @@ from credit_assets.repositories.document_version_repository import (
 
 
 def setup_documents(connection: sqlite3.Connection) -> tuple[int, int]:
+    run_id = "document-version-test-run"
+    connection.execute(
+        """INSERT INTO executions (run_id, started_at, status)
+           VALUES (?, '2026-01-01T00:00:00Z', 'running')""",
+        (run_id,),
+    )
     asset_id = AssetRepository(connection).upsert(
         Asset(
             "CRA-VERSIONS",
@@ -29,9 +35,15 @@ def setup_documents(connection: sqlite3.Connection) -> tuple[int, int]:
         cursor = connection.execute(
             """INSERT INTO documents (
                 source_document_id, asset_id, category, document_name,
-                source, source_url
-            ) VALUES (?, ?, 'Informe Mensal', ?, 'Fundos.NET', ?)""",
-            (source_id, asset_id, source_id, f"https://example.test/{source_id}"),
+                source, source_url, run_id
+            ) VALUES (?, ?, 'Informe Mensal', ?, 'Fundos.NET', ?, ?)""",
+            (
+                source_id,
+                asset_id,
+                source_id,
+                f"https://example.test/{source_id}",
+                run_id,
+            ),
         )
         document_ids.append(int(cursor.lastrowid))
     connection.commit()

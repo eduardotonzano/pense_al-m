@@ -33,10 +33,27 @@ def test_fixture_match_requires_unique_compatible_certificate():
 
 def test_document_rows_are_converted_without_network():
     document = FundosNetCollector._to_document(
-        asset(), {"id": 1, "tipo": "Informe Mensal de CRA", "nome": "Informe", "url": "https://example.test"}
+        asset(),
+        {
+            "id": 1,
+            "tipo": "Informe Mensal de CRA",
+            "nome": "Informe",
+            "url": "https://example.test",
+        },
+        "catalog-run-1",
     )
     assert document.source == "Fundos.NET"
     assert document.category == "Informe Mensal"
+    assert document.run_id == "catalog-run-1"
+
+
+def test_document_normalization_requires_run_id():
+    with pytest.raises(ValueError, match="run_id é obrigatório"):
+        FundosNetCollector._to_document(
+            asset(),
+            {"id": 1, "tipo": "Informe Mensal", "url": "https://example.test"},
+            "",
+        )
 
 
 class FakeResponse:

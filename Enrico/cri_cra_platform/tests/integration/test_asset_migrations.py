@@ -64,12 +64,17 @@ def _insert_document(
     reference_date: str = "2026-01-01",
     collected_at: str = "2026-01-02T00:00:00Z",
 ) -> int:
+    connection.execute(
+        """INSERT OR IGNORE INTO executions (run_id, started_at, status)
+           VALUES ('migration-fixture-run', '2026-01-01', 'success')"""
+    )
     return int(
         connection.execute(
             """INSERT INTO documents (
                 source_document_id, asset_id, category, document_name,
-                reference_date, publication_date, source, source_url, collected_at
-            ) VALUES (?, ?, ?, ?, ?, ?, 'Fundos.NET', ?, ?)""",
+                reference_date, publication_date, source, source_url, collected_at,
+                run_id
+            ) VALUES (?, ?, ?, ?, ?, ?, 'Fundos.NET', ?, ?, 'migration-fixture-run')""",
             (
                 source_document_id,
                 asset_id,

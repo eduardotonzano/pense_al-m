@@ -34,6 +34,10 @@ def create_catalog(tmp_path: Path, names: tuple[str, ...] = (
 )) -> tuple[sqlite3.Connection, list[int]]:
     connection = connect(tmp_path / "catalog.db")
     initialize_database(connection)
+    connection.execute(
+        """INSERT INTO executions (run_id, started_at, status)
+           VALUES ('download-service-catalog-run', '2026-01-01T00:00:00Z', 'running')"""
+    )
     asset_id = AssetRepository(connection).upsert(
         Asset(
             "CRA022009VM", "CRA", "Eco Securitizadora",
@@ -47,8 +51,8 @@ def create_catalog(tmp_path: Path, names: tuple[str, ...] = (
         cursor = connection.execute(
             """INSERT INTO documents (
                 source_document_id, asset_id, category, document_name,
-                reference_date, publication_date, source, source_url
-            ) VALUES (?, ?, 'Outro', ?, ?, ?, 'Fundos.NET', ?)""",
+                reference_date, publication_date, source, source_url, run_id
+            ) VALUES (?, ?, 'Outro', ?, ?, ?, 'Fundos.NET', ?, 'download-service-catalog-run')""",
             (
                 str(981500 + index), asset_id, name, "07/2026",
                 publication_date,
@@ -126,9 +130,10 @@ def test_sample_prefers_most_recent_and_never_invents_missing_category(tmp_path)
     connection.execute(
         """INSERT INTO documents (
             source_document_id, asset_id, category, document_name,
-            publication_date, source, source_url
+            publication_date, source, source_url, run_id
         ) VALUES ('novo', ?, 'Outro', 'Informe Mensal novo', '2026-09-20',
-                  'Fundos.NET', 'https://fnet.test/visualizar?id=novo')""",
+                  'Fundos.NET', 'https://fnet.test/visualizar?id=novo',
+                  'download-service-catalog-run')""",
         (asset_id,),
     )
     connection.commit()
@@ -150,9 +155,10 @@ def test_sample_prefers_previously_verified_version_over_newer_unverified_docume
     connection.execute(
         """INSERT INTO documents (
             source_document_id, asset_id, category, document_name,
-            publication_date, source, source_url
+            publication_date, source, source_url, run_id
         ) VALUES ('novo', ?, 'Outro', 'Informe Mensal novo', '2026-09-20',
-                  'Fundos.NET', 'https://fnet.test/visualizar?id=novo')""",
+                  'Fundos.NET', 'https://fnet.test/visualizar?id=novo',
+                  'download-service-catalog-run')""",
         (asset_id,),
     )
     content = b"%PDF-verified-sample"

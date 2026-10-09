@@ -23,9 +23,9 @@ class Document:
     document_name: str
     source: str
     source_url: str
+    run_id: str
     reference_date: Optional[str] = None
     publication_date: Optional[str] = None
     file_hash: Optional[str] = None
     download_status: str = "pending"
-    run_id: Optional[str] = None
     collected_at: Optional[str] = None

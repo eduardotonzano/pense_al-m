@@ -1,5 +1,7 @@
 import csv
 
+import pytest
+
 from credit_assets.database.connection import connect, initialize_database
 from credit_assets.models.asset import Asset
 from credit_assets.models.document import DOCUMENT_CATEGORIES, Document
@@ -7,7 +9,16 @@ from credit_assets.repositories.asset_repository import AssetRepository
 from credit_assets.repositories.document_repository import DocumentRepository
 
 
+RUN_ID = "document-repository-test-run"
+
+
 def make_asset(connection, codigo="CRA-001"):
+    connection.execute(
+        """INSERT OR IGNORE INTO executions (run_id, started_at, status)
+           VALUES (?, '2026-01-01T00:00:00Z', 'running')""",
+        (RUN_ID,),
+    )
+    connection.commit()
     return AssetRepository(connection).upsert(
         Asset(codigo, "CRA", "Securitizadora", "123", "1", "1")
     )
@@ -21,6 +32,7 @@ def make_document(asset_id, **changes):
         document_name="Informe",
         source="origem",
         source_url="https://example.test/doc",
+        run_id=RUN_ID,
         reference_date="2026-01-01",
         publication_date="2026-01-02",
         file_hash="hash-1",
@@ -52,16 +64,16 @@ def test_schema_has_categories_and_allows_shared_physical_hashes(tmp_path):
     connection.execute(
         """INSERT INTO documents (
             source_document_id, asset_id, category, document_name, source,
-            source_url, file_hash
-        ) VALUES ('first', ?, 'Outro', 'A', 'Fundos.NET', 'https://example/1', ?)""",
-        (asset_id, "a" * 64),
+            source_url, file_hash, run_id
+        ) VALUES ('first', ?, 'Outro', 'A', 'Fundos.NET', 'https://example/1', ?, ?)""",
+        (asset_id, "a" * 64, RUN_ID),
     )
     connection.execute(
         """INSERT INTO documents (
             source_document_id, asset_id, category, document_name, source,
-            source_url, file_hash
-        ) VALUES ('second', ?, 'Outro', 'B', 'Fundos.NET', 'https://example/2', ?)""",
-        (asset_id, "a" * 64),
+            source_url, file_hash, run_id
+        ) VALUES ('second', ?, 'Outro', 'B', 'Fundos.NET', 'https://example/2', ?, ?)""",
+        (asset_id, "a" * 64, RUN_ID),
     )
     connection.commit()
     assert connection.execute(
@@ -175,3 +187,30 @@ def test_upsert_status_distinguishes_unchanged_and_updated(tmp_path):
     assert first == "inserted"
     assert unchanged == "unchanged"
     assert updated == "updated"
+
+
+def test_document_without_run_id_is_rejected_before_sqlite_write(tmp_path):
+    connection = connect(tmp_path / "documents.db")
+    initialize_database(connection)
+    asset_id = make_asset(connection)
+    repository = DocumentRepository(connection)
+    before = repository.count()
+
+    with pytest.raises(ValueError, match="run_id é obrigatório"):
+        repository.upsert_with_status(make_document(asset_id, run_id=""))
+
+    assert repository.count() == before
+
+
+def test_document_run_id_must_reference_registered_execution(tmp_path):
+    connection = connect(tmp_path / "documents.db")
+    initialize_database(connection)
+    asset_id = make_asset(connection)
+    repository = DocumentRepository(connection)
+
+    with pytest.raises(ValueError, match="execução registrada"):
+        repository.upsert_with_status(
+            make_document(asset_id, run_id="unregistered-run")
+        )
+
+    assert repository.count() == 0

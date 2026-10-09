@@ -18,6 +18,7 @@ from credit_assets.models.asset import Asset
 from credit_assets.repositories.asset_repository import AssetRepository
 from credit_assets.repositories.document_repository import DocumentRepository
 from credit_assets.repositories.execution_repository import ExecutionRepository
+from credit_assets.services.catalog_service import CatalogService
 
 
 def load_assets(path: Path, only: str | None = None) -> list[Asset]:
@@ -82,62 +83,108 @@ def run(
     assets_repo = AssetRepository(connection)
     documents_repo = DocumentRepository(connection)
     collector = None if offline else FundosNetCollector()
+    catalog_service = None if offline else CatalogService(collector)
     execution = ExecutionRepository(connection)
     run_id = uuid.uuid4().hex
     execution.start(run_id)
-    result = {"run_id": run_id, "assets": [], "before_documents": documents_repo.count(), "after_documents": 0}
+    result = {
+        "run_id": run_id,
+        "assets": [],
+        "before_documents": documents_repo.count(),
+        "after_documents": 0,
+    }
     inserted = updated = unchanged = rejected = errors = 0
+    documents_found = assets_processed = 0
     started = time.perf_counter()
     try:
         for source_asset in load_assets(config_path, only):
-            asset_id = assets_repo.upsert(source_asset)
-            asset = replace(source_asset, asset_id=asset_id)
-            before = documents_repo.count_by_asset_id(asset_id)
-            if offline:
-                rows = fixture_documents(asset)
-                documents = [FundosNetCollector._to_document(asset, row) for row in rows]
-                metrics = {"administrator_id": None, "id_fundo": None, "total_reported": len(rows), "pages_queried": 1, "rejected": [], "errors": []}
-            else:
-                collected = collector.collect_with_metrics(asset)
-                documents = collected.documents
-                metrics = {
-                    "administrator_id": collected.administrator_id,
-                    "id_fundo": collected.id_fundo,
-                    "total_reported": collected.total_reported,
-                    "pages_queried": collected.pages_queried,
-                    "rejected": collected.rejected,
-                    "errors": collected.errors,
-                }
-            inserted_asset = updated_asset = unchanged_asset = 0
-            for document in documents:
-                _, upsert_status = documents_repo.upsert_with_status(document)
-                if upsert_status == "inserted":
-                    inserted += 1
-                    inserted_asset += 1
-                elif upsert_status == "updated":
-                    updated += 1
-                    updated_asset += 1
+            assets_processed += 1
+            asset_id = None
+            before = documents_repo.count()
+            try:
+                asset_id = assets_repo.upsert(source_asset)
+                asset = replace(source_asset, asset_id=asset_id)
+                before = documents_repo.count_by_asset_id(asset_id)
+                if offline:
+                    rows = fixture_documents(asset)
+                    documents = [
+                        FundosNetCollector._to_document(asset, row, run_id)
+                        for row in rows
+                    ]
+                    metrics = {
+                        "administrator_id": None,
+                        "id_fundo": None,
+                        "total_reported": len(rows),
+                        "pages_queried": 1,
+                        "rejected": [],
+                        "errors": [],
+                    }
                 else:
-                    unchanged += 1
-                    unchanged_asset += 1
-            rejected += len(metrics["rejected"])
-            errors += len(metrics["errors"])
-            result["assets"].append({
-                "codigo_cetip": asset.codigo_cetip,
-                "isin": asset.isin,
-                "administrator_id": metrics["administrator_id"],
-                "idFundo": metrics["id_fundo"],
-                "total_informado": metrics["total_reported"],
-                "paginas_consultadas": metrics["pages_queried"],
-                "documentos_recebidos": len(documents),
-                "documentos_inseridos": inserted_asset,
-                "documentos_atualizados": updated_asset,
-                "documentos_inalterados": unchanged_asset,
-                "documentos_rejeitados": metrics["rejected"],
-                "erros": metrics["errors"],
-                "linhas_antes_do_ativo": before,
-                "linhas_depois_do_ativo": documents_repo.count_by_asset_id(asset_id),
-            })
+                    collected = catalog_service.catalog_with_metrics(asset, run_id)
+                    documents = collected.documents
+                    metrics = {
+                        "administrator_id": collected.administrator_id,
+                        "id_fundo": collected.id_fundo,
+                        "total_reported": collected.total_reported,
+                        "pages_queried": collected.pages_queried,
+                        "rejected": collected.rejected,
+                        "errors": collected.errors,
+                    }
+                if any(document.run_id != run_id for document in documents):
+                    raise ValueError(
+                        "todos os documentos coletados devem usar o run_id da execução"
+                    )
+                documents_found += len(documents)
+                inserted_asset = updated_asset = unchanged_asset = 0
+                for document in documents:
+                    _, upsert_status = documents_repo.upsert_with_status(document)
+                    if upsert_status == "inserted":
+                        inserted += 1
+                        inserted_asset += 1
+                    elif upsert_status == "updated":
+                        updated += 1
+                        updated_asset += 1
+                    else:
+                        unchanged += 1
+                        unchanged_asset += 1
+                rejected += len(metrics["rejected"])
+                errors += len(metrics["errors"])
+                result["assets"].append({
+                    "codigo_cetip": asset.codigo_cetip,
+                    "isin": asset.isin,
+                    "run_id": run_id,
+                    "administrator_id": metrics["administrator_id"],
+                    "idFundo": metrics["id_fundo"],
+                    "total_informado": metrics["total_reported"],
+                    "paginas_consultadas": metrics["pages_queried"],
+                    "documentos_recebidos": len(documents),
+                    "documentos_inseridos": inserted_asset,
+                    "documentos_atualizados": updated_asset,
+                    "documentos_inalterados": unchanged_asset,
+                    "documentos_rejeitados": metrics["rejected"],
+                    "erros": metrics["errors"],
+                    "linhas_antes_do_ativo": before,
+                    "linhas_depois_do_ativo": documents_repo.count_by_asset_id(asset_id),
+                })
+            except Exception as error:
+                errors += 1
+                result["assets"].append({
+                    "codigo_cetip": source_asset.codigo_cetip,
+                    "isin": source_asset.isin,
+                    "run_id": run_id,
+                    "documentos_recebidos": 0,
+                    "documentos_inseridos": 0,
+                    "documentos_atualizados": 0,
+                    "documentos_inalterados": 0,
+                    "documentos_rejeitados": [],
+                    "erros": [f"{type(error).__name__}: {error}"],
+                    "linhas_antes_do_ativo": before,
+                    "linhas_depois_do_ativo": (
+                        documents_repo.count_by_asset_id(asset_id)
+                        if asset_id is not None
+                        else 0
+                    ),
+                })
     finally:
         result["after_documents"] = documents_repo.count()
         result["inserted"] = inserted
@@ -147,9 +194,17 @@ def run(
         result["errors"] = errors
         result["duration_seconds"] = round(time.perf_counter() - started, 4)
         documents_repo.export_csv(output_path)
-        execution.finish(run_id, "success" if errors == 0 else "partial", result["duration_seconds"], len(result["assets"]), len(result["assets"]), 0, errors)
+        execution.finish(
+            run_id,
+            "success" if errors == 0 else "partial",
+            result["duration_seconds"],
+            assets_processed,
+            documents_found,
+            rejected,
+            errors,
+        )
     report_path.write_text(json.dumps(result, ensure_ascii=False, indent=2), encoding="utf-8")
-    history_path = ROOT / "reports" / "document_catalog_runs.json"
+    history_path = report_path.parent / "document_catalog_runs.json"
     history = []
     if history_path.exists():
         try:
@@ -166,5 +221,20 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--offline-fixtures", action="store_true")
     parser.add_argument("--only", choices=["BRECOACRABX0", "BRRBRACRIP13"])
+    parser.add_argument("--database-path", type=Path)
+    parser.add_argument("--config-path", type=Path)
+    parser.add_argument("--output-path", type=Path)
+    parser.add_argument("--report-path", type=Path)
     args = parser.parse_args()
-    raise SystemExit(0 if run(args.offline_fixtures, args.only) else 1)
+    raise SystemExit(
+        0
+        if run(
+            offline=args.offline_fixtures,
+            only=args.only,
+            database_path=args.database_path,
+            config_path=args.config_path,
+            output_path=args.output_path,
+            report_path=args.report_path,
+        )
+        else 1
+    )

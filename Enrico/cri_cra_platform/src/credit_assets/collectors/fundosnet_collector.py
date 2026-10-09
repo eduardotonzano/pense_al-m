@@ -53,13 +53,15 @@ class FundosNetCollector(BaseCollector):
         self.headless = headless
         self.timeout_ms = timeout_ms
 
-    def collect_documents(self, asset: Asset) -> list[Document]:
-        return self.collect_with_metrics(asset).documents
+    def collect_documents(self, asset: Asset, run_id: str) -> list[Document]:
+        return self.collect_with_metrics(asset, run_id).documents
 
-    def collect_with_metrics(self, asset: Asset) -> CollectionResult:
-        return self._collect_browser_ui_native(asset)
+    def collect_with_metrics(self, asset: Asset, run_id: str) -> CollectionResult:
+        if not run_id or not run_id.strip():
+            raise ValueError("run_id é obrigatório para coletar documentos")
+        return self._collect_browser_ui_native(asset, run_id)
 
-    def _collect_browser_ui_native(self, asset: Asset) -> CollectionResult:
+    def _collect_browser_ui_native(self, asset: Asset, run_id: str) -> CollectionResult:
         with sync_playwright() as playwright:
             browser = self._launch_browser(playwright)
             context = browser.new_context(locale="pt-BR")
@@ -128,7 +130,9 @@ class FundosNetCollector(BaseCollector):
                     raise RuntimeError("resposta documental sem recordsFiltered positivo")
                 if any(asset.isin.upper() not in str(row.get("descricaoFundo", "")).upper() for row in rows):
                     raise RuntimeError("documento de certificado incompatível")
-                documents = [self._to_document(asset, row) for row in rows]
+                documents = [
+                    self._to_document(asset, row, run_id) for row in rows
+                ]
                 pages = 1
                 seen_ids = {
                     str(row.get("id") or row.get("idDocumento") or row.get("id_documento"))
@@ -157,7 +161,7 @@ class FundosNetCollector(BaseCollector):
                             raise RuntimeError("documento de certificado incompatível")
                         if row_id:
                             seen_ids.add(row_id)
-                        documents.append(self._to_document(asset, row))
+                        documents.append(self._to_document(asset, row, run_id))
                     pages += 1
                 return CollectionResult(
                     documents[:total],
@@ -428,7 +432,7 @@ class FundosNetCollector(BaseCollector):
             raise RuntimeError("resposta documental inválida")
         return response.json()
 
-    def _collect_context_request(self, asset: Asset) -> CollectionResult:
+    def _collect_context_request(self, asset: Asset, run_id: str) -> CollectionResult:
         with sync_playwright() as playwright:
             browser = self._launch_browser(playwright)
             context = browser.new_context(locale="pt-BR")
@@ -472,7 +476,9 @@ class FundosNetCollector(BaseCollector):
                     return CollectionResult([], administrator_id, None, 0, 0, [], ["certificado ambíguo ou incompatível"], diagnostics)
                 id_fundo = selected.id_fundo
                 rows, total, pages = self._fetch_documentos(page, context, selected.id_fundo, diagnostics)
-                documents = [self._to_document(asset, row) for row in rows]
+                documents = [
+                    self._to_document(asset, row, run_id) for row in rows
+                ]
                 rejected = [
                     {"reason": "id do documento ausente", "row": repr(row)}
                     for row, document in zip(rows, documents)
@@ -721,7 +727,11 @@ class FundosNetCollector(BaseCollector):
         return [], 0, 1
 
     @staticmethod
-    def _to_document(asset: Asset, item: dict[str, Any]) -> Document:
+    def _to_document(
+        asset: Asset, item: dict[str, Any], run_id: str
+    ) -> Document:
+        if not run_id or not run_id.strip():
+            raise ValueError("run_id é obrigatório para normalizar documentos")
         return Document(
             asset_id=asset.asset_id or 0,
             source_document_id=str(item.get("id") or item.get("document_id") or item.get("codigo") or ""),
@@ -734,6 +744,7 @@ class FundosNetCollector(BaseCollector):
                 or "Documento"
             ),
             source="Fundos.NET",
+            run_id=run_id,
             source_url=str(
                 item.get("url")
                 or item.get("link")

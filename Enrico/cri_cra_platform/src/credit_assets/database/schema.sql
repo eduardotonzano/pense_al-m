@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS documents (
     download_status TEXT NOT NULL DEFAULT 'pending',
     file_hash TEXT,
     collected_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    run_id TEXT,
+    run_id TEXT NOT NULL,
     UNIQUE(source_document_id, source),
     FOREIGN KEY(asset_id) REFERENCES assets(asset_id),
     FOREIGN KEY(run_id) REFERENCES executions(run_id)

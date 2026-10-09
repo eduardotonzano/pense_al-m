@@ -22,6 +22,14 @@ class DocumentRepository:
             raise ValueError(f"Categoria de documento inválida: {document.category}")
         if not document.source or not document.source_url:
             raise ValueError("source e source_url são obrigatórios")
+        run_id = self._value(document.run_id)
+        if not run_id:
+            raise ValueError("run_id é obrigatório para persistir um documento")
+        execution = self.connection.execute(
+            "SELECT 1 FROM executions WHERE run_id = ?", (run_id,)
+        ).fetchone()
+        if execution is None:
+            raise ValueError(f"run_id não corresponde a uma execução registrada: {run_id}")
 
         file_hash = self._value(document.file_hash)
         source_document_id = self._value(document.source_document_id) or ""
@@ -51,7 +59,7 @@ class DocumentRepository:
             document.download_status,
             file_hash,
             now,
-            document.run_id,
+            run_id,
         )
         if existing is None:
             cursor = self.connection.execute(
