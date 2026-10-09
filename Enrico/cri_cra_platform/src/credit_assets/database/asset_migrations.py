@@ -35,9 +35,11 @@ def migrate_cafe_brasil_duplicate_asset(
             )
         canonical_row = canonical[0]
         canonical_id = int(canonical_row["asset_id"])
-        if str(canonical_row["isin"] or "").strip().upper() != CAFE_ISIN:
+        canonical_isin = str(canonical_row["isin"] or "").strip().upper()
+        if canonical_isin and canonical_isin != CAFE_ISIN:
             raise AssetMigrationConflict(
-                f"asset_id={canonical_id} não possui ISIN canônico {CAFE_ISIN}"
+                f"asset_id={canonical_id} possui ISIN incompatível "
+                f"{canonical_isin!r}; esperado {CAFE_ISIN}"
             )
 
         isin_matches = connection.execute(
@@ -47,6 +49,20 @@ def migrate_cafe_brasil_duplicate_asset(
         ).fetchall()
         sources = [row for row in isin_matches if int(row["asset_id"]) != canonical_id]
         if not sources:
+            cetip_matches = connection.execute(
+                """SELECT * FROM assets
+                   WHERE UPPER(REPLACE(TRIM(codigo_cetip), ' ', '')) = ?
+                     AND asset_id <> ?""",
+                (CAFE_ISIN, canonical_id),
+            ).fetchall()
+            if cetip_matches:
+                raise AssetMigrationConflict(
+                    "Encontrado codigo_cetip igual ao ISIN em outro ativo, mas sem "
+                    "ISIN correspondente: "
+                    + ", ".join(str(row["asset_id"]) for row in cetip_matches)
+                )
+            _update_canonical_asset(connection, canonical_row, None)
+            _create_asset_unique_indexes(connection)
             connection.commit()
             return {
                 "canonical_asset_id": canonical_id,
@@ -59,18 +75,22 @@ def migrate_cafe_brasil_duplicate_asset(
                 "other_references_migrated": {},
                 "duplicate_asset_removed": False,
             }
-        if (
-            len(sources) != 1
-            or str(sources[0]["codigo_cetip"] or "").strip().upper()
-            != CAFE_ISIN
-        ):
+        if len(sources) != 1:
             raise AssetMigrationConflict(
-                "Encontrados registros duplicados fora do par de ativos aprovado: "
+                "Esperado exatamente um duplicado com o ISIN "
+                f"{CAFE_ISIN}; encontrados asset_id(s): "
                 + ", ".join(str(row["asset_id"]) for row in sources)
             )
 
         duplicate = sources[0]
         duplicate_id = int(duplicate["asset_id"])
+        duplicate_cetip = str(duplicate["codigo_cetip"] or "").strip().upper()
+        duplicate_isin = str(duplicate["isin"] or "").strip().upper()
+        if duplicate_cetip != CAFE_ISIN or duplicate_isin != CAFE_ISIN:
+            raise AssetMigrationConflict(
+                f"Ativo duplicado asset_id={duplicate_id} deve ter "
+                f"codigo_cetip e ISIN iguais a {CAFE_ISIN}"
+            )
         _validate_compatible_assets(canonical_row, duplicate)
         duplicate_documents = connection.execute(
             "SELECT * FROM documents WHERE asset_id = ? ORDER BY document_pk",
@@ -101,30 +121,11 @@ def migrate_cafe_brasil_duplicate_asset(
             if int(row["document_pk"]) not in source_ids_to_merge
         }
 
-        connection.execute(
-            """UPDATE assets SET
-                codigo_cetip = ?, isin = ?, emissao = ?, serie = '1',
-                tipo_ativo = ?, securitizadora = ?, cnpj_securitizadora = ?,
-                devedor = ?, cnpj_devedor = ?, updated_at = ?
-               WHERE asset_id = ?""",
-            (
-                CAFE_CANONICAL_CETIP,
-                CAFE_ISIN,
-                "190",
-                canonical_row["tipo_ativo"],
-                canonical_row["securitizadora"] or duplicate["securitizadora"],
-                canonical_row["cnpj_securitizadora"]
-                or duplicate["cnpj_securitizadora"],
-                canonical_row["devedor"] or duplicate["devedor"],
-                canonical_row["cnpj_devedor"] or duplicate["cnpj_devedor"],
-                datetime.now(timezone.utc).isoformat(),
-                canonical_id,
-            ),
-        )
-
         migrated_counts: dict[str, int] = {}
         foreign_key_tables = _asset_foreign_key_columns(connection)
         for table, columns in foreign_key_tables.items():
+            if table == "documents":
+                continue
             moved = 0
             for column in columns:
                 cursor = connection.execute(
@@ -133,6 +134,18 @@ def migrate_cafe_brasil_duplicate_asset(
                 )
                 moved += cursor.rowcount
             migrated_counts[table] = moved
+
+        merged_document_ids = {
+            duplicate_document_id
+            for _, duplicate_document_id in merge_pairs
+        }
+        for document in duplicate_documents:
+            document_id = int(document["document_pk"])
+            if document_id not in merged_document_ids:
+                connection.execute(
+                    "UPDATE documents SET asset_id = ? WHERE document_pk = ?",
+                    (canonical_id, document_id),
+                )
 
         for canonical_document_id, duplicate_document_id in merge_pairs:
             _merge_equivalent_document(
@@ -149,15 +162,15 @@ def migrate_cafe_brasil_duplicate_asset(
             connection.execute("DELETE FROM assets WHERE asset_id = ?", (duplicate_id,))
             duplicate_removed = True
 
-        if connection.execute(
-            "SELECT 1 FROM assets WHERE asset_id = ?", (duplicate_id,)
-        ).fetchone() is None:
-            remaining = {}
+        if duplicate_removed:
+            remaining = _asset_references(connection, duplicate_id)
         if duplicate_removed and remaining:
             raise AssetMigrationConflict(
                 f"Referências ainda apontam para asset_id={duplicate_id}: {remaining}"
             )
 
+        _update_canonical_asset(connection, canonical_row, duplicate)
+        _create_asset_unique_indexes(connection)
         connection.commit()
         return {
             "canonical_asset_id": canonical_id,
@@ -202,14 +215,64 @@ def _validate_compatible_assets(canonical: sqlite3.Row, duplicate: sqlite3.Row) 
                 f"tem {canonical_value!r}, asset_id={duplicate['asset_id']} "
                 f"tem {duplicate_value!r}"
             )
-    if str(duplicate["serie"] or "").strip().casefold() not in {
-        "1",
-        "unica",
-        "única",
-    }:
+    canonical_series = _normalize_series(canonical["serie"])
+    duplicate_series = _normalize_series(duplicate["serie"])
+    if canonical_series not in {"", "1"} or duplicate_series != "1":
         raise AssetMigrationConflict(
-            f"Série inesperada no ativo duplicado: {duplicate['serie']!r}"
+            f"Conflito de série: {canonical_series!r} vs {duplicate_series!r}"
         )
+    if str(duplicate["emissao"] or "").strip() != "190":
+        raise AssetMigrationConflict(
+            f"Emissão incompatível no ativo duplicado: {duplicate['emissao']!r}"
+        )
+
+
+def _normalize_series(value: str | None) -> str:
+    normalized = str(value or "").strip().casefold()
+    return "1" if normalized in {"1", "unica", "única"} else normalized
+
+
+def _update_canonical_asset(
+    connection: sqlite3.Connection,
+    canonical: sqlite3.Row,
+    duplicate: sqlite3.Row | None,
+) -> None:
+    connection.execute(
+        """UPDATE assets SET
+            codigo_cetip = ?, isin = ?, emissao = ?, serie = '1',
+            tipo_ativo = ?, securitizadora = ?, cnpj_securitizadora = ?,
+            devedor = ?, cnpj_devedor = ?, updated_at = ?
+           WHERE asset_id = ?""",
+        (
+            CAFE_CANONICAL_CETIP,
+            CAFE_ISIN,
+            "190",
+            canonical["tipo_ativo"],
+            canonical["securitizadora"]
+            or (duplicate["securitizadora"] if duplicate else None),
+            canonical["cnpj_securitizadora"]
+            or (duplicate["cnpj_securitizadora"] if duplicate else None),
+            canonical["devedor"]
+            or (duplicate["devedor"] if duplicate else None),
+            canonical["cnpj_devedor"]
+            or (duplicate["cnpj_devedor"] if duplicate else None),
+            datetime.now(timezone.utc).isoformat(),
+            canonical["asset_id"],
+        ),
+    )
+
+
+def _create_asset_unique_indexes(connection: sqlite3.Connection) -> None:
+    connection.execute(
+        """CREATE UNIQUE INDEX IF NOT EXISTS uq_assets_isin_normalized_nonempty
+           ON assets(UPPER(REPLACE(TRIM(isin), ' ', '')))
+           WHERE isin IS NOT NULL AND TRIM(isin) <> ''"""
+    )
+    connection.execute(
+        """CREATE UNIQUE INDEX IF NOT EXISTS uq_assets_codigo_cetip_normalized_nonempty
+           ON assets(UPPER(REPLACE(TRIM(codigo_cetip), ' ', '')))
+           WHERE codigo_cetip IS NOT NULL AND TRIM(codigo_cetip) <> ''"""
+    )
 
 
 def _find_equivalent_documents(

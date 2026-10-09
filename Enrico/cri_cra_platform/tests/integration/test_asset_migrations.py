@@ -10,45 +10,48 @@ from credit_assets.database.asset_migrations import (
     migrate_cafe_brasil_duplicate_asset,
 )
 from credit_assets.database.connection import connect, initialize_database
-from credit_assets.models.asset import Asset
-from credit_assets.repositories.asset_repository import AssetRepository
 
 
-def _seed_duplicate_assets(connection: sqlite3.Connection) -> tuple[int, int]:
-    repository = AssetRepository(connection)
-    canonical_id = repository.upsert(
-        Asset(
-            "CRA022009VM",
-            "CRA",
-            "Eco Securitizadora",
-            "10.753.164/0001-43",
-            "190",
-            "unica",
-            "Cafe Brasil",
-            "01.486.546/0001-67",
-            "BRECOACRABX0",
-        )
-    )
-    duplicate_id = repository.upsert(
-        Asset(
-            "BRECOACRABX0",
-            "CRA",
-            "Eco Securitizadora",
-            "10.753.164/0001-43",
-            "190",
-            "1",
-            "Cafe Brasil",
-            "01.486.546/0001-67",
-            "BRRBRACRIP13",
-        )
-    )
+def _seed_duplicate_assets(
+    connection: sqlite3.Connection,
+    *,
+    canonical_isin: str | None = None,
+    duplicate_cetip: str = "BRECOACRABX0",
+    duplicate_isin: str = "BRECOACRABX0",
+    duplicate_type: str = "CRA",
+    duplicate_securitizer: str = "Eco Securitizadora",
+    duplicate_issue: str = "190",
+    duplicate_series: str = "1",
+    duplicate_debtor: str = "Cafe Brasil",
+) -> tuple[int, int]:
     connection.execute("DROP INDEX uq_assets_isin_normalized_nonempty")
-    connection.execute(
-        "UPDATE assets SET isin = ? WHERE asset_id = ?",
-        ("BRECOACRABX0", duplicate_id),
+    connection.execute("DROP INDEX uq_assets_codigo_cetip_normalized_nonempty")
+    canonical_cursor = connection.execute(
+        """INSERT INTO assets (
+            codigo_cetip, tipo_ativo, securitizadora, cnpj_securitizadora,
+            emissao, serie, devedor, cnpj_devedor, isin, created_at, updated_at
+        ) VALUES ('CRA022009VM', 'CRA', 'Eco Securitizadora', '10.753.164/0001-43',
+                  '190', 'unica', 'Cafe Brasil', '01.486.546/0001-67', ?, 'now', 'now')""",
+        (canonical_isin,),
+    )
+    duplicate_cursor = connection.execute(
+        """INSERT INTO assets (
+            codigo_cetip, tipo_ativo, securitizadora, cnpj_securitizadora,
+            emissao, serie, devedor, cnpj_devedor, isin, created_at, updated_at
+        ) VALUES (?, ?, ?, '10.753.164/0001-43', ?, ?, ?, '01.486.546/0001-67',
+                  ?, 'now', 'now')""",
+        (
+            duplicate_cetip,
+            duplicate_type,
+            duplicate_securitizer,
+            duplicate_issue,
+            duplicate_series,
+            duplicate_debtor,
+            duplicate_isin,
+        ),
     )
     connection.commit()
-    return canonical_id, duplicate_id
+    return int(canonical_cursor.lastrowid), int(duplicate_cursor.lastrowid)
 
 
 def _insert_document(
@@ -105,7 +108,7 @@ def _insert_version(
     )
 
 
-def test_migration_preserves_documents_versions_attempts_and_removes_empty_duplicate(
+def test_migration_accepts_null_isin_and_moves_document_and_attempt_references(
     tmp_path,
 ):
     connection = connect(tmp_path / "assets.db")
@@ -174,12 +177,20 @@ def test_migration_preserves_documents_versions_attempts_and_removes_empty_dupli
     assert result["collection_attempts_migrated"] == 2
     assert result["alerts_migrated"] == 1
     assert result["duplicate_asset_removed"] is True
+    canonical = connection.execute(
+        "SELECT codigo_cetip, isin, emissao, serie FROM assets WHERE asset_id = ?",
+        (canonical_id,),
+    ).fetchone()
+    assert tuple(canonical) == ("CRA022009VM", "BRECOACRABX0", "190", "1")
     assert connection.execute(
         "SELECT COUNT(*) FROM assets WHERE asset_id = ?", (duplicate_id,)
     ).fetchone()[0] == 0
     assert connection.execute(
         "SELECT COUNT(*) FROM documents WHERE asset_id = ?", (canonical_id,)
     ).fetchone()[0] == 2
+    assert connection.execute(
+        "SELECT COUNT(*) FROM documents WHERE asset_id = ?", (duplicate_id,)
+    ).fetchone()[0] == 0
     assert connection.execute(
         "SELECT COUNT(*) FROM documents WHERE source_url = 'https://example.test/equivalent'"
     ).fetchone()[0] == 1
@@ -200,8 +211,101 @@ def test_migration_preserves_documents_versions_attempts_and_removes_empty_dupli
     assert connection.execute(
         "SELECT COUNT(*) FROM alerts WHERE asset_id = ?", (canonical_id,)
     ).fetchone()[0] == 1
+    indexes = {
+        row["name"]
+        for row in connection.execute("PRAGMA index_list(assets)")
+    }
+    assert {
+        "uq_assets_isin_normalized_nonempty",
+        "uq_assets_codigo_cetip_normalized_nonempty",
+    } <= indexes
     assert (tmp_path / "equivalent.pdf").is_file()
     assert (tmp_path / "unique.pdf").is_file()
+
+
+@pytest.mark.parametrize("canonical_isin", ["", "BRECOACRABX0"])
+def test_migration_accepts_empty_or_matching_canonical_isin(tmp_path, canonical_isin):
+    connection = connect(tmp_path / f"assets-{canonical_isin or 'empty'}.db")
+    initialize_database(connection)
+    canonical_id, _ = _seed_duplicate_assets(
+        connection, canonical_isin=canonical_isin
+    )
+
+    result = migrate_cafe_brasil_duplicate_asset(connection)
+
+    assert result["canonical_asset_id"] == canonical_id
+    assert connection.execute(
+        "SELECT isin FROM assets WHERE asset_id = ?", (canonical_id,)
+    ).fetchone()[0] == "BRECOACRABX0"
+
+
+def test_migration_rejects_canonical_with_different_nonempty_isin(tmp_path):
+    connection = connect(tmp_path / "assets.db")
+    initialize_database(connection)
+    canonical_id, duplicate_id = _seed_duplicate_assets(
+        connection, canonical_isin="BRRBRACRIP13"
+    )
+
+    with pytest.raises(AssetMigrationConflict, match="ISIN incompatível"):
+        migrate_cafe_brasil_duplicate_asset(connection)
+
+    assert connection.execute(
+        "SELECT isin FROM assets WHERE asset_id = ?", (canonical_id,)
+    ).fetchone()[0] == "BRRBRACRIP13"
+    assert connection.execute(
+        "SELECT COUNT(*) FROM assets WHERE asset_id = ?", (duplicate_id,)
+    ).fetchone()[0] == 1
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("duplicate_cetip", "OTHER-CETIP"),
+        ("duplicate_isin", "BRRBRACRIP13"),
+        ("duplicate_type", "CRI"),
+        ("duplicate_securitizer", "Other Securitizadora"),
+        ("duplicate_issue", "191"),
+        ("duplicate_series", "2"),
+        ("duplicate_debtor", "Other Debtor"),
+    ],
+)
+def test_migration_rejects_incompatible_duplicate(tmp_path, field, value):
+    connection = connect(tmp_path / f"assets-{field}.db")
+    initialize_database(connection)
+    canonical_id, duplicate_id = _seed_duplicate_assets(
+        connection, **{field: value}
+    )
+
+    with pytest.raises(AssetMigrationConflict):
+        migrate_cafe_brasil_duplicate_asset(connection)
+
+    assert connection.execute(
+        "SELECT COUNT(*) FROM assets WHERE asset_id IN (?, ?)",
+        (canonical_id, duplicate_id),
+    ).fetchone()[0] == 2
+
+
+def test_migration_rejects_multiple_duplicates_by_isin(tmp_path):
+    connection = connect(tmp_path / "assets.db")
+    initialize_database(connection)
+    canonical_id, duplicate_id = _seed_duplicate_assets(connection)
+    second_duplicate = connection.execute(
+        """INSERT INTO assets (
+            codigo_cetip, tipo_ativo, securitizadora, cnpj_securitizadora,
+            emissao, serie, devedor, cnpj_devedor, isin, created_at, updated_at
+        ) VALUES ('BRECOACRABX0', 'CRA', 'Eco Securitizadora',
+                  '10.753.164/0001-43', '190', '1', 'Cafe Brasil',
+                  '01.486.546/0001-67', 'BRECOACRABX0', 'now', 'now')"""
+    ).lastrowid
+    connection.commit()
+
+    with pytest.raises(AssetMigrationConflict, match="exatamente um duplicado"):
+        migrate_cafe_brasil_duplicate_asset(connection)
+
+    assert connection.execute(
+        "SELECT COUNT(*) FROM assets WHERE asset_id IN (?, ?, ?)",
+        (canonical_id, duplicate_id, second_duplicate),
+    ).fetchone()[0] == 3
 
 
 def test_migration_rolls_back_on_document_metadata_conflict(tmp_path):
