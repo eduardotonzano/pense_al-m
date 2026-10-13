@@ -27,6 +27,7 @@ from credit_assets.repositories.document_attempt_repository import (
     DocumentAttemptRepository,
 )
 from credit_assets.repositories.execution_repository import ExecutionRepository
+from credit_assets.utils.document_classifier import classify_document
 from credit_assets.utils.fundosnet_normalization import product_type_id
 
 
@@ -67,16 +68,10 @@ def _fold(value: str) -> str:
 def infer_sample_category(category: str, document_name: str) -> str | None:
     if category in SAMPLE_CATEGORIES:
         return category
-    text = _fold(f"{category} {document_name}")
-    if "aditamento" in text:
-        return "Aditamento"
-    if "termo" in text and ("securitizacao" in text or category == "Outro"):
-        return "Termo de Securitização"
-    if "informe" in text and "mensal" in text:
-        return "Informe Mensal"
-    if "edital" in text or "ata" in text or re.search(r"\bago(?:/e)?\b", text):
-        return "Ata/Edital"
-    return None
+    classified = classify_document(
+        {"categoriaDocumento": category, "document_name": document_name}
+    )
+    return classified if classified in SAMPLE_CATEGORIES else None
 
 
 def _parse_sort_date(value: str | None) -> datetime:
@@ -398,6 +393,9 @@ class FundosNetBrowserDownloader:
                             "source_document_id": source_id,
                             "live_description": str(row.get("descricaoFundo") or ""),
                             "isin_description_validated": description_matches,
+                            "categoriaDocumento": str(
+                                row.get("categoriaDocumento") or ""
+                            ),
                             "live_type": str(row.get("tipoDocumento") or ""),
                             "live_species": str(row.get("especieDocumento") or ""),
                             "source_version": str(row.get("versao") or "") or None,
@@ -413,9 +411,14 @@ class FundosNetBrowserDownloader:
                             }
                             del pending[source_id]
                             continue
-                        actual_category = infer_sample_category(
-                            row_result["live_type"] + " " + row_result["live_species"],
-                            row_result["live_type"] or document["document_name"],
+                        classified_category = classify_document({
+                            **row_result,
+                            "document_name": document["document_name"],
+                        })
+                        actual_category = (
+                            classified_category
+                            if classified_category in SAMPLE_CATEGORIES
+                            else None
                         )
                         if actual_category != document["category"]:
                             results[document["document_id"]] = {
@@ -739,9 +742,8 @@ class DocumentDownloadService:
             "errors": [],
             "description_validation": sample["description_validation"],
             "category_classification_note": (
-                "Termo de Securitização e Aditamento não identificados automaticamente; "
-                "as categorias persistidas no catálogo são Outro. Nenhuma categoria foi "
-                "inventada; requer análise posterior dos nomes e conteúdos."
+                "A categoria é inferida pelos campos oficiais da grade e pelo nome do "
+                "documento; somente correspondências inequívocas substituem Outro."
             ),
         }
         for document in sample["selected"]:
@@ -903,6 +905,7 @@ class DocumentDownloadService:
             "live_type": payload.get("live_type"),
             "live_species": payload.get("live_species"),
         }
+        self.persist_live_category(document_id, payload)
         error = payload.get("error")
         temporary_path = payload.get("temporary_path")
         if error or not temporary_path:
@@ -1101,6 +1104,39 @@ class DocumentDownloadService:
             if owns_temp_file and temp_file.exists():
                 temp_file.unlink()
                 report["files_removed"] += 1
+
+    def persist_live_category(
+        self, document_id: int, payload: dict[str, Any]
+    ) -> str | None:
+        if not payload.get("isin_description_validated"):
+            return None
+        row = self.connection.execute(
+            "SELECT category, document_name FROM documents WHERE document_pk = ?",
+            (document_id,),
+        ).fetchone()
+        if row is None:
+            return None
+        if row["category"] != "Outro":
+            return str(row["category"])
+        category = classify_document({
+            "categoriaDocumento": payload.get("categoriaDocumento"),
+            "tipoDocumento": payload.get("tipoDocumento"),
+            "especieDocumento": payload.get("especieDocumento"),
+            "live_type": payload.get("live_type"),
+            "live_species": payload.get("live_species"),
+            "document_name": row["document_name"],
+        })
+        if category == "Outro":
+            return None
+        cursor = self.connection.execute(
+            """UPDATE documents SET category = ?
+               WHERE document_pk = ? AND category = 'Outro'""",
+            (category, document_id),
+        )
+        if cursor.rowcount:
+            self.connection.commit()
+            return category
+        return None
 
     @staticmethod
     def _validation_status(validation: dict[str, Any]) -> str:

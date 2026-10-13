@@ -56,6 +56,37 @@ def test_document_normalization_requires_run_id():
         )
 
 
+@pytest.mark.parametrize(
+    ("official_row", "expected_category"),
+    [
+        ({"tipoDocumento": "Informe Mensal de CRA"}, "Informe Mensal"),
+        ({"live_type": "Informe Mensal de CRI"}, "Informe Mensal"),
+        (
+            {
+                "live_type": "AGO/E",
+                "live_species": "Ata da Assembleia",
+            },
+            "Ata/Edital",
+        ),
+        ({"categoriaDocumento": "Edital"}, "Ata/Edital"),
+    ],
+)
+def test_collector_persists_category_from_official_fields(
+    official_row, expected_category
+):
+    document = FundosNetCollector._to_document(
+        asset(),
+        {
+            "id": "official-row",
+            "url": "https://example.test/document",
+            **official_row,
+        },
+        "catalog-run-2",
+    )
+
+    assert document.category == expected_category
+
+
 class FakeResponse:
     def __init__(self, payload=None, status=200, content_type="application/json"):
         self._payload = payload

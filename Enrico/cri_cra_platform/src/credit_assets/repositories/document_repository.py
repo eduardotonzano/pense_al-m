@@ -74,9 +74,15 @@ class DocumentRepository:
             status = "inserted"
         else:
             document_pk = int(existing["document_pk"])
+            category = (
+                existing["category"]
+                if document.category == "Outro"
+                and existing["category"] != "Outro"
+                else document.category
+            )
             incoming = {
                 "asset_id": document.asset_id,
-                "category": document.category,
+                "category": category,
                 "document_name": document.document_name or existing["document_name"],
                 "reference_date": document.reference_date or existing["reference_date"],
                 "publication_date": document.publication_date or existing["publication_date"],
@@ -102,7 +108,7 @@ class DocumentRepository:
                     collected_at = ?,
                     run_id = COALESCE(NULLIF(?, ''), run_id)
                    WHERE document_pk = ?""",
-                values + (document_pk,),
+                values[:2] + (category,) + values[3:] + (document_pk,),
             )
         self.connection.commit()
         return document_pk, status

@@ -214,3 +214,25 @@ def test_document_run_id_must_reference_registered_execution(tmp_path):
         )
 
     assert repository.count() == 0
+
+
+def test_upsert_never_replaces_specific_category_with_other(tmp_path):
+    connection = connect(tmp_path / "documents.db")
+    initialize_database(connection)
+    asset_id = make_asset(connection)
+    repository = DocumentRepository(connection)
+
+    document_id = repository.upsert(
+        make_document(asset_id, category="Informe Mensal")
+    )
+    repository.upsert(
+        make_document(
+            asset_id,
+            category="Outro",
+            document_name="",
+        )
+    )
+
+    stored = repository.find_by_source_document("doc-1", "origem")
+    assert stored["document_pk"] == document_id
+    assert stored["category"] == "Informe Mensal"

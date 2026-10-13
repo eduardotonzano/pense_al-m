@@ -258,6 +258,12 @@ def test_first_download_then_same_hash_is_unchanged(tmp_path):
     assert second["inserted"] == 0
     assert second["unchanged"] == 2
     assert second["new_version"] == 0
+    categories = connection.execute(
+        "SELECT category FROM documents ORDER BY document_pk"
+    ).fetchall()
+    assert [row["category"] for row in categories] == [
+        "Informe Mensal", "Ata/Edital"
+    ]
     assert connection.execute("SELECT COUNT(*) FROM document_versions").fetchone()[0] == 2
     assert connection.execute("SELECT COUNT(*) FROM documents").fetchone()[0] == len(document_ids)
     assert second["files_removed"] == 2
@@ -270,6 +276,144 @@ def test_first_download_then_same_hash_is_unchanged(tmp_path):
         "SELECT COUNT(*) FROM collection_attempts WHERE document_id IN (?, ?)",
         tuple(document_ids),
     ).fetchone()[0] == 4
+
+
+def test_live_official_category_corrects_other_without_changing_document_or_versions(
+    tmp_path,
+):
+    connection, document_ids = create_catalog(tmp_path)
+    version_repository = DocumentVersionRepository(connection)
+    file_records = []
+    for index, document_id in enumerate(document_ids):
+        content = f"%PDF-1.7\nverified-{index}".encode()
+        path = tmp_path / "data" / "documents" / f"verified-{index}.pdf"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(content)
+        file_hash = hashlib.sha256(content).hexdigest()
+        version_repository.create_version(
+            document_id=document_id,
+            file_name=path.name,
+            local_file_path=str(path.relative_to(tmp_path)),
+            file_format="pdf",
+            file_size_bytes=len(content),
+            file_hash=file_hash,
+            source_url=f"https://fnet.test/download?id={document_id}",
+            is_current=True,
+            validation_status="valid",
+        )
+        connection.execute(
+            """UPDATE documents SET file_hash = ?, download_status = 'downloaded'
+               WHERE document_pk = ?""",
+            (file_hash, document_id),
+        )
+        file_records.append((path, content, file_hash))
+    connection.commit()
+
+    protected_columns = (
+        "source_document_id", "asset_id", "document_name", "reference_date",
+        "publication_date", "source", "source_url", "download_status",
+        "file_hash", "run_id", "collected_at",
+    )
+    before_documents = {
+        document_id: tuple(
+            connection.execute(
+                f"SELECT {', '.join(protected_columns)} FROM documents "
+                "WHERE document_pk = ?",
+                (document_id,),
+            ).fetchone()
+        )
+        for document_id in document_ids
+    }
+    before_versions = {
+        document_id: tuple(
+            connection.execute(
+                "SELECT * FROM document_versions WHERE document_id = ?",
+                (document_id,),
+            ).fetchone()
+        )
+        for document_id in document_ids
+    }
+    service = make_service(connection, tmp_path, FakeDownloader({}))
+    report = {"asset": {"codigo_cetip": "CRA022009VM"}, "failed": 0, "errors": []}
+    live_rows = (
+        {"live_type": "Informe Mensal de CRA", "live_species": ""},
+        {"live_type": "AGO/E", "live_species": "Ata da Assembleia"},
+    )
+    for document_id, live_row in zip(document_ids, live_rows):
+        service._process_document(
+            {
+                "document_id": document_id,
+                "source_document_id": str(
+                    connection.execute(
+                        "SELECT source_document_id FROM documents WHERE document_pk = ?",
+                        (document_id,),
+                    ).fetchone()[0]
+                ),
+                "category": "Outro",
+                "document_name": "",
+                "source_url": f"https://fnet.test/visualizar?id={document_id}",
+            },
+            {
+                "error": "test metadata-only reclassification",
+                "isin_description_validated": True,
+                **live_row,
+            },
+            report,
+            tmp_path,
+        )
+
+    categories = {
+        document_id: connection.execute(
+            "SELECT category FROM documents WHERE document_pk = ?",
+            (document_id,),
+        ).fetchone()["category"]
+        for document_id in document_ids
+    }
+    assert categories == {
+        document_ids[0]: "Informe Mensal",
+        document_ids[1]: "Ata/Edital",
+    }
+    for document_id in document_ids:
+        after_document = tuple(
+            connection.execute(
+                f"SELECT {', '.join(protected_columns)} FROM documents "
+                "WHERE document_pk = ?",
+                (document_id,),
+            ).fetchone()
+        )
+        after_version = tuple(
+            connection.execute(
+                "SELECT * FROM document_versions WHERE document_id = ?",
+                (document_id,),
+            ).fetchone()
+        )
+        assert after_document == before_documents[document_id]
+        assert after_version == before_versions[document_id]
+    assert report["failed"] == 2
+    assert all(path.read_bytes() == content for path, content, _ in file_records)
+    assert [
+        connection.execute(
+            "SELECT file_hash FROM documents WHERE document_pk = ?",
+            (document_id,),
+        ).fetchone()["file_hash"]
+        for document_id in document_ids
+    ] == [record[2] for record in file_records]
+
+
+def test_live_category_requires_asset_description_validation(tmp_path):
+    connection, document_ids = create_catalog(tmp_path, ("Informe Mensal de CRA",))
+    service = make_service(connection, tmp_path, FakeDownloader({}))
+
+    category = service.persist_live_category(
+        document_ids[0],
+        {"live_type": "Informe Mensal de CRA"},
+    )
+
+    assert category is None
+    assert connection.execute(
+        "SELECT category FROM documents WHERE document_pk = ?",
+        (document_ids[0],),
+    ).fetchone()["category"] == "Outro"
 
 
 def test_new_hash_creates_version_and_preserves_history(tmp_path):
