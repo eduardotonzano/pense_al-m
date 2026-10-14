@@ -14,7 +14,10 @@ from playwright.sync_api import sync_playwright
 from credit_assets.collectors.base_collector import BaseCollector
 from credit_assets.models.asset import Asset
 from credit_assets.models.document import Document
-from credit_assets.utils.document_classifier import classify_document
+from credit_assets.utils.document_classifier import (
+    classify_document,
+    has_financial_statements_evidence,
+)
 from credit_assets.utils.fundosnet_normalization import normalize_text, product_type_id
 
 logger = logging.getLogger(__name__)
@@ -765,4 +768,5 @@ class FundosNetCollector(BaseCollector):
             file_hash=item.get("hash_arquivo") or item.get("file_hash") or item.get("sha256"),
             download_status="pending",
             collected_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            financial_statements_evidence=has_financial_statements_evidence(item),
         )

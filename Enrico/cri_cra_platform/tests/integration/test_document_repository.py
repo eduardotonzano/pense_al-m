@@ -2,11 +2,15 @@ import csv
 
 import pytest
 
+from credit_assets.collectors.fundosnet_collector import FundosNetCollector
 from credit_assets.database.connection import connect, initialize_database
 from credit_assets.models.asset import Asset
 from credit_assets.models.document import DOCUMENT_CATEGORIES, Document
 from credit_assets.repositories.asset_repository import AssetRepository
 from credit_assets.repositories.document_repository import DocumentRepository
+from credit_assets.repositories.document_version_repository import (
+    DocumentVersionRepository,
+)
 
 
 RUN_ID = "document-repository-test-run"
@@ -236,3 +240,87 @@ def test_upsert_never_replaces_specific_category_with_other(tmp_path):
     stored = repository.find_by_source_document("doc-1", "origem")
     assert stored["document_pk"] == document_id
     assert stored["category"] == "Informe Mensal"
+
+
+def test_financial_statements_reclassification_only_updates_category(tmp_path):
+    connection = connect(tmp_path / "reclassification.db")
+    initialize_database(connection)
+    asset_id = make_asset(connection)
+    asset = Asset(
+        "CRA-001",
+        "CRA",
+        "Securitizadora",
+        "123",
+        "1",
+        "1",
+        asset_id=asset_id,
+    )
+    repository = DocumentRepository(connection)
+    version_repository = DocumentVersionRepository(connection)
+    file_hash = "a" * 64
+    document_id = repository.upsert(
+        make_document(
+            asset_id,
+            category="Informe Mensal",
+            document_name="Demonstrações Financeiras",
+            source="Fundos.NET",
+            file_hash=file_hash,
+            download_status="downloaded",
+            collected_at="2026-01-03T00:00:00Z",
+        )
+    )
+    version_repository.create_version(
+        document_id=document_id,
+        file_name="financial-statements.pdf",
+        local_file_path="data/documents/financial-statements.pdf",
+        file_format="pdf",
+        file_size_bytes=100,
+        file_hash=file_hash,
+        source_url="https://example.test/physical-version",
+        source_version="1",
+        is_current=True,
+        validation_status="valid",
+        downloaded_at="2026-01-03T00:00:00Z",
+    )
+    connection.execute(
+        """INSERT INTO executions (run_id, started_at, status)
+           VALUES ('document-reclassification-next-run', '2026-01-04T00:00:00Z', 'running')"""
+    )
+    connection.commit()
+
+    stored_before = dict(
+        connection.execute(
+            "SELECT * FROM documents WHERE document_pk = ?", (document_id,)
+        ).fetchone()
+    )
+    versions_before = [
+        dict(row) for row in version_repository.list_versions(document_id)
+    ]
+    incoming = FundosNetCollector._to_document(
+        asset,
+        {
+            "id": "doc-1",
+            "titulo": "Demonstrações Financeiras",
+            "tipoDocumento": "Informe Mensal de CRA",
+            "url": "https://example.test/doc",
+        },
+        "document-reclassification-next-run",
+    )
+
+    assert incoming.category == "Outro"
+    assert incoming.financial_statements_evidence
+    assert repository.upsert_with_status(incoming) == (document_id, "updated")
+    assert repository.upsert_with_status(incoming) == (document_id, "unchanged")
+
+    stored_after = dict(
+        connection.execute(
+            "SELECT * FROM documents WHERE document_pk = ?", (document_id,)
+        ).fetchone()
+    )
+    versions_after = [
+        dict(row) for row in version_repository.list_versions(document_id)
+    ]
+    assert stored_after["category"] == "Outro"
+    assert stored_after == {**stored_before, "category": "Outro"}
+    assert versions_after == versions_before
+    assert version_repository.count_versions(document_id) == 1
