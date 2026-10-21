@@ -145,6 +145,59 @@ def test_sample_prefers_most_recent_and_never_invents_missing_category(tmp_path)
     assert selection["missing_categories"] == []
 
 
+def test_explicit_ids_select_multiple_documents_of_same_category(tmp_path):
+    connection, document_ids = create_catalog(
+        tmp_path, ("Informe Mensal de CRA", "Informe Mensal de CRA", "AGO/E")
+    )
+    selection = select_sample_documents(
+        connection, "CRA022009VM", "BRECOACRABX0",
+        source_document_ids=["981502", "981501", "981501"],
+    )
+    assert [item["document_id"] for item in selection["selected"]] == [
+        document_ids[1], document_ids[0]
+    ]
+    assert {item["category"] for item in selection["selected"]} == {"Informe Mensal"}
+    assert selection["requested_source_document_ids"] == ["981502", "981501"]
+
+
+@pytest.mark.parametrize("source_id, message", [
+    ("999999", "não catalogado"),
+    ("981502", "fora da amostra"),
+])
+def test_explicit_ids_reject_unknown_or_unapproved_documents(tmp_path, source_id, message):
+    connection, _ = create_catalog(tmp_path, ("Informe Mensal de CRA", "Demonstrações Financeiras"))
+    with pytest.raises(ValueError, match=message):
+        select_sample_documents(
+            connection, "CRA022009VM", "BRECOACRABX0",
+            source_document_ids=[source_id],
+        )
+
+
+def test_explicit_ids_reject_document_of_another_asset(tmp_path):
+    connection, _ = create_catalog(tmp_path)
+    other_asset_id = AssetRepository(connection).upsert(
+        Asset(
+            "24G2100031", "CRI", "Opea Securitizadora",
+            "02773542000122", "301", "1", isin="BRRBRACRIP13",
+        )
+    )
+    connection.execute(
+        """INSERT INTO documents (
+            source_document_id, asset_id, category, document_name,
+            source, source_url, run_id
+        ) VALUES ('outro-ativo', ?, 'Informe Mensal', 'Informe Mensal de CRI',
+                  'Fundos.NET', 'https://fnet.test/visualizar?id=outro-ativo',
+                  'download-service-catalog-run')""",
+        (other_asset_id,),
+    )
+    connection.commit()
+    with pytest.raises(ValueError, match="outro ativo"):
+        select_sample_documents(
+            connection, "CRA022009VM", "BRECOACRABX0",
+            source_document_ids=["outro-ativo"],
+        )
+
+
 def test_sample_prefers_previously_verified_version_over_newer_unverified_document(
     tmp_path,
 ):

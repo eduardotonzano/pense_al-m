@@ -57,6 +57,7 @@ FORMAT_EXTENSIONS = {
 }
 
 MAX_SAMPLE_DOCUMENTS = len(SAMPLE_CATEGORIES)
+MAX_EXPLICIT_DOCUMENTS = 20
 DEFAULT_MAX_BYTES = 25_000_000
 
 
@@ -116,7 +117,12 @@ def select_sample_documents(
     isin: str,
     categories: Iterable[str] | None = None,
     max_documents: int = MAX_SAMPLE_DOCUMENTS,
+    source_document_ids: Iterable[str] | None = None,
 ) -> dict[str, Any]:
+    if source_document_ids is not None:
+        return _select_explicit_documents(
+            connection, codigo_cetip, isin, source_document_ids
+        )
     if max_documents < 1 or max_documents > MAX_SAMPLE_DOCUMENTS:
         raise ValueError(f"max_documents deve estar entre 1 e {MAX_SAMPLE_DOCUMENTS}")
     requested = tuple(categories or SAMPLE_CATEGORIES)
@@ -203,6 +209,90 @@ def select_sample_documents(
         "missing_categories": [category for category in requested if category not in found_categories],
         "selected": selected,
         "excluded_candidates": excluded,
+        "description_validation": {
+            "database_asset_isin_matches": True,
+            "live_grade_rows_matched": 0,
+            "live_grade_rows_isin_verified": 0,
+            "all_selected_rows_verified": False,
+        },
+    }
+
+
+def _select_explicit_documents(
+    connection: sqlite3.Connection,
+    codigo_cetip: str,
+    isin: str,
+    source_document_ids: Iterable[str],
+) -> dict[str, Any]:
+    requested_ids = list(dict.fromkeys(
+        str(source_id).strip() for source_id in source_document_ids
+        if str(source_id).strip()
+    ))
+    if not requested_ids or len(requested_ids) > MAX_EXPLICIT_DOCUMENTS:
+        raise ValueError(
+            f"informe entre 1 e {MAX_EXPLICIT_DOCUMENTS} source_document_id distintos"
+        )
+    asset = connection.execute(
+        "SELECT * FROM assets WHERE codigo_cetip = ? AND isin = ?",
+        (codigo_cetip, isin),
+    ).fetchone()
+    if asset is None:
+        raise ValueError(f"Ativo {codigo_cetip} com ISIN {isin} não encontrado no SQLite")
+    selected = []
+    for source_id in requested_ids:
+        row = connection.execute(
+            """SELECT d.*, a.isin AS asset_isin, a.codigo_cetip AS stored_cetip,
+                      COALESCE(v.file_hash, d.file_hash) AS verified_file_hash
+               FROM documents d
+               JOIN assets a ON a.asset_id = d.asset_id
+               LEFT JOIN document_versions v
+                 ON v.document_id = d.document_pk
+                AND v.is_current = 1
+                AND v.validation_status = 'valid'
+               WHERE d.source = 'Fundos.NET' AND d.source_document_id = ?""",
+            (source_id,),
+        ).fetchone()
+        if row is None:
+            raise ValueError(f"source_document_id {source_id} não catalogado no SQLite")
+        if row["asset_isin"] != isin or int(row["asset_id"]) != int(asset["asset_id"]):
+            raise ValueError(
+                f"source_document_id {source_id} pertence a outro ativo ({row['asset_isin']})"
+            )
+        category = infer_sample_category(row["category"], row["document_name"])
+        if category is None:
+            raise ValueError(
+                f"source_document_id {source_id} tem categoria fora da amostra "
+                f"aprovada ({row['category']})"
+            )
+        parsed_url = urlsplit(str(row["source_url"] or "").strip())
+        if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
+            raise ValueError(f"source_document_id {source_id} sem URL válida")
+        selected.append({
+            "document_id": int(row["document_pk"]),
+            "source_document_id": source_id,
+            "asset_id": int(row["asset_id"]),
+            "asset_isin": row["asset_isin"],
+            "stored_cetip": row["stored_cetip"],
+            "category": category,
+            "document_name": row["document_name"],
+            "reference_date": row["reference_date"],
+            "publication_date": row["publication_date"],
+            "source_url": row["source_url"],
+            "source": row["source"],
+            "source_version": None,
+            "current_file_hash": row["verified_file_hash"],
+        })
+    found = list(dict.fromkeys(document["category"] for document in selected))
+    return {
+        "asset_id": int(asset["asset_id"]),
+        "codigo_cetip": codigo_cetip,
+        "isin": isin,
+        "requested_categories": found,
+        "found_categories": found,
+        "missing_categories": [],
+        "requested_source_document_ids": requested_ids,
+        "selected": selected,
+        "excluded_candidates": [],
         "description_validation": {
             "database_asset_isin_matches": True,
             "live_grade_rows_matched": 0,
@@ -708,11 +798,13 @@ class DocumentDownloadService:
         dry_run: bool = False,
         max_documents: int = MAX_SAMPLE_DOCUMENTS,
         categories: Iterable[str] | None = None,
+        source_document_ids: Iterable[str] | None = None,
     ) -> dict[str, Any]:
         started = time.perf_counter()
         run_id = uuid.uuid4().hex
         sample = select_sample_documents(
-            self.connection, codigo_cetip, isin, categories, max_documents
+            self.connection, codigo_cetip, isin, categories, max_documents,
+            source_document_ids=source_document_ids,
         )
         report: dict[str, Any] = {
             "run_id": run_id,
