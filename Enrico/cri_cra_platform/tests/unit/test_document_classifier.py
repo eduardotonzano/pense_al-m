@@ -30,3 +30,16 @@ def test_classifier_uses_official_fundosnet_document_fields():
     assert classify_document(
         {"especieDocumento": "Ata de Assembleia"}
     ) == "Ata/Edital"
+
+
+def test_financial_statements_are_other_even_with_generic_terms():
+    for name in (
+        "Demonstrações Financeiras",
+        "Demonstracoes Financeiras",
+        "Demonstração Financeira",
+        "Demonstracao Financeira",
+    ):
+        assert classify_document({"tipoDocumento": name}) == "Outro"
+        assert classify_document(
+            {"tipoDocumento": name, "descricao": "Informe Mensal CRA"}
+        ) == "Outro"

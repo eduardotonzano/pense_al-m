@@ -36,6 +36,9 @@ def classify_document(item: dict[str, object]) -> str:
             "descricao",
         )
     ))
+    # Sem categoria interna própria: precede termos genéricos como "informe"/"mensal".
+    if re.search(r"\bdemonstra\w*\s+financeira", text):
+        return "Outro"
     rules = (
         (("termo",), "Termo de Securitização"),
         (("aditamento",), "Aditamento"),
