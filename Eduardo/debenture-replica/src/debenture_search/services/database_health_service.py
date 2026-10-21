@@ -16,6 +16,7 @@ REQUIRED_TABLES = {
     "observations",
     "data_conflicts",
     "audit_log",
+    "debenture_events",
 }
 
 REQUIRED_VIEWS = {
