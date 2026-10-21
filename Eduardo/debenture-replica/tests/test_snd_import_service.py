@@ -185,3 +185,90 @@ def test_database_integrity(context):
 
     assert context["db"].integrity_check() == "ok"
     assert context["db"].foreign_key_check() == []
+
+
+TABULAR_PATH = (
+    Path(__file__).resolve().parent
+    / "fixtures"
+    / "snd_caracteristicas_tabular_exemplo.txt"
+)
+IDENTITY_FIELDS = ("codigo_ativo", "isin", "emissor", "cnpj_emissor")
+
+
+def identity_rows(context, debenture_id):
+    rows = context["db"].fetch_all(
+        """
+        SELECT o.field_name, o.value_text, o.observed_at, s.code AS source_code
+        FROM observations o
+        JOIN sources s ON s.id = o.source_id
+        WHERE o.debenture_id = ? AND o.field_name IN (?, ?, ?, ?)
+        """,
+        (debenture_id, *IDENTITY_FIELDS),
+    )
+    return {row["field_name"]: row for row in rows}
+
+
+def test_records_identity_fields_as_observations(context):
+    result = context["service"].import_html(
+        context["html"],
+        observed_at="2026-09-10T12:00:00+00:00",
+    )
+
+    rows = identity_rows(context, result.debenture_id)
+    assert set(rows) == set(IDENTITY_FIELDS)
+    assert rows["codigo_ativo"]["value_text"] == "EXMP12"
+    assert rows["isin"]["value_text"] == "BREXMPDBS001"
+    assert rows["cnpj_emissor"]["value_text"] == "12345678000199"
+    # emissor e a razao social (issuers.legal_name), nao o nome fantasia.
+    assert rows["emissor"]["value_text"] == "Companhia Exemplo de Energia S.A."
+    for row in rows.values():
+        assert row["source_code"] == "SND"
+        assert row["observed_at"].startswith("2026-09-10T12:00:00")
+
+
+def test_identity_observations_are_idempotent(context):
+    kwargs = {"observed_at": "2026-09-10T12:00:00+00:00"}
+    context["service"].import_html(context["html"], **kwargs)
+    second = context["service"].import_html(context["html"], **kwargs)
+
+    assert second.observations_created == 0
+    total = context["db"].fetch_one(
+        "SELECT COUNT(*) AS n FROM observations WHERE field_name IN (?, ?, ?, ?)",
+        IDENTITY_FIELDS,
+    )
+    assert total["n"] == 4
+
+
+def test_records_identity_fields_from_tabular_document(context):
+    result = context["service"].import_document(
+        TABULAR_PATH.read_text(encoding="utf-8"),
+        asset_code="PETR27",
+        content_type="text/plain",
+        observed_at="2026-09-11T12:00:00+00:00",
+    )
+
+    rows = identity_rows(context, result.debenture_id)
+    assert rows["codigo_ativo"]["value_text"] == "PETR27"
+    assert rows["isin"]["value_text"] == "BRPETRDBS0C2"
+    assert rows["cnpj_emissor"]["value_text"] == "33000167000101"
+    assert rows["emissor"]["value_text"] == "PETROLEO BRASILEIRO S/A - PETROBRAS"
+
+
+def test_current_values_expose_identity_with_source_and_date(context):
+    from debenture_search.services.debenture_query_service import (
+        DebentureQueryService,
+    )
+
+    result = context["service"].import_html(
+        context["html"],
+        observed_at="2026-09-10T12:00:00+00:00",
+    )
+
+    current = DebentureQueryService(context["db"]).current_values(
+        result.debenture_id
+    )
+
+    assert current["isin"].value == "BREXMPDBS001"
+    assert current["isin"].source_code == "SND"
+    assert current["isin"].observed_at.startswith("2026-09-10T12:00:00")
+    assert current["emissor"].value == "Companhia Exemplo de Energia S.A."

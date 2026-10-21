@@ -1,24 +1,42 @@
+from datetime import datetime, timezone
+
 from debenture_search.parsers.snd_parser import SndParser
 from debenture_search.parsers.snd_tabular_parser import SndTabularParser
 from debenture_search.services.ingestion_service import IngestionService
 
 
 class SndImportService:
+    # D-08: campos de identificacao gravados tambem como observacoes, para
+    # terem fonte e data de observacao. Nomes distintos de asset_code e
+    # issuer_cnpj para nao colidir com as chaves do export. "emissor" e a
+    # razao social (issuers.legal_name), nao o nome fantasia.
+    IDENTITY_OBSERVATIONS = (
+        ("codigo_ativo", "asset_code"),
+        ("isin", "isin"),
+        ("emissor", "issuer_legal_name"),
+        ("cnpj_emissor", "issuer_cnpj"),
+    )
+
     def __init__(self, db, ingestion_service=None):
         self.db = db
         self.ingestion = ingestion_service or IngestionService(db)
 
     @staticmethod
-    def _observations(parsed, observed_at=None):
+    def _observations(parsed, observed_at):
         result = []
         for item in parsed.observations:
             data = {"field_name": item.field_name, "value_type": item.value_type,
                     "value": item.value, "confidence": item.confidence}
             if item.unit is not None:
                 data["unit"] = item.unit
-            if observed_at is not None:
-                data["observed_at"] = observed_at
+            data["observed_at"] = observed_at
             result.append(data)
+        for field_name, attribute in SndImportService.IDENTITY_OBSERVATIONS:
+            value = getattr(parsed, attribute, None)
+            if value:
+                result.append({"field_name": field_name, "value_type": "text",
+                               "value": value, "observed_at": observed_at,
+                               "confidence": "reported"})
         return result
 
     def import_document(self, document, asset_code=None, content_type=None, **kwargs):
@@ -35,7 +53,9 @@ class SndImportService:
                           "parser_version", "actor"}
         ingestion_args = {key: value for key, value in kwargs.items()
                           if key in ingestion_keys}
-        observed_at = kwargs.get("observed_at")
+        # Um unico instante para todas as observacoes do documento.
+        observed_at = (kwargs.get("observed_at")
+                       or datetime.now(timezone.utc).isoformat())
         return self.ingestion.ingest(
             source_code="SND", payload=document, asset_code=parsed.asset_code,
             isin=parsed.isin, issuer_legal_name=parsed.issuer_legal_name,
