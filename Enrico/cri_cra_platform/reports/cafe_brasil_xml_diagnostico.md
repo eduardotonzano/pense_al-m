@@ -19,7 +19,7 @@ Não foi encontrado XSD público. O que existe:
   Ele traz `Versao` do documento, útil para identificar reapresentações.
 - Contato indicado pela CVM para o sistema: B3, Superintendência de Suporte a Emissores.
 
-Nenhum dos 11 XMLs declara versão de leiaute, `schemaLocation` ou namespace próprio.
+Nenhum dos 17 XMLs declara versão de leiaute, `schemaLocation` ou namespace próprio.
 
 ## Amostra (17 arquivos, hashes conferidos contra o banco antes da análise)
 
