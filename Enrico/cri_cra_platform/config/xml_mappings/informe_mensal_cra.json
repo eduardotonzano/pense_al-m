@@ -1,0 +1,7 @@
+{
+  "mapping_version": "0.0.0-draft",
+  "layout_version": null,
+  "layout_validation_status": "structural_only",
+  "notes": "Nenhuma decisão aprovada ainda. Cada caminho precisa de status (mapped | ignored | pending_decision) e justificativa; caminhos ausentes deste arquivo são tratados como pending_decision.",
+  "paths": {}
+}
