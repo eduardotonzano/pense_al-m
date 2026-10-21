@@ -90,7 +90,10 @@ class DebentureExportService:
         }
 
         for field_name, current in details.current_values.items():
-            row[field_name] = self.serialize_value(current.value)
+            # Identificacao (asset_code, isin, emissor...) vem de debentures
+            # e issuers; uma observacao com o mesmo nome nao a sobrescreve.
+            if field_name not in row:
+                row[field_name] = self.serialize_value(current.value)
 
         return {
             field_name: self.serialize_value(row.get(field_name))

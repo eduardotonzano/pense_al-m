@@ -7,9 +7,10 @@ from debenture_search.services.ingestion_service import IngestionService
 
 class SndImportService:
     # D-08: campos de identificacao gravados tambem como observacoes, para
-    # terem fonte e data de observacao. Nomes distintos de asset_code e
-    # issuer_cnpj para nao colidir com as chaves do export. "emissor" e a
-    # razao social (issuers.legal_name), nao o nome fantasia.
+    # terem fonte e data de observacao. Nenhum vira coluna do export: ele so
+    # emite DEFAULT_FIELDS e, nas chaves de identificacao (inclusive "isin",
+    # que tem o mesmo nome), mantem o valor de debentures/issuers.
+    # "emissor" e a razao social (issuers.legal_name), nao o nome fantasia.
     IDENTITY_OBSERVATIONS = (
         ("codigo_ativo", "asset_code"),
         ("isin", "isin"),

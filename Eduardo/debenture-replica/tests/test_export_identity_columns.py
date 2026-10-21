@@ -5,6 +5,9 @@ from pathlib import Path
 import pytest
 
 from debenture_search.database import Database
+from debenture_search.repositories.observation_repository import (
+    ObservationRepository,
+)
 from debenture_search.services.debenture_export_service import (
     DebentureExportService,
 )
@@ -56,3 +59,27 @@ def test_csv_and_json_keep_default_columns(context, tmp_path):
     for name in ("codigo_ativo", "emissor", "cnpj_emissor"):
         assert name not in header
     assert rows[0]["isin"] == "BREXMPDBS001"
+
+
+def test_export_identification_comes_from_entity_tables(context):
+    result = context["importer"].import_html(
+        context["html"],
+        observed_at="2026-09-10T12:00:00+00:00",
+    )
+    manual = context["db"].fetch_one(
+        "SELECT id FROM sources WHERE code = ?",
+        ("MANUAL",),
+    )
+    ObservationRepository(context["db"]).create(
+        debenture_id=result.debenture_id,
+        source_id=int(manual["id"]),
+        field_name="isin",
+        value_type="text",
+        value="BRZZZZDBS999",
+        observed_at="2026-09-12T12:00:00+00:00",
+    )
+
+    row = context["export"].consolidated_rows("EXMP12")[0]
+
+    # Observacao de fonte de maior prioridade nao troca o ISIN de debentures.
+    assert row["isin"] == "BREXMPDBS001"
