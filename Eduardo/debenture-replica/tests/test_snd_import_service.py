@@ -3,6 +3,9 @@ from pathlib import Path
 import pytest
 
 from debenture_search.database import Database
+from debenture_search.services.debenture_query_service import (
+    DebentureQueryService,
+)
 from debenture_search.services.snd_import_service import SndImportService
 
 
@@ -13,6 +16,12 @@ FIXTURE_PATH = (
     / "fixtures"
     / "snd_caracteristicas_exemplo.html"
 )
+TABULAR_PATH = (
+    Path(__file__).resolve().parent
+    / "fixtures"
+    / "snd_caracteristicas_tabular_exemplo.txt"
+)
+IDENTITY_FIELDS = ("codigo_ativo", "isin", "emissor", "cnpj_emissor")
 
 
 @pytest.fixture
@@ -28,6 +37,38 @@ def context(tmp_path):
         "db": db,
         "service": SndImportService(db),
         "html": FIXTURE_PATH.read_text(encoding="utf-8"),
+    }
+
+
+def identity_rows(context, debenture_id):
+    rows = context["db"].fetch_all(
+        """
+        SELECT o.field_name, o.value_text, o.observed_at, s.code AS source_code
+        FROM observations o
+        JOIN sources s ON s.id = o.source_id
+        WHERE o.debenture_id = ? AND o.field_name IN (?, ?, ?, ?)
+        """,
+        (debenture_id, *IDENTITY_FIELDS),
+    )
+    return {row["field_name"]: row for row in rows}
+
+
+def table_identity(context, result):
+    """Identificacao como esta em debentures/issuers, para comparar."""
+
+    debenture = context["db"].fetch_one(
+        "SELECT asset_code, isin FROM debentures WHERE id = ?",
+        (result.debenture_id,),
+    )
+    issuer = context["db"].fetch_one(
+        "SELECT cnpj, legal_name FROM issuers WHERE id = ?",
+        (result.issuer_id,),
+    )
+    return {
+        "codigo_ativo": debenture["asset_code"],
+        "isin": debenture["isin"],
+        "emissor": issuer["legal_name"],
+        "cnpj_emissor": issuer["cnpj"],
     }
 
 
@@ -187,27 +228,6 @@ def test_database_integrity(context):
     assert context["db"].foreign_key_check() == []
 
 
-TABULAR_PATH = (
-    Path(__file__).resolve().parent
-    / "fixtures"
-    / "snd_caracteristicas_tabular_exemplo.txt"
-)
-IDENTITY_FIELDS = ("codigo_ativo", "isin", "emissor", "cnpj_emissor")
-
-
-def identity_rows(context, debenture_id):
-    rows = context["db"].fetch_all(
-        """
-        SELECT o.field_name, o.value_text, o.observed_at, s.code AS source_code
-        FROM observations o
-        JOIN sources s ON s.id = o.source_id
-        WHERE o.debenture_id = ? AND o.field_name IN (?, ?, ?, ?)
-        """,
-        (debenture_id, *IDENTITY_FIELDS),
-    )
-    return {row["field_name"]: row for row in rows}
-
-
 def test_records_identity_fields_as_observations(context):
     result = context["service"].import_html(
         context["html"],
@@ -224,6 +244,16 @@ def test_records_identity_fields_as_observations(context):
     for row in rows.values():
         assert row["source_code"] == "SND"
         assert row["observed_at"].startswith("2026-09-10T12:00:00")
+
+
+def test_identity_observations_match_entity_tables(context):
+    result = context["service"].import_html(context["html"])
+
+    rows = identity_rows(context, result.debenture_id)
+
+    assert {
+        name: row["value_text"] for name, row in rows.items()
+    } == table_identity(context, result)
 
 
 def test_identity_observations_are_idempotent(context):
@@ -252,13 +282,23 @@ def test_records_identity_fields_from_tabular_document(context):
     assert rows["isin"]["value_text"] == "BRPETRDBS0C2"
     assert rows["cnpj_emissor"]["value_text"] == "33000167000101"
     assert rows["emissor"]["value_text"] == "PETROLEO BRASILEIRO S/A - PETROBRAS"
+    assert {
+        name: row["value_text"] for name, row in rows.items()
+    } == table_identity(context, result)
+
+
+def test_observations_share_one_timestamp_when_not_informed(context):
+    result = context["service"].import_html(context["html"])
+
+    stamps = context["db"].fetch_all(
+        "SELECT DISTINCT observed_at FROM observations WHERE debenture_id = ?",
+        (result.debenture_id,),
+    )
+
+    assert len(stamps) == 1
 
 
 def test_current_values_expose_identity_with_source_and_date(context):
-    from debenture_search.services.debenture_query_service import (
-        DebentureQueryService,
-    )
-
     result = context["service"].import_html(
         context["html"],
         observed_at="2026-09-10T12:00:00+00:00",
