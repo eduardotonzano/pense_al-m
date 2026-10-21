@@ -1,5 +1,3 @@
-from datetime import datetime, timezone
-
 from debenture_search.parsers.snd_parser import SndParser
 from debenture_search.parsers.snd_tabular_parser import SndTabularParser
 from debenture_search.services.ingestion_service import IngestionService
@@ -55,8 +53,7 @@ class SndImportService:
         ingestion_args = {key: value for key, value in kwargs.items()
                           if key in ingestion_keys}
         # Um unico instante para todas as observacoes do documento.
-        observed_at = (kwargs.get("observed_at")
-                       or datetime.now(timezone.utc).isoformat())
+        observed_at = kwargs.get("observed_at") or IngestionService.utc_now()
         return self.ingestion.ingest(
             source_code="SND", payload=document, asset_code=parsed.asset_code,
             isin=parsed.isin, issuer_legal_name=parsed.issuer_legal_name,
