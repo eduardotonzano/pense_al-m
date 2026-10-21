@@ -14,6 +14,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.collectors.fundosnet_collector import FundosNetCollector
 from credit_assets.database.connection import connect, initialize_database
+from credit_assets.database.migrations import ensure_schema_current
 from credit_assets.models.asset import Asset
 from credit_assets.repositories.asset_repository import AssetRepository
 from credit_assets.repositories.document_repository import DocumentRepository
@@ -80,6 +81,7 @@ def run(
     report_path = report_path or ROOT / "reports" / "document_catalog_latest.json"
     connection = connect(database_path)
     initialize_database(connection)
+    ensure_schema_current(connection)
     assets_repo = AssetRepository(connection)
     documents_repo = DocumentRepository(connection)
     collector = None if offline else FundosNetCollector()

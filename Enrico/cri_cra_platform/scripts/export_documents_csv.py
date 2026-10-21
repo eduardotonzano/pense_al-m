@@ -7,12 +7,14 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.database.connection import connect, initialize_database
+from credit_assets.database.migrations import ensure_schema_current
 from credit_assets.repositories.document_repository import DocumentRepository
 
 
 def main() -> None:
     connection = connect(ROOT / "data" / "cri_cra.db")
     initialize_database(connection)
+    ensure_schema_current(connection)
     output = DocumentRepository(connection).export_csv(
         ROOT / "data" / "catalogo_documentos.csv"
     )

@@ -3,6 +3,11 @@ from __future__ import annotations
 import sqlite3
 from pathlib import Path
 
+from credit_assets.database.migrations import (
+    apply_pending,
+    pending_migrations,
+)
+
 
 def connect(database_path: str | Path) -> sqlite3.Connection:
     path = Path(database_path)
@@ -13,7 +18,17 @@ def connect(database_path: str | Path) -> sqlite3.Connection:
     return connection
 
 
-def initialize_database(connection: sqlite3.Connection) -> None:
+def initialize_database(
+    connection: sqlite3.Connection,
+    migrations_dir: str | Path | None = None,
+) -> None:
+    # Banco novo (sem tabelas) nao tem dados a proteger: recebe tambem as
+    # migrations numeradas. Banco existente so as recebe por
+    # scripts/apply_migration.py, que faz backup e verifica antes de confirmar.
+    is_new = connection.execute(
+        """SELECT COUNT(*) FROM sqlite_master
+           WHERE type = 'table' AND name NOT LIKE 'sqlite_%'"""
+    ).fetchone()[0] == 0
     schema_path = Path(__file__).with_name("schema.sql")
     connection.executescript(schema_path.read_text(encoding="utf-8"))
     # Older catalogs enforced a global unique hash on documents. Physical hashes
@@ -66,3 +81,8 @@ def initialize_database(connection: sqlite3.Connection) -> None:
            WHERE codigo_cetip IS NOT NULL AND TRIM(codigo_cetip) <> ''"""
     )
     connection.commit()
+    if is_new:
+        apply_pending(
+            connection,
+            pending_migrations(connection, migrations_dir),
+        )
