@@ -21,24 +21,43 @@ Não foi encontrado XSD público. O que existe:
 
 Nenhum dos 11 XMLs declara versão de leiaute, `schemaLocation` ou namespace próprio.
 
-## Amostra (11 arquivos, hashes conferidos contra o banco antes da análise)
+## Amostra (17 arquivos, hashes conferidos contra o banco antes da análise)
 
-| source_document_id | Publicação | Competência (`DadosGerais/Competencia`) |
+`Versão` é o campo `versao` da grade do Fundos.NET (`document_versions.source_version`).
+
+| Competência (`DadosGerais/Competencia`) | Versão 1 | Versão 2 |
 |---|---|---|
-| 380870 | 21/11/2022 | 2022-10-30 |
-| 692858 | 05/07/2024 | 2023-12-31 |
-| 695313 | 10/07/2024 | 2024-01-31 |
-| 699956 | 16/07/2024 | 2024-02-29 |
-| 702007 | 21/07/2024 | 2024-03-31 |
-| 703068 | 23/07/2024 | 2024-04-30 |
-| 707394 | 30/07/2024 | 2024-06-30 |
-| 833116 | 07/02/2025 | 2024-12-31 |
-| 849077 | 27/02/2025 | 2025-01-31 |
-| 1300722 | 26/08/2026 | 2026-07-31 |
-| 1328844 | 25/09/2026 | 2026-08-31 |
+| 2022-10-30 | 380870 (21/11/2022) | — |
+| 2023-12-31 | 590722 (27/01/2024) | 692858 (05/07/2024) |
+| 2024-01-31 | 601820 (13/02/2024) | 695313 (10/07/2024) |
+| 2024-02-29 | 628066 (27/03/2024) | 699956 (16/07/2024) |
+| 2024-03-31 | 648761 (30/04/2024) | 702007 (21/07/2024) |
+| 2024-04-30 | 666963 (22/05/2024) | 703068 (23/07/2024) |
+| 2024-05-31 | 688790 (28/06/2024) | — |
+| 2024-06-30 | 707394 (30/07/2024) | — |
+| 2024-12-31 | 833116 (07/02/2025) | — |
+| 2025-01-31 | 849077 (27/02/2025) | — |
+| 2026-07-31 | 1300722 (26/08/2026) | — |
+| 2026-08-31 | 1328844 (25/09/2026) | — |
 
-Julho/2024 e fevereiro/2025 são entregas de competências distintas, não reapresentações.
-A competência 2024-05 não está na amostra.
+Fevereiro/2025 traz duas competências distintas, cada uma em versão 1. **Julho/2024 traz
+reapresentações**: cinco documentos em versão 2 (dez/2023 a abr/2024) e a entrega regular
+de jun/2024. (Uma versão anterior deste relatório dizia o contrário; foi corrigida após
+consultar `source_version`.)
+
+## Reapresentações e escala
+
+- As versões 1 de dez/2023 a abr/2024 trazem os valores monetários em escala aparente de
+  **milhares de reais** (ex.: `VlrCertificadosPorClasse = 100000`); as versões 2 trazem os
+  mesmos campos em **reais** (`100000000`). Entre 13 e 18 campos mudam por par, quase todos
+  por fator ~1000.
+- A troca de escala começa na entrega de mai/2024 (688790, publicada em 28/06/2024, já em reais).
+  O 380870 (2022, versão 1, nunca reapresentado na amostra) também está em milhares.
+- No par de abr/2024 há também correção de conteúdo: `RendimentosDistribuidosPeriodo`
+  passa de `773.39` (repetição do valor de março) para `0`.
+- Consequências: a escala não é declarada no XML e muda entre entregas; a versão vigente de
+  cada competência precisa considerar `source_version`; comparações entre períodos não podem
+  usar versões 1 substituídas.
 
 ## Estrutura
 
@@ -54,7 +73,7 @@ A competência 2024-05 não está na amostra.
 ## Achados para decisão
 
 1. **`xsi:nil` vs zero.** O 380870 (2022) marca 47 campos numéricos com `xsi:nil="true"`;
-   nos outros 10 os mesmos campos vêm `0`. Nil, vazio (`<X></X>`) e zero são estados
+   nos outros 16 os mesmos campos vêm `0`. Nil, vazio (`<X></X>`) e zero são estados
    distintos e não podem ser normalizados entre si.
 2. **Sempre vazios (9 folhas)**: 7 com `xsi:nil` em todos os arquivos (classificação de
    risco, índices de subordinação, concentração 5/10/20 maiores devedores) e 2 vazias sem nil
@@ -73,7 +92,12 @@ A competência 2024-05 não está na amostra.
 7. **Competência fora do fim do mês**: 380870 declara `2022-10-30`. Preservar como veio.
 8. **Typo na fonte**: `CompanhiaEmissora = "Eco Securitizdora ..."`. Não corrigir na extração.
 
-## Próximo passo
+## Golden set
 
-Montar o golden set a partir destes 11 arquivos (nil, vazio, zero, monetário, percentual,
-texto, `@total` divergente) e acrescentar um ativo multissérie para cobrir blocos repetidos.
+`config/golden_sets/informe_mensal_cra_cafe_brasil.json` — 27 itens congelados por SHA-256,
+com linha e trecho do XML bruto; todos `human_review_status = pending`.
+Planilha de revisão: `reports/golden_set_review_informe_mensal_cra_cafe_brasil.csv`.
+Gerado e verificado por `scripts/build_golden_set.py` (itens congelados nunca são reescritos).
+
+Cobertura obrigatória ausente: `absent`, `repeated_block` (exige ativo multissérie) e
+`invalid`. Enquanto houver lacunas ou itens pendentes, nenhuma `mapping_version` pode ser publicada.

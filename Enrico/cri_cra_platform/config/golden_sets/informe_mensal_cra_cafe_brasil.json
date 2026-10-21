@@ -1,0 +1,847 @@
+{
+  "golden_set_id": "informe_mensal_cra_cafe_brasil",
+  "schema_version": "1",
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "layout_validation_status": "structural_only",
+  "created_at": "2026-10-21",
+  "coverage_gaps": {
+    "absent": "nenhum elemento ausente nos 17 arquivos",
+    "repeated_block": "amostra com 1 série/1 devedor; requer ativo multissérie",
+    "invalid": "nenhum valor inválido observado"
+  },
+  "items": [
+    {
+      "item_id": "IMCRA-001",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/DadosGerais/Competencia",
+      "instance_index": 0,
+      "case_types": [
+        "present_value",
+        "date"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Competência difere da data de publicação (25/09/2026).",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 4,
+        "xsi_nil": false,
+        "evidence_excerpt": "<Competencia>2026-08-31</Competencia>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "2026-08-31"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-002",
+      "source_document_id": "380870",
+      "xml_path": "/InformeMensalCRA/DadosGerais/Competencia",
+      "instance_index": 0,
+      "case_types": [
+        "present_value",
+        "date"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "Aceitar 2022-10-30 como competência literal (não é fim de mês)?",
+      "notes": "Preservar o valor original; não ajustar para 31.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 5,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2022-11-21_380870_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "cbc73d36f3fdee1863a02448675a2c81cd2c76071c4f83243e146ab9fcc6d416",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 4,
+        "xsi_nil": false,
+        "evidence_excerpt": "<Competencia>2022-10-30</Competencia>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "2022-10-30"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-003",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/DadosGerais/Emissao/CodigoIdentificacao",
+      "instance_index": 0,
+      "case_types": [
+        "present_value",
+        "identifier"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "ISIN do ativo; base para validação de identidade.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 14,
+        "xsi_nil": false,
+        "evidence_excerpt": "<CodigoIdentificacao>BRECOACRABX0</CodigoIdentificacao>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "BRECOACRABX0"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-004",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/Situacao",
+      "instance_index": 0,
+      "case_types": [
+        "text"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": null,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 28,
+        "xsi_nil": false,
+        "evidence_excerpt": "<Situacao>Em atraso</Situacao>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "Em atraso"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-005",
+      "source_document_id": "380870",
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/Situacao",
+      "instance_index": 0,
+      "case_types": [
+        "text"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Contraste com IMCRA-004 para comparação entre períodos.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 5,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2022-11-21_380870_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "cbc73d36f3fdee1863a02448675a2c81cd2c76071c4f83243e146ab9fcc6d416",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 28,
+        "xsi_nil": false,
+        "evidence_excerpt": "<Situacao>Adimplente</Situacao>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "Adimplente"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-006",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse",
+      "instance_index": 0,
+      "case_types": [
+        "monetary"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "Confirmar moeda BRL e escala 1 (reais).",
+      "notes": null,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 51,
+        "xsi_nil": false,
+        "evidence_excerpt": "<VlrCertificadosPorClasse>45048086.96</VlrCertificadosPorClasse>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "45048086.96"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-007",
+      "source_document_id": "380870",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse",
+      "instance_index": 0,
+      "case_types": [
+        "monetary",
+        "scale_inconsistency"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "O valor 100891.09 está em milhares de reais? Emissão de R$ 100 mi; arquivos posteriores trazem ~1e8.",
+      "notes": "Escala não declarada no XML; não converter sem decisão.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 5,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2022-11-21_380870_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "cbc73d36f3fdee1863a02448675a2c81cd2c76071c4f83243e146ab9fcc6d416",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 51,
+        "xsi_nil": false,
+        "evidence_excerpt": "<VlrCertificadosPorClasse>100891.09</VlrCertificadosPorClasse>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "100891.09"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-008",
+      "source_document_id": "692858",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse",
+      "instance_index": 0,
+      "case_types": [
+        "monetary"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Mesmo campo em forma inteira, sem casas decimais.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 8,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2024-07-05_692858_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "e64421a0821f4f598ac7c27880a49916342f35d7ff70e3a828fb06f196ca4c7a",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 51,
+        "xsi_nil": false,
+        "evidence_excerpt": "<VlrCertificadosPorClasse>100000000</VlrCertificadosPorClasse>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "100000000"
+      },
+      "source_version": "2"
+    },
+    {
+      "item_id": "IMCRA-009",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/RentabilidadePeriodo",
+      "instance_index": 0,
+      "case_types": [
+        "percentage"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "0.0147 é fração (1,47%) ou já percentual (0,0147%)?",
+      "notes": null,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 54,
+        "xsi_nil": false,
+        "evidence_excerpt": "<RentabilidadePeriodo>0.0147</RentabilidadePeriodo>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "0.0147"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-010",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/Percentual",
+      "instance_index": 0,
+      "case_types": [
+        "percentage"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "1 significa 100%? (Concentracao = 'Concentrado - mais de 20%').",
+      "notes": null,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 166,
+        "xsi_nil": false,
+        "evidence_excerpt": "<Percentual>1</Percentual>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "1"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-011",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/TaxaJuros",
+      "instance_index": 0,
+      "case_types": [
+        "text"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Texto livre com vírgula decimal; manter como texto.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 30,
+        "xsi_nil": false,
+        "evidence_excerpt": "<TaxaJuros>CDI + 4,5000 a.a.</TaxaJuros>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "CDI + 4,5000 a.a."
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-012",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/TipoRetencaoRisco",
+      "instance_index": 0,
+      "case_types": [
+        "present_empty"
+      ],
+      "proposed_field_state": "present_empty",
+      "decision_question": null,
+      "notes": "Elemento presente, vazio, sem xsi:nil.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 41,
+        "xsi_nil": false,
+        "evidence_excerpt": "<TipoRetencaoRisco/>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": ""
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-013",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo",
+      "instance_index": 0,
+      "case_types": [
+        "present_empty",
+        "xsi_nil"
+      ],
+      "proposed_field_state": "present_empty",
+      "decision_question": "xsi:nil deve virar estado próprio ou present_empty com marcador?",
+      "notes": null,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 56,
+        "xsi_nil": true,
+        "evidence_excerpt": "<IndiceSubordinacaoMinimo xsi:nil=\"true\"/>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": ""
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-014",
+      "source_document_id": "380870",
+      "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos",
+      "instance_index": 0,
+      "case_types": [
+        "present_empty",
+        "xsi_nil"
+      ],
+      "proposed_field_state": "present_empty",
+      "decision_question": null,
+      "notes": "Mesmo caminho que IMCRA-015, que vale 0. Nil não é zero.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 5,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2022-11-21_380870_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "cbc73d36f3fdee1863a02448675a2c81cd2c76071c4f83243e146ab9fcc6d416",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 76,
+        "xsi_nil": true,
+        "evidence_excerpt": "<DirCredVencidosNaoPagos xsi:nil=\"true\"/>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": ""
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-015",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos",
+      "instance_index": 0,
+      "case_types": [
+        "zero"
+      ],
+      "proposed_field_state": "zero",
+      "decision_question": null,
+      "notes": null,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 76,
+        "xsi_nil": false,
+        "evidence_excerpt": "<DirCredVencidosNaoPagos>0</DirCredVencidosNaoPagos>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "0"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-016",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/Passivo/ReducaoVlrEmissao",
+      "instance_index": 0,
+      "case_types": [
+        "monetary",
+        "negative"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": null,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 101,
+        "xsi_nil": false,
+        "evidence_excerpt": "<ReducaoVlrEmissao>-0.01</ReducaoVlrEmissao>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "-0.01"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-017",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/Passivo/@total",
+      "instance_index": 0,
+      "case_types": [
+        "monetary",
+        "total_divergent"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "Soma das folhas = 45048086.95 (diferença 0.02). Gerar warning?",
+      "notes": null,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 93,
+        "xsi_nil": false,
+        "evidence_excerpt": "<Passivo total=\"45048086.97\">",
+        "evidence_excerpt_truncated": false,
+        "attribute_present": true,
+        "raw_text": "45048086.97"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-018",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/Ativo/@total",
+      "instance_index": 0,
+      "case_types": [
+        "monetary",
+        "total"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Confere com a soma das folhas.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 72,
+        "xsi_nil": false,
+        "evidence_excerpt": "<Ativo total=\"45048086.97\">",
+        "evidence_excerpt_truncated": false,
+        "attribute_present": true,
+        "raw_text": "45048086.97"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-019",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/DadosGerais/CompanhiaEmissora",
+      "instance_index": 0,
+      "case_types": [
+        "text",
+        "source_typo"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Erro de digitação na fonte ('Securitizdora'); não corrigir.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 5,
+        "xsi_nil": false,
+        "evidence_excerpt": "<CompanhiaEmissora>Eco Securitizdora de Direitos Creditórios do Agronegócio</CompanhiaEmissora>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "Eco Securitizdora de Direitos Creditórios do Agronegócio"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-020",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/RetentorRisco",
+      "instance_index": 0,
+      "case_types": [
+        "present_value",
+        "identifier"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "'00000000000000' é placeholder de ausência (not_applicable)?",
+      "notes": "Identificador, não número: não é zero.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 42,
+        "xsi_nil": false,
+        "evidence_excerpt": "<RetentorRisco>00000000000000</RetentorRisco>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "00000000000000"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-021",
+      "source_document_id": "833116",
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/AmortizacaoPrincipal",
+      "instance_index": 0,
+      "case_types": [
+        "monetary"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Única amortização na amostra.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 6,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2025-02-07_833116_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "f2b59da212de329d928b1ce0606949f5920cb55df19176f97e798c2ed1cfbb80",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 231,
+        "xsi_nil": false,
+        "evidence_excerpt": "<AmortizacaoPrincipal>30000000</AmortizacaoPrincipal>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "30000000"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-022",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/DurationCarteira",
+      "instance_index": 0,
+      "case_types": [
+        "present_value",
+        "unit_unknown"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "Unidade: dias, meses?",
+      "notes": "380870 traz 63.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 153,
+        "xsi_nil": false,
+        "evidence_excerpt": "<DurationCarteira>96</DurationCarteira>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "96"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-023",
+      "source_document_id": "1328844",
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/CNPJ",
+      "instance_index": 0,
+      "case_types": [
+        "identifier"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "CNPJ formatado; em outros CRAs pode conter CPF (dado pessoal).",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "document_version_id": 1,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "2cbd210ecd3fb67da71fc8ff2b1315bdeb4c3e2f9a759b19822968f25f12edab",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 165,
+        "xsi_nil": false,
+        "evidence_excerpt": "<CNPJ>31.943.818/0001-71</CNPJ>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "31.943.818/0001-71"
+      },
+      "source_version": "1"
+    },
+    {
+      "item_id": "IMCRA-024",
+      "source_document_id": "590722",
+      "xml_path": "/InformeMensalCRA/DadosGerais/Competencia",
+      "instance_index": 0,
+      "case_types": [
+        "present_value",
+        "date",
+        "resubmission"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Versão 1 da competência 2023-12-31; reapresentada como versão 2 em 692858.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 14,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2024-01-27_590722_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "ec64995a69747a4b7dfb7b95b786d13da47c58b39a69ccba81229c9a6235c2d4",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 4,
+        "xsi_nil": false,
+        "evidence_excerpt": "<Competencia>2023-12-31</Competencia>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "2023-12-31"
+      }
+    },
+    {
+      "item_id": "IMCRA-025",
+      "source_document_id": "590722",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse",
+      "instance_index": 0,
+      "case_types": [
+        "monetary",
+        "resubmission",
+        "scale_inconsistency"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "Versão vigente da competência deve ser 692858 (v2, 100000000)?",
+      "notes": "v1 em escala aparente de milhares; v2 corrige para reais.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 14,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2024-01-27_590722_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "ec64995a69747a4b7dfb7b95b786d13da47c58b39a69ccba81229c9a6235c2d4",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 51,
+        "xsi_nil": false,
+        "evidence_excerpt": "<VlrCertificadosPorClasse>100000</VlrCertificadosPorClasse>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "100000"
+      }
+    },
+    {
+      "item_id": "IMCRA-026",
+      "source_document_id": "666963",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/RendimentosDistribuidosPeriodo",
+      "instance_index": 0,
+      "case_types": [
+        "monetary",
+        "resubmission"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "v1 da competência 2024-04-30 repete o valor de março (773.39); v2 (703068) traz 0.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 18,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2024-05-22_666963_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "4166264c52261098bb2f4a3c31f775e5502769ee3c1e644ad3387e0b0a26d112",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 52,
+        "xsi_nil": false,
+        "evidence_excerpt": "<RendimentosDistribuidosPeriodo>773.39</RendimentosDistribuidosPeriodo>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "773.39"
+      }
+    },
+    {
+      "item_id": "IMCRA-027",
+      "source_document_id": "703068",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/RendimentosDistribuidosPeriodo",
+      "instance_index": 0,
+      "case_types": [
+        "zero",
+        "resubmission"
+      ],
+      "proposed_field_state": "zero",
+      "decision_question": null,
+      "notes": "Correção de conteúdo, não só de escala.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "2",
+      "document_version_id": 12,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2024-07-23_703068_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "c9f5b3015651b19b982e65ec39651af30e0eaf943d0ea88b4d8a77be4fb572c8",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 52,
+        "xsi_nil": false,
+        "evidence_excerpt": "<RendimentosDistribuidosPeriodo>0</RendimentosDistribuidosPeriodo>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "0"
+      }
+    }
+  ]
+}
