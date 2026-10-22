@@ -29,7 +29,7 @@ Base: README da raiz, README do Fábio (contrato de integração), ADRs, exports
 - **D-05** Como destacar incentivada (Lei 12.431), resgate antecipado e classe: selo, filtro ou coluna.
 - **D-06** Agente fiduciário: texto simples ou link para o cadastro da entidade.
 - **D-07** Agenda de eventos (juros, amortização, repactuação): não é coletada. Definir se entra na ficha.
-- **D-08** Data dos campos de identificação (código, ISIN, emissor): o export não traz a data do cadastro.
+- **D-08** Data dos campos de identificação (código, ISIN, emissor): o export não traz a data do cadastro. Código, ISIN, emissor e CNPJ passam a ser gravados como observações, com a data da coleta (não a do cadastro), mas só nas coletas novas: os ativos já no banco dependem de recoleta.
 
 ## Securitizados
 
@@ -110,7 +110,7 @@ Esforço relativo: P (pequeno), M (médio), G (grande). Os donos seguem a divis�
 ### Fase 1. Debêntures · Eduardo (M)
 | Regra | O que entra no banco | Como |
 |---|---|---|
-| D-08 | Data de observação dos campos de identificação | Gravar código, ISIN e emissor também como observações |
+| D-08 | Data de observação dos campos de identificação | Gravar código, ISIN, emissor e CNPJ também como observações. Feito no código (`SndImportService`); falta recoletar os ativos existentes, com `--dry-run`, backup e aprovação antes do `--commit` |
 | G-06 | Status `matured` para o ativo vencido (já permitido pelo schema) | Rotina que compara `data_vencimento` com a data de hoje e registra a mudança no `audit_log`. CEPEA1 é o primeiro caso |
 | D-04 | Spread e rating para todos os ativos | Padronizar a unidade do spread; ativar a fonte `ANBIMA_API` (hoje inativa) e avaliar a CVM como fonte oficial |
 | D-01 | PU real e PU par | Definir fórmula e fonte com a equipe; gravar como observações `pu_real` e `pu_par` em BRL, com a data-base |
