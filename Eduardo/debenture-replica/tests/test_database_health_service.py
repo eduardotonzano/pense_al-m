@@ -8,15 +8,18 @@ from debenture_search.services.database_health_service import (
 
 
 PROJECT_DIR = pathlib.Path(__file__).resolve().parent.parent
-MIGRATION_PATH = PROJECT_DIR / "migrations" / "001_initial_schema.sql"
+MIGRATION_PATHS = (
+    PROJECT_DIR / "migrations" / "001_initial_schema.sql",
+    PROJECT_DIR / "migrations" / "002_debenture_events.sql",
+)
 
 
-def create_context(tmp_path):
+def create_context(tmp_path, migration_paths=MIGRATION_PATHS):
     db = Database(tmp_path / "data" / "health.db")
-    sql = MIGRATION_PATH.read_text(encoding="utf-8")
 
     with db.connection() as connection:
-        connection.executescript(sql)
+        for path in migration_paths:
+            connection.executescript(path.read_text(encoding="utf-8"))
         connection.commit()
 
     service = DatabaseHealthService(
@@ -36,10 +39,20 @@ def test_healthy_database(tmp_path):
     assert report.status == "healthy"
     assert report.integrity == "ok"
     assert report.foreign_key_errors == ()
-    assert report.migration_version == 1
+    assert report.migration_version == 2
     assert report.missing_tables == ()
     assert report.missing_views == ()
     assert report.missing_sources == ()
+
+
+def test_reports_pending_events_migration(tmp_path):
+    _, service = create_context(tmp_path, MIGRATION_PATHS[:1])
+    report = service.check()
+
+    assert report.healthy is False
+    assert report.migration_version == 1
+    assert report.missing_tables == ("debenture_events",)
+    assert "Existem tabelas obrigatorias ausentes." in report.issues
 
 
 def test_reports_database_size(tmp_path):

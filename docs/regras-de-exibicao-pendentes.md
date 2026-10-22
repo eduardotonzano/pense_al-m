@@ -28,7 +28,7 @@ Base: README da raiz, README do Fábio (contrato de integração), ADRs, exports
 - **D-04** Remuneração: o spread só foi coletado para a CEPEA1 (valor 100, unidade "percentual", sem indicar se é spread sobre o DI ou % do DI) e o rating não é coletado. Definir se entram na ficha e a fonte (CVM e ANBIMA estão previstas).
 - **D-05** Como destacar incentivada (Lei 12.431), resgate antecipado e classe: selo, filtro ou coluna.
 - **D-06** Agente fiduciário: texto simples ou link para o cadastro da entidade.
-- **D-07** Agenda de eventos (juros, amortização, repactuação): não é coletada. Definir se entra na ficha.
+- **D-07** Agenda de eventos (juros, amortização, repactuação): não é coletada. Definir se entra na ficha. A tabela `debenture_events` já existe no código (migration 002), vazia: o SND que coletamos hoje não traz agenda.
 - **D-08** Data dos campos de identificação (código, ISIN, emissor): o export não traz a data do cadastro. Código, ISIN, emissor e CNPJ passam a ser gravados como observações, com a data da coleta (não a do cadastro), mas só nas coletas novas: os ativos já no banco dependem de recoleta.
 
 ## Securitizados
@@ -91,7 +91,7 @@ Recursos do Claude Code que valem para este projeto (confirmados na documentaç�
 ## 2. Decisão de arquitetura do banco
 
 1. **Manter um SQLite por frente, com adaptadores para a camada compartilhada**, como já decidido nos ADRs. Não migrar para outro banco agora; revisar quando existir a plataforma única.
-2. **Debêntures não precisa de migration para os campos novos.** A tabela `observations` guarda qualquer `field_name`, com tipo, unidade, fonte e data. PU real, PU par, spread, rating e a data do cadastro entram como novas observações. O que precisa de tabela nova é só a agenda de eventos (D-07).
+2. **Debêntures não precisa de migration para os campos novos.** A tabela `observations` guarda qualquer `field_name`, com tipo, unidade, fonte e data. PU real, PU par, spread, rating e a data do cadastro entram como novas observações. O que precisa de tabela nova é só a agenda de eventos (D-07), criada pela migration 002 (`debenture_events`).
 3. **CRI/CRA precisa de tabelas novas** para dado estruturado extraído de documento (garantias, covenants, ratings, indicadores do informe mensal), cada linha apontando para o documento e a página de origem.
 4. **Renda Fixa e Fundos nascem com o mesmo esqueleto do módulo de debêntures** (`sources`, `collection_runs`, `raw_records`, `observations`, `data_conflicts`, `audit_log`), que já provou o padrão de proveniência e histórico.
 5. **Tabelas transversais** (carteiras, série de preços, alertas) ficam num módulo próprio, para não pertencerem a nenhuma frente.
@@ -114,7 +114,7 @@ Esforço relativo: P (pequeno), M (médio), G (grande). Os donos seguem a divis�
 | G-06 | Status `matured` para o ativo vencido (já permitido pelo schema) | Rotina que compara `data_vencimento` com a data de hoje e registra a mudança no `audit_log`. CEPEA1 é o primeiro caso |
 | D-04 | Spread e rating para todos os ativos | Padronizar a unidade do spread; ativar a fonte `ANBIMA_API` (hoje inativa) e avaliar a CVM como fonte oficial |
 | D-01 | PU real e PU par | Definir fórmula e fonte com a equipe; gravar como observações `pu_real` e `pu_par` em BRL, com a data-base |
-| D-07 | Agenda de eventos (juros, amortização, repactuação) | Tabela nova `debenture_events`, com data, tipo, valor e fonte |
+| D-07 | Agenda de eventos (juros, amortização, repactuação) | Tabela `debenture_events` (migration 002, feita no código; aplicação no banco real pendente de aprovação, com `scripts/apply_migration.py`): tipo, data do evento, valor e unidade opcionais, fonte, data de observação e confiança. Fica vazia, porque o arquivo de características do SND traz regras de pagamento e datas avulsas, não a agenda; calculá-la a partir das regras seria estimar. Fontes candidatas: a página "Eventos Financeiros > Agenda" do SND (tipos: Amortização, Atualização, Juros, Opção de Venda, Participação, Prêmio, Prêmio de Permanência, Repactuação, Resgate Total Antecipado e Vencimento; colunas do resultado e exportação não verificadas) e o ANBIMA Data (a ANBIMA anunciou em 11/12/2023 a agenda de eventos consolidada em tabela) |
 Aceite: os 3 ativos atuais com todos os campos ou com "sem dado" explícito, 0 conflitos não tratados, testes verdes.
 
 ### Fase 2. CRI e CRA · Enrico (G)
