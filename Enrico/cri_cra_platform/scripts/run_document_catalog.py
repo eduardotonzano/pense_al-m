@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.collectors.fundosnet_collector import FundosNetCollector
 from credit_assets.database.connection import connect, initialize_database
-from credit_assets.database.migrations import ensure_schema_current
+from credit_assets.database.migrations import MigrationError, ensure_schema_current
 from credit_assets.models.asset import Asset
 from credit_assets.repositories.asset_repository import AssetRepository
 from credit_assets.repositories.document_repository import DocumentRepository
@@ -358,15 +358,19 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--output-path", type=Path)
     parser.add_argument("--report-path", type=Path)
     args = parser.parse_args(argv)
-    result = run(
-        offline=args.offline_fixtures,
-        only=args.only,
-        database_path=args.database_path,
-        config_path=args.config_path,
-        output_path=args.output_path,
-        report_path=args.report_path,
-        dry_run=args.dry_run,
-    )
+    try:
+        result = run(
+            offline=args.offline_fixtures,
+            only=args.only,
+            database_path=args.database_path,
+            config_path=args.config_path,
+            output_path=args.output_path,
+            report_path=args.report_path,
+            dry_run=args.dry_run,
+        )
+    except MigrationError as error:
+        print(f"Erro: {error}", file=sys.stderr)
+        return 1
     return 1 if result.get("errors") else 0
 
 

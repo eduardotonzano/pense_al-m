@@ -8,6 +8,7 @@ from types import SimpleNamespace
 
 from credit_assets.collectors.fundosnet_collector import FundosNetCollector
 from credit_assets.database.backup import file_sha256
+from credit_assets.database.connection import connect, initialize_database
 
 
 PROJECT = Path(__file__).parents[2]
@@ -157,6 +158,31 @@ def test_dry_run_reports_new_documents_keys_and_grid_fields(tmp_path, monkeypatc
     assert entry["campos_da_grade_preenchidos"]["source_species"] == 0
     assert len(entry["exemplos"]) == 2
     assert len(result["assets"]) == 1
+
+
+def test_main_reports_pending_migrations_without_a_traceback(tmp_path, capsys):
+    namespace = load_script()
+    config = write_config(tmp_path)
+    empty = tmp_path / "empty_migrations"
+    empty.mkdir()
+    connection = connect(tmp_path / "catalog.db")
+    initialize_database(connection, migrations_dir=empty)
+    connection.close()
+
+    code = namespace["main"]([
+        "--offline-fixtures",
+        "--database-path", str(tmp_path / "catalog.db"),
+        "--config-path", str(config),
+        "--output-path", str(tmp_path / "catalog.csv"),
+        "--report-path", str(tmp_path / "report.json"),
+    ])
+    error = capsys.readouterr().err
+
+    assert code == 1
+    assert "migrations pendentes (001)" in error
+    assert "apply_migration.py" in error
+    assert "Traceback" not in error
+    assert not (tmp_path / "catalog.csv").exists()
 
 
 def test_main_returns_one_when_an_asset_fails_and_zero_otherwise(tmp_path, monkeypatch):

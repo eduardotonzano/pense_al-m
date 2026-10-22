@@ -215,6 +215,10 @@ def _example_line(item: dict) -> str:
     )
 
 
+def _counts(counts: dict) -> str:
+    return ", ".join(f"{key}: {total}" for key, total in sorted(counts.items())) or "nenhuma"
+
+
 def _transitions(section: dict) -> list[str]:
     return [
         f"  {transition}: {total}"
@@ -255,7 +259,7 @@ def format_preview(preview: dict, examples: int = 3) -> str:
         "== Regras verificadas (valem por padrao) ==",
         f"Mudariam de categoria: {len(verified['changes'])}",
         *_transitions(verified),
-        f"Por regra: {verified['by_rule'] or 'nenhuma'}",
+        f"Por regra: {_counts(verified['by_rule'])}",
         f"Ambiguos (ficam em Outro): {len(verified['ambiguous'])}",
         f"Vetados (ficam em Outro): {verified['vetoed']}",
         f"Sem regra (ficam em Outro): {verified['unmatched']}",
@@ -274,7 +278,7 @@ def format_preview(preview: dict, examples: int = 3) -> str:
         "(previa apenas: nada disto e gravado sem a opcao)",
         f"Mudariam alem das verificadas: {len(unverified['changes'])}",
         *_transitions(unverified),
-        f"Por regra: {unverified['by_rule'] or 'nenhuma'}",
+        f"Por regra: {_counts(unverified['by_rule'])}",
         f"Cancelariam mudancas verificadas por ambiguidade: "
         f"{len(unverified['lost_to_ambiguity'])}",
         f"Novos ambiguos: {len(unverified['ambiguous'])}",

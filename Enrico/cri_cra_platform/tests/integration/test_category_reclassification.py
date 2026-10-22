@@ -230,6 +230,8 @@ def test_format_preview_shows_both_sections_and_the_totals(tmp_path):
     assert "== Regras nao verificadas (so valem com --enable-unverified-rules) ==" in text
     assert "Mudariam de categoria: 4" in text
     assert "Outro -> Informe Mensal: 4" in text
+    assert "Por regra: IM-01: 4" in text
+    assert "Por regra: nenhuma" in text
     assert "Mudariam alem das verificadas: 0" in text
     assert "Sem --enable-unverified-rules: 4 documento(s)" in text
     assert "atual Informe Mensal, DF-VETO-01 (veto)" in text
