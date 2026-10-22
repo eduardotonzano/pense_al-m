@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.database.connection import connect, initialize_database
+from credit_assets.database.migrations import ensure_schema_current
 from credit_assets.models.asset import Asset
 from credit_assets.repositories.asset_repository import AssetRepository
 from credit_assets.repositories.execution_repository import ExecutionRepository
@@ -20,6 +21,7 @@ def main():
     run_id = uuid.uuid4().hex
     connection = connect(ROOT / "data" / "cri_cra.db")
     initialize_database(connection)
+    ensure_schema_current(connection)
     executions = ExecutionRepository(connection)
     assets_repo = AssetRepository(connection)
     executions.start(run_id)

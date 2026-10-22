@@ -3,9 +3,11 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import sqlite3
 import sys
 import time
 import uuid
+from collections import Counter
 from dataclasses import replace
 from pathlib import Path
 
@@ -14,6 +16,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.collectors.fundosnet_collector import FundosNetCollector
 from credit_assets.database.connection import connect, initialize_database
+from credit_assets.database.migrations import MigrationError, ensure_schema_current
 from credit_assets.models.asset import Asset
 from credit_assets.repositories.asset_repository import AssetRepository
 from credit_assets.repositories.document_repository import DocumentRepository
@@ -38,10 +41,13 @@ def load_assets(path: Path, only: str | None = None) -> list[Asset]:
             for row in csv.DictReader(source)
             if row.get("ativo", "").strip().lower() == "true"
             and row.get("isin", "").strip()
-            and row["isin"].strip().upper() in {"BRECOACRABX0", "BRRBRACRIP13"}
             and (
                 only is None
-                or only in {row["codigo_cetip"].strip(), row["isin"].strip()}
+                or only.strip().upper()
+                in {
+                    row["codigo_cetip"].strip().upper(),
+                    row["isin"].strip().upper(),
+                }
             )
         ]
 
@@ -66,6 +72,123 @@ def fixture_documents(asset: Asset) -> list[dict]:
     ]
 
 
+def existing_document_keys(
+    database_path: Path,
+) -> tuple[set[tuple[str, str]], str | None]:
+    """Chaves (source_document_id, source) ja gravadas, so em leitura."""
+    if not database_path.is_file():
+        return set(), None
+    try:
+        connection = sqlite3.connect(database_path)
+        try:
+            connection.execute("PRAGMA query_only = ON")
+            rows = connection.execute(
+                "SELECT source_document_id, source FROM documents"
+            ).fetchall()
+        finally:
+            connection.close()
+    except sqlite3.Error as error:
+        return set(), f"{type(error).__name__}: {error}"
+    return {(str(key), str(source)) for key, source in rows}, None
+
+
+def dry_run_catalog(
+    offline: bool,
+    only: str | None,
+    database_path: Path,
+    config_path: Path,
+) -> dict:
+    """Le o catalogo e mostra o que mudaria. Nao grava banco, CSV nem relatorio."""
+    existing, warning = existing_document_keys(database_path)
+    collector = None if offline else FundosNetCollector()
+    catalog_service = None if offline else CatalogService(collector)
+    run_id = "dry-run"
+    result: dict = {
+        "dry_run": True,
+        "database": str(database_path),
+        "database_existe": database_path.is_file(),
+        "avisos": [warning] if warning else [],
+        "assets": [],
+        "documents_found": 0,
+        "errors": 0,
+    }
+    for source_asset in load_assets(config_path, only):
+        entry: dict = {
+            "codigo_cetip": source_asset.codigo_cetip,
+            "isin": source_asset.isin,
+        }
+        try:
+            asset = replace(source_asset, asset_id=0)
+            if offline:
+                rows = fixture_documents(asset)
+                documents = [
+                    FundosNetCollector._to_document(asset, row, run_id)
+                    for row in rows
+                ]
+                metrics = {
+                    "total_reported": len(rows),
+                    "pages_queried": 1,
+                    "rejected": [],
+                    "errors": [],
+                }
+            else:
+                collected = catalog_service.catalog_with_metrics(asset, run_id)
+                documents = collected.documents
+                metrics = {
+                    "total_reported": collected.total_reported,
+                    "pages_queried": collected.pages_queried,
+                    "rejected": collected.rejected,
+                    "errors": collected.errors,
+                }
+            raw_rows = [
+                json.loads(document.source_row_json)
+                for document in documents
+                if document.source_row_json
+            ]
+            new = [
+                document
+                for document in documents
+                if (str(document.source_document_id), document.source) not in existing
+            ]
+            entry.update({
+                "total_informado": metrics["total_reported"],
+                "paginas_consultadas": metrics["pages_queried"],
+                "documentos_recebidos": len(documents),
+                "documentos_novos": len(new),
+                "documentos_existentes": len(documents) - len(new),
+                "categorias_pelo_classificador_atual": dict(
+                    Counter(document.category for document in documents)
+                ),
+                "chaves_json_vistas": dict(
+                    Counter(key for row in raw_rows for key in row)
+                ),
+                "campos_da_grade_preenchidos": {
+                    column: sum(
+                        1 for document in documents if getattr(document, column)
+                    )
+                    for column in (
+                        "source_category",
+                        "source_type",
+                        "source_species",
+                        "grid_version",
+                        "source_description",
+                        "reference_date",
+                    )
+                },
+                "exemplos": raw_rows[:3],
+                "documentos_rejeitados": metrics["rejected"],
+                "erros": metrics["errors"],
+            })
+            result["documents_found"] += len(documents)
+            result["errors"] += len(metrics["errors"])
+        except Exception as error:
+            result["errors"] += 1
+            entry["erros"] = [f"{type(error).__name__}: {error}"]
+        result["assets"].append(entry)
+    print(json.dumps(result, ensure_ascii=False, indent=2))
+    return result
+
+
 def run(
     offline: bool = False,
     only: str | None = None,
@@ -73,13 +196,17 @@ def run(
     config_path: Path | None = None,
     output_path: Path | None = None,
     report_path: Path | None = None,
+    dry_run: bool = False,
 ) -> dict:
     database_path = database_path or ROOT / "data" / "cri_cra.db"
     config_path = config_path or ROOT / "config" / "ativos_piloto.csv"
+    if dry_run:
+        return dry_run_catalog(offline, only, database_path, config_path)
     output_path = output_path or ROOT / "data" / "catalogo_documentos.csv"
     report_path = report_path or ROOT / "reports" / "document_catalog_latest.json"
     connection = connect(database_path)
     initialize_database(connection)
+    ensure_schema_current(connection)
     assets_repo = AssetRepository(connection)
     documents_repo = DocumentRepository(connection)
     collector = None if offline else FundosNetCollector()
@@ -217,24 +344,35 @@ def run(
     return result
 
 
-if __name__ == "__main__":
+def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--offline-fixtures", action="store_true")
-    parser.add_argument("--only", choices=["BRECOACRABX0", "BRRBRACRIP13"])
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Le o catalogo e mostra o que mudaria; nao grava nada.",
+    )
+    parser.add_argument("--only", help="CETIP ou ISIN de um unico ativo")
     parser.add_argument("--database-path", type=Path)
     parser.add_argument("--config-path", type=Path)
     parser.add_argument("--output-path", type=Path)
     parser.add_argument("--report-path", type=Path)
-    args = parser.parse_args()
-    raise SystemExit(
-        0
-        if run(
+    args = parser.parse_args(argv)
+    try:
+        result = run(
             offline=args.offline_fixtures,
             only=args.only,
             database_path=args.database_path,
             config_path=args.config_path,
             output_path=args.output_path,
             report_path=args.report_path,
+            dry_run=args.dry_run,
         )
-        else 1
-    )
+    except MigrationError as error:
+        print(f"Erro: {error}", file=sys.stderr)
+        return 1
+    return 1 if result.get("errors") else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -727,6 +727,14 @@ class FundosNetCollector(BaseCollector):
         return [], 0, 1
 
     @staticmethod
+    def _grid_text(item: dict[str, Any], *keys: str) -> str | None:
+        for key in keys:
+            value = item.get(key)
+            if value is not None and str(value).strip():
+                return str(value).strip()
+        return None
+
+    @staticmethod
     def _to_document(
         asset: Asset, item: dict[str, Any], run_id: str
     ) -> Document:
@@ -760,9 +768,22 @@ class FundosNetCollector(BaseCollector):
                 )
                 or ""
             ),
-            reference_date=str(item.get("data_referencia") or item.get("ref_date") or "") or None,
+            reference_date=str(
+                item.get("data_referencia")
+                or item.get("ref_date")
+                or item.get("dataReferencia")
+                or ""
+            ) or None,
             publication_date=str(item.get("data_publicacao") or item.get("dataEntrega") or "") or None,
             file_hash=item.get("hash_arquivo") or item.get("file_hash") or item.get("sha256"),
             download_status="pending",
             collected_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            source_category=FundosNetCollector._grid_text(item, "categoriaDocumento"),
+            source_type=FundosNetCollector._grid_text(item, "tipoDocumento"),
+            source_species=FundosNetCollector._grid_text(item, "especieDocumento"),
+            grid_version=FundosNetCollector._grid_text(item, "versao"),
+            source_description=FundosNetCollector._grid_text(item, "descricaoFundo"),
+            source_row_json=json.dumps(
+                item, ensure_ascii=False, sort_keys=True, default=str
+            ),
         )

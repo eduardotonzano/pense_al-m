@@ -120,15 +120,15 @@ Aceite: os 3 ativos atuais com todos os campos ou com "sem dado" explícito, 0 c
 ### Fase 2. CRI e CRA · Enrico (G)
 | Regra | O que entra no banco | Como |
 |---|---|---|
-| S-03, S-04 | Catálogo completo de documentos e estado do download | Persistir no banco principal e rodar o download em escala (pendência já listada no README) |
-| S-05 | Categoria de cada documento | Classificador por nome e campos da grade; hoje quase tudo cai em "Outro" |
+| S-03, S-04 | Catálogo completo de documentos e estado do download | Persistir no banco principal e rodar o download em escala (pendência já listada no README). **Feito na branch `feat/cri-cra-catalogo`:** migration 001 com os campos da grade e a linha original, refresh do catálogo que não volta o estado do download para `pending`, `run_document_catalog.py` sem a whitelist de 2 ISINs e com `--dry-run`. **Pendente (ramo separado):** download em lotes com fila, retomada, limite de taxa e critério de parada |
+| S-05 | Categoria de cada documento | Classificador por nome e campos da grade; hoje quase tudo cai em "Outro". **Feito na branch `feat/cri-cra-catalogo`:** `reclassify_documents.py` com prévia em duas seções. Valem por padrão só as regras com evidência real (Informe Mensal; Ata/Edital pela Espécie; veto de Demonstrações Financeiras); as demais ficam desligadas até `--enable-unverified-rules`. **Pendente:** o número real de documentos que mudariam (depende do banco do Enrico) e ligar o classificador estrito ao catálogo |
 | S-08 | CNPJ da securitizadora (Opea) e do devedor (Almeida Junior) | Buscar na CVM e no Fundos.NET; registrar a fonte; sem preenchimento por inferência |
-| S-07 | Séries e ISIN único | Os índices únicos já existem; falta modelar multissérie |
+| S-07 | Séries e ISIN único | Os índices únicos já existem; falta modelar multissérie (ramo separado, ainda não iniciado) |
 | S-09 | Indicadores do informe mensal | Parser do XML para a tabela `informe_indicators`, com referência ao documento |
 | S-10 | Rating | Tabela `ratings` (agência, nota, data, documento de origem) |
 | S-01, S-02 | Garantias e covenants | Tabelas `guarantees` e `covenants`, preenchidas por extração do Termo de Securitização com a página de origem |
 | S-06 | Leitura por agente | Tabela `extractions` com texto citado, página, modelo usado e `status` (`pending_review`, `verified`); nada vai para a ficha sem revisão humana |
-Aceite: ativo piloto com todas as categorias presentes ou marcadas como ausentes; cada garantia e covenant com documento e página; os 67 testes atuais continuam passando.
+Aceite: ativo piloto com todas as categorias presentes ou marcadas como ausentes; cada garantia e covenant com documento e página; a suíte atual continua passando (91 testes coletados em 22/10/2026; a contagem de 67 estava defasada).
 
 ### Fase 3. Camada compartilhada · Fábio (M)
 - Adaptador de debêntures (instrumento) e adaptador de CRI/CRA, resolvendo o ISIN duplicado (roadmap itens 1 e 2).
