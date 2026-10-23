@@ -561,7 +561,6 @@ def build_preview(
 
     assets = load_assets(connection, only)
     has_table = table_exists(connection, "asset_cnpj_observations")
-    repository = CnpjObservationRepository(connection) if has_table else None
     archives_by_kind = defaultdict(list)
 
     for archive in archives:
@@ -600,7 +599,7 @@ def build_preview(
                 absent[resolution.status] = absent.get(resolution.status, 0) + 1
             else:
                 observation = _observation(asset, resolution, kind)
-                recorded = repository is not None and connection.execute(
+                recorded = has_table and connection.execute(
                     "SELECT 1 FROM asset_cnpj_observations WHERE checksum = ?",
                     (observation.checksum(),),
                 ).fetchone() is not None
