@@ -7,7 +7,11 @@ from pathlib import Path
 
 from credit_assets.database.backup import file_sha256
 from credit_assets.database.connection import connect, initialize_database
-from credit_assets.database.migrations import apply_pending, pending_migrations
+from credit_assets.database.migrations import (
+    apply_pending,
+    discover_migrations,
+    pending_migrations,
+)
 
 
 PROJECT_DIR = Path(__file__).resolve().parents[2]
@@ -96,7 +100,9 @@ def test_commit_creates_the_observation_table_and_keeps_every_existing_row(
     assert len(backups) == 1
     assert "asset_cnpj_observations" in tables(path)
     assert "asset_cnpj_observations" not in tables(backups[0])
-    assert query(path, "SELECT version FROM schema_migrations ORDER BY version") == [(1,), (2,)]
+    assert query(path, "SELECT version FROM schema_migrations ORDER BY version") == [
+        (item.version,) for item in discover_migrations()
+    ]
     assert query(path, "SELECT codigo_cetip, cnpj_securitizadora FROM assets") == [
         ("24G2100031", "")
     ]
@@ -105,7 +111,7 @@ def test_commit_creates_the_observation_table_and_keeps_every_existing_row(
     assert file_sha256(backups[0]) in output
 
 
-def test_database_already_at_001_receives_only_002(tmp_path, capsys):
+def test_database_already_at_001_receives_002_and_the_later_ones_but_not_001(tmp_path, capsys):
     path = create_baseline_database(tmp_path)
     only_001 = tmp_path / "only_001"
     only_001.mkdir()
@@ -121,9 +127,12 @@ def test_database_already_at_001_receives_only_002(tmp_path, capsys):
     output = capsys.readouterr().out
 
     assert code == 0
-    assert "Migrations pendentes: 002_asset_cnpj_observations" in output
-    assert "001_document_catalog" not in output.split("Migrations pendentes:")[1].splitlines()[0]
-    assert query(path, "SELECT version FROM schema_migrations ORDER BY version") == [(1,), (2,)]
+    pending_line = output.split("Migrations pendentes:")[1].splitlines()[0]
+    assert pending_line.strip().startswith("002_asset_cnpj_observations")
+    assert "001_document_catalog" not in pending_line
+    assert query(path, "SELECT version FROM schema_migrations ORDER BY version") == [
+        (item.version,) for item in discover_migrations()
+    ]
     assert "asset_cnpj_observations" in tables(path)
 
 

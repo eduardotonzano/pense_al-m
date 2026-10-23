@@ -8,7 +8,7 @@ from datetime import datetime
 import pytest
 
 from credit_assets.database.connection import connect, initialize_database
-from credit_assets.database.migrations import read_applied_versions
+from credit_assets.database.migrations import discover_migrations, read_applied_versions
 from credit_assets.models.asset import Asset
 from credit_assets.repositories.asset_repository import AssetRepository
 from credit_assets.repositories.cnpj_observation_repository import (
@@ -77,10 +77,9 @@ def test_new_database_gets_the_observation_table_view_and_migration_002(tmp_path
         )
     }
 
-    assert read_applied_versions(connection) == {
-        1: "document_catalog",
-        2: "asset_cnpj_observations",
-    }
+    applied = read_applied_versions(connection)
+    assert applied == {item.version: item.name for item in discover_migrations()}
+    assert (applied[1], applied[2]) == ("document_catalog", "asset_cnpj_observations")
     assert {"asset_cnpj_observations", "asset_cnpj_provenance"} <= names
 
 
