@@ -131,3 +131,95 @@ CREATE TABLE IF NOT EXISTS alerts (
     FOREIGN KEY(run_id) REFERENCES executions(run_id),
     FOREIGN KEY(asset_id) REFERENCES assets(asset_id)
 );
+
+-- Fase E: extração reprocessável. Cada execução é imutável; reprocessar cria
+-- nova extraction_run sem apagar as anteriores.
+CREATE TABLE IF NOT EXISTS extraction_runs (
+    extraction_run_id TEXT PRIMARY KEY,
+    document_version_id INTEGER NOT NULL REFERENCES document_versions(version_id),
+    extractor_version TEXT NOT NULL,
+    mapping_version TEXT NOT NULL,
+    layout_version TEXT,
+    layout_validation_status TEXT NOT NULL
+        CHECK (layout_validation_status IN ('formal', 'structural_only')),
+    semantic_normalizer_version TEXT,
+    started_at TEXT NOT NULL,
+    finished_at TEXT,
+    status TEXT NOT NULL CHECK (status IN ('running', 'success', 'failed')),
+    error_message TEXT,
+    raw_file_hash TEXT NOT NULL,
+    semantic_hash TEXT,
+    unmapped_fields_count INTEGER
+);
+
+CREATE INDEX IF NOT EXISTS ix_extraction_runs_document_version
+    ON extraction_runs(document_version_id);
+
+CREATE TABLE IF NOT EXISTS extracted_reports (
+    report_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    extraction_run_id TEXT NOT NULL UNIQUE REFERENCES extraction_runs(extraction_run_id),
+    asset_id INTEGER NOT NULL REFERENCES assets(asset_id),
+    document_id INTEGER NOT NULL REFERENCES documents(document_pk),
+    document_version_id INTEGER NOT NULL REFERENCES document_versions(version_id),
+    reference_date TEXT,
+    publication_date TEXT,
+    source_version TEXT,
+    is_current INTEGER NOT NULL DEFAULT 0 CHECK (is_current IN (0, 1)),
+    automatic_validation_status TEXT NOT NULL DEFAULT 'pending'
+        CHECK (automatic_validation_status IN ('valid', 'warning', 'invalid', 'pending')),
+    human_review_status TEXT NOT NULL DEFAULT 'pending'
+        CHECK (human_review_status IN ('not_required', 'pending', 'approved', 'rejected', 'corrected'))
+);
+
+CREATE TABLE IF NOT EXISTS extracted_values (
+    extracted_value_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    report_id INTEGER NOT NULL REFERENCES extracted_reports(report_id),
+    field_name TEXT NOT NULL,
+    original_value TEXT,
+    normalized_value TEXT,
+    data_type TEXT,
+    field_state TEXT NOT NULL CHECK (field_state IN (
+        'present_value', 'present_empty', 'absent', 'zero', 'not_applicable', 'invalid'
+    )),
+    xsi_nil INTEGER NOT NULL DEFAULT 0 CHECK (xsi_nil IN (0, 1)),
+    unit TEXT,
+    currency TEXT,
+    scale TEXT,
+    xml_path TEXT NOT NULL,
+    instance_index INTEGER NOT NULL DEFAULT 0,
+    instance_key TEXT,
+    parent_instance_key TEXT,
+    mapping_status TEXT NOT NULL
+        CHECK (mapping_status IN ('mapped', 'ignored', 'pending_decision')),
+    automatic_validation_status TEXT NOT NULL DEFAULT 'pending'
+        CHECK (automatic_validation_status IN ('valid', 'warning', 'invalid', 'pending')),
+    UNIQUE(report_id, xml_path, instance_index)
+);
+
+CREATE INDEX IF NOT EXISTS ix_extracted_values_report ON extracted_values(report_id);
+
+CREATE TABLE IF NOT EXISTS evidences (
+    evidence_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    extracted_value_id INTEGER NOT NULL UNIQUE REFERENCES extracted_values(extracted_value_id),
+    document_version_id INTEGER NOT NULL REFERENCES document_versions(version_id),
+    xml_path TEXT NOT NULL,
+    line_number INTEGER,
+    evidence_excerpt TEXT,
+    evidence_excerpt_truncated INTEGER NOT NULL DEFAULT 0 CHECK (evidence_excerpt_truncated IN (0, 1)),
+    evidence_full_hash TEXT NOT NULL,
+    contains_personal_data INTEGER NOT NULL DEFAULT 0 CHECK (contains_personal_data IN (0, 1)),
+    masking_applied INTEGER NOT NULL DEFAULT 0 CHECK (masking_applied IN (0, 1)),
+    retention_policy TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS value_reviews (
+    review_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    extracted_value_id INTEGER NOT NULL REFERENCES extracted_values(extracted_value_id),
+    source_value_hash TEXT NOT NULL,
+    review_status TEXT NOT NULL
+        CHECK (review_status IN ('pending', 'approved', 'rejected', 'corrected')),
+    corrected_value TEXT,
+    reviewed_by TEXT,
+    reviewed_at TEXT,
+    justification TEXT
+);
