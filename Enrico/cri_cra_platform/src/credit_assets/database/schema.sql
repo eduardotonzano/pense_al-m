@@ -304,3 +304,50 @@ CREATE TABLE IF NOT EXISTS data_quality_alerts (
     created_at TEXT NOT NULL,
     CHECK (alert_status <> 'dismissed' OR dismiss_reason IS NOT NULL)
 );
+
+-- Texto de PDFs por página (evidência para parâmetros contratuais).
+CREATE TABLE IF NOT EXISTS document_text_pages (
+    document_version_id INTEGER NOT NULL REFERENCES document_versions(version_id),
+    page_number INTEGER NOT NULL,
+    text TEXT NOT NULL,
+    text_sha256 TEXT NOT NULL,
+    extractor TEXT NOT NULL,
+    extracted_at TEXT NOT NULL,
+    PRIMARY KEY (document_version_id, page_number, extractor)
+);
+
+-- Trechos candidatos a parâmetros contratuais: literal + revisão humana.
+CREATE TABLE IF NOT EXISTS contract_parameter_candidates (
+    candidate_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    document_version_id INTEGER NOT NULL REFERENCES document_versions(version_id),
+    finder_version TEXT NOT NULL,
+    topic TEXT NOT NULL,
+    page_number INTEGER NOT NULL,
+    line_start INTEGER NOT NULL,
+    line_end INTEGER NOT NULL,
+    excerpt TEXT NOT NULL,
+    excerpt_sha256 TEXT NOT NULL,
+    page_text_sha256 TEXT NOT NULL,
+    values_found_json TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    UNIQUE (document_version_id, topic, excerpt_sha256)
+);
+
+-- Parâmetros contratuais estruturados; só os aprovados podem alimentar alertas.
+CREATE TABLE IF NOT EXISTS contract_parameters (
+    parameter_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    asset_id INTEGER NOT NULL REFERENCES assets(asset_id),
+    candidate_id INTEGER NOT NULL REFERENCES contract_parameter_candidates(candidate_id),
+    parameter_name TEXT NOT NULL,
+    parameter_value TEXT,
+    unit TEXT,
+    applies_when TEXT,
+    source_reference TEXT NOT NULL,
+    review_status TEXT NOT NULL DEFAULT 'pending'
+        CHECK (review_status IN ('pending', 'approved', 'rejected', 'corrected')),
+    proposed_by TEXT NOT NULL,
+    reviewed_by TEXT,
+    reviewed_at TEXT,
+    justification TEXT,
+    UNIQUE (asset_id, parameter_name, candidate_id)
+);
