@@ -6,6 +6,11 @@ import unicodedata
 from credit_assets.models.document import DOCUMENT_CATEGORIES
 
 
+_FINANCIAL_STATEMENTS_PATTERN = re.compile(
+    r"\bdemonstracoes\s+financeiras\b|\bdemonstracao\s+financeira\b"
+)
+
+
 def _normalize_text(value: str) -> str:
     folded = unicodedata.normalize("NFKD", value.casefold())
     return "".join(
@@ -15,7 +20,31 @@ def _normalize_text(value: str) -> str:
     )
 
 
+def has_financial_statements_evidence(item: dict[str, object]) -> bool:
+    text = _normalize_text(" ".join(
+        str(item.get(key) or "")
+        for key in (
+            "document_name",
+            "nome_documento",
+            "titulo",
+            "nome",
+            "tipoDocumento",
+            "tipo_documento",
+            "especieDocumento",
+            "especie_documento",
+            "live_type",
+            "descricao",
+            "descrição",
+            "description",
+        )
+    ))
+    return bool(_FINANCIAL_STATEMENTS_PATTERN.search(text))
+
+
 def classify_document(item: dict[str, object]) -> str:
+    if has_financial_statements_evidence(item):
+        return "Outro"
+
     text = _normalize_text(" ".join(
         str(item.get(key) or "")
         for key in (
@@ -36,9 +65,6 @@ def classify_document(item: dict[str, object]) -> str:
             "descricao",
         )
     ))
-    # Sem categoria interna própria: precede termos genéricos como "informe"/"mensal".
-    if re.search(r"\bdemonstra\w*\s+financeira", text):
-        return "Outro"
     rules = (
         (("termo",), "Termo de Securitização"),
         (("aditamento",), "Aditamento"),
