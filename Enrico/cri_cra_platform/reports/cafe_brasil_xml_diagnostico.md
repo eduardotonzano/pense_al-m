@@ -157,6 +157,24 @@ de 0.1.0 confirmados. Resultado: Café Brasil 33 `valid` e 19 `warning` (todos p
 `monetary_scale_suspect`; jun/2023 também com 6 diferenças de arredondamento), Alibem 3 `valid`.
 Golden sets 39/39.
 
+## Versões vigentes e comparação entre períodos (2026-10-26)
+
+Revisão aprovada em 2026-10-26: 50 relatórios vigentes (47 Café Brasil, 3 Alibem); as 5 v1
+substituídas rejeitadas; as 14 competências em milhares (out/2022–nov/2023) vigentes, com
+valores R$ excluídos das comparações. Saídas: `reports/<cetip>_serie_indicadores.csv` e
+`reports/<cetip>_mudancas_entre_periodos.csv` (tabela `period_comparisons`).
+
+Observações objetivas do Café Brasil para revisão (não são alertas; não há limites definidos):
+
+- `Situacao` passa de "Adimplente" para "Em atraso" em abr/2026, enquanto
+  `DirCredVencidosNaoPagos`, `DirCredAVencerComParcelasAtraso` e `VlrTotalParcelasAtraso`
+  permanecem 0 em todos os meses.
+- Dez/2025: saldo 82,3 mi → 40,0 mi com pagamento sênior de 57,2 mi e
+  `RentabilidadePeriodo = 0.181`. Jan/2026: saldo 72,4 mi sem pagamento e
+  `RentabilidadePeriodo = 0.8076`. Fev/2026: pagamento de 25 mi e saldo 48,3 mi.
+- `DevedoresRepresentamMais20Porcento/Devedor/CNPJ` muda em nov/2022
+  (23.357.072/0001-81 → 31.943.818/0001-71).
+
 ## Golden set
 
 `config/golden_sets/informe_mensal_cra_cafe_brasil.json` — 27 itens congelados por SHA-256,

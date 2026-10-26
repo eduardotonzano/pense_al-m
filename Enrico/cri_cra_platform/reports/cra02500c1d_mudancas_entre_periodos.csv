@@ -1,0 +1,58 @@
+﻿current_month;previous_month;campo;serie;data_type;previous_value;current_value;previous_state;current_state;absolute_change;relative_change;comparison_status
+2026-04;2025-12;/Ativo/@total;;decimal;753870915.63;791342214.56;present_value;present_value;37471298.93;0.049705;changed
+2026-04;2025-12;/Ativo/DireitosCreditorios/@total;;decimal;753870915.63;791342214.56;present_value;present_value;37471298.93;0.049705;changed
+2026-04;2025-12;/Ativo/DireitosCreditorios/DirCredAVencerSemParcelasAtraso;;decimal;753870915.63;791342214.56;present_value;present_value;37471298.93;0.049705;changed
+2026-04;2025-12;/DadosGerais/Competencia;;date;2025-12-31;2026-04-30;present_value;present_value;;;changed
+2026-04;2025-12;/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao;;date;;2026-01-29;present_empty;present_value;;;state_changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual;1;text;;A.br (sf);present_empty;present_value;;;state_changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual;2;text;;A.br (sf);present_empty;present_value;;;state_changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual;3;text;;A.br (sf);present_empty;present_value;;;state_changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual;4;text;;A.br (sf);present_empty;present_value;;;state_changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual;5;text;;A.br (sf);present_empty;present_value;;;state_changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/RentabilidadePeriodo;1;decimal;0;0.011;zero;present_value;0.011;;changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/RentabilidadePeriodo;2;decimal;0;0.0118;zero;present_value;0.0118;;changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/RentabilidadePeriodo;3;decimal;0;0.0121;zero;present_value;0.0121;;changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/RentabilidadePeriodo;4;decimal;0;0.0129;zero;present_value;0.0129;;changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/RentabilidadePeriodo;5;decimal;0;0.0153;zero;present_value;0.0153;;changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse;1;decimal;234037564.63;244654160.51;present_value;present_value;10616595.88;0.045363;changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse;2;decimal;16928388.21;17760261.9;present_value;present_value;831873.69;0.049141;changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse;3;decimal;251070204.24;263733006.75;present_value;present_value;12662802.51;0.050435;changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse;4;decimal;100455435.3;105854990.2;present_value;present_value;5399554.9;0.053751;changed
+2026-04;2025-12;/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse;5;decimal;150517381.31;158384770.51;present_value;present_value;7867389.20;0.052269;changed
+2026-04;2025-12;/DetalhesSeries/totalVlrCertificados;;decimal;753008973.69;790387189.87;present_value;present_value;37378216.18;0.049638;changed
+2026-04;2025-12;/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/@total;;decimal;753870915.63;791342214.56;present_value;present_value;37471298.93;0.049705;changed
+2026-04;2025-12;/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Acima361Dias;;decimal;753870915.63;791342214.56;present_value;present_value;37471298.93;0.049705;changed
+2026-04;2025-12;/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/@total;;decimal;753870915.63;791342214.56;present_value;present_value;37471298.93;0.049705;changed
+2026-04;2025-12;/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoProdutosAgropecuarios;;decimal;753870915.63;791342214.56;present_value;present_value;37471298.93;0.049705;changed
+2026-04;2025-12;/Passivo/@total;;decimal;753870915.63;791342214.56;present_value;present_value;37471298.93;0.049705;changed
+2026-04;2025-12;/Passivo/ReducaoVlrEmissao;;decimal;-861941.94;-955024.69;present_value;present_value;-93082.75;0.107992;changed
+2026-04;2025-12;/Passivo/VlrAtualizadoEmissao;;decimal;753008973.69;790387189.87;present_value;present_value;37378216.18;0.049638;changed
+2026-04;2025-12;/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/@total;;decimal;753870915.63;791342214.56;present_value;present_value;37471298.93;0.049705;changed
+2026-04;2025-12;/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Acima361Dias;;decimal;753870915.63;791342214.56;present_value;present_value;37471298.93;0.049705;changed
+2026-04;2025-12;/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/@total;;decimal;250965952.84;791342214.56;present_value;present_value;540376261.72;2.153186;changed
+2026-04;2025-12;/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Acima361Dias;;decimal;250965952.84;791342214.56;present_value;present_value;540376261.72;2.153186;changed
+2026-09;2026-04;/Ativo/@total;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed
+2026-09;2026-04;/Ativo/DireitosCreditorios/@total;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed
+2026-09;2026-04;/Ativo/DireitosCreditorios/DirCredAVencerSemParcelasAtraso;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed
+2026-09;2026-04;/DadosGerais/Competencia;;date;2026-04-30;2026-09-30;present_value;present_value;;;changed
+2026-09;2026-04;/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao;;date;2026-01-29;2026-09-03;present_value;present_value;;;changed
+2026-09;2026-04;/DetalhesSeries/Series/Serie/RentabilidadePeriodo;1;decimal;0.011;0.0116;present_value;present_value;0.0006;0.054545;changed
+2026-09;2026-04;/DetalhesSeries/Series/Serie/RentabilidadePeriodo;2;decimal;0.0118;0.0117;present_value;present_value;-0.0001;-0.008475;changed
+2026-09;2026-04;/DetalhesSeries/Series/Serie/RentabilidadePeriodo;5;decimal;0.0153;0.0081;present_value;present_value;-0.0072;-0.470588;changed
+2026-09;2026-04;/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse;1;decimal;244654160.51;242785363.01;present_value;present_value;-1868797.50;-0.007639;changed
+2026-09;2026-04;/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse;2;decimal;17760261.9;17573990.44;present_value;present_value;-186271.46;-0.010488;changed
+2026-09;2026-04;/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse;3;decimal;263733006.75;260954837.75;present_value;present_value;-2778169.00;-0.010534;changed
+2026-09;2026-04;/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse;4;decimal;105854990.2;104682878.69;present_value;present_value;-1172111.51;-0.011073;changed
+2026-09;2026-04;/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse;5;decimal;158384770.51;159534460.03;present_value;present_value;1149689.52;0.007259;changed
+2026-09;2026-04;/DetalhesSeries/totalVlrCertificados;;decimal;790387189.87;785531529.92;present_value;present_value;-4855659.95;-0.006143;changed
+2026-09;2026-04;/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/@total;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed
+2026-09;2026-04;/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Acima361Dias;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed
+2026-09;2026-04;/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/@total;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed
+2026-09;2026-04;/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoProdutosAgropecuarios;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed
+2026-09;2026-04;/Passivo/@total;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed
+2026-09;2026-04;/Passivo/ReducaoVlrEmissao;;decimal;-955024.69;-925149.2;present_value;present_value;29875.49;-0.031282;changed
+2026-09;2026-04;/Passivo/VlrAtualizadoEmissao;;decimal;790387189.87;785531529.92;present_value;present_value;-4855659.95;-0.006143;changed
+2026-09;2026-04;/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/@total;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed
+2026-09;2026-04;/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Acima361Dias;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed
+2026-09;2026-04;/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/@total;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed
+2026-09;2026-04;/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Acima361Dias;;decimal;791342214.56;786456679.12;present_value;present_value;-4885535.44;-0.006174;changed

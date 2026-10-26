@@ -250,3 +250,31 @@ CREATE TABLE IF NOT EXISTS report_reviews (
 );
 
 CREATE INDEX IF NOT EXISTS ix_report_reviews_report ON report_reviews(report_id);
+
+-- Comparação entre competências vigentes consecutivas (sem limites/alertas).
+CREATE TABLE IF NOT EXISTS period_comparisons (
+    comparison_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    comparison_run_id TEXT NOT NULL,
+    comparator_version TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    asset_id INTEGER NOT NULL REFERENCES assets(asset_id),
+    xml_path TEXT NOT NULL,
+    instance_key TEXT,
+    data_type TEXT,
+    previous_report_id INTEGER NOT NULL REFERENCES extracted_reports(report_id),
+    current_report_id INTEGER NOT NULL REFERENCES extracted_reports(report_id),
+    previous_month TEXT NOT NULL,
+    current_month TEXT NOT NULL,
+    months_between INTEGER NOT NULL,
+    previous_value TEXT,
+    current_value TEXT,
+    previous_state TEXT,
+    current_state TEXT,
+    absolute_change TEXT,
+    relative_change TEXT,
+    comparison_status TEXT NOT NULL CHECK (comparison_status IN (
+        'unchanged', 'changed', 'state_changed', 'excluded_scale_unknown', 'only_one_side'
+    ))
+);
+
+CREATE INDEX IF NOT EXISTS ix_period_comparisons_run ON period_comparisons(comparison_run_id);
