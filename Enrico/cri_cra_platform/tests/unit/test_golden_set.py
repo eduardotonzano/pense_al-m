@@ -52,6 +52,7 @@ def test_verify_item_detects_value_and_hash_drift():
 def test_load_rejects_approval_without_reviewer(tmp_path):
     golden = json.loads(GOLDEN.read_text(encoding="utf-8"))
     golden["items"][0]["human_review_status"] = "approved"
+    golden["items"][0]["reviewed_by"] = None
     path = tmp_path / "g.json"
     path.write_text(json.dumps(golden), encoding="utf-8")
     with pytest.raises(ValueError, match="revisor"):

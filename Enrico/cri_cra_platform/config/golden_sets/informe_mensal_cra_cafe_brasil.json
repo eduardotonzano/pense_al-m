@@ -25,10 +25,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Competência difere da data de publicação (25/09/2026).",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -42,7 +42,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "2026-08-31"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-002",
@@ -56,10 +57,10 @@
       "proposed_field_state": "present_value",
       "decision_question": "Aceitar 2022-10-30 como competência literal (não é fim de mês)?",
       "notes": "Preservar o valor original; não ajustar para 31.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 5,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2022-11-21_380870_Informe_Mensal_de_CRA.xml",
@@ -73,7 +74,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "2022-10-30"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "open"
     },
     {
       "item_id": "IMCRA-003",
@@ -87,10 +89,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "ISIN do ativo; base para validação de identidade.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -104,7 +106,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "BRECOACRABX0"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-004",
@@ -117,10 +120,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": null,
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -134,7 +137,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "Em atraso"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-005",
@@ -147,10 +151,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Contraste com IMCRA-004 para comparação entre períodos.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 5,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2022-11-21_380870_Informe_Mensal_de_CRA.xml",
@@ -164,7 +168,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "Adimplente"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-006",
@@ -177,10 +182,10 @@
       "proposed_field_state": "present_value",
       "decision_question": "Confirmar moeda BRL e escala 1 (reais).",
       "notes": null,
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -194,7 +199,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "45048086.96"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "open"
     },
     {
       "item_id": "IMCRA-007",
@@ -208,10 +214,10 @@
       "proposed_field_state": "present_value",
       "decision_question": "O valor 100891.09 está em milhares de reais? Emissão de R$ 100 mi; arquivos posteriores trazem ~1e8.",
       "notes": "Escala não declarada no XML; não converter sem decisão.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 5,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2022-11-21_380870_Informe_Mensal_de_CRA.xml",
@@ -225,7 +231,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "100891.09"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "open"
     },
     {
       "item_id": "IMCRA-008",
@@ -238,10 +245,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Mesmo campo em forma inteira, sem casas decimais.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 8,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2024-07-05_692858_Informe_Mensal_de_CRA.xml",
@@ -255,7 +262,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "100000000"
       },
-      "source_version": "2"
+      "source_version": "2",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-009",
@@ -268,10 +276,10 @@
       "proposed_field_state": "present_value",
       "decision_question": "0.0147 é fração (1,47%) ou já percentual (0,0147%)?",
       "notes": null,
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -285,7 +293,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "0.0147"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "open"
     },
     {
       "item_id": "IMCRA-010",
@@ -298,10 +307,10 @@
       "proposed_field_state": "present_value",
       "decision_question": "1 significa 100%? (Concentracao = 'Concentrado - mais de 20%').",
       "notes": null,
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -315,7 +324,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "1"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "open"
     },
     {
       "item_id": "IMCRA-011",
@@ -328,10 +338,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Texto livre com vírgula decimal; manter como texto.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -345,7 +355,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "CDI + 4,5000 a.a."
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-012",
@@ -358,10 +369,10 @@
       "proposed_field_state": "present_empty",
       "decision_question": null,
       "notes": "Elemento presente, vazio, sem xsi:nil.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -375,7 +386,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": ""
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-013",
@@ -389,10 +401,10 @@
       "proposed_field_state": "present_empty",
       "decision_question": "xsi:nil deve virar estado próprio ou present_empty com marcador?",
       "notes": null,
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -406,7 +418,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": ""
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "open"
     },
     {
       "item_id": "IMCRA-014",
@@ -420,10 +433,10 @@
       "proposed_field_state": "present_empty",
       "decision_question": null,
       "notes": "Mesmo caminho que IMCRA-015, que vale 0. Nil não é zero.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 5,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2022-11-21_380870_Informe_Mensal_de_CRA.xml",
@@ -437,7 +450,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": ""
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-015",
@@ -450,10 +464,10 @@
       "proposed_field_state": "zero",
       "decision_question": null,
       "notes": null,
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -467,7 +481,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "0"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-016",
@@ -481,10 +496,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": null,
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -498,7 +513,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "-0.01"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-017",
@@ -512,10 +528,10 @@
       "proposed_field_state": "present_value",
       "decision_question": "Soma das folhas = 45048086.95 (diferença 0.02). Gerar warning?",
       "notes": null,
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -530,7 +546,8 @@
         "attribute_present": true,
         "raw_text": "45048086.97"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "open"
     },
     {
       "item_id": "IMCRA-018",
@@ -544,10 +561,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Confere com a soma das folhas.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -562,7 +579,8 @@
         "attribute_present": true,
         "raw_text": "45048086.97"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-019",
@@ -576,10 +594,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Erro de digitação na fonte ('Securitizdora'); não corrigir.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -593,7 +611,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "Eco Securitizdora de Direitos Creditórios do Agronegócio"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-020",
@@ -607,10 +626,10 @@
       "proposed_field_state": "present_value",
       "decision_question": "'00000000000000' é placeholder de ausência (not_applicable)?",
       "notes": "Identificador, não número: não é zero.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -624,7 +643,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "00000000000000"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "open"
     },
     {
       "item_id": "IMCRA-021",
@@ -637,10 +657,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Única amortização na amostra.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 6,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2025-02-07_833116_Informe_Mensal_de_CRA.xml",
@@ -654,7 +674,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "30000000"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-022",
@@ -668,10 +689,10 @@
       "proposed_field_state": "present_value",
       "decision_question": "Unidade: dias, meses?",
       "notes": "380870 traz 63.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -685,7 +706,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "96"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "open"
     },
     {
       "item_id": "IMCRA-023",
@@ -698,10 +720,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "CNPJ formatado; em outros CRAs pode conter CPF (dado pessoal).",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "document_version_id": 1,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2026-09-25_1328844_Informe_Mensal_de_CRA.xml",
@@ -715,7 +737,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "31.943.818/0001-71"
       },
-      "source_version": "1"
+      "source_version": "1",
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-024",
@@ -730,10 +753,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Versão 1 da competência 2023-12-31; reapresentada como versão 2 em 692858.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 14,
@@ -747,7 +770,8 @@
         "evidence_excerpt": "<Competencia>2023-12-31</Competencia>",
         "evidence_excerpt_truncated": false,
         "raw_text": "2023-12-31"
-      }
+      },
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-025",
@@ -762,10 +786,10 @@
       "proposed_field_state": "present_value",
       "decision_question": "Versão vigente da competência deve ser 692858 (v2, 100000000)?",
       "notes": "v1 em escala aparente de milhares; v2 corrige para reais.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 14,
@@ -779,7 +803,8 @@
         "evidence_excerpt": "<VlrCertificadosPorClasse>100000</VlrCertificadosPorClasse>",
         "evidence_excerpt_truncated": false,
         "raw_text": "100000"
-      }
+      },
+      "decision_status": "open"
     },
     {
       "item_id": "IMCRA-026",
@@ -793,10 +818,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "v1 da competência 2024-04-30 repete o valor de março (773.39); v2 (703068) traz 0.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 18,
@@ -810,7 +835,8 @@
         "evidence_excerpt": "<RendimentosDistribuidosPeriodo>773.39</RendimentosDistribuidosPeriodo>",
         "evidence_excerpt_truncated": false,
         "raw_text": "773.39"
-      }
+      },
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-027",
@@ -824,10 +850,10 @@
       "proposed_field_state": "zero",
       "decision_question": null,
       "notes": "Correção de conteúdo, não só de escala.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação em lote comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "2",
       "document_version_id": 12,
@@ -841,7 +867,8 @@
         "evidence_excerpt": "<RendimentosDistribuidosPeriodo>0</RendimentosDistribuidosPeriodo>",
         "evidence_excerpt_truncated": false,
         "raw_text": "0"
-      }
+      },
+      "decision_status": "not_required"
     }
   ]
 }
