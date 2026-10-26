@@ -5,6 +5,13 @@ from .batch_import_report import BatchImportReport
 from .debenture_instrument_adapter import (
     DebentureInstrumentAdapter,
 )
+from .debenture_instrument_batch_import_service import (
+    DebentureInstrumentBatchImportService,
+    InstrumentBatchOutcome,
+)
+from .debenture_instrument_import_service import (
+    DebentureInstrumentImportService,
+)
 from .debenture_issuer_adapter import (
     DebentureIssuerAdapter,
 )
@@ -17,6 +24,8 @@ from .debenture_issuer_import_service import (
 from .import_result import (
     EntityImportAction,
     EntityImportResult,
+    InstrumentImportReason,
+    InstrumentImportResult,
 )
 from .legacy_datetime import parse_legacy_datetime
 from .legacy_instrument_reader import (
@@ -35,6 +44,8 @@ __all__ = [
     "BatchImportError",
     "BatchImportReport",
     "DebentureInstrumentAdapter",
+    "DebentureInstrumentBatchImportService",
+    "DebentureInstrumentImportService",
     "DebentureInstrumentRecord",
     "DebentureIssuerAdapter",
     "DebentureIssuerBatchImportService",
@@ -42,6 +53,9 @@ __all__ = [
     "DebentureIssuerRecord",
     "EntityImportAction",
     "EntityImportResult",
+    "InstrumentBatchOutcome",
+    "InstrumentImportReason",
+    "InstrumentImportResult",
     "LegacyDebentureInstrumentReader",
     "LegacyDebentureIssuerReader",
     "LegacyInstrumentReadError",
