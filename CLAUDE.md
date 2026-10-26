@@ -17,12 +17,12 @@
 | `docs/architecture/ADR-00x-*.md` | decisões de arquitetura |
 | `Eduardo/debenture-replica/` | **versão de trabalho** de debêntures: `src/debenture_search`, `migrations/`, `scripts/`, `tests/`, `data/` |
 | `debenture-replica/` (raiz) | **congelada** (`docs/FREEZE.md`): só automação (config, coleta, retenção, lock, retry, agendamento, monitoramento) |
-| `Enrico/cri_cra_platform/` | CRI/CRA (schema em `src/credit_assets/database/schema.sql`) |
+| `Enrico/cri_cra_platform/` | CRI/CRA (linha de base em `src/credit_assets/database/schema.sql`; migrations numeradas em `migrations/`) |
 | `coletor_cri_cra/` | coletor piloto Fundos.NET |
 | `Eduardo/*.py`, `Eduardo/*.tar.gz`, `Eduardo/correcao-banco/` | rascunhos/legado: não editar nem usar como referência |
 
-Atenção: a automação congelada da raiz importa `debenture_search`, que só existe em `Eduardo/debenture-replica/src`. Não duplicar código entre as duas cópias.
-Não existe README na raiz nem `Fábio/README.md`; os contratos estão nos ADRs e em `src/pense_alm/shared/entities/README.md`.
+Atenção: o pacote `debenture_search` está dividido entre as duas cópias. `config.py`, `logging_config.py` e os serviços da automação só existem na congelada; `database.py`, repositórios e providers só na de trabalho, e a congelada os importa (ex.: `debenture-replica/scripts/run_collection.py`). Não duplicar código entre as duas cópias.
+Há `README.md` na raiz e `Fábio/README.md` (contrato de integração); os contratos também estão nos ADRs e em `src/pense_alm/shared/entities/README.md`.
 
 ## Regras de dados (não quebrar)
 1. Nenhum domínio cria cadastro paralelo de entidades.
@@ -37,19 +37,19 @@ Não existe README na raiz nem `Fábio/README.md`; os contratos estão nos ADRs 
 10. Banco legado é lido com `PRAGMA query_only`.
 
 ## Testes
-Python 3.14, venv `C:\Users\eduardo.tonzano\debenture-venv`. Rode sempre no diretório indicado.
+Python 3.14. Venvs: `C:\Users\eduardo.tonzano\debenture-venv` (camada compartilhada e debêntures) e `C:\Users\eduardo.tonzano\cricra-venv` (CRI/CRA; tem `playwright` e `requests`, que o outro não tem). Rode sempre no diretório indicado.
 - Camada compartilhada (raiz do repo): `$env:PYTHONPATH='src'; python -m pytest tests` (285 testes; sem o PYTHONPATH a coleta falha)
-- Debêntures, versão de trabalho: `cd Eduardo\debenture-replica; python -m pytest -q` (312; o `pyproject.toml` já define `pythonpath=src`)
+- Debêntures, versão de trabalho: `cd Eduardo\debenture-replica; python -m pytest -q` (416; o `pyproject.toml` já define `pythonpath=src`)
 - Debêntures, automação congelada: `cd debenture-replica; python -m pytest -q` (105)
-- CRI/CRA: `cd Enrico\cri_cra_platform; python -m pytest` (`pytest.ini` define `pythonpath=src`; `tests/integration/test_fundosnet_collector.py` importa `pense_alm` e falha na coleta sem `PYTHONPATH=..\..\src`)
-- Baseline histórico de 417 testes (ADR-001, FREEZE) = 312 + 105. Não deve cair.
+- CRI/CRA (venv `cricra-venv`): `cd Enrico\cri_cra_platform; python -m pytest` (182; `pytest.ini` define `pythonpath=src`; no `debenture-venv`, 5 arquivos de teste falham na coleta por falta do `playwright`)
+- Baseline histórico de 417 testes (ADR-001; `FREEZE.md`: "suite completa"). Soma atual: 416 + 105 = 521. Não deve cair. Contagens por `pytest --collect-only` em 26/10/2026.
 
 ## Regras operacionais
 - **Nunca** rodar coleta, importação ou CLI com `--commit` sem minha aprovação explícita na conversa. Sempre `--dry-run` antes.
   - `debenture-replica/scripts/run_collection.py <config> --dry-run|--commit` e `run_scheduled_collection.py` exigem uma das duas flags.
   - `Eduardo/debenture-replica/scripts/snd_import_one.py` e `snd_import_batch.py` fazem só a prévia sem `--commit`.
   - `python -m pense_alm.shared.integration.cli --legacy-db ... --target-db ... --dry-run` só tem `--dry-run`: **sem a flag ele grava**. Sempre passá-la primeiro.
-- Backup antes de qualquer migration (`BackupService.create_backup()` em `Eduardo/debenture-replica/src/debenture_search/services/backup_service.py`).
+- Backup antes de qualquer migration (debêntures: `BackupService.create_backup()` em `Eduardo/debenture-replica/src/debenture_search/services/backup_service.py`; CRI/CRA: `create_backup` em `Enrico/cri_cra_platform/src/credit_assets/database/backup.py`).
 - Não versionar bancos (`*.db`, `*.sqlite*`), `.env`, ambientes virtuais, documentos baixados (`data/documents/`), backups, exports gerados, `*.bak`, `.vscode/`. Há arquivos assim já versionados (ex.: `Eduardo/debenture-replica/data/backups/`, `debenture_db_base64.txt`, `*.tar.gz`); não remover sem pedido, pois a limpeza é um `chore:` à parte.
 - Commits: `feat:`, `fix:`, `test:`, `chore:`, em português, no estilo do histórico. Trabalhar em branch de feature e abrir pull request para `main`; nunca commitar direto na `main`.
 - Códigos de saída: coleta de debêntures 0/1/2/3 (lock)/4 (qualidade)/130; CLI compartilhada 0/2/3 (bloqueados)/4 (revisão). Não reutilizar um significado no outro.
@@ -59,9 +59,9 @@ Python 3.14, venv `C:\Users\eduardo.tonzano\debenture-venv`. Rode sempre no dire
 2. Migration numerada, nunca editar uma já aplicada:
    - camada compartilhada: novo `vNNN_*.py` em `persistence/migrations/` + entrada em `MIGRATIONS`;
    - debêntures: novo `migrations/NNN_*.sql` em `Eduardo/debenture-replica/`;
-   - CRI/CRA: hoje só `schema.sql` (sem numeração); combinar o formato comigo antes.
+   - CRI/CRA: novo `migrations/NNN_*.sql` em `Enrico/cri_cra_platform/` (`schema.sql` é a linha de base; versões em `schema_migrations`).
 3. Teste que cubra a migration e a idempotência.
 4. `--dry-run` / cópia do banco descartável.
 5. Backup do banco real e só então aplicação, com minha aprovação.
 6. Verificação: `integrity_check`, `foreign_key_check`, contagens e segunda execução sem duplicar.
-- Limitação conhecida: `Eduardo/debenture-replica/scripts/apply_migration.py` tem caminho fixo `data/debenture.db`, aplica só a `001` e **não faz backup**: fazer o backup manualmente antes.
+- `scripts/apply_migration.py` (debêntures e CRI/CRA): `--database` obrigatório e `--dry-run` (aplica numa cópia) ou `--commit` (faz o backup, aplica numa transação e só confirma se a verificação passar).
