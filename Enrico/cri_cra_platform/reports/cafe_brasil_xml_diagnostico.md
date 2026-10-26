@@ -92,6 +92,20 @@ consultar `source_version`.)
 7. **Competência fora do fim do mês**: 380870 declara `2022-10-30`. Preservar como veio.
 8. **Typo na fonte**: `CompanhiaEmissora = "Eco Securitizdora ..."`. Não corrigir na extração.
 
+## Série completa (2026-10-26)
+
+Todos os 52 Informes Mensais do Café Brasil baixados e verificados (ISIN da grade e do XML).
+Cobrem **47 competências contínuas, de out/2022 a ago/2026**; só dez/2023 a abr/2024 têm
+duas versões. Os 52 têm os mesmos 282 caminhos; nenhum valor estruturalmente inválido
+(campo numérico com texto, data fora de ISO) e nenhum elemento ausente.
+
+- Escala aparente de milhares em todas as versões 1 de out/2022 a abr/2024; reais a partir
+  de mai/2024.
+- Convenções de competência: fim de mês (maioria), 1º dia do mês (fev–ago/2023) e `2022-10-30`.
+- `VlrCertificadosPorClasse = 108830.3693` (495975) com quatro casas decimais.
+- Variação a revisar: 40027042.18 (dez/2025) → 72352716.52 (jan/2026) → 48274408.67
+  (fev/2026). Observação objetiva; não classificada como erro.
+
 ## Checagem cruzada com CVM Dados Abertos (2026-10-26)
 
 Arquivos `inf_mensal_cra_{2022,2023,2024}.zip` (tabela `classe`), ISIN `BRECOACRABX0`:

@@ -869,6 +869,69 @@
         "raw_text": "0"
       },
       "decision_status": "not_required"
+    },
+    {
+      "instance_index": 0,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "item_id": "IMCRA-028",
+      "source_document_id": "434436",
+      "xml_path": "/InformeMensalCRA/DadosGerais/Competencia",
+      "case_types": [
+        "present_value",
+        "date"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "Competência no 1º dia do mês (fev–ago/2023) representa o mês de referência inteiro?",
+      "notes": "Três convenções na mesma série: fim de mês, 1º dia (2023-02 a 2023-08) e 2022-10-30.",
+      "decision_status": "open",
+      "source_version": "1",
+      "document_version_id": 54,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2023-03-27_434436_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "a3de6947c82a7d709801d8a59b5a8d433a1a63974237d4a2079044cbc535b2a8",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 4,
+        "xsi_nil": false,
+        "evidence_excerpt": "<Competencia>2023-02-01</Competencia>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "2023-02-01"
+      }
+    },
+    {
+      "instance_index": 0,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "item_id": "IMCRA-029",
+      "source_document_id": "495975",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse",
+      "case_types": [
+        "monetary"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Quatro casas decimais (108830.3693); preservar a precisão original, sem arredondar.",
+      "decision_status": "not_required",
+      "source_version": "1",
+      "document_version_id": 50,
+      "local_file_path": "data/documents/CRA022009VM/informes_mensais/2023-07-25_495975_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "049811948d17ab6a1749d9c13b1e4bd353fdc7fd7b4cf1764344935538f4a874",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 51,
+        "xsi_nil": false,
+        "evidence_excerpt": "<VlrCertificadosPorClasse>108830.3693</VlrCertificadosPorClasse>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "108830.3693"
+      }
     }
   ]
 }
