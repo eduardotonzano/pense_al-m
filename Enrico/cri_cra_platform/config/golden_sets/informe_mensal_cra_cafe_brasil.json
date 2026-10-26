@@ -75,7 +75,8 @@
         "raw_text": "2022-10-30"
       },
       "source_version": "1",
-      "decision_status": "open"
+      "decision_status": "default_pending_review",
+      "decision": "Padrão conservador (mapping 0.1.0): literal preservado, sem ajuste para fim de mês."
     },
     {
       "item_id": "IMCRA-003",
@@ -200,7 +201,8 @@
         "raw_text": "45048086.96"
       },
       "source_version": "1",
-      "decision_status": "open"
+      "decision_status": "decided",
+      "decision": "Decidido 2026-10-26: BRL, scale '1' salvo quando monetary_scale_suspect dispara."
     },
     {
       "item_id": "IMCRA-007",
@@ -232,7 +234,8 @@
         "raw_text": "100891.09"
       },
       "source_version": "1",
-      "decision_status": "open"
+      "decision_status": "decided",
+      "decision": "Decidido 2026-10-26: marcar escala suspeita (scale='unknown', warning) e não converter."
     },
     {
       "item_id": "IMCRA-008",
@@ -294,7 +297,8 @@
         "raw_text": "0.0147"
       },
       "source_version": "1",
-      "decision_status": "open"
+      "decision_status": "decided",
+      "decision": "Decidido 2026-10-26: fração."
     },
     {
       "item_id": "IMCRA-010",
@@ -325,7 +329,8 @@
         "raw_text": "1"
       },
       "source_version": "1",
-      "decision_status": "open"
+      "decision_status": "decided",
+      "decision": "Decidido 2026-10-26: fração (1 = 100%)."
     },
     {
       "item_id": "IMCRA-011",
@@ -419,7 +424,8 @@
         "raw_text": ""
       },
       "source_version": "1",
-      "decision_status": "open"
+      "decision_status": "decided",
+      "decision": "Decidido 2026-10-26: present_empty com xsi_nil=1."
     },
     {
       "item_id": "IMCRA-014",
@@ -547,7 +553,8 @@
         "raw_text": "45048086.97"
       },
       "source_version": "1",
-      "decision_status": "open"
+      "decision_status": "default_pending_review",
+      "decision": "Padrão conservador (mapping 0.1.0): divergência de @total gera warning, sem alterar valores."
     },
     {
       "item_id": "IMCRA-018",
@@ -644,7 +651,8 @@
         "raw_text": "00000000000000"
       },
       "source_version": "1",
-      "decision_status": "open"
+      "decision_status": "default_pending_review",
+      "decision": "Padrão conservador (mapping 0.1.0): identificador literal; não vira not_applicable."
     },
     {
       "item_id": "IMCRA-021",
@@ -707,7 +715,8 @@
         "raw_text": "96"
       },
       "source_version": "1",
-      "decision_status": "open"
+      "decision_status": "default_pending_review",
+      "decision": "Padrão conservador (mapping 0.1.0): pending_decision (unidade)."
     },
     {
       "item_id": "IMCRA-023",
@@ -804,7 +813,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "100000"
       },
-      "decision_status": "open"
+      "decision_status": "decided",
+      "decision": "Decidido 2026-10-26: escala suspeita marcada, não convertida; versão vigente segue a regra do handoff (mais recente, válida e aprovada)."
     },
     {
       "item_id": "IMCRA-026",
@@ -887,7 +897,7 @@
       "proposed_field_state": "present_value",
       "decision_question": "Competência no 1º dia do mês (fev–ago/2023) representa o mês de referência inteiro?",
       "notes": "Três convenções na mesma série: fim de mês, 1º dia (2023-02 a 2023-08) e 2022-10-30.",
-      "decision_status": "open",
+      "decision_status": "default_pending_review",
       "source_version": "1",
       "document_version_id": 54,
       "local_file_path": "data/documents/CRA022009VM/informes_mensais/2023-03-27_434436_Informe_Mensal_de_CRA.xml",
@@ -900,7 +910,8 @@
         "evidence_excerpt": "<Competencia>2023-02-01</Competencia>",
         "evidence_excerpt_truncated": false,
         "raw_text": "2023-02-01"
-      }
+      },
+      "decision": "Padrão conservador (mapping 0.1.0): literal preservado, sem ajuste para fim de mês."
     },
     {
       "instance_index": 0,

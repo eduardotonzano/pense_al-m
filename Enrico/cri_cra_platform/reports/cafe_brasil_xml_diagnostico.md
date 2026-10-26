@@ -129,6 +129,26 @@ Informes Mensais. Três XMLs baixados (1094453, 1200762, 1355952) mostram o mesm
 e em `DetalhesSeries/Series`, e `EspecificacaoTipoSegmento` ausente (caso `absent`).
 Diagnóstico: `reports/alibem_xml_union.{json,csv}`.
 
+## Mapping 0.1.0 e extração 0.2.0 (2026-10-26)
+
+Regras aprovadas: escala marcada e não convertida; percentuais como fração; séries ligadas
+por `NumeroSerie`; `xsi:nil` = `present_empty` + `xsi_nil=1`; `invalid` coberto por testes
+sintéticos. 282 caminhos: 183 `mapped`, 97 `ignored` (contêineres e atributos nil),
+2 `pending_decision` (`DurationCarteira`, `VlrTotalDirCredRelacaoVlrTotalEmissao`).
+
+Resultado em 55 arquivos (52 Café Brasil, 3 Alibem): 39/39 itens dos golden sets conferem,
+incluindo `zero` e `absent`. Validação automática:
+
+- `monetary_scale_suspect` dispara em exatamente 19 relatórios: todas as versões 1 de
+  out/2022 a abr/2024 do Café Brasil. Nenhuma v2 nem relatório de mai/2024 em diante.
+- `totals_consistency` em `Passivo/@total`: nos 13 casos com `ReducaoVlrEmissao ≠ 0`
+  (Café Brasil nov/2025–ago/2026 e os 3 do Alibem), `@total = soma das folhas − 2 × Reducao`,
+  isto é, o total trata `ReducaoVlrEmissao` com o sinal oposto ao informado no campo.
+  Convenção a decidir; a regra atual só gera warning.
+- Jun/2023 (495975, quatro casas decimais): diferenças de arredondamento (ex.: 0.0007) em
+  seis `@total`.
+- Café Brasil: 23 relatórios `valid`, 29 `warning`; Alibem: 3 `warning`. Nenhum `invalid`.
+
 ## Golden set
 
 `config/golden_sets/informe_mensal_cra_cafe_brasil.json` — 27 itens congelados por SHA-256,

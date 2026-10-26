@@ -1,6 +1,6 @@
 {
   "diagnostic_version": "0.1.0",
-  "mapping_version": "0.0.0-draft",
+  "mapping_version": "0.1.0",
   "layout_version": null,
   "layout_validation_status": "structural_only",
   "files_analyzed": 3,
@@ -24,9 +24,9 @@
   "maximum_depth": 5,
   "paths_total": 235,
   "classification_counts": {
-    "mapped": 0,
-    "ignored": 0,
-    "pending_decision": 235
+    "mapped": 182,
+    "ignored": 51,
+    "pending_decision": 2
   },
   "classification_coverage": 1.0,
   "paths_only_in_some_files": [
@@ -48,8 +48,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo",
@@ -65,8 +65,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/@total",
@@ -88,8 +88,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes",
@@ -105,8 +105,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes/@total",
@@ -126,8 +126,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes/CotasFILiquidezDiaria",
@@ -147,8 +147,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes/OperacoesCompromissadas",
@@ -168,8 +168,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes/Outros",
@@ -189,8 +189,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes/TitulosPublicosFederais",
@@ -210,8 +210,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/Derivativos",
@@ -227,8 +227,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/Derivativos/@total",
@@ -248,8 +248,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/Derivativos/ContratosTermo",
@@ -269,8 +269,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/Derivativos/Futuros",
@@ -290,8 +290,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/Derivativos/Opcoes",
@@ -311,8 +311,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/Derivativos/Swap",
@@ -332,8 +332,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios",
@@ -349,8 +349,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios/@total",
@@ -372,8 +372,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerComParcelasAtraso",
@@ -393,8 +393,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerSemParcelasAtraso",
@@ -416,8 +416,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos",
@@ -437,8 +437,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/OutrosAtivos",
@@ -458,8 +458,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Ativo/ProvisaoRecuperacaoDireitosCreditorios",
@@ -479,8 +479,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/ContingenciaPatrimonioSeparado",
@@ -496,8 +496,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/ContingenciaPatrimonioSeparado/OutrasContigenciasRelevantes",
@@ -517,8 +517,8 @@
       "example_values": [
         "Nada a destacar"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes",
@@ -534,8 +534,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes/PrincipaisFatos",
@@ -555,8 +555,8 @@
       "example_values": [
         "Nada a destacar."
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes/ValoresBensDireitosEnvolvidos",
@@ -576,8 +576,8 @@
       "example_values": [
         "Nada a destacar."
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais",
@@ -593,8 +593,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/AgenteFiduciario",
@@ -614,8 +614,8 @@
       "example_values": [
         "Vortx DTVM LTDA."
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/CNPJCompanhia",
@@ -635,8 +635,8 @@
       "example_values": [
         "10753164000143"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/CompanhiaEmissora",
@@ -656,8 +656,8 @@
       "example_values": [
         "Eco Securitizdora de Direitos Creditórios do Agronegócio"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Competencia",
@@ -679,8 +679,8 @@
         "2026-04-30",
         "2026-09-30"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/CustodianteRegistradora",
@@ -700,8 +700,8 @@
       "example_values": [
         "Vortx DTVM LTDA."
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/DetalhamentoLastro",
@@ -721,8 +721,8 @@
       "example_values": [
         "Direitos Creditórios"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Emissao",
@@ -738,8 +738,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Emissao/CodigoIdentificacao",
@@ -759,8 +759,8 @@
       "example_values": [
         "BRECOACRALJ8"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Emissao/DataEmissao",
@@ -780,8 +780,8 @@
       "example_values": [
         "2025-12-15"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Emissao/NomeEmissao",
@@ -801,8 +801,8 @@
       "example_values": [
         "Série 1,2, 3, 4 e 5 - 426ª Emissão - Alibem"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Emissao/NumeroEmissao",
@@ -822,8 +822,8 @@
       "example_values": [
         "426"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Emissao/QuantidadeSeries",
@@ -843,8 +843,8 @@
       "example_values": [
         "5"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/InstituicaoRegimeFiduciario",
@@ -864,8 +864,8 @@
       "example_values": [
         "Sim"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas",
@@ -881,8 +881,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/CadeiaProducao",
@@ -902,8 +902,8 @@
       "example_values": [
         "Produtor rural"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/OutrasCaracteristicasEmissao",
@@ -923,8 +923,8 @@
       "example_values": [
         "Nada a destacar."
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/RetentorRisco",
@@ -944,8 +944,8 @@
       "example_values": [
         "00000000000000"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/TipoRetencaoRisco",
@@ -963,8 +963,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/TipoSegmento",
@@ -984,8 +984,8 @@
       "example_values": [
         "Pecuária"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Revolvencia",
@@ -1005,8 +1005,8 @@
       "example_values": [
         "Não"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series",
@@ -1022,8 +1022,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie",
@@ -1039,8 +1039,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/Classe",
@@ -1062,8 +1062,8 @@
         "Mezanino",
         "Subordinada"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/CodigoISIN",
@@ -1085,8 +1085,8 @@
         "BRECOACRALK6",
         "BRECOACRALL4"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/CodigoNegociacaoMercadoSec",
@@ -1108,8 +1108,8 @@
         "CRA02500C1E",
         "CRA02500C1F"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/DataVencimento",
@@ -1131,8 +1131,8 @@
         "2032-07-15",
         "2035-07-16"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/MesBaseApuracaoPagtoRemunAmort",
@@ -1152,8 +1152,8 @@
       "example_values": [
         "Junho e Dezembro"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/NumeroSerie",
@@ -1175,8 +1175,8 @@
         "2",
         "3"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/PeriodicidadePagtoRemunAmort",
@@ -1196,8 +1196,8 @@
       "example_values": [
         "Semestral"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/Situacao",
@@ -1217,8 +1217,8 @@
       "example_values": [
         "Adimplente"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/TaxaJuros",
@@ -1240,8 +1240,8 @@
         "108% do CDI",
         "CDI + 1,5000% a.a"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/TipoOferta",
@@ -1261,8 +1261,8 @@
       "example_values": [
         "Público em geral"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/VlrTotalIntegralizado",
@@ -1284,8 +1284,8 @@
         "16858000",
         "250000000"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/Sobrecolateralizacao",
@@ -1305,8 +1305,8 @@
       "example_values": [
         "Não aplicável. Não há sobrecolaterização."
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DadosGerais/TipoLastro",
@@ -1326,8 +1326,8 @@
       "example_values": [
         "Créditos"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida",
@@ -1343,8 +1343,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros",
@@ -1360,8 +1360,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Cambio",
@@ -1381,8 +1381,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/CommoditiesAgricolas",
@@ -1402,8 +1402,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Juros",
@@ -1423,8 +1423,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Outros",
@@ -1444,8 +1444,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo",
@@ -1461,8 +1461,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Cambio",
@@ -1482,8 +1482,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/CommoditiesAgricolas",
@@ -1503,8 +1503,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Juros",
@@ -1524,8 +1524,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Outros",
@@ -1545,8 +1545,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes",
@@ -1562,8 +1562,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Cambio",
@@ -1583,8 +1583,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/CommoditiesAgricolas",
@@ -1604,8 +1604,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Juros",
@@ -1625,8 +1625,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Outros",
@@ -1646,8 +1646,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap",
@@ -1663,8 +1663,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Cambio",
@@ -1684,8 +1684,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/CommoditiesAgricolas",
@@ -1705,8 +1705,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Juros",
@@ -1726,8 +1726,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Outros",
@@ -1747,8 +1747,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries",
@@ -1764,8 +1764,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco",
@@ -1781,8 +1781,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/AgenciaClassificadora",
@@ -1802,8 +1802,8 @@
       "example_values": [
         "Moody´s Local"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao",
@@ -1825,8 +1825,8 @@
         "2026-01-29",
         "2026-09-03"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao/@{http://www.w3.org/2001/XMLSchema-instance}nil",
@@ -1846,8 +1846,8 @@
       "example_values": [
         "true"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series",
@@ -1863,8 +1863,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie",
@@ -1880,8 +1880,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/AmortizacoesRealizadasPeriodo",
@@ -1901,8 +1901,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/Classe",
@@ -1924,8 +1924,8 @@
         "Mezanino",
         "Subordinada"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual",
@@ -1946,8 +1946,8 @@
       "example_values": [
         "A.br (sf)"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual/@{http://www.w3.org/2001/XMLSchema-instance}nil",
@@ -1967,8 +1967,8 @@
       "example_values": [
         "true"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase",
@@ -1986,8 +1986,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase/@{http://www.w3.org/2001/XMLSchema-instance}nil",
@@ -2007,8 +2007,8 @@
       "example_values": [
         "true"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo",
@@ -2026,8 +2026,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo/@{http://www.w3.org/2001/XMLSchema-instance}nil",
@@ -2047,8 +2047,8 @@
       "example_values": [
         "true"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/NumeroSerie",
@@ -2070,8 +2070,8 @@
         "2",
         "3"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/QtdCertificadosPorClasse",
@@ -2093,8 +2093,8 @@
         "16858",
         "250000"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/RendimentosDistribuidosPeriodo",
@@ -2114,8 +2114,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/RentabilidadePeriodo",
@@ -2138,8 +2138,8 @@
         "0.011",
         "0.0118"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse",
@@ -2161,8 +2161,8 @@
         "16928388.21",
         "251070204.24"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Subordinacao",
@@ -2178,8 +2178,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/Subordinacao/RecomposicaoIndice",
@@ -2199,8 +2199,8 @@
       "example_values": [
         "Não aplicável. Não houve recomposição de índices."
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/totalAmortizacoesRealizadas",
@@ -2220,8 +2220,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/totalQtdCertificados",
@@ -2241,8 +2241,8 @@
       "example_values": [
         "750000"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/totalRendimentosDistribuidos",
@@ -2262,8 +2262,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/DetalhesSeries/totalVlrCertificados",
@@ -2285,8 +2285,8 @@
         "790387189.87",
         "785531529.92"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes",
@@ -2302,8 +2302,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoCaixaEquivalentes",
@@ -2323,8 +2323,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoNovosDireitosCreditorios",
@@ -2344,8 +2344,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosPagamentos",
@@ -2365,8 +2365,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosRecebimentos",
@@ -2386,8 +2386,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PagamentosDespesas",
@@ -2407,8 +2407,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior",
@@ -2424,8 +2424,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total",
@@ -2445,8 +2445,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/AmortizacaoPrincipal",
@@ -2466,8 +2466,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/Juros",
@@ -2487,8 +2487,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior",
@@ -2504,8 +2504,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/@total",
@@ -2525,8 +2525,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/AmortizacaoPrincipal",
@@ -2546,8 +2546,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/Juros",
@@ -2567,8 +2567,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino",
@@ -2584,8 +2584,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/@total",
@@ -2605,8 +2605,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/AmortizacaoPrincipal",
@@ -2626,8 +2626,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/Juros",
@@ -2647,8 +2647,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/RecebimentosAlienacaoCaixaEquivalentes",
@@ -2668,8 +2668,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/RecebimentosDireitosCreditorios",
@@ -2689,8 +2689,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/VariacaoLiquidaCaixaPatrimonioSeparado",
@@ -2710,8 +2710,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro",
@@ -2727,8 +2727,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento",
@@ -2744,8 +2744,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/@total",
@@ -2767,8 +2767,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Acima361Dias",
@@ -2790,8 +2790,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Ate30Dias",
@@ -2811,8 +2811,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De121a150Dias",
@@ -2832,8 +2832,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De151a180Dias",
@@ -2853,8 +2853,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De181a360Dias",
@@ -2874,8 +2874,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De31a60Dias",
@@ -2895,8 +2895,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De61a90Dias",
@@ -2916,8 +2916,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De91a120Dias",
@@ -2937,8 +2937,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento",
@@ -2954,8 +2954,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente",
@@ -2971,8 +2971,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/CNPJ",
@@ -2992,8 +2992,8 @@
       "example_values": [
         "03.941.052/0001-50"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/Percentual",
@@ -3013,8 +3013,8 @@
       "example_values": [
         "1"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/Concentracao",
@@ -3034,8 +3034,8 @@
       "example_values": [
         "Concentrado - mais de 20%"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoCedente",
@@ -3051,8 +3051,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoCedente/MaiorCedente",
@@ -3072,8 +3072,8 @@
       "example_values": [
         "1"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor",
@@ -3089,8 +3089,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores",
@@ -3108,8 +3108,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil",
@@ -3129,8 +3129,8 @@
       "example_values": [
         "true"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores",
@@ -3148,8 +3148,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil",
@@ -3169,8 +3169,8 @@
       "example_values": [
         "true"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/MaiorDevedor",
@@ -3190,8 +3190,8 @@
       "example_values": [
         "1"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores",
@@ -3209,8 +3209,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil",
@@ -3230,8 +3230,8 @@
       "example_values": [
         "true"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento",
@@ -3247,8 +3247,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor",
@@ -3264,8 +3264,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/CNPJ",
@@ -3285,8 +3285,8 @@
       "example_values": [
         "03.941.052/0001-50"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/Percentual",
@@ -3306,8 +3306,8 @@
       "example_values": [
         "1"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber",
@@ -3323,8 +3323,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/DurationCarteira",
@@ -3345,7 +3345,7 @@
         "Dez anos"
       ],
       "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/OutrasConsideracoesRelevantes",
@@ -3365,8 +3365,8 @@
       "example_values": [
         "Nada a destacar."
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PercentualDireitosCreditoriosCedentesTerceiros",
@@ -3386,8 +3386,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PercentualDireitosCreditoriosOutrasGarantias",
@@ -3407,8 +3407,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PeriodicidadeAvaliacaoGarantias",
@@ -3428,8 +3428,8 @@
       "example_values": [
         "Não aplicável. A operação não conta com garantias reais."
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrDividasAdquiridasEmissorSecuritizadora",
@@ -3449,8 +3449,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalDirCredRelacaoVlrTotalEmissao",
@@ -3471,7 +3471,7 @@
         "0"
       ],
       "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalGarantias",
@@ -3491,8 +3491,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo",
@@ -3508,8 +3508,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/@total",
@@ -3529,8 +3529,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/InfoImpactoPrePgtoInvestidores",
@@ -3550,8 +3550,8 @@
       "example_values": [
         "Não há. Não houve pré-pagamento para os investidores."
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro",
@@ -3569,8 +3569,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro/@{http://www.w3.org/2001/XMLSchema-instance}nil",
@@ -3590,8 +3590,8 @@
       "example_values": [
         "true"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos",
@@ -3607,8 +3607,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/@total",
@@ -3628,8 +3628,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Acima361Dias",
@@ -3649,8 +3649,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre121e150Dias",
@@ -3670,8 +3670,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre151e180Dias",
@@ -3691,8 +3691,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre181e360Dias",
@@ -3712,8 +3712,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre1e30Dias",
@@ -3733,8 +3733,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre31e60Dias",
@@ -3754,8 +3754,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre61e90Dias",
@@ -3775,8 +3775,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre91e120Dias",
@@ -3796,8 +3796,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao",
@@ -3813,8 +3813,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/@total",
@@ -3836,8 +3836,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoInsumosAgropecuarios",
@@ -3857,8 +3857,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoMaquinasImplementos",
@@ -3878,8 +3878,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoProdutosAgropecuarios",
@@ -3899,8 +3899,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoInsumosAgropecuarios",
@@ -3920,8 +3920,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoMaquinasImplementos",
@@ -3941,8 +3941,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoProdutosAgropecuarios",
@@ -3962,8 +3962,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoInsumosAgropecuarios",
@@ -3983,8 +3983,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoMaquinasImplementos",
@@ -4004,8 +4004,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoProdutosAgropecuarios",
@@ -4025,8 +4025,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoInsumosAgropecuarios",
@@ -4046,8 +4046,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoMaquinasImplementos",
@@ -4067,8 +4067,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoProdutosAgropecuarios",
@@ -4090,8 +4090,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrTotalParcelasAtraso",
@@ -4111,8 +4111,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/OutrasInfoRelevantesDesempenhoEmissao",
@@ -4132,8 +4132,8 @@
       "example_values": [
         "Nada a destacar."
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo",
@@ -4149,8 +4149,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo/@total",
@@ -4172,8 +4172,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo/CompanhiaSecuritizadoraEmissora",
@@ -4193,8 +4193,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo/Derivativos",
@@ -4210,8 +4210,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo/Derivativos/@total",
@@ -4231,8 +4231,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo/Derivativos/ContratosTermo",
@@ -4252,8 +4252,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo/Derivativos/Futuros",
@@ -4273,8 +4273,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo/Derivativos/Opcoes",
@@ -4294,8 +4294,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo/Derivativos/Swap",
@@ -4315,8 +4315,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo/Outros",
@@ -4336,8 +4336,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo/ReducaoVlrEmissao",
@@ -4359,8 +4359,8 @@
         "-955024.69",
         "-925149.2"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/Passivo/VlrAtualizadoEmissao",
@@ -4382,8 +4382,8 @@
         "790387189.87",
         "785531529.92"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPatrimonioLiquidoEmissao",
@@ -4403,8 +4403,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado",
@@ -4420,8 +4420,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas",
@@ -4437,8 +4437,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/@total",
@@ -4460,8 +4460,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Acima361Dias",
@@ -4483,8 +4483,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Ate30Dias",
@@ -4504,8 +4504,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De121a150Dias",
@@ -4525,8 +4525,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De151a180Dias",
@@ -4546,8 +4546,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De181a360Dias",
@@ -4567,8 +4567,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De31a60Dias",
@@ -4588,8 +4588,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De61a90Dias",
@@ -4609,8 +4609,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De91a120Dias",
@@ -4630,8 +4630,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr",
@@ -4647,8 +4647,8 @@
       "base64_suspected": false,
       "personal_data_suspected": false,
       "example_values": [],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "ignored",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/@total",
@@ -4670,8 +4670,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Acima361Dias",
@@ -4693,8 +4693,8 @@
         "791342214.56",
         "786456679.12"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Ate30Dias",
@@ -4714,8 +4714,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De121a150Dias",
@@ -4735,8 +4735,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De151a180Dias",
@@ -4756,8 +4756,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De181a360Dias",
@@ -4777,8 +4777,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De31a60Dias",
@@ -4798,8 +4798,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De61a90Dias",
@@ -4819,8 +4819,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     },
     {
       "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De91a120Dias",
@@ -4840,8 +4840,8 @@
       "example_values": [
         "0"
       ],
-      "classification_status": "pending_decision",
-      "classification_source": "default"
+      "classification_status": "mapped",
+      "classification_source": "mapping"
     }
   ],
   "errors": [],

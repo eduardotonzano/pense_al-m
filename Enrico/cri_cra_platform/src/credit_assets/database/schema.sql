@@ -223,3 +223,15 @@ CREATE TABLE IF NOT EXISTS value_reviews (
     reviewed_at TEXT,
     justification TEXT
 );
+
+CREATE TABLE IF NOT EXISTS extraction_findings (
+    finding_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    report_id INTEGER NOT NULL REFERENCES extracted_reports(report_id),
+    rule TEXT NOT NULL,
+    severity TEXT NOT NULL CHECK (severity IN ('warning', 'invalid')),
+    xml_path TEXT,
+    instance_index INTEGER,
+    message TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS ix_extraction_findings_report ON extraction_findings(report_id);

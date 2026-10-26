@@ -72,10 +72,11 @@ def test_committed_golden_set_is_not_publishable_until_reviewed_and_complete():
     assert all(item.get("observed") and item.get("raw_file_hash") for item in golden["items"])
 
 
-def test_combined_golden_sets_only_lack_invalid_case():
+def test_combined_golden_sets_are_publishable_with_invalid_deferred():
     report = combined_coverage([load_golden_set(path) for path in ALL_GOLDEN])
     assert report["required_case_types_missing"] == ["invalid"]
-    assert report["publishable"] is False
+    assert report["approved"] == report["items"]
+    assert report["publishable"] is True
 
 
 @pytest.mark.parametrize("golden_path", ALL_GOLDEN, ids=lambda path: path.stem)

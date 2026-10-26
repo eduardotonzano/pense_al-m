@@ -1,8 +1,8 @@
 """Compara a última extração bem-sucedida de cada arquivo com os golden sets.
 
-Só confere o que o extrator bruto afirma: presença, texto literal, xsi:nil e
-linha da evidência. Estados semânticos (zero, absent esperado por mapeamento)
-dependem de uma mapping_version aprovada e são reportados como não avaliados.
+Confere presença, texto literal, xsi:nil, linha da evidência e field_state.
+Estados semânticos (zero, absent...) só são avaliados quando a extração usou
+uma mapping_version com regras (não rascunho ``0.0.0-*``).
 """
 from __future__ import annotations
 
@@ -27,7 +27,7 @@ def main() -> int:
             golden = load_golden_set(golden_path)
             for item in golden["items"]:
                 run = connection.execute(
-                    """SELECT r.report_id FROM extracted_reports r
+                    """SELECT r.report_id, x.mapping_version FROM extracted_reports r
                        JOIN extraction_runs x ON x.extraction_run_id = r.extraction_run_id
                        WHERE r.document_version_id = ? AND x.status = 'success'
                          AND x.raw_file_hash = ?
@@ -45,9 +45,14 @@ def main() -> int:
                 ).fetchone()
                 observed = item["observed"]
                 problems = []
+                semantic = not run["mapping_version"].startswith("0.0.0")
                 if not observed["element_present"]:
-                    if row is not None:
-                        problems.append("extração tem valor para caminho ausente")
+                    if row is not None and (
+                        row["field_state"] != "absent" or row["original_value"] is not None
+                    ):
+                        problems.append("caminho ausente extraído com valor")
+                    elif row is None and semantic:
+                        problems.append("caminho mapeado ausente sem linha 'absent'")
                 elif row is None:
                     problems.append("valor não extraído")
                 else:
@@ -60,7 +65,7 @@ def main() -> int:
                     if row["line_number"] != observed.get("line"):
                         problems.append(f"linha {row['line_number']} != {observed.get('line')}")
                     expected_state = item["proposed_field_state"]
-                    if expected_state in SEMANTIC_STATES:
+                    if expected_state in SEMANTIC_STATES and not semantic:
                         results["not_evaluated"].append(
                             f"{item['item_id']}: field_state {expected_state} (extração bruta: {row['field_state']})"
                         )

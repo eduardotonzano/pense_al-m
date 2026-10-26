@@ -84,6 +84,85 @@ def test_reprocessing_creates_new_run_and_keeps_previous(tmp_path):
     assert connection.execute("SELECT COUNT(*) FROM extracted_reports").fetchone()[0] == 2
 
 
+MAPPED_XML = """<?xml version="1.0" encoding="UTF-8"?>
+<InformeMensalCRA>
+  <DadosGerais><Competencia>2026-08-31</Competencia>
+    <Series>
+      <Serie><NumeroSerie>1</NumeroSerie><VlrTotalIntegralizado>100000000</VlrTotalIntegralizado></Serie>
+      <Serie><NumeroSerie>2</NumeroSerie><VlrTotalIntegralizado>0</VlrTotalIntegralizado></Serie>
+    </Series>
+  </DadosGerais>
+  <DetalhesSeries>
+    <Series>
+      <Serie><NumeroSerie>2</NumeroSerie><Vlr>50</Vlr></Serie>
+      <Serie><NumeroSerie>1</NumeroSerie><Vlr>100000</Vlr></Serie>
+    </Series>
+    <totalVlrCertificados>100050</totalVlrCertificados>
+  </DetalhesSeries>
+  <Ativo total="10"><A>4</A><B>5</B></Ativo>
+</InformeMensalCRA>""".encode("utf-8")
+
+R = "/InformeMensalCRA"
+MONEY = {"status": "mapped", "data_type": "decimal", "currency": "BRL", "scale": "1"}
+MAPPED = {
+    "mapping_version": "0.1.0-test",
+    "rules": {"monetary_scale_suspect": {
+        "numerator": R + "/DetalhesSeries/totalVlrCertificados",
+        "denominator_sum": R + "/DadosGerais/Series/Serie/VlrTotalIntegralizado",
+        "threshold": "0.01",
+    }},
+    "paths": {
+        R + "/DadosGerais/Competencia": {"status": "mapped", "data_type": "date"},
+        R + "/DadosGerais/Series/Serie/NumeroSerie": {"status": "mapped", "data_type": "integer", "instance_key": "NumeroSerie"},
+        R + "/DadosGerais/Series/Serie/VlrTotalIntegralizado": {**MONEY, "instance_key": "NumeroSerie"},
+        R + "/DetalhesSeries/Series/Serie/NumeroSerie": {"status": "mapped", "data_type": "integer", "instance_key": "NumeroSerie"},
+        R + "/DetalhesSeries/Series/Serie/Vlr": {**MONEY, "instance_key": "NumeroSerie"},
+        R + "/DetalhesSeries/totalVlrCertificados": MONEY,
+        R + "/Ativo/@total": MONEY,
+        R + "/Ativo/A": MONEY,
+        R + "/Ativo/B": MONEY,
+        R + "/DadosGerais/Ausente": {"status": "mapped", "data_type": "text"},
+    },
+}
+
+
+def _values(connection):
+    return {
+        (r["xml_path"].replace(R, ""), r["instance_index"]): r
+        for r in connection.execute("SELECT * FROM extracted_values")
+    }
+
+
+def test_mapped_extraction_keys_series_flags_scale_totals_and_absence(tmp_path):
+    connection = _setup(tmp_path, data=MAPPED_XML)
+    result = RawXmlExtractionService(connection, tmp_path).extract_version(1, MAPPED)
+    assert result["status"] == "success"
+    assert result["automatic_validation_status"] == "warning"
+    values = _values(connection)
+    # Ligação por NumeroSerie, não pela posição no bloco.
+    assert values[("/DetalhesSeries/Series/Serie/Vlr", 0)]["instance_key"] == "2"
+    assert values[("/DetalhesSeries/Series/Serie/Vlr", 1)]["instance_key"] == "1"
+    # Escala suspeita: 100050 / 100000000 < 0.01 => scale unknown, valor intacto.
+    vlr = values[("/DetalhesSeries/Series/Serie/Vlr", 1)]
+    assert vlr["normalized_value"] == "100000" and vlr["scale"] == "unknown"
+    assert vlr["automatic_validation_status"] == "warning"
+    assert values[("/DadosGerais/Series/Serie/VlrTotalIntegralizado", 1)]["field_state"] == "zero"
+    absent = values[("/DadosGerais/Ausente", 0)]
+    assert absent["field_state"] == "absent" and absent["original_value"] is None
+    rules = {r["rule"] for r in connection.execute("SELECT rule FROM extraction_findings")}
+    assert rules == {"monetary_scale_suspect", "totals_consistency"}
+
+
+def test_duplicated_series_key_is_invalid(tmp_path):
+    data = MAPPED_XML.replace(
+        b"<NumeroSerie>2</NumeroSerie><Vlr>50", b"<NumeroSerie>1</NumeroSerie><Vlr>50"
+    )
+    connection = _setup(tmp_path, data=data)
+    result = RawXmlExtractionService(connection, tmp_path).extract_version(1, MAPPED)
+    assert result["automatic_validation_status"] == "invalid"
+    assert _values(connection)[("/DetalhesSeries/Series/Serie/Vlr", 0)]["instance_key"] is None
+
+
 def test_hash_mismatch_fails_run_without_values(tmp_path):
     connection = _setup(tmp_path, stored_hash="0" * 64)
     result = RawXmlExtractionService(connection, tmp_path).extract_version(1, MAPPING)

@@ -24,6 +24,9 @@ REQUIRED_CASE_TYPES = (
     "present_value", "present_empty", "absent", "zero", "monetary", "percentage",
     "repeated_block", "resubmission", "text", "invalid",
 )
+# Decisão 2026-10-26: sem caso real, ``invalid`` é coberto por testes unitários
+# sintéticos e só passa a ser exigido no golden set quando for observado.
+OPTIONAL_UNTIL_OBSERVED = ("invalid",)
 MAX_EXCERPT = 200
 
 
@@ -136,6 +139,9 @@ def coverage(golden: dict[str, Any]) -> dict[str, Any]:
         "required_case_types_missing": [c for c in REQUIRED_CASE_TYPES if c not in covered],
         "publishable": (
             approved == len(golden["items"])
-            and all(c in covered for c in REQUIRED_CASE_TYPES)
+            and all(
+                c in covered for c in REQUIRED_CASE_TYPES
+                if c not in OPTIONAL_UNTIL_OBSERVED
+            )
         ),
     }

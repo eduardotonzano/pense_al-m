@@ -137,7 +137,8 @@
         "evidence_excerpt_truncated": false,
         "raw_text": "5"
       },
-      "decision_status": "open"
+      "decision_status": "decided",
+      "decision": "Decidido 2026-10-26: instance_key = NumeroSerie."
     },
     {
       "item_id": "IMCRA-ALB-005",
