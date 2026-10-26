@@ -1,7 +1,7 @@
 {
   "rules_version": "0.1.0",
-  "approval_status": "proposed",
-  "notes": "Alertas de qualidade de dado; não usam limites contratuais. Parâmetros numéricos propostos em 2026-10-26, pendentes de aprovação humana.",
+  "approval_status": "approved",
+  "notes": "Alertas de qualidade de dado; não usam limites contratuais. Parâmetros aprovados em 2026-10-26.",
   "rules": {
     "status_vs_delinquency": {
       "severity": "warning",
@@ -38,5 +38,8 @@
         "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/CNPJ"
       ]
     }
-  }
+  },
+  "approved_by": "Enrico Suman Marques",
+  "approved_at": "2026-10-26",
+  "approval_source": "conversa de desenvolvimento"
 }
