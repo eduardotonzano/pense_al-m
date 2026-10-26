@@ -53,6 +53,28 @@ usados como aproximação da verificação de 15/12; saldo da Conta Garantia apr
 5. **Agente fiduciário:** o AF 2025 lista a Vórtx como custodiante e escrituradora e declara-se
    (Oliveira Trust) agente fiduciário, coerente com o Informe Mensal.
 
+## Assembleias e comunicados 2025–2026
+
+Fontes: 32 atas/editais (Ata/Edital) e 12 comunicados baixados; texto por página no banco.
+
+| Data | Documento | Fato |
+|---|---|---|
+| 25/04 a 22/05/2025 | editais e termo de não instalação | AGT para **não** declarar vencimento antecipado por descumprimento da Recomposição de Garantia (itens xvi e xvii da Cl. 4.3 do CDCA); 1ª convocação sem quórum (17,08%) |
+| 05/06/2025 | ata 918130 | Suspensa até 17/06 para análise de propostas da Devedora |
+| 17/06/2025 | ata 927400 | Aprovada a não declaração (68,71%), **condicionada**: Razão 1º sem. ≥ 70% e 2º sem. ≥ 120% do Saldo Devedor; Direitos Creditórios + Conta Garantia ≥ R$ 10 mi no 2º sem.; verificação set–dez em 30/12; balancetes e calls trimestrais até dez/2025; dividendos limitados ao mínimo legal em 2025; CAPEX 2025 ≤ R$ 12 mi |
+| 31/12/2025 | comunicado 1074300 | Pagamento parcial de juros: R$ 13.612.095,14 |
+| 02/01/2026 | fato relevante 1074810 | Parcela de 30/12/2025 não paga integralmente; AGT convocada |
+| 30/01 e 06/02/2026 | atas 1097871 e 1103828 | Suspensões; amortização extraordinária de R$ 15 mi (paga em 03/02) |
+| 12/02/2026 | ata 1110477 | Não declaração do vencimento antecipado e repactuação aprovadas (72,09%), condicionadas a: mútuos novos ≤ R$ 39 mi em 2026 (a partir de jul); balancetes mensais; **amortização extraordinária de 10% do Saldo Devedor em 31/10/2026**; cash sweep |
+| 26/02, 06/04 e 28/04/2026 | comunicados | Amortizações de R$ 10 mi, R$ 6,77 mi e R$ 0,55 mi |
+| 13/05/2026 | ata 1189040 | Parcela repactuada, que deveria ser quitada até 31/03/2026, foi quitada em 28/04/2026; não declaração aprovada (73,87%). Covenants do CDCA (item xv da Cl. 4.3): Dívida Líquida/EBITDA ≤ 3x e liquidez corrente ≥ 1x |
+| 15/05/2026 | ata 1194480 | Waiver dos índices financeiros (73,87%), condicionado a DFs auditadas até 30/05/2026 e **waiver fee de 0,5% do saldo devedor até 31/10/2026** |
+| abr/2026 | editais e comunicado 1165691 | Assembleia especial sobre alteração de controle da Devedora (redesignada para 04/05/2026) |
+
+As alterações de parâmetros acima estão carregadas em `contract_parameters` como **pendentes**
+(`config/contract_parameters/cra022009vm_assembleias_2025_2026.json`, 15 itens com âncora literal).
+Até sua aprovação, a avaliação contratual continua usando os parâmetros originais do Termo.
+
 ## Lacunas
 
 - CDCA (covenants financeiros, hipóteses de vencimento antecipado) e eventuais aditamentos não

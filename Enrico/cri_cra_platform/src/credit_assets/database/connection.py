@@ -51,6 +51,15 @@ def initialize_database(connection: sqlite3.Connection) -> None:
             connection.execute(
                 f"ALTER TABLE collection_attempts ADD COLUMN {column_name} {column_type}"
             )
+    parameter_columns = {
+        row["name"] for row in connection.execute("PRAGMA table_info(contract_parameters)")
+    }
+    for column_name, column_type in {
+        "valid_from": "TEXT", "valid_to": "TEXT", "source_kind": "TEXT NOT NULL DEFAULT 'termo'",
+        "supersedes": "TEXT",
+    }.items():
+        if parameter_columns and column_name not in parameter_columns:
+            connection.execute(f"ALTER TABLE contract_parameters ADD COLUMN {column_name} {column_type}")
     alert_columns = {
         row["name"] for row in connection.execute("PRAGMA table_info(data_quality_alerts)")
     }

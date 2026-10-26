@@ -43,3 +43,10 @@ def test_financial_statements_are_other_even_with_generic_terms():
         assert classify_document(
             {"tipoDocumento": name, "descricao": "Informe Mensal CRA"}
         ) == "Outro"
+
+
+def test_assembly_abbreviations_are_ata_edital_as_whole_words():
+    assert classify_document({"document_name": "AGO"}) == "Ata/Edital"
+    assert classify_document({"document_name": "AGE"}) == "Ata/Edital"
+    assert classify_document({"document_name": "Agosto de 2025"}) == "Outro"
+    assert classify_document({"document_name": "Agente de cobrança"}) == "Outro"

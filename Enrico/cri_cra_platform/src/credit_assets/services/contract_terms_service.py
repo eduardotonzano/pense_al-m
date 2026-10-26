@@ -131,3 +131,38 @@ def store_candidates(connection, document_version_id: int, config: dict[str, Any
     for candidate in candidates:
         by_topic[candidate["topic"]] = by_topic.get(candidate["topic"], 0) + 1
     return {"candidates": len(candidates), "inserted": inserted, "by_topic": by_topic}
+
+
+def candidate_from_anchor(
+    connection, document_version_id: int, topic: str, anchor: str, finder_version: str,
+    window_lines: int = 14,
+) -> int:
+    """Cria (ou reusa) um candidato a partir de um trecho âncora literal em qualquer página."""
+    squashed_anchor = re.sub(r"\s+", " ", anchor).strip()
+    for row in connection.execute(
+        """SELECT page_number, text, text_sha256 FROM document_text_pages
+           WHERE document_version_id = ? ORDER BY page_number""",
+        (document_version_id,),
+    ):
+        lines = row["text"].splitlines()
+        for index in range(len(lines)):
+            joined = re.sub(r"\s+", " ", " ".join(lines[index:index + 4]))
+            if squashed_anchor[:60] not in joined:
+                continue
+            end = min(len(lines), index + window_lines)
+            excerpt = "\n".join(item.rstrip() for item in lines[index:end]).strip("\n")
+            with connection:
+                connection.execute(
+                    """INSERT OR IGNORE INTO contract_parameter_candidates (
+                        document_version_id, finder_version, topic, page_number, line_start,
+                        line_end, excerpt, excerpt_sha256, page_text_sha256, values_found_json, created_at
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, '{}', ?)""",
+                    (document_version_id, finder_version, topic, row["page_number"], index + 1, end,
+                     excerpt, _sha256(excerpt), row["text_sha256"], datetime.now(timezone.utc).isoformat()),
+                )
+            return connection.execute(
+                """SELECT candidate_id FROM contract_parameter_candidates
+                   WHERE document_version_id = ? AND topic = ? AND excerpt_sha256 = ?""",
+                (document_version_id, topic, _sha256(excerpt)),
+            ).fetchone()[0]
+    raise ValueError(f"âncora não encontrada no documento: {anchor[:60]!r}")

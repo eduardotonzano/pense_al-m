@@ -193,6 +193,17 @@ def upsert_alert(
          alert.get("report_id"), alert["month"], alert["instance_key"], severity,
          alert["message"], evidence, run_id, run_id, now),
     )
+    new_id = connection.execute("SELECT last_insert_rowid()").fetchone()[0]
+    # Alerta aberto anterior da mesma regra/mês/chave com evidência diferente fica substituído.
+    connection.execute(
+        """UPDATE data_quality_alerts
+           SET alert_status = 'resolved', status_changed_by = ?, status_changed_at = ?
+           WHERE alert_family = ? AND rule_id = ? AND asset_id = ? AND competencia_mes = ?
+             AND coalesce(instance_key, '') = coalesce(?, '') AND alert_status = 'open'
+             AND alert_id <> ?""",
+        (f"sistema: substituído pelo alerta {new_id} ({rules_version})", now, family, rule_id,
+         asset_id, alert["month"], alert["instance_key"], new_id),
+    )
     return "new"
 
 

@@ -45,7 +45,7 @@ def classify_document(item: dict[str, object]) -> str:
         (("informe", "mensal"), "Informe Mensal"),
         (("edital",), "Ata/Edital"),
         (("ata",), "Ata/Edital"),
-        (("ago/e",), "Ata/Edital"),
+        (("ago/e", "ago", "age"), "Ata/Edital"),
         (("fato relevante",), "Fato Relevante"),
         (("agente fiduciário", "agente fiduciario"), "Relatório Agente Fiduciário"),
         (("rating",), "Relatório de Rating"),
@@ -54,7 +54,7 @@ def classify_document(item: dict[str, object]) -> str:
     for terms, category in rules:
         if any(
             re.search(rf"\b{re.escape(term)}\b", text)
-            if term in {"ata", "ago/e"}
+            if term in {"ata", "ago/e", "ago", "age"}
             else term in text
             for term in terms
         ):

@@ -1,5 +1,5 @@
 {
-  "rules_version": "0.1.0",
+  "rules_version": "0.2.0",
   "asset": {
     "codigo_cetip": "CRA022009VM",
     "isin": "BRECOACRABX0"
@@ -15,10 +15,23 @@
   "rules": {
     "cessao_fiduciaria_minima": {
       "severity": "warning",
-      "parameter": "cessao_fiduciaria_minima_na_verificacao",
-      "fact": "garantia_cessao_fiduciaria_valor",
       "months": [
         "12"
+      ],
+      "variants": [
+        {
+          "parameter": "cessao_fiduciaria_minima_na_verificacao",
+          "facts": [
+            "garantia_cessao_fiduciaria_valor"
+          ]
+        },
+        {
+          "parameter": "cessao_fiduciaria_mais_conta_minima_2sem",
+          "facts": [
+            "garantia_cessao_fiduciaria_valor",
+            "saldo_em_conta"
+          ]
+        }
       ]
     },
     "razao_garantia_minima": {
@@ -53,6 +66,28 @@
       "severity": "warning",
       "fact": "pagamentos_no_exercicio",
       "informe_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total"
+    },
+    "obligation_deadlines": {
+      "severity": "info",
+      "approval_status": "proposed",
+      "warn_days": 30,
+      "obligations": [
+        {
+          "parameter": "waiver_fee",
+          "due": "2026-10-31",
+          "label": "Waiver fee de 0,5% do saldo devedor"
+        },
+        {
+          "parameter": "amortizacao_extraordinaria_out_2026",
+          "due": "2026-10-31",
+          "label": "Amortização extraordinária de 10% do saldo devedor"
+        },
+        {
+          "parameter": "dfs_auditadas_prazo",
+          "label": "Demonstrações financeiras auditadas da Devedora"
+        }
+      ]
     }
-  }
+  },
+  "changes_0_2_0": "Parâmetros por vigência (alterações das assembleias de 2025-2026); variantes da cessão mínima; regra informativa de prazos (proposta)."
 }

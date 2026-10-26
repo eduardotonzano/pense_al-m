@@ -24,21 +24,45 @@ class ParameterNotApproved(ValueError):
     pass
 
 
-def approved_parameters(connection, asset_id) -> dict[str, sqlite3.Row]:
-    return {
-        row["parameter_name"]: row
-        for row in connection.execute(
-            """SELECT parameter_name, parameter_value, unit, source_reference
-               FROM contract_parameters WHERE asset_id = ? AND review_status = 'approved'""",
-            (asset_id,),
-        )
-    }
+def approved_parameters(connection, asset_id) -> dict[str, list[sqlite3.Row]]:
+    grouped: dict[str, list] = defaultdict(list)
+    for row in connection.execute(
+        """SELECT parameter_name, parameter_value, unit, source_reference, valid_from, valid_to
+           FROM contract_parameters WHERE asset_id = ? AND review_status = 'approved'""",
+        (asset_id,),
+    ):
+        grouped[row["parameter_name"]].append(row)
+    return grouped
 
 
-def _parameter(parameters, name) -> Decimal:
-    if name not in parameters:
-        raise ParameterNotApproved(f"parâmetro {name} ausente ou não aprovado")
-    return Decimal(parameters[name]["parameter_value"])
+def parameter_row(parameters, name, date: str | None = None):
+    """Parâmetro aprovado vigente na data (valid_from/valid_to inclusivos; nulos = sem limite)."""
+    rows = parameters.get(name) or []
+    if isinstance(rows, dict) or hasattr(rows, "keys"):
+        rows = [rows]
+    valid = [
+        row for row in rows
+        if date is None
+        or ((row.get("valid_from") if isinstance(row, dict) else row["valid_from"]) or "0000") <= date
+        <= ((row.get("valid_to") if isinstance(row, dict) else row["valid_to"]) or "9999")
+    ]
+    if not valid:
+        raise ParameterNotApproved(f"parâmetro {name} ausente, não aprovado ou fora de vigência em {date}")
+    if len(valid) > 1:
+        raise ParameterNotApproved(f"parâmetro {name} com mais de uma versão vigente em {date}")
+    return valid[0]
+
+
+def _parameter(parameters, name, date: str | None = None) -> Decimal:
+    return Decimal(parameter_row(parameters, name, date)["parameter_value"])
+
+
+def _is_valid(parameters, name, date) -> bool:
+    try:
+        parameter_row(parameters, name, date)
+        return True
+    except ParameterNotApproved:
+        return False
 
 
 def facts_by_date(connection, asset_id) -> dict[str, dict[str, list[sqlite3.Row]]]:
@@ -60,19 +84,26 @@ def _source(row) -> str:
 
 
 def cessao_fiduciaria_minima(facts, parameters, rule) -> list[dict]:
-    minimum = _parameter(parameters, rule["parameter"])
+    variants = rule.get("variants") or [{"parameter": rule["parameter"], "facts": [rule["fact"]]}]
     evaluations = []
     for date, names in sorted(facts.items()):
-        if date[5:7] not in rule["months"] or rule["fact"] not in names:
+        if date[5:7] not in rule["months"]:
             continue
-        row = names[rule["fact"]][0]
-        value = Decimal(row["value"])
+        variant = next((v for v in variants if _is_valid(parameters, v["parameter"], date)), None)
+        if variant is None:
+            raise ParameterNotApproved(f"nenhum parâmetro de cessão mínima vigente em {date}")
+        if not all(name in names for name in variant["facts"]):
+            continue
+        minimum = _parameter(parameters, variant["parameter"], date)
+        value = sum((Decimal(names[n][0]["value"]) for n in variant["facts"]), Decimal(0))
+        label = " + ".join(variant["facts"])
         evaluations.append({
             "month": date[:7], "instance_key": None, "compliant": value >= minimum,
-            "message": f"Cessão Fiduciária R$ {value:,.2f} em {date} {'≥' if value >= minimum else 'abaixo do'} mínimo de R$ {minimum:,.2f}.",
+            "message": f"{label} = R$ {value:,.2f} em {date} {'≥' if value >= minimum else 'abaixo do'} mínimo de R$ {minimum:,.2f}.",
             "evidence": {"valor": str(value), "minimo": str(minimum), "data_base": date,
-                         "fonte_fato": _source(row),
-                         "fonte_parametro": parameters[rule["parameter"]]["source_reference"]},
+                         "parametro": variant["parameter"],
+                         "fontes_fatos": sorted({_source(names[n][0]) for n in variant["facts"]}),
+                         "fonte_parametro": parameter_row(parameters, variant["parameter"], date)["source_reference"]},
         })
     return evaluations
 
@@ -84,7 +115,7 @@ def razao_garantia_minima(facts, parameters, rule) -> list[dict]:
         if not all(name in names for name in needed):
             continue
         parameter_name = rule["parameters"]["01-08" if int(date[5:7]) <= 8 else "09-12"]
-        minimum = _parameter(parameters, parameter_name)
+        minimum = _parameter(parameters, parameter_name, date)
         numerator = sum((Decimal(names[n][0]["value"]) for n in rule["numerator_facts"]), Decimal(0))
         denominator = Decimal(names[rule["denominator_fact"]][0]["value"])
         ratio = numerator / denominator
@@ -156,6 +187,30 @@ def trustee_payment_statement(connection, asset_id, facts, rule) -> list[dict]:
     return evaluations
 
 
+def obligation_deadlines(parameters, rule, today: str) -> list[dict]:
+    """Prazos de obrigações aprovadas: informa os vencidos ou próximos sem evidência de cumprimento."""
+    evaluations = []
+    for item in rule["obligations"]:
+        try:
+            row = parameter_row(parameters, item["parameter"])
+        except ParameterNotApproved:
+            continue
+        due = item.get("due") or row["parameter_value"]
+        days = (datetime.fromisoformat(due) - datetime.fromisoformat(today)).days
+        if days > rule["warn_days"] or item.get("fulfilled_by_fact"):
+            continue
+        evaluations.append({
+            "month": due[:7], "instance_key": item["parameter"], "compliant": False,
+            "message": (
+                f"{item['label']}: prazo {due} ({'vencido há ' + str(-days) if days < 0 else 'em ' + str(days)} dias); "
+                "cumprimento não verificado nos documentos baixados."
+            ),
+            "evidence": {"parametro": item["parameter"], "valor": row["parameter_value"], "prazo": due,
+                         "fonte": row["source_reference"], "referencia": today},
+        })
+    return evaluations
+
+
 def evaluate_asset(connection, asset_id, config) -> dict[str, Any]:
     parameters = approved_parameters(connection, asset_id)
     facts = facts_by_date(connection, asset_id)
@@ -166,6 +221,10 @@ def evaluate_asset(connection, asset_id, config) -> dict[str, Any]:
         "payment_reconciliation": payment_reconciliation(connection, asset_id, facts, rules["payment_reconciliation"]),
         "trustee_payment_statement": trustee_payment_statement(connection, asset_id, facts, rules["trustee_payment_statement"]),
     }
+    if "obligation_deadlines" in rules:
+        evaluations["obligation_deadlines"] = obligation_deadlines(
+            parameters, rules["obligation_deadlines"], config.get("reference_date") or datetime.now().date().isoformat()
+        )
     run_id = uuid.uuid4().hex
     now = datetime.now(timezone.utc).isoformat()
     counts = {"new": 0, "seen_again": 0, "compliant": 0}

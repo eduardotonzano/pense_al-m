@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import argparse
 import sys
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,7 +27,9 @@ def main() -> int:
     connection = connect(ROOT / "data" / "cri_cra.db")
     try:
         rows = connection.execute(
-            """SELECT p.parameter_id, p.parameter_name, p.justification FROM contract_parameters p
+            """SELECT p.parameter_id, p.parameter_name, p.justification, p.valid_from, p.supersedes,
+                      p.asset_id
+               FROM contract_parameters p
                JOIN assets a ON a.asset_id = p.asset_id
                WHERE a.codigo_cetip = ? AND p.review_status = 'pending'""",
             (args.cetip,),
@@ -45,6 +47,17 @@ def main() -> int:
                     (args.status, args.by, date.today().isoformat(), note,
                      overrides.get(row["parameter_name"]), row["parameter_id"]),
                 )
+                if args.status == "approved" and row["supersedes"] and row["valid_from"]:
+                    # Encerra a vigência das versões aprovadas anteriores do mesmo parâmetro.
+                    end = (date.fromisoformat(row["valid_from"]) - timedelta(days=1)).isoformat()
+                    for name in row["supersedes"].split(","):
+                        connection.execute(
+                            """UPDATE contract_parameters SET valid_to = ?
+                               WHERE asset_id = ? AND parameter_name = ? AND review_status = 'approved'
+                                 AND parameter_id <> ? AND valid_to IS NULL
+                                 AND coalesce(valid_from, '0000') < ?""",
+                            (end, row["asset_id"], name, row["parameter_id"], row["valid_from"]),
+                        )
     finally:
         connection.close()
     print({"reviewed": len(selected), "status": args.status})
