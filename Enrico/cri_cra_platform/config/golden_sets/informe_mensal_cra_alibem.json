@@ -23,10 +23,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Série 1 (Sênior); ISIN cadastrado como ativo.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 20,
@@ -40,7 +40,8 @@
         "evidence_excerpt": "<CodigoISIN>BRECOACRALJ8</CodigoISIN>",
         "evidence_excerpt_truncated": false,
         "raw_text": "BRECOACRALJ8"
-      }
+      },
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-ALB-002",
@@ -54,10 +55,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Série 5 (Subordinada).",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 20,
@@ -71,7 +72,8 @@
         "evidence_excerpt": "<CodigoISIN>BRECOACRALN0</CodigoISIN>",
         "evidence_excerpt_truncated": false,
         "raw_text": "BRECOACRALN0"
-      }
+      },
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-ALB-003",
@@ -85,10 +87,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": null,
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 20,
@@ -102,7 +104,8 @@
         "evidence_excerpt": "<Classe>Subordinada</Classe>",
         "evidence_excerpt_truncated": false,
         "raw_text": "Subordinada"
-      }
+      },
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-ALB-004",
@@ -116,10 +119,10 @@
       "proposed_field_state": "present_value",
       "decision_question": "Usar NumeroSerie como instance_key para ligar DadosGerais/Serie a DetalhesSeries/Serie?",
       "notes": "A ordem coincide nesta amostra, mas não é garantida (CSV da CVM traz séries fora de ordem).",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 20,
@@ -133,7 +136,8 @@
         "evidence_excerpt": "<NumeroSerie>5</NumeroSerie>",
         "evidence_excerpt_truncated": false,
         "raw_text": "5"
-      }
+      },
+      "decision_status": "open"
     },
     {
       "item_id": "IMCRA-ALB-005",
@@ -147,10 +151,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Série 5.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 20,
@@ -164,7 +168,8 @@
         "evidence_excerpt": "<VlrCertificadosPorClasse>159534460.03</VlrCertificadosPorClasse>",
         "evidence_excerpt_truncated": false,
         "raw_text": "159534460.03"
-      }
+      },
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-ALB-006",
@@ -178,10 +183,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": null,
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 20,
@@ -195,7 +200,8 @@
         "evidence_excerpt": "<RentabilidadePeriodo>0.0081</RentabilidadePeriodo>",
         "evidence_excerpt_truncated": false,
         "raw_text": "0.0081"
-      }
+      },
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-ALB-007",
@@ -209,10 +215,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Igual à soma das 5 séries (785531529.92).",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 20,
@@ -226,7 +232,8 @@
         "evidence_excerpt": "<totalVlrCertificados>785531529.92</totalVlrCertificados>",
         "evidence_excerpt_truncated": false,
         "raw_text": "785531529.92"
-      }
+      },
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-ALB-008",
@@ -239,10 +246,10 @@
       "proposed_field_state": "absent",
       "decision_question": null,
       "notes": "Elemento presente nos XMLs do Café Brasil e ausente nos 3 do Alibem. Ausente ≠ vazio.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 20,
@@ -251,7 +258,8 @@
       "observed": {
         "element_present": false,
         "occurrences": 0
-      }
+      },
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-ALB-009",
@@ -265,10 +273,10 @@
       "proposed_field_state": "present_empty",
       "decision_question": null,
       "notes": "Competência 2025-12-31, sem rating informado.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 22,
@@ -282,7 +290,8 @@
         "evidence_excerpt": "<ClassificacaoRiscoAtual xsi:nil=\"true\"/>",
         "evidence_excerpt_truncated": false,
         "raw_text": ""
-      }
+      },
+      "decision_status": "not_required"
     },
     {
       "item_id": "IMCRA-ALB-010",
@@ -296,10 +305,10 @@
       "proposed_field_state": "present_value",
       "decision_question": null,
       "notes": "Rating aparece a partir da competência 2026-04-30.",
-      "human_review_status": "pending",
-      "reviewed_by": null,
-      "reviewed_at": null,
-      "review_comment": null,
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-26",
+      "review_comment": "Aprovação comunicada na conversa de desenvolvimento; cobre o valor bruto observado e o proposed_field_state.",
       "corrected_value": null,
       "source_version": "1",
       "document_version_id": 20,
@@ -313,7 +322,8 @@
         "evidence_excerpt": "<ClassificacaoRiscoAtual>A.br (sf)</ClassificacaoRiscoAtual>",
         "evidence_excerpt_truncated": false,
         "raw_text": "A.br (sf)"
-      }
+      },
+      "decision_status": "not_required"
     }
   ]
 }
