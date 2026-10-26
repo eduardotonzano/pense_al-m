@@ -44,3 +44,9 @@ def test_validation_status_is_controlled():
 def test_invalid_entity_type_is_rejected():
     with pytest.raises(ValueError):
         EntityType("invalid_type")
+
+
+def test_instrument_values_are_stable():
+    assert EntityType.DEBENTURE == "debenture"
+    assert IdentifierType.ISIN == "isin"
+    assert IdentifierType.ASSET_CODE == "asset_code"

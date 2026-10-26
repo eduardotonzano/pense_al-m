@@ -16,6 +16,7 @@ class EntityType(StrEnum):
     FIDC = "fidc"
     FIAGRO = "fiagro"
     SECURITIZER = "securitizer"
+    DEBENTURE = "debenture"
     GOVERNMENT = "government"
     OTHER = "other"
 
@@ -39,6 +40,8 @@ class IdentifierType(StrEnum):
     CVM_CODE = "cvm_code"
     ANBIMA_CODE = "anbima_code"
     LEI = "lei"
+    ISIN = "isin"
+    ASSET_CODE = "asset_code"
     INTERNAL = "internal"
     OTHER = "other"
 

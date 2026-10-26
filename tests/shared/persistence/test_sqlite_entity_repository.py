@@ -273,3 +273,86 @@ def test_repository_rejects_invalid_input(
 ):
     with pytest.raises(RepositoryValidationError):
         operation(repository)
+
+
+def create_instrument(provenance, legal_name, isin, asset_code):
+    return Entity(
+        legal_name=legal_name,
+        entity_type=EntityType.DEBENTURE,
+        provenance=provenance,
+        identifiers=(
+            EntityIdentifier(
+                identifier_type=IdentifierType.ASSET_CODE,
+                value=asset_code,
+                provenance=provenance,
+                is_primary=True,
+            ),
+            EntityIdentifier(
+                identifier_type=IdentifierType.ISIN,
+                value=isin,
+                provenance=provenance,
+                is_primary=True,
+            ),
+        ),
+    )
+
+
+def test_repository_round_trips_instrument_entity(
+    repository,
+    provenance,
+):
+    instrument = create_instrument(
+        provenance,
+        "ALFA11",
+        "BRALFADBS001",
+        "ALFA11",
+    )
+
+    repository.save(instrument)
+
+    restored = repository.get_by_id(instrument.entity_id)
+
+    assert restored == instrument
+    assert restored.entity_type is EntityType.DEBENTURE
+    assert (
+        repository.get_by_identifier(
+            IdentifierType.ISIN,
+            "bralfadbs001",
+        )
+        == instrument
+    )
+    assert (
+        repository.get_by_identifier(
+            IdentifierType.ASSET_CODE,
+            "alfa11",
+        )
+        == instrument
+    )
+    assert repository.list_all(EntityType.DEBENTURE) == (
+        instrument,
+    )
+
+
+def test_repository_rejects_isin_owned_by_other_entity(
+    repository,
+    provenance,
+):
+    first = create_instrument(
+        provenance,
+        "ALFA11",
+        "BRALFADBS001",
+        "ALFA11",
+    )
+    second = create_instrument(
+        provenance,
+        "ALFA12",
+        "BRALFADBS001",
+        "ALFA12",
+    )
+
+    repository.save(first)
+
+    with pytest.raises(DuplicateEntityError):
+        repository.save(second)
+
+    assert repository.count(EntityType.DEBENTURE) == 1
