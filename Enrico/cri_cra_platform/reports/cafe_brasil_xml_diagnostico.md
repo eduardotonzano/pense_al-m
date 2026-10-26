@@ -149,6 +149,14 @@ incluindo `zero` e `absent`. Validação automática:
   seis `@total`.
 - Café Brasil: 23 relatórios `valid`, 29 `warning`; Alibem: 3 `warning`. Nenhum `invalid`.
 
+## Mapping 0.1.1 e extração 0.2.1 (2026-10-26)
+
+Decidido: `Passivo/@total` soma `ReducaoVlrEmissao` com sinal invertido
+(`rules.totals_consistency.sign_inverted_paths`); valor gravado não muda. Padrões conservadores
+de 0.1.0 confirmados. Resultado: Café Brasil 33 `valid` e 19 `warning` (todos por
+`monetary_scale_suspect`; jun/2023 também com 6 diferenças de arredondamento), Alibem 3 `valid`.
+Golden sets 39/39.
+
 ## Golden set
 
 `config/golden_sets/informe_mensal_cra_cafe_brasil.json` — 27 itens congelados por SHA-256,

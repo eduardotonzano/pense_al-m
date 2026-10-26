@@ -1,5 +1,5 @@
 {
-  "mapping_version": "0.1.0",
+  "mapping_version": "0.1.1",
   "layout_version": null,
   "layout_validation_status": "structural_only",
   "approval": {
@@ -10,15 +10,17 @@
       "percentages": "Fração.",
       "series_link": "instance_key = NumeroSerie nos dois blocos de séries; ausente ou repetido => invalid.",
       "xsi_nil": "present_empty com xsi_nil=1.",
-      "invalid_case": "Coberto por testes unitários sintéticos; exigido no golden set só quando surgir caso real."
+      "invalid_case": "Coberto por testes unitários sintéticos; exigido no golden set só quando surgir caso real.",
+      "reducao_vlr_emissao_sign": "Decidido 2026-10-26: @total do Passivo soma ReducaoVlrEmissao com sinal invertido; a consistência é avaliada assim, sem alterar o valor gravado."
     },
-    "conservative_defaults_pending_review": {
+    "confirmed_defaults": {
       "competencia": "Literal preservado; nenhuma normalização para fim de mês.",
       "totals": "Divergência entre @total e soma das folhas gera warning, sem alterar valores.",
       "retentor_risco": "Identificador literal; '00000000000000' não vira not_applicable.",
       "duration_carteira": "pending_decision (unidade).",
       "current_version": "Regra do handoff: versão mais recente, válida e aprovada; is_current só após aprovação humana do relatório."
-    }
+    },
+    "confirmed_defaults_at": "2026-10-26"
   },
   "rules": {
     "monetary_scale_suspect": {
@@ -28,7 +30,10 @@
       "threshold": "0.01"
     },
     "totals_consistency": {
-      "description": "Cada atributo @total é comparado com a soma das folhas numéricas do mesmo contêiner; diferença gera warning no relatório."
+      "description": "Cada @total é comparado com a soma das folhas numéricas do contêiner; caminhos em sign_inverted_paths entram com sinal invertido. Diferença gera warning.",
+      "sign_inverted_paths": [
+        "/InformeMensalCRA/Passivo/ReducaoVlrEmissao"
+      ]
     }
   },
   "paths": {

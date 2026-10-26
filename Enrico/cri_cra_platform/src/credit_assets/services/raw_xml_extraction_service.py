@@ -31,7 +31,7 @@ from credit_assets.xml_diagnostics import (
     personal_data_suspected,
 )
 
-EXTRACTOR_VERSION = "0.2.0"
+EXTRACTOR_VERSION = "0.2.1"
 XSI_NIL = "http://www.w3.org/2001/XMLSchema-instance nil"
 RETENTION_POLICY = "pending_definition"
 MAX_EXCERPT = 200
@@ -173,7 +173,9 @@ def monetary_scale_suspect(values, mapping) -> dict[str, Any] | None:
     }
 
 
-def totals_consistency(values) -> list[dict[str, Any]]:
+def totals_consistency(values, mapping=None) -> list[dict[str, Any]]:
+    rule = (mapping or {}).get("rules", {}).get("totals_consistency", {})
+    inverted = set(rule.get("sign_inverted_paths", ()))
     findings = []
     for total in (v for v in values if v["xml_path"].endswith("/@total")):
         container = total["xml_path"][: -len("/@total")]
@@ -187,9 +189,10 @@ def totals_consistency(values) -> list[dict[str, Any]]:
                 and value["raw_text"].strip()
             ):
                 try:
-                    leaves_sum += Decimal(value["raw_text"].strip())
+                    amount = Decimal(value["raw_text"].strip())
                 except InvalidOperation:
                     continue
+                leaves_sum += -amount if value["xml_path"] in inverted else amount
         try:
             declared = Decimal(total["raw_text"])
         except InvalidOperation:
@@ -251,7 +254,7 @@ class RawXmlExtractionService:
                 findings += assign_instance_keys(values, decisions)
                 scale_finding = monetary_scale_suspect(values, mapping)
                 findings += [scale_finding] if scale_finding else []
-                findings += totals_consistency(values)
+                findings += totals_consistency(values, mapping)
             with self.connection:
                 report_id = self._insert_report(run_id, version, values)
                 unmapped = 0

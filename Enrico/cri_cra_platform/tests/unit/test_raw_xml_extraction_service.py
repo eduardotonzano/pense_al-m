@@ -153,6 +153,19 @@ def test_mapped_extraction_keys_series_flags_scale_totals_and_absence(tmp_path):
     assert rules == {"monetary_scale_suspect", "totals_consistency"}
 
 
+def test_totals_accept_sign_inverted_reduction_only_when_configured():
+    from credit_assets.services.raw_xml_extraction_service import totals_consistency
+    data = b"""<?xml version="1.0" encoding="UTF-8"?>
+<InformeMensalCRA><Passivo total="100.01"><VlrAtualizadoEmissao>100</VlrAtualizadoEmissao>
+<ReducaoVlrEmissao>-0.01</ReducaoVlrEmissao></Passivo></InformeMensalCRA>"""
+    values = walk_values(data)
+    assert len(totals_consistency(values)) == 1
+    mapping = {"rules": {"totals_consistency": {
+        "sign_inverted_paths": ["/InformeMensalCRA/Passivo/ReducaoVlrEmissao"]
+    }}}
+    assert totals_consistency(values, mapping) == []
+
+
 def test_duplicated_series_key_is_invalid(tmp_path):
     data = MAPPED_XML.replace(
         b"<NumeroSerie>2</NumeroSerie><Vlr>50", b"<NumeroSerie>1</NumeroSerie><Vlr>50"
