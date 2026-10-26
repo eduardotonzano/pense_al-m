@@ -100,6 +100,10 @@ def main() -> int:
         dest="source_ids",
         help="source_document_id explícito (repetível ou separado por vírgula)",
     )
+    parser.add_argument(
+        "--allow-other", action="store_true",
+        help="com --source-id, aceita documentos da categoria Outro (ex.: comunicados)",
+    )
     args = parser.parse_args()
     source_ids = (
         [part for value in args.source_ids for part in value.split(",")]
@@ -129,6 +133,7 @@ def main() -> int:
             max_documents=args.max_documents,
             categories=categories,
             source_document_ids=source_ids,
+            allow_other=args.allow_other,
         )
         write_reports(
             report,

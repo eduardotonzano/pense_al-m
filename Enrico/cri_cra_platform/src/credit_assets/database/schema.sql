@@ -351,3 +351,25 @@ CREATE TABLE IF NOT EXISTS contract_parameters (
     justification TEXT,
     UNIQUE (asset_id, parameter_name, candidate_id)
 );
+
+-- Fatos numéricos lidos de documentos textuais (AF, comunicados), com trecho
+-- literal conferido contra o texto da página.
+CREATE TABLE IF NOT EXISTS reported_facts (
+    fact_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    asset_id INTEGER NOT NULL REFERENCES assets(asset_id),
+    document_version_id INTEGER NOT NULL REFERENCES document_versions(version_id),
+    page_number INTEGER NOT NULL,
+    page_text_sha256 TEXT NOT NULL,
+    fact_name TEXT NOT NULL,
+    reference_date TEXT NOT NULL,
+    value TEXT NOT NULL,
+    unit TEXT NOT NULL,
+    excerpt TEXT NOT NULL,
+    extraction_method TEXT NOT NULL,
+    review_status TEXT NOT NULL DEFAULT 'pending'
+        CHECK (review_status IN ('pending', 'approved', 'rejected', 'corrected')),
+    proposed_by TEXT NOT NULL,
+    reviewed_by TEXT,
+    reviewed_at TEXT,
+    UNIQUE (asset_id, fact_name, reference_date, document_version_id)
+);

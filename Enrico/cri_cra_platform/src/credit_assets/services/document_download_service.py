@@ -44,6 +44,8 @@ EXPLICIT_CATEGORIES = SAMPLE_CATEGORIES + (
     "Relatório Agente Fiduciário",
     "Fato Relevante",
 )
+# "Outro" (ex.: comunicados ao mercado) só com opt-in explícito (allow_other).
+OTHER_CATEGORY = "Outro"
 
 CATEGORY_DIRECTORIES = {
     "Termo de Securitização": "termo_securitizacao",
@@ -52,6 +54,7 @@ CATEGORY_DIRECTORIES = {
     "Ata/Edital": "atas_editais",
     "Relatório Agente Fiduciário": "relatorios_agente_fiduciario",
     "Fato Relevante": "fatos_relevantes",
+    "Outro": "outros",
 }
 
 FORMAT_EXTENSIONS = {
@@ -78,12 +81,14 @@ def _fold(value: str) -> str:
 def infer_sample_category(
     category: str, document_name: str, allowed: tuple[str, ...] = SAMPLE_CATEGORIES
 ) -> str | None:
-    if category in allowed:
-        return category
     classified = classify_document(
         {"categoriaDocumento": category, "document_name": document_name}
     )
-    return classified if classified in allowed else None
+    if classified in allowed:
+        return classified
+    if category in allowed:
+        return category
+    return None
 
 
 def _parse_sort_date(value: str | None) -> datetime:
@@ -129,10 +134,11 @@ def select_sample_documents(
     categories: Iterable[str] | None = None,
     max_documents: int = MAX_SAMPLE_DOCUMENTS,
     source_document_ids: Iterable[str] | None = None,
+    allow_other: bool = False,
 ) -> dict[str, Any]:
     if source_document_ids is not None:
         return _select_explicit_documents(
-            connection, codigo_cetip, isin, source_document_ids
+            connection, codigo_cetip, isin, source_document_ids, allow_other
         )
     if max_documents < 1 or max_documents > MAX_SAMPLE_DOCUMENTS:
         raise ValueError(f"max_documents deve estar entre 1 e {MAX_SAMPLE_DOCUMENTS}")
@@ -234,7 +240,9 @@ def _select_explicit_documents(
     codigo_cetip: str,
     isin: str,
     source_document_ids: Iterable[str],
+    allow_other: bool = False,
 ) -> dict[str, Any]:
+    allowed = EXPLICIT_CATEGORIES + ((OTHER_CATEGORY,) if allow_other else ())
     requested_ids = list(dict.fromkeys(
         str(source_id).strip() for source_id in source_document_ids
         if str(source_id).strip()
@@ -269,9 +277,7 @@ def _select_explicit_documents(
             raise ValueError(
                 f"source_document_id {source_id} pertence a outro ativo ({row['asset_isin']})"
             )
-        category = infer_sample_category(
-            row["category"], row["document_name"], EXPLICIT_CATEGORIES
-        )
+        category = infer_sample_category(row["category"], row["document_name"], allowed)
         if category is None:
             raise ValueError(
                 f"source_document_id {source_id} tem categoria fora da amostra "
@@ -520,7 +526,7 @@ class FundosNetBrowserDownloader:
                         })
                         actual_category = (
                             classified_category
-                            if classified_category in EXPLICIT_CATEGORIES
+                            if classified_category in CATEGORY_DIRECTORIES
                             else None
                         )
                         if actual_category != document["category"]:
@@ -812,12 +818,13 @@ class DocumentDownloadService:
         max_documents: int = MAX_SAMPLE_DOCUMENTS,
         categories: Iterable[str] | None = None,
         source_document_ids: Iterable[str] | None = None,
+        allow_other: bool = False,
     ) -> dict[str, Any]:
         started = time.perf_counter()
         run_id = uuid.uuid4().hex
         sample = select_sample_documents(
             self.connection, codigo_cetip, isin, categories, max_documents,
-            source_document_ids=source_document_ids,
+            source_document_ids=source_document_ids, allow_other=allow_other,
         )
         report: dict[str, Any] = {
             "run_id": run_id,

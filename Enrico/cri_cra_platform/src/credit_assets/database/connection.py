@@ -51,6 +51,13 @@ def initialize_database(connection: sqlite3.Connection) -> None:
             connection.execute(
                 f"ALTER TABLE collection_attempts ADD COLUMN {column_name} {column_type}"
             )
+    alert_columns = {
+        row["name"] for row in connection.execute("PRAGMA table_info(data_quality_alerts)")
+    }
+    if alert_columns and "alert_family" not in alert_columns:
+        connection.execute(
+            "ALTER TABLE data_quality_alerts ADD COLUMN alert_family TEXT NOT NULL DEFAULT 'data_quality'"
+        )
     connection.execute(
         """CREATE INDEX IF NOT EXISTS ix_collection_attempts_document_id
            ON collection_attempts(document_id)"""

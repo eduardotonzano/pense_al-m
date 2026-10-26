@@ -1,0 +1,155 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-26",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "890020",
+      "page_number": 2,
+      "fact_name": "garantia_cessao_fiduciaria_valor",
+      "reference_date": "2024-12-31",
+      "value": "4420160.88",
+      "unit": "BRL",
+      "excerpt": "R$ 4.420.160,88"
+    },
+    {
+      "source_document_id": "890020",
+      "page_number": 2,
+      "fact_name": "garantia_af_estoque_valor",
+      "reference_date": "2024-12-31",
+      "value": "56633612.77",
+      "unit": "BRL",
+      "excerpt": "R$ 56.633.612,77"
+    },
+    {
+      "source_document_id": "890020",
+      "page_number": 2,
+      "fact_name": "garantia_af_imovel_valor",
+      "reference_date": "2024-12-31",
+      "value": "46148975.04",
+      "unit": "BRL",
+      "excerpt": "R$ 46.148.975,04"
+    },
+    {
+      "source_document_id": "890020",
+      "page_number": 3,
+      "fact_name": "saldo_em_conta",
+      "reference_date": "2024-12-31",
+      "value": "105972.22",
+      "unit": "BRL",
+      "excerpt": "Saldo em conta (B)                                               R$ 105.972,22"
+    },
+    {
+      "source_document_id": "890020",
+      "page_number": 3,
+      "fact_name": "saldo_devedor_cra",
+      "reference_date": "2024-12-31",
+      "value": "70044092.65",
+      "unit": "BRL",
+      "excerpt": "R$ 70.044.092,65"
+    },
+    {
+      "source_document_id": "1175376",
+      "page_number": 2,
+      "fact_name": "garantia_cessao_fiduciaria_valor",
+      "reference_date": "2025-12-31",
+      "value": "2243443.20",
+      "unit": "BRL",
+      "excerpt": "R$ 2.243.443,20"
+    },
+    {
+      "source_document_id": "1175376",
+      "page_number": 2,
+      "fact_name": "garantia_af_estoque_valor",
+      "reference_date": "2025-12-31",
+      "value": "37884631.95",
+      "unit": "BRL",
+      "excerpt": "R$ 37.884.631,95"
+    },
+    {
+      "source_document_id": "1175376",
+      "page_number": 2,
+      "fact_name": "garantia_af_imovel_valor",
+      "reference_date": "2025-12-31",
+      "value": "49980777.00",
+      "unit": "BRL",
+      "excerpt": "R$ 49.980.777,00"
+    },
+    {
+      "source_document_id": "1175376",
+      "page_number": 3,
+      "fact_name": "saldo_em_conta",
+      "reference_date": "2025-12-31",
+      "value": "156981.18",
+      "unit": "BRL",
+      "excerpt": "Saldo em conta (B)                                                  R$ 156.981,18"
+    },
+    {
+      "source_document_id": "1175376",
+      "page_number": 3,
+      "fact_name": "saldo_devedor_cra",
+      "reference_date": "2025-12-31",
+      "value": "30926620.08",
+      "unit": "BRL",
+      "excerpt": "Saldo devedor dos CRA (C)                                           R$ 30.926.620,08"
+    },
+    {
+      "source_document_id": "1175376",
+      "page_number": 2,
+      "fact_name": "pagamentos_no_exercicio",
+      "reference_date": "2025-12-31",
+      "value": "nenhum",
+      "unit": "texto",
+      "excerpt": "Não ocorreram pagamentos no período."
+    },
+    {
+      "source_document_id": "1074300",
+      "page_number": 1,
+      "fact_name": "pagamento_cra",
+      "reference_date": "2025-12-31",
+      "value": "13612095.14",
+      "unit": "BRL",
+      "excerpt": "R$ 13.612.095,14"
+    },
+    {
+      "source_document_id": "1099384",
+      "page_number": 1,
+      "fact_name": "pagamento_cra",
+      "reference_date": "2026-02-03",
+      "value": "15000000.00",
+      "unit": "BRL",
+      "excerpt": "R$ 15.000.000,00"
+    },
+    {
+      "source_document_id": "1119612",
+      "page_number": 1,
+      "fact_name": "pagamento_cra",
+      "reference_date": "2026-02-26",
+      "value": "10000000.00",
+      "unit": "BRL",
+      "excerpt": "R$ 10.000.000,00"
+    },
+    {
+      "source_document_id": "1153749",
+      "page_number": 1,
+      "fact_name": "pagamento_cra",
+      "reference_date": "2026-04-06",
+      "value": "6773531.43",
+      "unit": "BRL",
+      "excerpt": "R$ 6.773.531,43"
+    },
+    {
+      "source_document_id": "1170632",
+      "page_number": 1,
+      "fact_name": "pagamento_cra",
+      "reference_date": "2026-04-28",
+      "value": "547998.31",
+      "unit": "BRL",
+      "excerpt": "R$ 547.998,31"
+    }
+  ]
+}

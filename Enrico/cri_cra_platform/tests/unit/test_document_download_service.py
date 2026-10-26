@@ -187,6 +187,16 @@ def test_explicit_ids_accept_trustee_report_and_material_fact_but_default_sample
     assert {item["category"] for item in default["selected"]} == {"Informe Mensal"}
 
 
+def test_other_category_requires_explicit_opt_in(tmp_path):
+    connection, _ = create_catalog(tmp_path, ("Outros Comunicados Não Considerados Fatos Relevantes",))
+    with pytest.raises(ValueError, match="fora da amostra"):
+        select_sample_documents(connection, "CRA022009VM", "BRECOACRABX0", source_document_ids=["981501"])
+    selected = select_sample_documents(
+        connection, "CRA022009VM", "BRECOACRABX0", source_document_ids=["981501"], allow_other=True,
+    )
+    assert selected["selected"][0]["category"] == "Outro"
+
+
 def test_explicit_ids_reject_document_of_another_asset(tmp_path):
     connection, _ = create_catalog(tmp_path)
     other_asset_id = AssetRepository(connection).upsert(

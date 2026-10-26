@@ -168,6 +168,34 @@ DETECTORS = {
 }
 
 
+def upsert_alert(
+    connection, family, rule_id, rules_version, detector_version, asset_id, alert, severity, run_id, now
+) -> str:
+    """Insere o alerta ou, se o mesmo fingerprint já existir, só registra que foi visto de novo."""
+    evidence = json.dumps(alert["evidence"], ensure_ascii=False, sort_keys=True, default=str)
+    fingerprint = hashlib.sha256(
+        # Família "data_quality" mantém o formato original (alertas já gravados).
+        "|".join(([] if family == "data_quality" else [family])
+                 + [rule_id, str(asset_id), alert["month"], str(alert["instance_key"]), evidence]).encode()
+    ).hexdigest()
+    if connection.execute(
+        "UPDATE data_quality_alerts SET last_seen_run_id = ? WHERE fingerprint = ?",
+        (run_id, fingerprint),
+    ).rowcount:
+        return "seen_again"
+    connection.execute(
+        """INSERT INTO data_quality_alerts (
+            fingerprint, alert_family, rule_id, rules_version, detector_version, asset_id,
+            report_id, competencia_mes, instance_key, severity, message,
+            evidence_json, first_seen_run_id, last_seen_run_id, created_at
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+        (fingerprint, family, rule_id, rules_version, detector_version, asset_id,
+         alert.get("report_id"), alert["month"], alert["instance_key"], severity,
+         alert["message"], evidence, run_id, run_id, now),
+    )
+    return "new"
+
+
 def detect_asset(connection: sqlite3.Connection, asset_id: int, config: dict[str, Any]) -> dict[str, Any]:
     months = [
         {"report_id": row["report_id"], "month": row["month"],
@@ -184,27 +212,10 @@ def detect_asset(connection: sqlite3.Connection, asset_id: int, config: dict[str
             if not rule:
                 continue
             for alert in detector(months, rule):
-                evidence = json.dumps(alert["evidence"], ensure_ascii=False, sort_keys=True, default=str)
-                fingerprint = hashlib.sha256(
-                    "|".join([rule_id, str(asset_id), alert["month"], str(alert["instance_key"]), evidence]).encode()
-                ).hexdigest()
                 by_rule[rule_id] = by_rule.get(rule_id, 0) + 1
-                updated = connection.execute(
-                    "UPDATE data_quality_alerts SET last_seen_run_id = ? WHERE fingerprint = ?",
-                    (run_id, fingerprint),
-                ).rowcount
-                if updated:
-                    counts["seen_again"] += 1
-                    continue
-                connection.execute(
-                    """INSERT INTO data_quality_alerts (
-                        fingerprint, rule_id, rules_version, detector_version, asset_id,
-                        report_id, competencia_mes, instance_key, severity, message,
-                        evidence_json, first_seen_run_id, last_seen_run_id, created_at
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                    (fingerprint, rule_id, config["rules_version"], DETECTOR_VERSION, asset_id,
-                     alert["report_id"], alert["month"], alert["instance_key"], rule["severity"],
-                     alert["message"], evidence, run_id, run_id, now),
+                status = upsert_alert(
+                    connection, "data_quality", rule_id, config["rules_version"], DETECTOR_VERSION,
+                    asset_id, alert, rule["severity"], run_id, now,
                 )
-                counts["new"] += 1
+                counts["new" if status == "new" else "seen_again"] += 1
     return {"detector_run_id": run_id, "months": len(months), **counts, "by_rule": by_rule}

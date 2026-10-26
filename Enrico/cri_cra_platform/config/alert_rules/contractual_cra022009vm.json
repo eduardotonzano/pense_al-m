@@ -1,0 +1,58 @@
+{
+  "rules_version": "0.1.0",
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "approval_status": "approved",
+  "approved_by": "Enrico Suman Marques",
+  "approved_at": "2026-10-26",
+  "interpretations": {
+    "valor_nominal_dos_cra": "saldo devedor dos CRA (C) informado pelo Agente Fiduciário na mesma data-base",
+    "data_de_verificacao": "posição de 31/12 do Relatório do AF usada como aproximação da verificação de 15/12",
+    "saldo_conta_garantia": "'Saldo em conta (B)' do Relatório do AF"
+  },
+  "rules": {
+    "cessao_fiduciaria_minima": {
+      "severity": "warning",
+      "parameter": "cessao_fiduciaria_minima_na_verificacao",
+      "fact": "garantia_cessao_fiduciaria_valor",
+      "months": [
+        "12"
+      ]
+    },
+    "razao_garantia_minima": {
+      "severity": "warning",
+      "parameters": {
+        "01-08": "razao_garantia_minima_jan_ago",
+        "09-12": "razao_garantia_minima_set_dez"
+      },
+      "numerator_facts": [
+        "garantia_cessao_fiduciaria_valor",
+        "garantia_af_estoque_valor",
+        "garantia_af_imovel_valor",
+        "saldo_em_conta"
+      ],
+      "denominator_fact": "saldo_devedor_cra"
+    },
+    "payment_reconciliation": {
+      "severity": "warning",
+      "fact": "pagamento_cra",
+      "informe_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total",
+      "tolerance_brl": "1.00",
+      "coverage_months": [
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04"
+      ],
+      "coverage_note": "Comunicados ao mercado baixados apenas de dez/2025 a abr/2026."
+    },
+    "trustee_payment_statement": {
+      "severity": "warning",
+      "fact": "pagamentos_no_exercicio",
+      "informe_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total"
+    }
+  }
+}
