@@ -38,11 +38,20 @@ SAMPLE_CATEGORIES = (
     "Ata/Edital",
 )
 
+# Categorias aceitas apenas no download por source_document_id explícito; a
+# amostra padrão da D2 continua restrita a SAMPLE_CATEGORIES.
+EXPLICIT_CATEGORIES = SAMPLE_CATEGORIES + (
+    "Relatório Agente Fiduciário",
+    "Fato Relevante",
+)
+
 CATEGORY_DIRECTORIES = {
     "Termo de Securitização": "termo_securitizacao",
     "Aditamento": "aditamentos",
     "Informe Mensal": "informes_mensais",
     "Ata/Edital": "atas_editais",
+    "Relatório Agente Fiduciário": "relatorios_agente_fiduciario",
+    "Fato Relevante": "fatos_relevantes",
 }
 
 FORMAT_EXTENSIONS = {
@@ -66,13 +75,15 @@ def _fold(value: str) -> str:
     return "".join(char for char in normalized if not unicodedata.combining(char))
 
 
-def infer_sample_category(category: str, document_name: str) -> str | None:
-    if category in SAMPLE_CATEGORIES:
+def infer_sample_category(
+    category: str, document_name: str, allowed: tuple[str, ...] = SAMPLE_CATEGORIES
+) -> str | None:
+    if category in allowed:
         return category
     classified = classify_document(
         {"categoriaDocumento": category, "document_name": document_name}
     )
-    return classified if classified in SAMPLE_CATEGORIES else None
+    return classified if classified in allowed else None
 
 
 def _parse_sort_date(value: str | None) -> datetime:
@@ -258,7 +269,9 @@ def _select_explicit_documents(
             raise ValueError(
                 f"source_document_id {source_id} pertence a outro ativo ({row['asset_isin']})"
             )
-        category = infer_sample_category(row["category"], row["document_name"])
+        category = infer_sample_category(
+            row["category"], row["document_name"], EXPLICIT_CATEGORIES
+        )
         if category is None:
             raise ValueError(
                 f"source_document_id {source_id} tem categoria fora da amostra "
@@ -507,7 +520,7 @@ class FundosNetBrowserDownloader:
                         })
                         actual_category = (
                             classified_category
-                            if classified_category in SAMPLE_CATEGORIES
+                            if classified_category in EXPLICIT_CATEGORIES
                             else None
                         )
                         if actual_category != document["category"]:

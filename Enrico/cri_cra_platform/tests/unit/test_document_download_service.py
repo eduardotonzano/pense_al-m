@@ -173,6 +173,20 @@ def test_explicit_ids_reject_unknown_or_unapproved_documents(tmp_path, source_id
         )
 
 
+def test_explicit_ids_accept_trustee_report_and_material_fact_but_default_sample_does_not(tmp_path):
+    connection, _ = create_catalog(
+        tmp_path, ("Relatório de Agente Fiduciário", "Fato Relevante", "Informe Mensal de CRA")
+    )
+    explicit = select_sample_documents(
+        connection, "CRA022009VM", "BRECOACRABX0", source_document_ids=["981501", "981502"],
+    )
+    assert [item["category"] for item in explicit["selected"]] == [
+        "Relatório Agente Fiduciário", "Fato Relevante"
+    ]
+    default = select_sample_documents(connection, "CRA022009VM", "BRECOACRABX0")
+    assert {item["category"] for item in default["selected"]} == {"Informe Mensal"}
+
+
 def test_explicit_ids_reject_document_of_another_asset(tmp_path):
     connection, _ = create_catalog(tmp_path)
     other_asset_id = AssetRepository(connection).upsert(
