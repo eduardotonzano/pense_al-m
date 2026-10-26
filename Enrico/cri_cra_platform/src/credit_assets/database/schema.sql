@@ -278,3 +278,29 @@ CREATE TABLE IF NOT EXISTS period_comparisons (
 );
 
 CREATE INDEX IF NOT EXISTS ix_period_comparisons_run ON period_comparisons(comparison_run_id);
+
+-- Alertas de qualidade de dado (sem limites contratuais). fingerprint evita
+-- duplicar o mesmo alerta entre execuções; descartes são preservados.
+CREATE TABLE IF NOT EXISTS data_quality_alerts (
+    alert_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    fingerprint TEXT NOT NULL UNIQUE,
+    rule_id TEXT NOT NULL,
+    rules_version TEXT NOT NULL,
+    detector_version TEXT NOT NULL,
+    asset_id INTEGER NOT NULL REFERENCES assets(asset_id),
+    report_id INTEGER REFERENCES extracted_reports(report_id),
+    competencia_mes TEXT NOT NULL,
+    instance_key TEXT,
+    severity TEXT NOT NULL CHECK (severity IN ('info', 'warning')),
+    message TEXT NOT NULL,
+    evidence_json TEXT NOT NULL,
+    alert_status TEXT NOT NULL DEFAULT 'open'
+        CHECK (alert_status IN ('open', 'acknowledged', 'resolved', 'dismissed')),
+    dismiss_reason TEXT,
+    status_changed_by TEXT,
+    status_changed_at TEXT,
+    first_seen_run_id TEXT NOT NULL,
+    last_seen_run_id TEXT NOT NULL,
+    created_at TEXT NOT NULL,
+    CHECK (alert_status <> 'dismissed' OR dismiss_reason IS NOT NULL)
+);

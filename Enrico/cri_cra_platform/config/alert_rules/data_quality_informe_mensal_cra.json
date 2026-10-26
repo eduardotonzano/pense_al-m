@@ -1,0 +1,42 @@
+{
+  "rules_version": "0.1.0",
+  "approval_status": "proposed",
+  "notes": "Alertas de qualidade de dado; não usam limites contratuais. Parâmetros numéricos propostos em 2026-10-26, pendentes de aprovação humana.",
+  "rules": {
+    "status_vs_delinquency": {
+      "severity": "warning",
+      "description": "Situação de alguma série = 'Em atraso' com todos os campos de atraso zerados/vazios, ou campos de atraso > 0 com todas as séries 'Adimplente'.",
+      "delinquency_paths": [
+        "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerComParcelasAtraso",
+        "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos",
+        "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrTotalParcelasAtraso",
+        "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/@total"
+      ],
+      "status_path": "/InformeMensalCRA/DadosGerais/Series/Serie/Situacao"
+    },
+    "balance_reconciliation": {
+      "severity": "warning",
+      "description": "Série única: |saldo_t - (saldo_t-1 * (1 + rentabilidade_t) - pagamentos_t)| / saldo_t-1 acima da tolerância. Meses com escala suspeita são ignorados.",
+      "tolerance": "0.001",
+      "balance_path": "/InformeMensalCRA/DetalhesSeries/totalVlrCertificados",
+      "return_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/RentabilidadePeriodo",
+      "payments_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total",
+      "series_count_path": "/InformeMensalCRA/DadosGerais/Emissao/QuantidadeSeries"
+    },
+    "return_outlier": {
+      "severity": "warning",
+      "description": "Rentabilidade mensal da série com desvio robusto |r - mediana| / (1.4826 * MAD) acima do limite, usando o histórico vigente do próprio ativo (mínimo de meses exigido).",
+      "robust_z_threshold": "5",
+      "minimum_months": 12,
+      "return_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/RentabilidadePeriodo"
+    },
+    "key_party_changed": {
+      "severity": "info",
+      "description": "CNPJ de devedor/cedente com mais de 20% muda entre competências vigentes consecutivas.",
+      "paths": [
+        "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/CNPJ",
+        "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/CNPJ"
+      ]
+    }
+  }
+}
