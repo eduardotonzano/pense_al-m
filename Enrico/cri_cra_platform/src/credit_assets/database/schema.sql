@@ -235,3 +235,18 @@ CREATE TABLE IF NOT EXISTS extraction_findings (
 );
 
 CREATE INDEX IF NOT EXISTS ix_extraction_findings_report ON extraction_findings(report_id);
+
+-- Revisão humana de relatórios; extracted_reports.human_review_status e
+-- is_current refletem a revisão mais recente.
+CREATE TABLE IF NOT EXISTS report_reviews (
+    review_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    report_id INTEGER NOT NULL REFERENCES extracted_reports(report_id),
+    review_status TEXT NOT NULL
+        CHECK (review_status IN ('approved', 'rejected', 'pending', 'corrected')),
+    reviewed_by TEXT NOT NULL,
+    reviewed_at TEXT NOT NULL,
+    decision_source TEXT NOT NULL,
+    justification TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS ix_report_reviews_report ON report_reviews(report_id);
