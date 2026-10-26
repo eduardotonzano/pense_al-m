@@ -108,7 +108,7 @@ def main() -> int:
     if source_ids and args.category:
         parser.error("--source-id não pode ser combinado com --category")
     report_stem = (
-        "cafe_brasil_sample_download_by_id_latest"
+        f"{args.cetip.lower()}_sample_download_by_id_latest"
         if source_ids else "cafe_brasil_sample_download_latest"
     )
 

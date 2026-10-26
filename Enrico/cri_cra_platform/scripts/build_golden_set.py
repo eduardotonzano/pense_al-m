@@ -57,8 +57,11 @@ def main() -> int:
                     problems[item["item_id"]] = found
                 continue
             observed = locate(data, item["xml_path"], item["instance_index"])
-            if not observed["element_present"]:
+            if not observed["element_present"] and item["proposed_field_state"] != "absent":
                 problems[item["item_id"]] = ["caminho não encontrado no XML"]
+                continue
+            if observed["element_present"] and item["proposed_field_state"] == "absent":
+                problems[item["item_id"]] = ["item 'absent', mas o caminho existe no XML"]
                 continue
             item["document_version_id"] = row["version_id"]
             item["local_file_path"] = row["local_file_path"]

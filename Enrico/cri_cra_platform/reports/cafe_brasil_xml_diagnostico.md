@@ -92,6 +92,29 @@ consultar `source_version`.)
 7. **Competência fora do fim do mês**: 380870 declara `2022-10-30`. Preservar como veio.
 8. **Typo na fonte**: `CompanhiaEmissora = "Eco Securitizdora ..."`. Não corrigir na extração.
 
+## Checagem cruzada com CVM Dados Abertos (2026-10-26)
+
+Arquivos `inf_mensal_cra_{2022,2023,2024}.zip` (tabela `classe`), ISIN `BRECOACRABX0`:
+
+- A CVM publica **uma linha por competência, só na versão mais recente**: dez/2023 a
+  abr/2024 aparecem como `Versao = 2`, com valores idênticos aos XMLs reapresentados.
+- `Data_Referencia` é normalizada para o 1º dia do mês (`2022-10-01`), diferente do XML
+  (`2022-10-30`). Não usar o CSV como fonte da competência literal.
+- **Out/2022 a nov/2023 (14 competências) seguem em versão 1 e na escala de milhares**
+  (`Valor_Certificados` de 100891.09 a 116615.65). O dado oficial da CVM herda o problema;
+  não há correção posterior a usar.
+- `Rentabilidade` também vem como fração (`0.0125`), coerente com o XML.
+
+## Ativo multissérie (Alibem)
+
+Aprovado em 2026-10-26: CRA Eco Securitizadora, 426ª emissão (Alibem), 5 séries
+(Sênior 1–2, Mezanino 3–4, Subordinada 5), série 1 `CRA02500C1D` / `BRECOACRALJ8`,
+identificada pelos Dados Abertos da CVM. Catálogo: 22 documentos (idFundo 23641), 10
+Informes Mensais. Três XMLs baixados (1094453, 1200762, 1355952) mostram o mesmo leiaute
+(235 caminhos, todos já existentes no Café Brasil), `Serie` repetida 5× em `DadosGerais/Series`
+e em `DetalhesSeries/Series`, e `EspecificacaoTipoSegmento` ausente (caso `absent`).
+Diagnóstico: `reports/alibem_xml_union.{json,csv}`.
+
 ## Golden set
 
 `config/golden_sets/informe_mensal_cra_cafe_brasil.json` — 27 itens congelados por SHA-256,

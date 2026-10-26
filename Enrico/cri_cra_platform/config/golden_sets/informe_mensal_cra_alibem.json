@@ -1,0 +1,319 @@
+{
+  "golden_set_id": "informe_mensal_cra_alibem",
+  "schema_version": "1",
+  "asset": {
+    "codigo_cetip": "CRA02500C1D",
+    "isin": "BRECOACRALJ8"
+  },
+  "layout_validation_status": "structural_only",
+  "created_at": "2026-10-26",
+  "coverage_gaps": {
+    "invalid": "nenhum valor inválido observado"
+  },
+  "items": [
+    {
+      "item_id": "IMCRA-ALB-001",
+      "source_document_id": "1355952",
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/CodigoISIN",
+      "instance_index": 0,
+      "case_types": [
+        "repeated_block",
+        "identifier"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Série 1 (Sênior); ISIN cadastrado como ativo.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 20,
+      "local_file_path": "data/documents/CRA02500C1D/informes_mensais/2026-10-21_1355952_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "04f9dc6e4cc4dcb768bb71e6d968ec23e98bcf25a28a77c73ce3160f74aa5e41",
+      "observed": {
+        "element_present": true,
+        "occurrences": 5,
+        "line": 26,
+        "xsi_nil": false,
+        "evidence_excerpt": "<CodigoISIN>BRECOACRALJ8</CodigoISIN>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "BRECOACRALJ8"
+      }
+    },
+    {
+      "item_id": "IMCRA-ALB-002",
+      "source_document_id": "1355952",
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/CodigoISIN",
+      "instance_index": 4,
+      "case_types": [
+        "repeated_block",
+        "identifier"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Série 5 (Subordinada).",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 20,
+      "local_file_path": "data/documents/CRA02500C1D/informes_mensais/2026-10-21_1355952_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "04f9dc6e4cc4dcb768bb71e6d968ec23e98bcf25a28a77c73ce3160f74aa5e41",
+      "observed": {
+        "element_present": true,
+        "occurrences": 5,
+        "line": 78,
+        "xsi_nil": false,
+        "evidence_excerpt": "<CodigoISIN>BRECOACRALN0</CodigoISIN>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "BRECOACRALN0"
+      }
+    },
+    {
+      "item_id": "IMCRA-ALB-003",
+      "source_document_id": "1355952",
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/Classe",
+      "instance_index": 4,
+      "case_types": [
+        "repeated_block",
+        "text"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": null,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 20,
+      "local_file_path": "data/documents/CRA02500C1D/informes_mensais/2026-10-21_1355952_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "04f9dc6e4cc4dcb768bb71e6d968ec23e98bcf25a28a77c73ce3160f74aa5e41",
+      "observed": {
+        "element_present": true,
+        "occurrences": 5,
+        "line": 74,
+        "xsi_nil": false,
+        "evidence_excerpt": "<Classe>Subordinada</Classe>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "Subordinada"
+      }
+    },
+    {
+      "item_id": "IMCRA-ALB-004",
+      "source_document_id": "1355952",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/NumeroSerie",
+      "instance_index": 4,
+      "case_types": [
+        "repeated_block",
+        "identifier"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "Usar NumeroSerie como instance_key para ligar DadosGerais/Serie a DetalhesSeries/Serie?",
+      "notes": "A ordem coincide nesta amostra, mas não é garantida (CSV da CVM traz séries fora de ordem).",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 20,
+      "local_file_path": "data/documents/CRA02500C1D/informes_mensais/2026-10-21_1355952_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "04f9dc6e4cc4dcb768bb71e6d968ec23e98bcf25a28a77c73ce3160f74aa5e41",
+      "observed": {
+        "element_present": true,
+        "occurrences": 5,
+        "line": 148,
+        "xsi_nil": false,
+        "evidence_excerpt": "<NumeroSerie>5</NumeroSerie>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "5"
+      }
+    },
+    {
+      "item_id": "IMCRA-ALB-005",
+      "source_document_id": "1355952",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse",
+      "instance_index": 4,
+      "case_types": [
+        "repeated_block",
+        "monetary"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Série 5.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 20,
+      "local_file_path": "data/documents/CRA02500C1D/informes_mensais/2026-10-21_1355952_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "04f9dc6e4cc4dcb768bb71e6d968ec23e98bcf25a28a77c73ce3160f74aa5e41",
+      "observed": {
+        "element_present": true,
+        "occurrences": 5,
+        "line": 150,
+        "xsi_nil": false,
+        "evidence_excerpt": "<VlrCertificadosPorClasse>159534460.03</VlrCertificadosPorClasse>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "159534460.03"
+      }
+    },
+    {
+      "item_id": "IMCRA-ALB-006",
+      "source_document_id": "1355952",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/RentabilidadePeriodo",
+      "instance_index": 4,
+      "case_types": [
+        "repeated_block",
+        "percentage"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": null,
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 20,
+      "local_file_path": "data/documents/CRA02500C1D/informes_mensais/2026-10-21_1355952_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "04f9dc6e4cc4dcb768bb71e6d968ec23e98bcf25a28a77c73ce3160f74aa5e41",
+      "observed": {
+        "element_present": true,
+        "occurrences": 5,
+        "line": 153,
+        "xsi_nil": false,
+        "evidence_excerpt": "<RentabilidadePeriodo>0.0081</RentabilidadePeriodo>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "0.0081"
+      }
+    },
+    {
+      "item_id": "IMCRA-ALB-007",
+      "source_document_id": "1355952",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/totalVlrCertificados",
+      "instance_index": 0,
+      "case_types": [
+        "monetary",
+        "total"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Igual à soma das 5 séries (785531529.92).",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 20,
+      "local_file_path": "data/documents/CRA02500C1D/informes_mensais/2026-10-21_1355952_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "04f9dc6e4cc4dcb768bb71e6d968ec23e98bcf25a28a77c73ce3160f74aa5e41",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 160,
+        "xsi_nil": false,
+        "evidence_excerpt": "<totalVlrCertificados>785531529.92</totalVlrCertificados>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "785531529.92"
+      }
+    },
+    {
+      "item_id": "IMCRA-ALB-008",
+      "source_document_id": "1355952",
+      "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/EspecificacaoTipoSegmento",
+      "instance_index": 0,
+      "case_types": [
+        "absent"
+      ],
+      "proposed_field_state": "absent",
+      "decision_question": null,
+      "notes": "Elemento presente nos XMLs do Café Brasil e ausente nos 3 do Alibem. Ausente ≠ vazio.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 20,
+      "local_file_path": "data/documents/CRA02500C1D/informes_mensais/2026-10-21_1355952_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "04f9dc6e4cc4dcb768bb71e6d968ec23e98bcf25a28a77c73ce3160f74aa5e41",
+      "observed": {
+        "element_present": false,
+        "occurrences": 0
+      }
+    },
+    {
+      "item_id": "IMCRA-ALB-009",
+      "source_document_id": "1094453",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual",
+      "instance_index": 0,
+      "case_types": [
+        "present_empty",
+        "repeated_block"
+      ],
+      "proposed_field_state": "present_empty",
+      "decision_question": null,
+      "notes": "Competência 2025-12-31, sem rating informado.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 22,
+      "local_file_path": "data/documents/CRA02500C1D/informes_mensais/2026-01-28_1094453_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "1ea1b687bebc88e15273978dba3b6df202c1179f8c9b08e6b5205e8a2c5b8ee1",
+      "observed": {
+        "element_present": true,
+        "occurrences": 5,
+        "line": 106,
+        "xsi_nil": true,
+        "evidence_excerpt": "<ClassificacaoRiscoAtual xsi:nil=\"true\"/>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": ""
+      }
+    },
+    {
+      "item_id": "IMCRA-ALB-010",
+      "source_document_id": "1355952",
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual",
+      "instance_index": 0,
+      "case_types": [
+        "text",
+        "repeated_block"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Rating aparece a partir da competência 2026-04-30.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "source_version": "1",
+      "document_version_id": 20,
+      "local_file_path": "data/documents/CRA02500C1D/informes_mensais/2026-10-21_1355952_Informe_Mensal_de_CRA.xml",
+      "raw_file_hash": "04f9dc6e4cc4dcb768bb71e6d968ec23e98bcf25a28a77c73ce3160f74aa5e41",
+      "observed": {
+        "element_present": true,
+        "occurrences": 5,
+        "line": 106,
+        "xsi_nil": false,
+        "evidence_excerpt": "<ClassificacaoRiscoAtual>A.br (sf)</ClassificacaoRiscoAtual>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "A.br (sf)"
+      }
+    }
+  ]
+}

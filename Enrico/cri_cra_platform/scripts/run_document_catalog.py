@@ -21,6 +21,10 @@ from credit_assets.repositories.execution_repository import ExecutionRepository
 from credit_assets.services.catalog_service import CatalogService
 
 
+# Pilotos aprovados explicitamente; ampliar só com aprovação humana.
+APPROVED_PILOT_ISINS = ("BRECOACRABX0", "BRRBRACRIP13", "BRECOACRALJ8")
+
+
 def load_assets(path: Path, only: str | None = None) -> list[Asset]:
     with path.open(encoding="utf-8-sig", newline="") as source:
         return [
@@ -38,7 +42,7 @@ def load_assets(path: Path, only: str | None = None) -> list[Asset]:
             for row in csv.DictReader(source)
             if row.get("ativo", "").strip().lower() == "true"
             and row.get("isin", "").strip()
-            and row["isin"].strip().upper() in {"BRECOACRABX0", "BRRBRACRIP13"}
+            and row["isin"].strip().upper() in APPROVED_PILOT_ISINS
             and (
                 only is None
                 or only in {row["codigo_cetip"].strip(), row["isin"].strip()}
@@ -220,7 +224,7 @@ def run(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--offline-fixtures", action="store_true")
-    parser.add_argument("--only", choices=["BRECOACRABX0", "BRRBRACRIP13"])
+    parser.add_argument("--only", choices=APPROVED_PILOT_ISINS)
     parser.add_argument("--database-path", type=Path)
     parser.add_argument("--config-path", type=Path)
     parser.add_argument("--output-path", type=Path)

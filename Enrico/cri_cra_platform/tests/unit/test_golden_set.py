@@ -4,10 +4,13 @@ from pathlib import Path
 
 import pytest
 
-from credit_assets.golden_set import coverage, load_golden_set, locate, verify_item
+from credit_assets.golden_set import (
+    combined_coverage, coverage, load_golden_set, locate, verify_item,
+)
 
 ROOT = Path(__file__).resolve().parents[2]
 GOLDEN = ROOT / "config" / "golden_sets" / "informe_mensal_cra_cafe_brasil.json"
+ALL_GOLDEN = sorted((ROOT / "config" / "golden_sets").glob("informe_mensal_cra_*.json"))
 
 XML = """<?xml version="1.0" encoding="UTF-8"?>
 <R xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -69,8 +72,15 @@ def test_committed_golden_set_is_not_publishable_until_reviewed_and_complete():
     assert all(item.get("observed") and item.get("raw_file_hash") for item in golden["items"])
 
 
-def test_committed_golden_set_matches_local_raw_files_when_available():
-    golden = load_golden_set(GOLDEN)
+def test_combined_golden_sets_only_lack_invalid_case():
+    report = combined_coverage([load_golden_set(path) for path in ALL_GOLDEN])
+    assert report["required_case_types_missing"] == ["invalid"]
+    assert report["publishable"] is False
+
+
+@pytest.mark.parametrize("golden_path", ALL_GOLDEN, ids=lambda path: path.stem)
+def test_committed_golden_sets_match_local_raw_files_when_available(golden_path):
+    golden = load_golden_set(golden_path)
     checked = 0
     for item in golden["items"]:
         path = ROOT / item["local_file_path"]

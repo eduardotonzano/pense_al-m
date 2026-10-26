@@ -1,0 +1,236 @@
+﻿xml_path,node_kind,files_present,files_absent,files_filled,min_occurrences,max_occurrences,max_repeated_within_parent,value_shapes,long_text_flag,base64_suspected,personal_data_suspected,example_values,classification_status,classification_source
+/InformeMensalCRA,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/Ativo,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/Ativo/@total,attribute,3,0,3,1,1,0,decimal_dot,False,False,False,753870915.63 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/Ativo/CaixaEquivalentes,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/Ativo/CaixaEquivalentes/@total,attribute,3,0,3,1,1,0,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/CaixaEquivalentes/CotasFILiquidezDiaria,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/CaixaEquivalentes/OperacoesCompromissadas,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/CaixaEquivalentes/Outros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/CaixaEquivalentes/TitulosPublicosFederais,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/Derivativos,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/Ativo/Derivativos/@total,attribute,3,0,3,1,1,0,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/Derivativos/ContratosTermo,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/Derivativos/Futuros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/Derivativos/Opcoes,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/Derivativos/Swap,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/DireitosCreditorios,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/Ativo/DireitosCreditorios/@total,attribute,3,0,3,1,1,0,decimal_dot,False,False,False,753870915.63 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerComParcelasAtraso,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerSemParcelasAtraso,leaf,3,0,3,1,1,1,decimal_dot,False,False,False,753870915.63 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/OutrosAtivos,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Ativo/ProvisaoRecuperacaoDireitosCreditorios,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/ContingenciaPatrimonioSeparado,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/ContingenciaPatrimonioSeparado/OutrasContigenciasRelevantes,leaf,3,0,3,1,1,1,text,False,False,False,Nada a destacar,pending_decision,default
+/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes/PrincipaisFatos,leaf,3,0,3,1,1,1,text,False,False,False,Nada a destacar.,pending_decision,default
+/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes/ValoresBensDireitosEnvolvidos,leaf,3,0,3,1,1,1,text,False,False,False,Nada a destacar.,pending_decision,default
+/InformeMensalCRA/DadosGerais,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DadosGerais/AgenteFiduciario,leaf,3,0,3,1,1,1,text,False,False,False,Vortx DTVM LTDA.,pending_decision,default
+/InformeMensalCRA/DadosGerais/CNPJCompanhia,leaf,3,0,3,1,1,1,integer,False,False,False,10753164000143,pending_decision,default
+/InformeMensalCRA/DadosGerais/CompanhiaEmissora,leaf,3,0,3,1,1,1,text,False,False,False,Eco Securitizdora de Direitos Creditórios do Agronegócio,pending_decision,default
+/InformeMensalCRA/DadosGerais/Competencia,leaf,3,0,3,1,1,1,date_iso,False,False,False,2025-12-31 | 2026-04-30 | 2026-09-30,pending_decision,default
+/InformeMensalCRA/DadosGerais/CustodianteRegistradora,leaf,3,0,3,1,1,1,text,False,False,False,Vortx DTVM LTDA.,pending_decision,default
+/InformeMensalCRA/DadosGerais/DetalhamentoLastro,leaf,3,0,3,1,1,1,text,False,False,False,Direitos Creditórios,pending_decision,default
+/InformeMensalCRA/DadosGerais/Emissao,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DadosGerais/Emissao/CodigoIdentificacao,leaf,3,0,3,1,1,1,text,False,False,False,BRECOACRALJ8,pending_decision,default
+/InformeMensalCRA/DadosGerais/Emissao/DataEmissao,leaf,3,0,3,1,1,1,date_iso,False,False,False,2025-12-15,pending_decision,default
+/InformeMensalCRA/DadosGerais/Emissao/NomeEmissao,leaf,3,0,3,1,1,1,text,False,False,False,"Série 1,2, 3, 4 e 5 - 426ª Emissão - Alibem",pending_decision,default
+/InformeMensalCRA/DadosGerais/Emissao/NumeroEmissao,leaf,3,0,3,1,1,1,integer,False,False,False,426,pending_decision,default
+/InformeMensalCRA/DadosGerais/Emissao/QuantidadeSeries,leaf,3,0,3,1,1,1,integer,False,False,False,5,pending_decision,default
+/InformeMensalCRA/DadosGerais/InstituicaoRegimeFiduciario,leaf,3,0,3,1,1,1,text,False,False,False,Sim,pending_decision,default
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/CadeiaProducao,leaf,3,0,3,1,1,1,text,False,False,False,Produtor rural,pending_decision,default
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/OutrasCaracteristicasEmissao,leaf,3,0,3,1,1,1,text,False,False,False,Nada a destacar.,pending_decision,default
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/RetentorRisco,leaf,3,0,3,1,1,1,zero,False,False,False,00000000000000,pending_decision,default
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/TipoRetencaoRisco,leaf,3,0,0,1,1,1,empty,False,False,False,,pending_decision,default
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/TipoSegmento,leaf,3,0,3,1,1,1,text,False,False,False,Pecuária,pending_decision,default
+/InformeMensalCRA/DadosGerais/Revolvencia,leaf,3,0,3,1,1,1,text,False,False,False,Não,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie,container,3,0,,5,5,5,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie/Classe,leaf,3,0,3,5,5,1,text,False,False,False,Sênior | Mezanino | Subordinada,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie/CodigoISIN,leaf,3,0,3,5,5,1,text,False,False,False,BRECOACRALJ8 | BRECOACRALK6 | BRECOACRALL4,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie/CodigoNegociacaoMercadoSec,leaf,3,0,3,5,5,1,text,False,False,False,CRA02500C1D | CRA02500C1E | CRA02500C1F,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie/DataVencimento,leaf,3,0,3,5,5,1,date_iso,False,False,False,2029-07-16 | 2032-07-15 | 2035-07-16,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie/MesBaseApuracaoPagtoRemunAmort,leaf,3,0,3,5,5,1,text,False,False,False,Junho e Dezembro,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie/NumeroSerie,leaf,3,0,3,5,5,1,integer,False,False,False,1 | 2 | 3,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie/PeriodicidadePagtoRemunAmort,leaf,3,0,3,5,5,1,text,False,False,False,Semestral,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie/Situacao,leaf,3,0,3,5,5,1,text,False,False,False,Adimplente,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie/TaxaJuros,leaf,3,0,3,5,5,1,text,False,False,False,"PRÉ 14,8000 % a.a | 108% do CDI | CDI + 1,5000% a.a",pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie/TipoOferta,leaf,3,0,3,5,5,1,text,False,False,False,Público em geral,pending_decision,default
+/InformeMensalCRA/DadosGerais/Series/Serie/VlrTotalIntegralizado,leaf,3,0,3,5,5,1,integer,False,False,False,233142000 | 16858000 | 250000000,pending_decision,default
+/InformeMensalCRA/DadosGerais/Sobrecolateralizacao,leaf,3,0,3,1,1,1,text,False,False,False,Não aplicável. Não há sobrecolaterização.,pending_decision,default
+/InformeMensalCRA/DadosGerais/TipoLastro,leaf,3,0,3,1,1,1,text,False,False,False,Créditos,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Cambio,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/CommoditiesAgricolas,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Juros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Outros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Cambio,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/CommoditiesAgricolas,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Juros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Outros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Cambio,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/CommoditiesAgricolas,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Juros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Outros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Swap,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Cambio,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/CommoditiesAgricolas,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Juros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Outros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DetalhesSeries,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/AgenciaClassificadora,leaf,3,0,3,1,1,1,text,False,False,False,Moody´s Local,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao,leaf,3,0,2,1,1,1,date_iso | xsi_nil,False,False,False,2026-01-29 | 2026-09-03,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,1,2,1,0,1,0,text,False,False,False,true,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie,container,3,0,,5,5,5,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/AmortizacoesRealizadasPeriodo,leaf,3,0,3,5,5,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/Classe,leaf,3,0,3,5,5,1,text,False,False,False,Sênior | Mezanino | Subordinada,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual,leaf,3,0,2,5,5,1,text | xsi_nil,False,False,False,A.br (sf),pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,1,2,1,0,5,0,text,False,False,False,true,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase,leaf,3,0,0,5,5,1,xsi_nil,False,False,False,,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,3,0,3,5,5,0,text,False,False,False,true,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo,leaf,3,0,0,5,5,1,xsi_nil,False,False,False,,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,3,0,3,5,5,0,text,False,False,False,true,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/NumeroSerie,leaf,3,0,3,5,5,1,integer,False,False,False,1 | 2 | 3,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/QtdCertificadosPorClasse,leaf,3,0,3,5,5,1,integer,False,False,False,233142 | 16858 | 250000,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/RendimentosDistribuidosPeriodo,leaf,3,0,3,5,5,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/RentabilidadePeriodo,leaf,3,0,3,5,5,1,decimal_dot | zero,False,False,False,0 | 0.011 | 0.0118,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse,leaf,3,0,3,5,5,1,decimal_dot,False,False,False,234037564.63 | 16928388.21 | 251070204.24,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Subordinacao,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/Subordinacao/RecomposicaoIndice,leaf,3,0,3,1,1,1,text,False,False,False,Não aplicável. Não houve recomposição de índices.,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/totalAmortizacoesRealizadas,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/totalQtdCertificados,leaf,3,0,3,1,1,1,integer,False,False,False,750000,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/totalRendimentosDistribuidos,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/DetalhesSeries/totalVlrCertificados,leaf,3,0,3,1,1,1,decimal_dot,False,False,False,753008973.69 | 790387189.87 | 785531529.92,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoCaixaEquivalentes,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoNovosDireitosCreditorios,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosPagamentos,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosRecebimentos,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PagamentosDespesas,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total,attribute,3,0,3,1,1,0,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/AmortizacaoPrincipal,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/Juros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/@total,attribute,3,0,3,1,1,0,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/AmortizacaoPrincipal,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/Juros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/@total,attribute,3,0,3,1,1,0,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/AmortizacaoPrincipal,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/Juros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/RecebimentosAlienacaoCaixaEquivalentes,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/RecebimentosDireitosCreditorios,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/FluxoCaixaLiquidoMes/VariacaoLiquidaCaixaPatrimonioSeparado,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/@total,attribute,3,0,3,1,1,0,decimal_dot,False,False,False,753870915.63 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Acima361Dias,leaf,3,0,3,1,1,1,decimal_dot,False,False,False,753870915.63 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Ate30Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De121a150Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De151a180Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De181a360Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De31a60Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De61a90Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De91a120Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/CNPJ,leaf,3,0,3,1,1,1,cnpj_formatted,False,False,False,03.941.052/0001-50,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/Percentual,leaf,3,0,3,1,1,1,integer,False,False,False,1,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/Concentracao,leaf,3,0,3,1,1,1,text,False,False,False,Concentrado - mais de 20%,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoCedente,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoCedente/MaiorCedente,leaf,3,0,3,1,1,1,integer,False,False,False,1,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores,leaf,3,0,0,1,1,1,xsi_nil,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,3,0,3,1,1,0,text,False,False,False,true,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores,leaf,3,0,0,1,1,1,xsi_nil,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,3,0,3,1,1,0,text,False,False,False,true,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/MaiorDevedor,leaf,3,0,3,1,1,1,integer,False,False,False,1,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores,leaf,3,0,0,1,1,1,xsi_nil,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,3,0,3,1,1,0,text,False,False,False,true,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/CNPJ,leaf,3,0,3,1,1,1,cnpj_formatted,False,False,False,03.941.052/0001-50,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/Percentual,leaf,3,0,3,1,1,1,integer,False,False,False,1,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/DurationCarteira,leaf,3,0,3,1,1,1,text,False,False,False,Dez anos,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/OutrasConsideracoesRelevantes,leaf,3,0,3,1,1,1,text,False,False,False,Nada a destacar.,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PercentualDireitosCreditoriosCedentesTerceiros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PercentualDireitosCreditoriosOutrasGarantias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PeriodicidadeAvaliacaoGarantias,leaf,3,0,3,1,1,1,text,False,False,False,Não aplicável. A operação não conta com garantias reais.,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrDividasAdquiridasEmissorSecuritizadora,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalDirCredRelacaoVlrTotalEmissao,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalGarantias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/@total,attribute,3,0,3,1,1,0,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/InfoImpactoPrePgtoInvestidores,leaf,3,0,3,1,1,1,text,False,False,False,Não há. Não houve pré-pagamento para os investidores.,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro,leaf,3,0,0,1,1,1,xsi_nil,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,3,0,3,1,1,0,text,False,False,False,true,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/@total,attribute,3,0,3,1,1,0,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Acima361Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre121e150Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre151e180Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre181e360Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre1e30Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre31e60Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre61e90Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre91e120Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/@total,attribute,3,0,3,1,1,0,decimal_dot,False,False,False,753870915.63 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoInsumosAgropecuarios,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoMaquinasImplementos,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoProdutosAgropecuarios,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoInsumosAgropecuarios,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoMaquinasImplementos,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoProdutosAgropecuarios,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoInsumosAgropecuarios,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoMaquinasImplementos,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoProdutosAgropecuarios,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoInsumosAgropecuarios,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoMaquinasImplementos,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoProdutosAgropecuarios,leaf,3,0,3,1,1,1,decimal_dot,False,False,False,753870915.63 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrTotalParcelasAtraso,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/OutrasInfoRelevantesDesempenhoEmissao,leaf,3,0,3,1,1,1,text,False,False,False,Nada a destacar.,pending_decision,default
+/InformeMensalCRA/Passivo,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/Passivo/@total,attribute,3,0,3,1,1,0,decimal_dot,False,False,False,753870915.63 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/Passivo/CompanhiaSecuritizadoraEmissora,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Passivo/Derivativos,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/Passivo/Derivativos/@total,attribute,3,0,3,1,1,0,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Passivo/Derivativos/ContratosTermo,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Passivo/Derivativos/Futuros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Passivo/Derivativos/Opcoes,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Passivo/Derivativos/Swap,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Passivo/Outros,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/Passivo/ReducaoVlrEmissao,leaf,3,0,3,1,1,1,decimal_dot,False,False,False,-861941.94 | -955024.69 | -925149.2,pending_decision,default
+/InformeMensalCRA/Passivo/VlrAtualizadoEmissao,leaf,3,0,3,1,1,1,decimal_dot,False,False,False,753008973.69 | 790387189.87 | 785531529.92,pending_decision,default
+/InformeMensalCRA/VlrPatrimonioLiquidoEmissao,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/@total,attribute,3,0,3,1,1,0,decimal_dot,False,False,False,753870915.63 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Acima361Dias,leaf,3,0,3,1,1,1,decimal_dot,False,False,False,753870915.63 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Ate30Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De121a150Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De151a180Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De181a360Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De31a60Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De61a90Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De91a120Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr,container,3,0,,1,1,1,,False,False,False,,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/@total,attribute,3,0,3,1,1,0,decimal_dot,False,False,False,250965952.84 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Acima361Dias,leaf,3,0,3,1,1,1,decimal_dot,False,False,False,250965952.84 | 791342214.56 | 786456679.12,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Ate30Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De121a150Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De151a180Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De181a360Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De31a60Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De61a90Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De91a120Dias,leaf,3,0,3,1,1,1,zero,False,False,False,0,pending_decision,default

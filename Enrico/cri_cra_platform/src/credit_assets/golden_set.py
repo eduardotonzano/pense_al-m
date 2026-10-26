@@ -120,6 +120,11 @@ def verify_item(item: dict[str, Any], data: bytes) -> list[str]:
     return problems
 
 
+def combined_coverage(goldens: list[dict[str, Any]]) -> dict[str, Any]:
+    """Cobertura de vários golden sets do mesmo leiaute, para publicar uma mapping_version."""
+    return coverage({"items": [item for golden in goldens for item in golden["items"]]})
+
+
 def coverage(golden: dict[str, Any]) -> dict[str, Any]:
     covered = {case for item in golden["items"] for case in item["case_types"]}
     approved = sum(item["human_review_status"] == "approved" for item in golden["items"])
