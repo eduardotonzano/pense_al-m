@@ -71,9 +71,23 @@ Fontes: 32 atas/editais (Ata/Edital) e 12 comunicados baixados; texto por págin
 | 15/05/2026 | ata 1194480 | Waiver dos índices financeiros (73,87%), condicionado a DFs auditadas até 30/05/2026 e **waiver fee de 0,5% do saldo devedor até 31/10/2026** |
 | abr/2026 | editais e comunicado 1165691 | Assembleia especial sobre alteração de controle da Devedora (redesignada para 04/05/2026) |
 
-As alterações de parâmetros acima estão carregadas em `contract_parameters` como **pendentes**
-(`config/contract_parameters/cra022009vm_assembleias_2025_2026.json`, 15 itens com âncora literal).
-Até sua aprovação, a avaliação contratual continua usando os parâmetros originais do Termo.
+As alterações de parâmetros acima estão em `contract_parameters`
+(`config/contract_parameters/cra022009vm_assembleias_2025_2026.json`, 15 itens com âncora literal),
+**aprovadas em 2026-10-27**. Os parâmetros originais do Termo que elas substituem valem até 16/06/2025.
+
+### Avaliação com os parâmetros vigentes (regras 0.2.0, 2026-10-27)
+
+| Data-base | Regra | Resultado |
+|---|---|---|
+| 31/12/2024 | Cessão Fiduciária ≥ R$ 65 mi (Termo) | R$ 4,42 mi: **abaixo** |
+| 31/12/2025 | Direitos Creditórios + Conta Garantia ≥ R$ 10 mi (ata 927400) | R$ 2,40 mi: **abaixo** |
+| 31/12/2025 | Razão de Garantia ≥ 120% do Saldo Devedor (ata 927400) | 292%: conforme |
+| 31/10/2026 | Waiver fee 0,5% (ata 1194480) | prazo em 4 dias; cumprimento não verificado |
+| 31/10/2026 | Amortização extraordinária 10% (ata 1110477) | prazo em 4 dias; cumprimento não verificado |
+| 30/05/2026 | DFs auditadas da Devedora (ata 1194480) | prazo vencido; cumprimento não verificado |
+
+O catálogo tem "Demonstrações Financeiras" 1232148 (publicado em 29/06/2026), ainda não baixado. Não
+está verificado se são as DFs da Devedora ou do patrimônio separado.
 
 ## Lacunas
 
