@@ -49,6 +49,14 @@
 6. **Datas:** término da 5ª série 17/12/2035 nas DFs (p.10) e 19/12/2035 no Termo; rating em
    14/11/2025 no Comunicado e 17/12/2025 nas DFs.
 
+7. **Balanço do Informe de jun/2026 × DFs (1328400 p.7, p.17, p.20).** Os saldos por série e o total dos CRA
+   conferem (Informe R$ 759.072.111,53; DFs R$ 759.072 mil). Divergem:
+   - caixa: Informe `CaixaEquivalentes = 0` em todos os meses; DFs R$ 95 mil (aplicação do fundo de despesas,
+     igual ao mínimo de R$ 95.000 do Termo);
+   - direitos creditórios: Informe R$ 759.919.460,42; DFs R$ 759.072 mil. Os R$ 847.348,89 a mais são
+     compensados no passivo do Informe por `ReducaoVlrEmissao = -847348.89`;
+   - total do ativo: Informe R$ 759.919 mil; DFs R$ 759.167 mil.
+
 ## Lacunas
 
 - Covenants dependem das DFs do Avalista, que não estão no Fundos.NET.

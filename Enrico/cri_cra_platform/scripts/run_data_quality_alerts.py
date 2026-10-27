@@ -23,6 +23,8 @@ def main() -> int:
     )
     args = parser.parse_args()
     config = json.loads(args.rules.read_text(encoding="utf-8"))
+    if config.get("approval_status") != "approved":
+        raise SystemExit(f"regras {args.rules.name} sem aprovação humana (approval_status={config.get('approval_status')})")
     connection = connect(ROOT / "data" / "cri_cra.db")
     initialize_database(connection)
     try:
