@@ -225,3 +225,121 @@ def test_match_result_is_immutable(
 
     with pytest.raises(AttributeError):
         result.score = 10
+
+
+def create_instrument(
+    provenance,
+    legal_name="ALFA11",
+    isin=None,
+    asset_code=None,
+):
+    identifiers = []
+
+    if isin is not None:
+        identifiers.append(
+            create_identifier(
+                provenance,
+                IdentifierType.ISIN,
+                isin,
+            )
+        )
+
+    if asset_code is not None:
+        identifiers.append(
+            create_identifier(
+                provenance,
+                IdentifierType.ASSET_CODE,
+                asset_code,
+            )
+        )
+
+    return create_entity(
+        provenance,
+        legal_name,
+        entity_type=EntityType.DEBENTURE,
+        identifiers=tuple(identifiers),
+    )
+
+
+def test_same_isin_allows_automatic_match(
+    bacen_provenance,
+):
+    left = create_instrument(
+        bacen_provenance,
+        isin="BRALFADBS001",
+    )
+    right = create_instrument(
+        bacen_provenance,
+        legal_name="OUTRO NOME",
+        isin="bralfadbs001",
+    )
+
+    result = EntityMatcher().compare(left, right)
+
+    assert result.decision is MatchDecision.AUTO_MATCH
+    assert result.strength is MatchStrength.STRONG
+    assert result.matched_identifier_type is IdentifierType.ISIN
+
+
+def test_same_asset_code_allows_automatic_match(
+    bacen_provenance,
+):
+    left = create_instrument(
+        bacen_provenance,
+        asset_code="ALFA11",
+    )
+    right = create_instrument(
+        bacen_provenance,
+        legal_name="OUTRO NOME",
+        asset_code="alfa11",
+    )
+
+    result = EntityMatcher().compare(left, right)
+
+    assert result.decision is MatchDecision.AUTO_MATCH
+    assert (
+        result.matched_identifier_type
+        is IdentifierType.ASSET_CODE
+    )
+
+
+def test_different_isin_blocks_match(
+    bacen_provenance,
+):
+    left = create_instrument(
+        bacen_provenance,
+        isin="BRALFADBS001",
+    )
+    right = create_instrument(
+        bacen_provenance,
+        isin="BRBETADBS002",
+    )
+
+    result = EntityMatcher().compare(left, right)
+
+    assert result.decision is MatchDecision.BLOCKED
+    assert result.strength is MatchStrength.CONFLICT
+    assert result.matched_identifier_type is IdentifierType.ISIN
+
+
+def test_same_isin_with_different_asset_code_blocks_match(
+    bacen_provenance,
+):
+    left = create_instrument(
+        bacen_provenance,
+        isin="BRALFADBS001",
+        asset_code="ALFA11",
+    )
+    right = create_instrument(
+        bacen_provenance,
+        isin="BRALFADBS001",
+        asset_code="ALFA12",
+    )
+
+    result = EntityMatcher().compare(left, right)
+
+    assert result.decision is MatchDecision.BLOCKED
+    assert (
+        result.matched_identifier_type
+        is IdentifierType.ASSET_CODE
+    )
