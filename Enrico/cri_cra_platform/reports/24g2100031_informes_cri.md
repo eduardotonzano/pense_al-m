@@ -34,3 +34,47 @@ Série única Sênior, 230.000 CRI, VNU R$ 1.000, emissão 29/08/2024, venciment
 9. Pagamentos sênior iguais aos rendimentos distribuídos, exceto em dez/2025 (pagamentos 2.824.303,17;
    rendimentos 2.966.425,23), jan/2026 (3.108.634,46; 2.966.425,23) e set/2026 (0; 2.652.679,24).
    Amortização 0 em todos os meses.
+
+## Documentos (Termo, AF, DFs, atas)
+
+- Parâmetros: `config/contract_parameters/24g2100031_termo_722251.json` (94, **pendentes**; 11 do
+  Primeiro Aditamento 722252, vigentes desde 2024-08-08). Fatos:
+  `config/reported_facts/24g2100031_documentos_2024_2026.json` (105, **pendentes**).
+- O Relatório do AF de 2024 (892072, 199 páginas) não tem texto extraível (PDF em imagem): nenhum fato dele.
+
+### Estrutura (Termo 722251 + Aditamento 722252)
+
+- Série única, sem subordinação; 230.000 CRI, VNU R$ 1.000; emissão 29/08/2024, vencimento 29/08/2036.
+  Lastro: debêntures da 4ª emissão da Almeida Junior (vencimento 27/08/2036), via CCI.
+- Remuneração: 100% DI + 1,50% a.a. até 29/08/2030 (exclusive) e + 2,75% a.a. depois (Aditamento;
+  o Termo original dizia "até o 72º mês").
+- Juros mensais desde 30/09/2024; amortização mensal de 29/09/2027 a 29/08/2036.
+- Garantias: alienação fiduciária de 88,24% do Shopping Neumarkt (LTV máx. 60%, anual, sobre DFs
+  consolidadas da Devedora); cessão fiduciária de recebíveis de locação sob condição suspensiva
+  (ICSD mín. 1,20x, trimestral). Sem fiança, aval, fundo de reserva ou de liquidez. Fundo de despesas
+  de 12 meses de despesas recorrentes, sem valor em reais no Termo.
+- Sem covenant financeiro de manutenção; limite de endividamento de R$ 1,25 bi (IPCA desde 2021),
+  excedível com Dívida Líquida/EBITDA ≤ 4,95x pro forma após registro na categoria A.
+- Vencimento antecipado: 10 hipóteses automáticas e 22 não automáticas (inclui ICSD, LTV, endividamento,
+  cross-default ≥ R$ 25 MM).
+- Resgate total e amortização extraordinária (até 98%) facultativos a partir de 29/08/2026 (Aditamento;
+  original 2027), com prêmio decrescente.
+
+### Divergências
+
+1. **Garantias não constituídas:** o AF 2025 (1172041 p.7) marca a alienação fiduciária e a cessão
+   fiduciária como "NÃO" constituídas, coerente com o Informe (`VlrTotalGarantias = 0`); as DFs de 2025 e
+   2026 dizem que a emissão "conta com" essas garantias.
+2. **Rating:** o Termo exige rating anual da Fitch (preliminar AA-(EXP)sf(bra), 29/07/2024, comunicado
+   725619); o AF 2025 e as duas DFs dizem que não há rating contratado. Possível descumprimento.
+3. **Remuneração:** AF e Informe trazem só "CDI + 1,5%", sem o step-up para 2,75% em 29/08/2030.
+4. **Datas do lastro:** step-up e vencimento das debêntures em 27/08 contra 29/08 dos CRI; 1º pagamento
+   26/09/2024 no AF contra 30/09/2024 no Anexo III do Termo.
+5. **DF 2025:** resgate facultativo "a partir de 29/08/2027" (ignora o Aditamento); início da operação
+   19/08/2024 no relatório do auditor contra 29/08/2024 nas demonstrações.
+6. **Auditor:** Grant Thornton nas DFs de 2025; CLA nas de 30/06/2026.
+7. **Assembleias:** o AF 2025 diz que não houve assembleias; houve convocações em dez/2025 não instaladas.
+8. **Set/2026:** nenhum documento aponta resgate; DFs de 30/06/2026 com CRI de R$ 230.134 mil e sem
+   eventos subsequentes até 21/08/2026; o edital de 28/09/2026 e o termo de 19/10/2026 tratam os CRI
+   como em circulação. Resgate facultativo é possível desde 29/08/2026, sem comunicado.
+9. **Classe:** o Informe diz "Sênior"; o Termo não define classes (série única) e as DFs dizem "classe Única".

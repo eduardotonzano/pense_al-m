@@ -1,0 +1,781 @@
+{
+  "asset": {
+    "codigo_cetip": "24G2100031",
+    "isin": "BRRBRACRIP13"
+  },
+  "source_kind": "termo",
+  "topic": "termo_parametros",
+  "source_document_id": "722251",
+  "proposed_by": "Claude (assistente), a partir dos trechos literais do Termo e do Primeiro Aditamento",
+  "proposed_at": "2026-10-27",
+  "parameters": [
+    {
+      "anchor": "(i) Número da Emissão: A Emissão corresponde a 301ª (trecentésima primeira)",
+      "parameter_name": "numero_emissao",
+      "parameter_value": "301",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 4.1.3 (i). Emissora: Opea Securitizadora S.A."
+    },
+    {
+      "anchor": "(ii) Número de Séries. A Emissão será realizada em série única;",
+      "parameter_name": "numero_series",
+      "parameter_value": "1 (série única)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 4.1.3 (ii). O Informe Mensal e as DFs do PS chamam a série de '1ª Série'."
+    },
+    {
+      "anchor": "(iii) Valor Total da Emissão. O Valor Total da Emissão será de R$230.000.000,00",
+      "parameter_name": "valor_total_emissao",
+      "parameter_value": "230000000.00",
+      "unit": "BRL",
+      "applies_when": "Data de Emissão 2024-08-29",
+      "note": "Cláusula 4.1.3 (iii); mesmo valor na definição 'Valor Total da Emissão' (Cláusula 1.1) e na Cláusula 7.1 (garantia firme)."
+    },
+    {
+      "anchor": "(iv) Quantidade de CRI. Serão emitidos 230.000 (duzentos e trinta mil) CRI;",
+      "parameter_name": "quantidade_cri",
+      "parameter_value": "230000",
+      "unit": "CRI",
+      "applies_when": "Data de Emissão 2024-08-29",
+      "note": "Cláusula 4.1.3 (iv)."
+    },
+    {
+      "anchor": "(v) Valor Nominal Unitário. O Valor Nominal Unitário dos CRI será de",
+      "parameter_name": "valor_nominal_unitario",
+      "parameter_value": "1000.00",
+      "unit": "BRL",
+      "applies_when": "na Data de Emissão",
+      "note": "Cláusula 4.1.3 (v)."
+    },
+    {
+      "anchor": "(vi) Atualização Monetária. O Valor Nominal Unitário ou saldo do Valor Nominal",
+      "parameter_name": "atualizacao_monetaria",
+      "parameter_value": "Não há atualização monetária",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 4.1.3 (vi) e Cláusula 5.1."
+    },
+    {
+      "anchor": "(xiii) Data de Emissão dos CRI. 29 de agosto de 2024;",
+      "parameter_name": "data_emissao",
+      "parameter_value": "2024-08-29",
+      "unit": "data",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 4.1.3 (xiii); a Data de Emissão das Debêntures também é 29/08/2024 (Cláusula 1.1)."
+    },
+    {
+      "anchor": "(xiv) Prazo e Data de Vencimento dos CRI. Ressalvadas as hipóteses de resgate",
+      "parameter_name": "data_vencimento",
+      "parameter_value": "2036-08-29",
+      "unit": "data",
+      "applies_when": "ressalvadas as hipóteses de resgate antecipado",
+      "note": "Cláusula 4.1.3 (xiv). As Debêntures (lastro) vencem em 2036-08-27 (Anexo I), 2 dias antes dos CRI."
+    },
+    {
+      "anchor": "(xiv) Prazo e Data de Vencimento dos CRI. Ressalvadas as hipóteses de resgate",
+      "parameter_name": "prazo_dias",
+      "parameter_value": "4383",
+      "unit": "dias",
+      "applies_when": "contados da Data de Emissão",
+      "note": "Cláusula 4.1.3 (xiv)."
+    },
+    {
+      "anchor": "(xxviii) Código ISIN dos CRI. BRRBRACRIP13;",
+      "parameter_name": "isin",
+      "parameter_value": "BRRBRACRIP13",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 4.1.3 (xxviii). O Termo não cita o código IF (24G2100031)."
+    },
+    {
+      "anchor": "\"Devedora\" ou \"Companhia\": significa a ALMEIDA JUNIOR SHOPPING CENTERS S.A.,",
+      "parameter_name": "devedora",
+      "parameter_value": "Almeida Junior Shopping Centers S.A. (CNPJ 82.120.676/0001-83)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Definição 'Devedora' (Cláusula 1.1); Devedora única dos Créditos Imobiliários."
+    },
+    {
+      "anchor": "\"Debêntures\": significam as debêntures simples, não conversíveis em ações, da espécie",
+      "parameter_name": "lastro",
+      "parameter_value": "Debêntures simples, não conversíveis, quirografárias a serem convoladas em garantia real, série única, 4ª emissão da Devedora, colocação privada, VNU R$1.000,00; representadas por CCI integral sem garantia real imobiliária",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Definições 'Debêntures' e 'CCI' (Cláusula 1.1). Não há possibilidade de acréscimo/substituição de créditos (Cláusula 4.1.3 xxix) nem revolvência (xxxiv)."
+    },
+    {
+      "anchor": "PRAZO E DATA DE 4.381 (quatro mil trezentos e oitenta e um) dias contados da Data de Emissão",
+      "parameter_name": "lastro_debentures_data_vencimento",
+      "parameter_value": "2036-08-27",
+      "unit": "data",
+      "applies_when": "Debêntures (lastro)",
+      "note": "Anexo I (Descrição da CCI): prazo de 4.381 dias. Divergência de 2 dias em relação ao vencimento dos CRI (2036-08-29); o Anexo I substituído pelo Primeiro Aditamento (doc. 722252) mantém 27/08/2036."
+    },
+    {
+      "anchor": "(xxxvi) Subordinação. Não existe qualquer tipo de subordinação ou preferência entre os",
+      "parameter_name": "subordinacao",
+      "parameter_value": "Não há subordinação nem preferência entre os CRI (série única)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 4.1.3 (xxxv) e (xxxvi): um voto por CRI em Circulação. O Informe Mensal classifica a série como 'Sênior'; o Termo não usa classe. DFs do PS: 'classe Única'."
+    },
+    {
+      "anchor": "(xxiv) Coobrigação da Emissora. Não haverá coobrigação da Emissora para o",
+      "parameter_name": "coobrigacao_emissora",
+      "parameter_value": "Não",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 4.1.3 (xxiv)."
+    },
+    {
+      "anchor": "5.2.1.  Remuneração dos CRI. Sobre o Valor Nominal Unitário ou saldo do Valor Nominal",
+      "parameter_name": "remuneracao",
+      "parameter_value": "100% da Taxa DI + spread (tabela), base 252 Dias Úteis, sobre o VNU ou saldo",
+      "unit": "texto",
+      "applies_when": "a partir da primeira Data de Integralização",
+      "note": "Cláusula 5.2.1 do Termo original. A tabela de spread foi alterada pelo Primeiro Aditamento (ver parâmetros com source_document_id 722252)."
+    },
+    {
+      "anchor": "Meses Corridos após a Data de Spread Integralização 1,50% ao ano Até o 72º mês após a Data de Integralização",
+      "parameter_name": "remuneracao_spread_termo_original",
+      "parameter_value": "1,50% a.a. até o 72º mês após a Data de Integralização; 2,75% a.a. a partir do 73º mês até a Data de Vencimento",
+      "unit": "texto",
+      "applies_when": "Termo original (26/07/2024), antes do Primeiro Aditamento",
+      "note": "Tabela da Cláusula 5.2.1 com colunas desalinhadas na extração ('1,50% ao ano' aparece acima da linha 'Até o 72º mês' e '2,75%' na mesma linha); leitura pela ordem das linhas, confirmada pelo Anexo I (p. 98), em que a tabela está alinhada. Substituída pelo Aditamento: marco passa a ser a data fixa 29/08/2030."
+    },
+    {
+      "anchor": "Período Spread 1,50% ao ano Da primeira Data de Integralização (inclusive) até 29",
+      "parameter_name": "remuneracao_spread_ate_2030_08_29",
+      "parameter_value": "0.0150",
+      "unit": "fração a.a. sobre DI (base 252)",
+      "applies_when": "da primeira Data de Integralização (inclusive) até 2030-08-29 (exclusive)",
+      "note": "Cláusula 5.2.1 retificada pelo Primeiro Aditamento (Cláusula 2.4). Coluna de spread deslocada uma linha acima na extração. Bate com o Informe Mensal ('100% CDI + 1,5% a.a.') apenas até 29/08/2030.",
+      "source_document_id": "722252",
+      "valid_from": "2024-08-08"
+    },
+    {
+      "anchor": "Período Spread 1,50% ao ano Da primeira Data de Integralização (inclusive) até 29",
+      "parameter_name": "remuneracao_spread_a_partir_2030_08_29",
+      "parameter_value": "0.0275",
+      "unit": "fração a.a. sobre DI (base 252)",
+      "applies_when": "de 2030-08-29 (inclusive) até a Data de Vencimento",
+      "note": "Step-up de spread (Primeiro Aditamento, Cláusula 2.4). Alteração do spread deve ser comunicada à B3 e ao AF com 3 Dias Úteis de antecedência (observação vi). O Informe Mensal e o Relatório do AF informam só 'CDI + 1,5%'.",
+      "source_document_id": "722252",
+      "valid_from": "2024-08-08"
+    },
+    {
+      "anchor": "5.8.1 Período Spread Da primeira Data de Integralização (inclusive) 1,50% ao ano",
+      "parameter_name": "lastro_debentures_spread",
+      "parameter_value": "1,50% a.a. até 27/08/2030 (exclusive); 2,75% a.a. de 27/08/2030 até o vencimento das Debêntures",
+      "unit": "texto",
+      "applies_when": "Debêntures (lastro), Anexo I substituído pelo Primeiro Aditamento",
+      "note": "Data do step-up nas Debêntures (27/08/2030) difere da dos CRI (29/08/2030).",
+      "source_document_id": "722252",
+      "valid_from": "2024-08-08"
+    },
+    {
+      "anchor": "ANEXO III Cronograma de Pagamentos dos CRI # Datas de Pagamento Juros Amortização % Amortizado",
+      "parameter_name": "periodicidade_remuneracao",
+      "parameter_value": "Mensal",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Anexo III (Cláusula 5.3): 144 datas mensais com juros = 'Sim'."
+    },
+    {
+      "anchor": "ANEXO III Cronograma de Pagamentos dos CRI # Datas de Pagamento Juros Amortização % Amortizado",
+      "parameter_name": "primeira_data_pagamento_remuneracao",
+      "parameter_value": "2024-09-30",
+      "unit": "data",
+      "applies_when": "toda a emissão",
+      "note": "Anexo III, linha 1 (30/set/24). O Relatório do AF 2025 informa 'Data do primeiro pagamento previsto em contrato 26/09/2024', que é a data das Debêntures no Anexo I."
+    },
+    {
+      "anchor": "37  29/set/27                                               Sim  Sim  0,1498%",
+      "parameter_name": "amortizacao",
+      "parameter_value": "Mensal; 1ª parcela em 2027-09-29 (0,1498%); última em 2036-08-29 (100,0000% do saldo)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Anexo III: datas 1 a 36 (até 30/08/2027) só juros (carência de principal de 36 meses); amortização a partir da data 37. Percentuais incidem sobre o saldo (última = 100%). DFs do PS: 'Mensal a partir de setembro de 2027'."
+    },
+    {
+      "anchor": "144  29/ago/36                                              Sim  Sim  100,0000%",
+      "parameter_name": "ultima_parcela_amortizacao",
+      "parameter_value": "2036-08-29",
+      "unit": "data",
+      "applies_when": "Anexo III, linha 144",
+      "note": "Percentual crescente nas últimas parcelas (ex.: 47,3233% em 29/07/2036)."
+    },
+    {
+      "anchor": "(xxii) Ordem de Pagamentos. Caso, em qualquer data, o valor recebido pela",
+      "parameter_name": "ordem_pagamentos",
+      "parameter_value": "(i) despesas do PS; (ii) recomposição do Fundo de Despesas; (iii) Encargos Moratórios; (iv) Remuneração vencida e não paga; (v) Remuneração; (vi) amortização vencida e não paga; (vii) amortização; (viii) resgate antecipado",
+      "unit": "texto",
+      "applies_when": "quando o valor recebido não for suficiente para quitação integral",
+      "note": "Cláusula 4.1.3 (xxii); itens (iv) a (viii) na página seguinte."
+    },
+    {
+      "anchor": "(i) juros de mora de 1% (um por cento) ao mês, calculados pro rata temporis desde a",
+      "parameter_name": "encargos_moratorios",
+      "parameter_value": "Juros de mora de 1% a.m. pro rata + multa moratória de 2%",
+      "unit": "texto",
+      "applies_when": "impontualidade no pagamento pela Emissora",
+      "note": "Cláusula 4.1.3 (xvi)."
+    },
+    {
+      "anchor": "(xxiii) Garantias. Serão constituídas em favor da Emissora, nos termos da Escritura",
+      "parameter_name": "garantias",
+      "parameter_value": "Alienação Fiduciária de Imóvel e Cessão Fiduciária de Recebíveis, a serem constituídas em favor da Emissora (garantias do lastro)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 4.1.3 (xxiii) e Cláusula 8. Não há fiança, aval nem fundo de reserva. O Relatório do AF 2025 registra as duas garantias como NÃO constituídas; o Informe Mensal informa VlrTotalGarantias = 0; as DFs do PS dizem que a emissão 'conta com' as garantias."
+    },
+    {
+      "anchor": "8.1 Os Créditos Imobiliários gozarão das Garantias descritas nesta Cláusula e não",
+      "parameter_name": "garantia_flutuante_emissora",
+      "parameter_value": "Não há garantia flutuante da Emissora",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 8.1; Cláusula 8.8 acrescenta o Regime Fiduciário."
+    },
+    {
+      "anchor": "8.3 Alienação Fiduciária de Imóvel. Por meio da celebração da Escritura Pública",
+      "parameter_name": "alienacao_fiduciaria_imovel",
+      "parameter_value": "Fração ideal de 88,24% do imóvel das matrículas 22.139 e 27.368 do 1º RI de Blumenau/SC (Shopping Neumarkt Blumenau), de titularidade da Devedora",
+      "unit": "texto",
+      "applies_when": "após celebração da Escritura Pública de Alienação Fiduciária (Cláusula 6.9.1.2 da Escritura de Emissão)",
+      "note": "Cláusula 8.3. Escritura Pública 'a ser celebrada' (definição na Cláusula 1.1); as Debêntures são convoladas em garantia real após a Cláusula 6.8 da Escritura."
+    },
+    {
+      "anchor": "8.3 Alienação Fiduciária de Imóvel. Por meio da celebração da Escritura Pública",
+      "parameter_name": "alienacao_fiduciaria_fracao_ideal",
+      "parameter_value": "0.8824",
+      "unit": "fração do imóvel",
+      "applies_when": "antes de eventual expansão ou liberação",
+      "note": "Redução proporcional em caso de expansão do Shopping Neumarkt (Cláusula 8.3.3) ou liberação (Cláusulas 8.6/8.7)."
+    },
+    {
+      "anchor": "8.3.1.  Nos termos da Escritura Pública de Alienação Fiduciária de Imóvel, a Devedora",
+      "parameter_name": "ltv_maximo",
+      "parameter_value": "0.60",
+      "unit": "razão (saldo do VNU das Debêntures / valor da Fração Ideal)",
+      "applies_when": "cada Data de Verificação",
+      "note": "Cláusula 8.3.1: LTV = SD/VM; VM = valor da Fração Ideal pelo laudo de avaliação anual contratado pela Devedora. Descumprimento após a constituição da AF é evento de vencimento não automático (15.2.2 xxi)."
+    },
+    {
+      "anchor": "8.3.1.  Nos termos da Escritura Pública de Alienação Fiduciária de Imóvel, a Devedora",
+      "parameter_name": "ltv_verificacao",
+      "parameter_value": "Anual, apurado pela Emissora e enviado ao AF no 10º Dia Útil após a divulgação das DFs consolidadas auditadas da Devedora do exercício anterior",
+      "unit": "texto",
+      "applies_when": "Data de Verificação",
+      "note": "Cláusula 8.3.1. As DFs de base são da Devedora (Almeida Junior)."
+    },
+    {
+      "anchor": "8.4 Cessão Fiduciária de Recebíveis. Por meio da celebração do Contrato de Cessão",
+      "parameter_name": "cessao_fiduciaria_recebiveis",
+      "parameter_value": "Direitos creditórios de locação de 88,24% do Shopping Neumarkt (exceto condomínio, fundo de promoção e coparticipações), direitos da Conta Vinculada Locação e da Conta Vinculada Resgate",
+      "unit": "texto",
+      "applies_when": "após implemento da Condição Suspensiva (Cláusula 8.4.2)",
+      "note": "Cláusula 8.4 (continua na página seguinte)."
+    },
+    {
+      "anchor": "8.4.1.  Nos termos do Contrato de Cessão Fiduciária de Recebíveis, a Devedora deverá",
+      "parameter_name": "icsd_minimo",
+      "parameter_value": "1.20",
+      "unit": "razão (recebimentos de locação 12m / serviço da dívida das Debêntures 12m)",
+      "applies_when": "verificação trimestral pela Securitizadora, a partir da Data de Emissão das Debêntures",
+      "note": "Cláusula 8.4.1: numerador = recebido na Conta Vinculada Locação nos 12 meses anteriores; denominador = amortização + Remuneração das Debêntures devidas nos 12 meses anteriores (antes de 12 meses, desde a emissão). Descumprimento em 2 verificações consecutivas ou 3 não consecutivas em 12 meses = evento não automático (15.2.2 xx)."
+    },
+    {
+      "anchor": "8.4.2.  O Contrato de Cessão Fiduciária de Recebíveis será celebrado sob condição",
+      "parameter_name": "cessao_fiduciaria_condicao_suspensiva",
+      "parameter_value": "Eficácia condicionada ao registro do termo de liberação da cessão fiduciária anterior (instrumento de 23/09/2021, registrado em RTD de São Paulo e Blumenau)",
+      "unit": "texto",
+      "applies_when": "Cessão Fiduciária de Recebíveis",
+      "note": "Cláusula 8.4.2. O texto diz que o instrumento de 2021 foi celebrado 'entre a Emissora e a Securitizadora' (provável erro material). Pode explicar o status 'NÃO constituída' no Relatório do AF 2025."
+    },
+    {
+      "anchor": "8.6 Nos termos da Escritura de Emissão e dos Contratos de Garantia, em caso de um ou mais",
+      "parameter_name": "liberacao_garantias_follow_on",
+      "parameter_value": "Em follow on do AJ Malls FII com aquisição parcial do Shopping Neumarkt, liberação de AF e CF sem assembleia, mediante Amortização Extraordinária Facultativa Follow On",
+      "unit": "texto",
+      "applies_when": "Cláusula 8.6",
+      "note": "Ver Cláusula 4.7 e prêmio do Primeiro Aditamento (Cláusula 4.7.3)."
+    },
+    {
+      "anchor": "8.7.1.  A liberação do Percentual de Liberação das Garantias somente poderá ocorrer caso",
+      "parameter_name": "liberacao_garantias_requisitos",
+      "parameter_value": "Após a liberação: (i) LTV 'não diminuirá' em relação à última apuração; (ii) Fração Ideal e Percentual da Cessão não inferiores a 51%",
+      "unit": "texto",
+      "applies_when": "liberação proporcional (Cláusula 8.7), no máximo 1 vez a cada 6 meses",
+      "note": "Redação literal 'o LTV não diminuirá' (possível erro material; o sentido econômico seria não aumentar). Revisão humana."
+    },
+    {
+      "anchor": "8.7.1.  A liberação do Percentual de Liberação das Garantias somente poderá ocorrer caso",
+      "parameter_name": "liberacao_garantias_percentual_minimo",
+      "parameter_value": "0.51",
+      "unit": "fração (Fração Ideal e Percentual da Cessão)",
+      "applies_when": "após liberação proporcional",
+      "note": "Cláusula 8.7.1 (ii)."
+    },
+    {
+      "anchor": "7.27 Não foi nem será constituído (i) fundo de amortização para a presente Emissão",
+      "parameter_name": "fundo_amortizacao_liquidez",
+      "parameter_value": "Não há fundo de amortização nem fundo de manutenção de liquidez",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 7.27. Também não há fundo de reserva previsto no Termo."
+    },
+    {
+      "anchor": "21.6 Fundo de Despesas. A Securitizadora descontará do preço de integralização das",
+      "parameter_name": "fundo_despesas",
+      "parameter_value": "Valor Inicial = Despesas Recorrentes dos 12 meses subsequentes; Valor Mínimo = próximas 12 parcelas das Despesas; mantido na Conta do Patrimônio Separado",
+      "unit": "texto",
+      "applies_when": "toda a vigência dos CRI",
+      "note": "Cláusula 21.6: o Termo não fixa valor em reais. A tabela do Anexo VIII (despesas recorrentes) está com colunas desalinhadas na extração; não usada. DFs do PS: fundos de R$195 mil (30/06/2025) e R$230 mil (30/06/2026)."
+    },
+    {
+      "anchor": "21.6.2.  Sempre que, por qualquer motivo, os recursos do Fundo de Despesas venham a ser",
+      "parameter_name": "fundo_despesas_recomposicao",
+      "parameter_value": "Se saldo < Valor Mínimo, a Securitizadora notifica a Devedora, que recompõe em até 5 Dias Úteis até o Valor Inicial, sob pena de vencimento antecipado das Debêntures",
+      "unit": "texto",
+      "applies_when": "sempre que o saldo for inferior ao Valor Mínimo",
+      "note": "Cláusula 21.6.2."
+    },
+    {
+      "anchor": "4.4 Resgate Antecipado dos CRI decorrente do Resgate Antecipado Facultativo Total Tributos",
+      "parameter_name": "resgate_antecipado_tributos",
+      "parameter_value": "Resgate total (parcial vedado) se houver Evento de Retenção de Tributos; VNU/saldo + Remuneração pro rata, sem prêmio; aviso da Devedora com 5 Dias Úteis",
+      "unit": "texto",
+      "applies_when": "Evento de Retenção de Tributos (Cláusula 6.18 da Escritura)",
+      "note": "Cláusulas 4.4 a 4.4.8."
+    },
+    {
+      "anchor": "4.5 Resgate Antecipado dos CRI decorrente do Resgate Antecipado Facultativo das Debêntures.",
+      "parameter_name": "resgate_antecipado_facultativo_termo_original",
+      "parameter_value": "Resgate total (parcial vedado), a critério da Devedora, a partir de 2027-08-29 (36 meses da emissão das Debêntures)",
+      "unit": "texto",
+      "applies_when": "Termo original (26/07/2024)",
+      "note": "Cláusula 4.5 original, alterada pelo Primeiro Aditamento para 'a partir de 29 de agosto de 2026'. As DFs do PS (2025) ainda citam 29/08/2027."
+    },
+    {
+      "anchor": "4.5 Resgate Antecipado dos CRI decorrente do Resgate Antecipado Facultativo das",
+      "parameter_name": "resgate_antecipado_facultativo_data_inicial",
+      "parameter_value": "2026-08-29",
+      "unit": "data",
+      "applies_when": "Resgate Antecipado Facultativo das Debêntures (total, parcial vedado)",
+      "note": "Cláusula 4.5 retificada pelo Primeiro Aditamento (Cláusula 2.3). Já exercível na data do Informe de set/2026.",
+      "source_document_id": "722252",
+      "valid_from": "2024-08-08"
+    },
+    {
+      "anchor": "4.5.2.  O Resgate Antecipado dos CRI somente poderá ocorrer mediante publicação de",
+      "parameter_name": "resgate_antecipado_aviso_titulares",
+      "parameter_value": "15",
+      "unit": "dias de antecedência",
+      "applies_when": "Comunicação de Resgate Antecipado aos Titulares",
+      "note": "Cláusula 4.5.2; comunicação à B3 e ao AF com 3 Dias Úteis (4.5.5)."
+    },
+    {
+      "anchor": "4.5.3.  Valor de Resgate Antecipado Facultativo dos CRI. Por ocasião do Resgate",
+      "parameter_name": "resgate_antecipado_valor",
+      "parameter_value": "VNU/saldo + Remuneração pro rata + Prêmio P = VRe × [(1 + i)^(du/252) − 1], du = Dias Úteis até a Data de Vencimento",
+      "unit": "texto",
+      "applies_when": "Resgate Antecipado Facultativo",
+      "note": "Cláusula 4.5.3; i = Prêmio de Resgate Antecipado da tabela (4.5.3.1), aplicado ao ano sobre o prazo remanescente."
+    },
+    {
+      "anchor": "Data do Resgate Antecipado Prêmio incidente Facultativo Entre 29 de julho de 2026 (inclusive)",
+      "parameter_name": "premio_resgate_tabela_termo_original",
+      "parameter_value": "29/07/2026–29/07/2027: 1,50%; 29/07/2027–29/07/2028: 1,00%; 29/07/2028–29/07/2029: 0,50%; 29/07/2029–29/07/2030: N/A; após 29/07/2030: 1,50%",
+      "unit": "texto",
+      "applies_when": "Termo original, substituído pelo Primeiro Aditamento",
+      "note": "Inconsistência no próprio Termo original: a tabela começa em julho/2026, mas a Cláusula 4.5 só permite o resgate a partir de 29/08/2027. 'Após 2030: 1,50%' é literal."
+    },
+    {
+      "anchor": "Data do Resgate Antecipado Facultativo Prêmio incidente 1,50% Entre 29 de agosto de 2026 (inclusive) e",
+      "parameter_name": "premio_resgate_tabela",
+      "parameter_value": "29/08/2026–29/08/2027: 1,50%; 29/08/2027–29/08/2028: 1,00%; 29/08/2028–29/08/2029: 0,50%; 29/08/2029–29/08/2030: N/A; após 29/08/2030: 1,50%",
+      "unit": "texto",
+      "applies_when": "Resgate Antecipado Facultativo (Cláusula 4.5.3.1 retificada)",
+      "note": "Primeiro Aditamento, Cláusula 2.3. Coluna de prêmios desalinhada na extração (os 5 valores aparecem antes das datas); atribuição pela ordem, igual à tabela alinhada da Cláusula 4.6.3 na página seguinte. 'N/A' entre 2029 e 2030 e '1,50%' após 2030 são literais (revisão humana; o step-up do spread em 29/08/2030 pode explicar).",
+      "source_document_id": "722252",
+      "valid_from": "2024-08-08"
+    },
+    {
+      "anchor": "4.6 Amortização Extraordinária Obrigatória dos CRI decorrente da Amortização Extraordinária",
+      "parameter_name": "amortizacao_extraordinaria_termo_original",
+      "parameter_value": "Limitada a 98% do VNU/saldo; prêmio equivalente ao Prêmio de Resgate Antecipado; sem data mínima no Termo original",
+      "unit": "texto",
+      "applies_when": "Termo original",
+      "note": "Cláusulas 4.6 a 4.6.5; aviso de 15 dias aos Titulares; só em datas do Anexo III."
+    },
+    {
+      "anchor": "4.6 Amortização Extraordinária Obrigatória dos CRI decorrente da Amortização",
+      "parameter_name": "amortizacao_extraordinaria_data_inicial",
+      "parameter_value": "2026-08-29",
+      "unit": "data",
+      "applies_when": "Amortização Extraordinária Facultativa das Debêntures, limitada a 98% do VNU/saldo",
+      "note": "Cláusula 4.6 retificada pelo Primeiro Aditamento.",
+      "source_document_id": "722252",
+      "valid_from": "2024-08-08"
+    },
+    {
+      "anchor": "Data da Amortização Extraordinária Obrigatória dos Prêmio incidente CRI",
+      "parameter_name": "premio_amortizacao_extraordinaria_tabela",
+      "parameter_value": "29/08/2026–29/08/2027: 1,50%; 29/08/2027–29/08/2028: 1,00%; 29/08/2028–29/08/2029: 0,50%; 29/08/2029–29/08/2030: N/A; após 29/08/2030: 1,50%",
+      "unit": "texto",
+      "applies_when": "Amortização Extraordinária Obrigatória dos CRI (Cláusula 4.6.3 retificada)",
+      "note": "Tabela alinhada na extração. Prêmio calculado sobre o saldo após o pagamento se coincidir com data de pagamento (4.6.4).",
+      "source_document_id": "722252",
+      "valid_from": "2024-08-08"
+    },
+    {
+      "anchor": "4.7 Amortização Extraordinária Obrigatória dos CRI decorrente da Amortização Extraordinária",
+      "parameter_name": "amortizacao_extraordinaria_follow_on",
+      "parameter_value": "Proporcional ao Percentual de Liberação das Garantias Follow On, limitada a 98% do VNU/saldo",
+      "unit": "texto",
+      "applies_when": "follow on do FII (Cláusula 8.6)",
+      "note": "Cláusula 4.7 (Termo original, sem prêmio no 4.7.3 original)."
+    },
+    {
+      "anchor": "Caso o Percentual de Liberação da Garantias Follow On seja superior a 20% (vinte por cento)",
+      "parameter_name": "premio_amortizacao_follow_on",
+      "parameter_value": "Prêmio somente se a liberação exceder 20% da AF e da CF: Data de Emissão–29/08/2027: 1,50%; 2027–2028: 1,00%; 2028–2029: 0,50%; 2029–2030: N/A; após 29/08/2030: 1,50%",
+      "unit": "texto",
+      "applies_when": "Amortização Extraordinária Obrigatória dos CRI Follow On (Cláusula 4.7.3 retificada)",
+      "note": "Primeiro Aditamento; tabela continua na página seguinte.",
+      "source_document_id": "722252",
+      "valid_from": "2024-08-08"
+    },
+    {
+      "anchor": "15.2.1. Constituem Eventos de Inadimplemento que acarretam o vencimento automático das",
+      "parameter_name": "vencimento_antecipado_automatico",
+      "parameter_value": "10 hipóteses (Cláusula 15.2.1, itens i a x); vencimento automático das Debêntures e resgate obrigatório de todos os CRI",
+      "unit": "texto",
+      "applies_when": "Debêntures / todos os CRI",
+      "note": "Hipóteses: inadimplemento pecuniário (cura 2 DU); desvio de destinação; declaração falsa; cessão de obrigações sem anuência; liquidação/falência/RJ/RE da Devedora ou Controladas Relevantes; transformação societária; cross-acceleration ≥ R$25 MM; dividendos acima do mínimo em mora; invalidade dos documentos; questionamento judicial pela Devedora/partes relacionadas."
+    },
+    {
+      "anchor": "(i) inadimplemento, pela Devedora, de qualquer obrigação pecuniária prevista",
+      "parameter_name": "va_automatico_inadimplemento_pecuniario_cura",
+      "parameter_value": "2",
+      "unit": "Dias Úteis",
+      "applies_when": "evento automático (15.2.1 i)",
+      "note": "Prazo de cura contado da data do inadimplemento."
+    },
+    {
+      "anchor": "(v) (a) liquidação, dissolução ou extinção da Devedora; (b) decretação de",
+      "parameter_name": "va_automatico_insolvencia",
+      "parameter_value": "Liquidação/dissolução; falência, autofalência, pedido de falência não elidido em 60 dias, RJ/RE da Devedora e/ou Controladas Relevantes (≥10% do EBITDA); mediação/conciliação da Lei 11.101",
+      "unit": "texto",
+      "applies_when": "evento automático (15.2.1 v)",
+      "note": null
+    },
+    {
+      "anchor": "(vii) declaração de vencimento antecipado de qualquer das obrigações de",
+      "parameter_name": "va_automatico_cross_acceleration_limite",
+      "parameter_value": "25000000.00",
+      "unit": "BRL (atualizado anualmente pelo IPCA desde a Data de Emissão)",
+      "applies_when": "evento automático (15.2.1 vii), individual ou agregado, Devedora e/ou controladas",
+      "note": null
+    },
+    {
+      "anchor": "(viii) distribuição e/ou pagamento, pela Devedora, de dividendos, juros sobre o",
+      "parameter_name": "va_automatico_dividendos",
+      "parameter_value": "Distribuição acima do dividendo mínimo obrigatório enquanto em mora ou descumprindo índice financeiro/limite de endividamento",
+      "unit": "texto",
+      "applies_when": "evento automático (15.2.1 viii)",
+      "note": null
+    },
+    {
+      "anchor": "15.2.2. Constituem Eventos de Inadimplemento que podem acarretar o vencimento das",
+      "parameter_name": "vencimento_antecipado_nao_automatico",
+      "parameter_value": "22 hipóteses (Cláusula 15.2.2, itens i a xxii), sujeitas a Assembleia Especial",
+      "unit": "texto",
+      "applies_when": "Debêntures / todos os CRI",
+      "note": "Inclui: obrigação não pecuniária (cura 5 DU), declaração incorreta, perda de registro de companhia aberta, desapropriação do imóvel, licenças, alteração de controle, reorganização, redução de capital, decisão judicial ≥ R$25 MM, cross-default ≥ R$25 MM, protesto ≥ R$25 MM, ônus sobre a Fração Ideal ou recebíveis cedidos, socioambiental/anticorrupção, ICSD, LTV e limite de endividamento."
+    },
+    {
+      "anchor": "(i) inadimplemento, pela Devedora, de qualquer obrigação não pecuniária,",
+      "parameter_name": "va_nao_automatico_obrigacao_nao_pecuniaria_cura",
+      "parameter_value": "5",
+      "unit": "Dias Úteis",
+      "applies_when": "evento não automático (15.2.2 i), contados da notificação da Securitizadora",
+      "note": "Ressalvados prazos de cura específicos."
+    },
+    {
+      "anchor": "(iii) a Devedora deixar de ter o registro de companhia aberta, no mínimo,",
+      "parameter_name": "va_nao_automatico_registro_companhia_aberta",
+      "parameter_value": "Perda do registro de companhia aberta (mínimo categoria B) na CVM",
+      "unit": "texto",
+      "applies_when": "evento não automático (15.2.2 iii)",
+      "note": null
+    },
+    {
+      "anchor": "(vi) mudança, transferência ou cessão, direta ou indireta, do controle societário",
+      "parameter_name": "va_nao_automatico_alteracao_controle",
+      "parameter_value": "Controladores atuais com menos de 50% + 1 ação do capital votante ou perda do controle efetivo (inclusive por incorporação, fusão, cisão ou IPO), salvo autorização prévia",
+      "unit": "texto",
+      "applies_when": "evento não automático (15.2.2 vi)",
+      "note": null
+    },
+    {
+      "anchor": "(xi) inadimplemento, pela Devedora, de qualquer decisão judicial transitada em",
+      "parameter_name": "va_nao_automatico_decisao_judicial_limite",
+      "parameter_value": "25000000.00",
+      "unit": "BRL (atualizado anualmente pelo IPCA)",
+      "applies_when": "evento não automático (15.2.2 xi), valor individual",
+      "note": null
+    },
+    {
+      "anchor": "(xii) inadimplemento (desde que não sanado no prazo de cura previsto no",
+      "parameter_name": "va_nao_automatico_cross_default_limite",
+      "parameter_value": "25000000.00",
+      "unit": "BRL (atualizado anualmente pelo IPCA)",
+      "applies_when": "evento não automático (15.2.2 xii), individual ou agregado, Devedora e/ou controladas",
+      "note": null
+    },
+    {
+      "anchor": "(xiii) protesto de títulos contra a Devedora (ainda que na condição de",
+      "parameter_name": "va_nao_automatico_protesto_limite",
+      "parameter_value": "25000000.00",
+      "unit": "BRL (atualizado anualmente pelo IPCA)",
+      "applies_when": "evento não automático (15.2.2 xiii); exceto se cancelado/suspenso ou garantido em juízo em 30 Dias Úteis da intimação",
+      "note": null
+    },
+    {
+      "anchor": "(xx) não atendimento do ICSD, por 2 (duas) datas de verificação consecutivas",
+      "parameter_name": "va_nao_automatico_icsd",
+      "parameter_value": "ICSD < 1,20x em 2 datas de verificação consecutivas ou 3 não consecutivas em 12 meses",
+      "unit": "texto",
+      "applies_when": "evento não automático (15.2.2 xx)",
+      "note": "Cláusula 3.6.1 do Contrato de Cessão Fiduciária (não disponível)."
+    },
+    {
+      "anchor": "(xxi) caso, após a constituição da Alienação Fiduciária de Imóvel, não haja o",
+      "parameter_name": "va_nao_automatico_ltv",
+      "parameter_value": "Descumprimento do LTV máximo de 60%, após a constituição da Alienação Fiduciária",
+      "unit": "texto",
+      "applies_when": "evento não automático (15.2.2 xxi)",
+      "note": null
+    },
+    {
+      "anchor": "(xxii)   caso a Devedora incorra em qualquer endividamento, inclusive por meio da",
+      "parameter_name": "covenant_limite_endividamento",
+      "parameter_value": "1250000000.00",
+      "unit": "BRL (atualizado pelo IPCA desde 2021-09-23)",
+      "applies_when": "endividamento total da Devedora (evento não automático 15.2.2 xxii)",
+      "note": "Limite de endividamento (incorrência), não covenant de manutenção. Exceção: se a Devedora abrir capital como Categoria A, pode exceder desde que Dívida Líquida/EBITDA ≤ 4,95x pro forma."
+    },
+    {
+      "anchor": "(xxii)   caso a Devedora incorra em qualquer endividamento, inclusive por meio da",
+      "parameter_name": "covenant_divida_liquida_ebitda_maximo_excecao",
+      "parameter_value": "4.95",
+      "unit": "razão (Dívida Líquida / EBITDA, pro forma)",
+      "applies_when": "somente para exceder o limite de R$1,25 bi após registro na CVM como Categoria A",
+      "note": "Não há covenant financeiro periódico de manutenção no Termo; o AF não analisou covenants no relatório de 2025 (remete ao site)."
+    },
+    {
+      "anchor": "de caixa e equivalentes, caixa restrito e aplicações financeiras; e (b)",
+      "parameter_name": "covenant_base_calculo",
+      "parameter_value": "DFs consolidadas da Devedora; Dívida Líquida = empréstimos, financiamentos e debêntures (CP+LP) − caixa, equivalentes, caixa restrito e aplicações; EBITDA = resultado antes de despesas financeiras líquidas, IR/CS, depreciação e amortização; apurados pela Devedora e acompanhados pelo AF",
+      "unit": "texto",
+      "applies_when": "Índices Financeiros (15.2.2 xxii)",
+      "note": "A periodicidade de apuração não é fixada no Termo."
+    },
+    {
+      "anchor": "15.2.4.  Ocorrendo qualquer dos Eventos de Inadimplemento Não Automáticos previstos na",
+      "parameter_name": "va_quorum_nao_declaracao",
+      "parameter_value": "Maioria dos CRI em Circulação (1ª convocação); maioria dos presentes, com mínimo de 25% dos CRI em Circulação (2ª convocação)",
+      "unit": "texto",
+      "applies_when": "Eventos de Inadimplemento Não Automático",
+      "note": "Cláusula 15.2.4: convocação em até 5 Dias Úteis da ciência. Sem instalação ou sem quórum, a Securitizadora declara o vencimento (15.2.5)."
+    },
+    {
+      "anchor": "15.2.6.  Em caso de vencimento antecipado das Debêntures por deliberação da Assembleia",
+      "parameter_name": "va_pagamento_prazo",
+      "parameter_value": "VNU/saldo + Remuneração pro rata; pagamento aos Titulares em até 2 Dias Úteis do recebimento dos recursos",
+      "unit": "texto",
+      "applies_when": "vencimento antecipado das Debêntures",
+      "note": "Cláusula 15.2.6."
+    },
+    {
+      "anchor": "5.2.4.  Caso, na Assembleia Especial prevista acima, não haja acordo sobre a nova",
+      "parameter_name": "taxa_di_substitutiva_sem_acordo",
+      "parameter_value": "Sem acordo sobre o novo parâmetro (quórum de 50% + 1 dos CRI em Circulação), resgate total das Debêntures em 30 dias, sem prêmio",
+      "unit": "texto",
+      "applies_when": "extinção/indisponibilidade da Taxa DI por mais de 10 dias",
+      "note": "Cláusulas 5.2.3 e 5.2.4."
+    },
+    {
+      "anchor": "Quórum de Deliberação. As deliberações em Assembleias Especiais serão tomadas pelos",
+      "parameter_name": "quorum_deliberacao_geral",
+      "parameter_value": "Maioria dos CRI em Circulação (1ª convocação); maioria dos presentes, com mínimo de 25% dos CRI em Circulação (2ª convocação)",
+      "unit": "texto",
+      "applies_when": "matérias sem quórum específico",
+      "note": "Cláusula 20 (numeração deslocada na extração)."
+    },
+    {
+      "anchor": "(a) Waiver. A orientação de voto da Emissora no âmbito da assembleia especial de",
+      "parameter_name": "quorum_waiver",
+      "parameter_value": "2/3 dos CRI em Circulação (1ª convocação); 2/3 dos presentes, com mínimo de 30% dos CRI em Circulação (2ª convocação)",
+      "unit": "texto",
+      "applies_when": "renúncia ou perdão temporário (waiver) nas Debêntures",
+      "note": null
+    },
+    {
+      "anchor": "(b) Qualificado. As deliberações em Assembleias Especiais que impliquem (a) a",
+      "parameter_name": "quorum_qualificado",
+      "parameter_value": "75% dos CRI em Circulação (1ª convocação); 66% dos presentes, com mínimo de 35% dos CRI em Circulação (2ª convocação)",
+      "unit": "texto",
+      "applies_when": "alteração de remuneração, amortização, datas de pagamento, vencimento, Eventos de Liquidação do PS ou cláusula de assembleia",
+      "note": null
+    },
+    {
+      "anchor": "Convocação e Quórum de Instalação. A convocação da Assembleia Especial deve ser",
+      "parameter_name": "assembleia_convocacao_instalacao",
+      "parameter_value": "20 dias corridos (1ª convocação) e 8 dias (2ª); instala-se com qualquer número de Titulares; para DFs, editais de 1ª e 2ª convocação podem ser simultâneos",
+      "unit": "texto",
+      "applies_when": "Assembleias Especiais em geral",
+      "note": null
+    },
+    {
+      "anchor": "20.3 Nos termos do artigo 25, parágrafo 2º da Resolução CVM 60, as demonstrações contábeis do",
+      "parameter_name": "aprovacao_automatica_dfs",
+      "parameter_value": "DFs do PS sem opinião modificada são aprovadas automaticamente se a assembleia não se instalar por ausência de Titulares",
+      "unit": "texto",
+      "applies_when": "assembleia de DFs do Patrimônio Separado",
+      "note": "Aplicada em 23/12/2025 (doc. 1068151)."
+    },
+    {
+      "anchor": "A Devedora poderá, a qualquer tempo, até a data de vencimento dos CRI, inserir",
+      "parameter_name": "quorum_insercao_imoveis_lastro",
+      "parameter_value": "Inserção de novos Empreendimentos Lastro aprovada salvo objeção de 75% dos CRI em Circulação; aprovada também se a assembleia não se instalar",
+      "unit": "texto",
+      "applies_when": "inclusão de imóveis/contratos de locação para destinação de recursos",
+      "note": "Cláusula 4.2.4 (consentimento negativo)."
+    },
+    {
+      "anchor": "18.3 O quórum requerido para deliberação pela não declaração da liquidação do Patrimônio",
+      "parameter_name": "quorum_liquidacao_patrimonio_separado",
+      "parameter_value": "Não liquidação: maioria dos presentes (1ª ou 2ª convocação); substituição da Securitizadora: 50% do Patrimônio Separado",
+      "unit": "texto",
+      "applies_when": "Eventos de Liquidação do Patrimônio Separado",
+      "note": "Cláusula 18.3."
+    },
+    {
+      "anchor": "(a) pedido por parte da Emissora de qualquer plano de recuperação, judicial ou",
+      "parameter_name": "eventos_liquidacao_patrimonio_separado",
+      "parameter_value": "(a) recuperação judicial/extrajudicial da Emissora; (b) pedido de falência não elidido; (c) falência/autofalência; (d) inadimplemento pecuniário da Emissora por mais de 5 Dias Úteis; (e) recursos do PS insuficientes para as Despesas; (f) outra hipótese deliberada com concordância da Securitizadora",
+      "unit": "texto",
+      "applies_when": "Emissora",
+      "note": "Cláusula 18.1 (número de cláusula perdido na extração); demais eventos na 18.9 (anticorrupção, socioambiental)."
+    },
+    {
+      "anchor": "16.2 Relatório Mensal. A Emissora elaborará e disponibilizará em sua página na rede mundial de",
+      "parameter_name": "obrigacao_relatorio_mensal",
+      "parameter_value": "Até o 30º dia de cada mês, com saldo devedor dos CRI, valor pago no ano, vencimento e valor recebido da Devedora",
+      "unit": "texto",
+      "applies_when": "Emissora → site / Agente Fiduciário",
+      "note": "Cláusulas 16.2 a 16.4; também item (xx)(i) da Cláusula 16 (relatório de gestão mensal com inadimplência)."
+    },
+    {
+      "anchor": "(a) em até 90 (noventa) dias a contar da data de encerramento do exercício social",
+      "parameter_name": "obrigacao_dfs_emissora_e_ps_ao_af",
+      "parameter_value": "90",
+      "unit": "dias após o encerramento do exercício (ou 10 Dias Úteis do envio à CVM, o que ocorrer primeiro)",
+      "applies_when": "Emissora → Agente Fiduciário: DFs da Emissora e do Patrimônio Separado",
+      "note": "Cláusula 16 (xx)(a)."
+    },
+    {
+      "anchor": "(b) dentro de 90 (noventa) dias após o término de cada exercício social, relatório",
+      "parameter_name": "obrigacao_relatorio_anual_gestao",
+      "parameter_value": "90",
+      "unit": "dias após o término do exercício social",
+      "applies_when": "Emissora → Agente Fiduciário",
+      "note": "Com declaração de não ocorrência de hipóteses de vencimento antecipado."
+    },
+    {
+      "anchor": "(c) dentro de 10 (dez) Dias Úteis de seu recebimento, cópias de todos os",
+      "parameter_name": "obrigacao_repasse_informacoes_devedora",
+      "parameter_value": "10",
+      "unit": "Dias Úteis do recebimento",
+      "applies_when": "Emissora → AF: documentos e informações financeiras fornecidos pela Devedora",
+      "note": "O Termo não fixa prazo próprio para a Devedora entregar suas DFs; essa obrigação está na Escritura de Emissão (não disponível). Para o LTV, usam-se as DFs consolidadas auditadas da Devedora (Cláusula 8.3.1)."
+    },
+    {
+      "anchor": "16.7.1.  A Emissora obriga-se, ainda, a (i) prestar, fornecer ou permitir o acesso do Agente",
+      "parameter_name": "obrigacao_comunicacao_evento_va",
+      "parameter_value": "2",
+      "unit": "dias após a ciência",
+      "applies_when": "Emissora → AF: eventos que permitam o vencimento antecipado das Debêntures",
+      "note": "Cláusula 16.7.1 (iii). Fatos relevantes ao AF em até 2 Dias Úteis (16.1)."
+    },
+    {
+      "anchor": "A Devedora deverá prestar contas, ao Agente Fiduciário, sobre a Destinação dos",
+      "parameter_name": "obrigacao_relatorio_destinacao_recursos",
+      "parameter_value": "Relatório de Verificação semestral, até 60 dias após o fim de cada semestre, com documentos comprobatórios",
+      "unit": "texto",
+      "applies_when": "Devedora → Securitizadora e AF, até a destinação integral ou o vencimento",
+      "note": "O AF verifica semestralmente. Relatório do AF 2025: documentos ainda não recebidos."
+    },
+    {
+      "anchor": "disposto no artigo 33, § 11, da Resolução CVM 60. A Emissora neste ato se obriga a",
+      "parameter_name": "obrigacao_relatorio_rating",
+      "parameter_value": "Enviar à CVM e ao AF o relatório de rating atualizado em até 10 Dias Úteis do recebimento; publicar no site em até 5 Dias Úteis",
+      "unit": "texto",
+      "applies_when": "atualização anual do rating",
+      "note": "Cláusula 9.1."
+    },
+    {
+      "anchor": "(xxx) Classificação de Risco dos CRI. A Devedora contratou a Agência de",
+      "parameter_name": "rating_obrigacao",
+      "parameter_value": "Fitch Ratings do Brasil Ltda. (contratada pela Devedora); atualização anual, sem interrupção durante a vigência dos CRI",
+      "unit": "texto",
+      "applies_when": "vigência dos CRI",
+      "note": "Cláusula 4.1.3 (xxx) e definição 'Agência de Classificação de Risco'. Comunicado de 26/08/2024: rating preliminar AA-(EXP)sf(bra). Relatório do AF 2025 e DFs do PS (2025 e 2026): não existe/não foi contratado rating — possível descumprimento a revisar."
+    },
+    {
+      "anchor": "(xiv) no prazo de até 4 (quatro) meses contados do término do exercício social da",
+      "parameter_name": "obrigacao_relatorio_anual_af",
+      "parameter_value": "4",
+      "unit": "meses após o término do exercício social da Devedora",
+      "applies_when": "Agente Fiduciário → Titulares (art. 15 da Resolução CVM 17)",
+      "note": "Cláusula 19.3 (xiv)."
+    },
+    {
+      "anchor": "17.10.2. Nos termos do artigo 50, § 4º, da Resolução CVM 60, para fins de elaboração das",
+      "parameter_name": "exercicio_social_patrimonio_separado",
+      "parameter_value": "Encerra em 30 de junho de cada ano; primeiro encerramento em 2025-06-30",
+      "unit": "texto",
+      "applies_when": "DFs do Patrimônio Separado",
+      "note": "Cláusula 17.10.2; a assembleia de DFs deve ocorrer em até 120 dias do fim do exercício (Cláusula 20.2 i)."
+    },
+    {
+      "anchor": "(2) VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.,",
+      "parameter_name": "agente_fiduciario",
+      "parameter_value": "Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda. (CNPJ 22.610.500/0001-88)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Também Instituição Custodiante."
+    },
+    {
+      "anchor": "19.5 O Agente Fiduciário receberá da Emissora, às custas do Patrimônio Separado dos CRI, com",
+      "parameter_name": "remuneracao_agente_fiduciario",
+      "parameter_value": "R$ 25.000,00 de implantação (parcela única) + R$ 15.000,00 anuais, atualizados pelo IPCA",
+      "unit": "texto",
+      "applies_when": "até a quitação dos CRI, com recursos do Fundo de Despesas",
+      "note": "Cláusula 19.5. A tabela do Anexo VIII (desalinhada) mostra outros valores para a Vórtx; não usada."
+    },
+    {
+      "anchor": "\"Auditor Independente do Patrimônio Separado\": significa a GRANT THORNTON",
+      "parameter_name": "auditor_patrimonio_separado",
+      "parameter_value": "Grant Thornton Auditores Independentes Ltda. (CNPJ 10.830.108/0001-65)",
+      "unit": "texto",
+      "applies_when": "auditoria anual das DFs do PS",
+      "note": "Pode ser substituído sem assembleia (Cláusula 14.1). As DFs de 30/06/2026 foram auditadas pela CLA - Clifton Larson Allen Brasil."
+    }
+  ]
+}
