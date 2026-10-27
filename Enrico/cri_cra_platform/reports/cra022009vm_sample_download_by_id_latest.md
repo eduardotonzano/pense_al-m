@@ -1,6 +1,6 @@
 # Execução de download da amostra
 
-- Run ID: `15910199e92d478693cfc12b5146c1ea`
+- Run ID: `c0930371de3647968bd35c46960af8cf`
 - Ativo: `CRA022009VM` / `BRECOACRABX0`
 - Dry run: **False**
 - Categorias encontradas: Outro
@@ -11,11 +11,11 @@
 
 ## Documentos selecionados
 
-- `1358128` — Outro — Outros Comunicados Não Considerados Fatos Relevantes  — `data/documents/CRA022009VM/outros/2026-10-23_1358128_Outros_Comunicados_Não_Considerados_Fatos_Relevantes.<extensao_detectada>`
+- `1232148` — Outro — Demonstrações Financeiras — `data/documents/CRA022009VM/outros/2026-06-29_1232148_Demonstrações_Financeiras.<extensao_detectada>`
 
 ## Arquivos
 
-- `1358128`: inserted, PDF / 283332 bytes, SHA-256 `800313f3cfa20ab4dfc6a1f0fd63bc0067206919a34617aec88813ef80874bde`, `data/documents/CRA022009VM/outros/2026-10-23_1358128_Outros_Comunicados_Não_Considerados_Fatos_Relevantes.pdf`
+- `1232148`: inserted, PDF / 744326 bytes, SHA-256 `6c92ae496428e3037d0a7d9bc9afba1090c6b65b800cc35664a95913f0190fb2`, `data/documents/CRA022009VM/outros/2026-06-29_1232148_Demonstrações_Financeiras.pdf`
 
 ## Métricas
 
@@ -28,7 +28,7 @@
 - tentativas operacionais registradas: 1
 - temporários removidos: 1
 - diretório temporário removido: True
-- duração: 9.8086s
+- duração: 11.1266s
 
 ## Erros
 

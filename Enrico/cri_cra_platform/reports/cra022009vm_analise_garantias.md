@@ -1,6 +1,6 @@
 # CRA Café Brasil (CRA022009VM): garantias e eventos de crédito
 
-- Data: 2026-10-26
+- Data: 2026-10-26 (atualizado em 2026-10-27)
 - Fontes (baixadas do Fundos.NET, SHA-256 em `document_versions`, texto por página em `document_text_pages`):
   Termo de Securitização 355426; Relatórios Anuais do Agente Fiduciário (Oliveira Trust)
   454117 (2022), 651262 (2023), 890020 (2024), 1175376 (2025); Fato Relevante 1074810.
@@ -52,6 +52,15 @@ usados como aproximação da verificação de 15/12; saldo da Conta Garantia apr
    parcial de juros em 31/12/2025.
 5. **Agente fiduciário:** o AF 2025 lista a Vórtx como custodiante e escrituradora e declara-se
    (Oliveira Trust) agente fiduciário, coerente com o Informe Mensal.
+6. **Inadimplência em 31/03/2026:** as DFs auditadas do Patrimônio Separado (1232148 p.17) trazem
+   R$ 7.089 mil "vencidos e não pagos"; o Informe Mensal de mar/2026 traz `DirCredVencidosNaoPagos = 0`,
+   `VencidosNaoPagos/@total = 0` e `Situacao = "Adimplente"`. A parcela repactuada foi quitada em
+   28/04/2026 (DFs p.18; ata 1189040).
+7. **Encerramento e prazo:** as DFs (p.4) preveem o encerramento do Patrimônio Separado em 30/12/2026
+   "conforme previsto no termo de securitização", coerente com os AF de 2023–2025 e divergente do
+   Termo 355426 (30/09/2027). A mesma DF (p.20) informa prazo de 60 meses.
+8. **Garantias nas DFs:** p.17 lista Aval, Cessão Fiduciária, AF de Imóvel e AF de Estoque, reforçando
+   a divergência 1 com o Informe Mensal.
 
 ## Assembleias e comunicados 2025–2026
 
@@ -86,8 +95,11 @@ As alterações de parâmetros acima estão em `contract_parameters`
 | 31/10/2026 | Amortização extraordinária 10% (ata 1110477) | prazo em 4 dias; cumprimento não verificado |
 | 30/05/2026 | DFs auditadas da Devedora (ata 1194480) | prazo vencido; cumprimento não verificado |
 
-O catálogo tem "Demonstrações Financeiras" 1232148 (publicado em 29/06/2026), ainda não baixado. Não
-está verificado se são as DFs da Devedora ou do patrimônio separado.
+O documento "Demonstrações Financeiras" 1232148 (publicado em 29/06/2026, baixado em 2026-10-27) é
+das DFs do **Patrimônio Separado** (exercício findo em 31/03/2026, auditoria Grant Thornton), não da
+Devedora: não comprova a entrega exigida pela ata 1194480. Os fatos lidos dele estão em
+`config/reported_facts/cra022009vm_df_patrimonio_separado_2026.json` (6 fatos, **pendentes**,
+valores em milhares de reais como publicados). A DF não constituiu provisão para perdas.
 
 ## Lacunas
 
