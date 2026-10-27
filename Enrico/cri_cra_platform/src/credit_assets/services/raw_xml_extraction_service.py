@@ -172,7 +172,8 @@ def monetary_scale_suspect(values, mapping) -> dict[str, Any] | None:
         "rule": "monetary_scale_suspect", "severity": "warning",
         "xml_path": rule["numerator"], "instance_index": 0,
         "message": (
-            f"totalVlrCertificados/VlrTotalIntegralizado = {numerator / denominator:.6f} "
+            f"{rule['numerator'].rsplit('/', 1)[-1]}/{rule['denominator_sum'].rsplit('/', 1)[-1]}"
+            f" = {numerator / denominator:.6f} "
             f"< {rule['threshold']}: escala monetária suspeita; valores mantidos, scale='unknown'"
         ),
     }

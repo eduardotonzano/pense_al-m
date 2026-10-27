@@ -1,12 +1,18 @@
 # CRI Almeida Junior (24G2100031 / BRRBRACRIP13): extração dos Informes Mensais
 
 - Data: 2026-10-27
-- Mapeamento: `config/xml_mappings/informe_mensal_cri.json` `cri-0.1.0` (aprovado em 2026-10-27,
+- Mapeamento: `config/xml_mappings/informe_mensal_cri.json` `cri-0.1.1` (aprovado em 2026-10-27,
   derivado do CRA 0.1.1). 26 informes (ago/2024–set/2026), todos na versão 1; 26 extrações sem falha.
-- Revisão dos relatórios: `reports/report_review_informe_mensal_cri_cri-0.1.0.csv` (26 `decidir`).
-- Golden set: `config/golden_sets/informe_mensal_cri_almeida_junior.json` (17 itens, **pendentes**);
-  conferência extração × golden: 17/17. Página: `reports/24g2100031_revisao_pendente.html`.
-- Sem relatório aprovado, não há comparação entre períodos nem alertas de qualidade.
+- Decisões de 2026-10-27: regra de escala usa `Passivo/VlrAtualizadoEmissao`; `VlrTotalCreditosRelacaoVlrTotalEmissao`
+  como fração; `DurationCarteira` segue só literal; set/2026 tratado como erro de preenchimento.
+- Revisão dos relatórios: `reports/report_review_informe_mensal_cri_cri-0.1.1.csv`: 25 aprovados, set/2026 rejeitado.
+- Golden set: `config/golden_sets/informe_mensal_cri_almeida_junior.json` (17 itens, aprovados);
+  conferência extração × golden: 17/17.
+- Comparação entre períodos: `reports/24g2100031_mudancas_entre_periodos.csv` e `reports/24g2100031_serie_indicadores.csv`.
+- Alertas de qualidade (`config/alert_rules/data_quality_informe_mensal_cri.json` cri-0.1.0, aprovado):
+  6 abertos em `reports/24g2100031_alertas_qualidade.csv`: rentabilidade 0 em ago/2024 (primeiro mês, operação
+  iniciada em 29/08) e 5 conciliações de saldo com resíduo de 0,10%–0,12% (fev, jul, ago, nov/2025 e ago/2026),
+  quatro delas em meses com saldo exatamente R$ 230 mi (PU voltando a 1.000 após o pagamento).
 
 ## Estrutura (Informe)
 
@@ -16,9 +22,7 @@ Série única Sênior, 230.000 CRI, VNU R$ 1.000, emissão 29/08/2024, venciment
 ## Achados
 
 1. **`totalVlrCertificados` traz o PU, não o saldo.** 1000.45 em ago/2024; 230.000 × 1000.45 =
-   230.103.500 ≈ `Passivo/VlrAtualizadoEmissao` 230.103.915,66. A regra `monetary_scale_suspect`
-   (totalVlrCertificados / VlrTotalIntegralizado < 0,01) dispara em 25 meses e marca todos os valores
-   monetários com `scale='unknown'`, embora os demais valores estejam em reais. **Decisão pendente.**
+   230.103.500 ≈ `Passivo/VlrAtualizadoEmissao` 230.103.915,66. Em `cri-0.1.0` a regra `monetary_scale_suspect` disparava em 25 meses; **decidido** usar o saldo do passivo (`cri-0.1.1`).
 2. **Set/2026 (doc 1357521) inconsistente.** `DadosGerais/Series` vazio, carteira (`CreditosTotais`) e
    passivo zerados, ativo R$ 6.936,55 (só caixa); no mesmo informe, 230.000 CRI, PU 1000.56,
    rendimentos R$ 2.652.679,24 e pagamentos sênior 0. Nenhum documento do catálogo trata de resgate
@@ -37,9 +41,9 @@ Série única Sênior, 230.000 CRI, VNU R$ 1.000, emissão 29/08/2024, venciment
 
 ## Documentos (Termo, AF, DFs, atas)
 
-- Parâmetros: `config/contract_parameters/24g2100031_termo_722251.json` (94, **pendentes**; 11 do
+- Parâmetros: `config/contract_parameters/24g2100031_termo_722251.json` (94, **aprovados em 2026-10-27**; 11 do
   Primeiro Aditamento 722252, vigentes desde 2024-08-08). Fatos:
-  `config/reported_facts/24g2100031_documentos_2024_2026.json` (105, **pendentes**).
+  `config/reported_facts/24g2100031_documentos_2024_2026.json` (105, **aprovados em 2026-10-27**).
 - O Relatório do AF de 2024 (892072, 199 páginas) não tem texto extraível (PDF em imagem): nenhum fato dele.
 
 ### Estrutura (Termo 722251 + Aditamento 722252)

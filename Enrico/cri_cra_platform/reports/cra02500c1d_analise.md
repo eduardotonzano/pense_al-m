@@ -41,6 +41,9 @@
    "Subordinada Júnior" e "Subordinada" em notas diferentes das DFs.
 3. **Identidade do ativo:** BRECOACRALJ8 / CRA02500C1D é o código só da 1ª série (Termo p.71; AF pp.3–7);
    o Informe Mensal, o Termo e as DFs cobrem a emissão inteira (5 séries).
+   **Decisão 2026-10-27 (Enrico Suman Marques): o ativo representa a emissão inteira (426ª, 5 séries)**;
+   BRECOACRALJ8 permanece como ISIN da 1ª série. O cadastro de séries no banco depende de mudança de
+   schema ainda não aprovada; até lá, os dados por série seguem pelo `instance_key` (NumeroSerie).
 4. **Relatório do AF (base 2025):** 2ª série ausente da tabela de ativos em circulação; saldo da 1ª
    série R$ 895.564,63, incompatível com 233.142 CRA; quantidade emitida 0 nas séries 1, 2, 4 e 5;
    remuneração da 1ª como "CDI"; relatório de gestão do Patrimônio Separado não recebido pelo AF.

@@ -1,5 +1,5 @@
 {
-  "mapping_version": "cri-0.1.0",
+  "mapping_version": "cri-0.1.1",
   "layout_version": null,
   "layout_validation_status": "structural_only",
   "root": "InformeMensalCRI",
@@ -8,12 +8,20 @@
     "rules_approved_by": "Enrico Suman Marques",
     "rules_approved_at": "2026-10-27",
     "approval_source": "conversa de desenvolvimento",
-    "note": "Aprovado o rascunho derivado por analogia do mapeamento CRA 0.1.1 (mesmas decisões de escala, percentuais, séries, xsi:nil e totais). DurationCarteira e VlrTotalCreditosRelacaoVlrTotalEmissao continuam pending_decision: só o literal é gravado."
+    "note": "Aprovado o rascunho derivado por analogia do mapeamento CRA 0.1.1 (mesmas decisões de escala, percentuais, séries, xsi:nil e totais). DurationCarteira e VlrTotalCreditosRelacaoVlrTotalEmissao continuam pending_decision: só o literal é gravado.",
+    "decisions_2026_10_27": {
+      "monetary_scale_suspect": "Numerador passa a ser Passivo/VlrAtualizadoEmissao (totalVlrCertificados traz o PU no CRI).",
+      "VlrTotalCreditosRelacaoVlrTotalEmissao": "mapped como fração.",
+      "DurationCarteira": "Permanece pending_decision: só o literal.",
+      "CodigoISIN": "Literal preservado (inclusive espaço final); comparação com o cadastro sem espaços nas pontas.",
+      "MesBaseApuracaoPagtoRemunAmort": "Literal preservado como texto, sem converter o número de série do Excel.",
+      "decided_by": "Enrico Suman Marques"
+    }
   },
   "rules": {
     "monetary_scale_suspect": {
-      "description": "Se totalVlrCertificados / soma(VlrTotalIntegralizado) < 0.01, todos os valores monetários do relatório recebem scale='unknown' e warning.",
-      "numerator": "/InformeMensalCRI/DetalhesSeries/totalVlrCertificados",
+      "description": "Se Passivo/VlrAtualizadoEmissao / soma(VlrTotalIntegralizado) < 0.01, todos os valores monetários do relatório recebem scale='unknown' e warning. No CRI, DetalhesSeries/totalVlrCertificados traz o PU (decisão 2026-10-27), por isso não serve de numerador.",
+      "numerator": "/InformeMensalCRI/Passivo/VlrAtualizadoEmissao",
       "denominator_sum": "/InformeMensalCRI/DadosGerais/Series/Serie/VlrTotalIntegralizado",
       "threshold": "0.01"
     },
@@ -1186,8 +1194,10 @@
       "cra_analog": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrDividasAdquiridasEmissorSecuritizadora"
     },
     "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/VlrTotalCreditosRelacaoVlrTotalEmissao": {
-      "status": "pending_decision",
-      "justification": "Razão entre valores; escala (fração ou percentual) não confirmada e só há zeros na amostra.",
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-27: fração (1 = 100%); no CRI 24G2100031 vale 1 em todos os meses, com carteira ≈ emissão.",
       "cra_analog": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalDirCredRelacaoVlrTotalEmissao"
     },
     "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/VlrTotalGarantias": {

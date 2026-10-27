@@ -12,27 +12,50 @@ sys.path.insert(0, str(ROOT / "src"))
 from credit_assets.database.connection import connect, initialize_database
 from credit_assets.services.period_comparison_service import compare_asset
 
-R = "/InformeMensalCRA"
 # Indicadores do handoff (saldo, carteira, inadimplência, garantias, caixa,
-# pagamentos, situação). Fundo de reserva não existe como campo neste leiaute.
-INDICATORS = {
-    "saldo_certificados": R + "/DetalhesSeries/totalVlrCertificados",
-    "carteira_direitos_creditorios": R + "/Ativo/DireitosCreditorios/@total",
-    "a_vencer_sem_atraso": R + "/Ativo/DireitosCreditorios/DirCredAVencerSemParcelasAtraso",
-    "a_vencer_com_atraso": R + "/Ativo/DireitosCreditorios/DirCredAVencerComParcelasAtraso",
-    "vencidos_nao_pagos": R + "/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos",
-    "parcelas_em_atraso": R + "/InfoDireitosCreditoriosAgro/VlrTotalParcelasAtraso",
-    "provisao_recuperacao": R + "/Ativo/ProvisaoRecuperacaoDireitosCreditorios",
-    "garantias": R + "/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalGarantias",
-    "caixa_equivalentes": R + "/Ativo/CaixaEquivalentes/@total",
-    "pagamentos_senior": R + "/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total",
-    "patrimonio_liquido": R + "/VlrPatrimonioLiquidoEmissao",
-    "maior_devedor_fracao": R + "/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/MaiorDevedor",
+# pagamentos, situação). Fundo de reserva não existe como campo nestes leiautes.
+LAYOUTS = {
+    "CRA": {
+        "root": "/InformeMensalCRA",
+        "indicators": {
+            "saldo_certificados": "/DetalhesSeries/totalVlrCertificados",
+            "carteira_direitos_creditorios": "/Ativo/DireitosCreditorios/@total",
+            "a_vencer_sem_atraso": "/Ativo/DireitosCreditorios/DirCredAVencerSemParcelasAtraso",
+            "a_vencer_com_atraso": "/Ativo/DireitosCreditorios/DirCredAVencerComParcelasAtraso",
+            "vencidos_nao_pagos": "/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos",
+            "parcelas_em_atraso": "/InfoDireitosCreditoriosAgro/VlrTotalParcelasAtraso",
+            "provisao_recuperacao": "/Ativo/ProvisaoRecuperacaoDireitosCreditorios",
+            "garantias": "/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalGarantias",
+            "caixa_equivalentes": "/Ativo/CaixaEquivalentes/@total",
+            "pagamentos_senior": "/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total",
+            "patrimonio_liquido": "/VlrPatrimonioLiquidoEmissao",
+            "maior_devedor_fracao": "/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/MaiorDevedor",
+        },
+    },
+    "CRI": {
+        "root": "/InformeMensalCRI",
+        "indicators": {
+            # No CRI, totalVlrCertificados traz o PU; o saldo vem do passivo (decisão 2026-10-27).
+            "saldo_certificados": "/Passivo/VlrAtualizadoEmissao",
+            "pu_certificados": "/DetalhesSeries/totalVlrCertificados",
+            "carteira_direitos_creditorios": "/Ativo/CreditosTotais/@total",
+            "a_vencer_sem_atraso": "/Ativo/CreditosTotais/CreditosAVencerSemParcelasAtrasadas",
+            "a_vencer_com_atraso": "/Ativo/CreditosTotais/CreditosAVencerComParcelasAtrasadas",
+            "vencidos_nao_pagos": "/Ativo/CreditosTotais/CreditosVencidosNaoPagos",
+            "parcelas_em_atraso": "/InfoCreditos/VlrTotalParcelasAtraso",
+            "provisao_recuperacao": "/Ativo/ProvisaoRecuperacaoCreditos",
+            "garantias": "/InfoCreditos/OutrasInfoCreditosAReceber/VlrTotalGarantias",
+            "caixa_equivalentes": "/Ativo/CaixaEquivalentes/@total",
+            "pagamentos_senior": "/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total",
+            "patrimonio_liquido": "/VlrPatrimonioLiquidoEmissao",
+            "maior_devedor_fracao": "/InfoCreditos/ConcentracaoEmissaoPorGrupoDevedor/MaiorDevedor",
+        },
+    },
 }
 PER_SERIES = {
-    "situacao": R + "/DadosGerais/Series/Serie/Situacao",
-    "rentabilidade_fracao": R + "/DetalhesSeries/Series/Serie/RentabilidadePeriodo",
-    "valor_serie": R + "/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse",
+    "situacao": "/DadosGerais/Series/Serie/Situacao",
+    "rentabilidade_fracao": "/DetalhesSeries/Series/Serie/RentabilidadePeriodo",
+    "valor_serie": "/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse",
 }
 
 
@@ -43,7 +66,10 @@ def write_csv(path: Path, rows: list[dict], columns: list[str]) -> None:
         writer.writerows(rows)
 
 
-def indicator_series(connection, asset_id: int) -> tuple[list[dict], list[str]]:
+def indicator_series(connection, asset_id: int, layout: dict) -> tuple[list[dict], list[str]]:
+    root = layout["root"]
+    indicators = {name: root + path for name, path in layout["indicators"].items()}
+    per_series = {name: root + path for name, path in PER_SERIES.items()}
     reports = connection.execute(
         """SELECT r.report_id, substr(r.reference_date, 1, 7) AS month, r.reference_date,
                   r.source_version, d.source_document_id
@@ -57,12 +83,12 @@ def indicator_series(connection, asset_id: int) -> tuple[list[dict], list[str]]:
                JOIN extracted_reports r USING (report_id)
                WHERE r.asset_id = ? AND r.is_current = 1 AND v.xml_path = ?
                  AND v.instance_key IS NOT NULL""",
-            (asset_id, PER_SERIES["situacao"]),
+            (asset_id, per_series["situacao"]),
         )
     }, key=lambda key: int(key) if key.isdigit() else key)
     columns = ["competencia_mes", "reference_date", "source_version", "source_document_id",
-               "escala_monetaria", *INDICATORS]
-    columns += [f"{name}_serie_{key}" for key in keys for name in PER_SERIES]
+               "escala_monetaria", *indicators]
+    columns += [f"{name}_serie_{key}" for key in keys for name in per_series]
     rows = []
     for report in reports:
         values = {
@@ -91,10 +117,10 @@ def indicator_series(connection, asset_id: int) -> tuple[list[dict], list[str]]:
                 return "[vazio]"
             return value["normalized_value"]
 
-        for name, path in INDICATORS.items():
+        for name, path in indicators.items():
             row[name] = show(values.get((path, None)))
         for key in keys:
-            for name, path in PER_SERIES.items():
+            for name, path in per_series.items():
                 row[f"{name}_serie_{key}"] = show(values.get((path, key)))
         rows.append(row)
     return rows, columns
@@ -109,11 +135,12 @@ def main() -> int:
     initialize_database(connection)
     try:
         asset = connection.execute(
-            "SELECT asset_id FROM assets WHERE codigo_cetip = ? AND isin = ?",
+            "SELECT asset_id, tipo_ativo FROM assets WHERE codigo_cetip = ? AND isin = ?",
             (args.cetip, args.isin),
         ).fetchone()
         if asset is None:
             raise SystemExit("ativo não encontrado")
+        layout = LAYOUTS[asset["tipo_ativo"]]
         summary = compare_asset(connection, asset["asset_id"])
         changes = [dict(row) for row in connection.execute(
             """SELECT current_month, previous_month, replace(xml_path, ?, '') AS campo,
@@ -123,12 +150,12 @@ def main() -> int:
                FROM period_comparisons
                WHERE comparison_run_id = ? AND comparison_status IN ('changed', 'state_changed')
                ORDER BY current_month, campo, serie""",
-            (R, summary["comparison_run_id"]),
+            (layout["root"], summary["comparison_run_id"]),
         )]
         stem = args.cetip.lower()
         write_csv(ROOT / "reports" / f"{stem}_mudancas_entre_periodos.csv", changes,
                   list(changes[0]) if changes else ["current_month"])
-        rows, columns = indicator_series(connection, asset["asset_id"])
+        rows, columns = indicator_series(connection, asset["asset_id"], layout)
         write_csv(ROOT / "reports" / f"{stem}_serie_indicadores.csv", rows, columns)
     finally:
         connection.close()

@@ -1,8 +1,8 @@
 {
-  "rules_version": "cri-0.1.0-draft",
-  "approval_status": "pending",
+  "rules_version": "cri-0.1.0",
+  "approval_status": "approved",
   "derived_from": "config/alert_rules/data_quality_informe_mensal_cra.json 0.1.0",
-  "notes": "Rascunho: mesmas regras e limites do CRA, com caminhos do leiaute InformeMensalCRI. Única mudança de conteúdo: balance_reconciliation usa Passivo/VlrAtualizadoEmissao como saldo, porque no CRI 24G2100031 DetalhesSeries/totalVlrCertificados traz o PU (1000.45 com 230.000 CRI). Enquanto a regra de escala do mapeamento cri-0.1.0 marcar os meses com scale='unknown', balance_reconciliation não avalia nenhum mês.",
+  "notes": "Mesmas regras e limites do CRA, com caminhos do leiaute InformeMensalCRI. Única mudança de conteúdo: balance_reconciliation usa Passivo/VlrAtualizadoEmissao como saldo, porque no CRI 24G2100031 DetalhesSeries/totalVlrCertificados traz o PU (1000.45 com 230.000 CRI). Aprovado em 2026-10-27.",
   "rules": {
     "status_vs_delinquency": {
       "severity": "warning",
@@ -39,5 +39,8 @@
         "/InformeMensalCRI/InfoCreditos/CedentesRepresentamMais20Porcento/Cedente/CNPJ"
       ]
     }
-  }
+  },
+  "approved_by": "Enrico Suman Marques",
+  "approved_at": "2026-10-27",
+  "approval_source": "conversa de desenvolvimento"
 }
