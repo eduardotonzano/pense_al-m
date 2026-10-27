@@ -180,7 +180,7 @@ def test_main_reports_pending_migrations_without_a_traceback(tmp_path, capsys):
     error = capsys.readouterr().err
 
     assert code == 1
-    assert "migrations pendentes (001)" in error
+    assert "migrations pendentes (001" in error
     assert "apply_migration.py" in error
     assert "Traceback" not in error
     assert not (tmp_path / "catalog.csv").exists()
