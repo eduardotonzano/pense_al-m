@@ -35,7 +35,12 @@ EXTRACTOR_VERSION = "0.2.1"
 XSI_NIL = "http://www.w3.org/2001/XMLSchema-instance nil"
 RETENTION_POLICY = "pending_definition"
 MAX_EXCERPT = 200
-COMPETENCIA_PATH = "/InformeMensalCRA/DadosGerais/Competencia"
+COMPETENCIA_SUFFIX = "/DadosGerais/Competencia"
+
+
+def mapping_root(mapping: dict[str, Any]) -> str:
+    """Raiz do leiaute (InformeMensalCRA, InformeMensalCRI); CRA quando o mapeamento não declara."""
+    return "/" + mapping.get("root", "InformeMensalCRA")
 
 
 def walk_values(data: bytes) -> list[dict[str, Any]]:
@@ -256,7 +261,9 @@ class RawXmlExtractionService:
                 findings += [scale_finding] if scale_finding else []
                 findings += totals_consistency(values, mapping)
             with self.connection:
-                report_id = self._insert_report(run_id, version, values)
+                report_id = self._insert_report(
+                    run_id, version, values, mapping_root(mapping) + COMPETENCIA_SUFFIX
+                )
                 unmapped = 0
                 statuses = []
                 present_paths = {value["xml_path"] for value in values}
@@ -320,9 +327,9 @@ class RawXmlExtractionService:
             "findings": len(findings),
         }
 
-    def _insert_report(self, run_id, version, values) -> int:
+    def _insert_report(self, run_id, version, values, competencia_path) -> int:
         competencia = next(
-            (v["raw_text"] for v in values if v["xml_path"] == COMPETENCIA_PATH), None
+            (v["raw_text"] for v in values if v["xml_path"] == competencia_path), None
         )
         cursor = self.connection.execute(
             """INSERT INTO extracted_reports (

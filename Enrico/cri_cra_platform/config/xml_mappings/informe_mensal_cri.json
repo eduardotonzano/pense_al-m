@@ -1,12 +1,14 @@
 {
-  "mapping_version": "0.1.0-draft",
+  "mapping_version": "cri-0.1.0",
   "layout_version": null,
   "layout_validation_status": "structural_only",
   "root": "InformeMensalCRI",
   "derived_from": "config/xml_mappings/informe_mensal_cra.json 0.1.1",
   "approval": {
-    "status": "pending",
-    "note": "Rascunho por analogia com o mapeamento CRA aprovado; requer aprovação humana antes da extração."
+    "rules_approved_by": "Enrico Suman Marques",
+    "rules_approved_at": "2026-10-27",
+    "approval_source": "conversa de desenvolvimento",
+    "note": "Aprovado o rascunho derivado por analogia do mapeamento CRA 0.1.1 (mesmas decisões de escala, percentuais, séries, xsi:nil e totais). DurationCarteira e VlrTotalCreditosRelacaoVlrTotalEmissao continuam pending_decision: só o literal é gravado."
   },
   "rules": {
     "monetary_scale_suspect": {

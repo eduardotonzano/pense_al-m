@@ -75,6 +75,17 @@ def test_extraction_persists_states_evidence_and_masking(tmp_path):
     assert "123" not in rows[("CPF", 0)]["evidence_excerpt"]
 
 
+def test_competencia_follows_mapping_root(tmp_path):
+    cri = XML.replace(b"InformeMensalCRA", b"InformeMensalCRI")
+    connection = _setup(tmp_path, data=cri)
+    service = RawXmlExtractionService(connection, tmp_path)
+    service.extract_version(1, MAPPING)
+    service.extract_version(1, {**MAPPING, "root": "InformeMensalCRI"})
+    dates = [r[0] for r in connection.execute(
+        "SELECT reference_date FROM extracted_reports ORDER BY report_id")]
+    assert dates == [None, "2026-08-31"]
+
+
 def test_reprocessing_creates_new_run_and_keeps_previous(tmp_path):
     connection = _setup(tmp_path)
     service = RawXmlExtractionService(connection, tmp_path)

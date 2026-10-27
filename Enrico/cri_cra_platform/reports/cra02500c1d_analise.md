@@ -6,8 +6,8 @@
   Relatório Anual do Agente Fiduciário 1175590 (base 2025); DFs do Patrimônio Separado 1328400
   (15/12/2025 a 30/06/2026, BDO, R$ mil); Comunicado 1064843 (bookbuilding, 16/12/2025);
   Informes Mensais dez/2025–set/2026 (10, vigentes).
-- Parâmetros: `config/contract_parameters/cra02500c1d_termo_1065416.json` (91, **pendentes**).
-  Fatos: `config/reported_facts/cra02500c1d_documentos_2025_2026.json` (99, **pendentes**).
+- Parâmetros: `config/contract_parameters/cra02500c1d_termo_1065416.json` (91, **aprovados em 2026-10-27**).
+  Fatos: `config/reported_facts/cra02500c1d_documentos_2025_2026.json` (99, **aprovados em 2026-10-27**).
   Página de revisão: `reports/cra02500c1d_revisao_pendente.html`.
 
 ## Estrutura (Termo 1065416)

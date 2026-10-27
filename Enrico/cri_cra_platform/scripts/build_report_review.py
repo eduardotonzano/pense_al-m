@@ -36,7 +36,8 @@ def latest_reports(connection, mapping_version: str):
         """SELECT r.report_id, a.codigo_cetip, a.isin, r.reference_date,
                   r.source_version, d.source_document_id, r.publication_date,
                   r.automatic_validation_status,
-                  (SELECT group_concat(rule || ':' || replace(xml_path, '/InformeMensalCRA', ''), ' ; ')
+                  (SELECT group_concat(rule || ':' || replace(replace(xml_path, '/InformeMensalCRA', ''),
+                                                                 '/InformeMensalCRI', ''), ' ; ')
                      FROM (SELECT DISTINCT rule, xml_path FROM extraction_findings f
                            WHERE f.report_id = r.report_id)) AS findings
            FROM extracted_reports r
@@ -87,7 +88,8 @@ def main() -> int:
         proposals = propose(latest_reports(connection, args.mapping_version))
     finally:
         connection.close()
-    path = ROOT / "reports" / f"report_review_informe_mensal_cra_{args.mapping_version}.csv"
+    layout = "cri" if args.mapping_version.startswith("cri-") else "cra"
+    path = ROOT / "reports" / f"report_review_informe_mensal_{layout}_{args.mapping_version}.csv"
     with path.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=COLUMNS, delimiter=";", extrasaction="ignore")
         writer.writeheader()

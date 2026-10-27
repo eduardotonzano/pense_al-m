@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 import html
+import json
 import sys
 from pathlib import Path
 
@@ -73,13 +74,20 @@ def main() -> int:
     finally:
         connection.close()
 
+    golden_items = []
+    for golden_path in sorted((ROOT / "config" / "golden_sets").glob("*.json")):
+        golden = json.loads(golden_path.read_text(encoding="utf-8"))
+        if golden["asset"]["codigo_cetip"] == args.cetip:
+            golden_items += [item for item in golden["items"] if item["human_review_status"] == "pending"]
+
     e = lambda value: html.escape("" if value is None else str(value))
     parts = [
         "<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'>",
         "<meta name='viewport' content='width=device-width, initial-scale=1'>",
         f"<title>Revisão pendente {e(args.cetip)}</title><style>{STYLE}</style></head><body>",
         f"<h1>Revisão pendente: {e(args.cetip)}</h1>",
-        f"<p class='muted'>{len(facts)} fatos e {len(parameters)} parâmetros aguardando revisão. "
+        f"<p class='muted'>{len(facts)} fatos, {len(parameters)} parâmetros e "
+        f"{len(golden_items)} itens de golden set aguardando revisão. "
         "Confira se o valor proposto corresponde ao trecho e responda no chat "
         "(ex.: <code>aprovo todos</code> ou <code>rejeito o fato 23</code>).</p>",
     ]
@@ -110,12 +118,30 @@ def main() -> int:
                 f"<td>{e(p['source_reference'])}<br>{pdf_link(p['local_file_path'], p['page_number'])}</td></tr>"
             )
         parts.append("</table>")
-    if not facts and not parameters:
+    if golden_items:
+        parts.append("<h2>Golden set (conferência do XML)</h2><table><tr><th>#</th><th>Campo</th>"
+                     "<th>Literal no XML</th><th>Estado proposto</th><th>Pergunta / nota</th><th>Arquivo</th></tr>")
+        for item in golden_items:
+            observed = item.get("observed", {})
+            literal = (f"linha {observed['line']}: {observed['evidence_excerpt']}"
+                       if observed.get("element_present") else "elemento ausente no arquivo")
+            question = f"<b>{e(item['decision_question'])}</b><br>" if item["decision_question"] else ""
+            parts.append(
+                f"<tr><td>{e(item['item_id'])}</td>"
+                f"<td>{e(item['xml_path'].split('/', 2)[-1])}<br><span class='muted'>"
+                f"{e(', '.join(item['case_types']))}</span></td>"
+                f"<td class='excerpt'>{e(literal)}</td>"
+                f"<td>{e(item['proposed_field_state'])}</td>"
+                f"<td>{question}<span class='muted'>{e(item['notes'])}</span></td>"
+                f"<td>doc {e(item['source_document_id'])}<br>{pdf_link(item.get('local_file_path'), None)}</td></tr>"
+            )
+        parts.append("</table>")
+    if not facts and not parameters and not golden_items:
         parts.append("<p>Nada pendente.</p>")
     parts.append("</body></html>")
     path = ROOT / "reports" / f"{args.cetip.lower()}_revisao_pendente.html"
     path.write_text("\n".join(parts), encoding="utf-8")
-    print({"facts": len(facts), "parameters": len(parameters), "page": str(path)})
+    print({"facts": len(facts), "parameters": len(parameters), "golden_items": len(golden_items), "page": str(path)})
     return 0
 
 
