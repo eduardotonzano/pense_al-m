@@ -58,11 +58,11 @@ Base: README da raiz, README do Fábio (contrato de integração), ADRs, exports
 
 ## Fundos
 
-- **F-01** Fonte e coleta: a frente (Gui) não foi iniciada, então ainda não há dado de fundos.
-- **F-02** FIDCs da casa x mercado: quais fundos são "da casa", quais métricas comparam (rentabilidade, spread, subordinação) e como mostrar.
+- **F-01** Fonte e coleta: a frente (Gui) não foi iniciada, então ainda não há dado de fundos. **Decidido pelo Gui em 27/10/2026:** o dono da frente é o Gui, com o módulo em pasta própria no repositório; o nome da pasta será definido na criação do módulo de Fundos (`docs/decisoes-em-aberto.md`, Fundos, decisão 1).
+- **F-02** FIDCs da casa x mercado: quais fundos são "da casa", quais métricas comparam (rentabilidade, spread, subordinação) e como mostrar. **Decidido pelo Gui em 27/10/2026:** "da casa" é uma lista manual por CNPJ da classe, mantida em tabela interna fora do Git (`docs/decisoes-em-aberto.md`, Fundos, decisão 2). As métricas e a forma de mostrar continuam em aberto.
 - **F-03** Ficha do fundo: gestora, administradora, custodiante, cotas, subordinação, carteira de recebíveis e cedentes.
-- **F-04** FIC-FIDC: como exibir as cotas de FIDC em que o fundo investe.
-- **F-05** FIAGRO: variantes (FIDC, FII, FIP) na mesma página ou em páginas separadas.
+- **F-04** FIC-FIDC: como exibir as cotas de FIDC em que o fundo investe. **Identificação decidida pelo Gui em 27/10/2026:** nenhum campo da CVM marca o FIC-FIDC; o sinal é a parcela do ativo em cotas de FIDC no informe mensal, com 95% ou mais classificando como FIC-FIDC e de 67% a menos de 95% indo para revisão manual, nunca pelo nome (`docs/decisoes-em-aberto.md`, Fundos, decisão 6). A forma de exibir continua em aberto.
+- **F-05** FIAGRO: variantes (FIDC, FII, FIP) na mesma página ou em páginas separadas. **Decidido pelo Gui em 27/10/2026:** como a variante não vem no cadastro nem no informe, aparece "variante não informada" até haver uma segunda fonte confirmada, e nunca é deduzida pelo nome (`docs/decisoes-em-aberto.md`, Fundos, decisão 7). Mesma página ou páginas separadas continua em aberto.
 - **F-06** Relacionamentos (gestora, administradora, cedentes) vindos da camada compartilhada.
 
 ---
