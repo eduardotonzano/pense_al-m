@@ -2,9 +2,9 @@
 
 Documento de descoberta da frente de Fundos, para responder às regras F-01 a F-06 de [regras-de-exibicao-pendentes.md](regras-de-exibicao-pendentes.md). A "maior dor" do [README](../README.md) para esta frente é acompanhar o mercado de FIDCs e comparar os FIDCs da casa com o mercado.
 
-**Escopo.** Só descoberta. Não há código de coleta, migration, banco ou dado interno neste trabalho, e nenhuma migration recebe número aqui. Nada foi consultado no Fundos.NET. Na primeira etapa (26/10/2026), das fontes da CVM foram lidas só páginas públicas de dados abertos e dicionários de dados (cerca de 60 KB no total). Em 27/10/2026 foram baixados seis arquivos da CVM: o informe mensal de FIAGRO de 09/2026 e o dicionário (seção 9); o cadastro de fundos, classes e subclasses, o informe mensal de FIDC de 09/2026 e os dois dicionários (seção 10). Eles ficam numa pasta local fora do repositório, e nenhum arquivo baixado está neste repositório. O informe de FII e o CDA não foram baixados.
+**Escopo.** Só descoberta. Não há código de coleta, migration, banco ou dado interno neste trabalho, e nenhuma migration recebe número aqui. O Fundos.NET foi consultado só na sonda de 27/10/2026 (seção 11): 10 requisições GET de leitura à página pública e à grade, sem download de documento. Na primeira etapa (26/10/2026), das fontes da CVM foram lidas só páginas públicas de dados abertos e dicionários de dados (cerca de 60 KB no total). Em 27/10/2026 foram baixados seis arquivos da CVM: o informe mensal de FIAGRO de 09/2026 e o dicionário (seção 9); o cadastro de fundos, classes e subclasses, o informe mensal de FIDC de 09/2026 e os dois dicionários (seção 10). Eles ficam numa pasta local fora do repositório, e nenhum arquivo baixado está neste repositório. O informe de FII e o CDA não foram baixados. As respostas da sonda do Fundos.NET também ficam fora do repositório.
 
-**Data da conferência:** 26/10/2026 (fontes e código) e 27/10/2026 (amostra de FIAGRO, seção 9; amostra do cadastro e do informe de FIDC, seção 10). Tudo que não foi conferido está marcado como **não confirmado** e reunido na seção 8.
+**Data da conferência:** 26/10/2026 (fontes e código) e 27/10/2026 (amostra de FIAGRO, seção 9; amostra do cadastro e do informe de FIDC, seção 10; sonda da grade do Fundos.NET, seção 11). Tudo que não foi conferido está marcado como **não confirmado** e reunido na seção 8.
 
 ## Resumo
 
@@ -15,28 +15,29 @@ Documento de descoberta da frente de Fundos, para responder às regras F-01 a F-
 5. **FIAGRO:** informe próprio (133 campos por classe e 6 por subclasse; o ZIP mensal traz dois CSV). A variante (FIDC, FII, FIP) **não sai do informe** (seção 9: `Regra_Anexo` e `Classificacao_Autorregulada` são texto livre e pouco preenchidos) **nem do cadastro** (seção 10.5: `Tipo_Classe` só diz FIAGRO, e `Classificacao` e `Entidade_Investimento` vêm vazios). Em 09/2026, só 1 das 310 classes do informe de FIAGRO também aparece no informe de FIDC.
 6. **"FIDCs da casa":** tabela interna, fora do repositório (seção 7).
 7. **CNPJ e dados pessoais:** o informe de FIDC traz o CNPJ com máscara e o cadastro, sem; o casamento só fecha depois de normalizar (4.444 de 4.444), e o cadastro repete o CNPJ entre registros (seção 10.9). Há CPF no cadastro (225 gestores e 8 auditores pessoa física) e nos cedentes do informe (120 valores), e `Diretor` é nome de pessoa natural (seção 10.8).
+8. **Fundos.NET (sonda de 27/10/2026, seção 11):** a grade filtra por `tipoFundo` (FIDC = `2`, FIAGRO = `11`). FIC-FIDC não tem código próprio, e o FIAGRO não é separado por variante. Há 17 categorias de documento para FIDC e 18 para FIAGRO. A linha da grade tem 37 campos e **não traz o CNPJ** do fundo nem da classe, só o nome em texto. O link do documento sai do `id` da linha (`downloadDocumento?id=<id>`). Nas 4 semanas até 27/10/2026, a grade informa 8.930 documentos de FIDC e 891 de FIAGRO.
 
 ## 1. Coletor do Fundos.NET do Enrico: o que reaproveitar
 
-Código lido: `Enrico/cri_cra_platform/src/credit_assets/` (linhas conforme o commit `250112f`). A leitura foi só do código e dos relatórios já versionados; o Fundos.NET não foi acessado.
+Código lido: `Enrico/cri_cra_platform/src/credit_assets/` (linhas conforme o commit `250112f`). A leitura foi só do código e dos relatórios já versionados; o Fundos.NET não foi acessado nesta etapa (a sonda de 27/10/2026 está na seção 11).
 
 | Peça | Onde | Para fundos |
 |---|---|---|
 | Abrir o Edge com queda para o Chromium | `collectors/fundosnet_collector.py:505` (`_launch_browser`) | reaproveita |
-| GET de JSON com `X-Requested-With`, 3 tentativas (0/2/5 s); resposta HTML vira "sessão inválida" | `:627` `_request_json`, `:664` `_page_fetch_json`, `:689` `_classify_html` | reaproveita; o `Referer` está fixo na página de certificados (`:641`) |
-| Linhas da grade e paginação (`start`/`length`, `recordsFiltered`) | `:597` `_fetch_documentos`, `:717` `_extract_rows`, `:730` `_grid_text` | reaproveita; os filtros mudam |
+| GET de JSON com `X-Requested-With`, 3 tentativas (0/2/5 s); resposta HTML vira "sessão inválida" | `:627` `_request_json`, `:664` `_page_fetch_json`, `:689` `_classify_html` | reaproveita; o `Referer` está fixo na página de certificados (`:641`); `_classify_html` marca a página normal como proteção (seção 11.7) |
+| Linhas da grade e paginação (`start`/`length`, `recordsFiltered`) | `:597` `_fetch_documentos`, `:717` `_extract_rows`, `:730` `_grid_text` | reaproveita; os filtros mudam; a página envia `d`/`s`/`l`, e não `draw`/`start`/`length` (seção 11.5) |
 | Guardar a linha original (`source_row_json`) e os campos oficiais da grade | `:738` `_to_document` | reaproveita a ideia; no schema de fundos vira `raw_records` |
 | Diagnóstico sem cookie nem token | `:708` `_write_diagnostics` (grava em `reports/`, caminho relativo) | reaproveita, com pasta fora do Git |
 | Download pela ação oficial "Download do Documento" (XML/PDF), SHA-256, teto de 25 MB | `services/document_download_service.py:260` `FundosNetBrowserDownloader`, `:60`; `download_diagnostics.py:70-131` | reaproveita; o relatório `reports/cafe_brasil_download_action_diagnostic.md` mostra `downloadDocumento?id=` devolvendo XML |
 | Versões de arquivo por documento | `repositories/document_version_repository.py` | reaproveita o desenho |
 | Migrations numeradas, backup, `apply_migration`, `--dry-run`/`--commit` | `database/migrations.py`, `database/backup.py`, `scripts/apply_migration.py` | reaproveita, em banco separado de fundos |
 | Página `abrirGerenciadorDocumentosCertificadosCVM` e filtros `paginaCertificados`/`paraCerts` | `:89`, `:524-568` | **não serve** |
-| Tipo de fundo `5` = CRI e `6` = CRA | `utils/fundosnet_normalization.py:29-35` | **não serve**: os códigos de FIDC e FIAGRO não estão confirmados |
+| Tipo de fundo `5` = CRI e `6` = CRA | `utils/fundosnet_normalization.py:29-35` | **não serve**: na página geral, FIDC é `2` e FIAGRO é `11` (seção 11.3) |
 | Escolher o "administrador" pela securitizadora, com alias fixo | `:186`, `:512-548` | **não serve** |
 | Casar o certificado por ISIN, emissão e devedor | `:245`, `:550-595`, `:131`, `:385` | **não serve**: a chave de fundo é o CNPJ |
 | `Asset`/`assets` e `documents.category` com 9 categorias de CRI/CRA, pastas por CETIP | `models/`, `schema.sql:41-51`, `document_download_service.py:41-46` | **não serve** como está |
 
-**Recomendação.** Usar os dados abertos da CVM como fonte primária de cadastro e informes (sem Playwright; basta `requests`, que já está nas dependências). O Fundos.NET entra para o **catálogo e o download de documentos** (regulamento, demonstrações, fatos relevantes) e para conferência. Antes de qualquer código, fazer uma **sonda** da grade do Fundos.NET para fundos (página, `tipoFundo`, filtros). A sonda usa rede e precisa de aprovação.
+**Recomendação.** Usar os dados abertos da CVM como fonte primária de cadastro e informes (sem Playwright; basta `requests`, que já está nas dependências). O Fundos.NET entra para o **catálogo e o download de documentos** (regulamento, demonstrações, fatos relevantes) e para conferência. A **sonda** da grade do Fundos.NET para fundos (página, `tipoFundo`, filtros) foi feita em 27/10/2026, com aprovação (seção 11).
 
 ## 2. Fontes oficiais
 
@@ -125,7 +126,7 @@ Mesmo esqueleto de `Eduardo/debenture-replica/migrations/001_initial_schema.sql`
 **FIAGRO**
 
 - Mesmo cadastro dos demais fundos, mas informe próprio por classe (`CNPJ_Classe`), com `Codigo_ISIN`, `Mercado_Negociacao` e valores investidos em cotas de fundos: total em `Cotas_Fundos_Investimento` e abertura em `FIF`, `FIDC`, `FII`, `FIP`, `FIIM` e `FIAGRO` (o dicionário não descreve `FIIM`). São valores, sem identificar o fundo investido (isso vem do CDA), e não a variante do próprio fundo.
-- **Variante: não sai do informe de FIAGRO nem do cadastro (confirmado nas amostras de 09/2026, seções 9 e 10.5).** `Regra_Anexo` é texto livre, preenchido em 25% das linhas, e cita Anexo Normativo I, II ou III; `Classificacao_Autorregulada` é texto livre preenchido em 9%, com conteúdo misto; `Classe_Unica` é S/N e não indica variante. No cadastro, `Tipo_Classe` só diz "Classes de Cotas de Fundos FIAGRO", e `Classificacao` e `Entidade_Investimento` vêm vazios. O histórico de registro do CNPJ (um registro anterior como FIDC, FII ou FIP) é pista para 166 das 310 classes, sem confirmar. Fontes que restam: o regulamento (Fundos.NET) e a ANBIMA, não consultados.
+- **Variante: não sai do informe de FIAGRO nem do cadastro (confirmado nas amostras de 09/2026, seções 9 e 10.5).** `Regra_Anexo` é texto livre, preenchido em 25% das linhas, e cita Anexo Normativo I, II ou III; `Classificacao_Autorregulada` é texto livre preenchido em 9%, com conteúdo misto; `Classe_Unica` é S/N e não indica variante. No cadastro, `Tipo_Classe` só diz "Classes de Cotas de Fundos FIAGRO", e `Classificacao` e `Entidade_Investimento` vêm vazios. O histórico de registro do CNPJ (um registro anterior como FIDC, FII ou FIP) é pista para 166 das 310 classes, sem confirmar. Fontes que restam: o regulamento (Fundos.NET) e a ANBIMA, não consultados. A grade do Fundos.NET tem um só código para FIAGRO e não separa a variante (seção 11.3).
 - O modelo aceita as duas escolhas de F-05 (variante como observação da classe). Páginas juntas ou separadas é decisão de exibição.
 - **Subclasses:** o arquivo de subclasse traz `Nome_Subclasse`, `Numero_Cotas` e `Valor_Patrimonial_Cota`, mas o nome é ordinal (`Subclasse 1 (ou classe única)`, `Subclasse 2`, ...) e não diz sênior ou subordinada. A subordinação de um FIAGRO-FIDC não sai do informe, como no FIDC.
 - **Risco:** o mesmo FIAGRO pode aparecer em dois informes. Em 09/2026, 1 das 310 classes do informe de FIAGRO aparece também no informe de FIDC (seção 10.5). Chavear por CNPJ da classe, sem máscara. A conferência com o informe de FII segue **pendente** (não lido).
@@ -153,7 +154,7 @@ Mesmo esqueleto de `Eduardo/debenture-replica/migrations/001_initial_schema.sql`
 
 | Regra | O que a descoberta responde | Em aberto |
 |---|---|---|
-| **F-01** Fonte e coleta | CVM dados abertos como fonte primária de cadastro e informes; Fundos.NET para documentos (seções 1 e 2); formato real dos CSV de FIAGRO, do cadastro e de FIDC conferido (seções 9 e 10) | sonda do Fundos.NET; dono da frente; normalização do CNPJ (com máscara no informe de FIDC) |
+| **F-01** Fonte e coleta | CVM dados abertos como fonte primária de cadastro e informes; Fundos.NET para documentos (seções 1 e 2); formato real dos CSV de FIAGRO, do cadastro e de FIDC conferido (seções 9 e 10); grade do Fundos.NET conferida pela sonda (seção 11) | dono da frente; normalização do CNPJ (com máscara no informe de FIDC); ligação entre documento do Fundos.NET e classe, sem CNPJ na linha da grade (seção 11.5) |
 | **F-02** FIDCs da casa x mercado | Métricas disponíveis: rentabilidade (`tab_X_3`), PL, cotistas, inadimplência, segmento. Subordinação é derivada; o rótulo classifica todas as séries de 09/2026 (seção 10.6). **Spread não existe** no informe. Tabela da casa na seção 7 | definição de "da casa" e dos grupos de comparação; revisão do mapa de rótulos e ordem entre subordinadas |
 | **F-03** Ficha | Campo a campo na seção 4; domínios dos campos de tipo conferidos (seção 10.3) | tratamento do CPF (cedentes, gestores e auditores pessoa física) e do nome do `Diretor` (seção 10.8) |
 | **F-04** FIC-FIDC | Total no informe, posições no CDA (seção 6); nenhum campo marca o FIC-FIDC, e o sinal é a parcela do ativo em cotas de FIDC (seção 10.4) | corte do sinal; coluna do fundo investido no `cda_fie` |
@@ -172,7 +173,7 @@ Mesmo esqueleto de `Eduardo/debenture-replica/migrations/001_initial_schema.sql`
 
 ### Não confirmado
 
-- **(a)** A grade de FIDC e FIAGRO no Fundos.NET (página, `tipoFundo`, categorias de documento): não consultada.
+- **(a)** A grade de FIDC e FIAGRO no Fundos.NET (página, `tipoFundo`, categorias de documento). **Confirmado em 27/10/2026 pela sonda** (seção 11): página `abrirGerenciadorDocumentosCVM`, `tipoFundo` `2` (FIDC) e `11` (FIAGRO), sem código para FIC-FIDC nem para variante de FIAGRO; 17 categorias para FIDC e 18 para FIAGRO; 37 campos por linha, sem CNPJ; link pelo `id` da linha.
 - **(b)** O domínio dos campos `Tipo_Fundo`, `Tipo_Classe`, `Classificacao` e `Entidade_Investimento` (do cadastro). **Confirmado em 27/10/2026 no dado** (seção 10.3): o dicionário os deixa vazios, e o dado traz 19 valores de `Tipo_Fundo`, 10 de `Tipo_Classe` ("Classes de Cotas de Fundos" seguido do tipo), 5 de `Classificacao` (vazia em quase todas as classes de FIDC e FIAGRO) e S/N em `Entidade_Investimento` (vazio em FIDC). **Confirmado também para o informe de FIAGRO:** `Regra_Anexo`, `Classe_Unica` e `Classificacao_Autorregulada` (seção 9). `Regra_Anexo` e `Classificacao_Autorregulada` são texto livre, não domínios controlados.
 - **(c)** Se o FIAGRO-FIDC aparece também no informe de FIDC e o FIAGRO-FII no de FII (a página do FII, <https://dados.cvm.gov.br/dataset/fii-doc-inf_mensal>, não cita FIAGRO). **Confirmado para o FIDC em 27/10/2026** (seção 10.5): 1 das 310 classes do informe de FIAGRO de 09/2026 aparece no informe de FIDC do mesmo mês. Para o FII segue **não confirmado**: o informe de FII não foi lido.
 - **(d)** Cobertura de FIDC nos balancetes (`fie-doc-balancete`, `fi-doc-balancete`): a descrição das páginas está truncada.
@@ -180,11 +181,11 @@ Mesmo esqueleto de `Eduardo/debenture-replica/migrations/001_initial_schema.sql`
 - **(f)** Codificação, separador e linhas dos CSV de FIDC (os de CRI/CRA eram latin-1 e `;`). **Confirmado em 27/10/2026 para o FIDC e o cadastro** (seção 10.2): `;`, cp1252, CRLF, cabeçalho na primeira linha; 18 tabelas de FIDC com 4.444 classes em 09/2026; cadastro com 90.859 linhas de fundo, 37.018 de classe e 11.518 de subclasse. **Confirmado para o FIAGRO:** `;`, cp1252, CRLF, cabeçalho na primeira linha, 312 linhas de classe e 697 de subclasse (seção 9).
 - **(g)** Prazos regulatórios de entrega dos informes. A amostra de FIAGRO mostra entregas de 05/10 a 15/10/2026 para a competência 09/2026, com 226 das 312 linhas em 14 e 15/10; o prazo da norma segue **não confirmado**. O informe de FIDC não tem data de entrega (seção 10.7).
 - **(h)** A ANBIMA como fonte.
-- **(i)** A variante de cada FIAGRO (FIDC, FII, FIP): não está no informe de FIAGRO nem no cadastro (seção 10.5). Fontes candidatas: o regulamento (Fundos.NET) e a ANBIMA, não consultados.
+- **(i)** A variante de cada FIAGRO (FIDC, FII, FIP): não está no informe de FIAGRO nem no cadastro (seção 10.5), nem no filtro da grade do Fundos.NET (seção 11.3). Fontes candidatas: o regulamento (Fundos.NET) e a ANBIMA, não consultados.
 
 ### Próximos passos, sem código
 
-1. Aprovar a sonda do Fundos.NET.
+1. **Feito em 27/10/2026:** a sonda da grade do Fundos.NET (seção 11). Fica para o desenho do coletor de documentos: como ligar documento e classe sem CNPJ na linha, e o que a sonda não confirma (seção 11.8).
 2. **Feito em 27/10/2026** para o FIAGRO (seção 9), o cadastro e o informe de FIDC (seção 10). Falta a mesma leitura de uma amostra do CDA (`cda_fie`) e do informe de FII, que precisa de nova autorização de rede.
 3. Decidir F-01 e o dono da frente.
 4. Escrever o ADR de prioridade de fontes.
@@ -476,3 +477,181 @@ Nenhum arquivo tem CNPJ alfanumérico.
 - A causa das duas chaves repetidas do FIAGRO (seção 9.4).
 - O significado da sigla `FIIM`.
 - Se a codificação é cp1252 ou ISO-8859-1: a amostra não tem os bytes que distinguem as duas.
+
+## 11. Sonda da grade do Fundos.NET (27/10/2026)
+
+Consulta à grade pública de documentos do Fundos.NET para fechar o item (a) da seção 8: como a grade filtra FIDC, FIC-FIDC e FIAGRO, quais categorias de documento existem para fundos, que campos a grade traz por linha e como se chega ao link de um documento. Só agregados e nomes de campos: esta seção não traz nomes de fundos, gestoras, administradoras ou pessoas, CNPJs, identificadores de documento nem texto de documento. As respostas brutas ficam numa pasta local fora do repositório.
+
+### 11.1 Requisições e integridade
+
+Foram 10 requisições GET, aprovadas antes da execução, em duas fases: a lista da segunda fase foi preenchida com os códigos lidos na primeira e aprovada à parte. As condições da execução:
+
+- um processo, em sequência, com 5 s entre requisições e sem retentativa;
+- TLS verificado e nenhum redirecionamento seguido;
+- sem login, credencial ou cabeçalho CSRF;
+- User-Agent próprio (`pense-alm-fundos-sonda/0.1`), já que o coletor do Enrico usa o padrão do Edge;
+- cookies de sessão do site guardados só em memória;
+- nenhuma chamada de download, de visualização de documento ou das listas de administradores e de fundos.
+
+Nenhuma resposta veio com 403, 429, redirecionamento ou captcha. O script ficou fora do repositório, usa só a biblioteca padrão do Python e importa do coletor do Enrico apenas funções de leitura (seção 11.7).
+
+O host é `https://fnet.bmfbovespa.com.br`. As consultas à grade (R5, R6, R7 e R10) também levam `l=10`, `o[0][dataEntrega]=desc`, `idTipoDocumento=0`, `idEspecieDocumento=0`, `dataInicial=29/09/2026`, `dataFinal=27/10/2026` e `isSession=false`.
+
+| # | Caminho | Parâmetros | Status e tipo | Bytes | SHA-256 | UTC |
+|---|---|---|---|---|---|---|
+| R1 | `/robots.txt` | nenhum | 404 `text/html` | 314 | `7dd7d1aea029157de8d8cdf2a4f5e855a44cb48dfa53fdfbd3e1897e2ad86b71` | 16:30:41 |
+| R2 | `/fnet/publico/abrirGerenciadorDocumentosCVM` | nenhum | 200 `text/html` | 14.883 | `b1676ca8b50ddd303b1b8ecefaa3e82115dcef6891195c781217274be509994d` | 16:30:46 |
+| R3 | `/fnet/resources/js/paginas/publico/gerenciador-documentos-cvm.js` | nenhum | 200 `application/javascript` | 21.888 | `770c567bef268bba2f5dab8705ed2169cf6592edb91148a799a8318231032490` | 16:30:51 |
+| R4 | `/fnet/publico/abrirGerenciadorDocumentosCVM` (sessão da segunda fase) | nenhum | 200 `text/html` | 14.883 | `59930893a5c4ac06b54eaa5711f79068596ec296d4fe5a473b489ddea379a2d8` | 16:34:01 |
+| R5 | `/fnet/publico/pesquisarGerenciadorDocumentosDados` | `d=1`, `s=0`, `tipoFundo=2`, `idCategoriaDocumento=0` | 200 `application/json` | 10.035 | `668e8d077d09373a0e091aeb778eb907adb09e89ee9e8b2e12831ca3ed02452f` | 16:34:06 |
+| R6 | idem | `d=2`, `s=10`, `tipoFundo=2`, `idCategoriaDocumento=0` | 200 `application/json` | 9.929 | `d180a4aad61bf7fc21b35cf3f0e93e6ba826001beb6e402c8706feb888cb33b3` | 16:34:11 |
+| R7 | idem | `d=3`, `s=0`, `tipoFundo=11`, `idCategoriaDocumento=0` | 200 `application/json` | 9.815 | `e9cdec9acb91d351af2540713b1136f5273a67da93744097b8a07ea250a29751` | 16:34:16 |
+| R8 | `/fnet/publico/listarTodasCategoriaPorTipoFundo` | `idTipoFundo=2` | 200 `application/json` | 1.441 | `43b79190b753e7e04b41f3e1c91fda140fad5f3f1dd904c33ec6b3bbc8cfef94` | 16:34:21 |
+| R9 | idem | `idTipoFundo=11` | 200 `application/json` | 1.533 | `9af5cc69f25dbc4cb2c36a86215def1d10caa8d113ae41da4a1565cc210226bc` | 16:34:26 |
+| R10 | `/fnet/publico/pesquisarGerenciadorDocumentosDados` | `d=4`, `s=0`, `tipoFundo=2`, `idCategoriaDocumento=5` | 200 `application/json` | 9.678 | `257bd9d3b9d90e5d32de7b701a591e0ffd0634477c14831672155550cd45630b` | 16:34:31 |
+
+Depois da análise, os 10 hashes foram conferidos de novo e não mudaram. A página muda a cada acesso: R2 e R4 diferem em duas linhas, o script de monitoramento e o parâmetro por requisição da Cloudflare. A grade muda a cada entrega. Os hashes identificam o que foi lido.
+
+### 11.2 robots.txt, termos de uso e proteções
+
+- **robots.txt e termos:** o host não publica `robots.txt` (R1 devolveu 404). A página não tem link para termos de uso nem para política de privacidade. Os termos gerais da B3, fora desse host, **não foram conferidos**.
+- **Scripts e cookies:** a página carrega um script de detecção de robôs da Cloudflare (`/cdn-cgi/challenge-platform/.../jsd/main.js`) e um agente de monitoramento (Dynatrace); a sonda não executa JavaScript. O site grava cookies de balanceamento e de sessão (`F051234a800`, `JSESSIONID`, `ROUTEID_CAUF`, `ROUTEID_FNET`, `dtCookie`); só os nomes foram registrados.
+- **Captcha:** existe na página, mas só para a exportação do "Anexo B" (`btnAnexoB`, `validarAnexoB`). A busca na grade não pede captcha.
+- **CSRF:** o JS envia um cabeçalho CSRF lido de `<meta name="_csrf">`, mas a página não tem essa meta, e o navegador envia o valor vazio. A sonda não enviou o cabeçalho, e a grade respondeu JSON.
+- **Limite:** com 5 s entre requisições, nenhuma resposta indicou limite.
+
+### 11.3 Filtro por tipo de fundo (FIDC, FIC-FIDC, FIAGRO)
+
+A página é `/fnet/publico/abrirGerenciadorDocumentosCVM`; a de certificados do CRI/CRA (`abrirGerenciadorDocumentosCertificadosCVM`) é outra. O `<select name="tipoFundo">` tem 7 tipos:
+
+| Código | Rótulo |
+|---|---|
+| 1 | Fundo Imobiliário |
+| 2 | **FIDC** |
+| 3 | ETF |
+| 4 | ETF RF |
+| 7 | Fundo Setorial |
+| 10 | FIP |
+| 11 | **FIAGRO** |
+
+- **FIC-FIDC não tem código próprio:** entra em `tipoFundo=2`, como no cadastro da CVM (seção 10.4). Nenhum campo da linha da grade o separa.
+- **FIAGRO não é separado por variante** (FIDC, FII, FIP): há um só código, `11`. A variante continua sem fonte estruturada (seções 6 e 10.5).
+- CRI (5) e CRA (6) não aparecem nesta página.
+- **Volume na janela de 29/09 a 27/10/2026:** a grade informa 8.930 documentos com `tipoFundo=2` e 891 com `tipoFundo=11` (`recordsFiltered`, igual a `recordsTotal` nas quatro consultas).
+- **Outros filtros da grade** (JS, linhas 69 a 92):
+  - `administrador` e `idFundo`, com listas carregadas por `buscarAdministrador` e `listarFundos`, que não foram chamadas;
+  - `idCategoriaDocumento`, `idTipoDocumento` e `idEspecieDocumento`;
+  - `situacao`: A Ativo, I Inativo, C Cancelado;
+  - `cnpj` e `cnpjFundo`, preenchidos pelo mesmo campo de texto;
+  - `dataReferencia`, com `ultimaDataReferencia`;
+  - `dataInicial` e `dataFinal`, em dd/mm/aaaa;
+  - `idModalidade`: 1 Apresentação, 2 Reapresentação por Exigência, 3 Reapresentação Espontânea;
+  - `palavraChave` e `isSession`.
+
+  O JS remove os parâmetros vazios antes de enviar. O filtro por CNPJ **não foi testado**, porque exigiria um fundo específico.
+- **Datas:** nas 40 linhas lidas, `dataEntrega` está sempre na janela, e `dataReferencia` às vezes não (a mais antiga é de 08/01/2026). Então o filtro `dataInicial`/`dataFinal` não se aplica à data de referência. É provável que se aplique à data de entrega, mas, com a ordem decrescente, as linhas lidas só mostram o fim da janela: o limite inicial **não foi confirmado**.
+
+### 11.4 Categorias de documento
+
+- O HTML lista 48 categorias, mais "Todos", que valem para todos os tipos de fundo e de certificado. A lista por tipo de fundo vem de `listarTodasCategoriaPorTipoFundo?idTipoFundo=<código>`, que devolve `id`, `descricao`, `sigla` e `situacao` por categoria. Ela traz também um item 0, "Categoria", que é só o rótulo do campo.
+- **FIDC tem 17 categorias e FIAGRO, 18:** 16 são comuns; a 16 é só de FIDC; a 12 e a 13 são só de FIAGRO.
+
+| Código | Categoria | FIDC | FIAGRO |
+|---|---|---|---|
+| 1 | Fato Relevante | sim | sim |
+| 2 | Assembleia | sim | sim |
+| 3 | Comunicado ao Mercado | sim | sim |
+| 4 | Aviso aos Cotistas | sim | sim |
+| 5 | Regulamento | sim | sim |
+| 6 | Informes Periódicos | sim | sim |
+| 7 | Relatórios | sim | sim |
+| 8 | Oferta Pública de Distribuição de Cotas | sim | sim |
+| 9 | Políticas de Governança Corporativa | sim | sim |
+| 10 | Outras Informações | sim | sim |
+| 11 | Atos de Deliberação do Administrador | sim | sim |
+| 12 | Oferta Pública de Aquisição de Cotas | não | sim |
+| 13 | Laudo de Avaliação (Conclusão de Negócio) | não | sim |
+| 14 | Aviso aos Cotistas - Estruturado | sim | sim |
+| 15 | Regulamento de Emissores B3 | sim | sim |
+| 16 | Documentos de Oferta de Distribuição Pública | sim | não |
+| 24 | Listagem e Admissão à Negociação de Cotas | sim | sim |
+| 43 | Outras Demonstrações Financeiras | sim | sim |
+| 48 | Anexo ao Regulamento | sim | sim |
+
+- **Rótulos com espaços sobrando:** `Outras Demonstrações Financeiras ` tem espaço no fim, e `Listagem e  Admissão à  Negociação  de Cotas` tem espaços duplos. O tipo `Informe Mensal Estruturado ` também vem com espaço no fim. A comparação precisa normalizar, guardando o valor original.
+- **Tipos e espécies:** vêm de `listarTodosTiposPorCategoriaETipoFundo` (`idTipoFundo`, `idCategoria`) e de `listarTodasEspeciePorTipoECategoriaETipoFundo` (`idTipoFundo`, `idCategoria`, `idTipo`), que **não foram consultados**. Nas 40 linhas lidas apareceram estes rótulos (contagem de linhas):
+  - **Categoria:** Regulamento (12), Informes Periódicos (11), Assembleia (6), Relatórios (6), e uma linha de cada uma destas: Oferta Pública de Distribuição de Cotas, Outras Demonstrações Financeiras, Atos de Deliberação do Administrador, Aviso aos Cotistas e Fato Relevante.
+  - **Tipo:** Informe Mensal Estruturado (10), AGE (5), Relatório Gerencial (4), Outros Relatórios (2), e uma linha de cada um destes: AGO, Demonstrações Financeiras, Demonstrações Financeiras - Substituição de administrador, Anúncio de Início e Instrumento Particular de Alteração do Regulamento. Vazio em 14.
+  - **Espécie:** Ata da Assembleia (5) e Carta Consulta (1). Vazia em 34.
+- **Filtro de categoria confirmado:** com `idCategoriaDocumento=5`, `recordsFiltered` cai de 8.930 para 610, e as 10 linhas são "Regulamento". Os regulamentos vêm sem tipo e sem espécie.
+
+### 11.5 Campos da grade e paginação
+
+- **Resposta:** é um objeto no formato DataTables, com `draw` (eco de `d`), `recordsTotal`, `recordsFiltered` e `data` (a lista de linhas). Na requisição, os nomes são curtos: `d` (draw), `s` (início) e `l` (tamanho), e a ordem vai em `o[0][<coluna>]=asc|desc`.
+- **Paginação:** `s=10` traz a página seguinte. Entre as páginas 1 e 2 de FIDC não há `id` repetido, e `recordsFiltered` não mudou. A ordem `dataEntrega desc` foi respeitada nas quatro consultas.
+- **Ordem padrão:** a página geral ordena pela coluna 5, que nela é `dataReferencia`; na página de certificados, a coluna 5 é `dataEntrega`. A sonda pediu `dataEntrega`.
+- **Linha:** são 37 campos, os mesmos nas 40 linhas de FIDC e de FIAGRO. Preenchimento nas 40 linhas:
+
+| Campo | Preenchido | Forma ou valores |
+|---|---|---|
+| `id` | 40 | inteiro de 7 dígitos, único; é o que entra no link (11.6) |
+| `descricaoFundo` | 40 | texto livre de 20 a 100 caracteres, com o nome do fundo ou da classe; nenhum traz padrão de CNPJ |
+| `fundoOuClasse` | 40 | `Classe` nas 40 |
+| `categoriaDocumento` | 40 | rótulo da categoria (11.4) |
+| `tipoDocumento` | 26 | rótulo do tipo; vazio em 14 |
+| `especieDocumento` | 6 | rótulo da espécie; vazio em 34 |
+| `dataEntrega` | 40 | `dd/mm/aaaa hh:mm` |
+| `dataReferencia` | 40 | forma dada por `formatoDataReferencia`: 2 = `mm/aaaa` (10), 3 = `dd/mm/aaaa` (24), 4 = `dd/mm/aaaa hh:mm` (6); o JS prevê também 1 = `aaaa` |
+| `versao` | 40 | 1 (29), 2 (10), 3 (1) |
+| `modalidade`, `descricaoModalidade` | 40 | `AP` Apresentação (29), `RE` Reapresentação Espontânea (11) |
+| `status`, `descricaoStatus`, `situacaoDocumento` | 40 | `AC`, "Ativo com visualização" e `A` nas 40 |
+| `altaPrioridade` | 40 | booleano; verdadeiro em 1 |
+| `indicadorFundoAtivoB3` | 40 | falso nas 40 |
+| `analisado` | 40 | `N` nas 40 |
+| `idTemplate`, `idSelectItemConvenio` | 40 | 0 nas 40 |
+| `informacoesAdicionais` | 40 | `;` em 34; texto de 2 a 13 caracteres em 6 linhas de FIAGRO |
+| `nomePregao` | 6 | texto de 11 a 12 caracteres, só em linhas de FIAGRO |
+| `arquivoEstruturado`, `assuntos`, `cnpjAdministrador`, `cnpjFundo`, `codSegNegociacao`, `dda`, `formatoEstruturaDocumento`, `idEntidadeGerenciadora`, `idFundo`, `idSelectNotificacaoConvenio`, `nomeAdministrador`, `nomePrimeiraVisualizacao`, `numeroEmissao`, `ofertaPublica`, `tipoPedido` | 0 | vazios ou nulos nas 40 |
+
+- **O que a linha não traz:** o CNPJ do fundo ou da classe (`cnpjFundo` e `idFundo` vêm vazios, e `descricaoFundo` é só texto), o administrador e a variante do FIAGRO. O cadastro da CVM é chaveado por CNPJ (seção 10.9). Para ligar um documento à classe, restam dois caminhos: consultar a grade com o filtro `cnpj` de cada fundo (não testado) ou casar pelo nome, o que manda o caso para revisão (regra de dados 6 do `CLAUDE.md`).
+- **Fundo ou classe:** `fundoOuClasse` mostra que a grade separa documento do fundo e documento da classe. As 40 linhas lidas eram de classe.
+- **Versão e reapresentação:** ao contrário do informe de FIDC (seção 10.7), a grade traz `versao` e `modalidade` por documento, e com elas se distingue apresentação de reapresentação.
+
+### 11.6 Link do documento
+
+O JS monta as duas ações de cada linha a partir do `id` (linhas 16 e 19):
+
+- visualizar: `https://fnet.bmfbovespa.com.br/fnet/publico/visualizarDocumento?id=<id>&cvm=true`
+- baixar: `https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id=<id>`
+
+A linha não tem campo de URL. O `downloadDocumento?id=<id>` é o mesmo endereço que o relatório do Enrico validou para CRA, devolvendo XML (seção 1). Nenhum dos dois foi chamado na sonda, e o formato do arquivo (PDF ou XML) por categoria de documento de fundo **não foi conferido**.
+
+### 11.7 O que o coletor do CRI/CRA aproveita
+
+A análise rodou no ambiente Python do coletor do CRI/CRA (Python 3.14, com o pacote playwright). Ela importou do coletor, sem alterá-lo, `_extract_rows`, `_classify_html` e `_to_document`, este com um ativo fictício. Assim mediu o mesmo que o `--dry-run` mostra, sem os exemplos de linhas. O `--dry-run` em si não foi usado, porque ele:
+
+- exige um ativo de CRI/CRA;
+- abre a página de certificados num navegador, o que dispara dezenas de requisições;
+- retenta requisições que falham;
+- grava amostras de linhas em `reports/`.
+
+| Peça | Resultado com linhas de fundos |
+|---|---|
+| `_extract_rows` | lê as 40 linhas; o total vem de `recordsTotal`, igual a `recordsFiltered` aqui |
+| `_to_document` | converte as 40 sem erro. Categoria, versão, descrição e as duas datas saem preenchidas nas 40, o tipo nas 26 linhas que o trazem e a espécie nas 6 |
+| `source_url` | como a linha não tem campo de URL, cai no padrão `visualizarDocumento?id=<id>`, **sem** o `&cvm=true` |
+| `document_name` | vem de `tipoDocumento`; nas 14 linhas sem tipo (12 regulamentos, 1 aviso aos cotistas e 1 fato relevante) vira "Documento" |
+| `classify_document` | Informe Mensal 11, Ata/Edital 5, Fato Relevante 1 e **Outro 23**, incluindo os 12 regulamentos. As 9 categorias de CRI/CRA não servem para fundos; a categoria oficial da grade (`categoriaDocumento`) serve |
+| `_fetch_documentos` | usa `draw`/`start`/`length`, mas a página envia `d`/`s`/`l`; não foi testado se o servidor aceita os nomes longos |
+| `_classify_html` | classifica a página normal como "protecao", por causa do bloco de captcha escondido do "Anexo B" |
+
+### 11.8 O que a sonda não confirma
+
+- Se o filtro `dataInicial`/`dataFinal` vale para a data de entrega (o início da janela não foi testado), e se o filtro `cnpj` acha a classe pelo CNPJ com ou sem máscara.
+- Os tipos e as espécies por categoria: os endpoints existem, mas não foram chamados. Também não se sabe quais categorias aparecem de fato na janela inteira, porque só 40 linhas foram lidas.
+- O formato do arquivo de cada categoria (PDF ou XML) e se o `downloadDocumento` funciona fora do navegador para fundos: nenhum download foi feito.
+- Como ligar documento e classe sem CNPJ na linha, e se `descricaoFundo` repete o nome do cadastro da CVM.
+- Como aparecem na grade os documentos de fundo, e não de classe: as 40 linhas eram de classe.
+- Se o servidor aceita os nomes longos (`draw`/`start`/`length`) que o coletor do Enrico usa.
+- Os termos de uso gerais da B3.
+- O limite de taxa: 10 requisições, uma a cada 5 s, não deram sinal de limite, mas isso não diz qual seria o limite de uma coleta.
