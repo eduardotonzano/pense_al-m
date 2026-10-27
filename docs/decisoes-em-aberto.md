@@ -138,7 +138,7 @@ A parte **Fundos: decisões da Fase 0**, no fim, é diferente: registra oito dec
 
 ## Fundos: decisões da Fase 0
 
-Fechamento da Fase 0 do plano da frente de Fundos. Ao contrário das quatro decisões acima, estas oito já foram tomadas: o Gui aprovou todas em 27/10/2026, por mensagem, conforme a sugestão enviada a ele, e Eduardo as registrou aqui. As perguntas de origem são as regras F-01 a F-06 de `docs/regras-de-exibicao-pendentes.md` e os pontos em aberto da seção 8 de `docs/fundos-descoberta.md`. Os números citados são da amostra de 09/2026 (seção 10 de `docs/fundos-descoberta.md`).
+Fechamento da Fase 0 do plano da frente de Fundos. Ao contrário das quatro decisões acima, estas oito já foram tomadas: o Gui aprovou todas em 27/10/2026, por mensagem, conforme a sugestão enviada a ele, e Eduardo as registrou aqui. As perguntas de origem são as regras F-01 a F-06 de `docs/regras-de-exibicao-pendentes.md` e os pontos que a seção 8 de `docs/fundos-descoberta.md` deixava em aberto. Os números citados são da amostra de 09/2026 (seção 10 de `docs/fundos-descoberta.md`).
 
 ### 1. Dono da frente de Fundos (F-01)
 
@@ -152,7 +152,7 @@ Fechamento da Fase 0 do plano da frente de Fundos. Ao contrário das quatro deci
 
 **O que depende dela:** a Fase 5 (Fundos), que o plano de ação só inicia depois de F-01 (item 4, "Ordem sugerida", de `docs/regras-de-exibicao-pendentes.md`).
 
-**Continua em aberto:** em F-01, a sonda do Fundos.NET e a normalização do CNPJ (seção 8 de `docs/fundos-descoberta.md`).
+**Continua em aberto:** em F-01, a normalização do CNPJ (seção 8 de `docs/fundos-descoberta.md`). A sonda do Fundos.NET, que também constava aqui, foi feita em 27/10/2026 (seção 11 de `docs/fundos-descoberta.md`); o que ela não confirma, como ligar documento e classe sem CNPJ na linha da grade, está na seção 11.8.
 
 ### 2. "Fundo da casa" (F-02)
 
@@ -194,15 +194,15 @@ Fechamento da Fase 0 do plano da frente de Fundos. Ao contrário das quatro deci
 
 ### 5. Licença ODbL dos dados da CVM
 
-**Pergunta:** o que a licença ODbL, declarada em todas as páginas de dados abertos da CVM, exige do banco de Fundos? A seção 2 de `docs/fundos-descoberta.md` registra que as obrigações não foram analisadas.
+**Pergunta:** o que a licença ODbL, declarada em todas as páginas de dados abertos da CVM, exige do banco de Fundos? A seção 2 de `docs/fundos-descoberta.md` registrava que as obrigações não foram analisadas.
 
 **Decisão:** o banco de Fundos é tratado como interno por enquanto.
 
-**Situação:** aprovada, com pendência do compliance. Aprovada pelo Gui em 27/10/2026, registrada por Eduardo.
+**Situação:** aprovada (pelo Gui em 27/10/2026, registrada por Eduardo). Ajuste de redação registrado por Eduardo em 27/10/2026: a conferência da licença não bloqueia nenhuma etapa do uso interno; só vale antes de publicar o banco ou dado derivado dele fora da casa (obrigações a conferir: citar a fonte e manter a mesma licença).
 
-**Pendência:** pedir ao compliance que confirme as obrigações da ODbL (atribuição e compartilhamento pela mesma licença) antes de qualquer publicação.
+**Pendência:** nenhuma para o uso interno. Antes de publicar o banco ou dado derivado dele fora da casa, conferir as obrigações da ODbL (citar a fonte e manter a mesma licença).
 
-**O que depende dela:** qualquer publicação do banco de Fundos ou de dado derivado dele espera a confirmação do compliance.
+**O que depende dela:** a publicação do banco de Fundos ou de dado derivado dele fora da casa, que espera a conferência das obrigações da licença. O uso interno não depende dela.
 
 ### 6. Identificação do FIC-FIDC (F-04)
 
@@ -248,7 +248,7 @@ Fechamento da Fase 0 do plano da frente de Fundos. Ao contrário das quatro deci
 | 2 | "Fundo da casa" | F-02 | decidida | |
 | 3 | CPF e dados pessoais | F-03 | decidida | confirmar com o Gui o alcance da regra do CPF (arquivo original) |
 | 4 | Pasta interna | F-02 | decidida | criação da pasta, pelo Eduardo com a TI |
-| 5 | Licença ODbL | | aprovada, com pendência do compliance | confirmação do compliance antes de qualquer publicação |
+| 5 | Licença ODbL | | aprovada | conferir a licença (citar a fonte e manter a mesma licença) só antes de publicar fora da casa; não bloqueia o uso interno |
 | 6 | FIC-FIDC | F-04 | decidida | |
 | 7 | Variante do FIAGRO | F-05 | decidida | |
 | 8 | Sênior e subordinada | F-02, F-03 | decidida | |
