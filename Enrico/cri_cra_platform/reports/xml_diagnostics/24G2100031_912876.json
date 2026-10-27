@@ -1,0 +1,3322 @@
+{
+  "source_document_id": "912876",
+  "document_version_id": 127,
+  "publication_date": "28/05/2025 17:29",
+  "local_file_path": "data/documents/24G2100031/informes_mensais/2025-04_912876_Informe_Mensal_de_CRI.xml",
+  "diagnostic_version": "0.1.0",
+  "raw_file_hash": "385e2b608ef955de142ea1824b52bc827279901fcd195ada2bce4e7e5e1438ef",
+  "size_bytes": 10123,
+  "encoding": "UTF-8",
+  "decodes_as_declared": true,
+  "namespaces": {
+    "xsi": "http://www.w3.org/2001/XMLSchema-instance"
+  },
+  "root_tag": "InformeMensalCRI",
+  "root_attributes": {},
+  "layout_version_declared": null,
+  "maximum_depth": 5,
+  "layout_validation_status": "structural_only",
+  "paths_total": 217,
+  "summary": [
+    {
+      "xml_path": "/InformeMensalCRI",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230361717.89"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/CaixaEquivalentes",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/CaixaEquivalentes/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "227300.13"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/CaixaEquivalentes/CotasFILiquidezDiaria",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/CaixaEquivalentes/OperacoesCompromissadas",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "227281.15"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/CaixaEquivalentes/Outros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "18.98"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/CaixaEquivalentes/TitulosPublicosFederais",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/CreditosTotais",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/CreditosTotais/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230134417.76"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/CreditosTotais/CreditosAVencerComParcelasAtrasadas",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/CreditosTotais/CreditosAVencerSemParcelasAtrasadas",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230134417.76"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/CreditosTotais/CreditosVencidosNaoPagos",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/Derivativos",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/Derivativos/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/Derivativos/ContratosTermo",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/Derivativos/Futuros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/Derivativos/Opcoes",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/Derivativos/Swap",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/OutrosAtivos",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Ativo/ProvisaoRecuperacaoCreditos",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/ContingenciaPatrimonioSeparado",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/ContingenciaPatrimonioSeparado/OutrasContigenciasRelevantes",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 0,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "empty"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/ContingenciaPatrimonioSeparado/ProcessosRelevantes",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/ContingenciaPatrimonioSeparado/ProcessosRelevantes/PrincipaisFatos",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 0,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "empty"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/ContingenciaPatrimonioSeparado/ProcessosRelevantes/ValoresBensDireitosEnvolvidos",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 0,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "empty"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/AgenteFiduciario",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Vortx DTVM"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/CNPJCompanhia",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "02773542000122"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/CompanhiaEmissora",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Opea Securtizadora"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Competencia",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "date_iso"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2025-04-01"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/CustodianteRegistradora",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Vortx DTVM"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/DetalhamentoLastro",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Nota Comercial"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Emissao",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Emissao/CodigoIdentificacao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "BRRBRACRIP13"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Emissao/DataEmissao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "date_iso"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2024-08-29"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Emissao/NomeEmissao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Sênior | 1ª Série da 301ª Emissão"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Emissao/NumeroEmissao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "301"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Emissao/QuantidadeSeries",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/InstituicaoRegimeFiduciario",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Sim"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/OutrasCaracteristicasEmissao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Não aplicável."
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Revolvencia",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Não"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie/Classe",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Sênior"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie/CodigoISIN",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "BRRBRACRIP13"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie/CodigoNegociacaoMercadoSec",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "24G2100031"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie/DataVencimento",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "date_iso"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2036-08-29"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie/MesBaseApuracaoPagtoRemunAmort",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "45777"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie/NumeroSerie",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie/PeriodicidadePagtoRemunAmort",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Mensal"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie/Situacao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Adimplente"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie/TaxaJuros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "100% CDI + 1,5% a.a."
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie/TipoOferta",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Profissionais"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Series/Serie/VlrTotalIntegralizado",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230000000"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/Sobrecolateralizacao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Não aplicável, a emissão não conta com sobrecolaterização."
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DadosGerais/TipoLastro",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Título de Dívida"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Futuros",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Futuros/Cambio",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Futuros/Commodities",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Futuros/Juros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Futuros/Outros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/MercadoTermo",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/MercadoTermo/Cambio",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/MercadoTermo/Commodities",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/MercadoTermo/Juros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/MercadoTermo/Outros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Opcoes",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Opcoes/Cambio",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Opcoes/Commodities",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Opcoes/Juros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Opcoes/Outros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Swap",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Swap/Cambio",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Swap/Commodities",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Swap/Juros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DerivativosExposicaoLiquida/Swap/Outros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/AmortizacoesRealizadasPeriodo",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/Classe",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Sênior"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 0,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "empty"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/NumeroSerie",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/QtdCertificadosPorClasse",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230000"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/RendimentosDistribuidosPeriodo",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2567413.64"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/RentabilidadePeriodo",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0.0111561974055048"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1000.58"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Subordinacao",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/Subordinacao/RecomposicaoIndice",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Não aplicável."
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/totalAmortizacoesRealizadas",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/totalQtdCertificados",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230000"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/totalRendimentosDistribuidos",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2567413.64"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/totalVlrCertificados",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1000.58"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/AquisicaoCaixaEquivalentes",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/AquisicaoNovosCreditos",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/OutrosPagamentos",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/OutrosRecebimentos",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PagamentosDespesas",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2567413.64"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/AmortizacaoPrincipal",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/Juros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2567413.64"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/AmortizacaoPrincipal",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/Juros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/AmortizacaoPrincipal",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/Juros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/RecebimentosAlienacaoCaixaEquivalentes",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/RecebimentosCreditos",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2567413.64"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/VariacaoLiquidaCaixaPatrimonioSeparado",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230134417.76"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/Acima361Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "202752609.72"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/Ate30Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2843555.51"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De121a150Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2746564.8"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De151a180Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2843468.24"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De181a360Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "10273370.38"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De31a60Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2828073.27"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De61a90Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2804572.41"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De91a120Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "3042203.43"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/CedentesRepresentamMais20Porcento",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/CedentesRepresentamMais20Porcento/Cedente",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/CedentesRepresentamMais20Porcento/Cedente/CNPJ",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/CedentesRepresentamMais20Porcento/Cedente/Percentual",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/Concentracao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Concentrado - mais de 20%"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoCedente",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoCedente/CincoMaioresCedentes",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoCedente/DezMaioresCedentes",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoCedente/MaiorCedente",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoCedente/VinteMaioresCedentes",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoDevedor",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoDevedor/MaiorDevedor",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/DevedoresRepresentamMais20Porcento",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/DevedoresRepresentamMais20Porcento/Devedor",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/DevedoresRepresentamMais20Porcento/Devedor/CNPJ",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/DevedoresRepresentamMais20Porcento/Devedor/Percentual",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/DurationCarteira",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "4.4"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/OutrasConsideracoesRelevantes",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "-"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/PercentualCreditosCedentesTerceiros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/PercentualCreditosOutrasGarantias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/PeriodicidadeAvaliacaoGarantias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Indefinido"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/VlrDividasAdquiridasEmissorSecuritizadora",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/VlrTotalCreditosRelacaoVlrTotalEmissao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/VlrTotalGarantias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/PrePgtosPeriodo",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/PrePgtosPeriodo/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/PrePgtosPeriodo/InfoImpactoPrePgtoInvestidores",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Não ocorreram eventos de pré-pagamento no fluxo previsto da operação."
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VencidosNaoPagos",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Acima361Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre121e150Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre151e180Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre181e360Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre1e30Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre31e60Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre61e90Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre91e120Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230134417.76"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/Alugueis",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/AquisicaoImoveis",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/HomeEquity",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/IncorporacaoImobiliaria",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/Loteamento",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/Multipropriedade",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/Outros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230134417.76"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/InfoCreditos/VlrTotalParcelasAtraso",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/OutrasInfoRelevantesDesempenhoEmissao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": true,
+      "example_values": [
+        "**** ******* *************** ******* * ****** ***********.*** ** ***** ** ******…"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230361717.89"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo/CompanhiaSecuritizadoraEmissora",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo/Derivativos",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo/Derivativos/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo/Derivativos/ContratosTermo",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo/Derivativos/Futuros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo/Derivativos/Opcoes",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo/Derivativos/Swap",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo/Outros",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "227300.13"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo/ReducaoVlrEmissao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/Passivo/VlrAtualizadoEmissao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230134417.76"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPatrimonioLiquidoEmissao",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Acima361Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Ate30Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De121a150Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De151a180Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De181a360Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De31a60Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De61a90Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De91a120Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr",
+      "node_kind": "container",
+      "occurrences": 1,
+      "filled": null,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": []
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/@total",
+      "node_kind": "attribute",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "230134417.76"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Acima361Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "202752609.72"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Ate30Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2843555.51"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De121a150Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2746564.8"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De151a180Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2843468.24"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De181a360Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "10273370.38"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De31a60Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2828073.27"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De61a90Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2804572.41"
+      ]
+    },
+    {
+      "xml_path": "/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De91a120Dias",
+      "node_kind": "leaf",
+      "occurrences": 1,
+      "filled": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "3042203.43"
+      ]
+    }
+  ]
+}
