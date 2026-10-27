@@ -1,9 +1,9 @@
 # Execução de download da amostra
 
-- Run ID: `c0930371de3647968bd35c46960af8cf`
+- Run ID: `af4c82f2405b400296f49f77496e489f`
 - Ativo: `CRA022009VM` / `BRECOACRABX0`
 - Dry run: **False**
-- Categorias encontradas: Outro
+- Categorias encontradas: Ata/Edital
 - Categorias ausentes: nenhuma
 - Observação de categorias: A categoria é inferida pelos campos oficiais da grade e pelo nome do documento; somente correspondências inequívocas substituem Outro.
 - Linhas da grade verificadas para ISIN: 1
@@ -11,24 +11,24 @@
 
 ## Documentos selecionados
 
-- `1232148` — Outro — Demonstrações Financeiras — `data/documents/CRA022009VM/outros/2026-06-29_1232148_Demonstrações_Financeiras.<extensao_detectada>`
+- `1340289` — Ata/Edital — AGO/E — `data/documents/CRA022009VM/atas_editais/2026-10-05_1340289_AGO_E.<extensao_detectada>`
 
 ## Arquivos
 
-- `1232148`: inserted, PDF / 744326 bytes, SHA-256 `6c92ae496428e3037d0a7d9bc9afba1090c6b65b800cc35664a95913f0190fb2`, `data/documents/CRA022009VM/outros/2026-06-29_1232148_Demonstrações_Financeiras.pdf`
+- `1340289`: unchanged, PDF / 354812 bytes, SHA-256 `2d61eb7d750d2ee49b1cc5a88f20e6bcabb698fc2188511b5cc4c210c999c5ae`, `data/documents/CRA022009VM/atas_editais/2026-10-05_1340289_AGO_E.pdf`
 
 ## Métricas
 
-- inserted: 1
+- inserted: 0
 - updated: 0
-- unchanged: 0
+- unchanged: 1
 - new_version: 0
 - duplicate_content: 0
 - failed: 0
 - tentativas operacionais registradas: 1
 - temporários removidos: 1
 - diretório temporário removido: True
-- duração: 11.1266s
+- duração: 9.6113s
 
 ## Erros
 

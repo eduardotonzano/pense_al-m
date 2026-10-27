@@ -101,6 +101,24 @@ Devedora: não comprova a entrega exigida pela ata 1194480. Os fatos lidos dele 
 `config/reported_facts/cra022009vm_df_patrimonio_separado_2026.json` (6 fatos, **pendentes**,
 valores em milhares de reais como publicados). A DF não constituiu provisão para perdas.
 
+## Resgate antecipado anunciado (out/2026)
+
+| Data | Documento | Fato |
+|---|---|---|
+| 15/09/2026 | edital 1319505 | AGT para aprovar as DFs do Patrimônio Separado (exercício findo em 31/03/2026), marcada para 05/10/2026 |
+| 05/10/2026 | termo de não instalação 1340289 | Sem quórum em 1ª convocação (DFs sem ressalva podem ser consideradas aprovadas automaticamente, art. 25 §2º da Res. CVM 60) |
+| 23/10/2026 | comunicado 1358128 | A Devedora informou interesse no **Resgate Antecipado Facultativo Total do CDCA em 28/10/2026** (Cl. 6.3), valor projetado R$ 46.331.143,48; resgate total dos CRA na Data do Evento **29/10/2026**: PU principal 399,98, PU juros 63,33143486, PU total 463,31143486 |
+
+Conferências: PU principal + PU juros = PU total; PU total × 100.000 CRA = R$ 46.331.143,486 (comunicado:
+R$ 46.331.143,48); PU principal × 100.000 = R$ 39.998 mil, igual ao saldo de longo prazo das DFs de 31/03/2026.
+
+Efeito sobre as obrigações de 31/10/2026 (interpretação, não verificada):
+- **Amortização extraordinária de 10%:** se o resgate total ocorrer em 29/10, não restará saldo a amortizar.
+- **Waiver fee de 0,5%** (≈ R$ 231,7 mil sobre o saldo do resgate): o comunicado não a menciona; o valor de
+  resgate cobre só principal e juros. O pagamento continua sem evidência.
+- O resgate está **anunciado, não confirmado**. A confirmação depende de comunicado ou Informe Mensal posterior
+  a 29/10/2026. Os 7 fatos estão em `config/reported_facts/cra022009vm_resgate_antecipado_2026.json` (**pendentes**).
+
 ## Lacunas
 
 - CDCA (covenants financeiros, hipóteses de vencimento antecipado) e eventuais aditamentos não
