@@ -1,0 +1,741 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA02500C1D",
+    "isin": "BRECOACRALJ8"
+  },
+  "source_kind": "termo",
+  "topic": "termo_parametros",
+  "source_document_id": "1065416",
+  "proposed_by": "Claude (assistente), a partir dos trechos literais do Termo",
+  "proposed_at": "2026-10-27",
+  "parameters": [
+    {
+      "anchor": "Significa os CRA da 1ª Série e os CRA da 2ª Série, quando referidos em",
+      "parameter_name": "classe_serie_1",
+      "parameter_value": "Sênior",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita."
+    },
+    {
+      "anchor": "Significa os CRA da 1ª Série e os CRA da 2ª Série, quando referidos em",
+      "parameter_name": "classe_serie_2",
+      "parameter_value": "Sênior",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita."
+    },
+    {
+      "anchor": "Significa os CRA da 1ª Série e os CRA da 2ª Série, quando referidos em",
+      "parameter_name": "classe_serie_3",
+      "parameter_value": "Mezanino",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita."
+    },
+    {
+      "anchor": "Significa os CRA da 1ª Série e os CRA da 2ª Série, quando referidos em",
+      "parameter_name": "classe_serie_4",
+      "parameter_value": "Subordinada",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita. O Anexo V (declaração do AF) chama as séries 4 e 5 de 'subclasses Subordinadas Júniores'."
+    },
+    {
+      "anchor": "Significa os CRA da 1ª Série e os CRA da 2ª Série, quando referidos em",
+      "parameter_name": "classe_serie_5",
+      "parameter_value": "Subordinada",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita. O Anexo V (declaração do AF) chama as séries 4 e 5 de 'subclasses Subordinadas Júniores'."
+    },
+    {
+      "anchor": "(xxv) Vantagens e Restrições dos CRA. Os CRA Sêniores terão prioridade sobre os CRA Mezanino",
+      "parameter_name": "subordinacao_mecanismo",
+      "parameter_value": "Prioridade de pagamento: Sênior > Mezanino > Subordinada (Mezanino subordina-se ao Sênior; Subordinada ao Sênior e ao Mezanino); sem preferência entre séries da mesma classe",
+      "unit": "texto",
+      "applies_when": "remuneração, amortização, vencimento e liquidação do Patrimônio Separado",
+      "note": "Não há índice/razão mínima de subordinação nem forma de medição prevista no Termo (busca por 'subordinação mínima'/'índice de subordinação' sem resultado). Pagamentos de Mezanino e Subordinados só após todos os valores devidos aos Sêniores."
+    },
+    {
+      "anchor": "reais) correspondente aos CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões",
+      "parameter_name": "quantidade_serie_1",
+      "parameter_value": "233142",
+      "unit": "CRA",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Cláusula 3.1 (vi) do Termo consolidado."
+    },
+    {
+      "anchor": "reais) correspondente aos CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões",
+      "parameter_name": "valor_emissao_serie_1",
+      "parameter_value": "233142000.00",
+      "unit": "BRL",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Cláusula 3.1 (v) do Termo consolidado."
+    },
+    {
+      "anchor": "reais) correspondente aos CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões",
+      "parameter_name": "quantidade_serie_2",
+      "parameter_value": "16858",
+      "unit": "CRA",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Cláusula 3.1 (vi) do Termo consolidado."
+    },
+    {
+      "anchor": "reais) correspondente aos CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões",
+      "parameter_name": "valor_emissao_serie_2",
+      "parameter_value": "16858000.00",
+      "unit": "BRL",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Cláusula 3.1 (v) do Termo consolidado."
+    },
+    {
+      "anchor": "reais) correspondente aos CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões",
+      "parameter_name": "quantidade_serie_3",
+      "parameter_value": "250000",
+      "unit": "CRA",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Cláusula 3.1 (vi) do Termo consolidado."
+    },
+    {
+      "anchor": "reais) correspondente aos CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões",
+      "parameter_name": "valor_emissao_serie_3",
+      "parameter_value": "250000000.00",
+      "unit": "BRL",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Cláusula 3.1 (v) do Termo consolidado."
+    },
+    {
+      "anchor": "reais) correspondente aos CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões",
+      "parameter_name": "quantidade_serie_4",
+      "parameter_value": "100000",
+      "unit": "CRA",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Cláusula 3.1 (vi) do Termo consolidado."
+    },
+    {
+      "anchor": "reais) correspondente aos CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões",
+      "parameter_name": "valor_emissao_serie_4",
+      "parameter_value": "100000000.00",
+      "unit": "BRL",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Cláusula 3.1 (v) do Termo consolidado."
+    },
+    {
+      "anchor": "reais) correspondente aos CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões",
+      "parameter_name": "quantidade_serie_5",
+      "parameter_value": "150000",
+      "unit": "CRA",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Cláusula 3.1 (vi) do Termo consolidado."
+    },
+    {
+      "anchor": "reais) correspondente aos CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões",
+      "parameter_name": "valor_emissao_serie_5",
+      "parameter_value": "150000000.00",
+      "unit": "BRL",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Cláusula 3.1 (v) do Termo consolidado."
+    },
+    {
+      "anchor": "reais) correspondente aos CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões",
+      "parameter_name": "quantidade_total_cra",
+      "parameter_value": "750000",
+      "unit": "CRA",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Cláusula 3.1 (vi)."
+    },
+    {
+      "anchor": "Notas Comerciais Escriturais, de R$ Série” 750.000.000,00 (setecentos e cinquenta milhões",
+      "parameter_name": "valor_total_emissao",
+      "parameter_value": "750000000.00",
+      "unit": "BRL",
+      "applies_when": "Data de Emissão 2025-12-15",
+      "note": "Definição 'Valor Total das Notas Comerciais Escriturais' (Cláusula 1.1); coincide com o Valor Total da Emissão da Cláusula 3.1 (v). Texto em duas colunas (rótulo 'Série”' intercalado)."
+    },
+    {
+      "anchor": "Data de Emissão dos CRA é 15 de dezembro de 2025. (x) Valor Nominal Unitário",
+      "parameter_name": "data_emissao",
+      "parameter_value": "2025-12-15",
+      "unit": "data",
+      "applies_when": "todas as séries",
+      "note": "Cláusula 3.1 (ix)."
+    },
+    {
+      "anchor": "Data de Emissão dos CRA é 15 de dezembro de 2025. (x) Valor Nominal Unitário",
+      "parameter_name": "valor_nominal_unitario",
+      "parameter_value": "1000.00",
+      "unit": "BRL",
+      "applies_when": "todas as séries, na Data de Emissão",
+      "note": "Cláusula 3.1 (x)."
+    },
+    {
+      "anchor": "inteiros e oitenta centésimos por cento)ao ano, base 252 (duzentos e cinquenta e dois)",
+      "parameter_name": "remuneracao_serie_1",
+      "parameter_value": "Prefixada 14,80% a.a., base 252 Dias Úteis",
+      "unit": "texto",
+      "applies_when": "1ª Série",
+      "note": "Cláusula 6.2 do Termo consolidado; taxa definida no Bookbuilding (versão de nov/2025 previa taxa-teto)."
+    },
+    {
+      "anchor": "inteiros e oitenta centésimos por cento)ao ano, base 252 (duzentos e cinquenta e dois)",
+      "parameter_name": "remuneracao_serie_1_taxa",
+      "parameter_value": "0.1480",
+      "unit": "fração a.a. (base 252)",
+      "applies_when": "1ª Série",
+      "note": null
+    },
+    {
+      "anchor": "(xix) Remuneração dos CRA da 2ª Série — Sobre o Valor Nominal Unitário ou o saldo",
+      "parameter_name": "remuneracao_serie_2",
+      "parameter_value": "108,00% da Taxa DI",
+      "unit": "texto",
+      "applies_when": "2ª Série",
+      "note": "Cláusula 3.1 (xix)."
+    },
+    {
+      "anchor": "(xix) Remuneração dos CRA da 2ª Série — Sobre o Valor Nominal Unitário ou o saldo",
+      "parameter_name": "remuneracao_serie_2_percentual_di",
+      "parameter_value": "1.0800",
+      "unit": "fração da Taxa DI",
+      "applies_when": "2ª Série",
+      "note": null
+    },
+    {
+      "anchor": "(xx) Remuneração dos CRA da 3ª Série — Sobre o Valor Nominal Unitário ou saldo",
+      "parameter_name": "remuneracao_serie_3",
+      "parameter_value": "100% da Taxa DI + spread 1,50% a.a., base 252 Dias Úteis",
+      "unit": "texto",
+      "applies_when": "3ª Série",
+      "note": "Cláusula 3.1 (xx)."
+    },
+    {
+      "anchor": "(xx) Remuneração dos CRA da 3ª Série — Sobre o Valor Nominal Unitário ou saldo",
+      "parameter_name": "remuneracao_serie_3_spread",
+      "parameter_value": "0.0150",
+      "unit": "fração a.a. sobre DI (base 252)",
+      "applies_when": "3ª Série",
+      "note": null
+    },
+    {
+      "anchor": "(xxi) Remuneração dos CRA da 4ª Série — Sobre o Valor Nominal Unitário ou saldo",
+      "parameter_name": "remuneracao_serie_4",
+      "parameter_value": "100% da Taxa DI + spread 2,50% a.a., base 252 Dias Úteis",
+      "unit": "texto",
+      "applies_when": "4ª Série",
+      "note": "Cláusula 3.1 (xxi)."
+    },
+    {
+      "anchor": "(xxi) Remuneração dos CRA da 4ª Série — Sobre o Valor Nominal Unitário ou saldo",
+      "parameter_name": "remuneracao_serie_4_spread",
+      "parameter_value": "0.0250",
+      "unit": "fração a.a. sobre DI (base 252)",
+      "applies_when": "4ª Série",
+      "note": null
+    },
+    {
+      "anchor": "(xxii) Remuneração dos CRA da 5ª Série — Sobre o Valor Nominal Unitário Atualizado",
+      "parameter_name": "remuneracao_serie_5",
+      "parameter_value": "IPCA (atualização do VNU) + 8,88% a.a., base 252 Dias Úteis",
+      "unit": "texto",
+      "applies_when": "5ª Série",
+      "note": "Cláusula 3.1 (xxii); juros sobre o Valor Nominal Unitário Atualizado pelo IPCA (Cláusula 3.1 (xi))."
+    },
+    {
+      "anchor": "(xxii) Remuneração dos CRA da 5ª Série — Sobre o Valor Nominal Unitário Atualizado",
+      "parameter_name": "remuneracao_serie_5_taxa",
+      "parameter_value": "0.0888",
+      "unit": "fração a.a. sobre VNU atualizado por IPCA (base 252)",
+      "applies_when": "5ª Série",
+      "note": null
+    },
+    {
+      "anchor": "(xi) Atualização Monetária — O Valor Nominal Unitário ou o saldo do Valor Nominal Unitário dos CRA Sêniores",
+      "parameter_name": "atualizacao_monetaria",
+      "parameter_value": "Apenas a 5ª Série é atualizada pelo IPCA; Sêniores, Mezanino e 4ª Série sem atualização monetária",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 3.1 (xi)."
+    },
+    {
+      "anchor": "6.9. Pagamento da Remuneração dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação",
+      "parameter_name": "periodicidade_remuneracao",
+      "parameter_value": "Semestral, para todas as séries",
+      "unit": "texto",
+      "applies_when": "todas as séries",
+      "note": "Cláusula 6.9: demais pagamentos 'no segundo Dia Útil posterior ao pagamento da 3ª Emissão de Notas Comerciais dos meses de junho e dezembro'; datas no Anexo I."
+    },
+    {
+      "anchor": "6.9. Pagamento da Remuneração dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação",
+      "parameter_name": "primeira_data_pagamento_remuneracao",
+      "parameter_value": "2026-06-17",
+      "unit": "data",
+      "applies_when": "todas as séries",
+      "note": "Cláusula 6.9. O Anexo I marca 'SIM' (juros) em 17/06/2026 para as 5 séries."
+    },
+    {
+      "anchor": "Data de CRA da 1ª Série Principal",
+      "parameter_name": "juros_devidos_2026_06_17_serie_1",
+      "parameter_value": "SIM",
+      "unit": "texto",
+      "applies_when": "1ª Série, Anexo I (cronograma)",
+      "note": "Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização."
+    },
+    {
+      "anchor": "Data de CRA da 2ª Série Principal",
+      "parameter_name": "juros_devidos_2026_06_17_serie_2",
+      "parameter_value": "SIM",
+      "unit": "texto",
+      "applies_when": "2ª Série, Anexo I (cronograma)",
+      "note": "Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização."
+    },
+    {
+      "anchor": "Data de CRA da 3ª Série Principal",
+      "parameter_name": "juros_devidos_2026_06_17_serie_3",
+      "parameter_value": "SIM",
+      "unit": "texto",
+      "applies_when": "3ª Série, Anexo I (cronograma)",
+      "note": "Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização."
+    },
+    {
+      "anchor": "Data de CRA da 4ª Série Principal",
+      "parameter_name": "juros_devidos_2026_06_17_serie_4",
+      "parameter_value": "SIM",
+      "unit": "texto",
+      "applies_when": "4ª Série, Anexo I (cronograma)",
+      "note": "Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização."
+    },
+    {
+      "anchor": "Data de CRA da 5ª Série Principal",
+      "parameter_name": "juros_devidos_2026_06_17_serie_5",
+      "parameter_value": "SIM",
+      "unit": "texto",
+      "applies_when": "5ª Série, Anexo I (cronograma)",
+      "note": "Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização."
+    },
+    {
+      "anchor": "6.12. Pagamento da Amortização dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação",
+      "parameter_name": "amortizacao_serie_1",
+      "parameter_value": "Semestral; 1ª parcela em 2027-06-17; última na Data de Vencimento",
+      "unit": "texto",
+      "applies_when": "1ª Série",
+      "note": "Cláusula 6.12 (i); percentuais no Anexo I."
+    },
+    {
+      "anchor": "6.12. Pagamento da Amortização dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação",
+      "parameter_name": "amortizacao_serie_2",
+      "parameter_value": "Semestral; 1ª parcela em 2027-06-17; última na Data de Vencimento",
+      "unit": "texto",
+      "applies_when": "2ª Série",
+      "note": "Cláusula 6.12 (i)."
+    },
+    {
+      "anchor": "6.12. Pagamento da Amortização dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação",
+      "parameter_name": "amortizacao_serie_3",
+      "parameter_value": "Semestral; 1ª parcela em 2027-06-17; última na Data de Vencimento",
+      "unit": "texto",
+      "applies_when": "3ª Série",
+      "note": "Cláusula 6.12 (i)."
+    },
+    {
+      "anchor": "6.12. Pagamento da Amortização dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação",
+      "parameter_name": "amortizacao_serie_4",
+      "parameter_value": "Semestral; 1ª parcela em 2027-12-17; última na Data de Vencimento",
+      "unit": "texto",
+      "applies_when": "4ª Série",
+      "note": "Cláusula 6.12 (ii)."
+    },
+    {
+      "anchor": "e (iii) o Valor Nominal Unitário Atualizado ou o saldo do Valor Nominal Unitário Atualizado dos CRA da 5ª Série",
+      "parameter_name": "amortizacao_serie_5",
+      "parameter_value": "Semestral sobre VNU Atualizado; 1ª parcela em 2027-12-17; última na Data de Vencimento",
+      "unit": "texto",
+      "applies_when": "5ª Série",
+      "note": "Cláusula 6.12 (iii). A definição 'Amortização dos CRA da 5ª Série' (Cláusula 1.1) diz 'último na Data de Vencimento dos CRA da 3ª Série' — provável erro material."
+    },
+    {
+      "anchor": "(xvi) Prazo e Data de Vencimento — Ressalvadas as hipóteses de Eventos de Liquidação",
+      "parameter_name": "vencimento_serie_1",
+      "parameter_value": "2030-12-18",
+      "unit": "data",
+      "applies_when": "1ª Série",
+      "note": "Cláusula 3.1 (xvi); prazo 1829 dias. NC 1ª Série vence em 2030-12-16."
+    },
+    {
+      "anchor": "(xvi) Prazo e Data de Vencimento — Ressalvadas as hipóteses de Eventos de Liquidação",
+      "parameter_name": "vencimento_serie_2",
+      "parameter_value": "2030-12-18",
+      "unit": "data",
+      "applies_when": "2ª Série",
+      "note": "Cláusula 3.1 (xvi)."
+    },
+    {
+      "anchor": "(xvi) Prazo e Data de Vencimento — Ressalvadas as hipóteses de Eventos de Liquidação",
+      "parameter_name": "vencimento_serie_3",
+      "parameter_value": "2030-12-18",
+      "unit": "data",
+      "applies_when": "3ª Série",
+      "note": "Cláusula 3.1 (xvi)."
+    },
+    {
+      "anchor": "(iv) os CRA da 4ª Série terão prazo de vigência de 2559 (dois mil quinhentos e cinquenta",
+      "parameter_name": "vencimento_serie_4",
+      "parameter_value": "2032-12-17",
+      "unit": "data",
+      "applies_when": "4ª Série",
+      "note": "Cláusula 3.1 (xvi); prazo 2559 dias."
+    },
+    {
+      "anchor": "(iv) os CRA da 4ª Série terão prazo de vigência de 2559 (dois mil quinhentos e cinquenta",
+      "parameter_name": "vencimento_serie_5",
+      "parameter_value": "2035-12-19",
+      "unit": "data",
+      "applies_when": "5ª Série",
+      "note": "Cláusula 3.1 (xvi); prazo 3656 dias. A definição de 'Data de Vencimento dos CRA da 5ª Série' (Cláusula 1.1) repete 'dos CRA da 4ª Série' — erro material; a DF do PS indica 17/12/2035."
+    },
+    {
+      "anchor": "Não foram constituídas garantias específicas, reais ou pessoais, em benefício dos Titulares dos CRA.",
+      "parameter_name": "garantias_cra",
+      "parameter_value": "Nenhuma garantia específica (real ou pessoal) sobre os CRA; sem garantia flutuante da Emissora",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Cláusula 3.1 (xxv), 2º parágrafo; mesma regra na Cláusula 3.1 (xiii) e (xxxiii)."
+    },
+    {
+      "anchor": "Não foram constituídas garantias específicas, reais ou pessoais, em benefício dos Titulares dos CRA.",
+      "parameter_name": "garantia_lastro_series_1_2_3",
+      "parameter_value": "Aval do Avalista exclusivamente sobre as Notas Comerciais Escriturais 1ª, 2ª e 3ª Séries",
+      "unit": "texto",
+      "applies_when": "lastro das 1ª, 2ª e 3ª Séries",
+      "note": "Avalista: Carlos Lee Participações e Administração Ltda. (definição 'Avalista', Cláusula 1.1)."
+    },
+    {
+      "anchor": "Não foram constituídas garantias específicas, reais ou pessoais, em benefício dos Titulares dos CRA.",
+      "parameter_name": "garantia_lastro_series_4_5",
+      "parameter_value": "Nenhuma garantia real ou fidejussória",
+      "unit": "texto",
+      "applies_when": "lastro das 4ª e 5ª Séries",
+      "note": null
+    },
+    {
+      "anchor": "Significa a CARLOS LEE PARTICIPAÇÕES E ADMINISTRAÇÃO",
+      "parameter_name": "avalista",
+      "parameter_value": "Carlos Lee Participações e Administração Ltda. (CNPJ 23.482.473/0001-78)",
+      "unit": "texto",
+      "applies_when": "Aval das NCs 1ª a 3ª Séries",
+      "note": "Texto em duas colunas; a definição de 'Aval' aparece logo acima."
+    },
+    {
+      "anchor": "Significa o montante equivalente a R$ 295.000,00",
+      "parameter_name": "fundo_despesas_valor_inicial",
+      "parameter_value": "295000.00",
+      "unit": "BRL",
+      "applies_when": "retido na primeira Data de Integralização das NCs",
+      "note": "Definição 'Valor Inicial do Fundo de Despesas' (texto em duas colunas)."
+    },
+    {
+      "anchor": "Significa o montante equivalente a R$ 295.000,00",
+      "parameter_name": "fundo_despesas_valor_minimo",
+      "parameter_value": "95000.00",
+      "unit": "BRL",
+      "applies_when": "saldo mínimo a manter",
+      "note": "Definição 'Valor Mínimo do Fundo de Despesas'."
+    },
+    {
+      "anchor": "Semestralmente, ou a qualquer tempo que julgar necessário, a Emissora verificará o",
+      "parameter_name": "fundo_despesas_recomposicao",
+      "parameter_value": "Verificação semestral (ou a qualquer tempo); se saldo < Valor Mínimo, Emissora notifica a Devedora em até 1 Dia Útil e a Devedora recompõe em até 5 Dias Úteis",
+      "unit": "texto",
+      "applies_when": "sempre que o saldo for inferior ao Valor Mínimo",
+      "note": "Cláusula 15.1.4; sem recomposição, a Emissora pode usar recursos do Patrimônio Separado. Não há fundo de reserva previsto no Termo."
+    },
+    {
+      "anchor": "(i) Despesas do Patrimônio Separado, inclusive recomposição do Fundo de Despesas, por conta",
+      "parameter_name": "ordem_alocacao_itens_i_a_iii",
+      "parameter_value": "(i) Despesas do Patrimônio Separado, inclusive recomposição do Fundo de Despesas; (ii) Encargos Moratórios dos CRA Sêniores; (iii) Remuneração dos CRA Sêniores",
+      "unit": "texto",
+      "applies_when": "a partir da Data de Integralização (Cláusula 12.2)",
+      "note": null
+    },
+    {
+      "anchor": "(iv) Amortização do Valor Nominal Unitário ou o saldo do Valor Nominal Unitário dos CRA Sêniores",
+      "parameter_name": "ordem_alocacao_itens_iv_a_vi",
+      "parameter_value": "(iv) Amortização dos CRA Sêniores; (v) Encargos Moratórios dos CRA Mezanino; (vi) Remuneração dos CRA Mezanino",
+      "unit": "texto",
+      "applies_when": "Cláusula 12.2",
+      "note": null
+    },
+    {
+      "anchor": "(vii) Amortização do Valor Nominal Unitário ou o saldo do Valor Nominal Unitário dos CRA",
+      "parameter_name": "ordem_alocacao_itens_vii_a_ix",
+      "parameter_value": "(vii) Amortização dos CRA Mezanino; (viii) Encargos Moratórios dos CRA Subordinados; (ix) Remuneração dos CRA Subordinados",
+      "unit": "texto",
+      "applies_when": "Cláusula 12.2",
+      "note": null
+    },
+    {
+      "anchor": "(x) Amortização do Valor Nominal Unitário ou do Valor Nominal Unitário Atualizado",
+      "parameter_name": "ordem_alocacao_itens_x_xi",
+      "parameter_value": "(x) Amortização dos CRA Subordinados; (xi) saldo remanescente da Conta Centralizadora e do Fundo de Despesas liberado à Devedora",
+      "unit": "texto",
+      "applies_when": "Cláusula 12.2",
+      "note": null
+    },
+    {
+      "anchor": "Cláusula 7.8, com relação às Notas Comerciais Escriturais; (ii) Encargos Moratórios",
+      "parameter_name": "ordem_imputacao_vencimento_antecipado_parte_1",
+      "parameter_value": "Após vencimento antecipado: (i) custos/despesas; (ii) encargos, (iii) Remuneração e (iv) principal das NCs 1ª e 2ª Séries; (v) encargos da NC 3ª Série...",
+      "unit": "texto",
+      "applies_when": "vencimento antecipado das NCs (Cláusula 7.8)",
+      "note": "Continua na página seguinte (itens vi a x)."
+    },
+    {
+      "anchor": "Notas Comerciais Escriturais 3ª Série; (vi) Remuneração das Notas Comerciais Escriturais 3ª Série; (vii)",
+      "parameter_name": "ordem_imputacao_vencimento_antecipado_parte_2",
+      "parameter_value": "(vi) Remuneração e (vii) principal da NC 3ª Série; (viii) encargos, (ix) Remuneração e (x) principal das NCs 4ª e 5ª Séries",
+      "unit": "texto",
+      "applies_when": "vencimento antecipado das NCs (Cláusula 7.8)",
+      "note": null
+    },
+    {
+      "anchor": "7.1.1. A Securitizadora ou o Agente Fiduciário dos CRA e/ou qualquer terceiro",
+      "parameter_name": "vencimento_antecipado_automatico",
+      "parameter_value": "9 hipóteses (Cláusula 7.1.1, itens i a ix); acarreta resgate de todos os CRA pelo Preço de Resgate Antecipado, sem assembleia",
+      "unit": "texto",
+      "applies_when": "Notas Comerciais Escriturais / todos os CRA",
+      "note": "Hipóteses: inadimplemento pecuniário; recuperação judicial/extrajudicial, falência etc. da Devedora/Avalista; cessão de obrigações sem anuência; uso do lastro em outra captação; desvio de destinação; tentativa de anular documentos; invalidade dos documentos; Legislação de Proteção Social; falsidade de declarações."
+    },
+    {
+      "anchor": "de qualquer obrigação pecuniária, principal ou acessória, decorrente do Termo de Emissão",
+      "parameter_name": "va_automatico_inadimplemento_pecuniario",
+      "parameter_value": "Não cumprimento de qualquer obrigação pecuniária pela Devedora e/ou Avalista, no prazo e forma devidos",
+      "unit": "texto",
+      "applies_when": "evento automático (Cláusula 7.1.1 i)",
+      "note": "Sem prazo de cura no Termo."
+    },
+    {
+      "anchor": "7.2.1. Na ocorrência de quaisquer dos eventos indicados nesta Cláusula",
+      "parameter_name": "va_nao_automatico_prazo_cura_nao_pecuniario",
+      "parameter_value": "30",
+      "unit": "dias",
+      "applies_when": "Cláusula 7.2.1 (i), obrigação não pecuniária",
+      "note": "Eventos não automáticos dependem de Assembleia Especial para NÃO declarar o vencimento."
+    },
+    {
+      "anchor": "(ii) se a Devedora e/ou os Avalistas inadimplirem com suas obrigações de qualquer natureza",
+      "parameter_name": "va_cross_default_limite",
+      "parameter_value": "25000000.00",
+      "unit": "BRL",
+      "applies_when": "Cláusula 7.2.1 (ii), individual ou agregado; evento não automático",
+      "note": null
+    },
+    {
+      "anchor": "(iii) se a Devedora e/ou o Avalista sofrerem legítimo protesto de título",
+      "parameter_name": "va_protesto_limite",
+      "parameter_value": "25000000.00",
+      "unit": "BRL",
+      "applies_when": "Cláusula 7.2.1 (iii); não cancelado/sustado em 10 Dias Úteis",
+      "note": null
+    },
+    {
+      "anchor": "(xvi) descumprimento, pela Devedora e/ou pelo Avalista, de qualquer decisão judicial transitada",
+      "parameter_name": "va_decisao_judicial_limite",
+      "parameter_value": "25000000.00",
+      "unit": "BRL",
+      "applies_when": "Cláusula 7.2.1 (xvi); evento não automático",
+      "note": null
+    },
+    {
+      "anchor": "(xvii) caso a Devedora e deixe de ter auditadas suas demonstrações financeiras",
+      "parameter_name": "va_auditor_devedora",
+      "parameter_value": "DFs da Devedora devem ser auditadas por PwC, EY, Deloitte ou KPMG (ou sucessoras)",
+      "unit": "texto",
+      "applies_when": "Cláusula 7.2.1 (xvii); evento não automático",
+      "note": null
+    },
+    {
+      "anchor": "7.5. A Assembleia Especial a que se refere a Cláusula 7.4 acima somente poderá",
+      "parameter_name": "va_quorum_nao_declaracao",
+      "parameter_value": "2/3 dos CRA em Circulação (1ª convocação); 50% + 1 dos CRA em Circulação presentes, com presença mínima de 20% (2ª convocação)",
+      "unit": "texto",
+      "applies_when": "Eventos de Vencimento Antecipado Não Automático",
+      "note": "Cláusula 7.4: convocação em até 3 Dias Úteis da ciência do evento."
+    },
+    {
+      "anchor": "(xix) não atendimento dos índices financeiros definidos abaixo",
+      "parameter_name": "covenant_indice_liquidez_corrente_minimo",
+      "parameter_value": "1.20",
+      "unit": "razão (Ativo Circulante / Passivo Circulante)",
+      "applies_when": "cada Data de Verificação dos Índices Financeiros",
+      "note": "Ativo e Passivo Circulante definidos com base nas DFs individuais e consolidadas do Avalista (Cláusula 1.1)."
+    },
+    {
+      "anchor": "(xix) não atendimento dos índices financeiros definidos abaixo",
+      "parameter_name": "covenant_divida_liquida_ebitda_maximo",
+      "parameter_value": "3.0",
+      "unit": "razão (Dívida Líquida / EBITDA)",
+      "applies_when": "cada Data de Verificação dos Índices Financeiros",
+      "note": "Dívida Líquida e EBITDA definidos com base nas DFs do Avalista; ver exceção na Cláusula 7.2.2 (b)."
+    },
+    {
+      "anchor": "7.2.2. O descumprimento de quaisquer Índices Financeiros será considerado",
+      "parameter_name": "covenant_endividamento_excecao",
+      "parameter_value": "Não é evento se a Devedora tiver caixa/liquidez ≥ maior entre 100% da Dívida Bancária de curto prazo e a soma dos próximos 24 meses de pagamentos da Oferta",
+      "unit": "texto",
+      "applies_when": "Índice Financeiro de Endividamento",
+      "note": null
+    },
+    {
+      "anchor": "7.2.3. O acompanhamento do cumprimento dos Índices Financeiros será realizado pela Securitizadora",
+      "parameter_name": "covenant_verificacao",
+      "parameter_value": "Pela Securitizadora, em até 5 Dias Úteis do recebimento das DFs individuais e consolidadas do Avalista; 1ª verificação com DFs do exercício encerrado em dez/2025",
+      "unit": "texto",
+      "applies_when": "anual (conforme entrega das DFs do Avalista)",
+      "note": null
+    },
+    {
+      "anchor": "17.1. Resgate Antecipado dos CRA da 1ª Série: Haverá o resgate antecipado",
+      "parameter_name": "resgate_antecipado_hipoteses_serie_1",
+      "parameter_value": "Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Resgate Antecipado Facultativo Total da NC 1ª Série",
+      "unit": "texto",
+      "applies_when": "1ª Série",
+      "note": null
+    },
+    {
+      "anchor": "17.2. Resgate Antecipado dos CRA da 2ª Série: Haverá o resgate antecipado",
+      "parameter_name": "resgate_antecipado_hipoteses_serie_2",
+      "parameter_value": "Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Resgate Antecipado Facultativo Total da NC 2ª Série; Taxa Substitutiva da Taxa DI",
+      "unit": "texto",
+      "applies_when": "2ª Série",
+      "note": null
+    },
+    {
+      "anchor": "17.3. Resgate Antecipado dos CRA da 3ª Série: Haverá o resgate antecipado",
+      "parameter_name": "resgate_antecipado_hipoteses_serie_3",
+      "parameter_value": "Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Taxa Substitutiva da Taxa DI",
+      "unit": "texto",
+      "applies_when": "3ª Série",
+      "note": null
+    },
+    {
+      "anchor": "17.4. Resgate Antecipado dos CRA da 4ª Série: Haverá o resgate antecipado",
+      "parameter_name": "resgate_antecipado_hipoteses_serie_4",
+      "parameter_value": "Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Taxa Substitutiva da Taxa DI",
+      "unit": "texto",
+      "applies_when": "4ª Série",
+      "note": null
+    },
+    {
+      "anchor": "17.5. Resgate Antecipado dos CRA da 5ª Série: Haverá o resgate antecipado",
+      "parameter_name": "resgate_antecipado_hipoteses_serie_5",
+      "parameter_value": "Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Taxa Substitutiva do IPCA",
+      "unit": "texto",
+      "applies_when": "5ª Série",
+      "note": null
+    },
+    {
+      "anchor": "17.15. Resgate Antecipado Facultativo Total dos CRA: A Devedora não poderá",
+      "parameter_name": "resgate_facultativo_total",
+      "parameter_value": "Vedado para NCs 3ª, 4ª e 5ª Séries; permitido (totalidade) para NCs 1ª e 2ª Séries a partir de 2028-06-15",
+      "unit": "texto",
+      "applies_when": "1ª e 2ª Séries",
+      "note": "Ver 17.15.3 (1ª Série: maior entre VNU+juros e VP pela curva Pré x DI) e 17.15.4 (2ª Série: prêmio)."
+    },
+    {
+      "anchor": "Facultativo dos CRA da 2ª Série, acrescido da Remuneração dos CRA da 2ª Série; Prêmio = 1,00% ao ano",
+      "parameter_name": "premio_resgate_facultativo_serie_2",
+      "parameter_value": "0.0100",
+      "unit": "fração a.a. (× Prazo Remanescente/252, sobre PU)",
+      "applies_when": "Resgate Antecipado Facultativo da 2ª Série",
+      "note": "Cláusula 17.15.4."
+    },
+    {
+      "anchor": "termos e condições estabelecidos na Cláusula 5.10 e seguintes do Termo de Emissão, realizar a",
+      "parameter_name": "amortizacao_extraordinaria_facultativa",
+      "parameter_value": "Vedada para 3ª, 4ª e 5ª Séries; facultativa para 1ª e 2ª Séries a partir de 2028-06-15, limitada a 98%",
+      "unit": "texto",
+      "applies_when": "1ª e 2ª Séries",
+      "note": "Cláusula 17.17; base do limite de 98% está na linha seguinte do texto."
+    },
+    {
+      "anchor": "(xxxix) Código ISIN – BRECOACRALJ8 (CRA da 1ª Série)",
+      "parameter_name": "isin_serie_1",
+      "parameter_value": "BRECOACRALJ8",
+      "unit": "texto",
+      "applies_when": "1ª Série",
+      "note": "O ISIN cadastrado para o ativo (BRECOACRALJ8) é o da 1ª Série; o Termo não cita códigos IF/CETIP."
+    },
+    {
+      "anchor": "(xxxix) Código ISIN – BRECOACRALJ8 (CRA da 1ª Série)",
+      "parameter_name": "isins_series_2_a_5",
+      "parameter_value": "2ª BRECOACRALK6; 3ª BRECOACRALL4; 4ª BRECOACRALM2; 5ª BRECOACRALN0",
+      "unit": "texto",
+      "applies_when": "2ª a 5ª Séries",
+      "note": null
+    },
+    {
+      "anchor": "(xxix) Classificação de Risco dos CRA — Foi contratada",
+      "parameter_name": "rating_obrigacao",
+      "parameter_value": "Moody's Local BR; relatório para os CRA Sêniores atualizado no mínimo anualmente, sem interrupção",
+      "unit": "texto",
+      "applies_when": "vigência dos CRA Sêniores",
+      "note": "Rating contratado apenas para os CRA Sêniores (1ª e 2ª Séries)."
+    },
+    {
+      "anchor": "(i) relatório de gestão mensal em até 30 (trinta) dias",
+      "parameter_name": "obrigacao_relatorio_gestao_mensal",
+      "parameter_value": "30",
+      "unit": "dias após o encerramento do mês",
+      "applies_when": "Emissora → Agente Fiduciário (Cláusula 10, item xl (i))",
+      "note": "Conteúdo: saldo do VNU por série + Remuneração, valor dos Direitos Creditórios, recebimentos e inadimplência."
+    },
+    {
+      "anchor": "(b) dentro de 90 (noventa) dias após o término de cada exercício social, relatório anual de gestão",
+      "parameter_name": "obrigacao_relatorio_anual_gestao",
+      "parameter_value": "90",
+      "unit": "dias após o término do exercício social",
+      "applies_when": "Emissora → Agente Fiduciário",
+      "note": "Com declaração de não ocorrência de vencimento antecipado."
+    },
+    {
+      "anchor": "demonstrações financeiras em até 90 (noventa) dias após o término do seu respectivo exercício social.",
+      "parameter_name": "obrigacao_df_patrimonio_separado",
+      "parameter_value": "Exercício social do Patrimônio Separado encerra em 30/06; DFs em até 90 dias",
+      "unit": "texto",
+      "applies_when": "anual",
+      "note": "Cláusula 9.1."
+    },
+    {
+      "anchor": "7.9. A ocorrência de qualquer dos eventos descritos nas Cláusulas 7.1.1 e 7.2.1",
+      "parameter_name": "obrigacao_comunicacao_evento_va",
+      "parameter_value": "3",
+      "unit": "dias corridos",
+      "applies_when": "Devedora → Securitizadora, contados da ocorrência",
+      "note": null
+    },
+    {
+      "anchor": "9.1.2.  A Emissora fará jus ao recebimento de taxa de administração",
+      "parameter_name": "taxa_administracao",
+      "parameter_value": "R$ 18.000,00 (parcela única) + R$ 20.000,00 anuais atualizados pelo IPCA",
+      "unit": "texto",
+      "applies_when": "Emissora",
+      "note": null
+    },
+    {
+      "anchor": "9.3. Eventos de Liquidação do Patrimônio Separado: Sem prejuízo",
+      "parameter_name": "eventos_liquidacao_patrimonio_separado",
+      "parameter_value": "Cláusula 9.3, itens (i) a (xi), relativos à Emissora: inclui pedido de recuperação judicial/extrajudicial e pedido de falência da Emissora",
+      "unit": "texto",
+      "applies_when": "Emissora",
+      "note": "Demais itens: extinção/insolvência, desvio de finalidade, inadimplementos da Emissora, insuficiência de recursos para Despesas, violações anticorrupção."
+    },
+    {
+      "anchor": "(v)   inadimplemento ou mora, pela Emissora, de qualquer das obrigações pecuniárias",
+      "parameter_name": "liquidacao_ps_inadimplemento_pecuniario_emissora_prazo",
+      "parameter_value": "1",
+      "unit": "Dia Útil",
+      "applies_when": "Cláusula 9.3 (v): obrigação pecuniária da Emissora, havendo recursos no Patrimônio Separado",
+      "note": "Cláusula 9.3 (vi): inadimplemento não pecuniário por mais de 30 dias (linha seguinte do texto)."
+    }
+  ]
+}
