@@ -2,18 +2,19 @@
 
 Documento de descoberta da frente de Fundos, para responder às regras F-01 a F-06 de [regras-de-exibicao-pendentes.md](regras-de-exibicao-pendentes.md). A "maior dor" do [README](../README.md) para esta frente é acompanhar o mercado de FIDCs e comparar os FIDCs da casa com o mercado.
 
-**Escopo.** Só descoberta. Não há código de coleta, migration, banco ou dado interno neste trabalho, e nenhuma migration recebe número aqui. Nada foi consultado no Fundos.NET. Na primeira etapa (26/10/2026), das fontes da CVM foram lidas só páginas públicas de dados abertos e dicionários de dados (cerca de 60 KB no total). Em 27/10/2026 foram baixados dois arquivos pequenos da CVM, o informe mensal de FIAGRO de 09/2026 e o dicionário (seção 9); eles ficam numa pasta local fora do repositório, e nenhum arquivo baixado está neste repositório.
+**Escopo.** Só descoberta. Não há código de coleta, migration, banco ou dado interno neste trabalho, e nenhuma migration recebe número aqui. Nada foi consultado no Fundos.NET. Na primeira etapa (26/10/2026), das fontes da CVM foram lidas só páginas públicas de dados abertos e dicionários de dados (cerca de 60 KB no total). Em 27/10/2026 foram baixados seis arquivos da CVM: o informe mensal de FIAGRO de 09/2026 e o dicionário (seção 9); o cadastro de fundos, classes e subclasses, o informe mensal de FIDC de 09/2026 e os dois dicionários (seção 10). Eles ficam numa pasta local fora do repositório, e nenhum arquivo baixado está neste repositório. O informe de FII e o CDA não foram baixados.
 
-**Data da conferência:** 26/10/2026 (fontes e código) e 27/10/2026 (amostra de FIAGRO, seção 9). Tudo que não foi conferido está marcado como **não confirmado** e reunido na seção 8.
+**Data da conferência:** 26/10/2026 (fontes e código) e 27/10/2026 (amostra de FIAGRO, seção 9; amostra do cadastro e do informe de FIDC, seção 10). Tudo que não foi conferido está marcado como **não confirmado** e reunido na seção 8.
 
 ## Resumo
 
-1. **Quase tudo de F-03 está nos dados abertos da CVM, sem navegador:** cadastro, informe mensal de FIDC, informe mensal de FIAGRO, CDA e medidas. No informe de FIDC faltam **gestora, custodiante e índice de subordinação**.
+1. **Quase tudo de F-03 está nos dados abertos da CVM, sem navegador:** cadastro, informe mensal de FIDC, informe mensal de FIAGRO, CDA e medidas. No informe de FIDC faltam **gestora, custodiante e índice de subordinação** (conferido no dado de 09/2026, seção 10).
 2. **O coletor do Fundos.NET do Enrico serve para o catálogo e o download de documentos, não para dado estruturado de fundos.** Dá para reaproveitar a camada de sessão, a paginação, a preservação da linha original, o download com SHA-256 e o padrão dry-run/commit com backup. Não dá para reaproveitar o que localiza o ativo (página de certificados, securitizadora, ISIN, emissão, devedor).
-3. **Gestora vem do cadastro do fundo, custodiante do cadastro da classe, administradora do cadastro e do informe.** Subordinação não é publicada: precisa ser **calculada** das cotas por classe/série e depende de saber qual classe é sênior ou subordinada (o rótulo no informe é livre).
-4. **FIC-FIDC:** o informe só traz o total aplicado em cotas de FIDC. Quais FIDCs e quanto em cada um vêm do CDA.
-5. **FIAGRO:** informe próprio (133 campos por classe e 6 por subclasse; o ZIP mensal traz dois CSV). Numa amostra de 09/2026 (seção 9), a variante (FIDC, FII, FIP) **não sai do informe**: `Regra_Anexo` e `Classificacao_Autorregulada` são texto livre e pouco preenchidos. O cadastro continua sendo o candidato.
+3. **Gestora vem do cadastro do fundo (uma linha por gestor), custodiante do cadastro da classe, administradora do cadastro e do informe.** Subordinação não é publicada: precisa ser **calculada** das cotas por série (`tab_X_2`). O rótulo da série não tem domínio no dicionário, mas segue um molde fixo (`Subclasse Senior`, `Subclasse Subordinada Subordinada`, `Subclasse Subordinada Mezanino`) que, em 09/2026, classifica todas as séries (seção 10.6).
+4. **FIC-FIDC:** nenhum campo do cadastro ou do informe marca um FIC-FIDC. O sinal que existe é a parcela do ativo em cotas de FIDC (`TAB_I2H_VL_COTA_FIDC`), com corte a decidir (seção 10.4). O informe só traz o total aplicado em cotas de FIDC; quais FIDCs e quanto em cada um vêm do CDA.
+5. **FIAGRO:** informe próprio (133 campos por classe e 6 por subclasse; o ZIP mensal traz dois CSV). A variante (FIDC, FII, FIP) **não sai do informe** (seção 9: `Regra_Anexo` e `Classificacao_Autorregulada` são texto livre e pouco preenchidos) **nem do cadastro** (seção 10.5: `Tipo_Classe` só diz FIAGRO, e `Classificacao` e `Entidade_Investimento` vêm vazios). Em 09/2026, só 1 das 310 classes do informe de FIAGRO também aparece no informe de FIDC.
 6. **"FIDCs da casa":** tabela interna, fora do repositório (seção 7).
+7. **CNPJ e dados pessoais:** o informe de FIDC traz o CNPJ com máscara e o cadastro, sem; o casamento só fecha depois de normalizar (4.444 de 4.444), e o cadastro repete o CNPJ entre registros (seção 10.9). Há CPF no cadastro (225 gestores e 8 auditores pessoa física) e nos cedentes do informe (120 valores), e `Diretor` é nome de pessoa natural (seção 10.8).
 
 ## 1. Coletor do Fundos.NET do Enrico: o que reaproveitar
 
@@ -39,12 +40,12 @@ Código lido: `Enrico/cri_cra_platform/src/credit_assets/` (linhas conforme o co
 
 ## 2. Fontes oficiais
 
-Todas são páginas do portal de dados abertos da CVM, conferidas em 26/10/2026. Foram lidas as páginas e os dicionários; os arquivos de dados não foram baixados.
+Todas são páginas do portal de dados abertos da CVM, conferidas em 26/10/2026; nessa data foram lidas só as páginas e os dicionários. Em 27/10/2026 foram baixadas amostras do informe de FIAGRO (seção 9), do cadastro e do informe de FIDC (seção 10); o CDA, as medidas e o informe de FII não foram baixados.
 
 | Fonte | Página | Formato e periodicidade | Conteúdo |
 |---|---|---|---|
-| Fundos de Investimento: Informação Cadastral | https://dados.cvm.gov.br/dataset/fi-cad | ZIP/CSV/TXT; **diária** (terça a sábado, 08:00). `registro_fundo_classe.zip` (7 MB), `cad_fi.csv` (17 MB, só fundos não adaptados à Res. 175), `cad_fi_hist.zip` (18 MB, ICVM 555). Dicionário em `meta_registro_fundo_classe.zip` | Fundo (21 campos: gestor, CPF/CNPJ do gestor, administrador, CNPJ do administrador, tipo, situação, PL, data de adaptação à Res. 175); classe (30: custodiante, CNPJ do custodiante, controlador, auditor, tipo da classe, classificação, ANBIMA, público-alvo, exclusivo, entidade de investimento); subclasse (14) |
-| FIDC: Documentos: Informe Mensal | https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal | ZIP mensal `inf_mensal_fidc_AAAAMM.zip` (cerca de 3 MB cada), **semanal** (últimos 12 meses); histórico em `HIST/` por ano, desde 2013. Dicionário em `meta_inf_mensal_fidc_txt.zip` (16 KB, 18 tabelas) | Anexo A da ICVM 489/11, segundo a página (que não cita a Res. 175, embora o dicionário já traga campos dela). Tabelas I a X; ver seção 3 |
+| Fundos de Investimento: Informação Cadastral | https://dados.cvm.gov.br/dataset/fi-cad | ZIP/CSV/TXT; **diária** (terça a sábado, 08:00). `registro_fundo_classe.zip` (6,9 MB; três CSV, 45 MB descomprimidos), `cad_fi.csv` (17 MB, só fundos não adaptados à Res. 175), `cad_fi_hist.zip` (18 MB, ICVM 555). Dicionário em `meta_registro_fundo_classe.zip` | Fundo (21 campos: gestor, CPF/CNPJ do gestor, administrador, CNPJ do administrador, tipo, situação, PL, data de adaptação à Res. 175); classe (30: custodiante, CNPJ do custodiante, controlador, auditor, tipo da classe, classificação, ANBIMA, público-alvo, exclusivo, entidade de investimento); subclasse (14). Contagens conferidas no dado (seção 10.2) |
+| FIDC: Documentos: Informe Mensal | https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal | ZIP mensal `inf_mensal_fidc_AAAAMM.zip` (cerca de 3 MB cada; 3,6 MB e 18 CSV em 09/2026, seção 10), **semanal** (últimos 12 meses); histórico em `HIST/` por ano, desde 2013. Dicionário em `meta_inf_mensal_fidc_txt.zip` (16 KB, 18 tabelas) | Anexo A da ICVM 489/11, segundo a página (que não cita a Res. 175, embora o dicionário já traga campos dela). Tabelas I a X; ver seção 3 |
 | FIAGRO: Documentos: Informe Mensal | https://dados.cvm.gov.br/dataset/fiagro-doc-inf_mensal | ZIP mensal `inf_mensal_fiagro_AAAAMM.zip` (2,8 KB a 73 KB; dois CSV por ZIP, classe e subclasse), **semanal**; conjunto novo (14/10/2025). Dicionário em `meta_inf_mensal_fiagro.zip` | Anexo VI da "Instrução CVM nº 175/2022" (como a página escreve), entrega pelo Fundos.NET; 133 campos por classe, mais arquivo de subclasse (6 campos), conferidos na amostra de 09/2026 (seção 9) |
 | Fundos de Investimento: CDA | https://dados.cvm.gov.br/dataset/fi-doc-cda | ZIP mensal `cda_fi_AAAAMM.zip`; M-1 a M-3 atualizados de terça a sábado, M-4 a M-12 às segundas; posições confidenciais só consolidadas. Dicionário em `meta_cda_fi_txt.zip` (10 KB) | Carteira por fundo. Bloco 2 = cotas de fundos (`CNPJ_FUNDO_CLASSE_COTA`, `QT_POS_FINAL`, `VL_MERC_POS_FINAL`). FIDC e FIAGRO entraram em 08/11/2025 (`cda_fie_AAAAMM.csv` desde 15/11/2025) |
 | Fundos Estruturados: Medidas | https://dados.cvm.gov.br/dataset/fie-medidas | CSV mensal `medidas_mes_fie_AAAAMM.csv`, **semanal** (12 meses; histórico desde 01/2017) | PL e número de cotistas de FIP, FIDC e FII "etc." (6 campos); FIAGRO **não é citado** |
@@ -76,58 +77,58 @@ Todas as páginas declaram a licença **ODbL**. As obrigações dessa licença p
 | `tab_X_6` | desempenho real e esperado |
 | `tab_X_7` | garantias |
 
-**O informe não tem:** versão, data de entrega, rating, spread nem índice de subordinação. Também não tem gestora nem custodiante (nenhuma ocorrência de "gestor" ou "custod" nas 18 tabelas do dicionário).
+**O informe não tem:** versão, data de entrega, rating, spread nem índice de subordinação. Também não tem gestora nem custodiante (nenhuma ocorrência de "gestor" ou "custod" nas 18 tabelas do dicionário). **Conferido no dado de 09/2026 (seção 10):** as 18 tabelas estão no ZIP, com 461 campos; o único campo de data é `DT_COMPTC`, e nenhum cabeçalho tem gestor, custodiante, versão ou entrega. Nas tabelas X.1 a X.4 e X.6, o dado traz `TP_FUNDO_CLASSE` e `CNPJ_FUNDO_CLASSE`, e não o `CNPJ_FUNDO` do dicionário.
 
 ## 4. Campos da ficha (F-03) e de onde vêm
 
 | Campo | Fonte e campo | Situação |
 |---|---|---|
-| Identificação, tipo, situação | `registro_fundo` (`CNPJ_Fundo`, `Tipo_Fundo`, `Situacao`); `registro_classe` (`CNPJ_Classe`, `Tipo_Classe`, `Classificacao`) | dicionário conferido; domínios dos campos **não confirmados** |
-| Gestora | `registro_fundo.Gestor` e `CPF_CNPJ_Gestor`; FIAGRO: `Nome_Gestor`, `CNPJ_Gestor` | **ausente no informe de FIDC**; no de FIAGRO, nomes conferidos na amostra (seção 9) |
-| Administradora | `registro_fundo.Administrador` e `CNPJ_Administrador`; FIDC: `tab_I.ADMIN`, `CNPJ_ADMIN`; FIAGRO: `Nome_Administrador`, `CNPJ_Administrador` | conferido; no de FIAGRO, nomes conferidos na amostra (seção 9) |
-| Custodiante | `registro_classe.Custodiante` e `CNPJ_Custodiante` | só no cadastro da classe |
+| Identificação, tipo, situação | `registro_fundo` (`CNPJ_Fundo`, `Tipo_Fundo`, `Situacao`); `registro_classe` (`CNPJ_Classe`, `Tipo_Classe`, `Classificacao`) | domínios conferidos no dado (seção 10.3); o dicionário não os traz. `Classificacao` vem vazia em FIDC e FIAGRO |
+| Gestora | `registro_fundo.Gestor` e `CPF_CNPJ_Gestor` (com `Tipo_Pessoa_Gestor`); FIAGRO: `Nome_Gestor`, `CNPJ_Gestor` | **ausente no informe de FIDC** (conferido no dado); o cadastro tem uma linha por gestor, e 225 gestores são pessoa física (seção 10.8); no de FIAGRO, nomes conferidos na amostra (seção 9) |
+| Administradora | `registro_fundo.Administrador` e `CNPJ_Administrador`; FIDC: `tab_I.ADMIN`, `CNPJ_ADMIN`; FIAGRO: `Nome_Administrador`, `CNPJ_Administrador` | conferido; no FIDC, `CNPJ_ADMIN` (com máscara) igual ao do cadastro em 4.423 das 4.444 classes (seção 10.8); no de FIAGRO, nomes conferidos na amostra (seção 9) |
+| Custodiante | `registro_classe.Custodiante` e `CNPJ_Custodiante` | só no cadastro da classe; preenchido em 5.409 das 5.445 classes de FIDC (seção 10.8) |
 | Cotas | FIDC: `tab_X_2` (valor e quantidade), `tab_X_3` (rentabilidade), `tab_X_1` e `tab_X_1_1` (cotistas), `tab_X_4`. FIAGRO: `Valor_Patrimonial_Cotas`, `Cotas_Emitidas`, `Rentabilidade_*`, `Dividend_Yield_Mes`, `Numero_Cotistas*`, subclasse | conferido |
-| Subordinação | **não existe pronta**; calcular a partir de `tab_X_2` por classe/série | depende do rótulo `TAB_X_CLASSE_SERIE` (alfanumérico livre; **não confirmado**) |
+| Subordinação | **não existe pronta**; calcular a partir de `tab_X_2` por classe/série | o rótulo `TAB_X_CLASSE_SERIE` não tem domínio, mas segue um molde que classifica todas as séries de 09/2026; quantidade × valor fecha com o PL em 4.154 das 4.444 classes (seção 10.6) |
 | Carteira de recebíveis | `tab_I` (I.2.a e I.2.b), `tab_II` (segmento), `tab_V` e `tab_VI`, `tab_VII`, `tab_IX`, `tab_X`. FIAGRO: `A_Vencer_*`, `Vencidos_*`, `Direitos_Creditorios_Agronegocio` | conferido |
-| Cedentes | `tab_I.TAB_I2A12_*` e `TAB_I2B12_*` (CPF/CNPJ e %), só os 9 maiores; `tab_VII.B` | **o CPF aparece** no dado; proposta: não gravar CPF (LGPD); decisão da equipe |
-| Cotas investidas (FIC-FIDC) | total em `tab_I.TAB_I2H_VL_COTA_FIDC`; posições no CDA, Bloco 2 | o detalhe de cada FIDC investido só existe no CDA |
+| Cedentes | `tab_I.TAB_I2A12_*` e `TAB_I2B12_*` (CPF/CNPJ e %), só os 9 maiores; `tab_VII.B` | **o CPF aparece** no dado (120 valores de 11 dígitos em 69 classes, seção 10.8); proposta: não gravar CPF (LGPD); decisão da equipe |
+| Cotas investidas (FIC-FIDC) | total em `tab_I.TAB_I2H_VL_COTA_FIDC` (`TAB_I2I_VL_COTA_FIDC_NP` vem vazio e `TAB_I2_COTA_FIDC` é provisão); posições no CDA, Bloco 2 | o detalhe de cada FIDC investido só existe no CDA |
 | Spread, rating das cotas | não existem no informe | ficam "ausente" (regra de ausente com razão) |
 
 ## 5. Schema proposto
 
 Mesmo esqueleto de `Eduardo/debenture-replica/migrations/001_initial_schema.sql` (sem numeração): `sources`, `collection_runs`, `raw_records`, `observations` (valor texto, numérico, data ou booleano; `observed_at`, `collected_at`, `confidence`, `checksum` único), `data_conflicts`, `audit_log` e a view `current_observations`. Muda o que identifica o assunto da observação:
 
-- `funds` (no lugar de `issuers`): CNPJ de 14 dígitos único, denominação, `ID_Registro_Fundo`.
-- `fund_classes` (no lugar de `debentures`): fundo, CNPJ da classe (RCVM 175), `ID_Registro_Classe`. As observações apontam para a classe.
-- `quota_series`: classe/série/subclasse **com o rótulo exatamente como a fonte traz**, `ID_Subclasse` quando houver; `observations.quota_series_id` é anulável.
-- `party_observations`: papel (gestor, administrador, custodiante, controlador, auditor, cedente), CNPJ (nunca CPF), nome, posição, % de participação, fonte, data, `raw_record_id`, `checksum`.
+- `funds` (no lugar de `issuers`): CNPJ de 14 dígitos único, denominação, `ID_Registro_Fundo`. Na origem o CNPJ não é único: o cadastro repete `CNPJ_Fundo` entre registros (8.165 CNPJs; por exemplo, o FI cancelado e o FIF que o sucedeu) e repete `ID_Registro_Fundo` quando o fundo tem mais de um gestor (seção 10.9). A unicidade vale para a entidade, não para a linha de origem; qual registro vale é regra do adaptador, a decidir.
+- `fund_classes` (no lugar de `debentures`): fundo, CNPJ da classe (RCVM 175), `ID_Registro_Classe`. As observações apontam para a classe. O CNPJ da classe é o do fundo em 36.868 das 37.018 classes e se repete em 13 casos; `ID_Registro_Classe` se repete quando há mais de um custodiante ou controlador (seção 10.9).
+- `quota_series`: classe/série/subclasse **com o rótulo exatamente como a fonte traz**, `ID_Subclasse` quando houver; `observations.quota_series_id` é anulável. O mesmo rótulo vem com espaços e `|` diferentes na `tab_X_1` e na `tab_X_2`: casar pela forma normalizada e guardar a original (seção 10.6).
+- `party_observations`: papel (gestor, administrador, custodiante, controlador, auditor, cedente), CNPJ (nunca CPF), nome, posição, % de participação, fonte, data, `raw_record_id`, `checksum`. Gestor, auditor e cedente podem ser pessoa física (seção 10.8): sem CPF, esses papéis ficam sem identificador, a decidir.
 - `holdings`: fundo detentor, CNPJ e nome do fundo investido, data da posição, quantidade, valor de mercado, fonte, `raw_record_id`, `checksum`. É posição no tempo, não relação de identidade.
-- `quota_class_map`: rótulo da série para sênior, mezanino ou subordinada, **curado e revisado**. Sem mapa, a subordinação sai "ausente (rótulo não mapeado)".
+- `quota_class_map`: rótulo da série para sênior, mezanino ou subordinada, **curado e revisado**. Sem mapa, a subordinação sai "ausente (rótulo não mapeado)". Em 09/2026 o início do rótulo resolve todas as séries (seção 10.6); o mapa continua necessário para a ordem entre subordinadas e para mudanças do molde.
 
 `field_name` recebe `tabela.coluna` da CVM, sem renomear; a escolha do que exibir é F-03.
 
 **Diferenças em relação às debêntures, a decidir:**
 
-1. `raw_records` guarda um manifesto (nome, tamanho, SHA-256, linhas) e o arquivo fica em pasta fora do Git, porque o ZIP de FIDC tem cerca de 3 MB e muda toda semana.
+1. `raw_records` guarda um manifesto (nome, tamanho, SHA-256, linhas) e o arquivo fica em pasta fora do Git, porque o ZIP de FIDC tem cerca de 3 MB e muda toda semana, e o do cadastro tem 6,9 MB e muda de terça a sábado.
 2. A escala de `priority` precisa de um ADR antes do uso. Nas debêntures a view ordena `priority DESC` e a ANBIMA (300) passaria à frente da CVM (200).
-3. O informe de FIDC **não tem versão nem data de entrega**. Uma reapresentação aparece como mesma competência com valor diferente entre coletas semanais e deve ir para `data_conflicts`. O informe do FIAGRO tem `Versao` e `Data_Entrega` (confirmado na amostra de 09/2026), mas, no arquivo da amostra, a única linha com `Versao` 2 não vem acompanhada da versão 1, e a chave (`CNPJ_Classe`, `Data_Referencia`) se repetiu em 2 casos que não são reapresentações (seção 9). O schema não deve pressupor histórico de versões dentro do arquivo nem unicidade dessa chave.
+3. O informe de FIDC **não tem versão nem data de entrega**. Uma reapresentação aparece como mesma competência com valor diferente entre coletas semanais e deve ir para `data_conflicts`. Confirmado no dado de 09/2026: nenhum campo de versão ou entrega, uma só `DT_COMPTC` e nenhuma chave repetida nas 18 tabelas (seção 10.7). O informe do FIAGRO tem `Versao` e `Data_Entrega` (confirmado na amostra de 09/2026), mas, no arquivo da amostra, a única linha com `Versao` 2 não vem acompanhada da versão 1, e a chave (`CNPJ_Classe`, `Data_Referencia`) se repetiu em 2 casos que não são reapresentações (seção 9). O schema não deve pressupor histórico de versões dentro do arquivo nem unicidade dessa chave.
 4. A camada compartilhada (`src/pense_alm/shared/entities/enums.py`) não tem tipo de entidade para administradora ou custodiante (`EntityType`, linhas 6-20) nem relação "investe em" (`RelationshipType`, linhas 85-102). Existem `MANAGES`, `ADMINISTERED_BY`, `PROVIDES_SERVICES_TO` e `ASSIGNS_RECEIVABLES_TO`. Proposta: gestora (`ASSET_MANAGER`) e fundo (`FIDC`, `FIAGRO` ou `FUND`) viram entidades; administradora e custodiante usam `FINANCIAL_INSTITUTION` ou `COMPANY` até um ADR decidir; as posições ficam em `holdings` (F-06).
 
 ## 6. FIC-FIDC e FIAGRO
 
 **FIC-FIDC**
 
-- **Como identificar: não confirmado.** Os domínios dos campos de tipo e classificação estão vazios no dicionário. Sinais candidatos: classificação do cadastro, `TAB_I2H_VL_COTA_FIDC` frente ao ativo e cotistas "cotas de FIDC" em `tab_X_1_1` do fundo investido. Nunca identificar por "FIC" no nome.
+- **Como identificar (conferido em 09/2026, seção 10.4): nenhum campo marca um FIC-FIDC.** No cadastro ele é `Tipo_Fundo` FIDC, e `Classe_Cotas`, `Classificacao` e `Classificacao_Anbima` vêm vazios nas classes de FIDC. No informe, `TP_FUNDO_CLASSE` só separa fundo e classe. O sinal que resta é a parcela do ativo em cotas de FIDC (`TAB_I2H_VL_COTA_FIDC` sobre `TAB_I_VL_ATIVO`): 892 classes com 67% ou mais e 518 com 95% ou mais. O corte é decisão da equipe; a regra da norma não foi verificada. Os cotistas "cotas de FIDC" da `tab_X_1_1` (538 classes) mostram o lado do fundo investido. Nunca identificar por "FIC" no nome.
 - **Posições:** CDA, Bloco 2 (`CNPJ_FUNDO_CLASSE_COTA`, `NM_FUNDO_CLASSE_SUBCLASSE_COTA`). Para FIDC e FIAGRO as posições estão no `cda_fie` desde 08/11/2025, mas o dicionário dele não mostra a coluna do fundo investido (a conferir).
 - **Exibição (F-04), proposta:** lista dos fundos investidos com valor e % do PL. Não somar métricas "por transparência" (dupla contagem), a menos que seja pedido e calculado à parte.
 
 **FIAGRO**
 
 - Mesmo cadastro dos demais fundos, mas informe próprio por classe (`CNPJ_Classe`), com `Codigo_ISIN`, `Mercado_Negociacao` e valores investidos em cotas de fundos: total em `Cotas_Fundos_Investimento` e abertura em `FIF`, `FIDC`, `FII`, `FIP`, `FIIM` e `FIAGRO` (o dicionário não descreve `FIIM`). São valores, sem identificar o fundo investido (isso vem do CDA), e não a variante do próprio fundo.
-- **Variante: não sai do informe de FIAGRO (confirmado na amostra de 09/2026).** `Regra_Anexo` é texto livre, preenchido em 25% das linhas, e cita Anexo Normativo I, II ou III; `Classificacao_Autorregulada` é texto livre preenchido em 9%, com conteúdo misto; `Classe_Unica` é S/N e não indica variante. O candidato que resta é o cadastro (`Tipo_Classe`, `Classificacao`, `Entidade_Investimento`), a conferir na FU1.2.
+- **Variante: não sai do informe de FIAGRO nem do cadastro (confirmado nas amostras de 09/2026, seções 9 e 10.5).** `Regra_Anexo` é texto livre, preenchido em 25% das linhas, e cita Anexo Normativo I, II ou III; `Classificacao_Autorregulada` é texto livre preenchido em 9%, com conteúdo misto; `Classe_Unica` é S/N e não indica variante. No cadastro, `Tipo_Classe` só diz "Classes de Cotas de Fundos FIAGRO", e `Classificacao` e `Entidade_Investimento` vêm vazios. O histórico de registro do CNPJ (um registro anterior como FIDC, FII ou FIP) é pista para 166 das 310 classes, sem confirmar. Fontes que restam: o regulamento (Fundos.NET) e a ANBIMA, não consultados.
 - O modelo aceita as duas escolhas de F-05 (variante como observação da classe). Páginas juntas ou separadas é decisão de exibição.
 - **Subclasses:** o arquivo de subclasse traz `Nome_Subclasse`, `Numero_Cotas` e `Valor_Patrimonial_Cota`, mas o nome é ordinal (`Subclasse 1 (ou classe única)`, `Subclasse 2`, ...) e não diz sênior ou subordinada. A subordinação de um FIAGRO-FIDC não sai do informe, como no FIDC.
-- **Risco:** o mesmo FIAGRO-FIDC pode aparecer nos dois informes. Chavear por CNPJ da classe. A conferência depende dos informes de FIDC e de FII e está **pendente para a FU1.2**.
+- **Risco:** o mesmo FIAGRO pode aparecer em dois informes. Em 09/2026, 1 das 310 classes do informe de FIAGRO aparece também no informe de FIDC (seção 10.5). Chavear por CNPJ da classe, sem máscara. A conferência com o informe de FII segue **pendente** (não lido).
 
 ## 7. FIDCs da casa
 
@@ -152,18 +153,18 @@ Mesmo esqueleto de `Eduardo/debenture-replica/migrations/001_initial_schema.sql`
 
 | Regra | O que a descoberta responde | Em aberto |
 |---|---|---|
-| **F-01** Fonte e coleta | CVM dados abertos como fonte primária de cadastro e informes; Fundos.NET para documentos (seções 1 e 2) | sonda do Fundos.NET; dono da frente; formato real dos CSV de FIDC (o de FIAGRO está confirmado na seção 9) |
-| **F-02** FIDCs da casa x mercado | Métricas disponíveis: rentabilidade (`tab_X_3`), PL, cotistas, inadimplência, segmento. Subordinação é derivada. **Spread não existe** no informe. Tabela da casa na seção 7 | definição de "da casa" e dos grupos de comparação; mapa de rótulos sênior/subordinada |
-| **F-03** Ficha | Campo a campo na seção 4 | tratamento do CPF dos cedentes; domínios dos campos de tipo |
-| **F-04** FIC-FIDC | Total no informe, posições no CDA (seção 6) | como identificar um FIC-FIDC; coluna do fundo investido no `cda_fie` |
-| **F-05** FIAGRO | Informe próprio; modelo aceita as duas escolhas (seção 6); a variante não sai do informe (seção 9) | variante pelo cadastro e sobreposição com os informes de FIDC e de FII (FU1.2) |
+| **F-01** Fonte e coleta | CVM dados abertos como fonte primária de cadastro e informes; Fundos.NET para documentos (seções 1 e 2); formato real dos CSV de FIAGRO, do cadastro e de FIDC conferido (seções 9 e 10) | sonda do Fundos.NET; dono da frente; normalização do CNPJ (com máscara no informe de FIDC) |
+| **F-02** FIDCs da casa x mercado | Métricas disponíveis: rentabilidade (`tab_X_3`), PL, cotistas, inadimplência, segmento. Subordinação é derivada; o rótulo classifica todas as séries de 09/2026 (seção 10.6). **Spread não existe** no informe. Tabela da casa na seção 7 | definição de "da casa" e dos grupos de comparação; revisão do mapa de rótulos e ordem entre subordinadas |
+| **F-03** Ficha | Campo a campo na seção 4; domínios dos campos de tipo conferidos (seção 10.3) | tratamento do CPF (cedentes, gestores e auditores pessoa física) e do nome do `Diretor` (seção 10.8) |
+| **F-04** FIC-FIDC | Total no informe, posições no CDA (seção 6); nenhum campo marca o FIC-FIDC, e o sinal é a parcela do ativo em cotas de FIDC (seção 10.4) | corte do sinal; coluna do fundo investido no `cda_fie` |
+| **F-05** FIAGRO | Informe próprio; modelo aceita as duas escolhas (seção 6); a variante não sai do informe (seção 9) nem do cadastro (seção 10.5); 1 classe aparece também no informe de FIDC | fonte da variante (regulamento ou ANBIMA); sobreposição com o informe de FII |
 | **F-06** Relacionamentos | `holdings` e `party_observations` (seção 5) | ADR para administradora e custodiante e para a relação "investe em" |
 
 ### Divergências entre dicionário e Novidades
 
 - O dicionário do FIDC não tem `ID_SUBCLASSE` na `tab_X_1`, embora as Novidades de 02/02/2026 digam que o campo entrou.
 - O dicionário do FIDC lista `CNPJ_FUNDO` nas tabelas X.1 a X.4 e X.6, embora as Novidades de 06/01/2025 digam que `CNPJ_FUNDO_CLASSE` o substituiu.
-- Conferir no dado real antes de fixar o schema.
+- **Conferido no dado de 09/2026 (seção 10.2):** o dado segue as Novidades. A `tab_X_1` tem `ID_SUBCLASSE`, e as tabelas X.1 a X.4 e X.6 trazem `TP_FUNDO_CLASSE` e `CNPJ_FUNDO_CLASSE`, sem `CNPJ_FUNDO`. O dicionário baixado em 27/10/2026 continua desatualizado nesses cinco arquivos.
 
 ### Datas relevantes das Novidades
 
@@ -172,21 +173,23 @@ Mesmo esqueleto de `Eduardo/debenture-replica/migrations/001_initial_schema.sql`
 ### Não confirmado
 
 - **(a)** A grade de FIDC e FIAGRO no Fundos.NET (página, `tipoFundo`, categorias de documento): não consultada.
-- **(b)** O domínio dos campos `Tipo_Fundo`, `Tipo_Classe`, `Classificacao` e `Entidade_Investimento` (do cadastro): o dicionário os deixa vazios; segue **não confirmado**, para a FU1.2. **Confirmado em 27/10/2026 para o informe de FIAGRO:** `Regra_Anexo`, `Classe_Unica` e `Classificacao_Autorregulada` (seção 9). `Regra_Anexo` e `Classificacao_Autorregulada` são texto livre, não domínios controlados.
-- **(c)** Se o FIAGRO-FIDC aparece também no informe de FIDC e o FIAGRO-FII no de FII (a página do FII, <https://dados.cvm.gov.br/dataset/fii-doc-inf_mensal>, não cita FIAGRO). **Pendente para a FU1.2**: depende dos informes de FIDC e de FII; a amostra de FIAGRO sozinha não responde.
+- **(b)** O domínio dos campos `Tipo_Fundo`, `Tipo_Classe`, `Classificacao` e `Entidade_Investimento` (do cadastro). **Confirmado em 27/10/2026 no dado** (seção 10.3): o dicionário os deixa vazios, e o dado traz 19 valores de `Tipo_Fundo`, 10 de `Tipo_Classe` ("Classes de Cotas de Fundos" seguido do tipo), 5 de `Classificacao` (vazia em quase todas as classes de FIDC e FIAGRO) e S/N em `Entidade_Investimento` (vazio em FIDC). **Confirmado também para o informe de FIAGRO:** `Regra_Anexo`, `Classe_Unica` e `Classificacao_Autorregulada` (seção 9). `Regra_Anexo` e `Classificacao_Autorregulada` são texto livre, não domínios controlados.
+- **(c)** Se o FIAGRO-FIDC aparece também no informe de FIDC e o FIAGRO-FII no de FII (a página do FII, <https://dados.cvm.gov.br/dataset/fii-doc-inf_mensal>, não cita FIAGRO). **Confirmado para o FIDC em 27/10/2026** (seção 10.5): 1 das 310 classes do informe de FIAGRO de 09/2026 aparece no informe de FIDC do mesmo mês. Para o FII segue **não confirmado**: o informe de FII não foi lido.
 - **(d)** Cobertura de FIDC nos balancetes (`fie-doc-balancete`, `fi-doc-balancete`): a descrição das páginas está truncada.
 - **(e)** Se o `cda_fie` identifica o fundo investido pelo CNPJ.
-- **(f)** Codificação, separador e linhas dos CSV de FIDC (os de CRI/CRA eram latin-1 e `;`): segue **não confirmado**, para a FU1.2. **Confirmado em 27/10/2026 para o FIAGRO:** `;`, cp1252, CRLF, cabeçalho na primeira linha, 312 linhas de classe e 697 de subclasse (seção 9).
-- **(g)** Prazos regulatórios de entrega dos informes. A amostra de FIAGRO mostra entregas de 05/10 a 15/10/2026 para a competência 09/2026, com 226 das 312 linhas em 14 e 15/10; o prazo da norma segue **não confirmado**.
+- **(f)** Codificação, separador e linhas dos CSV de FIDC (os de CRI/CRA eram latin-1 e `;`). **Confirmado em 27/10/2026 para o FIDC e o cadastro** (seção 10.2): `;`, cp1252, CRLF, cabeçalho na primeira linha; 18 tabelas de FIDC com 4.444 classes em 09/2026; cadastro com 90.859 linhas de fundo, 37.018 de classe e 11.518 de subclasse. **Confirmado para o FIAGRO:** `;`, cp1252, CRLF, cabeçalho na primeira linha, 312 linhas de classe e 697 de subclasse (seção 9).
+- **(g)** Prazos regulatórios de entrega dos informes. A amostra de FIAGRO mostra entregas de 05/10 a 15/10/2026 para a competência 09/2026, com 226 das 312 linhas em 14 e 15/10; o prazo da norma segue **não confirmado**. O informe de FIDC não tem data de entrega (seção 10.7).
 - **(h)** A ANBIMA como fonte.
+- **(i)** A variante de cada FIAGRO (FIDC, FII, FIP): não está no informe de FIAGRO nem no cadastro (seção 10.5). Fontes candidatas: o regulamento (Fundos.NET) e a ANBIMA, não consultados.
 
 ### Próximos passos, sem código
 
 1. Aprovar a sonda do Fundos.NET.
-2. **Feito para o FIAGRO em 27/10/2026** (seção 9). Falta a mesma leitura de uma amostra pequena do informe de FIDC, do cadastro (`registro_fundo_classe`) e do CDA (FU1.2), que precisa de nova autorização de rede.
+2. **Feito em 27/10/2026** para o FIAGRO (seção 9), o cadastro e o informe de FIDC (seção 10). Falta a mesma leitura de uma amostra do CDA (`cda_fie`) e do informe de FII, que precisa de nova autorização de rede.
 3. Decidir F-01 e o dono da frente.
 4. Escrever o ADR de prioridade de fontes.
-5. Decidir o tratamento do CPF dos cedentes.
+5. Decidir o tratamento do CPF (cedentes, gestores e auditores pessoa física) e do nome do `Diretor`.
+6. Decidir o corte do sinal de FIC-FIDC e a fonte da variante do FIAGRO.
 
 ## 9. Amostra de FIAGRO (27/10/2026)
 
@@ -275,3 +278,201 @@ Os nomes batem com os que o documento já citava e com o dicionário. Nas 115 li
 - O significado jurídico dos Anexos Normativos citados em `Regra_Anexo`, e o prazo regulatório de entrega.
 - Se `Prazo_Duracao` com 0, 99, 999, 1000, 9999 ou 99999 significa prazo indeterminado.
 - O que é `FIIM` (o dicionário não descreve).
+
+Os itens acima que dependiam da FU1.2 estão respondidos na seção 10, menos a sobreposição com o informe de FII e a comparação com o CDA, que não foram lidos.
+
+## 10. Amostra do cadastro e do informe de FIDC (27/10/2026)
+
+Leitura do cadastro de fundos, classes e subclasses, de um mês do informe mensal de FIDC e dos dois dicionários, para fechar os pontos que as seções 6, 8 e 9 deixavam para a FU1.2. Só agregados: esta seção não traz linhas de fundos, CNPJs, ISINs nem nomes. Os arquivos ficam numa pasta local fora do repositório e foram lidos em memória, sem extrair nada em disco, com a biblioteca padrão do Python.
+
+### 10.1 Origem e integridade
+
+As URLs saíram das páginas dos conjuntos, lidas com um GET cada às 13:42:56 UTC de 27/10/2026. A página <https://dados.cvm.gov.br/dataset/fi-cad> lista seis recursos: dados e dicionário do cadastro, de `cad_fi.csv` e de `cad_fi_hist.zip`. Só os dois do cadastro foram baixados. A página <https://dados.cvm.gov.br/dataset/fidc-doc-inf_mensal> lista o dicionário e os informes de 10/2025 a 09/2026. Não havia arquivo de 10/2026, então 09/2026 é o último mês completo. Foi feita uma requisição GET a cada arquivo, por HTTPS, com verificação de TLS e sem redirecionamento. As quatro respostas foram 200 `application/zip`, abaixo do teto de 15 MB.
+
+| Arquivo | Tamanho | SHA-256 | Baixado (UTC) | `Last-Modified` (GMT) |
+|---|---|---|---|---|
+| `registro_fundo_classe.zip` | 6.868.246 bytes | `b6cd4f1e456e5fa0303ff0c8a73b161450745a30f1dcd50944d15775c27298df` | 2026-10-27 13:50:38 | 2026-10-27 04:28:04 |
+| `meta_registro_fundo_classe.zip` | 2.222 bytes | `ee821af85275d9f798c158c860b89ca7ef565c81eb88a22b213a4379a2d08783` | 2026-10-27 13:50:38 | 2026-10-27 04:28:04 |
+| `inf_mensal_fidc_202609.zip` | 3.637.109 bytes | `365ef15fb1ba4e20a6a2adfefcd70c7f17cd9226135943739411e38f890d9ab0` | 2026-10-27 13:50:38 | 2026-10-24 11:46:15 |
+| `meta_inf_mensal_fidc_txt.zip` | 15.942 bytes | `148ecadc9fc98991703873ed7ce98d528c92e51f88d3ad2724b57cd824a9edb1` | 2026-10-27 13:50:38 | 2026-10-24 14:32:26 |
+
+URLs: `https://dados.cvm.gov.br/dados/FI/CAD/DADOS/registro_fundo_classe.zip`, `https://dados.cvm.gov.br/dados/FI/CAD/META/meta_registro_fundo_classe.zip`, `https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/DADOS/inf_mensal_fidc_202609.zip` e `https://dados.cvm.gov.br/dados/FIDC/DOC/INF_MENSAL/META/meta_inf_mensal_fidc_txt.zip`. O cadastro muda de terça a sábado e o informe de FIDC toda semana (seção 2). Os hashes vão mudar quando a CVM atualizar os arquivos; os da tabela identificam o que foi lido. Depois da análise, os quatro hashes foram conferidos de novo e não mudaram. Os dois arquivos do FIAGRO (seção 9.1) foram abertos só para leitura, no cruzamento, e mantiveram os hashes.
+
+### 10.2 Estrutura dos arquivos (item a)
+
+**Membros dos ZIPs.** O cadastro traz `registro_fundo.csv` (27.123.839 bytes descomprimidos), `registro_classe.csv` (16.339.683) e `registro_subclasse.csv` (1.808.084). O dicionário do cadastro traz um TXT por arquivo (`meta_registro_fundo.txt`, `meta_registro_classe.txt`, `meta_registro_subclasse.txt`; 11.163 bytes no total). O informe de FIDC traz 18 CSV `inf_mensal_fidc_tab_<tabela>_202609.csv` (36.115.195 bytes) e o dicionário, 18 TXT `meta_inf_mensal_fidc_tab_<tabela>.txt` (110.077 bytes). **As 18 tabelas (`tab_I` a `tab_X_7`) estão presentes**, e não há nenhuma a mais.
+
+| CSV | Linhas de dados | Campos no CSV | Campos no dicionário |
+|---|---|---|---|
+| `registro_fundo` | 90.859 | 21 | 21 |
+| `registro_classe` | 37.018 | 30 | 30 |
+| `registro_subclasse` | 11.518 | 14 | 14 |
+| `tab_I` | 4.444 | 109 | 109 |
+| `tab_II` | 4.444 | 37 | 37 |
+| `tab_III` | 4.444 | 13 | 13 |
+| `tab_IV` | 4.444 | 6 | 6 |
+| `tab_V` | 4.444 | 37 | 37 |
+| `tab_VI` | 4.444 | 37 | 37 |
+| `tab_VII` | 4.444 | 29 | 29 |
+| `tab_VIII` | 44.701 | 6 | 6 |
+| `tab_IX` | 4.444 | 76 | 76 |
+| `tab_X` | 4.444 | 23 | 23 |
+| `tab_X_1` | 12.231 | 7 | 5 |
+| `tab_X_1_1` | 4.444 | 36 | 36 |
+| `tab_X_2` | 12.735 | 7 | 6 |
+| `tab_X_3` | 12.731 | 6 | 5 |
+| `tab_X_4` | 48.687 | 8 | 7 |
+| `tab_X_5` | 4.444 | 11 | 11 |
+| `tab_X_6` | 12.469 | 7 | 6 |
+| `tab_X_7` | 4.444 | 6 | 6 |
+
+- **Formato dos 21 CSV:** separador `;`, cabeçalho na primeira linha (nomes únicos), fim de linha CRLF, sem BOM, uma quebra de linha no fim e todas as linhas com o número de campos do cabeçalho. Não há aspas como delimitador; o arquivo de subclasse tem 25 aspas dentro de valores, sem efeito na leitura.
+- **Codificação:** não é UTF-8 (a leitura estrita falha). Decodifica sem erro como cp1252, sem bytes de 0x80 a 0x9F (então cp1252 e ISO-8859-1 não se distinguem) e sem sinal de dupla codificação, nos 21 CSV e nos 21 TXT dos dicionários, também em CRLF. É o mesmo formato do FIAGRO (seção 9.2).
+- **Números e datas:** decimal com ponto, sem separador de milhar; datas `AAAA-MM-DD`; nenhum decimal com vírgula nem data `dd/mm/aaaa`.
+- **Confere com o dicionário:** no cadastro, os nomes batem nos três arquivos. No FIDC, batem em 13 tabelas. Nas tabelas X.1, X.2, X.3, X.4 e X.6, o dicionário lista `CNPJ_FUNDO` e o dado traz `TP_FUNDO_CLASSE` e `CNPJ_FUNDO_CLASSE`; a `tab_X_1` traz ainda `ID_SUBCLASSE`, que o dicionário não tem. O dado segue as Novidades e fecha as divergências da seção 8.
+- **Chave comum:** as 18 tabelas começam por `TP_FUNDO_CLASSE`, `CNPJ_FUNDO_CLASSE`, `DENOM_SOCIAL` e `DT_COMPTC`. As 12 tabelas por classe têm uma linha por classe (4.444). As de série têm uma linha por série (X.1, X.2, X.3 e X.6) ou por série e tipo de operação (X.4). A `tab_VIII` tem até 25 `SEQUENCIAL` por classe, em 3.141 classes. Todo CNPJ das outras 17 tabelas está na `tab_I`.
+- **O dicionário do cadastro é pobre:** descreve 28 dos 65 campos e não dá domínio para nenhum campo de tipo, classe, classificação ou situação (10.3). O do FIDC descreve quase todos os campos (107 de 109 na `tab_I`), com domínio genérico (Numérico, Alfanumérico, `AAAA-MM-DD`, S/N, Aberto/Fechado). `SEQUENCIAL` e `VALOR` da `tab_VIII` seguem sem descrição.
+
+### 10.3 Domínios do cadastro (item b)
+
+Valores e contagens de linhas no arquivo inteiro, inclusive registros cancelados. "Vazio", na coluna do dicionário, quer dizer sem domínio e sem descrição.
+
+| Campo | Arquivo | Dicionário | Valores (contagem de linhas) |
+|---|---|---|---|
+| `Tipo_Fundo` | fundo | vazio | 19 valores: FI (62.565), FIDC (8.205), FIF (5.229), FACFIF (5.211), FIP (4.499), FII (2.293), FITVM (842), FMIA-CL (775), FIAGRO (419), FIIM (340), FMIA (229), FMP-FGTS (118), FMIEE (49), FUNCINE (32), FAPI (32), FMP-FGTS CL (10), FICART (6), FMAI (4), FI-FGTS (1). Nenhum valor para FIC-FIDC |
+| `Situacao` | fundo | vazio | Cancelado (52.977), Em Funcionamento Normal (34.492), Fase Pré-Operacional (2.457), Em Liquidação (918), Incorporação (9), Em Situação Especial (5), Em Análise (1) |
+| `Tipo_Pessoa_Gestor` | fundo | vazio | PJ (64.177), PF (225), vazio (26.457) |
+| `Tipo_Classe` | classe | vazio | 10 valores, todos "Classes de Cotas de Fundos" seguido do tipo: FIF (26.782), FIDC (5.445), FIP (2.546), FII (1.554), FIAGRO (395), FIIM (273), FIF (FAPI) (13), Funcine (8), FIP (FMIEE) (1), FICART (1). Nenhuma variante de FIAGRO |
+| `Situacao` | classe | vazio | Em Funcionamento Normal (33.801), Fase Pré-Operacional (2.382), Em Liquidação (798), Cancelado (37) |
+| `Classificacao` | classe | vazio | Multimercado (14.415), Renda Fixa (7.906), Ações (4.288), FMP-FGTS (93), Cambial (68), vazio (10.248). Vazia em 5.433 das 5.445 classes de FIDC e em 394 das 395 de FIAGRO |
+| `Classificacao_Anbima` | classe | vazio | 65 categorias ANBIMA, vazio em 10.342. Vazia em 5.434 das 5.445 classes de FIDC e em 394 das 395 de FIAGRO |
+| `Classe_Cotas` | classe | vazio | N (16.844), S (9.895), vazio (10.279). Vazio em todas as classes de FIDC e de FIAGRO |
+| `Entidade_Investimento` | classe | vazio | N (8.331), S (1.715), vazio (26.972). Vazio em todas as classes de FIDC e em 391 das 395 de FIAGRO (4 N) |
+| `Forma_Condominio` | classe | Aberto/Fechado | Aberto (23.282), Fechado (9.850), vazio (3.886) |
+| `Exclusivo` | classe | vazio | N (15.208), S (13.518), vazio (8.292) |
+| `Publico_Alvo` | classe | "Alfanumérico" | Profissional (16.907), Público Geral (5.585), Qualificado (3.711), vazio (10.815) |
+| `Indicador_Desempenho` | classe | vazio | 32 índices ("DI de um dia" 10.740, "Não se aplica" 8.712, "OUTROS" 3.260, Ibovespa 1.303 e outros), vazio (11.284) |
+| `Tributacao_Longo_Prazo` | classe | vazio | N/A (21.062), S (3.088), N (1.458), vazio (11.410) |
+| `Permitido_Aplicacao_CemPorCento_Exterior` | classe | vazio | N (18.948), S (7.793), vazio (10.277) |
+| `Classe_ESG` | classe | vazio | N (36.048), S (579), vazio (391) |
+| `Situacao` | subclasse | vazio | Em Funcionamento Normal (6.346), Fase Pré-Operacional (4.734), Em Liquidação (250), Em Análise (187), Cancelado (1) |
+| `Forma_Condominio` | subclasse | Aberto/Fechado | Fechado (8.765), Aberto (2.753) |
+| `Exclusivo` | subclasse | vazio | N (10.542), S (974), vazio (2) |
+| `Publico_Alvo` | subclasse | "Alfanumérico" | Profissional (7.248), Qualificado (3.189), Público Geral (607), vazio (474) |
+| `Previdenciario`, `Exclusivo_INR`, `Exclusivo_Previdencia_Complementar` | subclasse | S/N | N quase sempre (S em 47, 31 e 5) |
+
+- **`Fundo_Cotas` não existe** em nenhum dos três arquivos. O campo parecido é `Classe_Cotas` (classe), preenchido só fora de FIDC e FIAGRO.
+- **Sem domínio no dicionário:** todos os campos acima, exceto `Forma_Condominio` (Aberto/Fechado), `Publico_Alvo` ("Alfanumérico", sem lista) e os três S/N da subclasse. Os valores do dado são poucos e estáveis, mas são o que a amostra mostra, não uma lista oficial.
+- **Tipo do fundo e tipo da classe andam juntos:** fundo FIDC tem classe FIDC (5.444), fundo FIAGRO tem classe FIAGRO (395), e assim por diante. A única exceção é 1 classe de FIDC, cancelada, de um fundo FIF.
+- **O arquivo de subclasse não tem campo de tipo nem de senioridade** (sênior, subordinada).
+- **`FIIM`**, a aplicação do FIAGRO que o dicionário não descreve (seção 9.6), é um `Tipo_Fundo` do cadastro (340 fundos, 273 classes); o significado da sigla não está no dicionário.
+- **No informe de FIDC:** `TP_FUNDO_CLASSE` Classe (4.413) e Fundo (31); `CLASSE_UNICA` S (3.390) e N (1.054), sem domínio no dicionário; `CONDOM` FECHADO (3.250) e ABERTO (1.194), em maiúsculas, embora o dicionário diga Aberto/Fechado; `FUNDO_EXCLUSIVO` e `COTST_INTERESSE` S/N; `TP_PRAZO_CONVERSAO_COTA` e `TP_PRAZO_PAGTO_RESGATE` DIAS CORRIDOS ou DIAS ÚTEIS (vazios em cerca de 3.250 linhas); `TAB_X_TP_OPER` Amortizações, Captações no Mês, Resgates no Mês e Resgates Solicitados. `CLASSE` é texto livre (2.069 preenchidos, 1.975 distintos), não domínio.
+
+### 10.4 Como identificar FIDC, FIC-FIDC e FIAGRO (item c)
+
+| Tipo | Sinal que serve | Não serve | Conferência com os informes de 09/2026 |
+|---|---|---|---|
+| FIDC | `registro_fundo.Tipo_Fundo` FIDC e `registro_classe.Tipo_Classe` "Classes de Cotas de Fundos FIDC" | `Classificacao`, `Classificacao_Anbima`, `Classe_Cotas` e `Entidade_Investimento` (vazios em FIDC); `TP_FUNDO_CLASSE` do informe (só separa fundo e classe); o nome | dos 4.444 CNPJs do informe, 4.400 são classes de FIDC no cadastro e 38 só aparecem como registro de fundo FIDC. Os outros 6 são 3 classes de FIF, 2 de FIAGRO e 1 com registros de FIDC e de FIF. Das 4.322 classes de FIDC em funcionamento normal, 4.201 (97%) estão no informe; das 381 em liquidação, 200; das 741 em fase pré-operacional, nenhuma |
+| FIC-FIDC | **nenhum campo**. Sinal de comportamento: `TAB_I2H_VL_COTA_FIDC` sobre `TAB_I_VL_ATIVO`, na `tab_I` | `Tipo_Fundo` (o FIC-FIDC é FIDC), `Classe_Cotas` (vazio em FIDC; só é preenchido em FIF), `Classificacao`, `Classificacao_Anbima`, `TP_FUNDO_CLASSE`, `CLASSE` (texto livre), o nome | cotas de FIDC sobre o ativo: 0 em 2.905 classes, abaixo de 5% em 146, de 5% a 50% em 287, de 50% a 67% em 69, de 67% a 95% em 374 e 95% ou mais em 518; 145 sem ativo positivo. `TAB_I2I_VL_COTA_FIDC_NP` vem vazio, e `TAB_I2_COTA_FIDC` é provisão (5 linhas) |
+| FIAGRO | `Tipo_Fundo` FIAGRO e `Tipo_Classe` "Classes de Cotas de Fundos FIAGRO" | para a variante, nenhum campo (10.5) | 309 das 310 classes do informe de FIAGRO são FIAGRO no cadastro; 1 está registrada como FIDC. Das 312 classes FIAGRO em funcionamento normal, 303 estão no informe de FIAGRO; das 12 em liquidação, 6; das 71 em fase pré-operacional, nenhuma |
+
+**Conclusão:** FIDC e FIAGRO se identificam pelo par `Tipo_Fundo` e `Tipo_Classe`, conferido contra os dois informes. O FIC-FIDC não tem marca. O informe dá a parcela do ativo em cotas de FIDC, e o corte (por exemplo, 67% ou 95%) é decisão da equipe, porque a regra da norma não foi verificada nesta etapa. A lista dos FIDCs investidos continua vindo do CDA (não lido). Os cotistas "cotas de FIDC" da `tab_X_1_1` (538 classes com algum) mostram o lado do fundo investido, não marcam o investidor.
+
+### 10.5 Cruzamento com a amostra de FIAGRO (item d)
+
+- **Encontradas:** as 312 linhas (310 `CNPJ_Classe`) do informe de FIAGRO de 09/2026 estão em `registro_classe`, com um só registro de classe por CNPJ. Nenhuma aparece só como fundo.
+- **Distribuição das 310:** `Tipo_Classe` "Classes de Cotas de Fundos FIAGRO" em 309 e "Classes de Cotas de Fundos FIDC" em 1 (com `Tipo_Fundo` FIDC); `Classificacao`, `Classe_Cotas` e `Classificacao_Anbima` vazios nas 310; `Entidade_Investimento` vazio em 307 e N em 3; `Situacao` Em Funcionamento Normal (304) e Em Liquidação (6).
+- **Conclusão: o cadastro não identifica a variante do FIAGRO (FII, FIDC, FIP).** O que existe é uma pista no histórico de registro: 166 das 310 classes têm o mesmo CNPJ em outro registro de `registro_fundo` (FIDC cancelado 88, FII cancelado 64, FIP cancelado 10, FIDC e FII cancelados 2, FII e FIP cancelados 1, FIDC em funcionamento 1); as outras 144 só têm o registro de FIAGRO. O tipo anterior não é a variante declarada: **não confirmado**.
+- **As duas chaves repetidas da seção 9.4:** cada CNPJ tem um só registro de classe no cadastro (um `ID_Registro_Classe`, em funcionamento normal). As duas linhas do informe não são duas classes no cadastro; a causa segue **não confirmada**.
+- **Sobreposição FIAGRO-FIDC:** 1 das 310 classes do informe de FIAGRO aparece no informe de FIDC de 09/2026, como `CNPJ_FUNDO_CLASSE` e como `CNPJ_CLASSE` da `tab_I`. No cadastro, ela é FIAGRO. No sentido inverso, 2 classes do informe de FIDC são FIAGRO no cadastro (uma é a da sobreposição), e mais 1 tem um registro de fundo FIAGRO. A classe que o cadastro registra como FIDC não está no informe de FIDC.
+
+### 10.6 Séries e subordinação (item e)
+
+- **Arquivo e campo:** a `tab_X_2` traz a quantidade e o valor da cota por série (`TAB_X_QT_COTA`, `TAB_X_VL_COTA`), com o rótulo em `TAB_X_CLASSE_SERIE`. O mesmo campo está na `tab_X_1` (cotistas, com `ID_SUBCLASSE`), na `tab_X_3` (rentabilidade), na `tab_X_4` (operações) e na `tab_X_6` (desempenho). O dicionário o descreve como "(X) Classe/Série", alfanumérico de até 49 caracteres, sem domínio.
+
+**Padrões** (12.735 linhas, 220 rótulos distintos):
+
+| Início do rótulo | Linhas | Rótulos distintos | Categoria |
+|---|---|---|---|
+| `Subclasse Senior` | 7.017 (55,1%) | 148 | sênior |
+| `Subclasse Subordinada Subordinada` | 2.784 (21,9%) | 7 | subordinada |
+| `Subclasse Subordinada Mezanino` | 2.335 (18,3%) | 63 | mezanino |
+| `Subclasse Subordinada`, sem segunda palavra | 599 (4,7%) | 2 | subordinada |
+| qualquer outro | 0 | 0 | sem classificação |
+
+Pelos padrões pedidos: contém "sênior" 7.017; contém "subordinada" sem "mezanino" 3.383; contém "mezanino" 2.335 (o molde escreve "Subclasse Subordinada Mezanino"); só número ou letra 0; outro 0. Nenhum rótulo junta sênior com subordinada, e nenhum traz "júnior" ou "única".
+
+- **Rótulos mais frequentes**, todos genéricos: `Subclasse Subordinada Subordinada 1 |` (2.749), `Subclasse Senior Série 1` (1.877), `Subclasse Senior Subclasse 1` (1.557), `Subclasse Senior` (994), `Subclasse Subordinada` seguido de `|` (598), `Subclasse Senior Série 2` a `Subclasse Senior Série 15` (de 583 a 32) e `Subclasse Subordinada Mezanino 1 |` (38). A parte que varia é, em quase todos, o número da série ou da subclasse.
+- **Por classe (4.444):** 1.056 têm uma só série, sempre `Subclasse Senior` (então "sênior" sozinho não quer dizer que há subordinação). As outras 3.388 têm duas ou mais, todas classificadas: sênior e subordinada (2.331); sênior, mezanino e subordinada (1.018); sênior e mezanino (12); só sênior (27). Em 20 classes há duas ou mais subordinadas sem mezanino, e o rótulo não diz a ordem entre elas.
+- **Conferência com o PL:** a soma de quantidade × valor da cota das séries fecha com `TAB_IV_A_VL_PL` (diferença de até 1%) em 4.154 das 4.444 classes. Não fecha em 113, e 177 têm PL vazio ou menor ou igual a zero. Nas 4.154, o PL se divide em 65,5% sênior, 26,6% subordinada e 7,9% mezanino. Nas 3.169 delas com duas ou mais séries, a parcela subordinada (subordinada mais mezanino) é 0 em 626, abaixo de 5% em 91, de 5% a 10% em 66, de 10% a 20% em 213, de 20% a 30% em 225, de 30% a 50% em 426 e de 50% ou mais em 1.522.
+- **`tab_X_1` e `tab_X_2`:** o mesmo rótulo vem com espaços e `|` diferentes. Como vêm, só 5.086 dos 12.231 pares (CNPJ, série) da `tab_X_1` existem na `tab_X_2`; sem acento, caixa, espaços extras e `|`, existem 12.103. Na `tab_X_3` e na `tab_X_6`, 12.716 de 12.731 e 12.443 de 12.469 casam como vêm. `ID_SUBCLASSE` (só na `tab_X_1`) vem em 6.714 das 12.231 linhas, com 5.241 valores distintos de 15 caracteres, dos quais 3.537 existem em `registro_subclasse.ID_Subclasse`.
+- **A `tab_X_1_1` não confere o rótulo:** em 1.743 classes, a contagem de cotistas sênior ou subordinados não acompanha as séries rotuladas (por exemplo, 999 classes com série sênior e nenhum cotista sênior).
+- **Conclusão:** em 09/2026, o rótulo permite mapear sênior, mezanino e subordinada sem ambiguidade, pelo início do texto, e nenhuma série fica sem classificação (0%). Ressalvas: é um molde do sistema de entrega, não um domínio documentado, e pode mudar; 599 linhas dizem só "Subclasse Subordinada", sem o subtipo; e o rótulo não ordena duas subordinadas da mesma classe. O `quota_class_map` (seção 5) continua necessário, mas como regra por início do rótulo, revisada, e não como lista de rótulos.
+
+### 10.7 Reapresentação (item f)
+
+- Nenhuma das 18 tabelas tem campo de versão, de entrega ou de recebimento. O único campo de data é `DT_COMPTC`, com um só valor (2026-09-30) em todas as linhas.
+- Nenhuma chave se repete. (`CNPJ_FUNDO_CLASSE`, `DT_COMPTC`) é única nas 12 tabelas por classe; nas de série, junto com o rótulo (mais `ID_SUBCLASSE` na X.1 e o tipo de operação na X.4); na `tab_VIII`, junto com `SEQUENCIAL`. Não há linha repetida, idêntica ou não.
+- O arquivo traz, portanto, uma linha por classe e competência, sem histórico. Uma reapresentação só aparece comparando dois instantâneos do mesmo mês (o ZIP muda toda semana; não feito nesta etapa), o que confirma a proposta da seção 5 (`data_conflicts`). É diferente do FIAGRO, que traz `Versao` e `Data_Entrega` (seção 9.4).
+- O cadastro também não tem versão. Cada linha tem `Situacao` e `Data_Inicio_Situacao`, e o histórico aparece como registros diferentes do mesmo CNPJ (10.9).
+
+### 10.8 Papéis e dados pessoais (item g)
+
+| Papel | Cadastro | Informe de FIDC |
+|---|---|---|
+| Gestora | `registro_fundo`: `Gestor`, `CPF_CNPJ_Gestor`, `Tipo_Pessoa_Gestor` | não tem |
+| Administradora | `registro_fundo`: `Administrador`, `CNPJ_Administrador` | `tab_I`: `ADMIN`, `CNPJ_ADMIN` |
+| Custodiante | `registro_classe`: `Custodiante`, `CNPJ_Custodiante` | não tem |
+| Controlador | `registro_classe`: `Controlador`, `CNPJ_Controlador` | não tem |
+| Auditor | `registro_classe`: `Auditor`, `CNPJ_Auditor` | não tem |
+| Diretor responsável | `registro_fundo`: `Diretor` (só o nome) | não tem |
+| Cedentes | não tem | `tab_I`: `TAB_I2A12_CPF_CNPJ_CEDENTE_1` a `_9` e `TAB_I2B12_CPF_CNPJ_CEDENTE_1` a `_9`, com os percentuais em `TAB_I2A12_PR_CEDENTE_n` e `TAB_I2B12_PR_CEDENTE_n`; `tab_VII`: `TAB_VII_B1_1_QT_CEDENTE`, `TAB_VII_B1_2_VL_CEDENTE` e `TAB_VII_B1_3_VL_CONTAB_CEDENTE` (quantidade e valores, sem identificação) |
+
+O arquivo de subclasse não tem papéis. As 18 tabelas têm `DENOM_SOCIAL` (nome do fundo ou da classe). Nenhum arquivo tem campo de e-mail, site ou telefone.
+
+- **Preenchimento nos FIDCs:** gestor em 8.107 das 8.205 linhas de fundo FIDC (702 identificadores distintos), administrador em 8.192 (100 CNPJs), custodiante em 5.409 das 5.445 classes de FIDC (48 CNPJs), auditor em 5.287 (35) e controlador em 278 (29).
+- **Papéis com mais de um valor:** `ID_Registro_Fundo` se repete em 1.069 casos (2.224 linhas), e o que muda é o gestor (`Gestor` e `CPF_CNPJ_Gestor`); em 10 casos, as linhas são idênticas. `ID_Registro_Classe` se repete em 5 casos, por custodiante ou controlador. O cadastro tem uma linha por gestor, não uma por fundo.
+- **Administradora no informe e no cadastro:** `CNPJ_ADMIN`, sem a máscara, é igual ao `CNPJ_Administrador` do fundo em 4.423 das 4.444 classes; 21 diferem.
+
+**CPF e outros dados pessoais** (só o campo e a contagem):
+
+| Campo | Valores com formato de CPF (11 dígitos) | Observação |
+|---|---|---|
+| `registro_fundo.CPF_CNPJ_Gestor` | 225, todos com dígito verificador de CPF válido | todos com `Tipo_Pessoa_Gestor` PF; 9 são fundos FIDC (6 em funcionamento). `Gestor` traz o nome da pessoa |
+| `registro_classe.CNPJ_Auditor` | 8, com dígito de CPF válido | o campo se chama CNPJ, mas traz CPF |
+| `tab_I.TAB_I2A12_CPF_CNPJ_CEDENTE_1` a `_8` e `tab_I.TAB_I2B12_CPF_CNPJ_CEDENTE_1` a `_3` | 120, em 69 das 4.444 classes; 117 com dígito de CPF válido | 7 também viram CNPJ válido com zeros à esquerda (ambíguos) |
+| `registro_fundo.Diretor` | 0 | nome de pessoa natural em 63.273 linhas (374 nomes distintos) |
+
+Nenhuma outra coluna dos 3 CSV do cadastro e das 18 tabelas tem valor com formato de CPF. Proposta: não gravar CPF nem nome de pessoa natural (gestor, auditor e cedente pessoa física, `Diretor`) sem decisão da equipe (F-03).
+
+### 10.9 Formato de CNPJ e casamento entre os conjuntos (item h)
+
+| Campo | Formato | Observação |
+|---|---|---|
+| cadastro: `CNPJ_Fundo`, `CNPJ_Classe`, `CNPJ_Administrador`, `CNPJ_Custodiante`, `CNPJ_Controlador` | 14 dígitos, sem máscara | dígitos verificadores válidos em todos, menos 1 `CNPJ_Fundo` |
+| cadastro: `CPF_CNPJ_Gestor`, `CNPJ_Auditor` | 14 dígitos, ou 11 quando é CPF | ver 10.8 |
+| informe: `CNPJ_FUNDO_CLASSE` (18 tabelas) | **com máscara** (`NN.NNN.NNN/NNNN-NN`) nas 196.882 células | dígitos válidos em todas; 4.444 distintos |
+| informe: `CNPJ_ADMIN` (`tab_I`) | com máscara | 53 distintos |
+| informe: `CNPJ_CLASSE` (`tab_I`) | sem máscara: 14 dígitos (4.435), 13 dígitos (8, zero à esquerda perdido) e 1 valor de 18 caracteres em outro formato | sem a máscara, igual a `CNPJ_FUNDO_CLASSE` em 4.427 das 4.444 linhas |
+| informe: cedentes | sem máscara: 14 dígitos (3.585), 11 (120), 12 ou 13 (21, todos CNPJ válidos com zeros à esquerda) | ver 10.8 |
+
+Nenhum arquivo tem CNPJ alfanumérico.
+
+- **Casamento:** como vem, nenhum `CNPJ_FUNDO_CLASSE` do informe casa com o cadastro, porque a máscara não bate com os 14 dígitos. Sem a máscara, os 4.444 casam: 4.406 com `CNPJ_Classe` (4.397 deles também são `CNPJ_Fundo`) e 38 só com `CNPJ_Fundo`. Das 31 linhas com `TP_FUNDO_CLASSE` Fundo, 22 casam só como fundo e 9 também como classe. `CNPJ_CLASSE`, completado com zeros à esquerda, casa como classe em 4.397 dos 4.431 valores distintos, só como fundo em 33 e não casa em 1.
+- **Unicidade no cadastro:** `CNPJ_Classe` se repete em 13 casos (26 linhas; 2 envolvem uma classe de FIDC). `CNPJ_Fundo` se repete em 8.165 casos (17.092 linhas), porque o mesmo CNPJ tem registros de tipos diferentes ao longo do tempo (FI e FIF em 2.376 casos, FACFIF e FI em 2.336, FI e FIDC em 571, FIAGRO e FIDC em 92) e porque há uma linha por gestor; 5.115 desses CNPJs só têm registros cancelados. A classe tem o mesmo CNPJ do fundo em 36.868 das 37.018 classes.
+- **Consequência:** casar pelo CNPJ normalizado (14 dígitos, sem máscara, com zeros à esquerda) e não pressupor que o CNPJ seja único por linha do cadastro. Escolher o registro vigente é regra do adaptador.
+- 14 CNPJs do informe só têm registros cancelados no cadastro (cancelados depois da competência? **não confirmado**).
+
+### 10.10 O que a amostra não confirma (item i)
+
+- A variante de cada FIAGRO: não está no informe nem no cadastro, e o histórico de registro é só pista. Candidatos: o regulamento (Fundos.NET) e a ANBIMA, não consultados.
+- A sobreposição FIAGRO-FII: o informe de FII não foi lido.
+- O CDA: não foi lido. A lista dos FIDCs investidos por um FIC-FIDC e a coluna do fundo investido no `cda_fie` continuam pendentes.
+- O corte do sinal de FIC-FIDC e a regra da norma.
+- Reapresentações ao longo do tempo: há um só instantâneo, e o informe de FIDC não tem versão.
+- Se o molde do rótulo de série vale para outros meses, e se "Subclasse Subordinada" sem subtipo é júnior ou mezanino.
+- O significado da `tab_VIII` (`SEQUENCIAL`, `VALOR`), que o dicionário não descreve.
+- Por que só 3.537 dos 5.241 `ID_SUBCLASSE` do informe existem no cadastro, por que 113 classes não fecham quantidade × valor com o PL e por que 14 CNPJs do informe só têm registros cancelados no cadastro.
+- A causa das duas chaves repetidas do FIAGRO (seção 9.4).
+- O significado da sigla `FIIM`.
+- Se a codificação é cp1252 ou ISO-8859-1: a amostra não tem os bytes que distinguem as duas.
