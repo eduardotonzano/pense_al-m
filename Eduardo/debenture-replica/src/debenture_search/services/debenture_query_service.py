@@ -125,30 +125,19 @@ class DebentureQueryService:
         rows = self.db.fetch_all(
             """
             SELECT
-                o.field_name,
-                o.value_type,
-                o.value_text,
-                o.value_numeric,
-                o.value_date,
-                o.value_boolean,
-                o.unit,
-                o.observed_at,
-                o.confidence,
-                s.code AS source_code
-            FROM observations o
-            JOIN sources s ON s.id = o.source_id
-            WHERE o.debenture_id = ?
-              AND o.id = (
-                  SELECT o2.id
-                  FROM observations o2
-                  WHERE o2.debenture_id = o.debenture_id
-                    AND o2.field_name = o.field_name
-                  ORDER BY o2.observed_at DESC,
-                           o2.collected_at DESC,
-                           o2.id DESC
-                  LIMIT 1
-              )
-            ORDER BY o.field_name
+                field_name,
+                value_type,
+                value_text,
+                value_numeric,
+                value_date,
+                value_boolean,
+                unit,
+                observed_at,
+                confidence,
+                source_code
+            FROM current_observations
+            WHERE debenture_id = ?
+            ORDER BY field_name
             """,
             (debenture_id,),
         )

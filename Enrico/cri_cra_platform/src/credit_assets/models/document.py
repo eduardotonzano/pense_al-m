@@ -30,3 +30,10 @@ class Document:
     download_status: str = "pending"
     collected_at: Optional[str] = None
     financial_statements_evidence: bool = False
+    # Campos oficiais da grade do Fundos.NET e a linha original (JSON).
+    source_category: Optional[str] = None
+    source_type: Optional[str] = None
+    source_species: Optional[str] = None
+    grid_version: Optional[str] = None
+    source_description: Optional[str] = None
+    source_row_json: Optional[str] = None

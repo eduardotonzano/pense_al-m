@@ -50,7 +50,7 @@ class FakeDatabase:
         return None
 
     def fetch_all(self, sql, parameters=()):
-        if "FROM observations" in sql:
+        if "FROM current_observations" in sql or "FROM observations" in sql:
             return [
                 {
                     "field_name": "valor_nominal",

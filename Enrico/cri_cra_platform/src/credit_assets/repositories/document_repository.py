@@ -8,10 +8,41 @@ from typing import Optional
 
 from credit_assets.models.document import DOCUMENT_CATEGORIES, Document
 
+# Colunas da migration 001 (campos oficiais da grade). Bancos sem ela
+# seguem no caminho antigo de gravacao.
+CATALOG_COLUMNS = (
+    "source_category",
+    "source_type",
+    "source_species",
+    "grid_version",
+    "source_description",
+    "source_row_json",
+)
+
 
 class DocumentRepository:
     def __init__(self, connection: sqlite3.Connection):
         self.connection = connection
+        self._catalog_columns: Optional[bool] = None
+
+    def _has_catalog_columns(self) -> bool:
+        if self._catalog_columns is None:
+            columns = {
+                row[1]
+                for row in self.connection.execute("PRAGMA table_info(documents)")
+            }
+            self._catalog_columns = {*CATALOG_COLUMNS, "first_seen_at"} <= columns
+        return self._catalog_columns
+
+    @staticmethod
+    def _catalog_download_status(existing, document: Document) -> str:
+        """Mantem o estado do download; so reabre se a versao na grade mudou."""
+        status = existing["download_status"] or document.download_status or "pending"
+        incoming_version = (document.grid_version or "").strip()
+        stored_version = (existing["grid_version"] or "").strip()
+        if incoming_version and stored_version and incoming_version != stored_version:
+            return "pending"
+        return status
 
     def upsert(self, document: Document) -> int:
         document_pk, _ = self.upsert_with_status(document)
@@ -47,6 +78,12 @@ class DocumentRepository:
             ).fetchone()
 
         now = document.collected_at or datetime.now(timezone.utc).isoformat()
+        has_catalog = self._has_catalog_columns()
+        catalog = (
+            {column: self._value(getattr(document, column)) for column in CATALOG_COLUMNS}
+            if has_catalog
+            else {}
+        )
         values = (
             source_document_id,
             document.asset_id,
@@ -62,13 +99,19 @@ class DocumentRepository:
             run_id,
         )
         if existing is None:
+            columns = [
+                "source_document_id", "asset_id", "category", "document_name",
+                "reference_date", "publication_date", "source", "source_url",
+                "download_status", "file_hash", "collected_at", "run_id",
+            ]
+            parameters = list(values)
+            if has_catalog:
+                columns += [*CATALOG_COLUMNS, "first_seen_at"]
+                parameters += [*(catalog[column] for column in CATALOG_COLUMNS), now]
             cursor = self.connection.execute(
-                """INSERT INTO documents (
-                    source_document_id, asset_id, category, document_name,
-                    reference_date, publication_date, source, source_url,
-                    download_status, file_hash, collected_at, run_id
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                values,
+                f"INSERT INTO documents ({', '.join(columns)}) "
+                f"VALUES ({', '.join('?' for _ in columns)})",
+                parameters,
             )
             document_pk = int(cursor.lastrowid)
             status = "inserted"
@@ -92,6 +135,11 @@ class DocumentRepository:
                 and existing["category"] != "Outro"
                 else document.category
             )
+            download_status = (
+                self._catalog_download_status(existing, document)
+                if has_catalog
+                else document.download_status or existing["download_status"]
+            )
             incoming = {
                 "asset_id": document.asset_id,
                 "category": category,
@@ -100,27 +148,42 @@ class DocumentRepository:
                 "publication_date": document.publication_date or existing["publication_date"],
                 "source": document.source,
                 "source_url": document.source_url or existing["source_url"],
-                "download_status": document.download_status or existing["download_status"],
+                "download_status": download_status,
                 "file_hash": file_hash or existing["file_hash"],
             }
+            for column in catalog:
+                incoming[column] = catalog[column] or existing[column]
             current = {key: existing[key] for key in incoming}
             status = "updated" if incoming != current else "unchanged"
+            assignments = [
+                "source_document_id = COALESCE(NULLIF(?, ''), source_document_id)",
+                "asset_id = ?",
+                "category = ?",
+                "document_name = COALESCE(NULLIF(?, ''), document_name)",
+                "reference_date = COALESCE(NULLIF(?, ''), reference_date)",
+                "publication_date = COALESCE(NULLIF(?, ''), publication_date)",
+                "source = ?",
+                "source_url = COALESCE(NULLIF(?, ''), source_url)",
+                (
+                    "download_status = ?"
+                    if has_catalog
+                    else "download_status = COALESCE(NULLIF(?, ''), download_status)"
+                ),
+                "file_hash = COALESCE(NULLIF(?, ''), file_hash)",
+                "collected_at = ?",
+                "run_id = COALESCE(NULLIF(?, ''), run_id)",
+            ]
+            parameters = [
+                values[0], values[1], category, *values[3:8],
+                download_status if has_catalog else values[8],
+                *values[9:],
+            ]
+            for column in catalog:
+                assignments.append(f"{column} = COALESCE(NULLIF(?, ''), {column})")
+                parameters.append(catalog[column])
             self.connection.execute(
-                """UPDATE documents SET
-                    source_document_id = COALESCE(NULLIF(?, ''), source_document_id),
-                    asset_id = ?,
-                    category = ?,
-                    document_name = COALESCE(NULLIF(?, ''), document_name),
-                    reference_date = COALESCE(NULLIF(?, ''), reference_date),
-                    publication_date = COALESCE(NULLIF(?, ''), publication_date),
-                    source = ?,
-                    source_url = COALESCE(NULLIF(?, ''), source_url),
-                    download_status = COALESCE(NULLIF(?, ''), download_status),
-                    file_hash = COALESCE(NULLIF(?, ''), file_hash),
-                    collected_at = ?,
-                    run_id = COALESCE(NULLIF(?, ''), run_id)
-                   WHERE document_pk = ?""",
-                values[:2] + (category,) + values[3:] + (document_pk,),
+                f"UPDATE documents SET {', '.join(assignments)} WHERE document_pk = ?",
+                [*parameters, document_pk],
             )
         self.connection.commit()
         return document_pk, status

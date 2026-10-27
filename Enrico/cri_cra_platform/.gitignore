@@ -3,6 +3,7 @@ __pycache__/
 *.pyc
 .env
 data/*.db
+data/backups/
 data/catalogo_documentos.csv
 reports/fundosnet_session_diagnostics.json
 reports/fundosnet_native_ui_diagnostic.json
