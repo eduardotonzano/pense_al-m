@@ -98,7 +98,7 @@ As alterações de parâmetros acima estão em `contract_parameters`
 O documento "Demonstrações Financeiras" 1232148 (publicado em 29/06/2026, baixado em 2026-10-27) é
 das DFs do **Patrimônio Separado** (exercício findo em 31/03/2026, auditoria Grant Thornton), não da
 Devedora: não comprova a entrega exigida pela ata 1194480. Os fatos lidos dele estão em
-`config/reported_facts/cra022009vm_df_patrimonio_separado_2026.json` (6 fatos, **pendentes**,
+`config/reported_facts/cra022009vm_df_patrimonio_separado_2026.json` (6 fatos, aprovados em 2026-10-27,
 valores em milhares de reais como publicados). A DF não constituiu provisão para perdas.
 
 ## Resgate antecipado anunciado (out/2026)
@@ -117,7 +117,7 @@ Efeito sobre as obrigações de 31/10/2026 (interpretação, não verificada):
 - **Waiver fee de 0,5%** (≈ R$ 231,7 mil sobre o saldo do resgate): o comunicado não a menciona; o valor de
   resgate cobre só principal e juros. O pagamento continua sem evidência.
 - O resgate está **anunciado, não confirmado**. A confirmação depende de comunicado ou Informe Mensal posterior
-  a 29/10/2026. Os 7 fatos estão em `config/reported_facts/cra022009vm_resgate_antecipado_2026.json` (**pendentes**).
+  a 29/10/2026. Os 7 fatos estão em `config/reported_facts/cra022009vm_resgate_antecipado_2026.json` (aprovados em 2026-10-27).
 
 ## Lacunas
 
