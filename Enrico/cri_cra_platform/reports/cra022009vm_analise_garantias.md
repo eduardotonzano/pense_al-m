@@ -65,6 +65,14 @@ usados como aproximação da verificação de 15/12; saldo da Conta Garantia apr
 8. **Garantias nas DFs:** p.17 lista Aval, Cessão Fiduciária, AF de Imóvel e AF de Estoque, reforçando
    a divergência 1 com o Informe Mensal.
 
+9. **Pagamento de dez/2025 no Informe × documentos (leitura de 28/10, com o cronograma de 14/03/2024).** O Informe de
+   dez/2025 registra pagamento sênior de R$ 57.226.190,28, sendo amortização de R$ 30.002.000,00 (exatamente a parcela de
+   30/12/2025 do cronograma aprovado em 14/03/2024) e juros de R$ 27.224.190,28, e reduz o saldo para R$ 40.027.042,18.
+   Em jan/2026 o saldo volta a R$ 72.352.716,52, sem pagamento. O comunicado 1074300 informa só R$ 13.612.095,14 de juros
+   pagos em 31/12/2025 e o Fato Relevante 1074810, que a parcela não foi paga integralmente; o AF 2025 diz que não houve
+   pagamentos. **Interpretação (não verificada):** o Informe de dez/2025 lançou a parcela prevista como paga e a
+   reverteu em jan/2026. Explica os alertas `payment_reconciliation` (dez/2025) e `trustee_payment_statement` (2025).
+
 ## Assembleias, DFs e comunicados 2023–2024 (lidos em 28/10/2026)
 
 Fontes: 15 atas/editais (docs 511843 a 755722), 3 DFs do Patrimônio Separado (485809, 698040, 935390) e 5
