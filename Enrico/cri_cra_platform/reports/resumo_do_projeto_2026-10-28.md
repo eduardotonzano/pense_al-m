@@ -230,11 +230,11 @@ Você perguntou se eu tinha repetido nos CRAs o erro de baixar documento sem lê
 (não registrado: colunas desalinhadas, exige conferência visual).
 
 **2. Catalogados e nunca baixados:** 23 documentos do Café Brasil, 7 do Alibem e 7 do CRI. Baixados em 28/10: 34 arquivos
-(23 + 6 + 5, ISIN conferido na grade, texto extraído com o novo `scripts/extract_document_text.py`). Continuam sem
-download: Prospecto definitivo do CRI 727241 (passa do limite de 25 MB do serviço) e os Anúncios de Encerramento
-(categoria fora da amostra aprovada) do CRI e do Alibem.
+(23 + 6 + 5, ISIN conferido na grade, texto extraído com o novo `scripts/extract_document_text.py`). Os 3 que o serviço recusava (prospecto definitivo do CRI, de 28,4 MB, e os Anúncios de Encerramento do CRI e do Alibem)
+foram baixados depois, com a nova opção `--max-megabytes` e a aceitação do Anúncio de Encerramento por identificador
+explícito. Todos os documentos catalogados dos 3 pilotos têm hoje versão válida.
 
-**3. Sem texto (imagem):** AF 2024 do CRI (199 páginas). Li as páginas 1 a 8 visualmente; não vira fato, porque o
+**3. Sem texto (imagem):** AF 2024 do CRI (199 páginas). Foi feito OCR (rapidocr, sem instalar nada no sistema) e 19 fatos entraram pendentes, com conferência visual; antes não virava fato, porque o
 carregador exige trecho literal em texto extraído. Não há OCR instalado.
 
 **Carregado como pendente em 28/10** (nada aprovado; decisão sua):
@@ -242,8 +242,8 @@ carregador exige trecho literal em texto extraído. Não há OCR instalado.
 | Ativo | Fatos pendentes | Parâmetros pendentes | Conteúdo |
 |---|---|---|---|
 | Café Brasil | 183 | 9 | atas 2023–2024 (66 fatos, 9 parâmetros), DFs 2023–2025 e comunicados (103), comunicados 2025–2026 (14) |
-| Alibem | 218 | 0 | oferta (Aviso, Lâmina, Anúncio, 3 prospectos) e Termo da oferta |
-| CRI Almeida Junior | 110 | 0 | oferta (Aviso, 2 Lâminas, Anúncio, Prospecto preliminar) |
+| Alibem | 232 | 0 | oferta (Aviso, Lâmina, Anúncio, 3 prospectos), Anúncio de Encerramento e Termo da oferta |
+| CRI Almeida Junior | 162 | 0 | oferta (Aviso, 2 Lâminas, Anúncio, Prospectos preliminar e definitivo, Anúncio de Encerramento) |
 
 **Principais descobertas**
 - Café Brasil: a assembleia de 14/03/2024 mudou o vencimento final para 30/12/2026 e aprovou o cronograma de amortização
@@ -258,4 +258,4 @@ carregador exige trecho literal em texto extraído. Não há OCR instalado.
 
 **Limites da leitura:** os prospectos (539 a 1.140 páginas) foram lidos em parte e o restante por palavra-chave; as páginas
 lidas estão em `reports/cra02500c1d_oferta_vs_termo.md` e `reports/24g2100031_oferta_vs_termo.md`. O prospecto definitivo
-do CRI não foi lido.
+do CRI foi lido nas páginas 1 a 20, trechos principais e Anexo IX (Fitch).

@@ -89,9 +89,22 @@ Série única Sênior, 230.000 CRI, VNU R$ 1.000, emissão 29/08/2024, venciment
 - Lidos: Aviso ao Mercado 722271, Lâminas 722282 e 727225, Anúncio de Início 727228 e o Prospecto preliminar
   722286 (539 páginas: parte lida por inteiro e parte por palavra-chave; as páginas estão em
   `reports/24g2100031_oferta_vs_termo.md`). 110 fatos pendentes em `config/reported_facts/24g2100031_oferta_2024.json`.
-- **Não baixado:** Prospecto definitivo 727241, recusado por passar de 25 MB (`size_limit_exceeded`, nenhuma
-  versão gravada). Anúncio de Encerramento 730623: o serviço só aceita categorias da amostra aprovada. O que o
-  prospecto definitivo muda em relação ao preliminar não foi verificado.
+- **Prospecto definitivo 727241 (610 páginas) e Anúncio de Encerramento 730623:** baixados depois, com `--max-megabytes 80`
+  (o prospecto tem 28,4 MB). Lidos: páginas 1 a 20, trechos principais e o relatório da Fitch (pp.596-610); comparação
+  com o preliminar das páginas 1 a 125 e por palavra-chave no restante. 52 fatos pendentes em
+  `config/reported_facts/24g2100031_oferta_definitiva_2024.json`; comparação em
+  `reports/24g2100031_prospecto_definitivo_vs_preliminar.md`.
+- **Definitivo × preliminar:** o definitivo fixa o step-up em 29/08/2030 (CRI) e 27/08/2030 (debêntures), traz o resgate
+  facultativo a partir de 29/08/2026 e a duration de 4,86; a escritura de AF "celebrada em 23/08/2024" e o contrato de CF
+  "celebrado em 26/07/2024, registrado no 2º RTD de São Paulo sob nº 3.792.419". Os anexos do próprio definitivo ainda trazem
+  72º/73º mês, 2027 e 4,93.
+- **Rating:** o relatório da Fitch anexo ao definitivo (27/08/2024, pp.600-602) traz AA-sf(bra), perspectiva estável, sem
+  "(EXP)"; a capa e os anúncios ainda escrevem AA-(EXP)sf(bra). A leitura "preliminar → final" é interpretação, porque a tabela
+  da p.601 está quebrada na extração. O que aconteceu depois de 27/08/2024 (atualização anual, retirada) continua sem resposta.
+- **Garantias:** o definitivo não diz que a condição suspensiva da cessão fiduciária foi implementada nem que o Termo de
+  Liberação foi averbado; a alienação "será constituída mediante registro" (p.18). Continua compatível com o "não constituída"
+  do AF 2025, e só as matrículas atualizadas e o RTD confirmam.
+- **Não baixados:** nenhum. O serviço passou a aceitar o Anúncio de Encerramento por identificador explícito.
 - Diferenças entre a oferta e o Termo (17 no relatório): step-up marcado como "73º mês" na oferta e 29/08/2030 no
   Aditamento (mesmos valores, 1,50% e 2,75%); resgate facultativo a partir de 29/08/2027 no prospecto e
   29/08/2026 no Aditamento; duration 4,93 e 4,86; texto da Lâmina diz imóvel "de titularidade da Emissora",
@@ -108,10 +121,12 @@ Série única Sênior, 230.000 CRI, VNU R$ 1.000, emissão 29/08/2024, venciment
   que não foi localizado. Falta consultar a Fitch e a CVM para saber se houve rating final, retirada ou nunca
   contratação.
 
-### Relatório anual do AF de 2024 (892072): leitura visual
-O PDF (199 páginas) é imagem, sem texto extraível, e não há OCR instalado. Li as páginas 1 a 8 como imagem
-(páginas do PDF 3 a 10 do relatório). Como não existe texto para validar o trecho, **nada foi registrado como
-fato**: o carregador exige o trecho literal na página extraída.
+### Relatório anual do AF de 2024 (892072): OCR com conferência visual
+O PDF (199 páginas) é imagem. Em 28/10 foi feito OCR das 199 páginas (`scripts/ocr_document_pages.py`; rapidocr-onnxruntime
+1.4.4 sobre imagens de 150 dpi), gravado em `document_text_pages` com extrator `ocr: ...` ao lado da linha vazia do pdftotext. O OCR
+perde acentos e pode descartar linhas (a coluna "Constituição" da tabela de garantias não foi captada), então **cada valor foi
+conferido nas imagens das páginas 3 a 10**. 19 fatos pendentes em `config/reported_facts/24g2100031_af_2024_ocr.json`, método
+`ocr_com_conferencia_visual`. As páginas 11 a 199 são "Outras emissões" da Opea e não dizem respeito a este ativo.
 - Série única, IF 24G2100031, ISIN BRRBRACRIP13, PU R$ 1.000,00, 230.000 CRI, R$ 230.000.000,00; "CDI + 1,5%";
   amortização "Mensal"; emissão 29/08/2024; vencimento 29/08/2036; juros mensais; 1º pagamento previsto
   26/09/2024; rating: "Não existe rating para esse operação no período analisado"; inadimplência no período:
