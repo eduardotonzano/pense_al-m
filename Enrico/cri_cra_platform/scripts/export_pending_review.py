@@ -83,6 +83,12 @@ def main() -> int:
                 key = (item["source_document_id"], item["fact_name"], item["reference_date"],
                        item["page_number"], squash(item["excerpt"]))
                 fact_notes[key] = item["note"]
+    # Conferência visual do assistente (reports/<cetip>_conferencia_visual.json): ajuda a revisão, não aprova.
+    visual_path = ROOT / "reports" / f"{args.cetip.lower()}_conferencia_visual.json"
+    visual = (
+        {item["fact_id"]: item for item in json.loads(visual_path.read_text(encoding="utf-8"))}
+        if visual_path.exists() else {}
+    )
     golden_items = []
     for golden_path in sorted((ROOT / "config" / "golden_sets").glob("*.json")):
         golden = json.loads(golden_path.read_text(encoding="utf-8"))
@@ -107,6 +113,10 @@ def main() -> int:
             note = fact_notes.get((f["source_document_id"], f["fact_name"], f["reference_date"],
                                    f["page_number"], squash(f["excerpt"])))
             note_html = f"<br><b>Observação:</b> {e(note)}" if note else ""
+            check = visual.get(f["fact_id"])
+            if check:
+                note_html += (f"<br><b>Conferência visual ({e(check['verdict'])}):</b> {e(check['seen'])}"
+                              + (f" <i>{e(check['comment'])}</i>" if check.get("comment") else ""))
             parts.append(
                 f"<tr><td>{e(f['fact_id'])}</td>"
                 f"<td>{e(f['fact_name'])}<br><span class='muted'>data-base {e(f['reference_date'])}</span></td>"

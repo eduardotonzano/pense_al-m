@@ -259,3 +259,49 @@ carregador exige trecho literal em texto extraído. Não há OCR instalado.
 **Limites da leitura:** os prospectos (539 a 1.140 páginas) foram lidos em parte e o restante por palavra-chave; as páginas
 lidas estão em `reports/cra02500c1d_oferta_vs_termo.md` e `reports/24g2100031_oferta_vs_termo.md`. O prospecto definitivo
 do CRI foi lido nas páginas 1 a 20, trechos principais e Anexo IX (Fitch).
+
+## 12. Rodada final de 28/10 (noite)
+
+**Aprovações registradas em seu nome** (com base nas suas mensagens "aprovo, continue" e "aprovado segue"):
+9 parâmetros de 2024 do Café Brasil (vencimento final 30/12/2026, cronograma de amortização, waiver fee de 0,75% e
+condicionantes de 2024), as 7 séries e 447 fatos sem nota de fragilidade (207 Alibem, 137 Café Brasil, 103 CRI).
+
+**Novos documentos:** a 2ª convocação da assembleia do CRI (28/10, 14:30) saiu às 18:13 (doc 1360837): não instalada,
+sem titulares; as DFs de 30/06/2026 ficam aprovadas automaticamente (art. 25 §2º, Res. CVM 60). 2 fatos pendentes.
+Café Brasil e Alibem: sem documento novo no catálogo.
+
+**Conferência visual dos 151 fatos pendentes** (imagens das páginas; vereditos do assistente, não aprovação):
+
+| Ativo | Conferem | Divergem | Inconclusivos | Relatório |
+|---|---|---|---|---|
+| Café Brasil | 44 | 0 | 2 | `reports/cra022009vm_conferencia_visual.md` |
+| Alibem | 25 | 0 | 0 | `reports/cra02500c1d_conferencia_visual.md` |
+| CRI Almeida Junior | 77 | 3 | 0 | `reports/24g2100031_conferencia_visual.md` |
+
+- O cronograma de 14/03/2024 do Café Brasil confere na imagem (R$ 30,000 mi em 30/12/2024, R$ 30,002 mi em 30/12/2025,
+  R$ 39,998 mi em 30/12/2026, com 100% na última linha). A ata aprova a nova data "conforme planilha", sem escrevê-la.
+- Os totais do ativo das DFs do Café Brasil conferem com o rótulo próprio "Total do ativo" na imagem.
+- Os 3 que divergem (CRI) e os 2 inconclusivos (Café Brasil) têm **7 fatos corrigidos propostos**
+  (`config/reported_facts/*_correcoes_conferencia_visual.json`); os originais seguem pendentes para rejeição.
+- A página de revisão de cada ativo mostra agora, em cada fato, a nota da proposta e o veredito visual.
+
+**Série histórica das DFs** (`scripts/export_df_history.py`, `reports/*_df_historico.md`), com nomes equivalentes
+agrupados em `config/fact_aliases.json` e confronto com o Informe da mesma competência:
+- nos dois CRAs da Eco Securitizadora o Informe traz **caixa zerado**, enquanto as DFs mostram o fundo de despesas
+  aplicado (Café Brasil 2024–2025; Alibem 2026);
+- Café Brasil 31/03/2026: DF R$ 7.089 mil vencidos e não pagos × Informe zero (divergência já conhecida); carteira DF
+  48.925 mil × Informe 49.148 mil;
+- os meses de 2022–2023 do Café Brasil estão com escala suspeita no Informe e ficam fora da comparação (regra do projeto).
+
+**Alertas contratuais**
+- Correção: o serviço usava fatos pendentes; agora só fatos aprovados entram nas regras (resultado do Café Brasil igual).
+- Novos tipos de regra: mínimo com conversão de unidade (`fact_minimum`), marcação de fato que contradiz obrigação
+  (`fact_flag`) e prazo cumprido por fato aprovado (`fulfilled_by_fact`). Modo `--preview` avalia sem gravar.
+- **Rascunhos pendentes de aprovação:** `config/alert_rules/contractual_cra02500c1d.json` (fundo de despesas no mínimo de
+  R$ 95.000: conforme; DFs de 30/06/2026 entregues; rating anual até 17/12/2026) e
+  `config/alert_rules/contractual_24g2100031.json` (2 alertas de garantias não constituídas e 3 de rating não contratado;
+  DFs de 2025 e 2026 entregues). Prévias em `reports/*_avaliacao_contratual_previa.csv`.
+
+**Documentação:** o README ganhou a seção "Pipeline de análise dos pilotos" com a ordem dos comandos.
+
+**Pendente com você:** 158 fatos (151 conferidos visualmente + 7 corrigidos) e os 2 rascunhos de regras contratuais.

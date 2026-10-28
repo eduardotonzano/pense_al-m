@@ -1,0 +1,14 @@
+{
+  "asset": {"codigo_cetip": "24G2100031", "isin": "BRRBRACRIP13"},
+  "source_note": "Correções propostas a partir da conferência visual de 28/10/2026 (reports/24g2100031_conferencia_visual.md). O trecho é o mesmo do fato original (texto extraído, com colunas desalinhadas); o valor e o rótulo foram lidos na imagem da página. Substituem os fatos 778, 789 e 790, que continuam pendentes para rejeição.",
+  "proposed_by": "Claude (assistente), conferência visual",
+  "proposed_at": "2026-10-28",
+  "extraction_method": "leitura_manual_com_conferencia_visual",
+  "facts": [
+    {"source_document_id": "727241", "page_number": 601, "fact_name": "prosp_def_fitch_acao_rating", "reference_date": "2024-08-27", "value": "Natl LT: AA-sf(bra), Rating Outlook Stable, New Rating; anterior (PRIOR): AA-(EXP)sf(bra), Rating Outlook Stable", "unit": "texto", "excerpt": "BRRBRACRIP13 AA-sf(bra) Rating Outlook Stable (EXP)sf(bra) Rat", "note": "Substitui o fato 778. Tabela RATING ACTIONS lida na imagem; a extração de texto perde 'AA-' na coluna PRIOR."},
+    {"source_document_id": "730623", "page_number": 2, "fact_name": "enc_pessoas_naturais_subscritores", "reference_date": "2024-08-30", "value": "1709", "unit": "subscritores", "excerpt": "Subscritores dos CRI CRI 1.709 221.120", "note": "Substitui o fato 789. Linha 'Pessoas Naturais' na imagem."},
+    {"source_document_id": "730623", "page_number": 2, "fact_name": "enc_pessoas_naturais_cri", "reference_date": "2024-08-30", "value": "221120", "unit": "CRI", "excerpt": "Subscritores dos CRI CRI 1.709 221.120", "note": "Substitui o fato 789. Linha 'Pessoas Naturais' na imagem."},
+    {"source_document_id": "730623", "page_number": 2, "fact_name": "enc_instituicoes_financeiras_ligadas_subscritores", "reference_date": "2024-08-30", "value": "1", "unit": "subscritores", "excerpt": "Entidades de Previdência Privada 1 – Companhias Seguradoras – 8.880", "note": "Substitui o fato 790. Na imagem, a linha é 'Instituições Financeiras Ligadas à Emissora e/ou aos Participantes do Consórcio'; Entidades de Previdência e Seguradoras estão com traço."},
+    {"source_document_id": "730623", "page_number": 2, "fact_name": "enc_instituicoes_financeiras_ligadas_cri", "reference_date": "2024-08-30", "value": "8880", "unit": "CRI", "excerpt": "Entidades de Previdência Privada 1 – Companhias Seguradoras – 8.880", "note": "Substitui o fato 790 (mesma leitura visual)."}
+  ]
+}

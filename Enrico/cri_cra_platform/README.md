@@ -83,9 +83,35 @@ Relatório de Rating e Anúncio de Encerramento), que ficam desligadas e só gra
 `--enable-unverified-rules`. O `--commit` faz backup, audita cada troca em
 `document_category_changes` e verifica antes de confirmar.
 
+## Pipeline de análise dos pilotos
+
+Ordem de execução para um ativo (exemplo: `--cetip CRA022009VM --isin BRECOACRABX0`). Tudo grava no
+SQLite; scripts que gravam têm `--dry-run` ou `--preview` e só aplicam regras aprovadas.
+
+| Etapa | Comando | Observação |
+|---|---|---|
+| 1. Catálogo | `run_document_catalog.py --only <CETIP> --dry-run`, depois sem `--dry-run` | mostra `documentos_novos` |
+| 2. Download | `run_sample_download.py --cetip … --isin … --source-id <ids> [--allow-other] [--max-megabytes N] --dry-run`, depois sem | confere o ISIN na grade; falha nunca vira versão |
+| 3. Texto dos PDFs | `extract_document_text.py --cetip …` | pdftotext; lista os PDFs em imagem |
+| 3b. OCR (opcional) | `ocr_document_pages.py --cetip … --source-id <id> --dry-run`, depois sem | exige `pip install pymupdf rapidocr-onnxruntime`; texto `ocr: …` convive com o nativo |
+| 4. Extração do XML | `run_raw_extraction.py --cetip … --isin … --mapping config/xml_mappings/<cra\|cri>.json` | mapeamento aprovado |
+| 5. Revisão dos informes | `build_report_review.py --mapping-version …` e `apply_report_review.py --sheet … --reviewer … --decision-source …` | define a versão vigente |
+| 6. Golden set | `build_golden_set.py --golden …` e `check_extraction_against_golden.py` | extração × XML bruto |
+| 7. Comparação | `run_period_comparison.py --cetip … --isin …` | indicadores por leiaute CRA/CRI |
+| 8. Qualidade de dado | `run_data_quality_alerts.py --cetip … --isin … --rules config/alert_rules/data_quality_*.json` | recusa regra não aprovada |
+| 9. Parâmetros e fatos | `load_contract_parameters.py --proposal …`, `load_reported_facts.py --facts …` | entram `pending`; trecho literal conferido na página |
+| 10. Revisão humana | `export_pending_review.py --cetip …` (página HTML), `review_contract_parameters.py`, `review_reported_facts.py [--ids-file]`, `review_asset_series.py` | aprovação registra o revisor |
+| 11. Alertas contratuais | `run_contract_alerts.py --rules config/alert_rules/contractual_<cetip>.json [--preview]` | só fatos e parâmetros aprovados; `--preview` não grava |
+| 12. Série das DFs | `export_df_history.py --cetip … [--include-pending]` | confronta DF × Informe da mesma competência |
+| 13. Séries da emissão | `load_asset_series.py --cetip … --dry-run`, depois `--commit` | código, ISIN e classes (Informe e Termo) |
+
+Relatórios gerados ficam em `reports/`; o resumo do trabalho está em
+`reports/resumo_do_projeto_2026-10-28.md`.
+
 ## Pendências
 
 - Download em lotes: fila, retomada, limite de taxa e critério de parada.
-- Operações com várias séries (hoje cada série é uma linha de `assets`).
+- Séries: `asset_series` (migration 002) guarda as séries de cada emissão; os informes ainda ligam valores
+  por série só pelo `instance_key` (NumeroSerie).
 - Ligar o classificador estrito ao catálogo (hoje o catálogo ainda usa `classify_document`).
 - Banco real: nenhum `cri_cra.db` está neste repositório; os números reais dependem dele.
