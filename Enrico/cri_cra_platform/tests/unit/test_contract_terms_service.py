@@ -30,3 +30,26 @@ def test_candidate_keeps_literal_excerpt_page_and_tokens():
 
 def test_no_match_returns_nothing():
     assert find_candidates([(1, "texto sem cláusulas relevantes", "h")], CONFIG) == []
+
+
+def test_preferred_pages_uses_native_text_and_falls_back_to_ocr():
+    import sqlite3
+    from credit_assets.services.contract_terms_service import preferred_pages
+
+    connection = sqlite3.connect(":memory:")
+    connection.row_factory = sqlite3.Row
+    connection.execute(
+        """CREATE TABLE document_text_pages (document_version_id INTEGER, page_number INTEGER,
+           text TEXT, text_sha256 TEXT, extractor TEXT, extracted_at TEXT)"""
+    )
+    rows = [
+        (1, 1, "texto nativo", "a", "pdftotext", "t"),
+        (1, 1, "texto ocr", "b", "ocr: x", "t"),
+        (1, 2, "", "c", "pdftotext", "t"),
+        (1, 2, "so ocr", "d", "ocr: x", "t"),
+        (1, 3, "", "e", "pdftotext", "t"),
+    ]
+    connection.executemany("INSERT INTO document_text_pages VALUES (?, ?, ?, ?, ?, ?)", rows)
+    chosen = {row["page_number"]: (row["text"], row["extractor"]) for row in preferred_pages(connection, 1)}
+    assert chosen == {1: ("texto nativo", "pdftotext"), 2: ("so ocr", "ocr: x"), 3: ("", "pdftotext")}
+    assert [r["page_number"] for r in preferred_pages(connection, 1, 2)] == [2]

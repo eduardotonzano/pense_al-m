@@ -43,6 +43,7 @@ SAMPLE_CATEGORIES = (
 EXPLICIT_CATEGORIES = SAMPLE_CATEGORIES + (
     "Relatório Agente Fiduciário",
     "Fato Relevante",
+    "Anúncio de Encerramento",
 )
 # "Outro" (ex.: comunicados ao mercado) só com opt-in explícito (allow_other).
 OTHER_CATEGORY = "Outro"
@@ -54,6 +55,7 @@ CATEGORY_DIRECTORIES = {
     "Ata/Edital": "atas_editais",
     "Relatório Agente Fiduciário": "relatorios_agente_fiduciario",
     "Fato Relevante": "fatos_relevantes",
+    "Anúncio de Encerramento": "anuncios_encerramento",
     "Outro": "outros",
 }
 

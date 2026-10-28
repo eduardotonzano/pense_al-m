@@ -19,6 +19,7 @@ from credit_assets.repositories.document_version_repository import (
     DocumentVersionRepository,
 )
 from credit_assets.services.document_download_service import (
+    CATEGORY_DIRECTORIES,
     DocumentDownloadService,
     FundosNetBrowserDownloader,
     SAMPLE_CATEGORIES,
@@ -183,6 +184,19 @@ def test_explicit_ids_accept_trustee_report_and_material_fact_but_default_sample
     assert [item["category"] for item in explicit["selected"]] == [
         "Relatório Agente Fiduciário", "Fato Relevante"
     ]
+    default = select_sample_documents(connection, "CRA022009VM", "BRECOACRABX0")
+    assert {item["category"] for item in default["selected"]} == {"Informe Mensal"}
+
+
+def test_closing_announcement_is_explicit_only(tmp_path):
+    connection, _ = create_catalog(
+        tmp_path, ("Anúncio de Encerramento de Distribuição Pública", "Informe Mensal de CRA")
+    )
+    explicit = select_sample_documents(
+        connection, "CRA022009VM", "BRECOACRABX0", source_document_ids=["981501"],
+    )
+    assert explicit["selected"][0]["category"] == "Anúncio de Encerramento"
+    assert CATEGORY_DIRECTORIES["Anúncio de Encerramento"] == "anuncios_encerramento"
     default = select_sample_documents(connection, "CRA022009VM", "BRECOACRABX0")
     assert {item["category"] for item in default["selected"]} == {"Informe Mensal"}
 

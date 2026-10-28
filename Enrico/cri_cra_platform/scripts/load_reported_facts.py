@@ -15,6 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.database.connection import connect, initialize_database
+from credit_assets.services.contract_terms_service import preferred_pages
 
 
 def _squash(text: str) -> str:
@@ -38,15 +39,20 @@ def main() -> int:
             raise SystemExit("ativo não encontrado")
         with connection:
             for fact in payload["facts"]:
-                page = connection.execute(
-                    """SELECT p.document_version_id, p.text, p.text_sha256
-                       FROM document_text_pages p
-                       JOIN document_versions v ON v.version_id = p.document_version_id
+                version = connection.execute(
+                    """SELECT v.version_id FROM document_versions v
                        JOIN documents d ON d.document_pk = v.document_id
-                       WHERE d.source_document_id = ? AND d.asset_id = ? AND v.is_current = 1
-                         AND p.page_number = ?""",
-                    (fact["source_document_id"], asset["asset_id"], fact["page_number"]),
+                       WHERE d.source_document_id = ? AND d.asset_id = ? AND v.is_current = 1""",
+                    (fact["source_document_id"], asset["asset_id"]),
                 ).fetchone()
+                pages = (
+                    preferred_pages(connection, version["version_id"], fact["page_number"])
+                    if version else []
+                )
+                page = (
+                    {"document_version_id": version["version_id"], "text": pages[0]["text"],
+                     "text_sha256": pages[0]["text_sha256"]} if pages else None
+                )
                 if page is None:
                     raise SystemExit(f"{fact['fact_name']}: página sem texto extraído")
                 if _squash(fact["excerpt"]) not in _squash(page["text"]):

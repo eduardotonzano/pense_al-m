@@ -105,6 +105,10 @@ def main() -> int:
         "--allow-other", action="store_true",
         help="com --source-id, aceita documentos da categoria Outro (ex.: comunicados)",
     )
+    parser.add_argument(
+        "--max-megabytes", type=int, default=25, choices=range(1, 201), metavar="1-200",
+        help="limite de tamanho por arquivo (padrão 25); acima dele o download é recusado",
+    )
     args = parser.parse_args()
     source_ids = (
         [part for value in args.source_ids for part in value.split(",")]
@@ -126,6 +130,7 @@ def main() -> int:
             connection,
             DocumentVersionRepository(connection),
             ROOT,
+            max_bytes=args.max_megabytes * 1_000_000,
         )
         categories = [args.category] if args.category else None
         report = service.run(

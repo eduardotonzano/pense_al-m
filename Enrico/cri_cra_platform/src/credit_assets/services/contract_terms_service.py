@@ -73,6 +73,29 @@ def store_pages(connection, project_root: Path, document_version_id: int) -> dic
     return {"pages": len(pages), "empty_pages": empty, "extractor": extractor}
 
 
+def preferred_pages(connection, document_version_id: int, page_number: int | None = None) -> list[sqlite3.Row]:
+    """Uma linha por página: o texto nativo do PDF; o OCR só quando o nativo vem vazio.
+
+    ``document_text_pages`` guarda cada extrator separadamente (a chave inclui o extrator),
+    então uma página de PDF em imagem pode ter a linha vazia do pdftotext e a do OCR.
+    """
+    query = """SELECT page_number, text, text_sha256, extractor FROM document_text_pages
+               WHERE document_version_id = ?"""
+    params: list[Any] = [document_version_id]
+    if page_number is not None:
+        query += " AND page_number = ?"
+        params.append(page_number)
+    best: dict[int, sqlite3.Row] = {}
+    for row in connection.execute(query + " ORDER BY page_number, extractor", params):
+        key = (bool(row["text"].strip()), not row["extractor"].startswith("ocr"))
+        current = best.get(row["page_number"])
+        if current is None or key > (
+            bool(current["text"].strip()), not current["extractor"].startswith("ocr")
+        ):
+            best[row["page_number"]] = row
+    return [best[number] for number in sorted(best)]
+
+
 def find_candidates(pages: list[tuple[int, str, str]], config: dict[str, Any]) -> list[dict[str, Any]]:
     """``pages``: (número, texto, sha256). Devolve um candidato por ocorrência de tema."""
     window = int(config["window_lines"])
@@ -104,11 +127,7 @@ def find_candidates(pages: list[tuple[int, str, str]], config: dict[str, Any]) -
 def store_candidates(connection, document_version_id: int, config: dict[str, Any]) -> dict[str, Any]:
     pages = [
         (row["page_number"], row["text"], row["text_sha256"])
-        for row in connection.execute(
-            """SELECT page_number, text, text_sha256 FROM document_text_pages
-               WHERE document_version_id = ? ORDER BY page_number""",
-            (document_version_id,),
-        )
+        for row in preferred_pages(connection, document_version_id)
     ]
     if not pages:
         raise ValueError("texto do documento não extraído")
@@ -139,11 +158,7 @@ def candidate_from_anchor(
 ) -> int:
     """Cria (ou reusa) um candidato a partir de um trecho âncora literal em qualquer página."""
     squashed_anchor = re.sub(r"\s+", " ", anchor).strip()
-    for row in connection.execute(
-        """SELECT page_number, text, text_sha256 FROM document_text_pages
-           WHERE document_version_id = ? ORDER BY page_number""",
-        (document_version_id,),
-    ):
+    for row in preferred_pages(connection, document_version_id):
         lines = row["text"].splitlines()
         for index in range(len(lines)):
             joined = re.sub(r"\s+", " ", " ".join(lines[index:index + 4]))
