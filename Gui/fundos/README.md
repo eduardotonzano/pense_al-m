@@ -5,7 +5,8 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 ## O que existe
 
 - Banco SQLite próprio, criado pela migration `migrations/001_initial_schema.sql`, com o mesmo esqueleto de proveniência das debêntures: `sources`, `collection_runs`, `raw_records`, `observations`, `data_conflicts`, `audit_log`, a view `current_observations` e `schema_migrations`. Os assuntos são `funds`, `fund_classes` e `quota_series`.
-- `src/fundos/`: conexão (`database.py`), utilitário de CNPJ (`cnpj.py`), guarda de dados pessoais (`personal_data.py`) e repositórios mínimos (`repositories/`).
+- `src/fundos/`: conexão (`database.py`), utilitário de CNPJ (`cnpj.py`), guarda de dados pessoais (`personal_data.py`), backup (`backup.py`) e repositórios mínimos (`repositories/`).
+- `scripts/apply_migration.py`: aplica as migrations numeradas, com backup e verificação.
 
 ## O que ainda não existe
 
@@ -61,6 +62,26 @@ cd Gui\fundos
 Não instale este módulo no `debenture-venv` e não reinstale pacote nenhum nele. Se um dia for preciso instalar, use um venv próprio fora do compartilhamento de rede (`py -m venv C:\Users\<voce>\fundos-venv` e depois `pip install -e "Gui\fundos[dev]"`).
 
 Os testes usam só bancos sintéticos em pasta temporária e CNPJs fictícios. Nenhum teste abre banco real ou acessa a rede.
+
+## Como aplicar a migration
+
+Não existe banco padrão: `--database` é obrigatório, e `--dry-run` ou `--commit` também. Rode sempre o `--dry-run` antes. O `--commit` só com aprovação explícita.
+
+```powershell
+cd Gui\fundos
+# banco novo: primeiro verifica numa pasta temporária, sem criar nada
+python scripts\apply_migration.py --database C:\<pasta-local>\fundos.db --create --dry-run
+python scripts\apply_migration.py --database C:\<pasta-local>\fundos.db --create --commit
+# banco existente
+python scripts\apply_migration.py --database C:\<pasta-local>\fundos.db --dry-run
+python scripts\apply_migration.py --database C:\<pasta-local>\fundos.db --commit
+```
+
+- `--dry-run` aplica e verifica numa cópia temporária; o banco informado não muda.
+- `--commit` faz o backup antes (`backups\fundos_<UTC>.sqlite3` ao lado do banco, ou a pasta de `--backup-dir`) e aplica tudo numa transação.
+- Antes do COMMIT, confere `integrity_check`, `foreign_key_check`, a versão registrada, que nada do que existia mudou (a não ser com `--allow-existing-changes`) e que nenhuma coluna tem `cpf` no nome. Se algo falhar, desfaz e mantém o backup.
+- **Caminho longo:** se o caminho do backup ou do banco, com `-journal`, chegar a 260 caracteres, o script recusa antes de tocar no banco. Use `--backup-dir` com uma pasta curta (por exemplo `C:\bk\fundos`).
+- Nova migration: novo arquivo `migrations/NNN_nome.sql` que termina com `INSERT OR IGNORE INTO schema_migrations(version,name) VALUES(NNN,'nome');`. Nunca edite uma migration já aplicada.
 
 ## Como renomear
 
