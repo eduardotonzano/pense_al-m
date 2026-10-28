@@ -3,8 +3,9 @@
 Só usa ``contract_parameters`` com ``review_status = 'approved'``; parâmetro
 ausente ou não aprovado interrompe a regra (nunca é presumido). Fatos vêm de
 ``reported_facts`` (trecho literal conferido) e de relatórios vigentes do
-Informe Mensal. Toda avaliação é devolvida, inclusive as conformes, para que a
-ausência de alerta também seja rastreável.
+Informe Mensal. Só fatos com revisão humana aprovada entram nas regras: fato
+pendente nunca gera alerta contratual. Toda avaliação é devolvida, inclusive as
+conformes, para que a ausência de alerta também seja rastreável.
 """
 from __future__ import annotations
 
@@ -17,7 +18,9 @@ from typing import Any
 
 from credit_assets.services.data_quality_alerts_service import upsert_alert
 
-DETECTOR_VERSION = "0.1.0"
+DETECTOR_VERSION = "0.2.0"
+# Unidades de fatos convertidas para a unidade do parâmetro (BRL) nas regras de mínimo.
+UNIT_FACTORS = {"BRL": Decimal(1), "BRL_mil": Decimal(1000)}
 
 
 class ParameterNotApproved(ValueError):
@@ -72,7 +75,7 @@ def facts_by_date(connection, asset_id) -> dict[str, dict[str, list[sqlite3.Row]
            FROM reported_facts f
            JOIN document_versions v ON v.version_id = f.document_version_id
            JOIN documents d ON d.document_pk = v.document_id
-           WHERE f.asset_id = ? AND f.review_status <> 'rejected'""",
+           WHERE f.asset_id = ? AND f.review_status = 'approved'""",
         (asset_id,),
     ):
         grouped[row["reference_date"]][row["fact_name"]].append(row)
@@ -187,7 +190,17 @@ def trustee_payment_statement(connection, asset_id, facts, rule) -> list[dict]:
     return evaluations
 
 
-def obligation_deadlines(parameters, rule, today: str) -> list[dict]:
+def _fulfilled(item, facts) -> dict | None:
+    """Cumprimento comprovado por fato aprovado: {"fact": nome, "reference_date": data}."""
+    condition = item.get("fulfilled_by_fact")
+    if not isinstance(condition, dict) or facts is None:
+        return None
+    rows = facts.get(condition["reference_date"], {}).get(condition["fact"], [])
+    return {"fato": condition["fact"], "data_base": condition["reference_date"],
+            "fonte": _source(rows[0])} if rows else None
+
+
+def obligation_deadlines(parameters, rule, today: str, facts=None) -> list[dict]:
     """Prazos de obrigações aprovadas: informa os vencidos ou próximos sem evidência de cumprimento."""
     evaluations = []
     for item in rule["obligations"]:
@@ -197,7 +210,17 @@ def obligation_deadlines(parameters, rule, today: str) -> list[dict]:
             continue
         due = item.get("due") or row["parameter_value"]
         days = (datetime.fromisoformat(due) - datetime.fromisoformat(today)).days
-        if days > rule["warn_days"] or item.get("fulfilled_by_fact"):
+        proof = _fulfilled(item, facts)
+        if proof:
+            evaluations.append({
+                "month": due[:7], "instance_key": item["parameter"], "compliant": True,
+                "message": f"{item['label']}: prazo {due}; cumprimento comprovado por {proof['fato']} ({proof['fonte']}).",
+                "evidence": {"parametro": item["parameter"], "prazo": due, **proof},
+            })
+            continue
+        if days > rule["warn_days"] or (
+            item.get("fulfilled_by_fact") and not isinstance(item["fulfilled_by_fact"], dict)
+        ):
             continue
         evaluations.append({
             "month": due[:7], "instance_key": item["parameter"], "compliant": False,
@@ -211,20 +234,78 @@ def obligation_deadlines(parameters, rule, today: str) -> list[dict]:
     return evaluations
 
 
-def evaluate_asset(connection, asset_id, config) -> dict[str, Any]:
+def fact_minimum(facts, parameters, rule) -> list[dict]:
+    """Soma de fatos ≥ parâmetro mínimo, convertendo a unidade do fato para a do parâmetro (BRL)."""
+    evaluations = []
+    for date, names in sorted(facts.items()):
+        if rule.get("months") and date[5:7] not in rule["months"]:
+            continue
+        if not all(name in names for name in rule["facts"]):
+            continue
+        minimum = _parameter(parameters, rule["parameter"], date)
+        value = Decimal(0)
+        for name in rule["facts"]:
+            fact = names[name][0]
+            if fact["unit"] not in UNIT_FACTORS:
+                raise ValueError(f"unidade {fact['unit']} de {name} sem conversão definida")
+            value += Decimal(fact["value"]) * UNIT_FACTORS[fact["unit"]]
+        below = value < minimum
+        evaluations.append({
+            "month": date[:7], "instance_key": None, "compliant": not below,
+            "message": (f"{rule['label']}: R$ {value:,.2f} em {date} "
+                        f"{'abaixo do' if below else '≥'} mínimo de R$ {minimum:,.2f}."),
+            "evidence": {"valor_brl": str(value), "minimo": str(minimum), "data_base": date,
+                         "parametro": rule["parameter"],
+                         "fontes_fatos": sorted({_source(names[n][0]) for n in rule["facts"]}),
+                         "unidades": sorted({names[n][0]["unit"] for n in rule["facts"]}),
+                         "fonte_parametro": parameter_row(parameters, rule["parameter"], date)["source_reference"]},
+        })
+    return evaluations
+
+
+def fact_flag(facts, parameters, rule) -> list[dict]:
+    """Fato aprovado com valor que contradiz uma obrigação aprovada (ex.: garantia "NÃO" constituída)."""
+    obligation = parameter_row(parameters, rule["parameter"])
+    alert_values = {value.strip().lower() for value in rule["alert_values"]}
+    evaluations = []
+    for date, names in sorted(facts.items()):
+        for name in rule["facts"]:
+            for fact in names.get(name, []):
+                flagged = str(fact["value"]).strip().lower() in alert_values
+                evaluations.append({
+                    "month": date[:7], "instance_key": name, "compliant": not flagged,
+                    "message": f"{rule['label']}: {name} = {fact['value']!r} em {date} ({_source(fact)}).",
+                    "evidence": {"fato": name, "valor": fact["value"], "data_base": date, "fonte": _source(fact),
+                                 "parametro": rule["parameter"], "obrigacao": obligation["parameter_value"],
+                                 "fonte_parametro": obligation["source_reference"]},
+                })
+    return evaluations
+
+
+def evaluate_asset(connection, asset_id, config, persist: bool = True) -> dict[str, Any]:
     parameters = approved_parameters(connection, asset_id)
     facts = facts_by_date(connection, asset_id)
     rules = config["rules"]
-    evaluations = {
-        "cessao_fiduciaria_minima": cessao_fiduciaria_minima(facts, parameters, rules["cessao_fiduciaria_minima"]),
-        "razao_garantia_minima": razao_garantia_minima(facts, parameters, rules["razao_garantia_minima"]),
-        "payment_reconciliation": payment_reconciliation(connection, asset_id, facts, rules["payment_reconciliation"]),
-        "trustee_payment_statement": trustee_payment_statement(connection, asset_id, facts, rules["trustee_payment_statement"]),
+    today = config.get("reference_date") or datetime.now().date().isoformat()
+    evaluators = {
+        "cessao_fiduciaria_minima": lambda rule: cessao_fiduciaria_minima(facts, parameters, rule),
+        "razao_garantia_minima": lambda rule: razao_garantia_minima(facts, parameters, rule),
+        "payment_reconciliation": lambda rule: payment_reconciliation(connection, asset_id, facts, rule),
+        "trustee_payment_statement": lambda rule: trustee_payment_statement(connection, asset_id, facts, rule),
+        "obligation_deadlines": lambda rule: obligation_deadlines(parameters, rule, today, facts),
+        "fact_minimum": lambda rule: fact_minimum(facts, parameters, rule),
+        "fact_flag": lambda rule: fact_flag(facts, parameters, rule),
     }
-    if "obligation_deadlines" in rules:
-        evaluations["obligation_deadlines"] = obligation_deadlines(
-            parameters, rules["obligation_deadlines"], config.get("reference_date") or datetime.now().date().isoformat()
-        )
+    evaluations = {}
+    for rule_id, rule in rules.items():
+        kind = rule.get("type", rule_id)
+        if kind not in evaluators:
+            raise ValueError(f"regra {rule_id}: tipo {kind} desconhecido")
+        evaluations[rule_id] = evaluators[kind](rule)
+    if not persist:
+        return {"detector_run_id": None, "new": 0, "seen_again": 0,
+                "compliant": sum(item["compliant"] for items in evaluations.values() for item in items),
+                "evaluations": evaluations}
     run_id = uuid.uuid4().hex
     now = datetime.now(timezone.utc).isoformat()
     counts = {"new": 0, "seen_again": 0, "compliant": 0}

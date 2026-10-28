@@ -16,10 +16,14 @@ from credit_assets.services.contract_alerts_service import evaluate_asset
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--rules", type=Path, required=True)
+    parser.add_argument(
+        "--preview", action="store_true",
+        help="avalia sem gravar alertas; aceita regras pendentes e gera *_avaliacao_contratual_previa.csv",
+    )
     args = parser.parse_args()
     config = json.loads(args.rules.read_text(encoding="utf-8"))
-    if config.get("approval_status") != "approved":
-        raise SystemExit("regras contratuais não aprovadas")
+    if config.get("approval_status") != "approved" and not args.preview:
+        raise SystemExit("regras contratuais não aprovadas (use --preview para avaliar sem gravar)")
     connection = connect(ROOT / "data" / "cri_cra.db")
     initialize_database(connection)
     try:
@@ -27,7 +31,7 @@ def main() -> int:
             "SELECT asset_id FROM assets WHERE codigo_cetip = ? AND isin = ?",
             (config["asset"]["codigo_cetip"], config["asset"]["isin"]),
         ).fetchone()
-        result = evaluate_asset(connection, asset["asset_id"], config)
+        result = evaluate_asset(connection, asset["asset_id"], config, persist=not args.preview)
     finally:
         connection.close()
     rows = [
@@ -36,9 +40,13 @@ def main() -> int:
          "message": item["message"], "evidence_json": json.dumps(item["evidence"], ensure_ascii=False)}
         for rule_id, items in result["evaluations"].items() for item in items
     ]
-    path = ROOT / "reports" / f"{config['asset']['codigo_cetip'].lower()}_avaliacao_contratual.csv"
+    suffix = "_previa" if args.preview else ""
+    path = ROOT / "reports" / f"{config['asset']['codigo_cetip'].lower()}_avaliacao_contratual{suffix}.csv"
     with path.open("w", encoding="utf-8-sig", newline="") as handle:
-        writer = csv.DictWriter(handle, fieldnames=list(rows[0]), delimiter=";")
+        writer = csv.DictWriter(
+            handle, fieldnames=["rule_id", "competencia_mes", "resultado", "message", "evidence_json"],
+            delimiter=";",
+        )
         writer.writeheader()
         writer.writerows(rows)
     summary = {k: v for k, v in result.items() if k != "evaluations"}
