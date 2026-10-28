@@ -1,0 +1,10 @@
+# Nada de banco, backup, arquivo baixado da CVM ou ambiente neste modulo.
+# (*.db, *.sqlite* e .env ja estao no .gitignore da raiz.)
+data/
+backups/
+*.zip
+*.csv
+!tests/fixtures/*.csv
+*-journal
+.env
+.env.*
