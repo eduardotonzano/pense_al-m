@@ -8,9 +8,12 @@ FIAGRO, outros).
 from fundos.cadastro import columns as spec
 from fundos.cadastro.reader import IDENTIFIER_STATUSES
 from fundos.cadastro.reader import OUT_OF_SCOPE
+from fundos.cadastro.selection import EXCLUSION_REASONS
 
 
 SCOPE_KEYS = spec.SCOPE_LABELS + (OUT_OF_SCOPE,)
+ROLES = ("administrador", "gestor", "auditor", "custodiante", "controlador")
+TABLES = (spec.FUND_TABLE, spec.CLASS_TABLE)
 
 
 def _per_scope(counts, prefix):
@@ -171,6 +174,166 @@ def format_read_report(cadastro):
             for column, kind in columns
             if kind == spec.EXCLUDED
         )
+    )
+
+    return lines
+
+
+def _by_kind(counts, prefix):
+    totals = [(kind, counts[prefix + (kind,)]) for kind in spec.VALUE_KINDS]
+
+    return (
+        ", ".join(kind + " " + str(total) for kind, total in totals)
+        + " (total "
+        + str(sum(total for _, total in totals))
+        + ")"
+    )
+
+
+def _current(counts, table, label=None):
+    """Vigentes que entram, de um tipo ou dos dois."""
+
+    labels = spec.SCOPE_LABELS if label is None else (label,)
+
+    return sum(
+        counts[("vigentes", table, each, status)]
+        for each in labels
+        for status in ("cancelado", "nao cancelado")
+    )
+
+
+def format_selection_report(selection):
+    """Linhas do relatorio da escolha do vigente e do que seria gravado."""
+
+    counts = selection.counts
+    lines = [
+        "Registro vigente por CNPJ (prefere Situacao diferente de Cancelado;"
+        " depois Data_Inicio_Situacao mais recente; empate nao entra):",
+    ]
+
+    for table in TABLES:
+        lines.append("  " + table + ":")
+        lines.append(
+            "    registros FIDC ou FIAGRO: "
+            + str(sum(counts[("registros", table, label)] for label in spec.SCOPE_LABELS))
+            + " (com mais de uma linha: "
+            + str(
+                sum(
+                    counts[("registros_com_varias_linhas", table, label)]
+                    for label in spec.SCOPE_LABELS
+                )
+            )
+            + ")"
+        )
+        lines.append(
+            "    CNPJs com algum registro FIDC ou FIAGRO: "
+            + str(counts[("cnpjs_candidatos", table)])
+        )
+        lines.append(
+            "    vigentes que entram: "
+            + "; ".join(
+                label
+                + " "
+                + str(_current(counts, table, label))
+                + " (cancelados "
+                + str(counts[("vigentes", table, label, "cancelado")])
+                + ")"
+                for label in spec.SCOPE_LABELS
+            )
+        )
+        lines.append(
+            "    fora: "
+            + "; ".join(
+                reason + " " + str(counts[("fora", table, reason)])
+                for reason in EXCLUSION_REASONS[table]
+            )
+        )
+
+    lines.append(
+        "  Tipo_Pessoa_Gestor com mais de um valor no registro (nao gravado): "
+        + str(sum(counts[("tipo_pessoa_misturado", label)] for label in spec.SCOPE_LABELS))
+    )
+    lines.append(
+        "  par Tipo_Fundo e Tipo_Classe divergente (carregado assim mesmo): "
+        + str(counts[("par_divergente",)])
+    )
+    lines.append("Candidatos a gravar (num banco vazio, todos novos):")
+    lines.append("  funds: " + str(_current(counts, spec.FUND_TABLE)))
+    lines.append("  fund_classes: " + str(_current(counts, spec.CLASS_TABLE)))
+
+    for table in TABLES:
+        lines.append(
+            "  observations " + table + ": " + _by_kind(counts, ("observacoes", table))
+        )
+
+    lines.append(
+        "  party_observations: "
+        + ", ".join(role + " " + str(counts[("papeis", role)]) for role in ROLES)
+        + " (total "
+        + str(sum(counts[("papeis", role)] for role in ROLES))
+        + ")"
+    )
+
+    return lines
+
+
+def _created_existing(counts, prefix, created, existing):
+    return (
+        created
+        + " "
+        + str(counts[prefix + (created,)])
+        + ", "
+        + existing
+        + " "
+        + str(counts[prefix + (existing,)])
+    )
+
+
+def format_load_report(result):
+    """Linhas do relatorio da carga gravada."""
+
+    counts = result.counts
+    lines = [
+        "Gravado (coleta " + str(result.run_id) + ", status " + result.status + "):",
+        "  funds: " + _created_existing(counts, ("funds",), "criados", "existentes"),
+        "  fund_classes: "
+        + _created_existing(counts, ("fund_classes",), "criadas", "existentes")
+        + ", bloqueadas por vinculo com outro fundo "
+        + str(counts[("fund_classes", "bloqueadas")]),
+    ]
+
+    for table in TABLES:
+        lines.append(
+            "  observations "
+            + table
+            + ": "
+            + "; ".join(
+                kind
+                + " "
+                + _created_existing(counts, ("observacoes", table, kind), "criadas", "existentes")
+                for kind in spec.VALUE_KINDS
+            )
+        )
+
+    lines.append(
+        "  party_observations: "
+        + "; ".join(
+            role + " " + _created_existing(counts, ("papeis", role), "criados", "existentes")
+            for role in ROLES
+        )
+    )
+    lines.append(
+        "  conflitos abertos: data_conflicts "
+        + str(counts[("conflitos", "data_conflicts")])
+        + ", party_conflicts "
+        + str(counts[("conflitos", "party_conflicts")])
+    )
+    lines.append("  manifesto: o ZIP e os 3 CSV em raw_records (subclasse como ignored)")
+    lines.append(
+        "  varredura de CPF (texto inteiro com 11 digitos ou mascara): observations "
+        + str(counts[("varredura_cpf", "observations")])
+        + ", party_observations "
+        + str(counts[("varredura_cpf", "party_observations")])
     )
 
     return lines

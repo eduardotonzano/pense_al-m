@@ -94,7 +94,7 @@ def test_normalizes_values_by_type():
 
 
 def test_decodes_cp1252():
-    name = "Fundo Ficticio Ação Única"
+    name = "Fundo Ficticio A\u00e7\u00e3o \u00danica"
     cadastro = read(build_zip([fund_row(Denominacao_Social=name)]))
 
     assert cadastro.fund_rows[0].values["Denominacao_Social"] == name
