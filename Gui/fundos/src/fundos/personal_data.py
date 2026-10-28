@@ -6,7 +6,8 @@ guarda roda antes de qualquer SQL; o trigger trg_observations_personal_data
 da migration 001 repete a regra de formato no banco.
 
 O nome de gestor ou auditor pessoa fisica depende de outra coluna da mesma
-linha e fica com o leitor do cadastro (etapa futura).
+linha e fica com o leitor do cadastro (fundos.cadastro.reader), que o
+descarta antes de chegar aqui.
 
 As mensagens citam o campo, nunca o valor.
 """
