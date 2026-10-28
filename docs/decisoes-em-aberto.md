@@ -63,7 +63,7 @@ A parte **Fundos: decisões da Fase 0**, no fim, é diferente: registra oito dec
 
 **Impacto por fase**
 - **Fase 0:** o ADR-006 trata spread e rating como campos do catálogo; sem decisão, saem como `ausente` (`nunca_coletado`) para os ativos sem coleta.
-- **Fase 1:** A e B exigem padronizar a unidade e regravar a observação. C não exige. D, E e F exigem conectar a fonte; E e F exigem ativar `ANBIMA_API` e confirmar acesso. G elimina o trabalho de rating.
+- **Fase 1:** A e B exigem padronizar a unidade e regravar a observação. C não exige. D, E e F exigem conectar a fonte; E e F exigem ativar `ANBIMA_API` e confirmar acesso. G elimina o trabalho de rating. Antes de ativar a `ANBIMA_API`, a escala de prioridade das debêntures precisa de decisão e de migration da frente de Debêntures, porque hoje ela (300) passaria à frente da CVM (200), contra a regra 3 do `CLAUDE.md`; a pendência está registrada no ADR-010 (`docs/architecture/ADR-010-prioridade-de-fontes-em-fundos.md`), ainda em proposta.
 - **Fase 2:** sem efeito direto. S-10 (rating de CRI/CRA) tem decisão própria.
 - **Fase 3:** a fonte escolhida entra na hierarquia de prioridade da camada compartilhada.
 - **Site:** A e B definem o rótulo da coluna; C mantém o campo ausente para a CEPEA1 também.
