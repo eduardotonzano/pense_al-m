@@ -1,0 +1,1032 @@
+{
+  "asset": {
+    "codigo_cetip": "24G2100031",
+    "isin": "BRRBRACRIP13"
+  },
+  "source_note": "Documentos da oferta pública da 301ª emissão da Opea Securitizadora (CRI Almeida Junior): Aviso ao Mercado de 29/07/2024 (doc. 722271), Lâmina da Oferta de 16/08/2024 (doc. 722282), Lâmina da Oferta de 28/08/2024 (doc. 727225), Anúncio de Início de 27/08/2024 (doc. 727228) e Prospecto Preliminar de 29/07/2024 (doc. 722286, 539 páginas, lido nas seções iniciais e por busca de palavras-chave; inclui anexos como a Escritura de Emissão de Debêntures, a Escritura de Alienação Fiduciária de Imóvel, o Termo de Securitização e o relatório preliminar da Fitch). O Prospecto Definitivo (doc. 727241) não foi baixado (acima do limite de tamanho). Os números de página são os da extração em PDF (a página impressa do Prospecto é a da extração menos 5). O Prospecto Preliminar antecede o Primeiro Aditamento ao Termo (doc. 722252) e a modificação da oferta de 09/08/2024; diferenças em relação ao Termo/Aditamento estão em reports/24g2100031_oferta_vs_termo.md, sem decidir qual texto prevalece.",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-28",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "722271",
+      "page_number": 1,
+      "fact_name": "aviso_valor_total_oferta",
+      "reference_date": "2024-07-29",
+      "value": "230000000.00",
+      "unit": "BRL",
+      "excerpt": "no montante total de R$230.000.000,00 (duzentos e trinta milhões de reais)"
+    },
+    {
+      "source_document_id": "722271",
+      "page_number": 1,
+      "fact_name": "aviso_codigo_isin",
+      "reference_date": "2024-07-29",
+      "value": "BRRBRACRIP13",
+      "unit": "texto",
+      "excerpt": "Código ISIN dos CRI: BRRBRACRIP13"
+    },
+    {
+      "source_document_id": "722271",
+      "page_number": 1,
+      "fact_name": "aviso_rating_preliminar",
+      "reference_date": "2024-07-29",
+      "value": "AA-(EXP)sf(bra) - Fitch Ratings, preliminar, realizada em 2024-07-29",
+      "unit": "texto",
+      "excerpt": "Rating) Preliminar da Emissão atribuída pela FITCH RATINGS DO BRASIL LTDA.: ‘AA-(EXP)sf(bra)’*. *Esta classificação foi realizada em 29 de julho de 2024, estando sujeita a alterações.",
+      "note": "Rating preliminar (EXP) informado no Aviso ao Mercado; a Lâmina de 28/08/2024 e o Anúncio de Início de 27/08/2024 também citam AA-(EXP)sf(bra)."
+    },
+    {
+      "source_document_id": "722271",
+      "page_number": 1,
+      "fact_name": "aviso_quantidade_vnu_data_emissao",
+      "reference_date": "2024-07-29",
+      "value": "230.000 CRI; VNU R$1.000,00; data de emissão 2024-08-29",
+      "unit": "texto",
+      "excerpt": "de 230.000 (duzentos e trinta mil) certificados de recebíveis imobiliários, nominativos e escriturais, da espécie quirografária, em série única, da 301ª (trecentésima primeira) emissão da Securitizadora (\"CRI\"), com valor nominal unitário de R$1.000,00 (mil reais), perfazendo, na data de emissão dos CRI, qual seja 29 de agosto de 2024"
+    },
+    {
+      "source_document_id": "722271",
+      "page_number": 1,
+      "fact_name": "aviso_publico_alvo",
+      "reference_date": "2024-07-29",
+      "value": "Investidores Qualificados",
+      "unit": "texto",
+      "excerpt": "destinada exclusivamente a Investidores Qualificados",
+      "note": "O Anúncio de Início (27/08/2024) e a Lâmina de 28/08/2024 citam Investidores Qualificados e Profissionais."
+    },
+    {
+      "source_document_id": "722271",
+      "page_number": 1,
+      "fact_name": "aviso_data_requerimento_registro",
+      "reference_date": "2024-07-29",
+      "value": "2024-07-29",
+      "unit": "data",
+      "excerpt": "O requerimento de registro automático da Oferta foi realizado perante a CVM em 29 de julho de 2024."
+    },
+    {
+      "source_document_id": "722271",
+      "page_number": 1,
+      "fact_name": "aviso_coordenador_lider",
+      "reference_date": "2024-07-29",
+      "value": "Itaú BBA Assessoria Financeira S.A. (CNPJ 04.845.753/0001-59)",
+      "unit": "texto",
+      "excerpt": "ITAÚ BBA ASSESSORIA FINANCEIRA S.A., sociedade por ações, integrante do sistema de distribuição de valores mobiliários, com sede na Cidade de São Paulo, Estado de São Paulo, na Avenida Brigadeiro Faria Lima, nº 3.500, 2º andar, Itaim Bibi, CEP 04538-132, inscrita no CNPJ sob o nº 04.845.753/0001-59"
+    },
+    {
+      "source_document_id": "722271",
+      "page_number": 3,
+      "fact_name": "aviso_concentracao_lastro",
+      "reference_date": "2024-07-29",
+      "value": "100% Devedora (Almeida Junior Shopping Centers S.A.)",
+      "unit": "texto",
+      "excerpt": "(ii) concentração: \"concentrado\", uma vez que os créditos imobiliários são devidos 100% (cem por cento) pela Devedora"
+    },
+    {
+      "source_document_id": "722271",
+      "page_number": 3,
+      "fact_name": "aviso_tipo_lastro",
+      "reference_date": "2024-07-29",
+      "value": "valores mobiliários representativos de dívida (Debêntures)",
+      "unit": "texto",
+      "excerpt": "(iv) tipo de contrato com lastro: \"valores mobiliários representativos de dívida\", uma vez que os créditos imobiliários decorrem das Debêntures"
+    },
+    {
+      "source_document_id": "727228",
+      "page_number": 1,
+      "fact_name": "anuncio_registro_cvm",
+      "reference_date": "2024-08-27",
+      "value": "CVM/SRE/AUT/CRI/PRI/2024/622, concedido em 2024-08-27",
+      "unit": "texto",
+      "excerpt": "O REGISTRO DA OFERTA DOS CRI FOI CONCEDIDO PELA CVM EM 27 DE AGOSTO DE 2024, SOB O Nº CVM/SRE/AUT/CRI/PRI/2024/622"
+    },
+    {
+      "source_document_id": "727228",
+      "page_number": 1,
+      "fact_name": "anuncio_rating_definitivo",
+      "reference_date": "2024-08-27",
+      "value": "AA-(EXP)sf(bra) - Fitch Ratings, 'definitiva' segundo o Anúncio, realizada em 2024-08-27",
+      "unit": "texto",
+      "excerpt": "CLASSIFICAÇÃO DE RISCO (RATING) DEFINITIVA DA EMISSÃO ATRIBUÍDA PELA FITCH RATINGS DO BRASIL LTDA : ‘AA-(EXP)sf(bra)’* *ESTA CLASSIFICAÇÃO FOI REALIZADA EM 27 DE AGOSTO DE 2024.",
+      "note": "O Anúncio chama o rating de \"definitiva\" mas mantém o sufixo (EXP) (rating esperado). Nenhuma página lida traz rating final sem (EXP). Ponto relevante para a pendência de rating."
+    },
+    {
+      "source_document_id": "727228",
+      "page_number": 1,
+      "fact_name": "anuncio_inicio_distribuicao",
+      "reference_date": "2024-08-27",
+      "value": "230.000 CRI; VNU R$1.000,00; R$230.000.000,00; data de emissão 2024-08-29",
+      "unit": "texto",
+      "excerpt": "vêm a público comunicar o início da distribuição pública de 230.000 (duzentos e trinta mil) certificados de recebíveis imobiliários, em série única da 301 (trecentésima primeira) emissão da Securiitzadora, com valor nominal unitário de R$1.000,00 (mil reais), perfazendo, na Data de Emissão, qual seja 29 de agosto de 2024, R$230.000.000,00 (duzentos e trinta milhões de reais)"
+    },
+    {
+      "source_document_id": "727228",
+      "page_number": 1,
+      "fact_name": "anuncio_publico_alvo",
+      "reference_date": "2024-08-27",
+      "value": "Investidores Qualificados e Profissionais",
+      "unit": "texto",
+      "excerpt": "destinada exclusivamente a Investidores Qualificados e Profissionais"
+    },
+    {
+      "source_document_id": "727228",
+      "page_number": 2,
+      "fact_name": "anuncio_cronograma_modificacao_oferta",
+      "reference_date": "2024-08-27",
+      "value": "2024-08-09",
+      "unit": "data",
+      "excerpt": "4. Divulgação do Comunicado ao Mercado acerca da modificação da Oferta 09/08/2024",
+      "note": "Modificação da oferta em 09/08/2024 (novo Prospecto Preliminar). O Prospecto Preliminar lido (doc. 722286) tem data de 29/07/2024, anterior à modificação."
+    },
+    {
+      "source_document_id": "727228",
+      "page_number": 2,
+      "fact_name": "anuncio_cronograma_periodo_desistencia_inicio",
+      "reference_date": "2024-08-27",
+      "value": "2024-08-12",
+      "unit": "data",
+      "excerpt": "5. Início do Período de Desistência 12/08/2024"
+    },
+    {
+      "source_document_id": "727228",
+      "page_number": 2,
+      "fact_name": "anuncio_cronograma_periodo_desistencia_fim",
+      "reference_date": "2024-08-27",
+      "value": "2024-08-16",
+      "unit": "data",
+      "excerpt": "6. Encerramento do Período de Desistência 16/08/2024"
+    },
+    {
+      "source_document_id": "727228",
+      "page_number": 2,
+      "fact_name": "anuncio_cronograma_encerramento_reserva",
+      "reference_date": "2024-08-27",
+      "value": "2024-08-23",
+      "unit": "data",
+      "excerpt": "7. Encerramento do Período de Reserva 23/08/2024"
+    },
+    {
+      "source_document_id": "727228",
+      "page_number": 2,
+      "fact_name": "anuncio_cronograma_liquidacao",
+      "reference_date": "2024-08-27",
+      "value": "2024-08-29",
+      "unit": "data",
+      "excerpt": "11. Liquidação dos CRI 29/08/2024"
+    },
+    {
+      "source_document_id": "727228",
+      "page_number": 2,
+      "fact_name": "anuncio_cronograma_encerramento_maximo",
+      "reference_date": "2024-08-27",
+      "value": "2025-02-23",
+      "unit": "data",
+      "excerpt": "12. Divulgação máxima do Anúncio de Encerramento 23/02/2025"
+    },
+    {
+      "source_document_id": "722282",
+      "page_number": 1,
+      "fact_name": "lamina16_codigo_cvm_a_obter",
+      "reference_date": "2024-08-16",
+      "value": "CVM: a ser obtido",
+      "unit": "texto",
+      "excerpt": "b) CVM: A ser obtido.",
+      "note": "Na Lâmina de 16/08/2024 os códigos CVM e B3 ainda estavam \"A ser obtido\"; a Lâmina de 28/08/2024 traz CVM/SRE/AUT/CRI/PRI/2024/622 e B3 24G2100031."
+    },
+    {
+      "source_document_id": "722282",
+      "page_number": 9,
+      "fact_name": "lamina16_rating",
+      "reference_date": "2024-08-16",
+      "value": "AA-(EXP)sf(bra), em 2024-07-29",
+      "unit": "texto",
+      "excerpt": "‘AA-(EXP)sf(bra)’, em 29 de julho de 2024."
+    },
+    {
+      "source_document_id": "722282",
+      "page_number": 9,
+      "fact_name": "lamina16_duration",
+      "reference_date": "2024-08-16",
+      "value": "4,86 anos, calculado em 2024-08-07",
+      "unit": "texto",
+      "excerpt": "4,86 (quatro inteiros e oitenta e seis centésimos) anos, calculado em 7 de agosto de 2024."
+    },
+    {
+      "source_document_id": "722282",
+      "page_number": 11,
+      "fact_name": "lamina16_participantes_especiais",
+      "reference_date": "2024-08-16",
+      "value": "poderiam ser convidadas (a identificar)",
+      "unit": "texto",
+      "excerpt": "Poderão ser convidadas a participar da Oferta instituições financeiras, na qualidade de"
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 1,
+      "fact_name": "lamina_codigo_cvm",
+      "reference_date": "2024-08-28",
+      "value": "CVM/SRE/AUT/CRI/PRI/2024/622",
+      "unit": "texto",
+      "excerpt": "b) CVM: CVM/SRE/AUT/CRI/PRI/2024/622."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 1,
+      "fact_name": "lamina_codigo_b3",
+      "reference_date": "2024-08-28",
+      "value": "24G2100031",
+      "unit": "texto",
+      "excerpt": "c) B3: 24G2100031."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 1,
+      "fact_name": "lamina_isin",
+      "reference_date": "2024-08-28",
+      "value": "BRRBRACRIP13",
+      "unit": "texto",
+      "excerpt": "a) ISIN: BRRBRACRIP13."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 2,
+      "fact_name": "lamina_quantidade_ofertada",
+      "reference_date": "2024-08-28",
+      "value": "230000",
+      "unit": "CRI",
+      "excerpt": "230.000 (duzentos e trinta mil) CRI."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 2,
+      "fact_name": "lamina_valor_nominal_unitario",
+      "reference_date": "2024-08-28",
+      "value": "1000.00",
+      "unit": "BRL",
+      "excerpt": "R$ 1.000,00 (mil reais)."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 2,
+      "fact_name": "lamina_montante_ofertado",
+      "reference_date": "2024-08-28",
+      "value": "230000000.00",
+      "unit": "BRL",
+      "excerpt": "R$230.000.000,00 (duzentos e trinta milhões de reais)."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 2,
+      "fact_name": "lamina_spread_ate_2030_08_29",
+      "reference_date": "2024-08-28",
+      "value": "0.0150",
+      "unit": "fração a.a. sobre DI (base 252)",
+      "excerpt": "Da primeira Data de Integralização (inclusive) 1,50% ao ano. até 29 de agosto de 2030 (exclusive).",
+      "note": "Lâmina de 28/08/2024: step-up em data fixa 29/08/2030, igual ao Primeiro Aditamento (doc. 722252). O Prospecto Preliminar (29/07/2024) usa \"73º mês\"."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 2,
+      "fact_name": "lamina_spread_a_partir_2030_08_29",
+      "reference_date": "2024-08-28",
+      "value": "0.0275",
+      "unit": "fração a.a. sobre DI (base 252)",
+      "excerpt": "De 29 de agosto de 2030 (inclusive) 2,75% ao ano. até a Data de Vencimento dos CRI."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 2,
+      "fact_name": "lamina_agente_fiduciario",
+      "reference_date": "2024-08-28",
+      "value": "Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda. (CNPJ 22.610.500/0001-88)",
+      "unit": "texto",
+      "excerpt": "VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS LTDA.,"
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 3,
+      "fact_name": "lamina_lastro_cci",
+      "reference_date": "2024-08-28",
+      "value": "Créditos Imobiliários representados por CCI, oriundos de Debêntures da Almeida Junior",
+      "unit": "texto",
+      "excerpt": "Os CRI são lastreados em Créditos Imobiliários, representados pela CCI,"
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 4,
+      "fact_name": "lamina_debentures_saldo_devedor_2024_06_30",
+      "reference_date": "2024-08-28",
+      "value": "1111934",
+      "unit": "BRL_mil",
+      "excerpt": "existe em 30 de junho de 2024 o saldo devedor no valor de R$1.111.934 mil em debêntures (circulante e não circulante) de emissão da Devedora.",
+      "note": "Saldo devedor de debêntures da Devedora em 30/06/2024, além das Debêntures lastro dos CRI (R$ mil, como publicado)."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 4,
+      "fact_name": "lamina_prazo_dias",
+      "reference_date": "2024-08-28",
+      "value": "4383",
+      "unit": "dias",
+      "excerpt": "o prazo dos CRI será de 4.383 (quatro mil trezentos e oitenta e três)"
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 4,
+      "fact_name": "lamina_data_vencimento",
+      "reference_date": "2024-08-28",
+      "value": "2036-08-29",
+      "unit": "data",
+      "excerpt": "vencendo-se, portanto, em 29 de agosto de 2036"
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 9,
+      "fact_name": "lamina_duration",
+      "reference_date": "2024-08-28",
+      "value": "4,86 anos, calculado em 2024-08-07",
+      "unit": "texto",
+      "excerpt": "4,86 (quatro inteiros e oitenta e seis centésimos) anos, calculado em 7 de agosto de 2024.",
+      "note": "O Prospecto Preliminar (29/07/2024) e o Termo original (doc. 722251, p. 21) trazem 4,93 anos (24/07/2024); o Primeiro Aditamento (cláusula 2.2) alterou para 4,86."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 9,
+      "fact_name": "lamina_garantia_af_fracao_ideal",
+      "reference_date": "2024-08-28",
+      "value": "0.8824",
+      "unit": "fração do imóvel",
+      "excerpt": "Alienação fiduciária da fração ideal correspondente a 88,24% (oitenta e oito inteiros e vinte"
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 9,
+      "fact_name": "lamina_garantia_af_titularidade_emissora",
+      "reference_date": "2024-08-28",
+      "value": "texto da Lâmina: imóvel \"de titularidade da Emissora\"",
+      "unit": "texto",
+      "excerpt": "de titularidade da Emissora, no",
+      "note": "A Lâmina diz \"Emissora\"; o Prospecto Preliminar (p. 17) e o Termo (cláusula 8.3) dizem \"Devedora\". Provável erro material da Lâmina (revisão humana)."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 9,
+      "fact_name": "lamina_garantia_af_a_ser_constituida",
+      "reference_date": "2024-08-28",
+      "value": "a ser constituída (nos termos da Escritura Pública de Alienação Fiduciária de Imóvel)",
+      "unit": "texto",
+      "excerpt": "a ser constituída nos termos da Escritura Pública de Alienação Fiduciária de Imóvel.",
+      "note": "A Lâmina não menciona a Condição Suspensiva nem o ônus existente de 2021 sobre 51% do imóvel (ver Prospecto, p. 17-18 e 284-285)."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 9,
+      "fact_name": "lamina_garantia_cf_recebiveis",
+      "reference_date": "2024-08-28",
+      "value": "88,24% dos direitos creditórios de locação do Shopping Neumarkt + Conta Vinculada Locação + Conta Vinculada Resgate",
+      "unit": "texto",
+      "excerpt": "Cessão fiduciária (i) da totalidade dos direitos creditórios, presentes e futuros, decorrentes"
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 9,
+      "fact_name": "lamina_rating_agencia",
+      "reference_date": "2024-08-28",
+      "value": "Fitch Ratings do Brasil Ltda.",
+      "unit": "texto",
+      "excerpt": "Fitch Ratings do Brasil Ltda."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 9,
+      "fact_name": "lamina_rating",
+      "reference_date": "2024-08-28",
+      "value": "AA-(EXP)sf(bra), em 2024-08-27",
+      "unit": "texto",
+      "excerpt": "‘AA-(EXP)sf(bra)’, em 27 de agosto de 2024.",
+      "note": "Rating ainda com sufixo (EXP) na Lâmina de 28/08/2024."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 11,
+      "fact_name": "lamina_procedimento_garantia_firme",
+      "reference_date": "2024-08-28",
+      "value": "garantia firme",
+      "unit": "texto",
+      "excerpt": "☒ Garantia Firme."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 11,
+      "fact_name": "lamina_periodo_reservas",
+      "reference_date": "2024-08-28",
+      "value": "2024-08-06 a 2024-08-23",
+      "unit": "texto",
+      "excerpt": "06/08/2024 a 23/08/2024."
+    },
+    {
+      "source_document_id": "727225",
+      "page_number": 11,
+      "fact_name": "lamina_data_liquidacao",
+      "reference_date": "2024-08-28",
+      "value": "2024-08-29",
+      "unit": "data",
+      "excerpt": "Qual a data da liquidação 29/08/2024."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 1,
+      "fact_name": "prospecto_rating_preliminar_capa",
+      "reference_date": "2024-07-29",
+      "value": "AA-(EXP)sf(bra) - Fitch Ratings, preliminar, realizada em 2024-07-29",
+      "unit": "texto",
+      "excerpt": "CLASSIFICAÇÃO DE RISCO (RATING) PRELIMINAR DA EMISSÃO ATRIBUÍDA PELA FITCH RATINGS DO BRASIL LTDA.: ‘AA-(EXPsf(bra)’* *ESTA CLASSIFICAÇÃO FOI REALIZADA EM 29 DE JULHO DE 2024.",
+      "note": "A capa traz ‘AA-(EXPsf(bra)’ (sem o fecha-parêntese após EXP), erro de digitação do original."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 1,
+      "fact_name": "prospecto_debentures_lastro",
+      "reference_date": "2024-07-29",
+      "value": "230.000 debêntures, 4ª emissão da Almeida Junior, quirografárias a serem convoladas em garantia real, série única, colocação privada",
+      "unit": "texto",
+      "excerpt": "Os CRI serão lastreados em créditos imobiliários decorrentes de 230.000 (duzentas e trinta mil) debêntures simples, não conversíveis em ações, da espécie quirografária, a ser convolada na espécie com garantia real, em série única, para colocação privada da 4ª (quarta) emissão"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 1,
+      "fact_name": "prospecto_data_escritura_emissao",
+      "reference_date": "2024-07-29",
+      "value": "2024-07-26",
+      "unit": "data",
+      "excerpt": "celebrado em 26 de julho de 2024, entre a Devedora e a Securitizadora"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 1,
+      "fact_name": "prospecto_garantias_capa",
+      "reference_date": "2024-07-29",
+      "value": "AF de imóvel \"a ser constituída\"; cessão fiduciária de recebíveis \"observada a Condição Suspensiva\"",
+      "unit": "texto",
+      "excerpt": "Os Créditos Imobiliários que lastreiam os CRI contarão com as seguintes garantias: (i) Alienação Fiduciária de Imóvel (conforme abaixo definido), a ser constituída nos termos da Escritura de Emissão e da Escritura Pública de Alienação Fiduciária de Imóvel; e (ii) Cessão Fiduciária de Recebíveis (conforme abaixo definido), celebrada nos termos do Contrato de Cessão Fiduciária de Recebíveis, observada a Condição Suspensiva",
+      "note": "A capa já condiciona a cessão fiduciária à Condição Suspensiva e descreve a AF de imóvel como \"a ser constituída\"."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 1,
+      "fact_name": "prospecto_contrato_cf_a_ser_celebrado",
+      "reference_date": "2024-07-29",
+      "value": "Contrato de Cessão Fiduciária de Recebíveis \"a ser celebrado\" (capa)",
+      "unit": "texto",
+      "excerpt": "Sob Condição Suspensiva de Cessão Fiduciária de Direitos Creditórios em Garantia e Outras Avenças” a ser celebrado entre a",
+      "note": "A capa (p. 1) diz \"a ser celebrado\"; a p. 18 diz \"foi celebrado sob condição suspensiva\"; o anexo da Escritura de AF (p. 283) diz celebrado em 26/07/2024."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 1,
+      "fact_name": "prospecto_fundo_despesas_capa",
+      "reference_date": "2024-07-29",
+      "value": "fundo de despesas na Conta do Patrimônio Separado durante toda a vigência dos CRI",
+      "unit": "texto",
+      "excerpt": "incluindo o fundo de despesas para pagamento das Despesas (conforme abaixo definidas), que será mantido na Conta do Patrimônio Separado durante toda a vigência dos CRI"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 1,
+      "fact_name": "prospecto_prazo_vencimento",
+      "reference_date": "2024-07-29",
+      "value": "4383 dias; vencimento 2036-08-29",
+      "unit": "texto",
+      "excerpt": "o prazo dos CRI será de 4.383 (quatro mil trezentos e oitenta e três) dias, contados da Data de Emissão, vencendo-se, portanto, em 29 de agosto de 2036"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 1,
+      "fact_name": "prospecto_reservas_a_partir_de",
+      "reference_date": "2024-07-29",
+      "value": "2024-08-06",
+      "unit": "data",
+      "excerpt": "É ADMISSÍVEL O RECEBIMENTO DE RESERVAS, A PARTIR DE 6 DE AGOSTO DE 2024."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 8,
+      "fact_name": "prospecto_duration",
+      "reference_date": "2024-07-29",
+      "value": "4,93 anos, calculado em 2024-07-24",
+      "unit": "texto",
+      "excerpt": "4,93 (quatro inteiros e noventa e três centésimos) anos, calculado em 24 de julho de 2024.",
+      "note": "Difere da Lâmina de 16/08 e 28/08/2024 e do Primeiro Aditamento (4,86 anos, 07/08/2024); igual ao Termo original (doc. 722251, p. 21)."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 8,
+      "fact_name": "prospecto_exercicio_social_patrimonio_separado",
+      "reference_date": "2024-07-29",
+      "value": "30 de junho de cada ano; primeiro encerramento 2025-06-30",
+      "unit": "texto",
+      "excerpt": "se encerrará no dia 30 de junho de cada ano, sendo o primeiro encerramento em 30 de junho de 2025"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 8,
+      "fact_name": "prospecto_auditor_patrimonio_separado",
+      "reference_date": "2024-07-29",
+      "value": "Grant Thornton Auditores Independentes Ltda. (CNPJ 10.830.108/0001-65)",
+      "unit": "texto",
+      "excerpt": "GRANT THORNTON AUDITORES INDEPENDENTES LTDA., inscrita no CNPJ sob o nº 10.830.108/0001-65"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 11,
+      "fact_name": "prospecto_resgate_facultativo_data_inicial",
+      "reference_date": "2024-07-29",
+      "value": "2027-08-29",
+      "unit": "data",
+      "excerpt": "após decorridos 36 (trinta e seis) meses contados da Data de Emissão das Debêntures, isto é, a partir de 29 de agosto de 2027",
+      "note": "O Primeiro Aditamento (doc. 722252, cláusulas 2.3 e 4.5) antecipou o resgate antecipado facultativo para 29/08/2026; o Prospecto Preliminar de 29/07/2024 ainda traz 29/08/2027 (igual ao Termo original)."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 12,
+      "fact_name": "prospecto_premio_resgate_tabela",
+      "reference_date": "2024-07-29",
+      "value": "29/07/2026-29/07/2027: 1,50%; 29/07/2027-29/07/2028: 1,00%; 29/07/2028-29/07/2029: 0,50%; 29/07/2029-29/07/2030: N/A; após 29/07/2030: 1,50%",
+      "unit": "texto",
+      "excerpt": "Entre 29 de julho de 2026 (inclusive) e 29 de julho de 2027 (exclusive) 1,50% Entre 29 de julho de 2027 (inclusive) e 29 de julho de 2028 (exclusive) 1,00% Entre 29 de julho de 2028 (inclusive) e 29 de julho de 2029 (exclusive) 0,50% Entre 29 de julho de 2029 (inclusive) e 29 de julho de 2030 (exclusive) N/A Após 29 de julho de 2030 1,50%",
+      "note": "Datas em julho (igual ao Termo original); o Primeiro Aditamento (doc. 722252, p. 3) substituiu por datas em 29 de agosto (2026 a 2030)."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 12,
+      "fact_name": "prospecto_amortizacao_extraordinaria_limite",
+      "reference_date": "2024-07-29",
+      "value": "0.98",
+      "unit": "fração do VNU/saldo",
+      "excerpt": "limitado a 98% (noventa e oito por cento) do Valor Nominal Unitário ou do saldo do Valor Nominal Unitário das Debêntures"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 13,
+      "fact_name": "prospecto_quantidade_cri",
+      "reference_date": "2024-07-29",
+      "value": "230000",
+      "unit": "CRI",
+      "excerpt": "Serão emitidos 230.000 (duzentos e trinta mil) CRI."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 13,
+      "fact_name": "prospecto_vnu",
+      "reference_date": "2024-07-29",
+      "value": "1000.00",
+      "unit": "BRL",
+      "excerpt": "Os CRI terão Valor Nominal Unitário de R$1.000,00 (mil reais), na Data de Emissão."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 13,
+      "fact_name": "prospecto_valor_total_emissao",
+      "reference_date": "2024-07-29",
+      "value": "230000000.00",
+      "unit": "BRL",
+      "excerpt": "O Valor Total da Emissão será de R$230.000.000,00 (duzentos e trinta milhões de reais), na Data de Emissão."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 14,
+      "fact_name": "prospecto_rating_agencia_atualizacao_anual",
+      "reference_date": "2024-07-29",
+      "value": "Fitch Ratings do Brasil Ltda. contratada pela Devedora; atualização anual; serviço não pode ser interrompido na vigência dos CRI",
+      "unit": "texto",
+      "excerpt": "A Devedora contratou a Fitch Ratings do Brasil Ltda. inscrita no CNPJ sob o nº 01.813.375/0001-33 (“Agência de Classificação de Risco”) para a elaboração do relatório de classificação de risco para esta Emissão, devendo ser atualizada anualmente, sendo certo que o serviço não poderá ser interrompido na vigência dos CRI",
+      "note": "Redação coerente com a cláusula 4.1.3 (xxx) do Termo (obrigação de atualização anual do rating)."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 14,
+      "fact_name": "prospecto_spread_ate_72_mes",
+      "reference_date": "2024-07-29",
+      "value": "0.0150",
+      "unit": "fração a.a. sobre DI (base 252)",
+      "excerpt": "Até o 72º mês após a Data de Integralização 1,50% ao ano",
+      "note": "Marco do step-up expresso em meses após a Data de Integralização (72º/73º mês); o Primeiro Aditamento e a Lâmina de 28/08/2024 usam a data fixa 29/08/2030."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 14,
+      "fact_name": "prospecto_spread_a_partir_73_mes",
+      "reference_date": "2024-07-29",
+      "value": "0.0275",
+      "unit": "fração a.a. sobre DI (base 252)",
+      "excerpt": "A partir do 73º mês até a Data de Vencimento 2,75% ao ano"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 16,
+      "fact_name": "prospecto_repactuacao",
+      "reference_date": "2024-07-29",
+      "value": "não haverá repactuação programada",
+      "unit": "texto",
+      "excerpt": "Os CRI não serão objeto de repactuação programada."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 17,
+      "fact_name": "prospecto_af_imovel_fracao_ideal",
+      "reference_date": "2024-07-29",
+      "value": "0.8824",
+      "unit": "fração do imóvel",
+      "excerpt": "a alienação fiduciária da fração ideal correspondente a 88,24% (oitenta e oito inteiros e vinte e quatro centésimos por cento) (“Fração Ideal Alienada Fiduciariamente”) do imóvel objeto das matrículas nºs 22.139 e 27.368, ambas do 1º Registro de Imóveis de Blumenau – Santa Catarina (“Imóvel Garantia”), de titularidade da Devedora"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 17,
+      "fact_name": "prospecto_ltv_maximo",
+      "reference_date": "2024-07-29",
+      "value": "0.60",
+      "unit": "razão (saldo do VNU das Debêntures / valor da Fração Ideal)",
+      "excerpt": "a Devedora deverá assegurar o atendimento do loan to value de, no máximo, 60% (sessenta por cento) do valor da Fração Ideal Alienada Fiduciariamente em face do saldo devedor das Debêntures"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 17,
+      "fact_name": "prospecto_icsd_minimo",
+      "reference_date": "2024-07-29",
+      "value": "1.20",
+      "unit": "razão (recebimentos de locação 12m / serviço da dívida das Debêntures 12m)",
+      "excerpt": "a Devedora deverá cumprir o índice de cobertura mínimo de 1,20x (um inteiro e dois décimos) vezes, a ser verificado trimestralmente pela Securitizadora, a partir da Data de Emissão das Debêntures"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 17,
+      "fact_name": "prospecto_prazo_escritura_af_imovel",
+      "reference_date": "2024-07-29",
+      "value": "escritura de AF até 2024-08-25; constituição mediante registro no 1º RI de Blumenau",
+      "unit": "texto",
+      "excerpt": "a Escritura Pública de Alienação Fiduciária de Imóvel deverá ser celebrada conforme modelo constante do Anexo VII da Escritura de Emissão até o dia 25 de agosto de 2024 e a Alienação Fiduciária de Imóvel será regularmente constituída mediante registro da Escritura Pública de Alienação Fiduciária de Imóvel no 1o Cartório de Registro de Imóveis da Comarca de Blumenau, Estado de Santa Catarina.",
+      "note": "Prazo para celebrar a escritura (25/08/2024); o prazo de registro (30 dias da prenotação) está na Escritura de AF anexa (p. 289-290)."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 17,
+      "fact_name": "prospecto_cf_comprovante_registro_ate_primeira_integralizacao",
+      "reference_date": "2024-07-29",
+      "value": "registro do Contrato de Cessão Fiduciária no RTD de São Paulo até a primeira Data de Integralização",
+      "unit": "texto",
+      "excerpt": "até a primeira Data de Integralização, comprovante de registro do Contrato de Cessão Fiduciária de Recebíveis no Cartório de Títulos e Documentos da Cidade de São Paulo"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 18,
+      "fact_name": "prospecto_cf_condicao_suspensiva",
+      "reference_date": "2024-07-29",
+      "value": "condição suspensiva: registro do termo de liberação dos direitos creditórios objeto da cessão fiduciária de 23/09/2021",
+      "unit": "texto",
+      "excerpt": "O Contrato de Cessão Fiduciária de Recebíveis foi celebrado sob condição suspensiva nos termos do artigo 125 do Código Civil Brasileiro (“Condição Suspensiva”), sendo tal condição o registro do termo de liberação dos direitos creditórios objeto do Contrato de Cessão Fiduciária de Recebíveis",
+      "note": "Condição Suspensiva já descrita no Termo (cláusula 8.4.2); aqui reaparece no Prospecto sem prazo expresso na p. 18. Relevante para a pendência de garantias."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 18,
+      "fact_name": "prospecto_liberacao_garantias_minimo",
+      "reference_date": "2024-07-29",
+      "value": "0.51",
+      "unit": "fração (Fração Ideal e Percentual da Cessão)",
+      "excerpt": "o percentual da Fração Ideal Alienada Fiduciariamente e o Percentual da Cessão Fiduciária não fiquem inferiores a 51% (cinquenta e um por cento)"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 21,
+      "fact_name": "prospecto_destinacao_recursos_emissora",
+      "reference_date": "2024-07-29",
+      "value": "integralização dos CRI usada pela Emissora para pagar a integralização das Debêntures",
+      "unit": "texto",
+      "excerpt": "O valor obtido com a integralização dos CRI pelos Investidores será utilizado, em sua integralidade, pela Emissora para pagamento do valor de integralização das Debêntures."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 21,
+      "fact_name": "prospecto_destinacao_recursos_devedora",
+      "reference_date": "2024-07-29",
+      "value": "construção, reforma, expansão e aquisição, e aluguéis, de Empreendimentos Lastro (Anexo VI do Termo)",
+      "unit": "texto",
+      "excerpt": "para pagamento de gastos, custos e despesas (“Custos e Despesas Destinação”) ainda não incorridos e diretamente atinentes à construção, reforma, expansão e aquisição, bem como pagamento de aluguéis de determinados imóveis"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 23,
+      "fact_name": "prospecto_destinacao_verificacao_af_semestral",
+      "reference_date": "2024-07-29",
+      "value": "verificação semestral pelo Agente Fiduciário",
+      "unit": "texto",
+      "excerpt": "O Agente Fiduciário verificará semestralmente a Destinação de Recursos"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 24,
+      "fact_name": "prospecto_destinacao_data_limite",
+      "reference_date": "2024-07-29",
+      "value": "2036-08-29",
+      "unit": "data",
+      "excerpt": "A Devedora deverá realizar a integral destinação dos recursos até a Data de Vencimento dos CRI, qual seja, 29 de agosto de 2036"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 28,
+      "fact_name": "prospecto_risco_af_nao_condicao_liquidacao",
+      "reference_date": "2024-07-29",
+      "value": "registro da AF de imóvel não é condição precedente da liquidação financeira; registro da CF no RTD é condição precedente",
+      "unit": "texto",
+      "excerpt": "A constituição da Alienação Fiduciária de Imóvel, mediante o registro no competente registro de imóveis, não é condição precedente para a liquidação financeira dos CRI e a eficácia da Cessão Fiduciária de Recebíveis, cujo registro no cartório de registro de títulos e documentos competentes é uma condição precedente para a liquidação financeira dos CRI, conforme previsto na alínea (xxxviii) da Cláusula 4.1 do Contrato de Distribuição e do item 14.1 deste Prospecto, está condicionada à ocorrência da Condição Suspensiva",
+      "note": "Fator de risco 4 do Prospecto: explicita que a AF de imóvel pode ser registrada depois da liquidação e que a eficácia da CF depende da Condição Suspensiva."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 28,
+      "fact_name": "prospecto_risco_af_prazo_vencimento_antecipado",
+      "reference_date": "2024-07-29",
+      "value": "se a AF não for registrada no prazo da Escritura de AF e a Condição Suspensiva não ocorrer nos prazos dos Documentos da Operação, a Securitizadora poderá declarar vencimento antecipado das Debêntures",
+      "unit": "texto",
+      "excerpt": "Caso não seja verificado o registro da Alienação Fiduciária de Imóvel no competente registro de imóveis, no prazo previsto na Escritura Pública de Alienação Fiduciária de Imóvel, e não ocorra a implementação da referida Condição Suspensiva dentro dos prazos previstos nos Documentos da Operação, a Securitizadora poderá declarar antecipadamente vencidas as obrigações decorrentes das Debêntures"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 28,
+      "fact_name": "prospecto_risco_garantias_nao_plenamente_constituidas",
+      "reference_date": "2024-07-29",
+      "value": "AF e CF podem não estar plenamente constituídas",
+      "unit": "texto",
+      "excerpt": "a Alienação Fiduciária de Imóvel e a Cessão Fiduciária de Recebíveis não estarão plenamente constituídas"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 37,
+      "fact_name": "prospecto_risco_rating_atualizacao_trimestral",
+      "reference_date": "2024-07-29",
+      "value": "classificação de risco atualizada trimestralmente (texto do fator de risco 21)",
+      "unit": "texto",
+      "excerpt": "no presente caso, a classificação de risco será atualizada trimestralmente",
+      "note": "Contradiz a p. 14 do mesmo Prospecto (atualização anual) e a Fitch (revisão pelo menos anual)."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 82,
+      "fact_name": "prospecto_fundo_despesas_valor_inicial",
+      "reference_date": "2024-07-29",
+      "value": "despesas recorrentes dos 12 meses subsequentes (sem valor em reais)",
+      "unit": "texto",
+      "excerpt": "O valor total do Fundo de Despesas será equivalente ao valor necessário para o pagamento das Despesas Recorrentes relativas ao período de 12 (doze) meses subsequentes"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 82,
+      "fact_name": "prospecto_fundo_despesas_recomposicao_prazo",
+      "reference_date": "2024-07-29",
+      "value": "5",
+      "unit": "Dias Úteis",
+      "excerpt": "em até 5 (cinco) Dias Úteis contados do recebimento da referida notificação, recompor o Fundo de Despesas"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 85,
+      "fact_name": "prospecto_va_automatico_cura_pecuniaria",
+      "reference_date": "2024-07-29",
+      "value": "2",
+      "unit": "Dias Úteis",
+      "excerpt": "não sanado no prazo de 2 (dois) Dias Úteis contados da data do respectivo inadimplemento"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 86,
+      "fact_name": "prospecto_va_cross_acceleration_limite",
+      "reference_date": "2024-07-29",
+      "value": "25000000.00",
+      "unit": "BRL (atualizado anualmente pelo IPCA desde a Data de Emissão)",
+      "excerpt": "em valor, individual ou agregado, igual ou superior a R$25.000.000,00 (vinte e cinco milhões de reais)"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 88,
+      "fact_name": "prospecto_va_nao_automatico_icsd",
+      "reference_date": "2024-07-29",
+      "value": "ICSD < 1,20x em 2 datas consecutivas ou 3 não consecutivas em 12 meses",
+      "unit": "texto",
+      "excerpt": "não atendimento do ICSD, por 2 (duas) datas de verificação consecutivas ou por 3 (três) datas de verificação não-consecutivas em um período de 12 (doze) meses"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 88,
+      "fact_name": "prospecto_va_nao_automatico_ltv",
+      "reference_date": "2024-07-29",
+      "value": "descumprimento do LTV após a constituição da AF de imóvel",
+      "unit": "texto",
+      "excerpt": "caso, após a constituição da Alienação Fiduciária de Imóvel, não haja o atendimento do LTV"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 88,
+      "fact_name": "prospecto_limite_endividamento",
+      "reference_date": "2024-07-29",
+      "value": "1250000000.00",
+      "unit": "BRL (atualizado pelo IPCA desde 2021-09-23)",
+      "excerpt": "supere o montante de R$1.250.000.000,00 (um bilhão e duzentos e cinquenta milhões reais), devidamente atualizado pela variação positiva do IPCA a partir da data de emissão da 3ª (terceira) emissão de debêntures simples da Emissora, qual seja 23 de setembro de 2021"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 88,
+      "fact_name": "prospecto_divida_liquida_ebitda_maximo_excecao",
+      "reference_date": "2024-07-29",
+      "value": "4.95",
+      "unit": "razão (Dívida Líquida / EBITDA, pro forma)",
+      "excerpt": "seja de, no máximo, 4,95 vezes pro forma"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 105,
+      "fact_name": "prospecto_condicao_precedente_rating_minimo",
+      "reference_date": "2024-07-29",
+      "value": "rating mínimo AA- em escala local (S&P, Fitch ou Moody's) para a Emissão, condição precedente da garantia firme",
+      "unit": "texto",
+      "excerpt": "obtenção de classificação de risco (rating) para a Emissão equivalente a no mínimo \"AA-\" em escala local pela Standard & Poor's, pela Fitch Ratings ou equivalente pela Moody"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 106,
+      "fact_name": "prospecto_condicao_precedente_registro_cf_rtd",
+      "reference_date": "2024-07-29",
+      "value": "comprovante de registro da cessão fiduciária de recebíveis no RTD, antes da liquidação",
+      "unit": "texto",
+      "excerpt": "(xxxviii) apresentação do comprovante de registro do Contrato de Cessão Fiduciária de Recebíveis no cartório de registro de títulos e documentos competente",
+      "note": "Condição precedente do Contrato de Distribuição (garantia firme); o AF 2025 informa a cessão fiduciária como não constituída."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 106,
+      "fact_name": "prospecto_condicao_precedente_protocolo_af",
+      "reference_date": "2024-07-29",
+      "value": "comprovante de PROTOCOLO (não de registro) da escritura de AF no cartório de imóveis",
+      "unit": "texto",
+      "excerpt": "(xxxix) apresentação do comprovante de protocolo da Escritura Pública de Alienação Fiduciária de Imóvel no cartório imóveis competente",
+      "note": "A condição precedente exige apenas o protocolo da escritura de AF, não o registro; isso permite liquidar os CRI sem a AF registrada."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 107,
+      "fact_name": "prospecto_custo_rating_anual",
+      "reference_date": "2024-07-29",
+      "value": "30000.00",
+      "unit": "BRL (por ano)",
+      "excerpt": "Agência de classificação de rating (anual) 30.000,00",
+      "note": "Despesa recorrente anual de rating prevista na tabela de custos da oferta."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 211,
+      "fact_name": "prospecto_escritura_convolacao_garantia_real",
+      "reference_date": "2024-07-29",
+      "value": "debêntures quirografárias convoladas automaticamente em garantia real quando constituída a AF de imóvel ou a CF de recebíveis",
+      "unit": "texto",
+      "excerpt": "e serão automaticamente convoladas em espécie com garantia real no momento em que for constituída a Alienação Fiduciária de Imóvel (conforme abaixo definido) ou a Cessão Fiduciária de Recebíveis (conforme abaixo definido)"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 211,
+      "fact_name": "prospecto_escritura_aditamento_convolacao_prazo",
+      "reference_date": "2024-07-29",
+      "value": "aditamento de formalização em até 30 dias corridos da verificação da Condição Suspensiva",
+      "unit": "texto",
+      "excerpt": "a ser celebrado em até 30 (trinta) dias corridos contados da data de verificação da implementação da Condição Suspensiva"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 237,
+      "fact_name": "prospecto_escritura_rating_agencia",
+      "reference_date": "2024-07-29",
+      "value": "Devedora deve contratar e manter agência de rating (S&P, Fitch ou Moody's) para os CRI",
+      "unit": "texto",
+      "excerpt": "contratar e manter contratada, às suas expensas, pelo menos uma agência de classificação de risco, a ser escolhida entre a Standard & Poor's, a Fitch Ratings ou a Moody"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 237,
+      "fact_name": "prospecto_escritura_rating_atualizacao_anual",
+      "reference_date": "2024-07-29",
+      "value": "atualização anual do rating até o vencimento dos CRI; relatórios ao AF e à Debenturista em até 5 dias da veiculação",
+      "unit": "texto",
+      "excerpt": "(a) atualizar a classificação de risco (rating) da emissão dos CRI anualmente, a partir da data do respectivo relatório, até a data de vencimento dos CRI"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 237,
+      "fact_name": "prospecto_escritura_prazo_banco_depositario",
+      "reference_date": "2024-07-29",
+      "value": "contrato de banco depositário (Contas Vinculadas) com o Itaú até 2024-08-25",
+      "unit": "texto",
+      "excerpt": "celebrar o contrato de banco depositário, o qual as Contas Vinculadas estarão sujeitas nos termos da Cláusula 3 do Contrato de Cessão Fiduciária de Recebíveis, com o Itaú Unibanco S.A., tendo como interveniente anuente o Condomínio Civil Pró Indiviso do Shopping Center Neumarkt Blumenau, até 25 de agosto de 2024"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 283,
+      "fact_name": "prospecto_escritura_af_contrato_cf_celebrado",
+      "reference_date": "2024-07-29",
+      "value": "Contrato de Cessão Fiduciária de Recebíveis (sob condição suspensiva) celebrado em 2024-07-26",
+      "unit": "texto",
+      "excerpt": "Instrumento Particular Sob Condição Suspensiva de Cessão Fiduciária de Direitos Creditórios em garantia e Outras Avenças\" celebrado em 26 de julho de 2024 entre a Credora e a Alienante"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 284,
+      "fact_name": "prospecto_escritura_af_onus_existente_51pct",
+      "reference_date": "2024-07-29",
+      "value": "51% do imóvel já alienados fiduciariamente (instrumento de 2021, R-140/R-106 das matrículas 22.139 e 27.368)",
+      "unit": "texto",
+      "excerpt": "ideal de 51% (cinquenta e um por cento) do Imóvel está alienada fiduciariamente nos termos do Instrumento Particular de Alienação Fiduciária de Imóvel em Garantia e Outras Avenças, celebrado em 23 de setembro de 2021, entre Alienante e a Credora, registrado sob o R-140 e R-106 da matrícula 22.139 e 27.368 do 1º RGI de Blumenau",
+      "note": "Informação ausente do Termo e da Lâmina: o ônus existente de 2021 recai sobre 51% do imóvel, parte da fração de 88,24% oferecida."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 285,
+      "fact_name": "prospecto_escritura_af_efeito_37_24_imediato",
+      "reference_date": "2024-07-29",
+      "value": "37,24% imediato; 51% apenas após registro da escritura e cancelamento do Ônus Existente (Termo de Liberação)",
+      "unit": "texto",
+      "excerpt": "(1) opera-se imediatamente com relação à 37,24% (trinta e sete, vírgula vinte e quatro por cento) dos Imóveis e (2) operar-se-á supervenientemente com relação aos 51% (cinquenta e um por cento) dos Imóveis sujeitos ao ônus Existente",
+      "note": "Só 37,24% dos imóveis são transferidos em propriedade fiduciária de imediato; os outros 51% dependem do registro da escritura e do cancelamento do Ônus Existente por termo de liberação averbado nas matrículas."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 289,
+      "fact_name": "prospecto_escritura_af_registro_protocolo_prazo",
+      "reference_date": "2024-07-29",
+      "value": "protocolos do pedido de registro em 5 Dias Úteis da assinatura",
+      "unit": "texto",
+      "excerpt": "(i) no prazo de 5 (cinco) Dias Úteis contados da respectiva data de assinatura, entregar à Credora e ao Agente Fiduciário cópia dos protocolos dos pedidos de registro"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 290,
+      "fact_name": "prospecto_escritura_af_registro_prazo_30_dias",
+      "reference_date": "2024-07-29",
+      "value": "via registrada em até 30 dias da prenotação (prorrogável por mais 30)",
+      "unit": "texto",
+      "excerpt": "em até 30 (trinta) dias contados da data da respectiva prenotação, entregar à Credora uma via original desta Escritura devidamente registrada"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 291,
+      "fact_name": "prospecto_escritura_debentures_vencimento",
+      "reference_date": "2024-07-29",
+      "value": "2036-08-27",
+      "unit": "data",
+      "excerpt": "o prazo das Debêntures será de 4.381 (quatro mil trezentos e oitenta e um) dias, contados da Data de Emissão, vencendo-se, portanto, em 27 de agosto de 2036",
+      "note": "Debêntures vencem 2 dias antes dos CRI (29/08/2036), igual ao Termo (Anexo I)."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 296,
+      "fact_name": "prospecto_escritura_af_termo_liberacao_via_ate",
+      "reference_date": "2024-07-29",
+      "value": "2024-08-26",
+      "unit": "data",
+      "excerpt": "enviar ao Agente Fiduciário, 1 (uma) via original (pdf.) do Termo de Liberação até o dia 26 de agosto de 2024"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 296,
+      "fact_name": "prospecto_escritura_af_termo_liberacao_averbacao_prazo",
+      "reference_date": "2024-07-29",
+      "value": "averbar o Termo de Liberação nas matrículas em até 15 dias da celebração; protocolo em 2 Dias Úteis da assinatura da escritura",
+      "unit": "texto",
+      "excerpt": "(xiv) enviar ao Agente Fiduciário o comprovante de protocolo do Termo de Liberação no Cartório de Registro de Imóveis em até 2 (dois) Dias Úteis da data de assinatura desta Escritura; (xv) averbar o Termo de Liberação nas matrículas dos Imóveis em até 15 (quinze) dias contados da data de sua celebração, bem como encaminhar a evidência de tal registro à Credora e ao Agente Fiduciário."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 528,
+      "fact_name": "prospecto_fitch_rating_atribuido",
+      "reference_date": "2024-07-29",
+      "value": "AA-(EXP)sf(bra), Perspectiva Estável, atribuído em 2024-07-29",
+      "unit": "texto",
+      "excerpt": "A Fitch Ratings atribuiu, hoje, Rating Nacional de Longo Prazo ‘AA-(EXP)sf(bra)’, com Perspectiva Estável"
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 530,
+      "fact_name": "prospecto_fitch_rating_final_na_liquidacao",
+      "reference_date": "2024-07-29",
+      "value": "o comunicado de rating da Fitch na liquidação incluirá os ratings finais",
+      "unit": "texto",
+      "excerpt": "O comunicado de ação de rating a ser divulgado pela Fitch na liquidação da transação incluirá os ratings",
+      "note": "A Fitch informa que o rating (EXP) é provisório e que o comunicado na liquidação trará o rating final. Nenhum rating final foi localizado nas páginas lidas."
+    },
+    {
+      "source_document_id": "722286",
+      "page_number": 531,
+      "fact_name": "prospecto_fitch_revisao_anual",
+      "reference_date": "2024-07-29",
+      "value": "revisão pelo menos anual",
+      "unit": "texto",
+      "excerpt": "Os ratings atribuídos pela Fitch são revisados, pelo menos, anualmente."
+    }
+  ]
+}

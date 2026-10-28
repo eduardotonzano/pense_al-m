@@ -376,3 +376,124 @@ seguintes condicionantes:
 57;waiver_fee;0.005;fração do Saldo Devedor;até 31/10/2026, salvo resgate antecipado total do CDCA até out/2026;2026-05-15;;assembleia;;Ata 1194480, p.2, linhas 41-44;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"        (i) A apresentação, pela Devedora, das demonstrações financeiras auditadas até 30 de maio
         de 2026; e
         (ii) Pagamento de “waiver fee” equivalente a 0,5% (cinco centésimos por cento) sobre o"
+258;cronograma_amortizacao_cdca_cra;"30/12/2024: R$ 30.000.000,00 (30% do Valor Nominal); 30/12/2025: R$ 30.002.000,00 (42,86% do saldo); 30/12/2026: R$ 39.998.000,00 (100% do saldo); sem amortização em 30/12/2022 e 29/12/2023";texto;toda a emissão, a partir de 14/03/2024;2024-03-14;;assembleia;;Ata 619771, p.3, linhas 19-32;"AGT 14/03/2024, item (iii): substitui o fluxo original (amortização anual parcial a partir de 30/12/2025, vencimento 30/09/2027). Datas e valores atribuídos pela ordem das colunas da tabela (extração desalinhada); reconciliado com o saldo do AF em 31/12/2024 (R$ 70,04 mi) e o PU 399,98 do resgate de out/2026. Confirmar no PDF. Nenhum parâmetro aprovado anterior trata do cronograma.";pending;"       Datas De Pagamento  Remuneração      Principal      % do Saldo do
+                                                           Valor Nominal
+               30/12/2022          SIM      Amortizado
+               29/12/2023          SIM                          0,0000%
+               30/12/2024          SIM  R$              -       0,0000%
+               30/12/2025          SIM                         30,0000%
+               30/12/2026          SIM  R$              -      42,8600%
+                                                              100,0000%
+                                        R$ 30.000.000,00
+
+                                        R$ 30.002.000,00
+
+                                        R$ 39.998.000,00"
+259;data_vencimento_final_cdca_cra;2026-12-30;data;CDCA e CRA, a partir de 14/03/2024;2024-03-14;;assembleia;;Ata 619771, p.3, linhas 19-32;"AGT 14/03/2024, item (iii): a ata altera a Data de Vencimento do CDCA e dos CRA sem citá-la por extenso; 30/12/2026 é a última data da tabela. Coerente com os AF de 2023–2025 e com as DFs de 31/03/2026. Diverge do Termo 355426, das DFs de 31/03/2024 e do Informe Mensal (30/09/2027).";pending;"       Datas De Pagamento  Remuneração      Principal      % do Saldo do
+                                                           Valor Nominal
+               30/12/2022          SIM      Amortizado
+               29/12/2023          SIM                          0,0000%
+               30/12/2024          SIM  R$              -       0,0000%
+               30/12/2025          SIM                         30,0000%
+               30/12/2026          SIM  R$              -      42,8600%
+                                                              100,0000%
+                                        R$ 30.000.000,00
+
+                                        R$ 30.002.000,00
+
+                                        R$ 39.998.000,00"
+260;premio_resgate_antecipado_facultativo_ate;2026-01-01;data;Resgate Antecipado Facultativo (cláusula 6.3.1 do CDCA);2024-03-14;;assembleia;;Ata 619771, p.3, linhas 30-43;AGT 14/03/2024, item (iv). A ata não define o percentual do Prêmio (consta do CDCA, fora do catálogo) nem o que ocorre após 01/01/2026.;pending;"                                        R$ 39.998.000,00
+
+(iv)   Em razão da aprovação do item acima, os Titulares de CRA presentes,
+       representando 77,87% (setenta e sete inteiros e oitenta e sete centésimos por
+       cento) dos CRA em Circulação aprovam a alteração da cláusula 6.3.1 do CDCA,
+       para que, na hipótese de Resgate Antecipado Facultativo, a incidência do Prêmio
+       ocorra até 01 de janeiro de 2026; e
+
+(v) Os Titulares de CRA presentes, representando 77,87% (setenta e sete inteiros
+          e oitenta e sete centésimos por cento) dos CRA em Circulação aprovaram a
+          autorização para que sejam celebrados e registrados, conforme o caso,
+          quaisquer instrumentos relacionados à matéria aqui aprovada, inclusive aditivos
+          aos documentos da oferta, para constar as deliberações aprovadas pelos"
+261;waiver_fee_2024;0.0075;fração do saldo devedor dos CRA em 14/03/2024;parcela única, em até 5 dias úteis da data da assembleia;2024-03-14;;assembleia;;Ata 619771, p.4, linhas 1-14;Condição (a) da AGT de 14/03/2024. A proposta do edital previa 0,5% do Saldo Devedor do CDCA na próxima Data de Pagamento.;pending;"     a. O pagamento de waiver fee correspondente à 0,75% (setenta e cinco centésimos por
+          cento) calculado sobre o saldo devedor dos CRA nesta data, em parcela única, a ser
+          paga em até 5 (cinco) dias úteis contados da data da Assembleia.
+
+     b. A partir de 01 de setembro de 2024 e até 30 de dezembro de 2024, todos os recursos
+          oriundos do pagamento dos Direitos Creditórios em Garantia, deverão ficar retidos na
+          Conta Garantia da Emissão, os quais serão utilizados para pagamento da parcela do
+          principal e/ou juros prevista para dezembro de 2024, conforme o novo fluxo aprovado
+          no item (iii);
+
+     c. A Devedora não poderá distribuir dividendos acima do mínimo legal no ano de 2024;
+
+     d. A limitação do CAPEX que poderá ser realizado pela Devedora no ano de 2024 ao
+          montante máximo de R$ 15.000.000,00 (quinze milhões de reais), o qual deverá ser"
+262;retencao_conta_garantia_set_dez_2024;Todos os recursos dos Direitos Creditórios em Garantia retidos na Conta Garantia, para pagar a parcela de principal e/ou juros de dez/2024;texto;de 01/09/2024 a 30/12/2024;2024-03-14;;assembleia;;Ata 619771, p.4, linhas 2-15;Condição (b) da AGT de 14/03/2024.;pending;"          cento) calculado sobre o saldo devedor dos CRA nesta data, em parcela única, a ser
+          paga em até 5 (cinco) dias úteis contados da data da Assembleia.
+
+     b. A partir de 01 de setembro de 2024 e até 30 de dezembro de 2024, todos os recursos
+          oriundos do pagamento dos Direitos Creditórios em Garantia, deverão ficar retidos na
+          Conta Garantia da Emissão, os quais serão utilizados para pagamento da parcela do
+          principal e/ou juros prevista para dezembro de 2024, conforme o novo fluxo aprovado
+          no item (iii);
+
+     c. A Devedora não poderá distribuir dividendos acima do mínimo legal no ano de 2024;
+
+     d. A limitação do CAPEX que poderá ser realizado pela Devedora no ano de 2024 ao
+          montante máximo de R$ 15.000.000,00 (quinze milhões de reais), o qual deverá ser
+          calculado com base na saída de valores do caixa da Devedora, conforme Demonstrativo"
+263;vedacao_dividendos_2024;Dividendos limitados ao mínimo legal;texto;exercício 2024;2024-03-14;;assembleia;;Ata 619771, p.4, linhas 8-21;Condição (c) da AGT de 14/03/2024.;pending;"          principal e/ou juros prevista para dezembro de 2024, conforme o novo fluxo aprovado
+          no item (iii);
+
+     c. A Devedora não poderá distribuir dividendos acima do mínimo legal no ano de 2024;
+
+     d. A limitação do CAPEX que poderá ser realizado pela Devedora no ano de 2024 ao
+          montante máximo de R$ 15.000.000,00 (quinze milhões de reais), o qual deverá ser
+          calculado com base na saída de valores do caixa da Devedora, conforme Demonstrativo
+          de Fluxo de Caixa da Devedora. Fica estabelecido que não será considerado para este
+          cálculo, eventuais recursos oriundos de clientes inadimplentes desde que esses
+          recursos não usem o caixa da Devedora;
+
+     e. Inclusão de obrigação de entrega pela Devedora à Securitizadora dos balancetes
+          trimestrais não auditados, referentes aos três primeiros trimestres de cada ano, em"
+264;limite_capex_2024;15000000.00;BRL;"exercício 2024; calculado pela saída de caixa (Demonstrativo de Fluxo de Caixa da Devedora)";2024-03-14;;assembleia;;Ata 619771, p.4, linhas 10-23;"Condição (d) da AGT de 14/03/2024; não conta recursos de clientes inadimplentes que não usem o caixa da Devedora. Em 2025 o limite caiu para R$ 12 mi (ata 927400).";pending;"     c. A Devedora não poderá distribuir dividendos acima do mínimo legal no ano de 2024;
+
+     d. A limitação do CAPEX que poderá ser realizado pela Devedora no ano de 2024 ao
+          montante máximo de R$ 15.000.000,00 (quinze milhões de reais), o qual deverá ser
+          calculado com base na saída de valores do caixa da Devedora, conforme Demonstrativo
+          de Fluxo de Caixa da Devedora. Fica estabelecido que não será considerado para este
+          cálculo, eventuais recursos oriundos de clientes inadimplentes desde que esses
+          recursos não usem o caixa da Devedora;
+
+     e. Inclusão de obrigação de entrega pela Devedora à Securitizadora dos balancetes
+          trimestrais não auditados, referentes aos três primeiros trimestres de cada ano, em
+          até 45 (quarenta e cinco) dias contados do encerramento do respectivo trimestre
+          (“Prazo de Apresentação dos Balancetes Trimestrais”), o que deverá ser feito durante"
+265;balancetes_trimestrais_nao_auditados;Balancetes trimestrais não auditados dos três primeiros trimestres de cada ano, em até 45 dias do encerramento do trimestre;texto;durante toda a vigência restante da Emissão;2024-03-14;;assembleia;;Ata 619771, p.4, linhas 17-30;"Condição (e) da AGT de 14/03/2024. A ata de 12/02/2026 (1110477) exige balancetes mensais em 2026, sem declarar substituição desta obrigação; por isso não foi usado 'supersedes'.";pending;"          cálculo, eventuais recursos oriundos de clientes inadimplentes desde que esses
+          recursos não usem o caixa da Devedora;
+
+     e. Inclusão de obrigação de entrega pela Devedora à Securitizadora dos balancetes
+          trimestrais não auditados, referentes aos três primeiros trimestres de cada ano, em
+          até 45 (quarenta e cinco) dias contados do encerramento do respectivo trimestre
+          (“Prazo de Apresentação dos Balancetes Trimestrais”), o que deverá ser feito durante
+          toda a vigência restante da Emissão; e
+
+     f. Durante o ano de 2024, a obrigatoriedade de realização de reuniões virtuais trimestrais
+          entre a Securitizadora, a Devedora e os Titulares de CRA, objetivando atualizá-los
+          acerca do contexto comercial e financeiro da Devedora. A reunião será realizada em
+          até 15 (quinze) dias contados do encerramento do Prazo de Apresentação dos
+          Balancetes Trimestrais, em data a ser oportunamente indicada pela Securitizadora"
+266;reunioes_virtuais_trimestrais_2024;Reuniões virtuais trimestrais entre Securitizadora, Devedora e Titulares, em até 15 dias do fim do prazo dos balancetes;texto;exercício 2024;2024-03-14;;assembleia;;Ata 619771, p.4, linhas 23-36;"Condição (f) da AGT de 14/03/2024; data a ser divulgada por Comunicado ao Mercado.";pending;"          (“Prazo de Apresentação dos Balancetes Trimestrais”), o que deverá ser feito durante
+          toda a vigência restante da Emissão; e
+
+     f. Durante o ano de 2024, a obrigatoriedade de realização de reuniões virtuais trimestrais
+          entre a Securitizadora, a Devedora e os Titulares de CRA, objetivando atualizá-los
+          acerca do contexto comercial e financeiro da Devedora. A reunião será realizada em
+          até 15 (quinze) dias contados do encerramento do Prazo de Apresentação dos
+          Balancetes Trimestrais, em data a ser oportunamente indicada pela Securitizadora
+          através de Comunicado ao Mercado aos Titulares de CRA.
+
+6.3. A presente Ata de Assembleia será encaminhada à Comissão de Valores Mobiliários, por
+sistema eletrônico, sendo dispensada a publicação em jornais em que a Emissora divulga suas
+informações societárias."

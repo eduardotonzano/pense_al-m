@@ -1,0 +1,631 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "source_note": "Atas, editais, propostas da administração e termos de não instalação de 2023–2024 do CRA Café Brasil (Eco Securitizadora, 190ª emissão, série única), nunca lidos antes: ciclo das DFs do Patrimônio Separado de 31/03/2023 (docs. 511843, 511922, 521170, 534084, 534193, 538424); assembleia de 14/03/2024 sobre o CDCA (docs. 608832, 608833, 619771); ciclo das DFs do Patrimônio Separado de 31/03/2024 (docs. 725268, 725269, 737906, 750834, 750841, 755722). As DFs do PS de 31/03/2024 (Grant Thornton) estão anexas aos docs. 725269 e 750841 (p.8 a 30 idênticas; registradas uma vez, pelo 725269). Valores das DFs em milhares de reais, como publicados. A tabela do novo cronograma (ata 619771, p.3) tem colunas desalinhadas na extração: valores atribuídos às datas pela ordem das colunas e reconciliados com os saldos do AF e do resgate de out/2026 (ver 'note').",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-28",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "511843",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2023_convocacao_1a",
+      "reference_date": "2023-08-23",
+      "value": "1ª convocação 2023-09-14 às 11:15 (Zoom); ordem do dia: DFs do PS de 31/03/2023 e autorização de instrumentos",
+      "unit": "texto",
+      "excerpt": "a realizar-se no dia 14 de setembro de 2023, às 11:15 horas, exclusivamente de forma digital"
+    },
+    {
+      "source_document_id": "511843",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2023_materia",
+      "reference_date": "2023-08-23",
+      "value": "DFs do PS do exercício findo em 31/03/2023, sem ressalvas; autorização para aditivos aos Documentos da Oferta",
+      "unit": "texto",
+      "excerpt": "relativas ao exercício social findo em 31 de março de 2023, nos termos do artigo 25, inciso I da Resolução CVM nº 60, as quais não apresentam ressalvas"
+    },
+    {
+      "source_document_id": "511843",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2023_quorum_instalacao_1a",
+      "reference_date": "2023-08-23",
+      "value": "50% + 1 dos CRA em Circulação",
+      "unit": "texto",
+      "excerpt": "com a presença de Titulares de CRA que representem, no mínimo, 50% (cinquenta por cento) mais 1 (um) dos CRA em Circulação"
+    },
+    {
+      "source_document_id": "511922",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2023_proposta_materia_1a",
+      "reference_date": "2023-08-23",
+      "value": "DFs do PS de 31/03/2023 sem ressalvas; ordem do dia de 14/09/2023",
+      "unit": "texto",
+      "excerpt": "relativas ao exercício social findo em 31 de março de 2023, nos termos do artigo 25, inciso I da Resolução CVM nº 60, as quais não apresentam ressalvas"
+    },
+    {
+      "source_document_id": "521170",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2023_1a_convocacao_presenca",
+      "reference_date": "2023-09-14",
+      "value": "não instalada: presentes 12,17% dos CRA (abaixo do quórum de instalação)",
+      "unit": "texto",
+      "excerpt": "Titulares de CRA representativos de 12,17% (doze inteiros e dezessete centésimos por cento)",
+      "note": "O percentual de 12,17% é o declarado no item 'Outros participantes' do termo; o termo não diz explicitamente que é calculado sobre os CRA em Circulação."
+    },
+    {
+      "source_document_id": "521170",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2023_1a_convocacao_nao_instalada",
+      "reference_date": "2023-09-14",
+      "value": "não instalada por falta de quórum de instalação; nova convocação autorizada",
+      "unit": "texto",
+      "excerpt": "Não houve a presença de investidores representativos do quórum mínimo de instalação desta Assembleia, em primeira convocação"
+    },
+    {
+      "source_document_id": "534084",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2023_convocacao_2a",
+      "reference_date": "2023-10-10",
+      "value": "2ª convocação 2023-10-18 às 10:00 (Zoom); mesma ordem do dia",
+      "unit": "texto",
+      "excerpt": "a realizar-se no dia 18 de outubro de 2023, às 10:00 horas"
+    },
+    {
+      "source_document_id": "534084",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2023_quorum_instalacao_2a",
+      "reference_date": "2023-10-10",
+      "value": "qualquer número de Titulares; aprovação por 50% + 1 dos presentes",
+      "unit": "texto",
+      "excerpt": "com a presença de qualquer número de Titulares de CRA"
+    },
+    {
+      "source_document_id": "534193",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2023_proposta_materia_2a",
+      "reference_date": "2023-10-10",
+      "value": "DFs do PS de 31/03/2023 sem ressalvas; ordem do dia de 18/10/2023",
+      "unit": "texto",
+      "excerpt": "relativas ao exercício social findo em 31 de março de 2023, nos termos do artigo 25, inciso I da Resolução CVM nº 60, as quais não apresentam ressalvas"
+    },
+    {
+      "source_document_id": "538424",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2023_2a_convocacao_data",
+      "reference_date": "2023-10-18",
+      "value": "2023-10-18",
+      "unit": "data",
+      "excerpt": "Realizada aos 18 de outubro de 2023, às 10:00 horas, em segunda convocação"
+    },
+    {
+      "source_document_id": "538424",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2023_2a_convocacao_presenca",
+      "reference_date": "2023-10-18",
+      "value": "presentes 17,11% dos CRA em Circulação; sem quórum de deliberação",
+      "unit": "texto",
+      "excerpt": "Houve a presença de Titulares de CRA representativos do quórum de 17,11% (dezessete inteiros e onze décimos por cento) dos CRA em Circulação, no entanto, não houve a presença de Titulares de CRA representativos do quórum mínimo de deliberação",
+      "note": "O edital de 2ª convocação (534084) diz que a assembleia se instala com qualquer número e que as matérias são aprovadas por 50% + 1 dos presentes; a ata fala em ausência de 'quórum mínimo de deliberação' (Cláusula 14.16) e, ao mesmo tempo, atesta que a assembleia foi instalada. Redação ambígua; revisar."
+    },
+    {
+      "source_document_id": "538424",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2023_aprovacao_automatica",
+      "reference_date": "2023-10-18",
+      "value": "DFs do PS de 31/03/2023 consideradas automaticamente aprovadas (art. 25, §2º, Res. CVM 60)",
+      "unit": "texto",
+      "excerpt": "as demonstrações financeiras foram consideradas automaticamente aprovadas"
+    },
+    {
+      "source_document_id": "538424",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2023_2a_convocacao_instalacao_declarada",
+      "reference_date": "2023-10-18",
+      "value": "a ata atesta que a assembleia foi instalada conforme o Termo e a Res. CVM 60",
+      "unit": "texto",
+      "excerpt": "A Emissora atesta que a presente assembleia foi instalada em conformidade com os requisitos e orientações de procedimentos previstos no Termo de Securitização e na Resolução CVM 60"
+    },
+    {
+      "source_document_id": "608832",
+      "page_number": 1,
+      "fact_name": "assembleia_cdca_2024_convocacao_1a",
+      "reference_date": "2024-02-23",
+      "value": "1ª convocação 2024-03-14 às 10:00 (Zoom); edital de 23/02/2024",
+      "unit": "texto",
+      "excerpt": "a realizar-se no dia 14 de março de 2024, às 10:00 horas",
+      "note": "Edital assinado em 23/02/2024 (p.3)."
+    },
+    {
+      "source_document_id": "608832",
+      "page_number": 1,
+      "fact_name": "assembleia_cdca_2024_ordem_dia_i_nao_declaracao_vencimento_antecipado",
+      "reference_date": "2024-02-23",
+      "value": "não declaração do vencimento antecipado do CDCA (itens xvi e xvii da cláusula 4.3): descumprimento da Recomposição de Garantia e do reenquadramento da Razão de Garantia",
+      "unit": "texto",
+      "excerpt": "nos termos dos itens (xvi) e (xvii), da cláusula 4.3, do CDCA, diante do descumprimento da obrigação de Recomposição de Garantia, conforme definida na Cessão Fiduciária, e da obrigação de reenquadramento da Razão de Garantia"
+    },
+    {
+      "source_document_id": "608832",
+      "page_number": 2,
+      "fact_name": "assembleia_cdca_2024_ordem_dia_ii_anuencia_divida_liquida_ebitda",
+      "reference_date": "2024-02-23",
+      "value": "anuência prévia ao eventual descumprimento do índice Dívida Líquida/EBITDA (item xv da cláusula 4.3) apurado nas DFs de 31/12/2023",
+      "unit": "texto",
+      "excerpt": "Índice Financeiro “Dívida Líquida dividido por EBITDA”, conforme definido no CDCA, apurado pela Emissora, com base nas demonstrações financeiras anuais consolidadas, referente ao exercício social encerrado em 31 de dezembro de 2023"
+    },
+    {
+      "source_document_id": "608832",
+      "page_number": 2,
+      "fact_name": "assembleia_cdca_2024_ordem_dia_iii_novo_fluxo_amortizacao",
+      "reference_date": "2024-02-23",
+      "value": "alteração do fluxo das Amortizações Programadas do CDCA, da Data de Resgate Antecipado Facultativo, da Data de Vencimento do CDCA e do início da Amortização Extraordinária Obrigatória (e, por consequência, das datas de amortização e do vencimento dos CRA)",
+      "unit": "texto",
+      "excerpt": "aprovar a alteração do fluxo das Amortizações Programadas do CDCA e, consequentemente, a alteração da Data de Resgate Antecipado Facultativo do CDCA , Data de Vencimento do CDCA, bem como a data para início da Amortização Extraordinária Obrigatória"
+    },
+    {
+      "source_document_id": "608832",
+      "page_number": 2,
+      "fact_name": "assembleia_cdca_2024_ordem_dia_iv_premio_ate_2026",
+      "reference_date": "2024-02-23",
+      "value": "cláusula 6.3.1 do CDCA: Prêmio no Resgate Antecipado Facultativo passa a incidir até 01/01/2026 (condicionado à aprovação do item iii)",
+      "unit": "texto",
+      "excerpt": "aprovar a alteração da cláusula 6.3.1, do CDCA, para que, na hipótese de Resgate Antecipado Facultativo, a incidência do Prêmio ocorra até 01 de janeiro de 2026"
+    },
+    {
+      "source_document_id": "608832",
+      "page_number": 2,
+      "fact_name": "assembleia_cdca_2024_proposta_waiver_fee",
+      "reference_date": "2024-02-23",
+      "value": "0,5% sobre o Saldo Devedor do CDCA na próxima Data de Pagamento, destinado aos investidores (se aprovados os itens i, ii e iii)",
+      "unit": "texto",
+      "excerpt": "a Devedora se comprometeu a realizar o pagamento de waiver fee de 0,5% (cinco décimos por cento), na próxima Data de Pagamento, calculado sobre o Saldo Devedor do CDCA naquela data",
+      "note": "Proposta do edital; a assembleia aprovou 0,75% sobre o saldo devedor dos CRA, em parcela única em até 5 dias úteis (ata 619771)."
+    },
+    {
+      "source_document_id": "608832",
+      "page_number": 2,
+      "fact_name": "assembleia_cdca_2024_quorum_instalacao",
+      "reference_date": "2024-02-23",
+      "value": "1ª convocação: 50% + 1 dos CRA em Circulação; 2ª convocação: qualquer número (cláusula 14.11 do Termo)",
+      "unit": "texto",
+      "excerpt": "A Assembleia instalar-se-á em primeira convocação com a presença de Titulares de CRA que representem, no mínimo, 50% (cinquenta por cento) mais 1 (um) dos CRA em Circulação e, em segunda convocação, com qualquer número, conforme cláusula 14.11"
+    },
+    {
+      "source_document_id": "608832",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_quorum_deliberacao_1a",
+      "reference_date": "2024-02-23",
+      "value": "2/3 mais um dos CRA em Circulação (cláusula 14.18 do Termo)",
+      "unit": "texto",
+      "excerpt": "menos 2/3 (dois terços) mais um dos CRA em Circulação, conforme cláusula 14.18, do Termo de Securitização",
+      "note": "A frase começa na página anterior ('...por Titulares de CRA que representem pelo')."
+    },
+    {
+      "source_document_id": "608833",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_proposta_inicio_amortizacao_extraordinaria",
+      "reference_date": "2024-02-23",
+      "value": "01/04/2026 (proposta da Devedora)",
+      "unit": "data",
+      "excerpt": "propôs que a Data de Amortização Extraordinária Obrigatória se inicie em 01 de abril de 2026",
+      "note": "Constante do Anexo I da Proposta da Administração; a ata (619771) aprova a alteração da data de início 'conforme planilha', sem repetir 01/04/2026. A planilha da proposta é imagem (não extraída)."
+    },
+    {
+      "source_document_id": "608833",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_proposta_limite_vencimento_recebiveis",
+      "reference_date": "2024-02-23",
+      "value": "Duplicatas, CPR e Recebíveis de Compra e Venda (Cessão Fiduciária) sem vencimento posterior a 01/06/2026 (proposta da Devedora)",
+      "unit": "texto",
+      "excerpt": "as Duplicatas e/ou as CPR e/ou os Recebíveis de Compra e Venda, conforme definido na Cessão Fiduciária, não poderão ter vencimento posterior a data de 01 de junho de 2026",
+      "note": "Constante do Anexo I da Proposta; a ata não repete este limite nas condições aprovadas."
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 1,
+      "fact_name": "assembleia_cdca_2024_data",
+      "reference_date": "2024-03-14",
+      "value": "2024-03-14",
+      "unit": "data",
+      "excerpt": "Realizada aos 14 de março de 2024, às 10:00 horas"
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 1,
+      "fact_name": "assembleia_cdca_2024_convocacao_publicada",
+      "reference_date": "2024-03-14",
+      "value": "edital de 1ª convocação disponibilizado em 23/02/2024 (cláusula 14.6 do Termo)",
+      "unit": "texto",
+      "excerpt": "O edital de primeira convocação foi disponibilizado na página eletrônica da CVM e na página eletrônica da Emissora no dia 23 de fevereiro de 2024"
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 1,
+      "fact_name": "assembleia_cdca_2024_presenca",
+      "reference_date": "2024-03-14",
+      "value": "instalada em 1ª convocação; Titulares presentes: 77,87% dos CRA em Circulação; Devedora, Securitizadora e Agente Fiduciário presentes",
+      "unit": "texto",
+      "excerpt": "os Titulares dos CRA representativos de 77,87% (setenta e sete inteiros e oitenta e sete centésimos por cento) dos Certificados de Recebíveis do Agronegócio em Circulação",
+      "note": "A ata não diz explicitamente que se trata da 1ª convocação, mas cita o edital de 1ª convocação."
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 2,
+      "fact_name": "assembleia_cdca_2024_todas_materias_votadas",
+      "reference_date": "2024-03-14",
+      "value": "todas as matérias da ordem do dia colocadas em votação; todas registradas como aprovadas, com ressalvas (condições)",
+      "unit": "texto",
+      "excerpt": "toda as matérias constantes da Ordem do Dia foram colocadas em discussão e votação pelos Titulares dos CRA"
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 2,
+      "fact_name": "assembleia_cdca_2024_aprovacao_i_nao_declaracao_vencimento_antecipado",
+      "reference_date": "2024-03-14",
+      "value": "aprovada por Titulares presentes que representam 77,87% dos CRA em Circulação, com as ressalvas indicadas",
+      "unit": "texto",
+      "excerpt": "representando 77,87% (setenta e sete inteiros e oitenta e sete centésimos por cento) dos CRA em Circulação aprovaram a não declaração do vencimento antecipado do Certificado de Direitos Creditórios do Agronegócio – CDCA nº 001/2027",
+      "note": "Percentual dos presentes que aprovaram; a ata não registra votos contrários nem abstenções."
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_aprovacao_ii_anuencia_divida_liquida_ebitda",
+      "reference_date": "2024-03-14",
+      "value": "aprovada (77,87% dos CRA em Circulação, dos presentes), com ressalvas: anuência prévia a eventual descumprimento de Dívida Líquida/EBITDA apurado nas DFs de 31/12/2023",
+      "unit": "texto",
+      "excerpt": "concessão de anuência prévia para o eventual descumprimento do item (xv) da cláusula 4.3. do CDCA, especificamente em relação ao Índice Financeiro “Dívida Líquida dividido por EBITDA”",
+      "note": "O percentual de 77,87% está na p.2 (item (ii)); a ata não informa o valor do índice nem o limite então vigente."
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_aprovacao_iii_novo_fluxo_amortizacao",
+      "reference_date": "2024-03-14",
+      "value": "aprovada (77,87% dos CRA em Circulação, dos presentes), com ressalvas",
+      "unit": "texto",
+      "excerpt": "(iii) Os Titulares de CRA presentes, representando 77,87% (setenta e sete inteiros e oitenta e sete centésimos por cento) dos CRA em Circulação aprovaram a alteração do fluxo das Amortizações Programadas do CDCA"
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_aprovacao_iv_premio_ate_2026",
+      "reference_date": "2024-03-14",
+      "value": "aprovada (77,87% dos CRA em Circulação, dos presentes): Prêmio do Resgate Antecipado Facultativo incide até 01/01/2026",
+      "unit": "texto",
+      "excerpt": "aprovam a alteração da cláusula 6.3.1 do CDCA, para que, na hipótese de Resgate Antecipado Facultativo, a incidência do Prêmio ocorra até 01 de janeiro de 2026"
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_aprovacao_v_autorizacao_aditivos",
+      "reference_date": "2024-03-14",
+      "value": "aprovada (77,87% dos CRA em Circulação, dos presentes): celebração e registro de instrumentos, inclusive aditivos aos documentos da oferta",
+      "unit": "texto",
+      "excerpt": "aprovaram a autorização para que sejam celebrados e registrados, conforme o caso, quaisquer instrumentos relacionados à matéria aqui aprovada, inclusive aditivos aos documentos da oferta"
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_cronograma_amortizacao_2024_12_30",
+      "reference_date": "2024-12-30",
+      "value": "30000000.00",
+      "unit": "BRL",
+      "excerpt": "R$ 30.000.000,00",
+      "note": "Tabela do item (iii) (p.3) com colunas desalinhadas na extração: os valores e percentuais foram atribuídos às datas pela ordem das colunas (30/12/2022 e 29/12/2023 sem amortização; 30/12/2024, 30/12/2025 e 30/12/2026 com amortização). A atribuição é corroborada por: saldo devedor do AF de 31/12/2024 (R$ 70,04 mi) e 100.000 CRA x PU 399,98 no resgate de out/2026 (R$ 39,998 mi). Confirmar visualmente no PDF."
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_cronograma_amortizacao_2025_12_30",
+      "reference_date": "2025-12-30",
+      "value": "30002000.00",
+      "unit": "BRL",
+      "excerpt": "R$ 30.002.000,00",
+      "note": "Ver nota do fato de 30/12/2024: atribuição por ordem de colunas; 30.002.000 / 70.000.000 = 42,86% (percentual 42,8600% da tabela)."
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_cronograma_amortizacao_2026_12_30",
+      "reference_date": "2026-12-30",
+      "value": "39998000.00",
+      "unit": "BRL",
+      "excerpt": "R$ 39.998.000,00",
+      "note": "Ver nota do fato de 30/12/2024: atribuição por ordem de colunas; corresponde a 100,0000% do saldo remanescente e à última data do cronograma (30/12/2026)."
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_cronograma_percentuais",
+      "reference_date": "2024-03-14",
+      "value": "0,0000% (2022); 0,0000% (2023); 30,0000% (2024); 42,8600% (2025); 100,0000% (2026), por ordem de colunas",
+      "unit": "texto",
+      "excerpt": "30/12/2025 SIM 30,0000% 30/12/2026 SIM R$ - 42,8600% 100,0000%",
+      "note": "Na extração de texto o 30,0000% aparece na linha de 30/12/2025 e o 42,8600% na de 30/12/2026, mas há 5 datas e 5 percentuais; a atribuição acima reconcilia com os saldos (30% do valor nominal de R$ 100 mi = R$ 30 mi; 42,86% do saldo de R$ 70 mi = R$ 30,002 mi). Confirmar no PDF."
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 3,
+      "fact_name": "assembleia_cdca_2024_condicionantes_introducao",
+      "reference_date": "2024-03-14",
+      "value": "aprovação das matérias condicionada às condições (a) a (f) da p.4",
+      "unit": "texto",
+      "excerpt": "a aprovação das matérias indicadas acima, está condicionada às seguintes condições"
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 4,
+      "fact_name": "assembleia_cdca_2024_condicao_a_waiver_fee",
+      "reference_date": "2024-03-14",
+      "value": "0,75% sobre o saldo devedor dos CRA em 14/03/2024, parcela única, em até 5 dias úteis da data da assembleia",
+      "unit": "texto",
+      "excerpt": "O pagamento de waiver fee correspondente à 0,75% (setenta e cinco centésimos por cento) calculado sobre o saldo devedor dos CRA nesta data, em parcela única, a ser paga em até 5 (cinco) dias úteis contados da data da Assembleia",
+      "note": "A proposta do edital previa 0,5%. A ata não informa a data-limite; 21/03/2024 seria o 5º dia útil após 14/03/2024 (cálculo, não consta da ata)."
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 4,
+      "fact_name": "assembleia_cdca_2024_condicao_b_retencao_conta_garantia",
+      "reference_date": "2024-03-14",
+      "value": "de 01/09/2024 a 30/12/2024, todos os recursos dos Direitos Creditórios em Garantia retidos na Conta Garantia, para pagar a parcela de principal e/ou juros de dez/2024",
+      "unit": "texto",
+      "excerpt": "A partir de 01 de setembro de 2024 e até 30 de dezembro de 2024, todos os recursos oriundos do pagamento dos Direitos Creditórios em Garantia, deverão ficar retidos na Conta Garantia da Emissão"
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 4,
+      "fact_name": "assembleia_cdca_2024_condicao_c_dividendos",
+      "reference_date": "2024-03-14",
+      "value": "Devedora não pode distribuir dividendos acima do mínimo legal em 2024",
+      "unit": "texto",
+      "excerpt": "A Devedora não poderá distribuir dividendos acima do mínimo legal no ano de 2024"
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 4,
+      "fact_name": "assembleia_cdca_2024_condicao_d_capex",
+      "reference_date": "2024-03-14",
+      "value": "CAPEX de 2024 limitado a R$ 15.000.000,00, apurado pela saída de caixa (Demonstrativo de Fluxo de Caixa da Devedora)",
+      "unit": "texto",
+      "excerpt": "A limitação do CAPEX que poderá ser realizado pela Devedora no ano de 2024 ao montante máximo de R$ 15.000.000,00 (quinze milhões de reais)",
+      "note": "Exclui do cálculo recursos de clientes inadimplentes, desde que não usem o caixa da Devedora."
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 4,
+      "fact_name": "assembleia_cdca_2024_condicao_e_balancetes_trimestrais",
+      "reference_date": "2024-03-14",
+      "value": "balancetes trimestrais não auditados dos 3 primeiros trimestres de cada ano, em até 45 dias do fim do trimestre, durante toda a vigência restante da Emissão",
+      "unit": "texto",
+      "excerpt": "Inclusão de obrigação de entrega pela Devedora à Securitizadora dos balancetes trimestrais não auditados, referentes aos três primeiros trimestres de cada ano, em até 45 (quarenta e cinco) dias contados do encerramento do respectivo trimestre"
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 4,
+      "fact_name": "assembleia_cdca_2024_condicao_f_reunioes_trimestrais",
+      "reference_date": "2024-03-14",
+      "value": "durante 2024: reuniões virtuais trimestrais Securitizadora, Devedora e Titulares, em até 15 dias do fim do prazo dos balancetes, convocadas por Comunicado ao Mercado",
+      "unit": "texto",
+      "excerpt": "Durante o ano de 2024, a obrigatoriedade de realização de reuniões virtuais trimestrais entre a Securitizadora, a Devedora e os Titulares de CRA"
+    },
+    {
+      "source_document_id": "619771",
+      "page_number": 4,
+      "fact_name": "assembleia_cdca_2024_ata_enviada_cvm",
+      "reference_date": "2024-03-14",
+      "value": "ata enviada à CVM por sistema eletrônico; presença e voto dos Titulares registrados pelo Presidente (assinaturas dispensadas)",
+      "unit": "texto",
+      "excerpt": "A presente Ata de Assembleia será encaminhada à Comissão de Valores Mobiliários, por sistema eletrônico"
+    },
+    {
+      "source_document_id": "725268",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2024_convocacao_1a",
+      "reference_date": "2024-08-23",
+      "value": "1ª convocação 2024-09-13 às 10:00 (Zoom); ordem do dia: DFs do PS de 31/03/2024 e autorização de instrumentos",
+      "unit": "texto",
+      "excerpt": "a realizar-se no dia 13 de setembro de 2024, às 10:00 horas"
+    },
+    {
+      "source_document_id": "725268",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2024_quorum_instalacao_1a",
+      "reference_date": "2024-08-23",
+      "value": "50% + 1 dos CRA em Circulação",
+      "unit": "texto",
+      "excerpt": "presença de Titulares de CRA que representem no mínimo, 50% (cinquenta por cento) mais 1 (um) dos CRA em Circulação"
+    },
+    {
+      "source_document_id": "725269",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2024_proposta_materia_1a",
+      "reference_date": "2024-08-23",
+      "value": "DFs do PS de 31/03/2024 sem ressalvas; ordem do dia de 13/09/2024",
+      "unit": "texto",
+      "excerpt": "relativas ao exercício social findo em 31 de março de 2024, nos termos do artigo 25, inciso I da Resolução CVM nº 60, as quais não apresentam ressalvas"
+    },
+    {
+      "source_document_id": "737906",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2024_1a_convocacao_data",
+      "reference_date": "2024-09-13",
+      "value": "2024-09-13",
+      "unit": "data",
+      "excerpt": "Realizada aos 13 de setembro de 2024, às 10:00 horas, em primeira convocação"
+    },
+    {
+      "source_document_id": "737906",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2024_1a_convocacao_presenca",
+      "reference_date": "2024-09-13",
+      "value": "não instalada: presentes 3,47% dos CRA em Circulação (abaixo do quórum de instalação)",
+      "unit": "texto",
+      "excerpt": "Presentes os Titulares dos CRA representando 3,47% (três inteiros e quarenta e sete centésimos) dos CRA em Circulação"
+    },
+    {
+      "source_document_id": "737906",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2024_1a_convocacao_nao_instalada",
+      "reference_date": "2024-09-13",
+      "value": "não instalada: ausência de quórum de instalação (cláusula 14.11 do Termo)",
+      "unit": "texto",
+      "excerpt": "Foi constatada a ausência de quórum para a instalação da assembleia"
+    },
+    {
+      "source_document_id": "750834",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2024_convocacao_2a",
+      "reference_date": "2024-09-02",
+      "value": "2ª convocação 2024-10-10 às 11:15 (Zoom); ordem do dia: DFs do PS de 31/03/2024",
+      "unit": "texto",
+      "excerpt": "a realizar-se no dia 10 de outubro de 2024, 11:15 horas",
+      "note": "O edital está datado de 02/09/2024 (p.2), mas o termo 755722 e a instrução de voto 750841 dizem que o edital de 2ª convocação foi publicado em 02/10/2024; 02/09 seria anterior à própria 1ª convocação (13/09). Provável erro de digitação; revisar."
+    },
+    {
+      "source_document_id": "750834",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2024_quorum_instalacao_2a",
+      "reference_date": "2024-09-02",
+      "value": "qualquer número de CRA em circulação",
+      "unit": "texto",
+      "excerpt": "A Assembleia instalar-se-á em 2ª (segunda) convocação com a presença de representantes com qualquer número dos CRA em circulação"
+    },
+    {
+      "source_document_id": "750841",
+      "page_number": 3,
+      "fact_name": "assembleia_dfs_2024_2a_convocacao_edital_publicado",
+      "reference_date": "2024-10-02",
+      "value": "edital de 2ª convocação publicado em 02/10/2024 (instrução de voto à distância)",
+      "unit": "texto",
+      "excerpt": "conforme edital de convocação publicado no dia 02 de outubro de 2024",
+      "note": "Diverge da data do próprio edital 750834 e da proposta (02/09/2024, p.2). O documento 750841 repete as DFs do PS de 31/03/2024 já presentes no 725269 (p.8 a 30 idênticas)."
+    },
+    {
+      "source_document_id": "755722",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2024_2a_convocacao_data",
+      "reference_date": "2024-10-10",
+      "value": "2024-10-10",
+      "unit": "data",
+      "excerpt": "Realizada aos 10 de outubro de 2024, às 11:15 horas, em segunda convocação"
+    },
+    {
+      "source_document_id": "755722",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2024_2a_convocacao_nao_instalada",
+      "reference_date": "2024-10-10",
+      "value": "não instalada: nenhum investidor presente (quórum mínimo de instalação, cláusula 14.11 do Termo)",
+      "unit": "texto",
+      "excerpt": "Não houve a presença de investidores representativos do quórum mínimo de instalação desta Assembleia, em segunda convocação",
+      "note": "O edital 750834 diz que a 2ª convocação se instala com qualquer número; o termo cita o 'quórum mínimo de instalação' e a Cláusula 14.11, mas não informa percentual presente."
+    },
+    {
+      "source_document_id": "755722",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2024_aprovacao_automatica",
+      "reference_date": "2024-10-10",
+      "value": "DFs do PS de 31/03/2024 aprovadas automaticamente (art. 25, §2º, Res. CVM 60)",
+      "unit": "texto",
+      "excerpt": "as demonstrações contábeis do Patrimônio Separado foram automaticamente aprovadas na presente Assembleia, com fundamento no parágrafo segundo do artigo 25 da Resolução CVM 60"
+    },
+    {
+      "source_document_id": "725269",
+      "page_number": 10,
+      "fact_name": "df2024_parecer_auditor",
+      "reference_date": "2024-03-31",
+      "value": "opinião sem modificação (Grant Thornton), relatório de 12/07/2024",
+      "unit": "texto",
+      "excerpt": "Em nossa opinião, as demonstrações financeiras acima referidas para o exercício findo em 31 de março de 2024 foram elaboradas em todos os aspectos relevantes",
+      "note": "A ênfase da p.11 trata só da base contábil (uso restrito); a opinião não contém modificação."
+    },
+    {
+      "source_document_id": "725269",
+      "page_number": 17,
+      "fact_name": "df2024_datas_inicio_termino_emissao",
+      "reference_date": "2024-03-31",
+      "value": "2022-09-21 a 2027-09-30",
+      "unit": "texto",
+      "excerpt": "Datas de início e término da emissão: 21 de setembro de 2022 e 30 de setembro de 2027",
+      "note": "Término de 30/09/2027 do Termo; não reflete o cronograma aprovado em 14/03/2024 (último pagamento em 30/12/2026)."
+    },
+    {
+      "source_document_id": "725269",
+      "page_number": 25,
+      "fact_name": "df2024_garantias_cdca",
+      "reference_date": "2024-03-31",
+      "value": "Aval; Cessão Fiduciária; Alienação Fiduciária de Imóvel; Alienação Fiduciária de Estoque",
+      "unit": "texto",
+      "excerpt": "A emissão conta com Aval, Cessão Fiduciária, Alienação Fiduciária de Imóvel e Alienação Fiduciária de Estoque como garantias"
+    },
+    {
+      "source_document_id": "725269",
+      "page_number": 25,
+      "fact_name": "df2024_inadimplencia_no_exercicio",
+      "reference_date": "2024-03-31",
+      "value": "sem inadimplência no recebimento dos direitos creditórios no exercício",
+      "unit": "texto",
+      "excerpt": "Não houve no exercício findo em 31 de março de 2024 inadimplência no recebimento dos direitos creditórios da emissão"
+    },
+    {
+      "source_document_id": "725269",
+      "page_number": 24,
+      "fact_name": "df2024_provisao_perdas",
+      "reference_date": "2024-03-31",
+      "value": "nenhuma provisão a constituir",
+      "unit": "texto",
+      "excerpt": "não há provisão a ser constituída para os ativos vinculados ao patrimônio separado"
+    },
+    {
+      "source_document_id": "725269",
+      "page_number": 26,
+      "fact_name": "df2024_pagamento_juros_exercicio",
+      "reference_date": "2024-03-31",
+      "value": "18846",
+      "unit": "milhares de BRL",
+      "excerpt": "Pagamento de juros (18.846)",
+      "note": "Valor em milhares de reais, como publicado."
+    },
+    {
+      "source_document_id": "725269",
+      "page_number": 26,
+      "fact_name": "df2024_saldo_cra_31_03_2024",
+      "reference_date": "2024-03-31",
+      "value": "103724",
+      "unit": "milhares de BRL",
+      "excerpt": "Saldo final em 31/03/2024 103.724",
+      "note": "Valor em milhares de reais, como publicado (saldo contábil de principal mais juros)."
+    },
+    {
+      "source_document_id": "725269",
+      "page_number": 26,
+      "fact_name": "df2024_caracteristicas_amortizacao",
+      "reference_date": "2024-03-31",
+      "value": "amortização anual parcial a partir de 30/12/2025 (cronograma original do Termo)",
+      "unit": "texto",
+      "excerpt": "Cronograma de amortização: Anual, parcialmente, a partir de 30 de dezembro de 2025.",
+      "note": "A DF foi emitida em 12/07/2024, depois da assembleia de 14/03/2024, mas ainda traz o cronograma original do Termo (amortização a partir de 30/12/2025). A remuneração (CDI + 4,5% a.a.) não foi alterada pela assembleia."
+    },
+    {
+      "source_document_id": "725269",
+      "page_number": 26,
+      "fact_name": "df2024_remuneracao",
+      "reference_date": "2024-03-31",
+      "value": "100% da variação do indexador (CDI) + 4,5% a.a.",
+      "unit": "texto",
+      "excerpt": "Taxa de juros efetiva: 100% da variação do indexador + 4,5% a.a."
+    },
+    {
+      "source_document_id": "725269",
+      "page_number": 26,
+      "fact_name": "df2024_assembleias_no_exercicio",
+      "reference_date": "2024-03-31",
+      "value": "a DF diz que não houve assembleias no exercício 01/04/2023 a 31/03/2024",
+      "unit": "texto",
+      "excerpt": "Durante o exercício findo em 31 de março de 2024, não foram realizadas assembleias relacionadas à essa emissão",
+      "note": "CONTRADIZ os documentos: assembleias de 14/09/2023 (não instalada), 18/10/2023 (DFs aprovadas automaticamente) e 14/03/2024 (waiver e novo fluxo, instalada com 77,87%) ocorreram dentro do exercício."
+    }
+  ]
+}

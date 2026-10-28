@@ -1,0 +1,139 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "source_note": "Comunicados ao Mercado da Eco Securitizadora lidos em 2026-10-28 depois de baixados sem leitura: 1058932 (11/12/2025), 1059936 (12/12/2025, rerratificação), 1077548 (08/01/2026), 1090229 (22/01/2026) e 1140992 (19/03/2026, retificação da alocação das amortizações extraordinárias de 03/02 e 26/02/2026). O quadro financeiro da Devedora anexo ao 1090229 (pp.5-7) não foi registrado: as colunas saem desalinhadas na extração de texto e exigem conferência visual no PDF.",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-28",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "1140992",
+      "page_number": 1,
+      "fact_name": "comunicado_retificacao_amortizacoes_extraordinarias",
+      "reference_date": "2026-03-19",
+      "value": "retifica os comunicados de 02 e 23/02/2026 sobre as amortizações extraordinárias de 03 e 26/02/2026",
+      "unit": "texto",
+      "excerpt": "retificar os Comunicados ao Mercado divulgados em 02 e 23 de fevereiro de 2026, referentes às amortizações extraordinárias realizadas em 03 e 26 de fevereiro de 2026"
+    },
+    {
+      "source_document_id": "1140992",
+      "page_number": 1,
+      "fact_name": "comunicado_retificacao_motivo",
+      "reference_date": "2026-03-19",
+      "value": "alocação entre encargos moratórios, juros e principal não refletia a metodologia aplicável após a assembleia de 12/02/2026; encargos moratórios incidem só sobre a parcela inadimplida em 30/12/2025",
+      "unit": "texto",
+      "excerpt": "os encargos moratórios devem incidir apenas sobre a parcela inadimplida em 30 de dezembro de 2025, e não sobre o saldo devedor total da Emissão"
+    },
+    {
+      "source_document_id": "1140992",
+      "page_number": 1,
+      "fact_name": "comunicado_retificacao_total_pago_inalterado",
+      "reference_date": "2026-03-19",
+      "value": "o montante total pago nas amortizações extraordinárias não mudou",
+      "unit": "texto",
+      "excerpt": "não houve alteração no montante total pago nas amortizações extraordinárias"
+    },
+    {
+      "source_document_id": "1140992",
+      "page_number": 2,
+      "fact_name": "amortizacao_extraordinaria_pu_juros_moratorios_retificado",
+      "reference_date": "2026-02-03",
+      "value": "8.59505233",
+      "unit": "BRL_por_CRA",
+      "excerpt": "Série Única da 190ª - Código CETIP CRA022009VM PU Juros Moratórios 8,59505233",
+      "note": "O rótulo \"Data do Evento: 03/02/2026:\" está no fim da p.1; o quadro de PUs começa na p.2."
+    },
+    {
+      "source_document_id": "1140992",
+      "page_number": 2,
+      "fact_name": "amortizacao_extraordinaria_pu_juros_retificado",
+      "reference_date": "2026-02-03",
+      "value": "9.24620081",
+      "unit": "BRL_por_CRA",
+      "excerpt": "PU Juros 9,24620081"
+    },
+    {
+      "source_document_id": "1140992",
+      "page_number": 2,
+      "fact_name": "amortizacao_extraordinaria_pu_principal_retificado",
+      "reference_date": "2026-02-03",
+      "value": "132.15874686",
+      "unit": "BRL_por_CRA",
+      "excerpt": "PU Principal 132,15874686"
+    },
+    {
+      "source_document_id": "1140992",
+      "page_number": 2,
+      "fact_name": "amortizacao_extraordinaria_pu_total_retificado",
+      "reference_date": "2026-02-03",
+      "value": "150.00000000",
+      "unit": "BRL_por_CRA",
+      "excerpt": "PU Total 150,00000000"
+    },
+    {
+      "source_document_id": "1140992",
+      "page_number": 2,
+      "fact_name": "amortizacao_extraordinaria_pu_juros_moratorios_retificado",
+      "reference_date": "2026-02-26",
+      "value": "3.03486497",
+      "unit": "BRL_por_CRA",
+      "excerpt": "Data do Evento: 26/02/2026: Série Única da 190ª - Código CETIP CRA022009VM PU Juros Moratórios 3,03486497"
+    },
+    {
+      "source_document_id": "1140992",
+      "page_number": 2,
+      "fact_name": "amortizacao_extraordinaria_pu_principal_retificado",
+      "reference_date": "2026-02-26",
+      "value": "96.96513503",
+      "unit": "BRL_por_CRA",
+      "excerpt": "PU Principal 96,96513503"
+    },
+    {
+      "source_document_id": "1140992",
+      "page_number": 2,
+      "fact_name": "amortizacao_extraordinaria_pu_total_retificado",
+      "reference_date": "2026-02-26",
+      "value": "100.00000000",
+      "unit": "BRL_por_CRA",
+      "excerpt": "PU Total 100,00000000"
+    },
+    {
+      "source_document_id": "1058932",
+      "page_number": 1,
+      "fact_name": "reuniao_trimestral_devedora_anunciada",
+      "reference_date": "2025-12-11",
+      "value": "2025-12-19",
+      "unit": "data",
+      "excerpt": "a reunião relativa ao trimestre encerrado ocorrerá em 19 de dezembro de 2025, às 10:00, de forma online"
+    },
+    {
+      "source_document_id": "1059936",
+      "page_number": 1,
+      "fact_name": "reuniao_trimestral_devedora_rerratificada",
+      "reference_date": "2025-12-12",
+      "value": "2025-12-16",
+      "unit": "data",
+      "excerpt": "a reunião relativa ao trimestre encerrado ocorrerá em 16 de dezembro de 2025, às 10:00, de forma online"
+    },
+    {
+      "source_document_id": "1077548",
+      "page_number": 1,
+      "fact_name": "reuniao_esclarecimentos_assembleia_30_01_2026_anunciada",
+      "reference_date": "2026-01-08",
+      "value": "2026-01-13",
+      "unit": "data",
+      "excerpt": "a referida reunião ocorrerá em 13 de janeiro de 2026, às 10:00, de forma online"
+    },
+    {
+      "source_document_id": "1090229",
+      "page_number": 1,
+      "fact_name": "comunicado_material_apoio_devedora_anexo",
+      "reference_date": "2026-01-22",
+      "value": "material de apoio da Devedora anexo, conforme o Edital divulgado em 02/01/2026 (inclui quadro financeiro não registrado)",
+      "unit": "texto",
+      "excerpt": "encontra-se anexo a este comunicado o material de apoio, disponibilizado pela Devedora, com o objetivo de auxiliar os Titulares dos CRA na análise e na tomada de decisão"
+    }
+  ]
+}

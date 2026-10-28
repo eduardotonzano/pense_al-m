@@ -82,3 +82,46 @@ Série única Sênior, 230.000 CRI, VNU R$ 1.000, emissão 29/08/2024, venciment
    eventos subsequentes até 21/08/2026; o edital de 28/09/2026 e o termo de 19/10/2026 tratam os CRI
    como em circulação. Resgate facultativo é possível desde 29/08/2026, sem comunicado.
 9. **Classe:** o Informe diz "Sênior"; o Termo não define classes (série única) e as DFs dizem "classe Única".
+
+## Revisão de 2026-10-28: documentos que não tinham sido lidos
+
+### Documentos de oferta (baixados e lidos em 28/10)
+- Lidos: Aviso ao Mercado 722271, Lâminas 722282 e 727225, Anúncio de Início 727228 e o Prospecto preliminar
+  722286 (539 páginas: parte lida por inteiro e parte por palavra-chave; as páginas estão em
+  `reports/24g2100031_oferta_vs_termo.md`). 110 fatos pendentes em `config/reported_facts/24g2100031_oferta_2024.json`.
+- **Não baixado:** Prospecto definitivo 727241, recusado por passar de 25 MB (`size_limit_exceeded`, nenhuma
+  versão gravada). Anúncio de Encerramento 730623: o serviço só aceita categorias da amostra aprovada. O que o
+  prospecto definitivo muda em relação ao preliminar não foi verificado.
+- Diferenças entre a oferta e o Termo (17 no relatório): step-up marcado como "73º mês" na oferta e 29/08/2030 no
+  Aditamento (mesmos valores, 1,50% e 2,75%); resgate facultativo a partir de 29/08/2027 no prospecto e
+  29/08/2026 no Aditamento; duration 4,93 e 4,86; texto da Lâmina diz imóvel "de titularidade da Emissora",
+  enquanto o Termo diz Devedora.
+- **Garantias, o que a oferta ajuda a entender (inferência, não fato):** a cessão fiduciária nasce sob condição
+  suspensiva (registro do termo de liberação de 23/09/2021; Termo p.40, Prospecto p.18) e a alienação fiduciária
+  depende de um Termo de Liberação averbado: 51% do imóvel já estavam alienados em 2021 e só 37,24% passam de
+  imediato (minuta da escritura, p.284-285 do Prospecto). Isso é compatível com o "não constituída" do AF 2025,
+  mas só matrículas, registro em cartório e o Termo de Liberação registrado confirmam. O prazo final da condição
+  suspensiva não aparece nas páginas lidas (deve estar no contrato de cessão fiduciária, que não foi baixado).
+- **Rating, o que a oferta ajuda a entender:** a atualização anual está no Termo, no Prospecto e na Escritura de
+  Debêntures (a cargo da Devedora). O rating nos documentos é sempre o preliminar AA-(EXP)sf(bra), inclusive no
+  Anúncio de Início de 27/08/2024; a Fitch diz que o final viria no comunicado da liquidação (Prospecto p.530),
+  que não foi localizado. Falta consultar a Fitch e a CVM para saber se houve rating final, retirada ou nunca
+  contratação.
+
+### Relatório anual do AF de 2024 (892072): leitura visual
+O PDF (199 páginas) é imagem, sem texto extraível, e não há OCR instalado. Li as páginas 1 a 8 como imagem
+(páginas do PDF 3 a 10 do relatório). Como não existe texto para validar o trecho, **nada foi registrado como
+fato**: o carregador exige o trecho literal na página extraída.
+- Série única, IF 24G2100031, ISIN BRRBRACRIP13, PU R$ 1.000,00, 230.000 CRI, R$ 230.000.000,00; "CDI + 1,5%";
+  amortização "Mensal"; emissão 29/08/2024; vencimento 29/08/2036; juros mensais; 1º pagamento previsto
+  26/09/2024; rating: "Não existe rating para esse operação no período analisado"; inadimplência no período:
+  "Adimplente".
+- Em 31/12/2024: 230.000 em circulação, 0 resgatadas, saldo R$ 230.118.275,40, que confere com o Informe de
+  dez/2024 (`VlrAtualizadoEmissao` 230118275.4).
+- Pagamentos de juros por CRI: 30/09 10,02330500; 29/10 9,72125200; 29/11 9,91988900; 30/12 9,90435399; sem amortização.
+- Contratos listados: AF de imóvel, CF (e 1º aditamento), emissão de CCI e de debêntures (e 1º aditamento), TS (e 1º aditamento).
+- Garantias (item 9.1): alienação fiduciária de imóvel e cessão fiduciária de outros com Constituição "-" (sem
+  marcação). No relatório de 2025 a mesma tabela traz "NÃO". Não é a mesma informação e não deve ser tratada
+  como equivalente. Suficiência e covenants: remetidos ao site da Vórtx.
+- Assembleias: "Não foram realizadas assembleias no período". Relatório de gestão do patrimônio separado: não disponibilizado.
+- Divergência já conhecida: o AF diz que o 1º pagamento previsto é 26/09/2024; os Informes e o Anexo III do Termo trazem 30/09/2024.

@@ -37,7 +37,9 @@
    série como Sênior, a 2ª (Sênior) como Mezanino e a soma 3ª+4ª+5ª como Júnior. Pelo Termo seria
    Sênior ≈ 17.071 mil, Mezanino ≈ 18.790 mil, Subordinada ≈ 14.438 mil. O total (R$ 50,30 mi) confere
    com os recebimentos.
-2. **Classe da 4ª série:** Subordinada no Termo; Mezanino no próprio Informe (bloco de séries);
+2. **Classe da 4ª série:** Subordinada no Termo e em todos os documentos da oferta (Aviso, Lâmina, Prospectos, Termo da
+   oferta e Aditamento; declaração do AF "1 subclasse Mezanino e 2 subclasses Subordinadas Júniores", leitura de 28/10, ver
+   `reports/cra02500c1d_oferta_vs_termo.md`); Mezanino no próprio Informe (bloco de séries);
    "Subordinada Júnior" e "Subordinada" em notas diferentes das DFs.
 3. **Identidade do ativo:** BRECOACRALJ8 / CRA02500C1D é o código só da 1ª série (Termo p.71; AF pp.3–7);
    o Informe Mensal, o Termo e as DFs cobrem a emissão inteira (5 séries).

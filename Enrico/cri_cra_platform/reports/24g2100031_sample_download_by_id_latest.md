@@ -1,49 +1,44 @@
 # Execução de download da amostra
 
-- Run ID: `c7e4b8cc0f674c618f20550090c04de5`
+- Run ID: `a2c9c10cab1b48839b4ff11063431467`
 - Ativo: `24G2100031` / `BRRBRACRIP13`
 - Dry run: **False**
-- Categorias encontradas: Ata/Edital
+- Categorias encontradas: Outro
 - Categorias ausentes: nenhuma
 - Observação de categorias: A categoria é inferida pelos campos oficiais da grade e pelo nome do documento; somente correspondências inequívocas substituem Outro.
-- Linhas da grade verificadas para ISIN: 8
+- Linhas da grade verificadas para ISIN: 6
 - Todas as linhas selecionadas verificadas: True
 
 ## Documentos selecionados
 
-- `1044868` — Ata/Edital — AGO/E — `data/documents/24G2100031/atas_editais/2025-12-12_1044868_AGO_E.<extensao_detectada>`
-- `1059168` — Ata/Edital — AGO/E — `data/documents/24G2100031/atas_editais/2025-12-12_1059168_AGO_E.<extensao_detectada>`
-- `1059642` — Ata/Edital — AGO/E — `data/documents/24G2100031/atas_editais/2025-12-12_1059642_AGO_E.<extensao_detectada>`
-- `1068151` — Ata/Edital — AGO/E — `data/documents/24G2100031/atas_editais/2025-12-23_1068151_AGO_E.<extensao_detectada>`
-- `1331184` — Ata/Edital — AGO/E — `data/documents/24G2100031/atas_editais/2026-10-19_1331184_AGO_E.<extensao_detectada>`
-- `1332334` — Ata/Edital — AGO/E — `data/documents/24G2100031/atas_editais/2026-10-19_1332334_AGO_E.<extensao_detectada>`
-- `1354536` — Ata/Edital — AGO/E — `data/documents/24G2100031/atas_editais/2026-10-19_1354536_AGO_E.<extensao_detectada>`
-- `1355102` — Ata/Edital — AGO/E — `data/documents/24G2100031/atas_editais/2026-10-19_1355102_AGO_E.<extensao_detectada>`
+- `722271` — Outro — Aviso ao Mercado — `data/documents/24G2100031/outros/2024-07-29_722271_Aviso_ao_Mercado.<extensao_detectada>`
+- `722282` — Outro — Lâmina de Oferta de Securitização — `data/documents/24G2100031/outros/2024-08-09_722282_Lâmina_de_Oferta_de_Securitização.<extensao_detectada>`
+- `722286` — Outro — Prospecto de Distribuição Pública — `data/documents/24G2100031/outros/2024-07-29_722286_Prospecto_de_Distribuição_Pública.<extensao_detectada>`
+- `727225` — Outro — Lâmina de Oferta de Securitização — `data/documents/24G2100031/outros/2024-08-27_727225_Lâmina_de_Oferta_de_Securitização.<extensao_detectada>`
+- `727228` — Outro — Anúncio de Início de Distribuição Pública — `data/documents/24G2100031/outros/2024-08-27_727228_Anúncio_de_Início_de_Distribuição_Pública.<extensao_detectada>`
+- `727241` — Outro — Prospecto de Distribuição Pública — `data/documents/24G2100031/outros/2024-08-27_727241_Prospecto_de_Distribuição_Pública.<extensao_detectada>`
 
 ## Arquivos
 
-- `1044868`: inserted, PDF / 714119 bytes, SHA-256 `05bb51b1616a8691fcaa5c5428b00ca35ab784a3d155a1f10cd033429de19a79`, `data/documents/24G2100031/atas_editais/2025-12-12_1044868_AGO_E.pdf`
-- `1059168`: inserted, PDF / 956113 bytes, SHA-256 `d2f10b5c8729b836a75976cc9f44226331d8aa6d8e8feeece4bfc1b8066c712e`, `data/documents/24G2100031/atas_editais/2025-12-12_1059168_AGO_E.pdf`
-- `1059642`: inserted, PDF / 834402 bytes, SHA-256 `55a47a255bce07e906d57c5a56898c76a554414f83e3a37dd1136ca5a82ef866`, `data/documents/24G2100031/atas_editais/2025-12-12_1059642_AGO_E.pdf`
-- `1068151`: inserted, PDF / 731921 bytes, SHA-256 `ed62928edadbc03f5a749af0f5353eb9860017263691c498d4e8c8d39745c152`, `data/documents/24G2100031/atas_editais/2025-12-23_1068151_AGO_E.pdf`
-- `1331184`: inserted, PDF / 213016 bytes, SHA-256 `4163eb8f0c4d60c66d6ec2d929581173a804cf04cc9bc385a15cd627255b7961`, `data/documents/24G2100031/atas_editais/2026-10-19_1331184_AGO_E.pdf`
-- `1332334`: inserted, PDF / 423293 bytes, SHA-256 `670bd973718c7b13d71911047ffac1a4390c5332f96062de65415f51b744bc5c`, `data/documents/24G2100031/atas_editais/2026-10-19_1332334_AGO_E.pdf`
-- `1354536`: inserted, PDF / 391641 bytes, SHA-256 `5bf41e366652502f06ce5f8ac2f6fa0e6ddf089a56f385558ff88b3f32a674dc`, `data/documents/24G2100031/atas_editais/2026-10-19_1354536_AGO_E.pdf`
-- `1355102`: inserted, PDF / 1552929 bytes, SHA-256 `1241bfeb06e176c61c714bd2bdcbc87bf46aaed2c536620d325c4f145a82c24f`, `data/documents/24G2100031/atas_editais/2026-10-19_1355102_AGO_E.pdf`
+- `722271`: inserted, PDF / 419336 bytes, SHA-256 `461deec81f7cabb6f00965f35fc4a38eb611a4d98ffe9067d5b3afb4d43c2dcf`, `data/documents/24G2100031/outros/2024-07-29_722271_Aviso_ao_Mercado.pdf`
+- `722282`: inserted, PDF / 640992 bytes, SHA-256 `3566b34168ff15fbf2c6be413b521add83852a0d8c5262552f8ac4d74edcba2b`, `data/documents/24G2100031/outros/2024-08-09_722282_Lâmina_de_Oferta_de_Securitização.pdf`
+- `722286`: inserted, PDF / 21094880 bytes, SHA-256 `7e79bd139ebd837c3cb03126bf19b4bcbc6d8c0e78e1eb7df2cde853abf55ddb`, `data/documents/24G2100031/outros/2024-07-29_722286_Prospecto_de_Distribuição_Pública.pdf`
+- `727225`: inserted, PDF / 473240 bytes, SHA-256 `cf7d2236e51f4ecd91614b173a97c5233e84ee4579555546c1c68ccf82e258ce`, `data/documents/24G2100031/outros/2024-08-27_727225_Lâmina_de_Oferta_de_Securitização.pdf`
+- `727228`: inserted, PDF / 405479 bytes, SHA-256 `e907b65532404a9615dea8630afa06306e5ea5e451ba117e223b79e54f8ae02c`, `data/documents/24G2100031/outros/2024-08-27_727228_Anúncio_de_Início_de_Distribuição_Pública.pdf`
 
 ## Métricas
 
-- inserted: 8
+- inserted: 5
 - updated: 0
 - unchanged: 0
 - new_version: 0
 - duplicate_content: 0
-- failed: 0
-- tentativas operacionais registradas: 8
-- temporários removidos: 8
+- failed: 1
+- tentativas operacionais registradas: 6
+- temporários removidos: 6
 - diretório temporário removido: True
-- duração: 12.648s
+- duração: 17.183s
 
 ## Erros
 
-- Nenhum.
+- `727241`: size_limit_exceeded

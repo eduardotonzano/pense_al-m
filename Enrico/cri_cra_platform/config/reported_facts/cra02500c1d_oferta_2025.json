@@ -1,0 +1,1995 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA02500C1D",
+    "isin": "BRECOACRALJ8"
+  },
+  "source_note": "Documentos da oferta pública da 426ª emissão da Eco Securitizadora (CRA Alibem): Aviso ao Mercado de 14/11/2025 (doc. 1040833, 4 pp., lido integralmente), Lâmina da Oferta de 14/11/2025 (doc. 1040834, 11 pp., lida integralmente), Anúncio de Início de 17/12/2025 (doc. 1065461, 4 pp., lido integralmente), Prospecto Preliminar de 14/11/2025 (doc. 1040835, 844 pp.) e a reapresentação do Prospecto Preliminar (doc. 1047358, 842 pp.; o texto da capa continua datado de 14/11/2025), Prospecto Definitivo de 17/12/2025 (doc. 1065463, 1.140 pp.) e a versão da oferta do Termo de Securitização de 13/11/2025 (doc. 1040836, 154 pp.). Os Prospectos foram lidos nas seções iniciais e por busca de palavras-chave; os dois preliminares foram comparados com o definitivo por diferença de texto completa (ver reports/cra02500c1d_oferta_vs_termo.md). Numeração de páginas = página da extração em PDF; no corpo dos Prospectos a página impressa é a da extração menos 10. Textos de tabelas com colunas desalinhadas na extração foram usados só quando a linha era legível. Preliminar e Definitivo trazem a mesma estrutura de classes: 1ª e 2ª Sêniores, 3ª Mezanino, 4ª e 5ª Subordinadas.",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-28",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_valor_total_oferta",
+      "reference_date": "2025-11-14",
+      "value": "750000000.00",
+      "unit": "BRL",
+      "excerpt": "NO VALOR TOTAL DE: R$ 750.000.000,00 (setecentos e cinquenta milhões de reais)"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_quantidade_ofertada",
+      "reference_date": "2025-11-14",
+      "value": "750000",
+      "unit": "CRA",
+      "excerpt": "oferta pública de 750.000 (setecentos e cinquenta mil) certificados de recebíveis do agronegócio"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_numero_series_e_classes",
+      "reference_date": "2025-11-14",
+      "value": "até 5 séries; classes sênior, mezanino e subordinada",
+      "unit": "texto",
+      "excerpt": "em até 5 (cinco) séries, da classe sênior, da classe mezanino e da classe subordinada"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_isin_serie_1",
+      "reference_date": "2025-11-14",
+      "value": "BRECOACRALJ8",
+      "unit": "texto",
+      "excerpt": "CÓDIGO ISIN DOS CRA DA 1ª SÉRIE: BRECOACRALJ8"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_isin_serie_2",
+      "reference_date": "2025-11-14",
+      "value": "BRECOACRALK6",
+      "unit": "texto",
+      "excerpt": "CÓDIGO ISIN DOS CRA DA 2ª SÉRIE: BRECOACRALK6"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_isin_serie_3",
+      "reference_date": "2025-11-14",
+      "value": "BRECOACRALL4",
+      "unit": "texto",
+      "excerpt": "CÓDIGO ISIN DOS CRA DA 3ª SÉRIE: BRECOACRALL4"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_isin_serie_4",
+      "reference_date": "2025-11-14",
+      "value": "BRECOACRALM2",
+      "unit": "texto",
+      "excerpt": "CÓDIGO ISIN DOS CRA DA 4ª SÉRIE: BRECOACRALM2"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_isin_serie_5",
+      "reference_date": "2025-11-14",
+      "value": "BRECOACRALN0",
+      "unit": "texto",
+      "excerpt": "CÓDIGO ISIN DOS CRA DA 5ª SÉRIE: BRECOACRALN0"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_rating_agencia_e_escala",
+      "reference_date": "2025-11-14",
+      "value": "Moody's Local BR; escala nacional A.br (CRA Sêniores)",
+      "unit": "texto",
+      "excerpt": "ATRIBUÍDA PELA MOODY’S LOCAL BR AGÊNCIA DE CLASSIFICAÇÃO DE RISCO LTDA. , EM ESCALA NACIONAL: “A.br”"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_rating_data",
+      "reference_date": "2025-11-14",
+      "value": "2025-11-14",
+      "unit": "data",
+      "excerpt": "*Esta Classificação de Risco foi realizada em 14 de novembro de 2025"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_devedora_cnpj_nire",
+      "reference_date": "2025-11-14",
+      "value": "Alibem Alimentos S.A.; CNPJ 03.941.052/0001-50; NIRE 43.3.0005793.3",
+      "unit": "texto",
+      "excerpt": "CNPJ nº 03.941.052/0001-50 | NIRE 43.3.0005793.3"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_emissora_cvm_cnpj",
+      "reference_date": "2025-11-14",
+      "value": "Eco Securitizadora de Direitos Creditórios do Agronegócio S.A.; CVM nº 310; CNPJ 10.753.164/0001-43",
+      "unit": "texto",
+      "excerpt": "Companhia Securitizadora – CVM nº 310 CNPJ nº 10.753.164/0001-43"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_coordenador_lider",
+      "reference_date": "2025-11-14",
+      "value": "Itaú BBA Assessoria Financeira S.A.",
+      "unit": "texto",
+      "excerpt": "em conjunto com o ITAÚ BBA ASSESSORIA FINANCEIRA S.A.",
+      "note": "O CNPJ do Coordenador Líder consta no Aviso como 04.845.753/001-59 (falta um zero); Prospecto e Anúncio trazem 04.845.753/0001-59."
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_data_protocolo_cvm",
+      "reference_date": "2025-11-14",
+      "value": "2025-11-14",
+      "unit": "data",
+      "excerpt": "foi protocolado, perante a CVM, em 14 de novembro de 2025"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 1,
+      "fact_name": "aviso_rito_registro",
+      "reference_date": "2025-11-14",
+      "value": "rito automático de distribuição (art. 26, VIII, b, Resolução CVM 160)",
+      "unit": "texto",
+      "excerpt": "sob o rito automático de distribuição"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 2,
+      "fact_name": "aviso_valor_nominal_unitario",
+      "reference_date": "2025-11-14",
+      "value": "1000.00",
+      "unit": "BRL",
+      "excerpt": "valor nominal unitário de R$ 1.000,00 (mil reais) na data de emissão dos CRA, qual seja, 15 de dezembro de 2025 (“Data de Emissão”)"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 2,
+      "fact_name": "aviso_data_emissao",
+      "reference_date": "2025-11-14",
+      "value": "2025-12-15",
+      "unit": "data",
+      "excerpt": "valor nominal unitário de R$ 1.000,00 (mil reais) na data de emissão dos CRA, qual seja, 15 de dezembro de 2025 (“Data de Emissão”)"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 2,
+      "fact_name": "aviso_regime_distribuicao",
+      "reference_date": "2025-11-14",
+      "value": "regime misto de melhores esforços e garantia firme de colocação",
+      "unit": "texto",
+      "excerpt": "sob o regime misto de melhores esforços e garantia firme de colocação"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 2,
+      "fact_name": "aviso_publico_alvo",
+      "reference_date": "2025-11-14",
+      "value": "Investidores Qualificados e Profissionais",
+      "unit": "texto",
+      "excerpt": "destinada exclusivamente a investidores qualificados"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 2,
+      "fact_name": "aviso_lastro_notas_comerciais",
+      "reference_date": "2025-11-14",
+      "value": "notas comerciais escriturais, com garantia fidejussória, em até 5 séries, 3ª emissão da Alibem Alimentos S.A.",
+      "unit": "texto",
+      "excerpt": "representados por notas comerciais escriturais, com garantia fidejussória, em até 5 (cinco) séries, para colocação privada, da 3ª (terceira) emissão da ALIBEM ALIMENTOS S.A."
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 2,
+      "fact_name": "aviso_avalista_nome",
+      "reference_date": "2025-11-14",
+      "value": "Carlos Lee Participações e Administração Ltda.",
+      "unit": "texto",
+      "excerpt": "a CARLOS LEE PARTICIPAÇÕES E ADMINISTRAÇÃO LTDA., sociedade empresária limitada"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 2,
+      "fact_name": "aviso_avalista_cnpj_e_data_termo_emissao",
+      "reference_date": "2025-11-14",
+      "value": "CNPJ 23.482.473/0001-78; Termo de Emissão de 2025-11-13",
+      "unit": "texto",
+      "excerpt": "nº 23.482.473/0001-78 (“Avalista”), em 13 de novembro de 2025 (“Termo de Emissão”)"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 2,
+      "fact_name": "aviso_agente_fiduciario_e_data_termo_securitizacao",
+      "reference_date": "2025-11-14",
+      "value": "Vórtx DTVM Ltda. (CNPJ 22.610.500/0001-88); Termo de Securitização de 2025-11-13",
+      "unit": "texto",
+      "excerpt": "Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda., inscrita no CNPJ sob o nº 22.610.500/0001-88, na qualidade de agente fiduciário dos CRA, em 13 de novembro de 2025"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 2,
+      "fact_name": "aviso_concentracao_devedor_unico",
+      "reference_date": "2025-11-14",
+      "value": "100% na Devedora (devedor único)",
+      "unit": "texto",
+      "excerpt": "Os Direitos Creditórios do Agronegócio são 100% (cem por cento) concentrados na Devedora (devedor único)."
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 2,
+      "fact_name": "aviso_anbima_atividade_devedora",
+      "reference_date": "2025-11-14",
+      "value": "Produtor Rural",
+      "unit": "texto",
+      "excerpt": "(c) Atividade da Devedora: Produtor Rural"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 2,
+      "fact_name": "aviso_anbima_segmento",
+      "reference_date": "2025-11-14",
+      "value": "Pecuária",
+      "unit": "texto",
+      "excerpt": "(d) Segmento: Pecuária"
+    },
+    {
+      "source_document_id": "1040833",
+      "page_number": 4,
+      "fact_name": "aviso_data_do_aviso",
+      "reference_date": "2025-11-14",
+      "value": "2025-11-14",
+      "unit": "data",
+      "excerpt": "A data deste Aviso ao Mercado é 14 de novembro de 2025."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 2,
+      "fact_name": "lamina_classes",
+      "reference_date": "2025-11-14",
+      "value": "3 classes: 1 Sênior, 1 Mezanino, 1 Subordinada",
+      "unit": "texto",
+      "excerpt": "Classe: 3 (três) classes, sendo 1 (uma) classe dos CRA Sêniores, 1 (uma) classe dos CRA Mezanino e 1 (uma) classe dos CRA Subordinados."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 2,
+      "fact_name": "lamina_serie_1_e_2_classe",
+      "reference_date": "2025-11-14",
+      "value": "1ª e 2ª séries: CRA Sêniores",
+      "unit": "texto",
+      "excerpt": "os CRA objeto da 1ª (primeira) e da 2ª (segunda) séries são os “CRA Sêniores”"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 2,
+      "fact_name": "lamina_serie_3_classe",
+      "reference_date": "2025-11-14",
+      "value": "3ª série: CRA Mezanino",
+      "unit": "texto",
+      "excerpt": "os CRA objeto da 3ª (terceira) série são os “CRA Mezanino”"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 2,
+      "fact_name": "lamina_serie_4_e_5_classe",
+      "reference_date": "2025-11-14",
+      "value": "4ª e 5ª séries: CRA Subordinados",
+      "unit": "texto",
+      "excerpt": "os CRA objeto da 4ª (quarta) e 5ª (quinta) séries são os “CRA Subordinados”",
+      "note": "Na Lâmina a 4ª série é Subordinada (a 5ª também); só a 3ª série é Mezanino."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 2,
+      "fact_name": "lamina_sistema_vasos_comunicantes",
+      "reference_date": "2025-11-14",
+      "value": "quantidade de séries Sênior/Subordinada e alocação por série definidas por Vasos Comunicantes no Bookbuilding",
+      "unit": "texto",
+      "excerpt": "serão definidas por meio do Sistema de Vasos Comunicantes"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 2,
+      "fact_name": "lamina_quantidade_lote_base",
+      "reference_date": "2025-11-14",
+      "value": "750000",
+      "unit": "CRA",
+      "excerpt": "b.3) Quantidade ofertada - 750.000 (setecentos e cinquenta mil)."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 2,
+      "fact_name": "lamina_preco_unitario",
+      "reference_date": "2025-11-14",
+      "value": "1000.00",
+      "unit": "BRL",
+      "excerpt": "b.4) Preço (intervalo) R$ 1.000,00 (mil reais)."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 7,
+      "fact_name": "lamina_serie_1_taxa_teto_spread_sobre_di_futuro",
+      "reference_date": "2025-11-14",
+      "value": "0.012",
+      "unit": "fração a.a. (base 252) sobre DI futuro",
+      "excerpt": "acrescida exponencialmente de sobretaxa (spread) de 1,20% (um inteiro e vinte centésimos por cento) ao ano",
+      "note": "Taxa Teto da 1ª série = a maior entre (a) DI futuro com vencimento em 02/01/2030 (cotação do dia do Bookbuilding) + 1,20% a.a. e (b) 14,80% a.a."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 7,
+      "fact_name": "lamina_serie_1_taxa_teto_di_futuro_vencimento",
+      "reference_date": "2025-11-14",
+      "value": "2030-01-02",
+      "unit": "data",
+      "excerpt": "correspondente ao contrato futuro com vencimento em 2 de janeiro de 2030"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 7,
+      "fact_name": "lamina_serie_1_taxa_teto_prefixada",
+      "reference_date": "2025-11-14",
+      "value": "0.148",
+      "unit": "fração a.a. (base 252)",
+      "excerpt": "(b) 14,80 (quatorze inteiros e oitenta centésimos por cento) ao ano",
+      "note": "A Lâmina escreve '14,80 (quatorze inteiros e oitenta centésimos por cento)', sem o símbolo %."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 7,
+      "fact_name": "lamina_serie_2_remuneracao",
+      "reference_date": "2025-11-14",
+      "value": "1.08",
+      "unit": "fração da Taxa DI (base 252)",
+      "excerpt": "CRA da 2ª Série: Incidirão juros remuneratórios correspondentes à variação acumulada de 108,00% (cento e oito inteiros por cento) da Taxa DI"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 7,
+      "fact_name": "lamina_serie_3_remuneracao_spread",
+      "reference_date": "2025-11-14",
+      "value": "0.015",
+      "unit": "fração a.a. (base 252) sobre 100% da Taxa DI",
+      "excerpt": "CRA da 3ª Série: Incidirão juros remuneratórios correspondentes à variação acumulada de 100% (cem por cento) da Taxa DI, acrescida exponencialmente de um spread (sobretaxa) equivalente a 1,50% (um inteiro e cinquenta centésimos por cento) ao ano"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 7,
+      "fact_name": "lamina_serie_4_remuneracao_spread",
+      "reference_date": "2025-11-14",
+      "value": "0.025",
+      "unit": "fração a.a. (base 252) sobre 100% da Taxa DI",
+      "excerpt": "CRA da 4ª Série: Incidirão juros remuneratórios correspondentes à variação acumulada de 100% (cem por cento) da Taxa DI, acrescida exponencialmente de um spread (sobretaxa) equivalente a 2,50% (dois inteiros e cinquenta centésimos por cento) ao ano"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 7,
+      "fact_name": "lamina_serie_5_remuneracao_taxa_real",
+      "reference_date": "2025-11-14",
+      "value": "0.0888",
+      "unit": "fração a.a. (base 252) acima do IPCA",
+      "excerpt": "CRA da 5ª Série: Incidirão juros remuneratórios correspondentes a 8,88% (oito inteiros e oitenta e oito por cento) ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 7,
+      "fact_name": "lamina_serie_5_atualizacao_monetaria",
+      "reference_date": "2025-11-14",
+      "value": "IPCA",
+      "unit": "texto",
+      "excerpt": "será atualizado monetariamente pela variação acumulada do IPCA, apurado e divulgado pelo IBGE"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 6,
+      "fact_name": "lamina_serie_2_vencimento",
+      "reference_date": "2025-11-14",
+      "value": "2030-12-18",
+      "unit": "data",
+      "excerpt": "os CRA de 2ª Série terão prazo de vigência de 1.829 (mil oitocentos e vinte e nove) dias corridos contados da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 6,
+      "fact_name": "lamina_serie_3_vencimento",
+      "reference_date": "2025-11-14",
+      "value": "2030-12-18",
+      "unit": "data",
+      "excerpt": "os CRA de 3ª Série terão prazo de vigência de 1.829 (mil oitocentos e vinte e nove) dias corridos contados da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 6,
+      "fact_name": "lamina_serie_1_prazo_dias_corridos",
+      "reference_date": "2025-11-14",
+      "value": "1829",
+      "unit": "dias",
+      "excerpt": "terão prazo de vigência de 1.829 (mil oitocentos e vinte e nove) dias corridos contados da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030",
+      "note": "O mesmo trecho vale para as séries 1, 2 e 3 (página 6)."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 6,
+      "fact_name": "lamina_serie_1_vencimento",
+      "reference_date": "2025-11-14",
+      "value": "2030-12-18",
+      "unit": "data",
+      "excerpt": "terão prazo de vigência de 1.829 (mil oitocentos e vinte e nove) dias corridos contados da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 7,
+      "fact_name": "lamina_serie_4_vencimento",
+      "reference_date": "2025-11-14",
+      "value": "2032-12-17",
+      "unit": "data",
+      "excerpt": "os CRA de 4ª Série terão prazo de vigência de 2.559 (dois mil quinhentos e cinquenta e nove) dias corridos contados da Data de Emissão, vencendo, portanto, em 17 de dezembro de 2032"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 7,
+      "fact_name": "lamina_serie_5_vencimento",
+      "reference_date": "2025-11-14",
+      "value": "2035-12-19",
+      "unit": "data",
+      "excerpt": "os CRA de 5ª Série terão prazo de vigência de 3.656 (três mil seiscentos e cinquenta e seis) dias corridos contados da Data de Emissão, vencendo, portanto, em 19 de dezembro de 2035"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 7,
+      "fact_name": "lamina_pagamento_remuneracao_primeira_data",
+      "reference_date": "2025-11-14",
+      "value": "2026-06-17",
+      "unit": "data",
+      "excerpt": "a Remuneração dos CRA deverá ser paga semestralmente, a partir da Data de Emissão, sendo o primeiro pagamento devido em 17 de junho de 2026"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 8,
+      "fact_name": "lamina_amortizacao_series_1_a_3_primeira_data",
+      "reference_date": "2025-11-14",
+      "value": "2027-06-17",
+      "unit": "data",
+      "excerpt": "primeiro pagamento em 17 de junho de 2027 (inclusive) e o último na Data de Vencimento dos CRA da 1ª Série"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 8,
+      "fact_name": "lamina_amortizacao_serie_4_primeira_data",
+      "reference_date": "2025-11-14",
+      "value": "2027-12-17",
+      "unit": "data",
+      "excerpt": "a Amortização será paga, com relação aos CRA da 4ª Série, semestralmente, sendo o primeiro pagamento em 17 de dezembro de 2027 (inclusive)"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 8,
+      "fact_name": "lamina_amortizacao_serie_5_primeira_data",
+      "reference_date": "2025-11-14",
+      "value": "2027-12-17",
+      "unit": "data",
+      "excerpt": "a Amortização será paga semestralmente, sendo o primeiro pagamento em 17 de dezembro de 2027 (inclusive) e o último na Data de Vencimento dos CRA 5ª Série"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 8,
+      "fact_name": "lamina_serie_1_duration",
+      "reference_date": "2025-11-14",
+      "value": "2,64 anos, data-base 2025-11-13",
+      "unit": "texto",
+      "excerpt": "Duration dos CRA da 1ª Série: 2,64 anos, data-base 13 de novembro de 2025."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 8,
+      "fact_name": "lamina_serie_2_duration",
+      "reference_date": "2025-11-14",
+      "value": "2,65 anos, data-base 2025-11-13",
+      "unit": "texto",
+      "excerpt": "Duration dos CRA da 2ª Série: 2,65 anos, data-base 13 de novembro de 2025."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 8,
+      "fact_name": "lamina_serie_3_duration",
+      "reference_date": "2025-11-14",
+      "value": "2,63 anos, data-base 2025-11-13",
+      "unit": "texto",
+      "excerpt": "Duration dos CRA da 3ª Série: 2,63 anos, data-base 13 de novembro de 2025."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 8,
+      "fact_name": "lamina_serie_4_duration",
+      "reference_date": "2025-11-14",
+      "value": "2,81 anos, data-base 2025-11-13",
+      "unit": "texto",
+      "excerpt": "Duration dos CRA da 4ª Série: 2,81 anos, data-base 13 de novembro de 2025."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 8,
+      "fact_name": "lamina_serie_5_duration",
+      "reference_date": "2025-11-14",
+      "value": "3,06 anos, data-base 2025-11-13",
+      "unit": "texto",
+      "excerpt": "Duration dos CRA da 5ª Série: 3,06 anos, data-base 13 de novembro de 2025."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 8,
+      "fact_name": "lamina_negociacao_investidores_qualificados",
+      "reference_date": "2025-11-14",
+      "value": "Revenda a investidores qualificados após 1 Dia Útil do final da oferta",
+      "unit": "texto",
+      "excerpt": "☒ Revenda a investidores qualificados após decorrido 1 (um) Dia útil do final da oferta."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 8,
+      "fact_name": "lamina_negociacao_publico_geral_seniores",
+      "reference_date": "2025-11-14",
+      "value": "Revenda ao público em geral após 6 meses do final da oferta, somente CRA Sêniores",
+      "unit": "texto",
+      "excerpt": "☒ Revenda ao público em geral após decorridos 6 meses do final da oferta, somente no caso dos CRA Sêniores."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 9,
+      "fact_name": "lamina_rating_agencia",
+      "reference_date": "2025-11-14",
+      "value": "Moody's Local BR Agência de Classificação de Risco Ltda.",
+      "unit": "texto",
+      "excerpt": "Moody's Local BR Agência de Classificação de Risco Ltda."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 9,
+      "fact_name": "lamina_rating_classificacao_e_data",
+      "reference_date": "2025-11-14",
+      "value": "A.br; realizada em 2025-11-14",
+      "unit": "texto",
+      "excerpt": "“A.br”, realizada em 14 de novembro de 2025.",
+      "note": "A capa do Aviso e do Prospecto restringe a classificação aos CRA Sêniores; o Prospecto (p. 36) diz que Mezanino e Subordinados não foram classificados."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 9,
+      "fact_name": "lamina_garantia_aval_series_1_a_3",
+      "reference_date": "2025-11-14",
+      "value": "Aval da Carlos Lee exclusivamente nas Notas Comerciais 1ª, 2ª e 3ª Séries",
+      "unit": "texto",
+      "excerpt": "será outorgada pelo Avalista, exclusivamente com relação as Notas Comerciais Escriturais 1ª Série, as Notas Comerciais Escriturais 2ª Série e as Notas Comerciais Escriturais 3ª Série em favor da Emissora, o Aval"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 9,
+      "fact_name": "lamina_garantia_series_4_e_5_sem_garantia",
+      "reference_date": "2025-11-14",
+      "value": "Notas Comerciais 4ª e 5ª séries sem garantias reais ou fidejussórias",
+      "unit": "texto",
+      "excerpt": "As Notas Comerciais Escriturais 4ª Série, as Notas Comerciais Escriturais 5ª Série e os Direitos Creditórios do Agronegócio delas decorrentes, não contarão com garantias reais ou fidejussórias."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 3,
+      "fact_name": "lamina_destinacao_emissora",
+      "reference_date": "2025-11-14",
+      "value": "pagamento de despesas da Emissão/Oferta não pagas pela Devedora e integralização das Notas Comerciais",
+      "unit": "texto",
+      "excerpt": "Os recursos obtidos pela Emissora com a subscrição e integralização dos CRA serão utilizados pela Emissora para pagamento: (i) das despesas e"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 3,
+      "fact_name": "lamina_destinacao_devedora",
+      "reference_date": "2025-11-14",
+      "value": "atividades no agronegócio, indústria e comércio de carnes",
+      "unit": "texto",
+      "excerpt": "deverão ser por ela utilizados, exclusivamente às suas atividades no agronegócio, no âmbito da indústria e comércio de carnes"
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 10,
+      "fact_name": "lamina_procedimento_colocacao",
+      "reference_date": "2025-11-14",
+      "value": "Melhores esforços e Garantia Firme",
+      "unit": "texto",
+      "excerpt": "Procedimento de ☒ Melhores esforços. colocação ☒ Garantia Firme. ☐ Compromisso de Subscrição."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 10,
+      "fact_name": "lamina_coordenador_lider",
+      "reference_date": "2025-11-14",
+      "value": "Itaú BBA Assessoria Financeira S.A.",
+      "unit": "texto",
+      "excerpt": "Coordenador Líder: coordenadores da ITAÚ BBA ASSESSORIA FINANCEIRA S.A."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 11,
+      "fact_name": "lamina_periodo_reserva",
+      "reference_date": "2025-11-14",
+      "value": "2025-11-21 a 2025-12-15",
+      "unit": "texto",
+      "excerpt": "21 de novembro de 2025 a 15 de dezembro de 2025."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 11,
+      "fact_name": "lamina_data_fixacao_precos",
+      "reference_date": "2025-11-14",
+      "value": "2025-12-16",
+      "unit": "data",
+      "excerpt": "Qual a data da fixação 16 de dezembro de 2025."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 11,
+      "fact_name": "lamina_data_liquidacao",
+      "reference_date": "2025-11-14",
+      "value": "2025-12-19",
+      "unit": "data",
+      "excerpt": "Qual a data da 19 de dezembro de 2025."
+    },
+    {
+      "source_document_id": "1040834",
+      "page_number": 9,
+      "fact_name": "lamina_valor_minimo_investimento",
+      "reference_date": "2025-11-14",
+      "value": "1000.00",
+      "unit": "BRL",
+      "excerpt": "Qual o valor mínimo R$ 1.000,00."
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_registro_cvm_serie_1",
+      "reference_date": "2025-12-17",
+      "value": "CVM/SRE/AUT/CRA/PRI/2025/261, em 2025-12-17",
+      "unit": "texto",
+      "excerpt": "REGISTRO AUTOMÁTICO DOS CRA DA 1ª SÉRIE NA CVM SOB O Nº CVM/SRE/AUT/CRA/PRI/2025/261"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_registro_cvm_serie_2",
+      "reference_date": "2025-12-17",
+      "value": "CVM/SRE/AUT/CRA/PRI/2025/262, em 2025-12-17",
+      "unit": "texto",
+      "excerpt": "REGISTRO AUTOMÁTICO DOS CRA DA 2ª SÉRIE NA CVM SOB O Nº CVM/SRE/AUT/CRA/PRI/2025/262"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_registro_cvm_serie_3",
+      "reference_date": "2025-12-17",
+      "value": "CVM/SRE/AUT/CRA/PRI/2025/263, em 2025-12-17",
+      "unit": "texto",
+      "excerpt": "REGISTRO AUTOMÁTICO DOS CRA DA 3ª SÉRIE NA CVM SOB O Nº CVM/SRE/AUT/CRA/PRI/2025/263"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_registro_cvm_serie_4",
+      "reference_date": "2025-12-17",
+      "value": "CVM/SRE/AUT/CRA/PRI/2025/264, em 2025-12-17",
+      "unit": "texto",
+      "excerpt": "REGISTRO AUTOMÁTICO DOS CRA DA 4ª SÉRIE NA CVM SOB O Nº CVM/SRE/AUT/CRA/PRI/2025/264"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_registro_cvm_serie_5",
+      "reference_date": "2025-12-17",
+      "value": "CVM/SRE/AUT/CRA/PRI/2025/265, em 2025-12-17",
+      "unit": "texto",
+      "excerpt": "REGISTRO AUTOMÁTICO DOS CRA DA 5ª SÉRIE NA CVM SOB O Nº CVM/SRE/AUT/CRA/PRI/2025/265"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_rating_definitivo_agencia_escala",
+      "reference_date": "2025-12-17",
+      "value": "Moody's Local BR; escala nacional A.br (CRA Sêniores)",
+      "unit": "texto",
+      "excerpt": "CLASSIFICAÇÃO DEFINITIVA DA EMISSÃO DOS CRA SÊNIORES ATRIBUÍDA PELA MOODY’S LOCAL BR AGÊNCIA DE CLASSIFICAÇÃO DE RISCO LTDA., EM ESCALA NACIONAL: “A.br”"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_rating_definitivo_data",
+      "reference_date": "2025-12-17",
+      "value": "2025-12-17",
+      "unit": "data",
+      "excerpt": "*Esta Classificação de Risco foi realizada em 17 de dezembro de 2025"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_total_ofertado_e_numero_de_series",
+      "reference_date": "2025-12-17",
+      "value": "750000 CRA em 5 séries (sênior, mezanino, subordinada)",
+      "unit": "texto",
+      "excerpt": "oferta pública de 750.000 (setecentas e cinquenta mil) certificados de recebíveis do agronegócio, em 5 (cinco) séries, da classe sênior, da classe mezanino e da classe subordinada"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_serie_1_quantidade",
+      "reference_date": "2025-12-17",
+      "value": "233142",
+      "unit": "CRA",
+      "excerpt": "(i) 233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série, correspondentes ao montante de R$233.142.000,00"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_serie_1_montante",
+      "reference_date": "2025-12-17",
+      "value": "233142000.00",
+      "unit": "BRL",
+      "excerpt": "(i) 233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série, correspondentes ao montante de R$233.142.000,00"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_serie_2_quantidade",
+      "reference_date": "2025-12-17",
+      "value": "16858",
+      "unit": "CRA",
+      "excerpt": "(ii) 16.858 (dezesseis mil, oitocentos e cinquenta e oito) CRA da 2ª Série, correspondentes ao montante de R$16.858.000,00"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_serie_2_montante",
+      "reference_date": "2025-12-17",
+      "value": "16858000.00",
+      "unit": "BRL",
+      "excerpt": "(ii) 16.858 (dezesseis mil, oitocentos e cinquenta e oito) CRA da 2ª Série, correspondentes ao montante de R$16.858.000,00"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_serie_3_quantidade",
+      "reference_date": "2025-12-17",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "(iii) 250.000 (duzentos e cinquenta mil) CRA da 3ª Série, correspondentes ao montante de R$250.000.000,00"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_serie_3_montante",
+      "reference_date": "2025-12-17",
+      "value": "250000000.00",
+      "unit": "BRL",
+      "excerpt": "(iii) 250.000 (duzentos e cinquenta mil) CRA da 3ª Série, correspondentes ao montante de R$250.000.000,00"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_serie_4_quantidade",
+      "reference_date": "2025-12-17",
+      "value": "100000",
+      "unit": "CRA",
+      "excerpt": "(iv) 100.000 (cem mil) CRA da 4ª Série, correspondentes ao montante de R$100.000.000,00"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_serie_4_montante",
+      "reference_date": "2025-12-17",
+      "value": "100000000.00",
+      "unit": "BRL",
+      "excerpt": "(iv) 100.000 (cem mil) CRA da 4ª Série, correspondentes ao montante de R$100.000.000,00"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_serie_5_quantidade",
+      "reference_date": "2025-12-17",
+      "value": "150000",
+      "unit": "CRA",
+      "excerpt": "(v) 150.000 (cento e cinquenta mil) CRA da 5ª Série, correspondentes ao montante de R$150.000.000,00"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_serie_5_montante",
+      "reference_date": "2025-12-17",
+      "value": "150000000.00",
+      "unit": "BRL",
+      "excerpt": "(v) 150.000 (cento e cinquenta mil) CRA da 5ª Série, correspondentes ao montante de R$150.000.000,00"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_participante_especial_btg",
+      "reference_date": "2025-12-17",
+      "value": "Banco BTG Pactual S.A.",
+      "unit": "texto",
+      "excerpt": "(i) BANCO BTG PACTUAL S.A."
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_participante_especial_bocom_bbm",
+      "reference_date": "2025-12-17",
+      "value": "Banco Bocom BBM S.A.",
+      "unit": "texto",
+      "excerpt": "(ii) BANCO BOCOM BBM S.A."
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_participante_especial_santander",
+      "reference_date": "2025-12-17",
+      "value": "Banco Santander (Brasil) S.A.",
+      "unit": "texto",
+      "excerpt": "(iii) BANCO SANTANDER (BRASIL) S.A."
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_participante_especial_genial",
+      "reference_date": "2025-12-17",
+      "value": "Genial Institucional CCTVM S.A.",
+      "unit": "texto",
+      "excerpt": "(iv) GENIAL INSTITUCIONAL CORRETORA DE CÂMBIO, TÍTULOS E VALORES MOBILIÁRIOS S.A."
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 1,
+      "fact_name": "anuncio_participante_especial_rb",
+      "reference_date": "2025-12-17",
+      "value": "RB Investimentos DTVM Ltda.",
+      "unit": "texto",
+      "excerpt": "(v) RB INVESTIMENTOS DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_participante_especial_xp",
+      "reference_date": "2025-12-17",
+      "value": "XP Investimentos CCTVM S.A.",
+      "unit": "texto",
+      "excerpt": "(vi) XP INVESTIMENTOS CORRETORA DE CÂMBIO, TÍTULOS E VALORES MOBILIÁRIOS S.A."
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_termo_emissao_aditado",
+      "reference_date": "2025-12-17",
+      "value": "Termo de Emissão de 2025-11-13, aditado em 2025-12-17",
+      "unit": "texto",
+      "excerpt": "em 13 de novembro de 2025, conforme aditado em 17 de dezembro de 2025 (“Termo de Emissão”)"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_termo_securitizacao_aditado",
+      "reference_date": "2025-12-17",
+      "value": "Termo de Securitização de 2025-11-13, aditado em 2025-12-17",
+      "unit": "texto",
+      "excerpt": "celebrado em 13 de novembro de 2025, conforme aditado em 17 de dezembro de 2025, entre a Securitizadora e a"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_regime_distribuicao",
+      "reference_date": "2025-12-17",
+      "value": "regime misto de melhores esforços e garantia firme de colocação",
+      "unit": "texto",
+      "excerpt": "sob o regime misto de melhores esforços e garantia firme de colocação"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_data_emissao",
+      "reference_date": "2025-12-17",
+      "value": "2025-12-15",
+      "unit": "data",
+      "excerpt": "qual seja, 15 de dezembro de 2025 (“Data de Emissão”)"
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 2,
+      "fact_name": "anuncio_pessoas_vinculadas_sem_limitacao",
+      "reference_date": "2025-12-17",
+      "value": "sem excesso de demanda > 1/3; sem limitação à participação de Pessoas Vinculadas",
+      "unit": "texto",
+      "excerpt": "Como não foi verificado excesso de demanda superior em 1/3 (um terço) dos CRA ofertados, observada na taxa de corte da Remuneração, não haverá limitação para participação de Pessoas Vinculadas na Oferta."
+    },
+    {
+      "source_document_id": "1065461",
+      "page_number": 4,
+      "fact_name": "anuncio_data_do_anuncio",
+      "reference_date": "2025-12-17",
+      "value": "2025-12-17",
+      "unit": "data",
+      "excerpt": "A data deste Anúncio de Início é 17 de dezembro de 2025."
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 1,
+      "fact_name": "prelim1_data_estimada_registros",
+      "reference_date": "2025-11-14",
+      "value": "2025-12-17",
+      "unit": "data",
+      "excerpt": "DATA ESTIMADA DE OBTENÇÃO DOS REGISTROS: 17/12/2025"
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 14,
+      "fact_name": "prelim1_quantidade_maxima_series_1_e_2",
+      "reference_date": "2025-11-14",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "(i) a quantidade máxima para alocação dos CRA da 1ª Série e dos CRA da 2ª Série, em conjunto é de 250.000 (duzentas e cinquenta mil) CRA, correspondentes a R$ 250.000.000,00"
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 14,
+      "fact_name": "prelim1_quantidade_serie_3_fixa",
+      "reference_date": "2025-11-14",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "(ii) serão alocados 250.000 dos CRA da 3ª Série, correspondentes a R$ 250.000.000,00"
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 14,
+      "fact_name": "prelim1_quantidade_maxima_series_4_e_5",
+      "reference_date": "2025-11-14",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "(iii) a quantidade máxima para alocação dos CRA da 4ª Série e dos CRA da 5ª Série, em conjunto é de 250.000 (duzentas e cinquenta mil) CRA, correspondentes a R$ 250.000.000,00"
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 16,
+      "fact_name": "prelim1_serie_1_taxa_teto_definicao",
+      "reference_date": "2025-11-14",
+      "value": "a maior entre (i) Taxa DI do contrato futuro com vencimento em 02/01/2030 + 1,20% a.a. e (ii) 14,80% a.a.",
+      "unit": "texto",
+      "excerpt": "limitado à maior taxa entre “(i)” e “(ii)” a seguir (“Taxa Teto da 1ª Série”)",
+      "note": "Prospecto Preliminar não define a taxa da 1ª série; só o teto. A taxa final saiu no Bookbuilding de 16/12/2025."
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 16,
+      "fact_name": "prelim1_serie_2_remuneracao",
+      "reference_date": "2025-11-14",
+      "value": "1.08",
+      "unit": "fração da Taxa DI (base 252)",
+      "excerpt": "dos CRA da 2ª Série, conforme o caso, incidirão juros remuneratórios correspondentes à variação acumulada de 108,00% (cento e oito inteiros por cento)"
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 73,
+      "fact_name": "prelim1_garantia_firme_total",
+      "reference_date": "2025-11-14",
+      "value": "500000000.00",
+      "unit": "BRL",
+      "excerpt": "objeto de garantia firme de colocação para o montante de R$ 500.000.000,00 (quinhentos milhões de reais), sendo R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) com relação aos CRA Sêniores e R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) com relação aos CRA Mezanino"
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 73,
+      "fact_name": "prelim1_melhores_esforcos_subordinados",
+      "reference_date": "2025-11-14",
+      "value": "250000000.00",
+      "unit": "BRL",
+      "excerpt": "objeto de melhores esforços para o montante de R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) com relação aos CRA Subordinados"
+    },
+    {
+      "source_document_id": "1047358",
+      "page_number": 1,
+      "fact_name": "prelim2_data_estimada_registros",
+      "reference_date": "2025-11-14",
+      "value": "2025-12-17",
+      "unit": "data",
+      "excerpt": "DATA ESTIMADA DE OBTENÇÃO DOS REGISTROS: 17/12/2025"
+    },
+    {
+      "source_document_id": "1047358",
+      "page_number": 14,
+      "fact_name": "prelim2_quantidade_maxima_series_1_e_2",
+      "reference_date": "2025-11-14",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "(i) a quantidade máxima para alocação dos CRA da 1ª Série e dos CRA da 2ª Série, em conjunto é de 250.000 (duzentas e cinquenta mil) CRA, correspondentes a R$ 250.000.000,00"
+    },
+    {
+      "source_document_id": "1047358",
+      "page_number": 14,
+      "fact_name": "prelim2_quantidade_serie_3_fixa",
+      "reference_date": "2025-11-14",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "(ii) serão alocados 250.000 dos CRA da 3ª Série, correspondentes a R$ 250.000.000,00"
+    },
+    {
+      "source_document_id": "1047358",
+      "page_number": 14,
+      "fact_name": "prelim2_quantidade_maxima_series_4_e_5",
+      "reference_date": "2025-11-14",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "(iii) a quantidade máxima para alocação dos CRA da 4ª Série e dos CRA da 5ª Série, em conjunto é de 250.000 (duzentas e cinquenta mil) CRA, correspondentes a R$ 250.000.000,00"
+    },
+    {
+      "source_document_id": "1047358",
+      "page_number": 16,
+      "fact_name": "prelim2_serie_1_taxa_teto_definicao",
+      "reference_date": "2025-11-14",
+      "value": "a maior entre (i) Taxa DI do contrato futuro com vencimento em 02/01/2030 + 1,20% a.a. e (ii) 14,80% a.a.",
+      "unit": "texto",
+      "excerpt": "limitado à maior taxa entre “(i)” e “(ii)” a seguir (“Taxa Teto da 1ª Série”)",
+      "note": "Prospecto Preliminar não define a taxa da 1ª série; só o teto. A taxa final saiu no Bookbuilding de 16/12/2025."
+    },
+    {
+      "source_document_id": "1047358",
+      "page_number": 16,
+      "fact_name": "prelim2_serie_2_remuneracao",
+      "reference_date": "2025-11-14",
+      "value": "1.08",
+      "unit": "fração da Taxa DI (base 252)",
+      "excerpt": "dos CRA da 2ª Série, conforme o caso, incidirão juros remuneratórios correspondentes à variação acumulada de 108,00% (cento e oito inteiros por cento)"
+    },
+    {
+      "source_document_id": "1047358",
+      "page_number": 73,
+      "fact_name": "prelim2_garantia_firme_total",
+      "reference_date": "2025-11-14",
+      "value": "500000000.00",
+      "unit": "BRL",
+      "excerpt": "objeto de garantia firme de colocação para o montante de R$ 500.000.000,00 (quinhentos milhões de reais), sendo R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) com relação aos CRA Sêniores e R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) com relação aos CRA Mezanino"
+    },
+    {
+      "source_document_id": "1047358",
+      "page_number": 73,
+      "fact_name": "prelim2_melhores_esforcos_subordinados",
+      "reference_date": "2025-11-14",
+      "value": "250000000.00",
+      "unit": "BRL",
+      "excerpt": "objeto de melhores esforços para o montante de R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) com relação aos CRA Subordinados"
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 837,
+      "fact_name": "prelim1_moody_rating_proposta_notas_comerciais",
+      "reference_date": "2025-11-14",
+      "value": "A.br (Notas Comerciais 1ª e 2ª Séries, proposta); rating preliminar, 14/11/2025",
+      "unit": "texto",
+      "excerpt": "atribuiu hoje o rating A.br à proposta das 1ª e 2ª Séries da 3ª Emissão de Felipe Lima Notas Comerciais",
+      "note": "O comunicado preliminar da Moody's cobre as Notas Comerciais (1ª e 2ª séries), não os CRA; o texto da página está intercalado com contatos."
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 839,
+      "fact_name": "prelim1_moody_alavancagem_proforma_carlos_lee",
+      "reference_date": "2025-11-14",
+      "value": "3.9x pró-forma (dívida bruta/EBITDA) contra 2.7x nos 12 meses até 2025-09",
+      "unit": "texto",
+      "excerpt": "Proforma à nova emissão, a alavancagem bruta ajustada (dívida bruta/EBITDA) do Grupo seria de 3,9x, ante 2,7x registrado nos 12 meses encerrados em setembro de 2025",
+      "note": "Análise da Moody's sobre a Carlos Lee (avalista/consolidação) no comunicado preliminar de 14/11/2025; o comunicado definitivo de 17/12/2025 não repete esse trecho."
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 839,
+      "fact_name": "prelim1_moody_caixa_e_divida_curto_prazo_2025_09",
+      "reference_date": "2025-11-14",
+      "value": "caixa R$ 1,3 bilhão; dívida de curto prazo ajustada R$ 538 milhões (setembro/2025)",
+      "unit": "texto",
+      "excerpt": "sua posição de caixa totalizava R$ 1,3 bilhão, frente a uma dívida de curto prazo ajustada de R$ 538 milhões"
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 839,
+      "fact_name": "prelim1_moody_divida_bruta_ajustada_2025_09",
+      "reference_date": "2025-11-14",
+      "value": "R$ 1,7 bilhão (R$ 1,3 bilhão financeira + R$ 344 milhões de mútuos com controladores)",
+      "unit": "texto",
+      "excerpt": "No período, a dívida bruta ajustada totalizou R$ 1,7 bilhão, sendo R$ 1,3 bilhão em dívida financeira e R$ 344 milhões em mútuos com seus controladores."
+    },
+    {
+      "source_document_id": "1040835",
+      "page_number": 839,
+      "fact_name": "prelim1_moody_gestao_passivos_4t25_e_desembolso_2026",
+      "reference_date": "2025-11-14",
+      "value": "captação de até R$ 1,2 bilhão no 4T25 (incluindo esta emissão); desembolso de cerca de R$ 900 milhões em 2026",
+      "unit": "texto",
+      "excerpt": "com o objetivo de captar até R$ 1,2 bilhão ao longo do 4T25 — incluindo a emissão em questão. Essa movimentação visa reforçar sua posição de caixa, em preparação para o desembolso significativo de cerca de R$ 900 milhões em 2026"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 1,
+      "fact_name": "def_capa_registros_cvm",
+      "reference_date": "2025-12-17",
+      "value": "CVM/SRE/AUT/CRA/PRI/2025/261 a 265, em 2025-12-17",
+      "unit": "texto",
+      "excerpt": "REGISTRO DA OFERTA DOS CRA DA 1ª SÉRIE NA CVM: CVM/SRE/AUT/CRA/PRI/2025/261, EM 17 DE DEZEMBRO DE 2025"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 1,
+      "fact_name": "def_capa_rating_definitivo",
+      "reference_date": "2025-12-17",
+      "value": "A.br (CRA Sêniores), definitivo, 2025-12-17",
+      "unit": "texto",
+      "excerpt": "*Esta Classificação de Risco foi realizada em 17 de dezembro de 2025"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_valor_total_emissao",
+      "reference_date": "2025-12-17",
+      "value": "750000000.00",
+      "unit": "BRL",
+      "excerpt": "O valor total da Emissão dos CRA é de R$ 750.000.000,00 (setecentos e cinquenta milhões de reais) na Data de Emissão dos CRA"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_serie_1_montante",
+      "reference_date": "2025-12-17",
+      "value": "233142000.00",
+      "unit": "BRL",
+      "excerpt": "(i) R$ 233.142.000,00 (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondentes aos CRA da 1ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_serie_2_montante",
+      "reference_date": "2025-12-17",
+      "value": "16858000.00",
+      "unit": "BRL",
+      "excerpt": "(ii) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondentes aos CRA da 2ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_serie_3_montante",
+      "reference_date": "2025-12-17",
+      "value": "250000000.00",
+      "unit": "BRL",
+      "excerpt": "(iii) R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) correspondentes aos CRA da 3ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_serie_4_montante",
+      "reference_date": "2025-12-17",
+      "value": "100000000.00",
+      "unit": "BRL",
+      "excerpt": "(iv) R$ 100.000.000,00 (cem milhões de reais) correspondentes aos CRA da 4ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_serie_5_montante",
+      "reference_date": "2025-12-17",
+      "value": "150000000.00",
+      "unit": "BRL",
+      "excerpt": "(v) R$ 150.000.000,00 (cento e cinquenta milhões de reais) correspondentes aos CRA da 5ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_serie_1_quantidade",
+      "reference_date": "2025-12-17",
+      "value": "233142",
+      "unit": "CRA",
+      "excerpt": "(i) 233.142 (duzentos e trinta e três mil, cento e quarenta e dois) correspondentes aos CRA da 1ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_serie_2_quantidade",
+      "reference_date": "2025-12-17",
+      "value": "16858",
+      "unit": "CRA",
+      "excerpt": "(ii) 16.858 (dezesseis mil, oitocentos e cinquenta e oito) correspondentes aos CRA da 2ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_serie_3_quantidade",
+      "reference_date": "2025-12-17",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "(iii) 250.000 (duzentos e cinquenta mil) correspondentes aos CRA da 3ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_serie_4_quantidade",
+      "reference_date": "2025-12-17",
+      "value": "100000",
+      "unit": "CRA",
+      "excerpt": "(iv) 100.000 (cem mil) correspondentes aos CRA da 4ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_serie_5_quantidade",
+      "reference_date": "2025-12-17",
+      "value": "150000",
+      "unit": "CRA",
+      "excerpt": "(v) 150.000 (cento e cinquenta mil) correspondentes aos CRA da 5ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_alocacao_definida_no_bookbuilding",
+      "reference_date": "2025-12-17",
+      "value": "alocação final por série definida após o Bookbuilding",
+      "unit": "texto",
+      "excerpt": "A alocação final de CRA em cada série foi definida após a conclusão do Procedimento de Bookbuilding."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_distribuicao_parcial_nao_admitida",
+      "reference_date": "2025-12-17",
+      "value": "não admitida; subscrição total dos CRA Subordinados é condição precedente",
+      "unit": "texto",
+      "excerpt": "(ii) a subscrição da totalidade dos CRA Subordinados é condição precedente para realização da Oferta."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 14,
+      "fact_name": "def_rating_agencia_cra_seniores",
+      "reference_date": "2025-12-17",
+      "value": "Moody's Local BR Agência de Classificação de Risco Ltda.; apenas CRA Sêniores",
+      "unit": "texto",
+      "excerpt": "Foi contratada como agência de classificação de risco dos CRA Sêniores, a Moody's Local BR Agência de Classificação de Risco Ltda."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_serie_1_vencimento",
+      "reference_date": "2025-12-17",
+      "value": "2030-12-18",
+      "unit": "data",
+      "excerpt": "(i) os CRA da 1ª Série terão prazo de vigência de 1.829 (mil oitocentos e vinte e nove) dias corridos contados da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_serie_2_vencimento",
+      "reference_date": "2025-12-17",
+      "value": "2030-12-18",
+      "unit": "data",
+      "excerpt": "(ii) os CRA da 2ª Série terão prazo de vigência de 1.829 (mil oitocentos e vinte e nove) dias corridos contados da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_serie_3_vencimento",
+      "reference_date": "2025-12-17",
+      "value": "2030-12-18",
+      "unit": "data",
+      "excerpt": "(iii) os CRA da 3ª Série terão prazo de vigência de 1.829 (mil oitocentos e vinte e nove) dias corridos contados da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_serie_4_vencimento",
+      "reference_date": "2025-12-17",
+      "value": "2032-12-17",
+      "unit": "data",
+      "excerpt": "(iv) os CRA da 4ª Série terão prazo de vigência de 2.559 (dois mil quinhentos e cinquenta e nove) dias corridos contados da Data de Emissão, vencendo, portanto, em 17 de dezembro de 2032"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_serie_5_vencimento",
+      "reference_date": "2025-12-17",
+      "value": "2035-12-19",
+      "unit": "data",
+      "excerpt": "os CRA da 5ª Série terão prazo de vigência de 3.656 (três mil seiscentos e cinquenta e seis) dias corridos contados da Data de Emissão, vencendo, portanto, em 19 de dezembro de 2035",
+      "note": "Na lista do texto a 5ª série aparece numerada '(iii)' (erro de numeração do Prospecto)."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_serie_1_duration",
+      "reference_date": "2025-12-17",
+      "value": "2,64 anos, data-base 2025-11-13",
+      "unit": "texto",
+      "excerpt": "Duration dos CRA da 1ª Série: 2,64 anos, data-base 13 de novembro de 2025."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_serie_2_duration",
+      "reference_date": "2025-12-17",
+      "value": "2,65 anos, data-base 2025-11-13",
+      "unit": "texto",
+      "excerpt": "Duration dos CRA da 2ª Série: 2,65 anos, data-base 13 de novembro de 2025."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_serie_3_duration",
+      "reference_date": "2025-12-17",
+      "value": "2,63 anos, data-base 2025-11-13",
+      "unit": "texto",
+      "excerpt": "Duration dos CRA da 3ª Série: 2,63 anos, data-base 13 de novembro de 2025."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_serie_4_duration",
+      "reference_date": "2025-12-17",
+      "value": "2,81 anos, data-base 2025-11-13",
+      "unit": "texto",
+      "excerpt": "Duration dos CRA da 4ª Série: 2,81 anos, data-base 13 de novembro de 2025."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_serie_5_duration",
+      "reference_date": "2025-12-17",
+      "value": "3,06 anos, data-base 2025-11-13",
+      "unit": "texto",
+      "excerpt": "Duration dos CRA da 5ª Série: 3,06 anos, data-base 13 de novembro de 2025."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_negociacao_seniores_publico_geral",
+      "reference_date": "2025-12-17",
+      "value": "CRA Sêniores: público em geral só após 6 meses do encerramento da Oferta",
+      "unit": "texto",
+      "excerpt": "(i) os CRA Sêniores poderão ser livremente negociados entre Investidores Qualificados, porém somente poderão ser negociados no mercado secundário com o público em geral após decorridos 6 (seis) meses da data de encerramento da Oferta"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_negociacao_mezanino_subordinados",
+      "reference_date": "2025-12-17",
+      "value": "CRA Mezanino e Subordinados: só entre Investidores Qualificados; vedado ao público em geral",
+      "unit": "texto",
+      "excerpt": "(ii) os CRA Mezanino e os CRA Subordinados poderão ser livremente negociados entre Investidores Qualificados, e não poderão ser negociados com público investidor em geral"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 15,
+      "fact_name": "def_serie_5_atualizacao_monetaria",
+      "reference_date": "2025-12-17",
+      "value": "IPCA, desde a Data de Início da Rentabilidade",
+      "unit": "texto",
+      "excerpt": "O Valor Nominal Unitário dos CRA da 5ª Série ou o saldo do Valor Nominal Unitário dos CRA da 5ª Série, conforme o caso, será atualizado monetariamente pela variação acumulada do IPCA, apurado e divulgado pelo IBGE"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 16,
+      "fact_name": "def_serie_1_remuneracao_prefixada",
+      "reference_date": "2025-12-17",
+      "value": "0.148",
+      "unit": "fração a.a. (base 252)",
+      "excerpt": "incidirão juros remuneratórios prefixados correspondentes a 14,80% (quatorze inteiros e oitenta centésimos por cento) ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis",
+      "note": "Taxa final da 1ª série igual ao teto prefixado de 14,80% a.a. anunciado no Prospecto Preliminar."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 16,
+      "fact_name": "def_serie_1_taxa_formula",
+      "reference_date": "2025-12-17",
+      "value": "14.8000",
+      "unit": "texto",
+      "excerpt": "“Taxa”: 14,8000, conforme apurada na data de realização do Procedimento de Bookbuilding."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 16,
+      "fact_name": "def_serie_2_remuneracao",
+      "reference_date": "2025-12-17",
+      "value": "1.08",
+      "unit": "fração da Taxa DI (base 252)",
+      "excerpt": "incidirão juros remuneratórios correspondentes à variação acumulada de 108,00% (cento e oito inteiros por cento) das taxas médias diárias dos DI"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 17,
+      "fact_name": "def_serie_3_remuneracao_spread",
+      "reference_date": "2025-12-17",
+      "value": "0.015",
+      "unit": "fração a.a. (base 252) sobre 100% da Taxa DI",
+      "excerpt": "variação acumulada de 100% (cem por cento) da Taxa DI, acrescida exponencialmente de um spread (sobretaxa) equivalente a 1,50% (um inteiro e cinquenta centésimos por cento) ao ano"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 17,
+      "fact_name": "def_taxa_di_defasagem_dias_uteis",
+      "reference_date": "2025-12-17",
+      "value": "3",
+      "unit": "Dias Úteis",
+      "excerpt": "será considerada a Taxa DI, divulgada com 3 (três) Dias Úteis de defasagem da data de cálculo."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 18,
+      "fact_name": "def_serie_4_remuneracao_spread",
+      "reference_date": "2025-12-17",
+      "value": "0.025",
+      "unit": "fração a.a. (base 252) sobre 100% da Taxa DI",
+      "excerpt": "variação acumulada de 100% (cem por cento) da Taxa DI, acrescida exponencialmente de um spread (sobretaxa) equivalente a 2,50% (dois inteiros e cinquenta centésimos por cento) ao ano"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 19,
+      "fact_name": "def_serie_5_remuneracao_taxa_real",
+      "reference_date": "2025-12-17",
+      "value": "0.0888",
+      "unit": "fração a.a. (base 252) acima do IPCA",
+      "excerpt": "incidirão juros remuneratórios correspondentes a 8,88% (oito inteiros e oitenta e oito por cento) ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 19,
+      "fact_name": "def_pagamento_remuneracao_regra",
+      "reference_date": "2025-12-17",
+      "value": "semestral; primeira em 2026-06-17; demais no 2º Dia Útil após pagamento da Nota Comercial (junho/dezembro)",
+      "unit": "texto",
+      "excerpt": "a Remuneração dos CRA deverá ser paga semestralmente, a partir da Data de Emissão, sendo o primeiro pagamento devido em 17 de junho de 2026, e os demais pagamentos sempre devidos no segundo Dia Útil posterior ao pagamento da 3ª Emissão de Notas Comerciais dos meses de junho e dezembro de cada ano"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 21,
+      "fact_name": "def_amortizacao_series_1_a_3_primeira_data",
+      "reference_date": "2025-12-17",
+      "value": "2027-06-17",
+      "unit": "data",
+      "excerpt": "serão amortizados semestralmente sendo o primeiro pagamento em 17 de junho de 2027 (inclusive) e o último na Data de Vencimento dos CRA da 1ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 21,
+      "fact_name": "def_amortizacao_serie_4_primeira_data",
+      "reference_date": "2025-12-17",
+      "value": "2027-12-17",
+      "unit": "data",
+      "excerpt": "(ii) o Valor Nominal Unitário ou o saldo do Valor Nominal Unitário dos CRA da 4ª Série, serão amortizados semestralmente sendo o primeiro pagamento em 17 de dezembro de 2027 (inclusive)"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 21,
+      "fact_name": "def_amortizacao_serie_5_primeira_data",
+      "reference_date": "2025-12-17",
+      "value": "2027-12-17",
+      "unit": "data",
+      "excerpt": "primeiro pagamento em 17 de dezembro de 2027 (inclusive)e o último na Data de Vencimento dos CRA da 5ª Série"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 22,
+      "fact_name": "def_vencimento_antecipado_nao_automatico_assembleia",
+      "reference_date": "2025-12-17",
+      "value": "convocação de Assembleia Especial em até 3 Dias Úteis da ciência",
+      "unit": "texto",
+      "excerpt": "a Securitizadora deverá convocar, em até 3 (três) Dias Úteis contados da data em que tomar ciência da ocorrência do referido evento, Assembleia Especial"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 22,
+      "fact_name": "def_encargos_moratorios_multa",
+      "reference_date": "2025-12-17",
+      "value": "0.02",
+      "unit": "fração (multa convencional)",
+      "excerpt": "multa convencional, irredutível e não compensatória, de 2% (dois por cento)"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 22,
+      "fact_name": "def_encargos_moratorios_juros_mensais",
+      "reference_date": "2025-12-17",
+      "value": "0.01",
+      "unit": "fração ao mês",
+      "excerpt": "juros moratórios à razão de 1% (um por cento) ao mês"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 22,
+      "fact_name": "def_garantia_aval_series_1_a_3",
+      "reference_date": "2025-12-17",
+      "value": "Aval da Carlos Lee exclusivamente nas Notas Comerciais 1ª, 2ª e 3ª Séries",
+      "unit": "texto",
+      "excerpt": "foi outorgada pelo Avalista, exclusivamente com relação as Notas Comerciais Escriturais 1ª Série, as Notas Comerciais Escriturais 2ª Série e as Notas Comerciais Escriturais 3ª Série, em favor da Emissora, o Aval"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 22,
+      "fact_name": "def_garantia_series_4_e_5_sem_garantia",
+      "reference_date": "2025-12-17",
+      "value": "Notas Comerciais 4ª e 5ª séries sem garantias reais ou fidejussórias",
+      "unit": "texto",
+      "excerpt": "As Notas Comerciais Escriturais 4ª Série, as Notas Comerciais Escriturais 5ª Série e, consequentemente, os Direitos Creditórios do Agronegócio delas decorrentes, não contarão com garantias reais ou fidejussórias."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 25,
+      "fact_name": "def_subordinacao_mezanino_subordinados",
+      "reference_date": "2025-12-17",
+      "value": "Mezanino subordina-se aos Sêniores; Subordinados subordinam-se aos Sêniores e aos Mezanino",
+      "unit": "texto",
+      "excerpt": "Os CRA Mezanino subordinam-se aos CRA Sêniores e os CRA Subordinados subordinam-se aos CRA Sêniores e aos CRA Mezanino para todos os fins e efeitos de direito"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 25,
+      "fact_name": "def_ordem_alocacao_item_i",
+      "reference_date": "2025-12-17",
+      "value": "(i) Despesas do Patrimônio Separado, inclusive recomposição do Fundo de Despesas",
+      "unit": "texto",
+      "excerpt": "(i) Despesas do Patrimônio Separado, inclusive recomposição do Fundo de Despesas, por conta e ordem da Devedora;"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 27,
+      "fact_name": "def_destinacao_devedora",
+      "reference_date": "2025-12-17",
+      "value": "atividades no agronegócio, indústria e comércio de carnes (suínos e demais proteínas)",
+      "unit": "texto",
+      "excerpt": "exclusivamente às suas atividades no agronegócio, no âmbito da indústria e comércio de carnes"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 27,
+      "fact_name": "def_devedora_produtora_rural",
+      "reference_date": "2025-12-17",
+      "value": "produtora rural (art. 146 da IN RFB 2.110/2022); CNAE principal 10.12-1-03 (abate de suínos)",
+      "unit": "texto",
+      "excerpt": "A Devedora caracteriza-se como “produtora rural” nos termos do artigo 146 da Instrução Normativa da Receita Federal do Brasil nº 2.110"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 28,
+      "fact_name": "def_destinacao_sem_verificacao_agente_fiduciario",
+      "reference_date": "2025-12-17",
+      "value": "Agente Fiduciário não verifica a destinação dos recursos (art. 2º, §9º, Anexo Normativo II, Res. CVM 60)",
+      "unit": "texto",
+      "excerpt": "não haverá verificação, pelo Agente Fiduciário dos CRA, da Destinação dos Recursos de que tratam parágrafos 7º e 8º do artigo 2º do Anexo Normativo II da Resolução CVM 60"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 28,
+      "fact_name": "def_destinacao_data_limite",
+      "reference_date": "2025-12-17",
+      "value": "Data de Vencimento dos CRA",
+      "unit": "texto",
+      "excerpt": "A Devedora deve realizar a integral Destinação dos Recursos até a Data de Vencimento dos CRA."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 29,
+      "fact_name": "def_destinacao_cronograma_percentual_semestral",
+      "reference_date": "2025-12-17",
+      "value": "0.05",
+      "unit": "fração do lastro por semestre",
+      "excerpt": "01/07/2026 31/12/2026 5,00% 37.500.000,00",
+      "note": "Cronograma estimativo (não obrigatório): 5,00% do lastro por semestre, de 2026 a 2035; a linha 01/01/2026-30/06/2026 sai sem valores na extração."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 29,
+      "fact_name": "def_destinacao_cronograma_valor_semestral",
+      "reference_date": "2025-12-17",
+      "value": "37500000.00",
+      "unit": "BRL",
+      "excerpt": "01/07/2026 31/12/2026 5,00% 37.500.000,00"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 29,
+      "fact_name": "def_destinacao_cronograma_base_valor_notas_comerciais",
+      "reference_date": "2025-12-17",
+      "value": "750000000.00",
+      "unit": "BRL",
+      "excerpt": "foram calculados com base no valor total da emissão das Notas Comerciais Escriturais, qual seja, R$750.000.000,00"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 30,
+      "fact_name": "def_destinacao_gastos_carnes_5_anos",
+      "reference_date": "2025-12-17",
+      "value": "3982332000.00",
+      "unit": "BRL",
+      "excerpt": "Valor total de Gastos com a Indústria e o Comércio de Carnes (R$) R$3.982.332.000,00",
+      "note": "Soma 2020-2024 informada pela Devedora (fonte: sistemas internos da Devedora)."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 36,
+      "fact_name": "def_risco_sem_rating_mezanino_subordinados",
+      "reference_date": "2025-12-17",
+      "value": "CRA Mezanino e CRA Subordinados não foram objeto de classificação de risco",
+      "unit": "texto",
+      "excerpt": "Os CRA Mezanino e os CRA Subordinados não foram objeto de classificação de risco"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 61,
+      "fact_name": "def_cronograma_prazo_anuncio_encerramento",
+      "reference_date": "2025-12-17",
+      "value": "180 dias contados da divulgação do Anúncio de Início",
+      "unit": "texto",
+      "excerpt": "Data Máxima para a Divulgação do Anúncio de Encerramento Em até 180 dias contados da divulgação do Anúncio de Início"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 64,
+      "fact_name": "def_bookbuilding_discricionario_sem_leilao_holandes",
+      "reference_date": "2025-12-17",
+      "value": "Bookbuilding discricionário, sem rateio automático (leilão holandês)",
+      "unit": "texto",
+      "excerpt": "O COORDENADOR LÍDER OPTOU PELA FORMA DISCRICIONÁRIA DO PROCEDIMENTO DE BOOKBUILDING, EM CONTRAPOSIÇÃO AO MODELO DE RATEIO AUTOMÁTICO (LEILÃO HOLANDÊS)"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 66,
+      "fact_name": "def_pessoas_vinculadas_permitidas",
+      "reference_date": "2025-12-17",
+      "value": "sem excesso de demanda > 1/3; colocação a Pessoas Vinculadas permitida",
+      "unit": "texto",
+      "excerpt": "foi permitida a colocação de CRA junto aos Investidores que sejam Pessoas Vinculadas"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 66,
+      "fact_name": "def_prazo_maximo_distribuicao",
+      "reference_date": "2025-12-17",
+      "value": "180",
+      "unit": "dias",
+      "excerpt": "no prazo máximo de 180 (cento e oitenta) dias, contado da data de divulgação do Anúncio de Início"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 73,
+      "fact_name": "def_garantia_firme_total",
+      "reference_date": "2025-12-17",
+      "value": "500000000.00",
+      "unit": "BRL",
+      "excerpt": "objeto de garantia firme de colocação para o montante de R$ 500.000.000,00 (quinhentos milhões de reais), sendo R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) com relação aos CRA Sêniores e R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) com relação aos CRA Mezanino"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 73,
+      "fact_name": "def_melhores_esforcos_subordinados",
+      "reference_date": "2025-12-17",
+      "value": "250000000.00",
+      "unit": "BRL",
+      "excerpt": "objeto de melhores esforços para o montante de R$ 250.000.000,00 (duzentos e cinquenta milhões de reais) com relação aos CRA Subordinados"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 74,
+      "fact_name": "def_garantia_firme_prazo",
+      "reference_date": "2025-12-17",
+      "value": "2025-12-19",
+      "unit": "data",
+      "excerpt": "A Garantia Firme será válida até 19 de dezembro de 2025"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 77,
+      "fact_name": "def_aval_prazo_pagamento_apos_notificacao",
+      "reference_date": "2025-12-17",
+      "value": "5",
+      "unit": "Dias Úteis",
+      "excerpt": "O Avalista deverá pagar o montante relativo às Obrigações Garantidas previstas no Termo de Emissão, em até 5 (cinco) Dias Úteis do recebimento de notificação por escrito da Securitizadora"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 88,
+      "fact_name": "def_nota_comercial_serie_1_vencimento",
+      "reference_date": "2025-12-17",
+      "value": "2030-12-16",
+      "unit": "data",
+      "excerpt": "as Notas Comerciais Escriturais da 1ª Série terão prazo de vigência de 1.827 (mil, oitocentos e vinte e sete) dias corridos contados da Data de Emissão das Notas Comerciais Escriturais, vencendo, portanto, em 16 de dezembro de 2030"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 88,
+      "fact_name": "def_nota_comercial_serie_4_vencimento",
+      "reference_date": "2025-12-17",
+      "value": "2032-12-15",
+      "unit": "data",
+      "excerpt": "as Notas Comerciais Escriturais da 4ª Série terão prazo de vigência de 2.557 (dois mil quinhentos e cinquenta e sete) dias corridos contados da Data de Emissão das Notas Comerciais Escriturais, vencendo, portanto, em 15 de dezembro de 2032"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 88,
+      "fact_name": "def_nota_comercial_serie_5_vencimento",
+      "reference_date": "2025-12-17",
+      "value": "2035-12-17",
+      "unit": "data",
+      "excerpt": "as Notas Comerciais Escriturais da 5ª Série terão prazo de vigência de 3.654 (três mil seiscentos e cinquenta e quatro) dias corridos contados da Data de Emissão, vencendo, portanto, em 17 de dezembro de 2035"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 88,
+      "fact_name": "def_nota_comercial_pagamento_remuneracao_primeira_data",
+      "reference_date": "2025-12-17",
+      "value": "2026-06-15",
+      "unit": "data",
+      "excerpt": "sendo o primeiro pagamento devido em 15 de junho de 2026, e os demais pagamentos sempre devidos no dia 15 (quinze) ou o Dia Útil imediatamente posterior ao dia 15 (quinze) dos meses de junho e dezembro"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 96,
+      "fact_name": "def_covenant_liquidez_corrente_minimo",
+      "reference_date": "2025-12-17",
+      "value": "1.20",
+      "unit": "razão (Ativo Circulante / Passivo Circulante), mínimo",
+      "excerpt": "a razão entre o Ativo Circulante e o Passivo Circulante seja igual ou maior que 1,20 (um inteiro e vinte centésimos) (“Índice de Liquidez Corrente”)"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 96,
+      "fact_name": "def_covenant_endividamento_maximo",
+      "reference_date": "2025-12-17",
+      "value": "3.0",
+      "unit": "razão (Dívida Líquida / EBITDA), máximo",
+      "excerpt": "a razão entre a Dívida Líquida e o EBITDA (“Índice Financeiro de Endividamento”) do respectivo ano deverá ser igual ou inferior a 3,0x"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 96,
+      "fact_name": "def_covenant_endividamento_excecao_caixa",
+      "reference_date": "2025-12-17",
+      "value": "exceto se caixa/liquidez cobrir o maior entre 100% da Dívida Bancária de curto prazo e 24 meses de pagamento da Oferta",
+      "unit": "texto",
+      "excerpt": "exceto caso a Devedora apresente um montante de caixa/liquidez que amparem, no mínimo, (i) o montante de 100% da Dívida Bancária de curto prazo; ou (ii) o equivalente a soma dos próximos 24 meses de pagamento da totalidade da Oferta, dos dois o maior"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 169,
+      "fact_name": "def_custo_total_distribuicao",
+      "reference_date": "2025-12-17",
+      "value": "12056725.39",
+      "unit": "BRL",
+      "excerpt": "Custo Total 12.056.725,39 16,08 1,61%",
+      "note": "Custo total R$ 12.056.725,39 (R$ 16,08 por CRA; 1,61% do VNU). Tabela com colunas desalinhadas: só as linhas Custo Total e Valor Líquido Total foram usadas."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 169,
+      "fact_name": "def_valor_liquido_total_oferta",
+      "reference_date": "2025-12-17",
+      "value": "737943274.61",
+      "unit": "BRL",
+      "excerpt": "Valor Líquido Total 737.943.274,61 983,92 98,39%"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 170,
+      "fact_name": "def_comissao_coordenacao_estruturacao_percentual",
+      "reference_date": "2025-12-17",
+      "value": "0.003",
+      "unit": "fração do montante Sênior + Mezanino",
+      "excerpt": "uma comissão de 0,30% (três décimos por cento), incidente sobre o montante total de Séries de CRA Sêniores e Séries de CRA Mezanino"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 170,
+      "fact_name": "def_comissao_garantia_firme_percentual",
+      "reference_date": "2025-12-17",
+      "value": "0.003",
+      "unit": "fração do montante com Garantia Firme",
+      "excerpt": "uma comissão de 0,30% (três décimos por cento), incidente sobre o montante total objeto de Garantia Firme"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 170,
+      "fact_name": "def_comissao_sucesso_nota",
+      "reference_date": "2025-12-17",
+      "value": "não aplicável (nota 1d)",
+      "unit": "texto",
+      "excerpt": "(1d) Comissão de Sucesso: não aplicável.",
+      "note": "Contradiz a advertência de Pessoas Vinculadas (p. 66 e 39), que cita 'comissão de sucesso atrelada à redução da taxa de remuneração', e a linha 'Comissão de Sucesso (1d)' da tabela da p. 169."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 377,
+      "fact_name": "def_fundo_despesas_valor_inicial",
+      "reference_date": "2025-12-17",
+      "value": "295000.00",
+      "unit": "BRL",
+      "excerpt": "o montante equivalente a R$ 295.000,00 (duzentos e noventa e cinco mil reais) (“Valor Inicial do Fundo de Despesas”)",
+      "note": "Página do Termo de Emissão anexado ao Prospecto (Anexo VI), não do corpo do Prospecto."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 377,
+      "fact_name": "def_fundo_despesas_valor_minimo",
+      "reference_date": "2025-12-17",
+      "value": "95000.00",
+      "unit": "BRL",
+      "excerpt": "somarem valor inferior a R$ 95.000,00 (noventa e cinco mil reais) (“Valor Mínimo do Fundo de Despesas”)",
+      "note": "Página do Termo de Emissão anexado ao Prospecto (Anexo VI), não do corpo do Prospecto."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 193,
+      "fact_name": "def_cra_em_circulacao_exclui_subordinados",
+      "reference_date": "2025-12-17",
+      "value": "para quórum, 'CRA em Circulação' exclui os CRA Subordinados",
+      "unit": "texto",
+      "excerpt": "a totalidade dos CRA em circulação no mercado, excluídos os CRA Subordinados, os CRA titularidade da Emissora"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 841,
+      "fact_name": "def_anexo_conflito_interesses_subclasses",
+      "reference_date": "2025-12-17",
+      "value": "Classe Subordinada: 1 subclasse Mezanino e 2 subclasses Subordinadas Júniores",
+      "unit": "texto",
+      "excerpt": "Número de Subclasse da Classe Subordinada: 1 (uma) subclasse Mezanino e 2 (duas) subclasses Subordinadas Júniores",
+      "note": "Declaração do Agente Fiduciário (Anexo B do Aditamento, p. 841 do Prospecto): a Classe Subordinada se divide em 1 subclasse Mezanino e 2 Subordinadas Júniores; por contagem, Mezanino = 3ª série e Júniores = 4ª e 5ª. O texto não amarra subclasse a série."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 1133,
+      "fact_name": "def_moody_rating_definitivo_1a_e_2a_series",
+      "reference_date": "2025-12-17",
+      "value": "A.br (sf), 1ª e 2ª Séries da 426ª emissão, 2025-12-17",
+      "unit": "texto",
+      "excerpt": "atribuiu, hoje, os ratings definitivos A.br (sf) às 1ª e 2ª"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 1134,
+      "fact_name": "def_moody_serie_1_remuneracao",
+      "reference_date": "2025-12-17",
+      "value": "0.148",
+      "unit": "fração a.a. (base 252)",
+      "excerpt": "A 1ª Série não tem seu saldo de principal atualizado monetariamente e possui remuneração prefixada de 14,80% ao ano."
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 1134,
+      "fact_name": "def_moody_covenant_liquidez_corrente",
+      "reference_date": "2025-12-17",
+      "value": "1.2",
+      "unit": "razão (Ativo Circulante / Passivo Circulante), mínimo",
+      "excerpt": "a liquidez corrente, medida pela razão entre o ativo circulante e o passivo circulante, maior ou igual a 1,2x"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 1135,
+      "fact_name": "def_moody_fundo_despesas_saldo_inicial",
+      "reference_date": "2025-12-17",
+      "value": "295000.00",
+      "unit": "BRL",
+      "excerpt": "tem saldo inicial de R$ 295 mil"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 1135,
+      "fact_name": "def_moody_fundo_despesas_valor_minimo",
+      "reference_date": "2025-12-17",
+      "value": "95000.00",
+      "unit": "BRL",
+      "excerpt": "somarem valor inferior a R$ 95 mil"
+    },
+    {
+      "source_document_id": "1065463",
+      "page_number": 1135,
+      "fact_name": "def_moody_conta_centralizadora_banco",
+      "reference_date": "2025-12-17",
+      "value": "Banco Bradesco S.A.",
+      "unit": "texto",
+      "excerpt": "que será mantida no Banco Bradesco S.A. (“Bradesco”, AAA.br estável)"
+    },
+    {
+      "source_document_id": "1040836",
+      "page_number": 37,
+      "fact_name": "termo_oferta_quantidade_maxima_series_1_e_2",
+      "reference_date": "2025-11-13",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "(i) a quantidade máxima para alocação dos CRA da 1ª Série e dos CRA da 2ª Série, em conjunto é de 250.000 (duzentas e cinquenta mil) CRA",
+      "note": "Versão da oferta do Termo (13/11/2025), anterior ao Aditamento Bookbuilding de 17/12/2025."
+    },
+    {
+      "source_document_id": "1040836",
+      "page_number": 40,
+      "fact_name": "termo_oferta_serie_1_taxa_teto_prefixada",
+      "reference_date": "2025-11-13",
+      "value": "0.148",
+      "unit": "fração a.a. (base 252)",
+      "excerpt": "(b) 14,80% (quatorze inteiros e oitenta centésimos por cento) ao ano",
+      "note": "Na versão da oferta do Termo, 14,80% é o teto da 1ª série (maior entre DI futuro + 1,20% e 14,80%), não a taxa final."
+    },
+    {
+      "source_document_id": "1040836",
+      "page_number": 40,
+      "fact_name": "termo_oferta_serie_1_taxa_teto_definicao",
+      "reference_date": "2025-11-13",
+      "value": "maior entre DI futuro 02/01/2030 + 1,20% a.a. e 14,80% a.a.",
+      "unit": "texto",
+      "excerpt": "limitado à maior taxa entre “(a)” e “(b)” a seguir (“Taxa Teto da 1ª Série”)"
+    },
+    {
+      "source_document_id": "1040836",
+      "page_number": 68,
+      "fact_name": "termo_oferta_covenant_liquidez_corrente_minimo",
+      "reference_date": "2025-11-13",
+      "value": "1.20",
+      "unit": "razão (Ativo Circulante / Passivo Circulante), mínimo",
+      "excerpt": "a razão entre o Ativo Circulante e o Passivo Circulante seja igual ou maior que 1,20 (um inteiro e vinte centésimos) (“Índice de Liquidez Corrente”)"
+    },
+    {
+      "source_document_id": "1040836",
+      "page_number": 68,
+      "fact_name": "termo_oferta_covenant_endividamento_maximo",
+      "reference_date": "2025-11-13",
+      "value": "3.0",
+      "unit": "razão (Dívida Líquida / EBITDA), máximo",
+      "excerpt": "a razão entre a Dívida Líquida e o EBITDA (“Índice Financeiro de Endividamento”) do respectivo ano deverá ser igual ou inferior a 3,0x"
+    },
+    {
+      "source_document_id": "1040836",
+      "page_number": 66,
+      "fact_name": "termo_oferta_vencimento_antecipado_nao_automatico_limite_valor",
+      "reference_date": "2025-11-13",
+      "value": "25000000.00",
+      "unit": "BRL",
+      "excerpt": "em valor, individual ou agregado, igual ou superior a R$ 25.000.000,00 (vinte e cinco milhões de reais), ou seu equivalente em outras moedas"
+    },
+    {
+      "source_document_id": "1040836",
+      "page_number": 69,
+      "fact_name": "termo_oferta_quorum_nao_vencimento_antecipado_primeira_convocacao",
+      "reference_date": "2025-11-13",
+      "value": "2/3 dos CRA em Circulação",
+      "unit": "texto",
+      "excerpt": "(i) 2/3 (dois terços) dos CRA em Circulação, em primeira convocação"
+    },
+    {
+      "source_document_id": "1040836",
+      "page_number": 69,
+      "fact_name": "termo_oferta_quorum_nao_vencimento_antecipado_segunda_convocacao",
+      "reference_date": "2025-11-13",
+      "value": "50% + 1 dos CRA em Circulação presentes, com presença mínima de 20%",
+      "unit": "texto",
+      "excerpt": "(ii) 50% (cinquenta por cento) mais 1 (um) dos CRA em Circulação presentes na respectiva Assembleia Especial, em segunda convocação, desde que estejam presentes, no mínimo, 20% (vinte por cento) dos CRA em Circulação"
+    },
+    {
+      "source_document_id": "1040836",
+      "page_number": 8,
+      "fact_name": "termo_oferta_cra_em_circulacao_exclui_subordinados",
+      "reference_date": "2025-11-13",
+      "value": "para quórum, 'CRA em Circulação' exclui os CRA Subordinados",
+      "unit": "texto",
+      "excerpt": "a totalidade dos CRA em circulação no mercado, excluídos os CRA Subordinados, os CRA titularidade da Emissora"
+    },
+    {
+      "source_document_id": "1040836",
+      "page_number": 143,
+      "fact_name": "termo_oferta_anexo_conflito_interesses_subclasses",
+      "reference_date": "2025-11-13",
+      "value": "Classe Subordinada: 1 subclasse Mezanino e até 2 subclasses Subordinadas Júniores",
+      "unit": "texto",
+      "excerpt": "Número de Subclasse da Classe Subordinada: 1 (uma) subclasse Mezanino e até 2 (duas) subclasses Subordinadas Júniores"
+    }
+  ]
+}

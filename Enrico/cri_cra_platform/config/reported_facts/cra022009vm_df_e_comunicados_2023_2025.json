@@ -1,0 +1,959 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "source_note": "Demonstrações financeiras auditadas (Grant Thornton) do Patrimônio Separado da 1ª série da 190ª emissão (período 21/09/2022 a 31/03/2023 e exercícios findos em 31/03/2024 e 31/03/2025; Fundos.NET 485809 publicado em 30/06/2023, 698040 em 15/07/2024, 935390 em 30/06/2025) e comunicados ao mercado da Eco Securitizadora (620811 de 15/03/2024, 657326 de 10/05/2024, 713883 de 08/08/2024, 770804 de 04/11/2024, 982255 de 02/09/2025). Valores em milhares de reais (BRL_mil), como publicados, sem conversão. Nos comunicados, reference_date é a data do comunicado. O campo 'note' é opcional e ignorado pelo carregador.",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-28",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "485809",
+      "page_number": 1,
+      "fact_name": "df_entidade",
+      "reference_date": "2023-03-31",
+      "value": "Patrimônio Separado da 1ª Série da 190ª emissão (Eco Securitizadora; IF CRA022009VM, ISIN BRECOACRABX0)",
+      "unit": "texto",
+      "excerpt": "Patrimônio Separado da 1a Série da 190a emissão"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 16,
+      "fact_name": "df_entidade_devedora_cdca",
+      "reference_date": "2023-03-31",
+      "value": "Café Brasil Indústria Comércio Importação e Exportação S.A. (CDCA custodiados pela Vórtx DTVM)",
+      "unit": "texto",
+      "excerpt": "devidos pela Café Brasil Indústria Comércio Importação e Exportação S.A., custodiados pela Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 1,
+      "fact_name": "df_periodo_inicio",
+      "reference_date": "2023-03-31",
+      "value": "2022-09-21",
+      "unit": "data",
+      "excerpt": "Período de 21 de setembro de 2022 (data de início das atividades) a 31 de março de 2023"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 10,
+      "fact_name": "df_data_inicio_termino_emissao",
+      "reference_date": "2023-03-31",
+      "value": "2022-09-21 a 2027-09-30",
+      "unit": "texto",
+      "excerpt": "Datas de início e término da emissão: 21 de setembro de 2022 e 30 de setembro de 2027."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 6,
+      "fact_name": "df_auditor",
+      "reference_date": "2023-03-31",
+      "value": "Grant Thornton Auditores Independentes Ltda. (relatório de 29/06/2023)",
+      "unit": "texto",
+      "excerpt": "São Paulo, 29 de junho de 2023 Grant Thornton Auditores Independentes Ltda."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 4,
+      "fact_name": "df_opiniao_auditor",
+      "reference_date": "2023-03-31",
+      "value": "sem ressalva (opinião não modificada), com parágrafo de ênfase sobre a base de elaboração",
+      "unit": "texto",
+      "excerpt": "Nossa opinião não contém modificação com relação a esse assunto."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 7,
+      "fact_name": "df_total_ativo",
+      "reference_date": "2023-03-31",
+      "value": "104657",
+      "unit": "BRL_mil",
+      "excerpt": "Total do passivo 104.657",
+      "note": "extração desalinhada; o total do ativo (circulante 4.657 + não circulante 100.000) iguala o total do passivo 104.657. O trecho é o rótulo \"Total do passivo\"."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 16,
+      "fact_name": "df_caixa_equivalentes",
+      "reference_date": "2023-03-31",
+      "value": "264",
+      "unit": "BRL_mil",
+      "excerpt": "Aplicações Financeiras (a) 264"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 16,
+      "fact_name": "df_fundo_despesas",
+      "reference_date": "2023-03-31",
+      "value": "83",
+      "unit": "BRL_mil",
+      "excerpt": "com recursos do fundo de despesas no montante de R$ 83 e da conta centralizadora no montante de R$ 181"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 16,
+      "fact_name": "df_conta_centralizadora",
+      "reference_date": "2023-03-31",
+      "value": "181",
+      "unit": "BRL_mil",
+      "excerpt": "da conta centralizadora no montante de R$ 181"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 17,
+      "fact_name": "df_direitos_creditorios_nao_circulante",
+      "reference_date": "2023-03-31",
+      "value": "100000",
+      "unit": "BRL_mil",
+      "excerpt": "viii. acima de 361 dias 100.000",
+      "note": "faixa acima de 361 dias = ativo não circulante de 100.000 do balanço (p.7)."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 17,
+      "fact_name": "df_direitos_creditorios_circulante",
+      "reference_date": "2023-03-31",
+      "value": "4393",
+      "unit": "BRL_mil",
+      "excerpt": "a. por prazo de vencimento 4.393",
+      "note": "o valor 4.393 aparece na linha-título da tabela (extração desalinhada); confere com 104.393 - 100.000 e com ativo circulante 4.657 = 264 + 4.393."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 17,
+      "fact_name": "df_direitos_creditorios_total",
+      "reference_date": "2023-03-31",
+      "value": "104393",
+      "unit": "BRL_mil",
+      "excerpt": "Total 104.393"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 8,
+      "fact_name": "df_juros_direitos_creditorios_periodo",
+      "reference_date": "2023-03-31",
+      "value": "8218",
+      "unit": "BRL_mil",
+      "excerpt": "Total das receitas da intermediação financeira 8.218"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 16,
+      "fact_name": "df_recebimento_direitos_creditorios_periodo",
+      "reference_date": "2023-03-31",
+      "value": "3825",
+      "unit": "BRL_mil",
+      "excerpt": "Recebimento de direitos creditórios (3.825)"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 18,
+      "fact_name": "df_saldo_cra_total",
+      "reference_date": "2023-03-31",
+      "value": "104393",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final - 31/03/2023 104.393"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 18,
+      "fact_name": "df_pagamento_juros_cra_periodo",
+      "reference_date": "2023-03-31",
+      "value": "3825",
+      "unit": "BRL_mil",
+      "excerpt": "Pagamento de juros (3.825)"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 17,
+      "fact_name": "df_provisao_perdas",
+      "reference_date": "2023-03-31",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "não há provisão a ser constituída para os ativos vinculados ao patrimônio separado."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 17,
+      "fact_name": "df_inadimplencia_periodo",
+      "reference_date": "2023-03-31",
+      "value": "nenhuma (vencidos e não pagos: -)",
+      "unit": "texto",
+      "excerpt": "b. inadimplentes (valor das parcelas inadimplentes) 31/03/2023 i. vencidos e não pagos até 30 dias -"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 17,
+      "fact_name": "df_garantias",
+      "reference_date": "2023-03-31",
+      "value": "Aval; Cessão Fiduciária; Alienação Fiduciária de Imóvel; Alienação Fiduciária de Estoque",
+      "unit": "texto",
+      "excerpt": "A emissão conta com Aval, Cessão Fiduciária, Alienação Fiduciária de Imóvel e Alienação Fiduciária de Estoque como garantias."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 10,
+      "fact_name": "df_garantias_estrutura_nota_1",
+      "reference_date": "2023-03-31",
+      "value": "A operação não conta com garantia",
+      "unit": "texto",
+      "excerpt": "A operação não conta com garantia.",
+      "note": "CONTRADIZ a nota 7.v (p.17) do mesmo documento, que lista Aval, Cessão Fiduciária, AF de Imóvel e AF de Estoque. Revisão humana."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 17,
+      "fact_name": "df_pre_pagamento",
+      "reference_date": "2023-03-31",
+      "value": "nenhum",
+      "unit": "texto",
+      "excerpt": "Não houve no período eventos de pré-pagamento das operações."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 18,
+      "fact_name": "df_passivo_taxa_prazo",
+      "reference_date": "2023-03-31",
+      "value": "100% do CDI + 4,5% a.a.; prazo de 60 meses",
+      "unit": "texto",
+      "excerpt": "Prazo de vencimento: 60 meses Taxa de juros efetiva: 100% da variação do indexador + 4,5% a.a. Indexador: CDI"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 18,
+      "fact_name": "df_cronograma",
+      "reference_date": "2023-03-31",
+      "value": "amortização anual a partir de 2025-12-30; juros anuais a partir de 2022-12-30",
+      "unit": "texto",
+      "excerpt": "Cronograma de amortização: Anual, a partir de 30 de dezembro de 2025. Cronograma de pagamento de juros: Anual, a partir de 30 de dezembro de 2022."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 19,
+      "fact_name": "df_assembleias_periodo",
+      "reference_date": "2023-03-31",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "Durante o período findo em 31 de março de 2023, não foram realizadas assembleias relacionadas à essa emissão."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 19,
+      "fact_name": "df_rating",
+      "reference_date": "2023-03-31",
+      "value": "sem classificação de risco",
+      "unit": "texto",
+      "excerpt": "A emissão não será objeto de classificação de risco por agência de classificação de risco."
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 19,
+      "fact_name": "df_despesas_prestadores_periodo",
+      "reference_date": "2023-03-31",
+      "value": "1754",
+      "unit": "BRL_mil",
+      "excerpt": "foram pagos R$ 1.754 de despesas com prestadores de serviços"
+    },
+    {
+      "source_document_id": "485809",
+      "page_number": 19,
+      "fact_name": "df_eventos_subsequentes",
+      "reference_date": "2023-03-31",
+      "value": "nenhum (até 29/06/2023)",
+      "unit": "texto",
+      "excerpt": "não houve eventos subsequentes relevantes no contexto das demonstrações financeiras que necessitassem de algum tipo de ajuste ou divulgação"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 3,
+      "fact_name": "df_entidade",
+      "reference_date": "2024-03-31",
+      "value": "Patrimônio Separado da 1ª Série da 190ª Emissão (IF CRA022009VM; Eco Securitizadora)",
+      "unit": "texto",
+      "excerpt": "Patrimônio Separado da 1a Série da 190a Emissão IF CRA022009VM"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 3,
+      "fact_name": "df_exercicio_encerrado",
+      "reference_date": "2024-03-31",
+      "value": "2024-03-31",
+      "unit": "data",
+      "excerpt": "balanço patrimonial em 31 de março de 2024 e as respectivas demonstrações do resultado e dos fluxos de caixa para o exercício findo nesta data"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 17,
+      "fact_name": "df_entidade_devedora_cdca",
+      "reference_date": "2024-03-31",
+      "value": "Café Brasil Indústria Comércio Importação e Exportação S.A. (CDCA custodiados pela Vórtx DTVM)",
+      "unit": "texto",
+      "excerpt": "devidos pela Café Brasil Indústria Comércio Importação e Exportação S.A."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 10,
+      "fact_name": "df_data_inicio_termino_emissao",
+      "reference_date": "2024-03-31",
+      "value": "2022-09-21 a 2027-09-30",
+      "unit": "texto",
+      "excerpt": "Datas de início e término da emissão: 21 de setembro de 2022 e 30 de setembro de 2027."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 6,
+      "fact_name": "df_auditor",
+      "reference_date": "2024-03-31",
+      "value": "Grant Thornton Auditores Independentes Ltda. (relatório de 12/07/2024)",
+      "unit": "texto",
+      "excerpt": "São Paulo, 12 de julho de 2024 Grant Thornton Auditores Independentes Ltda."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 4,
+      "fact_name": "df_opiniao_auditor",
+      "reference_date": "2024-03-31",
+      "value": "sem ressalva (opinião não modificada), com parágrafo de ênfase sobre a base de elaboração",
+      "unit": "texto",
+      "excerpt": "Nossa opinião não contém modificação com relação a esse assunto."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 16,
+      "fact_name": "df_caixa_equivalentes",
+      "reference_date": "2024-03-31",
+      "value": "345",
+      "unit": "BRL_mil",
+      "excerpt": "Aplicações financeiras (*) 345 264",
+      "note": "colunas 2024 e 2023 pelo cabeçalho; confere com a nota (a): R$ 345 em 2024."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 20,
+      "fact_name": "df_fundo_retencao",
+      "reference_date": "2024-03-31",
+      "value": "197",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 31 de março de 2024 197"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 22,
+      "fact_name": "df_fundo_despesas",
+      "reference_date": "2024-03-31",
+      "value": "148",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 31 de março de 2024 148"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 20,
+      "fact_name": "df_fundo_retencao",
+      "reference_date": "2023-03-31",
+      "value": "181",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 31 de março de 2023 181",
+      "note": "comparativo de 31/03/2023 apresentado no relatório de 2024 (corresponde aos R$ 181 da conta centralizadora do relatório de 2023)."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 7,
+      "fact_name": "df_direitos_creditorios_circulante",
+      "reference_date": "2024-03-31",
+      "value": "3724",
+      "unit": "BRL_mil",
+      "excerpt": "7 3.724 4.393",
+      "note": "colunas 2024 e 2023 pelo cabeçalho; 345 + 3.724 = 4.069 (ativo circulante)."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 17,
+      "fact_name": "df_direitos_creditorios_total",
+      "reference_date": "2024-03-31",
+      "value": "103724",
+      "unit": "BRL_mil",
+      "excerpt": "Total 103.724"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 16,
+      "fact_name": "df_juros_direitos_creditorios_exercicio",
+      "reference_date": "2024-03-31",
+      "value": "18177",
+      "unit": "BRL_mil",
+      "excerpt": "Juros apurados no exercício 18.177"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 16,
+      "fact_name": "df_recebimento_direitos_creditorios_exercicio",
+      "reference_date": "2024-03-31",
+      "value": "18846",
+      "unit": "BRL_mil",
+      "excerpt": "Recebimento de direitos creditórios (18.846)"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 19,
+      "fact_name": "df_pagamento_juros_cra_exercicio",
+      "reference_date": "2024-03-31",
+      "value": "18846",
+      "unit": "BRL_mil",
+      "excerpt": "Pagamento de juros (18.846)"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 19,
+      "fact_name": "df_saldo_cra_total",
+      "reference_date": "2024-03-31",
+      "value": "103724",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 31/03/2024 103.724"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 17,
+      "fact_name": "df_provisao_perdas",
+      "reference_date": "2024-03-31",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "não há provisão a ser constituída para os ativos vinculados ao patrimônio separado."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 18,
+      "fact_name": "df_inadimplencia_periodo",
+      "reference_date": "2024-03-31",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "Não houve no exercício findo em 31 de março de 2024 inadimplência no recebimento dos direitos creditórios da emissão"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 18,
+      "fact_name": "df_garantias",
+      "reference_date": "2024-03-31",
+      "value": "Aval; Cessão Fiduciária; Alienação Fiduciária de Imóvel; Alienação Fiduciária de Estoque",
+      "unit": "texto",
+      "excerpt": "A emissão conta com Aval, Cessão Fiduciária, Alienação Fiduciária de Imóvel e Alienação Fiduciária de Estoque como garantias."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 11,
+      "fact_name": "df_garantias_estrutura_nota_1",
+      "reference_date": "2024-03-31",
+      "value": "CDCA com aval, cessão fiduciária e alienação fiduciária; sem garantias específicas sobre o CRA nem garantia flutuante da Emissora",
+      "unit": "texto",
+      "excerpt": "o CDCA conta com o aval, a cessão fiduciária e a alienação fiduciária como garantias. Não há garantias específicas, reais ou pessoais, sobre o CRA, nem garantia flutuante da Emissora"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 19,
+      "fact_name": "df_passivo_taxa_prazo",
+      "reference_date": "2024-03-31",
+      "value": "100% do CDI + 4,5% a.a.; prazo de 60 meses",
+      "unit": "texto",
+      "excerpt": "Prazo de vencimento: 60 meses Taxa de juros efetiva: 100% da variação do indexador + 4,5% a.a. Indexador: CDI"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 19,
+      "fact_name": "df_cronograma",
+      "reference_date": "2024-03-31",
+      "value": "amortização anual, parcialmente, a partir de 2025-12-30; juros anuais a partir de 2022-12-30",
+      "unit": "texto",
+      "excerpt": "Cronograma de amortização: Anual, parcialmente, a partir de 30 de dezembro de 2025. Cronograma de pagamento de juros: Anual, a partir de 30 de dezembro de 2022."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 19,
+      "fact_name": "df_assembleias_periodo",
+      "reference_date": "2024-03-31",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "Durante o exercício findo em 31 de março de 2024, não foram realizadas assembleias relacionadas à essa emissão.",
+      "note": "CONTRADIZ os comunicados 657326/713883/770804 (assembleia geral de 14/03/2024, dentro do exercício). Revisão humana."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 20,
+      "fact_name": "df_rating",
+      "reference_date": "2024-03-31",
+      "value": "sem classificação de risco",
+      "unit": "texto",
+      "excerpt": "A emissão não será objeto de classificação de risco por agência de classificação de risco."
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 22,
+      "fact_name": "df_despesas_manutencao_exercicio",
+      "reference_date": "2024-03-31",
+      "value": "897",
+      "unit": "BRL_mil",
+      "excerpt": "(-) Pagamento de despesas diversas (897)"
+    },
+    {
+      "source_document_id": "698040",
+      "page_number": 23,
+      "fact_name": "df_eventos_subsequentes",
+      "reference_date": "2024-03-31",
+      "value": "nenhum (até a emissão das DFs, 12/07/2024)",
+      "unit": "texto",
+      "excerpt": "não houve eventos subsequentes relevantes no contexto das demonstrações financeiras que necessitassem de algum tipo de ajuste ou divulgação"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 3,
+      "fact_name": "df_entidade",
+      "reference_date": "2025-03-31",
+      "value": "Patrimônio Separado da 1ª Série da 190ª Emissão (IF CRA022009VM; Eco Securitizadora)",
+      "unit": "texto",
+      "excerpt": "Patrimônio Separado da 1a Série da 190a Emissão IF CRA022009VM"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 3,
+      "fact_name": "df_exercicio_encerrado",
+      "reference_date": "2025-03-31",
+      "value": "2025-03-31",
+      "unit": "data",
+      "excerpt": "balanço patrimonial em 31 de março de 2025 e as respectivas demonstrações do resultado e dos fluxos de caixa para o exercício findo nesta data"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 16,
+      "fact_name": "df_entidade_devedora_cdca",
+      "reference_date": "2025-03-31",
+      "value": "Café Brasil Indústria Comércio Importação e Exportação S.A. (CDCA custodiados pela Vórtx DTVM)",
+      "unit": "texto",
+      "excerpt": "devidos pela Café Brasil Indústria Comércio Importação e Exportação S.A."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 10,
+      "fact_name": "df_data_inicio_termino_emissao",
+      "reference_date": "2025-03-31",
+      "value": "2022-09-21 a 2027-09-30",
+      "unit": "texto",
+      "excerpt": "Datas de início e término da emissão: 21 de setembro de 2022 e 30 de setembro de 2027."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 6,
+      "fact_name": "df_auditor",
+      "reference_date": "2025-03-31",
+      "value": "Grant Thornton Auditores Independentes Ltda. (relatório de 27/06/2025)",
+      "unit": "texto",
+      "excerpt": "São Paulo, 27 de junho de 2025 Grant Thornton Auditores Independentes Ltda."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 4,
+      "fact_name": "df_opiniao_auditor",
+      "reference_date": "2025-03-31",
+      "value": "sem ressalva (opinião não modificada), com parágrafo de ênfase sobre a base de elaboração",
+      "unit": "texto",
+      "excerpt": "Nossa opinião não contém modificação com relação a esse assunto."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 7,
+      "fact_name": "df_total_ativo",
+      "reference_date": "2025-03-31",
+      "value": "72994",
+      "unit": "BRL_mil",
+      "excerpt": "72.994 Total do passivo",
+      "note": "extração desalinhada; 72.994 = ativo circulante 32.996 + não circulante 39.998 (= 87 + 72.907)."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 16,
+      "fact_name": "df_caixa_equivalentes",
+      "reference_date": "2025-03-31",
+      "value": "87",
+      "unit": "BRL_mil",
+      "excerpt": "com recursos do fundo de despesas no montante de R$ 87 (R$ 345 em 2024)"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 21,
+      "fact_name": "df_fundo_despesas",
+      "reference_date": "2025-03-31",
+      "value": "87",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 31 de março de 2025 87"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 19,
+      "fact_name": "df_fundo_retencao",
+      "reference_date": "2025-03-31",
+      "value": "0",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 31 de março de 2025 -",
+      "note": "saldo zerado após a transferência de R$ 208 mil do fundo de retenção para a conta garantia."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 19,
+      "fact_name": "df_fundo_retencao_transferencia_conta_garantia",
+      "reference_date": "2025-03-31",
+      "value": "208",
+      "unit": "BRL_mil",
+      "excerpt": "(-) Transferência de recursos do fundo de retenção para a conta garantia (208)"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 7,
+      "fact_name": "df_direitos_creditorios_circulante",
+      "reference_date": "2025-03-31",
+      "value": "32909",
+      "unit": "BRL_mil",
+      "excerpt": "7 32.909",
+      "note": "extração desalinhada; 32.909 + 39.998 = 72.907 (total da nota 7) e 87 + 32.909 = 32.996 (ativo circulante)."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 17,
+      "fact_name": "df_direitos_creditorios_nao_circulante",
+      "reference_date": "2025-03-31",
+      "value": "39998",
+      "unit": "BRL_mil",
+      "excerpt": "viii. acima de 360 dias 39.998 70.000",
+      "note": "faixa acima de 360 dias; confere com 72.907 - 32.909."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 16,
+      "fact_name": "df_direitos_creditorios_total",
+      "reference_date": "2025-03-31",
+      "value": "72907",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 31/03/2025 72.907"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 16,
+      "fact_name": "df_juros_direitos_creditorios_exercicio",
+      "reference_date": "2025-03-31",
+      "value": "14994",
+      "unit": "BRL_mil",
+      "excerpt": "Juros apurados no exercício 14.994"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 16,
+      "fact_name": "df_recebimento_direitos_creditorios_exercicio",
+      "reference_date": "2025-03-31",
+      "value": "45811",
+      "unit": "BRL_mil",
+      "excerpt": "Recebimento de direitos creditórios (45.811)"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 18,
+      "fact_name": "df_amortizacao_principal_cra_exercicio",
+      "reference_date": "2025-03-31",
+      "value": "30000",
+      "unit": "BRL_mil",
+      "excerpt": "Amortização de principal (30.000)",
+      "note": "amortização de R$ 30.000 mil no exercício findo em 31/03/2025, apesar de o cronograma declarado prever amortização a partir de 30/12/2025 (ver df_cronograma): inconsistência para revisão humana."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 18,
+      "fact_name": "df_pagamento_juros_cra_exercicio",
+      "reference_date": "2025-03-31",
+      "value": "15811",
+      "unit": "BRL_mil",
+      "excerpt": "Pagamento de juros (15.811)"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 18,
+      "fact_name": "df_saldo_cra_total",
+      "reference_date": "2025-03-31",
+      "value": "72907",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 31/03/2025 72.907"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 17,
+      "fact_name": "df_provisao_perdas",
+      "reference_date": "2025-03-31",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "não há provisão a ser constituída para os ativos vinculados ao patrimônio separado."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 17,
+      "fact_name": "df_inadimplencia_periodo",
+      "reference_date": "2025-03-31",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "Nos exercícios findos em 31 de março de 2025 e 2024 não houve inadimplência no recebimento dos direitos creditórios."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 17,
+      "fact_name": "df_garantias",
+      "reference_date": "2025-03-31",
+      "value": "Aval; Cessão Fiduciária; Alienação Fiduciária de Imóvel; Alienação Fiduciária de Estoque",
+      "unit": "texto",
+      "excerpt": "A emissão conta com Aval, Cessão Fiduciária, Alienação Fiduciária de Imóvel e Alienação Fiduciária de Estoque como garantias."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 11,
+      "fact_name": "df_garantias_estrutura_nota_1",
+      "reference_date": "2025-03-31",
+      "value": "CDCA com aval, cessão fiduciária, AF de imóvel e AF de estoque; sem garantias específicas sobre o CRA nem garantia flutuante da Emissora",
+      "unit": "texto",
+      "excerpt": "o CDCA conta com o aval, a cessão fiduciária, a alienação fiduciária de imóvel e a alienação fiduciária de estoque como garantias."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 19,
+      "fact_name": "df_passivo_taxa_prazo",
+      "reference_date": "2025-03-31",
+      "value": "100% do DI + 4,5% a.a.; prazo de 60 meses; 100.000 CRA de valor nominal unitário R$ 1.000,00",
+      "unit": "texto",
+      "excerpt": "Quantidade unitária de CRA emitido: 100.000 Valor nominal unitário: 1.000,00 Prazo de vencimento: 60 meses"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 19,
+      "fact_name": "df_cronograma",
+      "reference_date": "2025-03-31",
+      "value": "amortização anual a partir de 2025-12-30; juros anuais a partir de 2022-12-30",
+      "unit": "texto",
+      "excerpt": "Cronograma de amortização: Anual, a partir de 30 de dezembro de 2025. Cronograma de pagamento de juros: Anual, a partir de 30 de dezembro de 2022."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 19,
+      "fact_name": "df_assembleias_periodo",
+      "reference_date": "2025-03-31",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "Durante os exercícios findos em 31 de março de 2025 e 2024 não foram realizadas assembleias relacionadas à essa emissão.",
+      "note": "CONTRADIZ os comunicados 657326/713883/770804 (assembleia geral de 14/03/2024, exercício de 2024 também citado). Revisão humana."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 19,
+      "fact_name": "df_rating",
+      "reference_date": "2025-03-31",
+      "value": "sem classificação de risco",
+      "unit": "texto",
+      "excerpt": "A emissão não será objeto de classificação de risco por agência de classificação de risco."
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 21,
+      "fact_name": "df_despesas_manutencao_exercicio",
+      "reference_date": "2025-03-31",
+      "value": "764",
+      "unit": "BRL_mil",
+      "excerpt": "(-) Pagamento de despesas diversas (764)"
+    },
+    {
+      "source_document_id": "935390",
+      "page_number": 22,
+      "fact_name": "df_eventos_subsequentes",
+      "reference_date": "2025-03-31",
+      "value": "nenhum (até 27/06/2025)",
+      "unit": "texto",
+      "excerpt": "não houve eventos subsequentes relevantes no contexto das demonstrações financeiras que necessitassem de algum tipo de ajuste ou divulgação"
+    },
+    {
+      "source_document_id": "620811",
+      "page_number": 1,
+      "fact_name": "comunicado_assembleia_data_citada",
+      "reference_date": "2024-03-15",
+      "value": "2023-03-14",
+      "unit": "data",
+      "excerpt": "assembleia geral realizada em 14 de março de 2023",
+      "note": "data publicada como '14 de março de 2023'; os demais comunicados (657326, 713883, 770804) citam assembleia de 14/03/2024, e as DFs 2023 e 2024 dizem não haver assembleia nos exercícios; provável erro de digitação do ano. Revisão humana."
+    },
+    {
+      "source_document_id": "620811",
+      "page_number": 1,
+      "fact_name": "comunicado_condicao_waiver_fee",
+      "reference_date": "2024-03-15",
+      "value": "Aprovação dos itens da ordem do dia condicionada ao pagamento pela Devedora de waiver fee de 0,75% do saldo devedor dos CRA (base: data da Assembleia)",
+      "unit": "texto",
+      "excerpt": "os Titulares dos CRA condicionaram a aprovação dos itens da ordem do dia ao pagamento, pela Devedora, de um waiver fee"
+    },
+    {
+      "source_document_id": "620811",
+      "page_number": 1,
+      "fact_name": "comunicado_waiver_fee_percentual",
+      "reference_date": "2024-03-15",
+      "value": "0,75",
+      "unit": "%",
+      "excerpt": "waiver fee equivalente à 0,75% (setenta e cinco centésimos por cento) do saldo devedor dos CRA"
+    },
+    {
+      "source_document_id": "620811",
+      "page_number": 1,
+      "fact_name": "comunicado_waiver_fee_valor",
+      "reference_date": "2024-03-15",
+      "value": "773390.92",
+      "unit": "BRL",
+      "excerpt": "montante de R$ 773.390,92"
+    },
+    {
+      "source_document_id": "620811",
+      "page_number": 1,
+      "fact_name": "comunicado_waiver_fee_prazo_recebimento",
+      "reference_date": "2024-03-15",
+      "value": "2024-03-20",
+      "unit": "data",
+      "excerpt": "mediante o recebimento do Montante Disponível na Conta Centralizadora, no dia 20 de março de 2024",
+      "note": "condição: o pagamento depende do recebimento do Montante Disponível na Conta Centralizadora em 20/03/2024."
+    },
+    {
+      "source_document_id": "620811",
+      "page_number": 1,
+      "fact_name": "comunicado_waiver_fee_data_pagamento",
+      "reference_date": "2024-03-15",
+      "value": "2024-03-21",
+      "unit": "data",
+      "excerpt": "a Securitizadora realizará um evento genérico para o pagamento do waiver fee pactuado, no dia 21 de março de 2024"
+    },
+    {
+      "source_document_id": "620811",
+      "page_number": 1,
+      "fact_name": "comunicado_waiver_fee_pu_premio",
+      "reference_date": "2024-03-15",
+      "value": "7.73390926",
+      "unit": "BRL",
+      "excerpt": "PU Prêmio 7,73390926"
+    },
+    {
+      "source_document_id": "620811",
+      "page_number": 1,
+      "fact_name": "comunicado_waiver_fee_pu_total",
+      "reference_date": "2024-03-15",
+      "value": "7.73390926",
+      "unit": "BRL",
+      "excerpt": "PU Total 7,73390926"
+    },
+    {
+      "source_document_id": "657326",
+      "page_number": 1,
+      "fact_name": "reuniao_trimestral_devedora_anunciada",
+      "reference_date": "2024-05-10",
+      "value": "2024-05-15",
+      "unit": "data",
+      "excerpt": "ocorrerá em 15 de maio de 2024, às 15:00, de forma online",
+      "note": "reunião relativa ao encerramento do primeiro trimestre de 2024; horário 15:00; link enviado aos investidores que solicitarem por e-mail (relacionamento.institucional@ecoagro.agr.br)."
+    },
+    {
+      "source_document_id": "657326",
+      "page_number": 1,
+      "fact_name": "comunicado_assembleia_data_citada",
+      "reference_date": "2024-05-10",
+      "value": "2024-03-14",
+      "unit": "data",
+      "excerpt": "assembleia geral realizada em 14 de março de 2024"
+    },
+    {
+      "source_document_id": "657326",
+      "page_number": 1,
+      "fact_name": "comunicado_condicao_reunioes_trimestrais",
+      "reference_date": "2024-05-10",
+      "value": "Reuniões virtuais trimestrais entre Securitizadora, Devedora e Titulares, em até 45 dias do encerramento de cada trimestre",
+      "unit": "texto",
+      "excerpt": "cada reunião será realizada em até 45 (quarenta e cinco) dias contados do encerramento de cada trimestre"
+    },
+    {
+      "source_document_id": "713883",
+      "page_number": 1,
+      "fact_name": "reuniao_trimestral_devedora_anunciada",
+      "reference_date": "2024-08-08",
+      "value": "2024-08-14",
+      "unit": "data",
+      "excerpt": "ocorrerá em 14 de agosto de 2024, às 16:00, de forma online",
+      "note": "reunião relativa ao encerramento do segundo trimestre de 2024; horário 16:00; link enviado aos investidores que solicitarem por e-mail (relacionamento.institucional@ecoagro.agr.br)."
+    },
+    {
+      "source_document_id": "713883",
+      "page_number": 1,
+      "fact_name": "comunicado_assembleia_data_citada",
+      "reference_date": "2024-08-08",
+      "value": "2024-03-14",
+      "unit": "data",
+      "excerpt": "assembleia geral realizada em 14 de março de 2024"
+    },
+    {
+      "source_document_id": "713883",
+      "page_number": 1,
+      "fact_name": "comunicado_condicao_reunioes_trimestrais",
+      "reference_date": "2024-08-08",
+      "value": "Reuniões virtuais trimestrais entre Securitizadora, Devedora e Titulares, em até 45 dias do encerramento de cada trimestre",
+      "unit": "texto",
+      "excerpt": "cada reunião será realizada em até 45 (quarenta e cinco) dias contados do encerramento de cada trimestre"
+    },
+    {
+      "source_document_id": "770804",
+      "page_number": 1,
+      "fact_name": "reuniao_trimestral_devedora_anunciada",
+      "reference_date": "2024-11-04",
+      "value": "2024-11-26",
+      "unit": "data",
+      "excerpt": "ocorrerá em 26 de novembro de 2024, às 10:00, de forma online",
+      "note": "reunião relativa ao encerramento do terceiro trimestre de 2024; horário 10:00; link enviado aos investidores que solicitarem por e-mail (relacionamento.institucional@ecoagro.agr.br)."
+    },
+    {
+      "source_document_id": "770804",
+      "page_number": 1,
+      "fact_name": "comunicado_assembleia_data_citada",
+      "reference_date": "2024-11-04",
+      "value": "2024-03-14",
+      "unit": "data",
+      "excerpt": "assembleia geral realizada em 14 de março de 2024"
+    },
+    {
+      "source_document_id": "770804",
+      "page_number": 1,
+      "fact_name": "comunicado_condicao_reunioes_trimestrais",
+      "reference_date": "2024-11-04",
+      "value": "Reuniões virtuais trimestrais entre Securitizadora, Devedora e Titulares, em até 45 dias do encerramento de cada trimestre",
+      "unit": "texto",
+      "excerpt": "cada reunião será realizada em até 45 (quarenta e cinco) dias contados do encerramento de cada trimestre"
+    },
+    {
+      "source_document_id": "982255",
+      "page_number": 1,
+      "fact_name": "reuniao_trimestral_devedora_anunciada",
+      "reference_date": "2025-09-02",
+      "value": "2025-09-09",
+      "unit": "data",
+      "excerpt": "ocorrerá em 09 de setembro de 2025, às 10:00, de forma online",
+      "note": "reunião relativa ao encerramento do segundo trimestre de 2025; horário 10:00; link enviado aos investidores que solicitarem por e-mail (relacionamento.institucional@ecoagro.agr.br)."
+    },
+    {
+      "source_document_id": "982255",
+      "page_number": 1,
+      "fact_name": "comunicado_assembleia_data_citada",
+      "reference_date": "2025-09-02",
+      "value": "2025-06-17",
+      "unit": "data",
+      "excerpt": "assembleia geral realizada em 17 de junho de 2025"
+    },
+    {
+      "source_document_id": "982255",
+      "page_number": 1,
+      "fact_name": "comunicado_condicao_reunioes_trimestrais",
+      "reference_date": "2025-09-02",
+      "value": "Reuniões virtuais trimestrais entre Securitizadora, Devedora e Titulares, para atualização do contexto comercial e financeiro da Devedora (este comunicado não repete o prazo de 45 dias)",
+      "unit": "texto",
+      "excerpt": "à realização de reuniões virtuais trimestrais entre a Securitizadora, a Devedora e os Titulares de CRA"
+    }
+  ]
+}
