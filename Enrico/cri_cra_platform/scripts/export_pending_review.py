@@ -74,6 +74,15 @@ def main() -> int:
     finally:
         connection.close()
 
+    squash = lambda text: " ".join(str(text).split())
+    fact_notes: dict[tuple, str] = {}
+    for facts_path in sorted((ROOT / "config" / "reported_facts").glob("*.json")):
+        payload = json.loads(facts_path.read_text(encoding="utf-8"))
+        for item in payload["facts"]:
+            if item.get("note"):
+                key = (item["source_document_id"], item["fact_name"], item["reference_date"],
+                       item["page_number"], squash(item["excerpt"]))
+                fact_notes[key] = item["note"]
     golden_items = []
     for golden_path in sorted((ROOT / "config" / "golden_sets").glob("*.json")):
         golden = json.loads(golden_path.read_text(encoding="utf-8"))
@@ -95,11 +104,14 @@ def main() -> int:
         parts.append("<h2>Fatos lidos dos documentos</h2><table><tr><th>#</th><th>Fato</th>"
                      "<th>Valor proposto</th><th>Trecho no documento</th><th>Documento</th></tr>")
         for f in facts:
+            note = fact_notes.get((f["source_document_id"], f["fact_name"], f["reference_date"],
+                                   f["page_number"], squash(f["excerpt"])))
+            note_html = f"<br><b>Observação:</b> {e(note)}" if note else ""
             parts.append(
                 f"<tr><td>{e(f['fact_id'])}</td>"
                 f"<td>{e(f['fact_name'])}<br><span class='muted'>data-base {e(f['reference_date'])}</span></td>"
                 f"<td><b>{e(f['value'])}</b><br><span class='muted'>{e(f['unit'])}</span></td>"
-                f"<td class='excerpt'>{e(f['excerpt'])}</td>"
+                f"<td class='excerpt'>{e(f['excerpt'])}{note_html}</td>"
                 f"<td>{e(f['document_name'])} {e(f['source_document_id'])}<br>"
                 f"<span class='muted'>publicado {e(f['publication_date'])}</span><br>"
                 f"{pdf_link(f['local_file_path'], f['page_number'])}</td></tr>"
