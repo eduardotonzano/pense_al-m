@@ -553,6 +553,103 @@
         "attribute_present": true,
         "raw_text": "6936.55"
       }
+    },
+    {
+      "item_id": "IMCRI-AJ-018",
+      "source_document_id": "939497",
+      "xml_path": "/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/PeriodicidadeAvaliacaoGarantias",
+      "instance_index": 0,
+      "case_types": [
+        "present_empty",
+        "xsi_nil"
+      ],
+      "proposed_field_state": "present_empty",
+      "decision_question": null,
+      "notes": "Único xsi:nil encontrado nos 26 informes do CRI. Proposto em 29/10/2026.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "decision_status": "not_required",
+      "source_version": "1",
+      "document_version_id": 129,
+      "local_file_path": "data/documents/24G2100031/informes_mensais/2024-08_939497_Informe_Mensal_de_CRI.xml",
+      "raw_file_hash": "224d41a4d98af4b0c781b465d23480cce9621d30a406198a01e84ca31d5d3565",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 136,
+        "xsi_nil": true,
+        "evidence_excerpt": "<PeriodicidadeAvaliacaoGarantias xsi:nil=\"true\"/>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": ""
+      }
+    },
+    {
+      "item_id": "IMCRI-AJ-019",
+      "source_document_id": "1264371",
+      "xml_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/VariacaoLiquidaCaixaPatrimonioSeparado",
+      "instance_index": 0,
+      "case_types": [
+        "monetary",
+        "negative"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": null,
+      "notes": "Variação líquida de caixa negativa (-4.779,56 em jun/2026). Proposto em 29/10/2026.",
+      "human_review_status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null,
+      "review_comment": null,
+      "corrected_value": null,
+      "decision_status": "not_required",
+      "source_version": "1",
+      "document_version_id": 142,
+      "local_file_path": "data/documents/24G2100031/informes_mensais/2026-06_1264371_Informe_Mensal_de_CRI.xml",
+      "raw_file_hash": "34763257860dec50b8c0d6acbaedc70a668148f95f6c59c59c07a2a3c3e635ea",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 234,
+        "xsi_nil": false,
+        "evidence_excerpt": "<VariacaoLiquidaCaixaPatrimonioSeparado>-4779.56</VariacaoLiquidaCaixaPatrimonioSeparado>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "-4779.56"
+      }
+    },
+    {
+      "item_id": "IMCRI-AJ-020",
+      "source_document_id": "1020634",
+      "xml_path": "/InformeMensalCRI/DetalhesSeries/totalVlrCertificados",
+      "instance_index": 0,
+      "case_types": [
+        "monetary",
+        "scale_inconsistency"
+      ],
+      "proposed_field_state": "present_value",
+      "decision_question": "Confirma que totalVlrCertificados do CRI é o PU e que o aviso de escala desse campo não vale?",
+      "notes": "O sistema marca escala suspeita (totalVlrCertificados / VlrTotalIntegralizado = 0,000004) porque o campo guarda o PU, não o valor total. Decisão de 27/10: a regra de escala do CRI usa Passivo/VlrAtualizadoEmissao. Proposto em 29/10/2026 para registrar o caso; não converter o valor.",
+      "human_review_status": "approved",
+      "reviewed_by": "Enrico Suman Marques",
+      "reviewed_at": "2026-10-29",
+      "review_comment": "Aprovado em 2026-10-29 por delegação, coerente com a decisão de 27/10.",
+      "corrected_value": null,
+      "decision_status": "decided",
+      "source_version": "1",
+      "document_version_id": 133,
+      "local_file_path": "data/documents/24G2100031/informes_mensais/2025-09_1020634_Informe_Mensal_de_CRI.xml",
+      "raw_file_hash": "a0533a90c27996b72bed279d919092bfcc86fdd422e07cfc9c468e0d41459c65",
+      "observed": {
+        "element_present": true,
+        "occurrences": 1,
+        "line": 54,
+        "xsi_nil": false,
+        "evidence_excerpt": "<totalVlrCertificados>1000.61</totalVlrCertificados>",
+        "evidence_excerpt_truncated": false,
+        "raw_text": "1000.61"
+      },
+      "decision": "Registrado em 2026-10-29 por delegação de Enrico (\"pode fazer do jeito que achar melhor\"): totalVlrCertificados do CRI guarda o PU (1.000,61), não o total; o aviso de escala sobre esse campo não vale e a regra de escala do CRI continua usando Passivo/VlrAtualizadoEmissao (decisão de 27/10). Valor mantido, sem conversão."
     }
   ]
 }

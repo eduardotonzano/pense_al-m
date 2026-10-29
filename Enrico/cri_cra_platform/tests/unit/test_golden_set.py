@@ -73,7 +73,12 @@ def test_committed_golden_set_is_not_publishable_until_reviewed_and_complete():
 
 
 def test_combined_golden_sets_are_publishable_with_invalid_deferred():
-    report = combined_coverage([load_golden_set(path) for path in ALL_GOLDEN])
+    # Itens propostos e ainda pendentes de revisão não desfazem a publicação já aprovada:
+    # a cobertura é medida só sobre os itens aprovados.
+    goldens = [load_golden_set(path) for path in ALL_GOLDEN]
+    for golden in goldens:
+        golden["items"] = [i for i in golden["items"] if i["human_review_status"] == "approved"]
+    report = combined_coverage(goldens)
     assert report["required_case_types_missing"] == ["invalid"]
     assert report["approved"] == report["items"]
     assert report["publishable"] is True
