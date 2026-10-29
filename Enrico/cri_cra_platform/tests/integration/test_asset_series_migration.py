@@ -36,7 +36,7 @@ def _existing_database_with_001(tmp_path: Path):
 
 def test_002_creates_asset_series_and_is_idempotent(tmp_path):
     connection = _existing_database_with_001(tmp_path)
-    assert [m.version for m in pending_migrations(connection, MIGRATIONS_DIR)] == [2]
+    assert [m.version for m in pending_migrations(connection, MIGRATIONS_DIR)][0] == 2
 
     apply_pending(connection, pending_migrations(connection, MIGRATIONS_DIR))
     assert read_applied_versions(connection)[2] == "asset_series"

@@ -47,6 +47,7 @@ criado do zero igual ao do banco real, exceto `assets.codigo_cetip` (NOT NULL no
 - **Migrations antigas:** as tabelas criadas antes da numeração ainda usam `ALTER` no `initialize_database`.
 
 ### Fora do escopo
-Expansão para o mercado inteiro, fila de download em lotes e interface (ADR-001).
+Interface e layout, até o levantamento de requisitos da equipe (ADR-001). A fila de download em lotes e a
+expansão para o mercado inteiro seguem em plano separado (`reports/plano_fila_download.md`).
 
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
