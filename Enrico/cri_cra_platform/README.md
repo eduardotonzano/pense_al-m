@@ -109,6 +109,7 @@ SQLite; scripts que gravam têm `--dry-run` ou `--preview` e só aplicam regras 
 | 16. Comparação entre documentos | `report_cross_document_checks.py` | mesmo dado em Termo, oferta, AF e DFs (`config/contract_terms/cross_checks.json`); só leitura, lista divergências |
 | 17. Fila de revisão priorizada | `build_review_queue.py` | ordena o que aguarda aprovação em 5 níveis; gera ids do nível 4 para aprovação em bloco; só leitura |
 | 18. Localizador de campos | `evaluate_finder_recall.py` | `config/contract_terms/field_topics.json` localiza a cláusula de cada campo padrão; mede o recall contra os parâmetros aprovados (só leitura) |
+| 19. Mercado inteiro (CVM) | `ingest_cvm_open_data.py --dry-run`, depois `--commit` | Informe Mensal de todos os CRA/CRI dos dados abertos da CVM em `data/cvm_open.db` (ver `reports/plano_escala_mercado.md`) |
 
 Relatórios gerados ficam em `reports/`; o resumo do trabalho está em
 `reports/resumo_do_projeto_2026-10-28.md`.

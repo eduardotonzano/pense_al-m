@@ -19,3 +19,6 @@ reports/fundosnet_capturas.jsonl
 reports/fundosnet_capturas.txt
 !reports/cafe_brasil_xml_union.json
 !reports/alibem_xml_union.json
+
+# Dados abertos da CVM (ingestão em massa): ZIPs baixados
+data/cvm_open/
