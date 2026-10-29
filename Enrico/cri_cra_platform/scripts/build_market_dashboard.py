@@ -103,6 +103,7 @@ def main() -> int:
     debtors = read_csv("market_debtors.csv")
     issuers = read_csv("market_securitizadoras.csv")
     termo = read_csv("termo_vs_cvm.csv")
+    assemblies = [r for r in read_csv("assembleias_topicos.csv") if r.get("assuntos_relevantes")]
     e = html.escape
 
     kpis = []
@@ -124,7 +125,7 @@ def main() -> int:
         f"Gerado em {datetime.now(timezone.utc).strftime('%d/%m/%Y %H:%M')} UTC. "
         "Sinais para triagem, não conclusões: o dado é o do próprio Informe e erros de preenchimento vêm junto.</p>",
         "<nav><a href='#eventos'>Eventos do mês</a><a href='#ranking'>Ranking</a><a href='#devedores'>Devedores</a>"
-        "<a href='#securitizadoras'>Securitizadoras</a><a href='#termo'>Termo × Informe</a></nav>",
+        "<a href='#securitizadoras'>Securitizadoras</a><a href='#termo'>Termo × Informe</a><a href='#assembleias'>Assembleias e fatos</a></nav>",
         "<div class='kpis'>" + "".join(f"<div class='kpi'><span class='muted'>{e(label)}</span><b>{e(value)}</b></div>"
                                        for label, value in kpis) + "</div>",
         "<h2 id='eventos'>Eventos de crédito no mês</h2>",
@@ -162,6 +163,13 @@ def main() -> int:
                 f"<span class='warn'>{e(r['resultado'])}</span>" if r["resultado"] == "diverge" else e(r["resultado"]),
                 e(r["termo"][:60]), e(r["cvm"])]
                for r in sorted(termo, key=lambda r: (r["resultado"] != "diverge", r["ativo"]))]),
+        "<h2 id='assembleias'>Assembleias, fatos relevantes e comunicados (ativos com documentos baixados)</h2>",
+        "<p class='muted'>Assuntos por palavras-chave: o que foi discutido, não o que foi decidido.</p>",
+        table("t-assembleias", [("Data", False), ("Ativo", False), ("Documento", False), ("Assuntos", False),
+                                ("Não instalada", False), ("Trecho", False)],
+              [[e(r["data"]), e(r["ativo"]), e(f"{r['categoria']} {r['documento']}"), e(r["assuntos_relevantes"]),
+                "sim" if r["nao_instalada"] == "1" else "", e(r["trecho"][:140])]
+               for r in sorted(assemblies, key=lambda r: r["data"], reverse=True)]),
     ]
     page = ("<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'>"
             "<meta name='viewport' content='width=device-width, initial-scale=1'><title>Painel do mercado CRA/CRI</title>"

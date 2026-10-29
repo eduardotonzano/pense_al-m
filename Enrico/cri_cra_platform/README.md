@@ -114,6 +114,8 @@ SQLite; scripts que gravam têm `--dry-run` ou `--preview` e só aplicam regras 
 | 21. Prévia de campos em Termos novos | `preview_field_coverage.py` | localizador de campos sobre os Termos baixados, sem gravar no banco |
 | 22. Rotina mensal do mercado | `run_monthly_market.py --dry-run`, depois `--commit` | ingestão CVM, triagem, eventos de crédito, devedores, securitizadoras e painel `reports/painel_mercado.html` |
 | 23. Histórico de uma emissão | `market_asset_history.py --isin <ISIN>` | mês a mês por série, com eventos |
+| 24. Termo × Informe da CVM | `run_termo_vs_cvm.py` | extrator determinístico de valores do Termo (emissão, vencimentos, valor, quantidade, VNU) comparado com a CVM |
+| 25. Assuntos de assembleias e fatos | `run_assembly_topics.py` | classificação por palavras-chave das atas, editais, fatos relevantes e comunicados baixados |
 
 Relatórios gerados ficam em `reports/`; o resumo do trabalho está em
 `reports/resumo_do_projeto_2026-10-28.md`.
