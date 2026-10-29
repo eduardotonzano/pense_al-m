@@ -102,6 +102,7 @@ def main() -> int:
     events = read_csv("market_events.csv")
     debtors = read_csv("market_debtors.csv")
     issuers = read_csv("market_securitizadoras.csv")
+    termo = read_csv("termo_vs_cvm.csv")
     e = html.escape
 
     kpis = []
@@ -123,7 +124,7 @@ def main() -> int:
         f"Gerado em {datetime.now(timezone.utc).strftime('%d/%m/%Y %H:%M')} UTC. "
         "Sinais para triagem, não conclusões: o dado é o do próprio Informe e erros de preenchimento vêm junto.</p>",
         "<nav><a href='#eventos'>Eventos do mês</a><a href='#ranking'>Ranking</a><a href='#devedores'>Devedores</a>"
-        "<a href='#securitizadoras'>Securitizadoras</a></nav>",
+        "<a href='#securitizadoras'>Securitizadoras</a><a href='#termo'>Termo × Informe</a></nav>",
         "<div class='kpis'>" + "".join(f"<div class='kpi'><span class='muted'>{e(label)}</span><b>{e(value)}</b></div>"
                                        for label, value in kpis) + "</div>",
         "<h2 id='eventos'>Eventos de crédito no mês</h2>",
@@ -154,6 +155,13 @@ def main() -> int:
               [[e(s["nome"]), e(s["tipos"]), e(s["emissoes"]), e(s["saldo_mi"]), e(s["pct_saldo_em_atraso"]),
                 e(s["atraso_mediano_dias"]), e(s["pct_entregue_apos_30d"]), e(s["reenvios_por_100_informes"]),
                 e(s["pct_series_com_erro_cadastral"]), e(s["pct_devedor_cnpj_invalido"])] for s in issuers]),
+        "<h2 id='termo'>Termo de Securitização × Informe da CVM (ativos com Termo baixado)</h2>",
+        "<p class='muted'>Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados). Divergência pede leitura humana.</p>",
+        table("t-termo", [("Ativo", False), ("ISIN", False), ("Campo", False), ("Resultado", False), ("Termo", False), ("CVM", False)],
+              [[e(r["ativo"]), e(r["isin"]), e(r["campo"]),
+                f"<span class='warn'>{e(r['resultado'])}</span>" if r["resultado"] == "diverge" else e(r["resultado"]),
+                e(r["termo"][:60]), e(r["cvm"])]
+               for r in sorted(termo, key=lambda r: (r["resultado"] != "diverge", r["ativo"]))]),
     ]
     page = ("<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'>"
             "<meta name='viewport' content='width=device-width, initial-scale=1'><title>Painel do mercado CRA/CRI</title>"

@@ -80,3 +80,8 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
 - **Rotina mensal num comando:** `scripts/run_monthly_market.py --dry-run|--commit` (ingestão, triagem, eventos, universo, devedores,
   securitizadoras e painel `reports/painel_mercado.html`); as análises levam cerca de 40 s. Histórico de uma emissão:
   `scripts/market_asset_history.py --isin <ISIN>`.
+- **Termo × Informe da CVM em escala** (`scripts/run_termo_vs_cvm.py` → `reports/termo_vs_cvm.{md,csv}`): extrator determinístico (regex)
+  de data de emissão, vencimentos (separando os do lastro: debênture, nota comercial, CCB, CDCA), valor total, quantidade e VNU, lido
+  direto dos Termos baixados, sem gravar no banco. Nos pilotos acerta **16 de 16** parâmetros aprovados. Em 31 ativos: data de emissão
+  29 de 30 concordam; vencimento 63 concordam, 25 divergem e em 3 o Informe traz a data do lastro; valor total 25/30; quantidade 19/29;
+  VNU 27/30. Divergência é triagem para leitura humana (aditamento, programa com várias séries ou erro do Informe).
