@@ -45,3 +45,13 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
 - O dado da CVM é o do Informe: não corrige erro de preenchimento nem traz cláusulas do Termo, garantias, covenants ou eventos.
 - Informes de uma competência podem ter várias versões; a view usa a maior.
 - Campos como `Pagamento_Mes_Base` no CRI vêm em formato inconsistente (valor numérico de data); as regras precisam tratar isso.
+
+## Andamento (29/10/2026, noite)
+- **Ingestão aprovada por Enrico e concluída:** 16 arquivos (CRA e CRI, 2019 a 2026), `data/cvm_open.db` (475 MB, fora do Git),
+  `integrity_check` ok, `foreign_key_check` vazio; segunda execução pulou os 16 arquivos (idempotente).
+  Universo desde 2019: **1.263 emissões de CRA e 4.040 de CRI** (por código de identificação do certificado).
+- **Triagem do mercado** (`scripts/run_market_checks.py` → `reports/market_ranking.{md,csv}`): sinais por série e ranking por emissão.
+  Os pilotos aparecem: o Café Brasil (BRECOACRABX0) está entre os de maior pontuação (em atraso + vencimento fora do mês-base), como já sabíamos.
+- **Achado de identificação:** a mesma emissão aparece com **dois códigos** de certificado (um tipo ISIN e outro tipo CETIP) para a mesma
+  securitizadora, o que **duplica a contagem de emissões** (107 emissões de CRA com esse padrão). A chave do universo deve ser o **ISIN da série**,
+  não o código do certificado. ISIN repetido em securitizadoras diferentes é conflito real (28 emissões de CRA).
