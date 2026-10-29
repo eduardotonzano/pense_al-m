@@ -60,3 +60,7 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
   `RentabilidadePeriodo` do CRI, que a CVM publica **arredondada em 2 casas** (0,01 onde o XML traz 0,00971…): perda de precisão no CSV da
   CVM, não erro de extração. CRA: 100% igual. Consequência: a base da CVM serve como fonte do Informe em escala, mas regras que dependem da
   rentabilidade do CRI (conciliação de saldo, rentabilidade fora do padrão) precisam do XML.
+- **Dry-run do catálogo dos 30 candidatos do lote-piloto (Fundos.NET, nada gravado):** 27 de 30 localizados de primeira (2.718 documentos,
+  1.588 Informes Mensais, 646 atas/editais, 108 relatórios do AF, 71 Termos, 44 fatos relevantes). Os 3 que falharam ("securitizadora não
+  localizada": Vert ×2 e Travessia ×1) tinham causas do coletor, corrigidas: empate entre nomes parecidos (resolvido pelo nome igual ao buscado)
+  e "S/A" × "S.A". Reexecutados: 97, 83 e 108 documentos, sem erro. **Total estimado: 30 ativos, cerca de 2.900 documentos.**

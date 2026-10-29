@@ -548,6 +548,11 @@ class FundosNetCollector(BaseCollector):
                     matches.append({"id": identifier, "nome": text})
             if len(matches) == 1:
                 return matches[0]
+            # Vários nomes contêm o buscado ("Vert Companhia Securitizadora" e "... de Créditos Financeiros"):
+            # só um nome igual ao buscado resolve o empate; sem igualdade exata, continua não localizada.
+            exact = [match for match in matches if normalize_text(match["nome"]) == expected]
+            if len(exact) == 1:
+                return exact[0]
         return None
 
     def _search_fundos(self, page, context, asset: Asset, administrator_id: int, type_id: int, diagnostics) -> list[FundosNetMatch]:
