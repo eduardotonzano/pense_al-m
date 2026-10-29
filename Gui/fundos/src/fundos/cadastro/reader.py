@@ -18,7 +18,6 @@ descartado e contado por coluna. As mensagens citam arquivo, linha e coluna,
 nunca o valor.
 """
 
-import csv
 import hashlib
 import io
 import zipfile
@@ -28,31 +27,30 @@ from pathlib import Path
 from types import MappingProxyType
 
 from fundos.cadastro import columns as spec
-from fundos.cnpj import InvalidCnpjError
-from fundos.cnpj import looks_like_cpf
-from fundos.cnpj import normalize_cnpj
-from fundos.database import normalize_iso_date
-from fundos.repositories.observation_repository import canonical_decimal
+# A leitura comum dos CSV da CVM fica em fundos.cvm_csv; os nomes continuam
+# importaveis daqui.
+from fundos.cvm_csv import CNPJ
+from fundos.cvm_csv import CPF  # noqa: F401
+from fundos.cvm_csv import CvmFormatError as CadastroFormatError
+from fundos.cvm_csv import DELIMITER  # noqa: F401
+from fundos.cvm_csv import EMPTY  # noqa: F401
+from fundos.cvm_csv import ENCODING  # noqa: F401
+from fundos.cvm_csv import IDENTIFIER_STATUSES  # noqa: F401
+from fundos.cvm_csv import INVALID  # noqa: F401
+from fundos.cvm_csv import MAX_MEMBER_BYTES
+from fundos.cvm_csv import MAX_ZIP_BYTES
+from fundos.cvm_csv import MemberManifest  # noqa: F401
+from fundos.cvm_csv import check_header as _check_header  # noqa: F401
+from fundos.cvm_csv import classify_identifier
+from fundos.cvm_csv import convert
+from fundos.cvm_csv import decode as _decode
+from fundos.cvm_csv import iter_csv as _iter_csv
+from fundos.cvm_csv import location as _location
+from fundos.cvm_csv import member_manifest as _member_manifest
 
-
-ENCODING = "cp1252"
-DELIMITER = ";"
-MAX_ZIP_BYTES = 100 * 1024 * 1024
-MAX_MEMBER_BYTES = 200 * 1024 * 1024
 
 # Rotulo das linhas fora do escopo nas contagens.
 OUT_OF_SCOPE = "outros"
-
-# Situacao do identificador de uma linha.
-EMPTY = "vazio"
-CNPJ = "cnpj"
-CPF = "cpf"
-INVALID = "invalido"
-IDENTIFIER_STATUSES = (EMPTY, CNPJ, CPF, INVALID)
-
-
-class CadastroFormatError(ValueError):
-    """O arquivo nao tem o formato esperado; nada foi lido."""
 
 
 @dataclass(frozen=True)
@@ -63,17 +61,6 @@ class ZipManifest:
     size_bytes: int
     sha256: str
     member_dates: tuple[str, ...]
-
-
-@dataclass(frozen=True)
-class MemberManifest:
-    """Manifesto de um CSV do ZIP (tamanho descomprimido, linhas de dados)."""
-
-    file_name: str
-    size_bytes: int
-    sha256: str
-    line_count: int
-    column_count: int
 
 
 @dataclass(frozen=True)
@@ -126,147 +113,6 @@ class CadastroFile:
                 return member
 
         raise KeyError(name)
-
-
-def classify_identifier(value):
-    """Devolve (situacao, CNPJ normalizado ou None).
-
-    11 digitos ou CPF com mascara e CPF: o valor e descartado. CNPJ com 12 ou
-    13 digitos ganha os zeros a esquerda; nunca um valor de 11 digitos.
-    """
-
-    if not value.strip():
-        return EMPTY, None
-
-    if looks_like_cpf(value):
-        return CPF, None
-
-    try:
-        return CNPJ, normalize_cnpj(value, allow_missing_leading_zeros=True)
-    except InvalidCnpjError:
-        return INVALID, None
-
-
-def convert(kind, value):
-    """Converte o texto do CSV para o tipo da coluna; vazio vira None.
-
-    O texto fica como veio. Levanta ValueError se o valor estiver fora do
-    formato do tipo.
-    """
-
-    if not value.strip():
-        return None
-
-    if kind == spec.TEXT:
-        return value
-
-    if kind == spec.DATE:
-        return normalize_iso_date(value, "A data")
-
-    if kind == spec.NUMERIC:
-        return canonical_decimal(value)
-
-    if kind == spec.BOOLEAN:
-        flag = spec.YES_NO.get(value.strip())
-
-        if flag is None:
-            raise ValueError("Valor fora de S/N.")
-
-        return flag
-
-    raise ValueError("Tipo de coluna sem conversao.")
-
-
-def _location(member, line, column):
-    return member + ", linha " + str(line) + ", coluna " + column
-
-
-def _check_header(member, header, expected):
-    """Exige exatamente as colunas esperadas, na mesma ordem.
-
-    A mensagem so cita nomes da lista esperada: se o arquivo vier sem
-    cabecalho, a primeira linha seria dado.
-    """
-
-    if header is None:
-        raise CadastroFormatError(member + " esta vazio: falta o cabecalho.")
-
-    if list(header) == list(expected):
-        return
-
-    missing = [column for column in expected if column not in header]
-    unknown = [column for column in header if column not in expected]
-    problems = []
-
-    if missing:
-        problems.append("faltam " + ", ".join(missing))
-
-    if unknown:
-        problems.append(str(len(unknown)) + " coluna(s) desconhecida(s)")
-
-    if len(header) != len(set(header)):
-        problems.append("ha coluna repetida")
-
-    if not problems:
-        position = next(
-            index
-            for index, (found, wanted) in enumerate(zip(header, expected))
-            if found != wanted
-        )
-        problems.append(
-            "colunas fora de ordem: a posicao "
-            + str(position + 1)
-            + " deveria ser "
-            + expected[position]
-        )
-
-    raise CadastroFormatError(
-        "Cabecalho de "
-        + member
-        + " diferente do esperado ("
-        + "; ".join(problems)
-        + "). A CVM pode ter mudado o arquivo; nada foi lido."
-    )
-
-
-def _decode(member, data):
-    try:
-        return data.decode(ENCODING)
-    except UnicodeDecodeError as error:
-        raise CadastroFormatError(
-            member
-            + " nao decodifica como "
-            + ENCODING
-            + " (byte na posicao "
-            + str(error.start)
-            + ")."
-        ) from error
-
-
-def _iter_csv(member, text, expected):
-    """Confere o cabecalho e devolve (linha, campos) de cada linha de dados."""
-
-    reader = csv.reader(
-        io.StringIO(text, newline=""),
-        delimiter=DELIMITER,
-        quoting=csv.QUOTE_NONE,
-    )
-    _check_header(member, next(reader, None), expected)
-
-    for line, fields in enumerate(reader, start=2):
-        if len(fields) != len(expected):
-            raise CadastroFormatError(
-                member
-                + ", linha "
-                + str(line)
-                + ": "
-                + str(len(fields))
-                + " campo(s), o cabecalho tem "
-                + str(len(expected))
-                + "."
-            )
-
-        yield line, fields
 
 
 def _parse_parties(table, record, scope_key, keep, counts):
@@ -363,16 +209,6 @@ def _parse_row(table, member, line, fields, counts):
         values=MappingProxyType(values),
         parties=parties,
         invalid_columns=frozenset(invalid),
-    )
-
-
-def _member_manifest(member, data, line_count, column_count):
-    return MemberManifest(
-        file_name=member,
-        size_bytes=len(data),
-        sha256=hashlib.sha256(data).hexdigest(),
-        line_count=line_count,
-        column_count=column_count,
     )
 
 

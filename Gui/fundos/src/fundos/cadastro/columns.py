@@ -19,13 +19,16 @@ codigos, nao quantidades. Tributacao_Longo_Prazo e texto, porque traz S, N e
 N/A.
 """
 
+# Os tipos e o S/N ficam em fundos.cvm_csv; os nomes continuam importaveis
+# daqui.
+from fundos.cvm_csv import BOOLEAN
+from fundos.cvm_csv import DATE
+from fundos.cvm_csv import NUMERIC
+from fundos.cvm_csv import TEXT
+from fundos.cvm_csv import YES_NO  # noqa: F401
 from fundos.personal_data import FORBIDDEN_COLUMNS
 
 
-TEXT = "text"
-DATE = "date"
-NUMERIC = "numeric"
-BOOLEAN = "boolean"
 IDENTITY = "identity"
 PARTY_ID = "party_id"
 PARTY_NAME = "party_name"
@@ -216,11 +219,6 @@ SELECTION_COLUMNS = {
             "Data_Registro",
         }
     ),
-}
-
-YES_NO = {
-    "S": True,
-    "N": False,
 }
 
 

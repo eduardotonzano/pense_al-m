@@ -7,17 +7,23 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - Banco SQLite próprio, criado pela migration `migrations/001_initial_schema.sql`, com o mesmo esqueleto de proveniência das debêntures: `sources`, `collection_runs`, `raw_records`, `observations`, `data_conflicts`, `audit_log`, a view `current_observations` e `schema_migrations`. Os assuntos são `funds`, `fund_classes` e `quota_series`.
 - A migration `migrations/002_party_observations.sql` cria `party_observations` (papéis com vários valores: gestor, administrador, custodiante, controlador e auditor) e `party_conflicts`. Veja "Papéis".
 - `src/fundos/`: conexão (`database.py`), utilitário de CNPJ (`cnpj.py`), guarda de dados pessoais (`personal_data.py`), backup (`backup.py`) e repositórios mínimos (`repositories/`).
+- `src/fundos/cvm_csv.py`: leitura comum dos CSV da CVM (cp1252 estrito, cabeçalho exato, largura das linhas, conversão por tipo, situação do identificador), usada pelo cadastro e pelo informe.
 - `src/fundos/cadastro/`: leitor do cadastro de fundos da CVM (`registro_fundo_classe.zip`), sem banco (`reader.py`, com a lista fechada de colunas em `columns.py`); filtro de FIDC e FIAGRO e escolha do registro vigente (`selection.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
+- `src/fundos/informe_fidc/`: leitor do informe mensal de FIDC (`inf_mensal_fidc_AAAAMM.zip`, 18 tabelas), sem banco (`reader.py`, com a lista fechada das 461 colunas em `columns.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `scripts/apply_migration.py`: aplica as migrations numeradas, com backup e verificação.
 - `scripts/load_cadastro.py`: carrega os FIDC e FIAGRO do cadastro. Veja "Como carregar o cadastro".
+- `scripts/load_informe_fidc.py`: carrega o informe mensal de FIDC. Veja "Como carregar o informe de FIDC".
 
 ## O que ainda não existe
 
 Coletor, acesso à rede, banco real, dados reais e adaptador para a camada compartilhada. Ficam para etapas futuras do plano de Fundos:
 
 - a migration de prioridade das fontes (ADR-010, proposta);
-- o `registro_subclasse` como dado (hoje só entra no manifesto) e o informe mensal;
+- o `registro_subclasse` como dado (hoje só entra no manifesto);
+- a reapresentação do informe (FU4.2): hoje uma competência = um ZIP;
+- a `tab_VIII` e a `tab_X_4` do informe, lidas e conferidas mas **não carregadas** (várias linhas para o mesmo assunto e campo). A `tab_X_4` (captações, resgates e amortizações por série) fica **indisponível** até uma tarefa própria, com ADR (uma dimensão a mais em `observations`);
 - os cedentes do informe (FU4.3), que precisam de migration própria (veja "Papéis");
+- a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
 - a carteira de cotas de fundos;
 - o mapa de séries sênior, mezanino e subordinada;
 - a resolução de conflitos com `audit_log`.
@@ -135,10 +141,41 @@ python scripts\load_cadastro.py --database C:\<pasta-local>\fundos.db --zip C:\<
   - **Subclasse:** o `registro_subclasse.csv` entra só no manifesto (`processing_status` `ignored`).
   - **Volume:** cada carga grava o retrato inteiro na sua competência. A política de recarga (frequência, ou gravar só o que muda) fica para antes de automatizar.
 
+## Como carregar o informe de FIDC
+
+O `scripts/load_informe_fidc.py` lê o `inf_mensal_fidc_AAAAMM.zip` da CVM (baixado à mão, fora do Git) e grava as observações do mês das classes e fundos que **já estão no banco**: o cadastro tem de ser carregado antes. `--database` e `--zip` são obrigatórios, e `--dry-run` ou `--commit` também. Não há `--reference-date`. Rode sempre o `--dry-run` antes. O `--commit` só com aprovação explícita.
+
+```powershell
+cd Gui\fundos
+# prévia: lê e confere o ZIP; com o banco, mostra o casamento com o cadastro; não escreve nada
+python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\cvm-amostras\cadastro-fidc\inf_mensal_fidc_202609.zip --dry-run
+# carga (banco migrado e com o cadastro carregado)
+python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\cvm-amostras\cadastro-fidc\inf_mensal_fidc_202609.zip --commit
+```
+
+- **Banco em disco local**, como no cadastro: caminho de rede só gera aviso no stderr.
+- **Competência = `DT_COMPTC`.** O arquivo tem de ter um só valor, do mês do `AAAAMM` dos 18 membros (e do nome do ZIP), não posterior a hoje (UTC). `collected_at` é o início da coleta.
+- **Formato:** os 18 membros e só eles; o cabeçalho de cada tabela tem de ser exatamente o da lista fechada (`src/fundos/informe_fidc/columns.py`, montada do cabeçalho do dado de 09/2026, não do dicionário). Qualquer diferença aborta sem gravar nada.
+- **Identidade:** `TP_FUNDO_CLASSE` Classe precisa do CNPJ em `fund_classes`; Fundo, em `funds`. O resto não carrega e é contado por tabela e por assunto, em 6 motivos (Classe com CNPJ só como fundo, Classe fora do cadastro, Fundo com CNPJ só como classe, Fundo fora do cadastro, tipo desconhecido, CNPJ inválido). Nenhum fundo nem classe é criado.
+- **O que vira observação:** `tab_<tabela>.<COLUNA>`, sem renomear. `TP_FUNDO_CLASSE`, `CNPJ_FUNDO_CLASSE` e `DT_COMPTC` são chave. `DENOM_SOCIAL` só da `tab_I` (nas outras 17 ela é conferida e a divergência é contada).
+- **Zeros são gravados:** zero é valor informado (cerca de 80% das células do mês). Valor vazio não tem linha.
+- **Notação científica** (`e` ou `E` seguido de expoente inteiro, como `1.5e+10`) é convertida de forma exata, sem arredondar e sem expoente, e contada por coluna no relatório. Qualquer outro formato fora do decimal com ponto aborta.
+- **Cedentes:** as 36 colunas `TAB_I2A12_CPF_CNPJ_CEDENTE_1..9`, `TAB_I2A12_PR_CEDENTE_1..9` e as mesmas `TAB_I2B12_*` são exigidas no cabeçalho e descartadas sem guardar o valor. O relatório mostra só o total de células preenchidas (conferência da exclusão e ponto de partida da FU4.3).
+- **Administradora:** `tab_I.CNPJ_ADMIN` e `tab_I.ADMIN` vão para `party_observations` (papel `administrador`), só com CNPJ válido. `tab_I.CNPJ_CLASSE` vira observação só com CNPJ válido (espaços nas pontas tirados; zero à esquerda só para 12 ou 13 dígitos); senão a célula é contada e não carregada.
+- **Séries** (`tab_X_1`, `tab_X_2`, `tab_X_3` e `tab_X_6`): a chave é o rótulo normalizado (sem acento, minúsculo, sem `|`, espaços colapsados); o rótulo original de cada tabela fica como observação da série. Regra do `ID_SUBCLASSE` (só na `tab_X_1`):
+  - vira `cvm_subclass_id` só quando aparece num único assunto e rótulo do arquivo (em 09/2026, 63 IDs aparecem em mais de uma classe e não viram chave);
+  - se o banco o recusar (por exemplo, o mesmo ID já é de outra série), a série fica só com o rótulo, as linhas são carregadas, o relatório conta "recusado pelo banco" e a coleta fica `partial`, com `failed_items` igual ao número de IDs recusados;
+  - em todos os casos, `tab_X_1.ID_SUBCLASSE` é gravado como observação.
+- **Não carregadas:** `tab_VIII` e `tab_X_4` são lidas e conferidas, entram no manifesto como `ignored` e ficam fora do banco (veja "O que ainda não existe").
+- **Uma competência = um ZIP até a FU4.2:** o mesmo ZIP (mesmo SHA-256) diz "Nada a carregar"; outro ZIP da mesma competência é recusado; uma competência nova é carga normal (série mensal).
+- **Antes do COMMIT:** `integrity_check`, `foreign_key_check`, nenhuma coluna com `cpf` e nenhum texto inteiro com formato de CPF no que a coleta gravou. Se algo falhar, desfaz tudo e mantém o backup.
+- **Andamento:** uma linha por tabela lida (`lido tab_IX: ... linha(s)`) e, no `--commit`, uma por tabela gravada (`gravado tab_IX: ... observacao(oes), ... s`).
+- **Tamanho e tempo:** cerca de 0,6 GB por competência (1,57 milhão de observações em 09/2026). Medido com dados fictícios do volume real (1,56 milhão de observações), em disco local: o banco cresceu 0,56 GB, o `--commit` completo (backup, carga e verificação) levou 7,3 min e o `--dry-run`, 15 s. Sem inserção em lote.
+
 ## Como renomear
 
 - **Só a pasta** (`git mv Gui/fundos Gui/<nome>`): nenhum import muda; atualize os comandos deste README.
-- **O pacote** (`fundos` para `<pacote>`): `git mv src/fundos src/<pacote>`, troque `fundos.` nos imports de `src/`, `scripts/` e `tests/`, e a mensagem "Pacote fundos:" de `scripts/apply_migration.py` e de `scripts/load_cadastro.py` e o teste dela. Rode a suíte.
+- **O pacote** (`fundos` para `<pacote>`): `git mv src/fundos src/<pacote>`, troque `fundos.` nos imports de `src/`, `scripts/` e `tests/`, e a mensagem "Pacote fundos:" de `scripts/apply_migration.py`, de `scripts/load_cadastro.py` e de `scripts/load_informe_fidc.py` e o teste dela. Rode a suíte.
 
 ## Pontos para o Fábio
 
