@@ -198,3 +198,16 @@ def test_fixed_spread_next_to_an_index_is_not_a_prefixed_series():
     assert tokenize("Taxa prefixada 8,88% a.a. (indexador IPCA)", "remuneracao") == {"idx=IPCA", "taxa=8.88"}
     assert tokenize("108% da variação do indexador (DI)", "remuneracao") == {"idx=DI", "mult=108"}
     assert tokenize("Taxa prefixada 14,8% a.a.", "remuneracao") == {"idx=PREFIXADA", "taxa=14.8"}
+
+
+def test_multiplier_with_number_in_words_before_the_index():
+    from credit_assets.cross_checks import tokenize
+    assert tokenize("108,00% (cento e oito por cento) da Taxa DI", "remuneracao") == {"idx=DI", "mult=108"}
+
+
+def test_long_wording_between_multiplier_and_index():
+    from credit_assets.cross_checks import tokenize
+    text = "108,00% (cento e oito por cento) da variação acumulada das taxas médias diárias dos DI"
+    assert tokenize(text, "remuneracao") == {"idx=DI", "mult=108"}
+    assert tokenize("8,88% ao ano acima da variação do IPCA", "remuneracao") == {"idx=IPCA", "taxa=8.88"}
+    assert tokenize("1,5% a.a. sobre 100% do CDI", "remuneracao") == {"idx=DI", "mult=100", "taxa=1.5"}

@@ -21,7 +21,8 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.market_checks import integralized, money
 from credit_assets.services.contract_terms_service import extract_pdf_pages
-from credit_assets.termo_values import best, extract
+from credit_assets.cross_checks import tokenize
+from credit_assets.termo_values import best, extract, remuneration_numbers
 
 TOLERANCE = Decimal("0.01")
 APPROVED_MAP = {
@@ -93,12 +94,15 @@ def main() -> int:
     for asset_id, items in docs.items():
         first = items[0]
         per_doc: list[tuple[str, list]] = []  # na ordem: Termos antes de aditamentos, do mais antigo ao mais novo
+        rate_numbers: set[str] = set()
         for doc in items:
             path = ROOT / doc["local_file_path"]
             if not path.is_file():
                 continue
             pages, _ = extract_pdf_pages(path)
-            per_doc.append((doc["source_document_id"], extract([(i + 1, t) for i, t in enumerate(pages)])))
+            numbered = [(i + 1, t) for i, t in enumerate(pages)]
+            per_doc.append((doc["source_document_id"], extract(numbered)))
+            rate_numbers |= remuneration_numbers(numbered)
 
         def termo(field):
             """Data de emissão: a do primeiro documento que a traz. Demais campos: união do melhor de cada documento
@@ -157,6 +161,21 @@ def main() -> int:
             total_qty = sum(cvm_qty)
             ok = total_qty in quantities or all(q in quantities for q in cvm_qty)
             verdict("quantidade", "concorda" if ok else "diverge", "; ".join(map(str, sorted(quantities))), str(total_qty))
+        # remuneração: os números da taxa informada à CVM (multiplicador e spread/taxa) aparecem no Termo?
+        for s in emission["series"]:
+            informed = {f"{slot}={format(round(Decimal(value), 2).normalize(), 'f')}"
+                        for slot, _, value in (t.partition("=") for t in tokenize(s.get("Taxa_Juros") or "", "remuneracao"))
+                        if slot in ("mult", "taxa")}
+            # "100%" do índice é o padrão e quase nunca aparece escrito ao lado do spread: não decide sozinho
+            decisive = {n for n in informed if n != "mult=100"}
+            label = f"remuneracao {s.get('Codigo_ISIN') or 'série ' + str(s.get('Numero_Serie'))}"
+            if not decisive:
+                continue
+            if not rate_numbers:
+                verdict(label, "sem_valor_no_termo", "", s.get("Taxa_Juros") or "")
+            else:
+                verdict(label, "concorda" if decisive <= rate_numbers else "diverge",
+                        "; ".join(sorted(rate_numbers))[:120], s.get("Taxa_Juros") or "")
         vnus = [Decimal(c.value) for _, c in termo("valor_nominal_unitario")]
         unit = [integralized(s) / money(s.get("Quantidade_Certificados")) for s in emission["series"]
                 if money(s.get("Quantidade_Certificados")) > 0 and integralized(s) > 0]
@@ -199,7 +218,7 @@ def main() -> int:
     totals = Counter((r["campo"].split(" ")[0], r["resultado"]) for r in results)
     lines += ["## Resultado por campo", "", "| Campo | Concorda | Diverge | Informe usa data do lastro | Sem valor no Termo |",
               "|---|---|---|---|---|"]
-    for field in ("data_emissao", "vencimento", "valor_total", "quantidade", "valor_nominal_unitario"):
+    for field in ("data_emissao", "vencimento", "remuneracao", "valor_total", "quantidade", "valor_nominal_unitario"):
         lines.append(f"| {field} | {totals[(field, 'concorda')]} | {totals[(field, 'diverge')]} | "
                      f"{totals[(field, 'informe_usa_data_do_lastro')]} | {totals[(field, 'sem_valor_no_termo')]} |")
     lines += ["", "## Resumo por ativo", "", "| Ativo | Concorda | Diverge | Informe usa data do lastro | Sem valor no Termo | Sem dado CVM |",

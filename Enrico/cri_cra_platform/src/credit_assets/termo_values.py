@@ -130,3 +130,30 @@ def best(candidates: list[Candidate], field: str) -> list[Candidate]:
         first_page = min(c.page for c in chosen)
         chosen = [c for c in chosen if c.page == first_page]
     return chosen
+
+
+REMUNERATION_ANCHOR = re.compile(r"juros remunerat[oó]rios|remunera[cç][aã]o (?:dos (?:cra|cri)|da (?:\d+ª )?s[eé]rie)|"
+                                 r"far[aã]o jus a|sobretaxa|spread")
+
+
+def remuneration_numbers(pages: list[tuple[int, str]], window: int = 360) -> set[str]:
+    """Números de taxa (multiplicador do índice e taxa/spread) citados perto das cláusulas de remuneração.
+
+    Usa o leitor por fichas de credit_assets.cross_checks e arredonda em 2 casas. Serve para checar se a taxa
+    informada à CVM aparece no Termo; não reconstrói a remuneração série a série."""
+
+    from decimal import Decimal as _D
+
+    from credit_assets.cross_checks import tokenize
+
+    numbers: set[str] = set()
+    for _, text in pages:
+        flat = re.sub(r"\s+", " ", text)
+        lower = flat.lower()
+        for match in REMUNERATION_ANCHOR.finditer(lower):
+            chunk = lower[match.start(): match.start() + window]
+            for token in tokenize(chunk, "remuneracao"):
+                slot, _, value = token.partition("=")
+                if slot in ("mult", "taxa"):
+                    numbers.add(f"{slot}={format(round(_D(value), 2).normalize(), 'f')}")
+    return numbers

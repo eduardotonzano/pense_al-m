@@ -48,8 +48,25 @@ INDEXERS = (
     (re.compile(r"\b(?:pre-?fixad[ao]s?|pre)\b"), "PREFIXADA"),
 )
 MULT_AFTER = re.compile(
-    r"(?:d[aeo]s?\s+)?(?:variacao\s+(?:acumulada\s+)?(?:d[aeo]s?\s+)?)?(?:taxa\s+)?(?:c?di\b|ipca\b|selic\b|indexador\b)"
+    r"(?:\([^)]{0,80}\)\s*)?(?:d[aeo]s?\s+)?(?:variacao\s+(?:acumulada\s+)?(?:d[aeo]s?\s+)?)?(?:taxa\s+)?(?:c?di\b|ipca\b|selic\b|indexador\b)"
 )
+INDEX_WORD = re.compile(r"\b(?:c?di|ipca|selic|indexador)\b")
+
+
+def _is_multiplier(after: str) -> bool:
+    """O percentual multiplica o índice ("100% da Taxa DI", "108% (cento e oito por cento) da variação acumulada
+    das taxas médias diárias dos DI"), em vez de ser taxa/spread ("8,88% ao ano acima do IPCA")?"""
+
+    if MULT_AFTER.match(after[:40].lstrip()):
+        return True
+    found = INDEX_WORD.search(after)
+    if not found:
+        return False
+    gap = after[: found.start()]
+    return (len(gap) <= 100 and not re.search(r"[\d%]", gap)
+            and not re.search(r"\bano\b|a\.a|\bmes\b|\bacima\b|\bsobre\b|\bacrescid", gap))
+
+
 PERCENT = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
 NAME_STOPWORDS = {
     "s.a.", "sa", "s/a", "ltda", "e", "de", "do", "da", "dos", "das", "cnpj", "nire",
@@ -67,7 +84,7 @@ def tokenize(text: str, tokenizer: str) -> frozenset[str]:
         for match in PERCENT.finditer(folded):
             number = format(Decimal(match.group(1).replace(",", ".")).normalize(), "f")
             # percentual colado ao indexador ("100% da Taxa DI") é multiplicador; os demais são taxa/spread
-            multiplier = bool(MULT_AFTER.match(folded[match.end():match.end() + 40].lstrip()))
+            multiplier = _is_multiplier(folded[match.end():match.end() + 110])
             tokens.add(("mult=" if multiplier else "taxa=") + number)
         for pattern, label in INDEXERS:
             if pattern.search(folded):
