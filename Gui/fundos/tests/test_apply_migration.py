@@ -126,7 +126,7 @@ def test_create_commit_builds_a_new_database(script, tmp_path, capsys):
     output = capsys.readouterr().out
 
     assert code == 0
-    assert versions(path) == [1]
+    assert versions(path) == [1, 2]
     assert "Banco novo" in output
     assert "Migrations aplicadas com sucesso." in output
     assert not (path.parent / "backups").exists()
@@ -421,7 +421,7 @@ def test_reports_the_package_from_this_checkout(script, tmp_path, capsys):
     expected = (PROJECT_DIR / "src" / "fundos").resolve()
 
     assert "Pacote fundos: " + str(expected) in output
-    assert "Nada a aplicar" in output
+    assert "Migrations pendentes: 002_party_observations" in output
 
 
 def test_discover_migrations_orders_and_ignores_other_files(script, tmp_path):
@@ -447,7 +447,10 @@ def test_discover_migrations_rejects_duplicates_and_missing_folder(script, tmp_p
 def test_real_migrations_are_numbered_and_named_like_the_registry(script):
     found = script.discover_migrations(MIGRATIONS_DIR)
 
-    assert [(version, name) for version, name, _ in found] == [(1, "initial_schema")]
+    assert [(version, name) for version, name, _ in found] == [
+        (1, "initial_schema"),
+        (2, "party_observations"),
+    ]
 
 
 def test_split_statements(script):

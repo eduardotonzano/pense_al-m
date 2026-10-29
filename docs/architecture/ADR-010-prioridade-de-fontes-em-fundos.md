@@ -4,7 +4,7 @@
 
 Proposta, de 28/10/2026. Vale só para o módulo de Fundos (`Gui/fundos`). Nada aqui foi implementado: as mudanças de código, de teste e de migration estão no ponto g como tarefas futuras propostas.
 
-Pontos que exigem confirmação explícita do Gui: b) (a prioridade passa a valer só dentro da mesma competência, o que muda o comportamento da view e inverte um teste existente) e g) (migration 002 que muda a prioridade semeada da CVM_DADOS_ABERTOS de 200 para 450).
+Pontos que exigem confirmação explícita do Gui: b) (a prioridade passa a valer só dentro da mesma competência, o que muda o comportamento da view e inverte um teste existente) e g) (migration 003 que muda a prioridade semeada da CVM_DADOS_ABERTOS de 200 para 450).
 
 ## Contexto
 
@@ -74,7 +74,7 @@ A regra 3 vira faixas de 100 em `sources.priority`. A convenção atual do módu
 | Entrada manual validada (fora da regra 3; ver d) | 1000 | `MANUAL` | 1000 | semeada; não muda |
 | Reservada | 600 a 999 | nenhuma | | sem uso |
 | BACEN | 500 a 599 | nenhuma prevista em Fundos | 550, se vier | reservada |
-| CVM | 400 a 499 | `CVM_DADOS_ABERTOS` | 450 (hoje 200) | semeada; muda na migration 002 (ver g) |
+| CVM | 400 a 499 | `CVM_DADOS_ABERTOS` | 450 (hoje 200) | semeada; muda na migration 003 (ver g) |
 | CVM | 400 a 499 | Fundos.NET, documento estruturado | 440 | futura, não semeada (ver e) |
 | CVM | 400 a 499 | Fundos.NET, extração de texto livre | 430 | futura, só se houver extrator (ver e) |
 | ANBIMA | 300 a 399 | ANBIMA | 350 | futura, nasce inativa (ver e) |
@@ -142,7 +142,7 @@ Condições da regra:
 
 1. `reference_date` é a competência informada pela fonte, nunca a data da coleta. Uma competência errada, no futuro, dominaria o valor atual. Por isso a tarefa futura 3 propõe recusar competência posterior à data da coleta.
 2. Uma fonte que não é a CVM só grava no `field_name` de uma coluna da CVM quando o dado for a mesma medida, com a mesma competência; por exemplo, o informe mensal entregue em XML no Fundos.NET. Outra medida, mesmo de nome parecido (um PL diário, por exemplo), vai num `field_name` próprio da fonte e não disputa com a CVM: aparece como campo à parte, com a fonte visível. O mapeamento de cada campo fica documentado no adaptador da fonte.
-3. **Gatilho de revisão:** este ponto é revisto quando um campo sem competência própria ganhar segunda fonte ou entrada MANUAL. É o caso dos campos do cadastro, que é um retrato diário. A regra por campo (alternativa B3) é a candidata. Hoje nenhum campo do cadastro é carregado, e a data de referência do cadastro ainda precisa ser definida no adaptador dele.
+3. **Gatilho de revisão:** este ponto é revisto quando um campo sem competência própria ganhar segunda fonte ou entrada MANUAL. É o caso dos campos do cadastro, que é um retrato diário. A regra por campo (alternativa B3) é a candidata. O cadastro passou a ser carregado (`Gui/fundos/scripts/load_cadastro.py`) só com a fonte `CVM_DADOS_ABERTOS`, então o gatilho não disparou; a data de referência dele está em Pendências.
 
 ### c) Conflito
 
@@ -227,11 +227,11 @@ A recomendação **exige** mudar o que a migration 001 de Fundos semeou e criou:
 
 A `MANUAL` continua em 1000. A migration 001 não é editada.
 
-As duas mudanças vão numa migration 002, numa tarefa futura, antes da primeira entrada MANUAL real e antes de semear qualquer outra fonte. Ela segue o fluxo de mudança de schema do `CLAUDE.md`: plano aprovado, teste da migration e da idempotência, `--dry-run`, backup e só então `--commit`. Como altera uma linha e uma view que já existem, exige `--allow-existing-changes` no `Gui/fundos/scripts/apply_migration.py`.
+As duas mudanças vão numa migration 003, numa tarefa futura (a 002 passou a ser a de `party_observations`, do leitor do cadastro), antes da primeira entrada MANUAL real e antes de semear qualquer outra fonte. Ela segue o fluxo de mudança de schema do `CLAUDE.md`: plano aprovado, teste da migration e da idempotência, `--dry-run`, backup e só então `--commit`. Como altera uma linha e uma view que já existem, exige `--allow-existing-changes` no `Gui/fundos/scripts/apply_migration.py`.
 
 Tarefas futuras (**propostas; nenhuma foi feita**):
 
-1. **Migration 002:** prioridade da `CVM_DADOS_ABERTOS` e nova view. Hoje o fixture `connection` aplica só a 001, então a tarefa inclui definir como a suíte passa a usar as migrations seguintes. Depois disso:
+1. **Migration 003:** prioridade da `CVM_DADOS_ABERTOS` e nova view. Hoje o fixture `connection` aplica só a 001, então a tarefa inclui definir como a suíte passa a usar as migrations seguintes. Depois disso:
    - atualizar os testes que fixam 200 (`test_seeded_sources_by_code`, `test_view_exposes_provenance`);
    - inverter `test_higher_priority_source_wins_over_newer_reference_date`;
    - acrescentar um teste de prioridade dentro da mesma competência.
@@ -324,7 +324,7 @@ ANBIMA:
 
 | Opção | Prós | Contras |
 |---|---|---|
-| **I1. Migration 002 própria, antes da primeira entrada MANUAL real e de qualquer fonte nova** | corrige a view antes de o caso 1 acontecer com dado real | uma migration a mais |
+| **I1. Migration 003 própria, antes da primeira entrada MANUAL real e de qualquer fonte nova** | corrige a view antes de o caso 1 acontecer com dado real | uma migration a mais |
 | I2. Juntar com a migration que semear a próxima fonte | uma migration a menos | o caso MANUAL × CVM já é possível hoje |
 | I3. Editar a migration 001 | nenhum | proibido pelo `CLAUDE.md`: migration aplicada não se edita |
 
@@ -343,7 +343,7 @@ ANBIMA:
 - Uma fonte menor pode aparecer como valor atual quando tiver competência mais nova. A fonte sempre aparece junto.
 - A regra depende de a competência ser confiável. Sem a checagem da tarefa futura 3, uma data errada, no futuro, dominaria o valor atual.
 - Se a fonte oficial repetir, numa competência seguinte, um erro já corrigido manualmente, nada avisa.
-- A migration 002 muda um valor semeado e inverte um teste existente.
+- A migration 003 muda um valor semeado e inverte um teste existente.
 - Enquanto não houver a rotina de resolução (tarefa futura 5), os conflitos só acumulam.
 - Continua uma limitação já documentada: se a mesma fonte publicar A, depois B e depois A de novo na mesma competência, a terceira publicação não gera linha, e o valor atual fica B (`test_returning_to_an_old_value_creates_no_row_and_keeps_the_conflict`).
 
@@ -351,7 +351,7 @@ ANBIMA:
 
 - Debêntures: a escala e a ordem da view (ver f), antes de ativar a `ANBIMA_API`.
 - Camada compartilhada: conciliar a escala e o sentido de "manual" na Fase 3.
-- A data de referência dos campos do cadastro, a definir no adaptador do cadastro.
+- ~~A data de referência dos campos do cadastro, a definir no adaptador do cadastro.~~ Definida no leitor do cadastro: é a competência do retrato, informada em `--reference-date` (a data do `Last-Modified` do ZIP na CVM), nunca a data da coleta.
 - Onde ficam os valores calculados (a subordinação e o corte do FIC-FIDC), se forem gravados como observação.
 - A amostra da ANBIMA e a conferência dos documentos do Fundos.NET.
 

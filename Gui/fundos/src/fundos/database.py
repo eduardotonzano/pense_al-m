@@ -52,6 +52,13 @@ class Database:
 
         return connection
 
+    def connect_read_only(self) -> sqlite3.Connection:
+        """Abre um banco existente so para leitura (PRAGMA query_only)."""
+
+        connection = self.connect()
+        connection.execute("PRAGMA query_only = ON")
+        return connection
+
     @contextmanager
     def connection(self) -> Iterator[sqlite3.Connection]:
         """Fornece uma conexao e garante o fechamento."""
