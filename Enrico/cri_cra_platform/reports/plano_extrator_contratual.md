@@ -76,3 +76,6 @@ Um campo sem parâmetro pode ser (a) algo que ainda não extraímos ou (b) algo 
     nos documentos lidos; vale conferir o Termo (p.81) e a ficha da série no AF (p.3).
   - **Café Brasil:** a remuneração (100% do DI + 4,5% a.a.) concorda no Termo e nas três DFs.
   - **CRI:** o Termo traz só "100% da Taxa DI + spread (tabela)" e o AF só "CDI + 1,5%": compatíveis, não divergentes.
+- **Informe Mensal como fonte (feito):** vencimento, classe, ISIN, número da emissão, taxa e quantidades por série do Informe
+  entram na comparação. Resultado e evidências na pesquisa `reports/divergencias_pesquisa_2026-10-29.md` (7 divergências, 2 delas
+  de alta gravidade no Alibem e no Café Brasil).

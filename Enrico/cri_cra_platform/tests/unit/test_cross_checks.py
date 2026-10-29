@@ -31,7 +31,12 @@ def _database():
     c.executescript(
         """CREATE TABLE assets (asset_id INTEGER, codigo_cetip TEXT, tipo_ativo TEXT);
            CREATE TABLE contract_parameters (parameter_id INTEGER PRIMARY KEY, asset_id INTEGER,
-               parameter_name TEXT, parameter_value TEXT, unit TEXT, review_status TEXT, source_reference TEXT);
+               parameter_name TEXT, parameter_value TEXT, unit TEXT, review_status TEXT, source_reference TEXT,
+               valid_to TEXT);
+           CREATE TABLE extracted_reports (report_id INTEGER PRIMARY KEY, asset_id INTEGER, document_id INTEGER,
+               reference_date TEXT, is_current INTEGER, human_review_status TEXT);
+           CREATE TABLE extracted_values (extracted_value_id INTEGER PRIMARY KEY, report_id INTEGER,
+               xml_path TEXT, instance_key TEXT, original_value TEXT);
            CREATE TABLE reported_facts (fact_id INTEGER PRIMARY KEY, asset_id INTEGER, document_version_id INTEGER,
                page_number INTEGER, fact_name TEXT, value TEXT, unit TEXT, review_status TEXT);
            CREATE TABLE document_versions (version_id INTEGER PRIMARY KEY, document_id INTEGER);
@@ -144,3 +149,43 @@ def test_text_check_requires_tokenizer(tmp_path):
     path.write_text('{"version": "x", "checks": [{"id": "a", "label": "a", "kind": "text"}]}', encoding="utf-8")
     with pytest.raises(ValueError, match="tokenizer"):
         load_checks(path)
+
+
+def test_tokenize_pre_means_prefixada():
+    from credit_assets.cross_checks import tokenize
+    assert tokenize("PRÉ 14,8000 % a.a", "remuneracao") == {"idx=PREFIXADA", "taxa=14.8"}
+
+
+def _informe_database():
+    c = _database()
+    c.executescript(
+        """INSERT INTO extracted_reports VALUES (1, 1, 1, '2026-01-31', 1, 'approved'),
+                                                (2, 1, 2, '2026-02-28', 1, 'approved');
+           INSERT INTO extracted_values VALUES
+             (1, 1, '/InformeMensalCRA/DadosGerais/Series/Serie/DataVencimento', '1', '2020-01-01'),
+             (2, 2, '/InformeMensalCRA/DadosGerais/Series/Serie/DataVencimento', '1', '2029-07-16'),
+             (3, 2, '/InformeMensalCRA/DadosGerais/Series/Serie/DataVencimento', '2', '2030-07-15');"""
+    )
+    return c
+
+
+def test_informe_uses_latest_current_report_and_groups_by_series(config):
+    c = _informe_database()
+    _param(c, "vencimento_serie_1", "2030-12-18", "data")
+    _param(c, "vencimento_serie_2", "2030-07-15", "data")
+    results = run_checks(c, config)
+    one = _result(results, "vencimento_serie", "1")
+    assert one["verdict"] == "divergem" and one["values"] == ["2029-07-16", "2030-12-18"]
+    assert {e["origin"] for e in one["entries"]} == {"parâmetro", "informe"}
+    assert _result(results, "vencimento_serie", "2")["verdict"] == "concordam"
+
+
+def test_superseded_parameters_are_ignored(config):
+    c = _informe_database()
+    _param(c, "data_vencimento_termo_original", "2027-09-30", "data")
+    c.execute("UPDATE contract_parameters SET valid_to = '2024-03-13'")
+    _param(c, "data_vencimento_final_cdca_cra", "2026-12-30", "data")
+    c.execute("DELETE FROM extracted_values")
+    c.execute("INSERT INTO extracted_values VALUES (9, 2, '/InformeMensalCRA/DadosGerais/Series/Serie/DataVencimento', '1', '2026-12-30')")
+    result = _result(run_checks(c, config), "data_vencimento")
+    assert result["verdict"] == "concordam" and result["values"] == ["2026-12-30"]

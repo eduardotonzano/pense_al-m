@@ -45,7 +45,7 @@ INDEXERS = (
     (re.compile(r"\bipca\b"), "IPCA"),
     (re.compile(r"\bselic\b"), "SELIC"),
     (re.compile(r"\bigp-?m\b"), "IGPM"),
-    (re.compile(r"\bpre-?fixad[ao]s?\b"), "PREFIXADA"),
+    (re.compile(r"\b(?:pre-?fixad[ao]s?|pre)\b"), "PREFIXADA"),
 )
 MULT_AFTER = re.compile(
     r"(?:d[aeo]s?\s+)?(?:variacao\s+(?:acumulada\s+)?(?:d[aeo]s?\s+)?)?(?:taxa\s+|indexador\s*\(\s*)?(?:c?di|ipca|selic)\b"
@@ -104,13 +104,51 @@ def _group(match: re.Match) -> str:
     return match.groupdict().get("n") or "-"
 
 
+def _informe_entries(connection: sqlite3.Connection, asset_id: int, check: dict[str, Any]):
+    """Valores do Informe Mensal vigente mais recente do ativo (campo ``informe`` do check:
+    ``path`` = regex do xml_path, ``group`` = "n" (usa a série) ou "-", ``instance`` opcional)."""
+
+    spec = check.get("informe")
+    if not spec:
+        return []
+    report = connection.execute(
+        """SELECT r.report_id, r.reference_date, r.human_review_status, d.source_document_id
+           FROM extracted_reports r JOIN documents d ON d.document_pk = r.document_id
+           WHERE r.asset_id = ? AND r.is_current = 1
+           ORDER BY r.reference_date DESC, r.report_id DESC LIMIT 1""", (asset_id,),
+    ).fetchone()
+    if report is None:
+        return []
+    pattern = re.compile(spec["path"])
+    entries = []
+    for row in connection.execute(
+        """SELECT extracted_value_id, xml_path, instance_key, original_value
+           FROM extracted_values WHERE report_id = ? AND original_value IS NOT NULL
+             AND TRIM(original_value) <> ''""", (report["report_id"],),
+    ):
+        if not pattern.search(row["xml_path"]):
+            continue
+        if spec.get("instance") and str(row["instance_key"]) != str(spec["instance"]):
+            continue
+        group = str(row["instance_key"]) if spec.get("group") == "n" else "-"
+        entries.append({
+            "group": group, "origin": "informe", "name": row["xml_path"].split("/", 2)[-1],
+            "raw": row["original_value"], "unit": None,
+            "status": "approved" if report["human_review_status"] == "approved" else "pending",
+            "source": f"Informe {report['reference_date']} (doc {report['source_document_id']})",
+            "id": row["extracted_value_id"],
+        })
+    return entries
+
+
 def _collect(connection: sqlite3.Connection, asset_id: int, check: dict[str, Any]):
     entries = []
     for row in connection.execute(
         """SELECT parameter_id, parameter_name, parameter_value, unit, review_status,
                   source_reference
            FROM contract_parameters
-           WHERE asset_id = ? AND review_status <> 'rejected'""", (asset_id,),
+           WHERE asset_id = ? AND review_status <> 'rejected'
+             AND (valid_to IS NULL OR valid_to >= date('now'))""", (asset_id,),
     ):
         for pattern in check["_param"]:
             match = pattern.search(row["parameter_name"])
@@ -141,9 +179,12 @@ def _collect(connection: sqlite3.Connection, asset_id: int, check: dict[str, Any
                     "id": row["fact_id"],
                 })
                 break
+    entries.extend(_informe_entries(connection, asset_id, check))
     allowed = check.get("units")
     for entry in entries:
-        entry["comparable"] = allowed is None or (entry["unit"] or "") in allowed
+        entry["comparable"] = (
+            allowed is None or entry["origin"] == "informe" or (entry["unit"] or "") in allowed
+        )
         entry["tokens"] = None
         if check["kind"] == "text":
             tokens = tokenize(entry["raw"], check["tokenizer"]) if entry["comparable"] else frozenset()

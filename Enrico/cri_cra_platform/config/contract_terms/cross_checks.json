@@ -41,18 +41,26 @@
       ],
       "facts": [
         "^(af_data_emissao|aviso_data_emissao)$"
-      ]
+      ],
+      "informe": {
+        "path": "DadosGerais/Emissao/DataEmissao$",
+        "group": "-"
+      }
     },
     {
       "id": "data_vencimento",
       "label": "Data de vencimento final",
       "kind": "date",
       "parameters": [
-        "^data_vencimento$"
+        "^data_vencimento(_final_cdca_cra|_termo_original)?$"
       ],
       "facts": [
         "^(af_data_vencimento|lamina_data_vencimento)$"
-      ]
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/DataVencimento$",
+        "group": "-"
+      }
     },
     {
       "id": "prazo_dias",
@@ -77,7 +85,12 @@
       ],
       "facts": [
         "^(comunicado_isin|aviso_codigo_isin|lamina_isin|aviso_isin_serie_1|comunicado_isin_serie_1)$"
-      ]
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/CodigoISIN$",
+        "group": "-",
+        "instance": "1"
+      }
     },
     {
       "id": "quantidade_serie",
@@ -94,7 +107,11 @@
         "^comunicado_quantidade_serie_(?P<n>\\d+)$",
         "^anuncio_serie_(?P<n>\\d+)_quantidade$",
         "^af_serie_(?P<n>\\d+)_quantidade_emitida$"
-      ]
+      ],
+      "informe": {
+        "path": "DetalhesSeries/Series/Serie/QtdCertificadosPorClasse$",
+        "group": "n"
+      }
     },
     {
       "id": "montante_serie",
@@ -109,7 +126,11 @@
       "facts": [
         "^anuncio_serie_(?P<n>\\d+)_montante$",
         "^af_serie_(?P<n>\\d+)_volume_emitido$"
-      ]
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/VlrTotalIntegralizado$",
+        "group": "n"
+      }
     },
     {
       "id": "vencimento_serie",
@@ -119,8 +140,14 @@
         "^vencimento_serie_(?P<n>\\d+)$"
       ],
       "facts": [
-        "^af_serie_(?P<n>\\d+)_data_vencimento$"
-      ]
+        "^af_serie_(?P<n>\\d+)_data_vencimento$",
+        "^(lamina|def)_serie_(?P<n>\\d+)_vencimento$",
+        "^df_data_termino_serie_(?P<n>\\d+)$"
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/DataVencimento$",
+        "group": "n"
+      }
     },
     {
       "id": "spread_serie_3_4",
@@ -208,7 +235,11 @@
       ],
       "facts": [
         "^af_serie_(?P<n>\\d+)_remuneracao$"
-      ]
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/TaxaJuros$",
+        "group": "n"
+      }
     },
     {
       "id": "remuneracao_emissao_texto",
@@ -220,7 +251,11 @@
       ],
       "facts": [
         "^(af_remuneracao|df_passivo_taxa_prazo|df2024_remuneracao)$"
-      ]
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/TaxaJuros$",
+        "group": "-"
+      }
     },
     {
       "id": "devedor_texto",
@@ -233,6 +268,35 @@
       "facts": [
         "^(df_entidade_devedora_cdca|aviso_devedora_cnpj_nire)$"
       ]
+    },
+    {
+      "id": "numero_emissao",
+      "label": "Número da emissão",
+      "kind": "code",
+      "parameters": [
+        "^numero_emissao$"
+      ],
+      "facts": [],
+      "informe": {
+        "path": "DadosGerais/Emissao/NumeroEmissao$",
+        "group": "-"
+      }
+    },
+    {
+      "id": "classe_serie",
+      "label": "Classe da série (sênior, mezanino, subordinada)",
+      "kind": "code",
+      "applies_to": [
+        "CRA"
+      ],
+      "parameters": [
+        "^classe_serie_(?P<n>\\d+)$"
+      ],
+      "facts": [],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/Classe$",
+        "group": "n"
+      }
     }
   ]
 }
