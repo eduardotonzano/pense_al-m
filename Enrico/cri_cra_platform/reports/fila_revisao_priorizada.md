@@ -8,7 +8,7 @@ Só leitura: nada aqui aprova item. Começar pelo nível 1; o nível 4 pode ser 
 | 2. Importante | 21 | 14 | 4 | 2 | 41 |
 | 3. Conferido visualmente, com observação | 53 | 34 | 23 | 0 | 110 |
 | 4. Conferido, sem observação (aprovação em bloco) | 4 | 0 | 4 | 0 | 8 |
-| 5. Sem conferência visual | 5 | 5 | 24 | 0 | 34 |
+| 5. Sem conferência visual | 5 | 5 | 0 | 0 | 10 |
 
 ## Nível 1: Decidir primeiro (18)
 
@@ -194,7 +194,7 @@ Só leitura: nada aqui aprova item. Começar pelo nível 1; o nível 4 pode ser 
 | CRA02500C1D | fato | 807 | `enc_serie_1_total_subscritores_e_cra` | 998 subscritores; 233.142 CRA subscritos e integralizados | conferido visualmente; ler a observação da proposta | Anúncio de Encerramento de Distribuição Pública 1068059, p.3 |
 | CRA02500C1D | fato | 808 | `enc_serie_2_total_subscritores_e_cra` | 173 subscritores; 16.858 CRA subscritos e integralizados | conferido visualmente; ler a observação da proposta | Anúncio de Encerramento de Distribuição Pública 1068059, p.3 |
 
-## Nível 5: Sem conferência visual (34)
+## Nível 5: Sem conferência visual (10)
 
 | Ativo | Tipo | Id | Nome | Valor | Por quê | Fonte |
 |---|---|---|---|---|---|---|
@@ -208,30 +208,6 @@ Só leitura: nada aqui aprova item. Começar pelo nível 1; o nível 4 pode ser 
 | CRA022009VM | parâmetro | 268 | `numero_series` | 1 (série única) | parâmetro sem conferência visual | Termo 355426, p.32, linhas 5-18 |
 | CRA022009VM | parâmetro | 275 | `atualizacao_monetaria` | Não há atualização monetária | parâmetro sem conferência visual | Termo 355426, p.33, linhas 28-39 |
 | CRA022009VM | parâmetro | 277 | `encargos_moratorios` | Multa moratória não compensatória de 2% + juros de mora de 1% ao mês,  | parâmetro sem conferência visual | Termo 355426, p.38, linhas 11-24 |
-| CRA02500C1D | fato | 839 | `df_data_termino_serie_1` | 2030-12-18 | sem conferência visual | Demonstrações Financeiras 1328400, p.10 |
-| CRA02500C1D | fato | 840 | `df_data_termino_serie_2` | 2030-12-18 | sem conferência visual | Demonstrações Financeiras 1328400, p.10 |
-| CRA02500C1D | fato | 841 | `df_data_termino_serie_3` | 2030-12-18 | sem conferência visual | Demonstrações Financeiras 1328400, p.10 |
-| CRA02500C1D | fato | 842 | `df_data_termino_serie_4` | 2032-12-17 | sem conferência visual | Demonstrações Financeiras 1328400, p.10 |
-| CRA02500C1D | fato | 843 | `df_remuneracao_serie_1` | Taxa prefixada 14,8% a.a. | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 844 | `df_remuneracao_serie_2` | 108% da variação do indexador (DI) | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 845 | `df_remuneracao_serie_3` | 100% da variação do indexador (DI) + taxa prefixada 1,5% a.a. | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 846 | `df_remuneracao_serie_4` | 100% da variação do indexador (DI) + taxa prefixada 2,5% a.a. | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 847 | `df_remuneracao_serie_5` | Taxa prefixada 8,88% a.a. (indexador IPCA) | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 848 | `df_prazo_meses_serie_1` | 59 | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 849 | `df_prazo_meses_serie_2` | 59 | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 850 | `df_prazo_meses_serie_3` | 59 | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 851 | `df_prazo_meses_serie_4` | 77 | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 852 | `df_prazo_meses_serie_5` | 120 | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 853 | `df_indexador_serie_1` | Prefixada | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 854 | `df_indexador_series_2_3_4` | DI | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 855 | `df_indexador_serie_5` | IPCA | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 856 | `df_cronograma_amortizacao_series_1_2_3` | Semestral, a partir de 2027-06-17 | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 857 | `df_cronograma_amortizacao_series_4_5` | Semestral, a partir de 2027-12-17 | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.20 |
-| CRA02500C1D | fato | 858 | `df_classe_serie_1` | Sênior | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.21 |
-| CRA02500C1D | fato | 859 | `df_classe_serie_2` | Sênior | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.21 |
-| CRA02500C1D | fato | 860 | `df_classe_serie_3` | Mezanino | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.21 |
-| CRA02500C1D | fato | 861 | `df_classe_serie_4` | Subordinada | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.21 |
-| CRA02500C1D | fato | 862 | `df_classe_serie_5` | Subordinada | sem conferência visual; tem observação na proposta | Demonstrações Financeiras 1328400, p.21 |
 
 ## Nível 4: Conferido, sem observação (aprovação em bloco)
 

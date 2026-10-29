@@ -96,8 +96,8 @@ CRI Almeida Junior: nenhuma divergência (9 verificações concordam, 1 compatí
 
 ## Resolução do Alibem com base nas DFs de 30/06/2026 (pedido de Enrico em 29/10/2026)
 
-Base: DFs do Patrimônio Separado da 426ª emissão (doc 1328400, BDO, relatório de 24/09/2026). Os 24 fatos novos dessas DFs estão
-**pendentes** (`config/reported_facts/cra02500c1d_df_2026_06_complemento.json`) e a resolução abaixo é **proposta**, aguardando sua aprovação.
+Base: DFs do Patrimônio Separado da 426ª emissão (doc 1328400, BDO, relatório de 24/09/2026). Os 24 fatos novos dessas DFs
+(`config/reported_facts/cra02500c1d_df_2026_06_complemento.json`, ids 839 a 862) foram **aprovados por Enrico em 29/10/2026**. A série 5 fica sem resolução até a consulta ao registro.
 
 | Dado | DFs (base) | Termo | Informe | AF 2025 | Resolução proposta |
 |---|---|---|---|---|---|

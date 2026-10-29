@@ -131,23 +131,23 @@ CRA02500C1D;montante_serie;5;concordam;informe;DadosGerais/Series/Serie/VlrTotal
 CRA02500C1D;vencimento_serie;1;divergem;parâmetro;vencimento_serie_1;2030-12-18;data;approved;Termo 1065416, p.66, linhas 15-28
 CRA02500C1D;vencimento_serie;1;divergem;fato;af_serie_1_data_vencimento;2030-12-18;data;approved;Relatório de Agente Fiduciário 1175590, p.3
 CRA02500C1D;vencimento_serie;1;divergem;fato;def_serie_1_vencimento;2030-12-18;data;approved;Prospecto de Distribuição Pública 1065463, p.15
-CRA02500C1D;vencimento_serie;1;divergem;fato;df_data_termino_serie_1;2030-12-18;data;pending;Demonstrações Financeiras 1328400, p.10
+CRA02500C1D;vencimento_serie;1;divergem;fato;df_data_termino_serie_1;2030-12-18;data;approved;Demonstrações Financeiras 1328400, p.10
 CRA02500C1D;vencimento_serie;1;divergem;fato;lamina_serie_1_vencimento;2030-12-18;data;approved;Lâmina de Oferta de Securitização 1040834, p.6
 CRA02500C1D;vencimento_serie;1;divergem;informe;DadosGerais/Series/Serie/DataVencimento;2029-07-16;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;vencimento_serie;2;divergem;parâmetro;vencimento_serie_2;2030-12-18;data;approved;Termo 1065416, p.66, linhas 15-28
 CRA02500C1D;vencimento_serie;2;divergem;fato;def_serie_2_vencimento;2030-12-18;data;approved;Prospecto de Distribuição Pública 1065463, p.15
-CRA02500C1D;vencimento_serie;2;divergem;fato;df_data_termino_serie_2;2030-12-18;data;pending;Demonstrações Financeiras 1328400, p.10
+CRA02500C1D;vencimento_serie;2;divergem;fato;df_data_termino_serie_2;2030-12-18;data;approved;Demonstrações Financeiras 1328400, p.10
 CRA02500C1D;vencimento_serie;2;divergem;fato;lamina_serie_2_vencimento;2030-12-18;data;approved;Lâmina de Oferta de Securitização 1040834, p.6
 CRA02500C1D;vencimento_serie;2;divergem;informe;DadosGerais/Series/Serie/DataVencimento;2032-07-15;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;vencimento_serie;3;divergem;parâmetro;vencimento_serie_3;2030-12-18;data;approved;Termo 1065416, p.66, linhas 15-28
 CRA02500C1D;vencimento_serie;3;divergem;fato;def_serie_3_vencimento;2030-12-18;data;approved;Prospecto de Distribuição Pública 1065463, p.15
-CRA02500C1D;vencimento_serie;3;divergem;fato;df_data_termino_serie_3;2030-12-18;data;pending;Demonstrações Financeiras 1328400, p.10
+CRA02500C1D;vencimento_serie;3;divergem;fato;df_data_termino_serie_3;2030-12-18;data;approved;Demonstrações Financeiras 1328400, p.10
 CRA02500C1D;vencimento_serie;3;divergem;fato;lamina_serie_3_vencimento;2030-12-18;data;approved;Lâmina de Oferta de Securitização 1040834, p.6
 CRA02500C1D;vencimento_serie;3;divergem;informe;DadosGerais/Series/Serie/DataVencimento;2035-07-16;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;vencimento_serie;4;divergem;parâmetro;vencimento_serie_4;2032-12-17;data;approved;Termo 1065416, p.66, linhas 25-38
 CRA02500C1D;vencimento_serie;4;divergem;fato;af_serie_4_data_vencimento;2032-12-17;data;approved;Relatório de Agente Fiduciário 1175590, p.6
 CRA02500C1D;vencimento_serie;4;divergem;fato;def_serie_4_vencimento;2032-12-17;data;approved;Prospecto de Distribuição Pública 1065463, p.15
-CRA02500C1D;vencimento_serie;4;divergem;fato;df_data_termino_serie_4;2032-12-17;data;pending;Demonstrações Financeiras 1328400, p.10
+CRA02500C1D;vencimento_serie;4;divergem;fato;df_data_termino_serie_4;2032-12-17;data;approved;Demonstrações Financeiras 1328400, p.10
 CRA02500C1D;vencimento_serie;4;divergem;fato;lamina_serie_4_vencimento;2032-12-17;data;approved;Lâmina de Oferta de Securitização 1040834, p.7
 CRA02500C1D;vencimento_serie;4;divergem;informe;DadosGerais/Series/Serie/DataVencimento;2030-07-15;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;vencimento_serie;5;divergem;parâmetro;vencimento_serie_5;2035-12-19;data;approved;Termo 1065416, p.66, linhas 25-38
@@ -169,23 +169,23 @@ CRA02500C1D;taxa_real_serie_5;5;concordam;parâmetro;remuneracao_serie_5_taxa;0.
 CRA02500C1D;taxa_real_serie_5;5;concordam;fato;lamina_serie_5_remuneracao_taxa_real;0.0888;fração a.a. (base 252) acima do IPCA;approved;Lâmina de Oferta de Securitização 1040834, p.7
 CRA02500C1D;remuneracao_serie_texto;1;divergem;parâmetro;remuneracao_serie_1;Prefixada 14,80% a.a., base 252 Dias Úteis;texto;approved;Termo 1065416, p.81, linhas 14-27
 CRA02500C1D;remuneracao_serie_texto;1;divergem;fato;af_serie_1_remuneracao;CDI;texto;approved;Relatório de Agente Fiduciário 1175590, p.3
-CRA02500C1D;remuneracao_serie_texto;1;divergem;fato;df_remuneracao_serie_1;Taxa prefixada 14,8% a.a.;texto;pending;Demonstrações Financeiras 1328400, p.20
+CRA02500C1D;remuneracao_serie_texto;1;divergem;fato;df_remuneracao_serie_1;Taxa prefixada 14,8% a.a.;texto;approved;Demonstrações Financeiras 1328400, p.20
 CRA02500C1D;remuneracao_serie_texto;1;divergem;informe;DadosGerais/Series/Serie/TaxaJuros;PRÉ 14,8000 % a.a;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;remuneracao_serie_texto;2;concordam;parâmetro;remuneracao_serie_2;108,00% da Taxa DI;texto;approved;Termo 1065416, p.67, linhas 40-50
 CRA02500C1D;remuneracao_serie_texto;2;concordam;fato;af_serie_2_remuneracao;108% CDI;texto;approved;Relatório de Agente Fiduciário 1175590, p.4
-CRA02500C1D;remuneracao_serie_texto;2;concordam;fato;df_remuneracao_serie_2;108% da variação do indexador (DI);texto;pending;Demonstrações Financeiras 1328400, p.20
+CRA02500C1D;remuneracao_serie_texto;2;concordam;fato;df_remuneracao_serie_2;108% da variação do indexador (DI);texto;approved;Demonstrações Financeiras 1328400, p.20
 CRA02500C1D;remuneracao_serie_texto;2;concordam;informe;DadosGerais/Series/Serie/TaxaJuros;108% do CDI;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;remuneracao_serie_texto;3;compativeis;parâmetro;remuneracao_serie_3;100% da Taxa DI + spread 1,50% a.a., base 252 Dias Úteis;texto;approved;Termo 1065416, p.68, linhas 3-16
 CRA02500C1D;remuneracao_serie_texto;3;compativeis;fato;af_serie_3_remuneracao;CDI + 1,5%;texto;approved;Relatório de Agente Fiduciário 1175590, p.5
-CRA02500C1D;remuneracao_serie_texto;3;compativeis;fato;df_remuneracao_serie_3;100% da variação do indexador (DI) + taxa prefixada 1,5% a.a.;texto;pending;Demonstrações Financeiras 1328400, p.20
+CRA02500C1D;remuneracao_serie_texto;3;compativeis;fato;df_remuneracao_serie_3;100% da variação do indexador (DI) + taxa prefixada 1,5% a.a.;texto;approved;Demonstrações Financeiras 1328400, p.20
 CRA02500C1D;remuneracao_serie_texto;3;compativeis;informe;DadosGerais/Series/Serie/TaxaJuros;CDI + 1,5000% a.a;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;remuneracao_serie_texto;4;compativeis;parâmetro;remuneracao_serie_4;100% da Taxa DI + spread 2,50% a.a., base 252 Dias Úteis;texto;approved;Termo 1065416, p.68, linhas 14-27
 CRA02500C1D;remuneracao_serie_texto;4;compativeis;fato;af_serie_4_remuneracao;CDI + 2,5%;texto;approved;Relatório de Agente Fiduciário 1175590, p.6
-CRA02500C1D;remuneracao_serie_texto;4;compativeis;fato;df_remuneracao_serie_4;100% da variação do indexador (DI) + taxa prefixada 2,5% a.a.;texto;pending;Demonstrações Financeiras 1328400, p.20
+CRA02500C1D;remuneracao_serie_texto;4;compativeis;fato;df_remuneracao_serie_4;100% da variação do indexador (DI) + taxa prefixada 2,5% a.a.;texto;approved;Demonstrações Financeiras 1328400, p.20
 CRA02500C1D;remuneracao_serie_texto;4;compativeis;informe;DadosGerais/Series/Serie/TaxaJuros;CDI + 2,5000% a.a;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;remuneracao_serie_texto;5;concordam;parâmetro;remuneracao_serie_5;IPCA (atualização do VNU) + 8,88% a.a., base 252 Dias Úteis;texto;approved;Termo 1065416, p.68, linhas 25-38
 CRA02500C1D;remuneracao_serie_texto;5;concordam;fato;af_serie_5_remuneracao;IPCA + 8,88%;texto;approved;Relatório de Agente Fiduciário 1175590, p.7
-CRA02500C1D;remuneracao_serie_texto;5;concordam;fato;df_remuneracao_serie_5;Taxa prefixada 8,88% a.a. (indexador IPCA);texto;pending;Demonstrações Financeiras 1328400, p.20
+CRA02500C1D;remuneracao_serie_texto;5;concordam;fato;df_remuneracao_serie_5;Taxa prefixada 8,88% a.a. (indexador IPCA);texto;approved;Demonstrações Financeiras 1328400, p.20
 CRA02500C1D;remuneracao_serie_texto;5;concordam;informe;DadosGerais/Series/Serie/TaxaJuros;IPCA + 8,8800 % a.a;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;remuneracao_emissao_texto;-;uma_fonte;informe;DadosGerais/Series/Serie/TaxaJuros;PRÉ 14,8000 % a.a;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;remuneracao_emissao_texto;-;uma_fonte;informe;DadosGerais/Series/Serie/TaxaJuros;108% do CDI;;approved;Informe 2026-09-30 (doc 1355952)
@@ -196,17 +196,17 @@ CRA02500C1D;devedor_texto;-;uma_fonte;fato;aviso_devedora_cnpj_nire;"Alibem Alim
 CRA02500C1D;numero_emissao;-;concordam;parâmetro;numero_emissao;426;texto;pending;Termo 1065416, p.1, linhas 2-15
 CRA02500C1D;numero_emissao;-;concordam;informe;DadosGerais/Emissao/NumeroEmissao;426;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;classe_serie;1;concordam;parâmetro;classe_serie_1;Sênior;texto;approved;Termo 1065416, p.35, linhas 12-25
-CRA02500C1D;classe_serie;1;concordam;fato;df_classe_serie_1;Sênior;texto;pending;Demonstrações Financeiras 1328400, p.21
+CRA02500C1D;classe_serie;1;concordam;fato;df_classe_serie_1;Sênior;texto;approved;Demonstrações Financeiras 1328400, p.21
 CRA02500C1D;classe_serie;1;concordam;informe;DadosGerais/Series/Serie/Classe;Sênior;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;classe_serie;2;concordam;parâmetro;classe_serie_2;Sênior;texto;approved;Termo 1065416, p.35, linhas 12-25
-CRA02500C1D;classe_serie;2;concordam;fato;df_classe_serie_2;Sênior;texto;pending;Demonstrações Financeiras 1328400, p.21
+CRA02500C1D;classe_serie;2;concordam;fato;df_classe_serie_2;Sênior;texto;approved;Demonstrações Financeiras 1328400, p.21
 CRA02500C1D;classe_serie;2;concordam;informe;DadosGerais/Series/Serie/Classe;Sênior;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;classe_serie;3;concordam;parâmetro;classe_serie_3;Mezanino;texto;approved;Termo 1065416, p.35, linhas 12-25
-CRA02500C1D;classe_serie;3;concordam;fato;df_classe_serie_3;Mezanino;texto;pending;Demonstrações Financeiras 1328400, p.21
+CRA02500C1D;classe_serie;3;concordam;fato;df_classe_serie_3;Mezanino;texto;approved;Demonstrações Financeiras 1328400, p.21
 CRA02500C1D;classe_serie;3;concordam;informe;DadosGerais/Series/Serie/Classe;Mezanino;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;classe_serie;4;divergem;parâmetro;classe_serie_4;Subordinada;texto;approved;Termo 1065416, p.35, linhas 12-25
-CRA02500C1D;classe_serie;4;divergem;fato;df_classe_serie_4;Subordinada;texto;pending;Demonstrações Financeiras 1328400, p.21
+CRA02500C1D;classe_serie;4;divergem;fato;df_classe_serie_4;Subordinada;texto;approved;Demonstrações Financeiras 1328400, p.21
 CRA02500C1D;classe_serie;4;divergem;informe;DadosGerais/Series/Serie/Classe;Mezanino;;approved;Informe 2026-09-30 (doc 1355952)
 CRA02500C1D;classe_serie;5;concordam;parâmetro;classe_serie_5;Subordinada;texto;approved;Termo 1065416, p.35, linhas 12-25
-CRA02500C1D;classe_serie;5;concordam;fato;df_classe_serie_5;Subordinada;texto;pending;Demonstrações Financeiras 1328400, p.21
+CRA02500C1D;classe_serie;5;concordam;fato;df_classe_serie_5;Subordinada;texto;approved;Demonstrações Financeiras 1328400, p.21
 CRA02500C1D;classe_serie;5;concordam;informe;DadosGerais/Series/Serie/Classe;Subordinada;;approved;Informe 2026-09-30 (doc 1355952)
