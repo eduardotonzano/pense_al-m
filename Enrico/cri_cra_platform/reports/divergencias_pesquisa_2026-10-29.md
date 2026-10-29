@@ -33,6 +33,10 @@ CRI Almeida Junior: nenhuma divergência (9 verificações concordam, 1 compatí
 - As datas do Termo conferem com a conta de dias corridos da Data de Emissão (15/12/2025 + 1.829 dias = 18/12/2030;
   + 2.559 = 17/12/2032; + 3.656 = 19/12/2035).
 - As datas do Informe não têm relação com as do Termo (mês de julho em todas, ordem diferente) e não mudam em nenhum mês.
+- **Confirmado na tela (imagem enviada por Enrico em 29/10/2026):** a visualização do Informe no Fundos.NET mostra as mesmas datas
+  (16/07/2029, 15/07/2032, 16/07/2035, 15/07/2030, 15/07/2030), então não é erro da nossa extração: o dado foi assim informado.
+- **Incoerência interna do próprio Informe:** o mesmo quadro diz periodicidade semestral com "mês base da apuração: Junho e Dezembro",
+  mas todos os vencimentos caem em julho. As datas do Termo (18/12, 17/12, 19/12) casam com o mês base de dezembro.
 - **Hipótese:** campo preenchido de modo errado no cadastro do Informe e nunca corrigido. Os documentos não explicam.
 - **Para fechar:** o registro do vencimento na B3/ANBIMA para os ISINs BRECOACRALJ8, LK6, LL4, LM2 e LN0.
   **ENRICO, FAÇA VC MESMO** (a consulta é em sistema da B3/ANBIMA ou da CVM).
