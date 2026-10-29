@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from credit_assets.contract_fields import coverage, load_catalog, summarize
+from credit_assets.contract_fields import coverage, load_catalog, load_not_applicable, summarize
 
 
 def main() -> int:
@@ -25,12 +25,17 @@ def main() -> int:
         "--catalog", type=Path,
         default=ROOT / "config" / "contract_terms" / "standard_fields.json",
     )
+    parser.add_argument(
+        "--not-applicable", type=Path,
+        default=ROOT / "config" / "contract_terms" / "not_applicable.json",
+    )
     args = parser.parse_args()
     catalog = load_catalog(args.catalog)
+    not_applicable = load_not_applicable(args.not_applicable)
     connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
     connection.row_factory = sqlite3.Row
     try:
-        report = coverage(connection, catalog)
+        report = coverage(connection, catalog, not_applicable)
     finally:
         connection.close()
     labels = {f["id"]: f for f in catalog["fields"]}
@@ -59,9 +64,15 @@ def main() -> int:
             f"{item['core']['missing']} | {item['important']['approved']} | {item['important']['missing']} |"
         )
     for asset in report["assets"]:
-        missing = [fid for fid, info in asset["fields"].items() if info["status"] == "missing"]
+        missing = [fid for fid, info in asset["fields"].items()
+                   if info["status"] in ("missing", "not_applicable_pending")]
         lines += ["", f"## {asset['codigo_cetip']}", "", "**Campos sem parâmetro:**"]
-        lines += [f"- `{fid}` ({labels[fid]['importance']}): {labels[fid]['label']}" for fid in missing] or ["- nenhum"]
+        lines += [
+            f"- `{fid}` ({labels[fid]['importance']}): {labels[fid]['label']}"
+            + (" — **'não se aplica' proposto, aguarda revisão**"
+               if asset["fields"][fid]["status"] == "not_applicable_pending" else "")
+            for fid in missing
+        ] or ["- nenhum"]
         if asset["unmapped_parameters"]:
             lines += ["", "**Parâmetros sem campo padrão:** "
                       + ", ".join(f"`{n}`" for n in asset["unmapped_parameters"])]

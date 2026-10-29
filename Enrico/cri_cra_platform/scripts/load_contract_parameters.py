@@ -22,9 +22,11 @@ from credit_assets.services.contract_terms_service import candidate_from_anchor
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--proposal", type=Path, required=True)
+    parser.add_argument("--database", type=Path, default=ROOT / "data" / "cri_cra.db",
+                        help="padrão: banco real; use uma cópia para testar as âncoras")
     args = parser.parse_args()
     proposal = json.loads(args.proposal.read_text(encoding="utf-8"))
-    connection = connect(ROOT / "data" / "cri_cra.db")
+    connection = connect(args.database)
     initialize_database(connection)
     try:
         asset = connection.execute(
@@ -70,12 +72,12 @@ def main() -> int:
                     """INSERT OR IGNORE INTO contract_parameters (
                         asset_id, candidate_id, parameter_name, parameter_value, unit,
                         applies_when, source_reference, proposed_by, justification,
-                        valid_from, source_kind, supersedes
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                        valid_from, source_kind, supersedes, valid_to
+                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                     (asset["asset_id"], item["candidate_id"], item["parameter_name"],
                      item["parameter_value"], item["unit"], item["applies_when"], reference,
                      proposal["proposed_by"], item.get("note"), item.get("valid_from"), kind,
-                     ",".join(item.get("supersedes") or []) or None),
+                     ",".join(item.get("supersedes") or []) or None, item.get("valid_to")),
                 ).rowcount
         rows = [dict(row) for row in connection.execute(
             """SELECT p.parameter_id, p.parameter_name, p.parameter_value, p.unit, p.applies_when,

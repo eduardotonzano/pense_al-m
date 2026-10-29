@@ -39,7 +39,19 @@ def match_field(parameter_name: str, catalog: dict[str, Any]) -> list[str]:
     ]
 
 
-def coverage(connection: sqlite3.Connection, catalog: dict[str, Any]) -> dict[str, Any]:
+def load_not_applicable(path: Path) -> list[dict[str, Any]]:
+    entries = json.loads(path.read_text(encoding="utf-8"))["entries"]
+    for entry in entries:
+        if entry["status"] == "approved" and not entry.get("reviewed_by"):
+            raise ValueError(f"{entry['field_id']}: aprovação sem revisor")
+    return entries
+
+
+def coverage(
+    connection: sqlite3.Connection,
+    catalog: dict[str, Any],
+    not_applicable: list[dict[str, Any]] | None = None,
+) -> dict[str, Any]:
     assets = connection.execute(
         "SELECT asset_id, codigo_cetip, tipo_ativo FROM assets ORDER BY codigo_cetip"
     ).fetchall()
@@ -75,6 +87,14 @@ def coverage(connection: sqlite3.Connection, catalog: dict[str, Any]) -> dict[st
                 "approved" if counts["approved"] else
                 "pending" if counts["pending"] else "missing"
             )
+            if status == "missing":
+                entry = next(
+                    (e for e in not_applicable or []
+                     if e["codigo_cetip"] == asset["codigo_cetip"] and e["field_id"] == field["id"]),
+                    None,
+                )
+                if entry is not None:
+                    status = "not_applicable" if entry["status"] == "approved" else "not_applicable_pending"
             per_field[field["id"]] = {**counts, "status": status}
         result_assets.append({
             "codigo_cetip": asset["codigo_cetip"], "tipo_ativo": asset["tipo_ativo"],
@@ -85,6 +105,13 @@ def coverage(connection: sqlite3.Connection, catalog: dict[str, Any]) -> dict[st
             "ambiguous_parameters": ambiguous}
 
 
+def _bucket(status: str) -> str:
+    # "não se aplica" aprovado fecha o campo; proposto continua contando como faltando.
+    return "approved" if status == "not_applicable" else (
+        "missing" if status == "not_applicable_pending" else status
+    )
+
+
 def summarize(report: dict[str, Any], catalog: dict[str, Any]) -> list[dict[str, Any]]:
     importance = {field["id"]: field["importance"] for field in catalog["fields"]}
     summary = []
@@ -93,6 +120,6 @@ def summarize(report: dict[str, Any], catalog: dict[str, Any]) -> list[dict[str,
             level: {"approved": 0, "pending": 0, "missing": 0} for level in IMPORTANCE
         }
         for field_id, info in asset["fields"].items():
-            counts[importance[field_id]][info["status"]] += 1
+            counts[importance[field_id]][_bucket(info["status"])] += 1
         summary.append({"codigo_cetip": asset["codigo_cetip"], **counts})
     return summary

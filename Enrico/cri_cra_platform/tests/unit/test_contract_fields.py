@@ -81,3 +81,25 @@ def test_coverage_does_not_modify_the_database(catalog):
     before = connection.execute("SELECT COUNT(*) FROM contract_parameters").fetchone()[0]
     coverage(connection, catalog)
     assert connection.execute("SELECT COUNT(*) FROM contract_parameters").fetchone()[0] == before
+
+
+def test_not_applicable_closes_field_only_after_approval(catalog):
+    entry = {"codigo_cetip": "A1", "field_id": "garantias.razao_minima", "evidence_parameter": "x",
+             "reason": "r", "status": "pending", "reviewed_by": None, "reviewed_at": None}
+    pending = coverage(_database(), catalog, [entry])["assets"][0]["fields"]["garantias.razao_minima"]
+    assert pending["status"] == "not_applicable_pending"
+    approved = coverage(
+        _database(), catalog,
+        [{**entry, "status": "approved", "reviewed_by": "Enrico", "reviewed_at": "2026-10-29"}],
+    )
+    assert approved["assets"][0]["fields"]["garantias.razao_minima"]["status"] == "not_applicable"
+    core = summarize(approved, catalog)[0]["core"]
+    assert core["approved"] == 2  # isin aprovado + razão "não se aplica" aprovada
+
+
+def test_not_applicable_approval_requires_reviewer(tmp_path):
+    from credit_assets.contract_fields import load_not_applicable
+    path = tmp_path / "n.json"
+    path.write_text('{"entries": [{"codigo_cetip": "A", "field_id": "f", "status": "approved"}]}', encoding="utf-8")
+    with pytest.raises(ValueError, match="revisor"):
+        load_not_applicable(path)

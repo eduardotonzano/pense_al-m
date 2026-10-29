@@ -36,23 +36,23 @@
 24G2100031;governanca.quorum_assembleia;Convocação, instalação e quóruns de assembleia;important;approved;6;0
 24G2100031;governanca.ordem_pagamentos;Ordem de pagamentos e alocação (cascata);core;approved;1;0
 CRA022009VM;identificacao.isin;ISIN;core;missing;0;0
-CRA022009VM;identificacao.numero_emissao;Número da emissão;core;missing;0;0
-CRA022009VM;identificacao.numero_series;Número de séries;important;missing;0;0
-CRA022009VM;identificacao.devedor;Devedor / cedente / avalista;core;missing;0;0
+CRA022009VM;identificacao.numero_emissao;Número da emissão;core;pending;0;1
+CRA022009VM;identificacao.numero_series;Número de séries;important;pending;0;1
+CRA022009VM;identificacao.devedor;Devedor / cedente / avalista;core;pending;0;1
 CRA022009VM;identificacao.agente_fiduciario;Agente fiduciário e remuneração;complementary;missing;0;0
-CRA022009VM;identificacao.lastro;Lastro (créditos que originam os CRI/CRA);core;missing;0;0
-CRA022009VM;identificacao.classe_serie;Classe da série (sênior, mezanino, subordinada);core;missing;0;0
-CRA022009VM;emissao.data_emissao;Data de emissão;core;missing;0;0
-CRA022009VM;emissao.data_vencimento;Data de vencimento final;core;approved;1;0
+CRA022009VM;identificacao.lastro;Lastro (créditos que originam os CRI/CRA);core;pending;0;1
+CRA022009VM;identificacao.classe_serie;Classe da série (sênior, mezanino, subordinada);core;pending;0;1
+CRA022009VM;emissao.data_emissao;Data de emissão;core;pending;0;1
+CRA022009VM;emissao.data_vencimento;Data de vencimento final;core;approved;1;1
 CRA022009VM;emissao.valor_total;Valor total da emissão;core;approved;1;0
 CRA022009VM;emissao.valor_nominal_unitario;Valor nominal unitário;core;approved;1;0
-CRA022009VM;emissao.quantidade_titulos;Quantidade de CRI/CRA;core;missing;0;0
+CRA022009VM;emissao.quantidade_titulos;Quantidade de CRI/CRA;core;pending;0;1
 CRA022009VM;remuneracao.taxa;Remuneração (indexador, taxa, spread);core;approved;1;0
-CRA022009VM;remuneracao.periodicidade;Periodicidade de pagamento;core;missing;0;0
+CRA022009VM;remuneracao.periodicidade;Periodicidade de pagamento;core;pending;0;1
 CRA022009VM;remuneracao.primeira_data_pagamento;Primeira data de pagamento;important;missing;0;0
 CRA022009VM;remuneracao.amortizacao;Cronograma e regra de amortização;core;approved;1;0
-CRA022009VM;remuneracao.atualizacao_monetaria;Atualização monetária;important;missing;0;0
-CRA022009VM;remuneracao.encargos_moratorios;Encargos moratórios;complementary;missing;0;0
+CRA022009VM;remuneracao.atualizacao_monetaria;Atualização monetária;important;pending;0;1
+CRA022009VM;remuneracao.encargos_moratorios;Encargos moratórios;complementary;pending;0;1
 CRA022009VM;garantias.descricao;Garantias da emissão;core;approved;1;0
 CRA022009VM;garantias.razao_minima;Razão mínima de garantia;core;approved;9;0
 CRA022009VM;garantias.liberacao;Liberação e substituição de garantias;important;missing;0;0
@@ -60,19 +60,19 @@ CRA022009VM;garantias.fundo_despesas;Fundo de despesas (valor inicial, mínimo, 
 CRA022009VM;garantias.fundo_reserva_retencao;Fundo de reserva, retenção ou liquidez;important;approved;3;0
 CRA022009VM;covenants.indices_financeiros;Covenants financeiros (dívida líquida/EBITDA, liquidez, endividamento);core;approved;3;0
 CRA022009VM;covenants.restricoes;Restrições (dividendos, capex, mútuos);important;approved;5;0
-CRA022009VM;vencimento_antecipado.hipoteses;Hipóteses de vencimento antecipado;core;approved;1;0
+CRA022009VM;vencimento_antecipado.hipoteses;Hipóteses de vencimento antecipado;core;approved;1;1
 CRA022009VM;vencimento_antecipado.limites_e_prazos;Limites (cross default, protesto) e prazos de cura;core;missing;0;0
 CRA022009VM;vencimento_antecipado.pagamento_e_quorum;Pagamento após vencimento antecipado e quórum de não declaração;important;missing;0;0
 CRA022009VM;vencimento_antecipado.liquidacao_ps;Eventos de liquidação do patrimônio separado;important;missing;0;0
 CRA022009VM;resgate.facultativo;Resgate antecipado e amortização extraordinária (regras e datas);core;approved;2;0
 CRA022009VM;resgate.waiver_fee;Waiver fee e prêmios;important;approved;2;0
 CRA022009VM;obrigacoes.dfs_e_relatorios;Prazos de entrega de DFs, relatórios e informações;core;approved;5;0
-CRA022009VM;obrigacoes.rating;Obrigação de rating;core;missing;0;0
+CRA022009VM;obrigacoes.rating;Obrigação de rating;core;pending;0;1
 CRA022009VM;obrigacoes.destinacao_recursos;Destinação de recursos;important;missing;0;0
 CRA022009VM;governanca.quorum_assembleia;Convocação, instalação e quóruns de assembleia;important;missing;0;0
-CRA022009VM;governanca.ordem_pagamentos;Ordem de pagamentos e alocação (cascata);core;missing;0;0
+CRA022009VM;governanca.ordem_pagamentos;Ordem de pagamentos e alocação (cascata);core;pending;0;2
 CRA02500C1D;identificacao.isin;ISIN;core;approved;2;0
-CRA02500C1D;identificacao.numero_emissao;Número da emissão;core;missing;0;0
+CRA02500C1D;identificacao.numero_emissao;Número da emissão;core;pending;0;1
 CRA02500C1D;identificacao.numero_series;Número de séries;important;missing;0;0
 CRA02500C1D;identificacao.devedor;Devedor / cedente / avalista;core;approved;1;0
 CRA02500C1D;identificacao.agente_fiduciario;Agente fiduciário e remuneração;complementary;approved;1;0
@@ -90,7 +90,7 @@ CRA02500C1D;remuneracao.amortizacao;Cronograma e regra de amortização;core;app
 CRA02500C1D;remuneracao.atualizacao_monetaria;Atualização monetária;important;approved;1;0
 CRA02500C1D;remuneracao.encargos_moratorios;Encargos moratórios;complementary;missing;0;0
 CRA02500C1D;garantias.descricao;Garantias da emissão;core;approved;1;0
-CRA02500C1D;garantias.razao_minima;Razão mínima de garantia;core;missing;0;0
+CRA02500C1D;garantias.razao_minima;Razão mínima de garantia;core;not_applicable_pending;0;0
 CRA02500C1D;garantias.liberacao;Liberação e substituição de garantias;important;missing;0;0
 CRA02500C1D;garantias.fundo_despesas;Fundo de despesas (valor inicial, mínimo, recomposição);core;approved;3;0
 CRA02500C1D;garantias.fundo_reserva_retencao;Fundo de reserva, retenção ou liquidez;important;missing;0;0

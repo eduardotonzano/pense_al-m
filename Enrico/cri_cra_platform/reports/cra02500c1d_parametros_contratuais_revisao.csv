@@ -1,5 +1,5 @@
 ﻿parameter_id;parameter_name;parameter_value;unit;applies_when;valid_from;valid_to;source_kind;supersedes;source_reference;observacao;review_status;trecho_literal
-73;classe_serie_1;Sênior;texto;toda a emissão;;;termo;;Termo 1065416, p.35, linhas 12-25;Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita.;pending;"“Custodiante”       manifestada na própria Assembleia Especial, ou em instrumento de
+73;classe_serie_1;Sênior;texto;toda a emissão;;;termo;;Termo 1065416, p.35, linhas 12-25;Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"“Custodiante”       manifestada na própria Assembleia Especial, ou em instrumento de
                     procuração que se refira especificamente à Assembleia Especial em que se
 “CVM”               dará a permissão de voto, nos termos previstos na Resolução CVM 60;
 “Data de Emissão    Significa os CRA da 1ª Série e os CRA da 2ª Série, quando referidos em
@@ -13,7 +13,7 @@ Rentabilidade”      relação aos CRA Subordinados, mas se subordinam, em rela
 Integralização das  moratórios eventualmente incorridos, de acordo com a Ordem de Alocação
 Notas Comerciais    dos Recursos;
 Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, quando referidos em"
-74;classe_serie_2;Sênior;texto;toda a emissão;;;termo;;Termo 1065416, p.35, linhas 12-25;Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita.;pending;"“Custodiante”       manifestada na própria Assembleia Especial, ou em instrumento de
+74;classe_serie_2;Sênior;texto;toda a emissão;;;termo;;Termo 1065416, p.35, linhas 12-25;Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"“Custodiante”       manifestada na própria Assembleia Especial, ou em instrumento de
                     procuração que se refira especificamente à Assembleia Especial em que se
 “CVM”               dará a permissão de voto, nos termos previstos na Resolução CVM 60;
 “Data de Emissão    Significa os CRA da 1ª Série e os CRA da 2ª Série, quando referidos em
@@ -27,7 +27,7 @@ Rentabilidade”      relação aos CRA Subordinados, mas se subordinam, em rela
 Integralização das  moratórios eventualmente incorridos, de acordo com a Ordem de Alocação
 Notas Comerciais    dos Recursos;
 Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, quando referidos em"
-75;classe_serie_3;Mezanino;texto;toda a emissão;;;termo;;Termo 1065416, p.35, linhas 12-25;Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita.;pending;"“Custodiante”       manifestada na própria Assembleia Especial, ou em instrumento de
+75;classe_serie_3;Mezanino;texto;toda a emissão;;;termo;;Termo 1065416, p.35, linhas 12-25;Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"“Custodiante”       manifestada na própria Assembleia Especial, ou em instrumento de
                     procuração que se refira especificamente à Assembleia Especial em que se
 “CVM”               dará a permissão de voto, nos termos previstos na Resolução CVM 60;
 “Data de Emissão    Significa os CRA da 1ª Série e os CRA da 2ª Série, quando referidos em
@@ -41,7 +41,7 @@ Rentabilidade”      relação aos CRA Subordinados, mas se subordinam, em rela
 Integralização das  moratórios eventualmente incorridos, de acordo com a Ordem de Alocação
 Notas Comerciais    dos Recursos;
 Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, quando referidos em"
-76;classe_serie_4;Subordinada;texto;toda a emissão;;;termo;;Termo 1065416, p.35, linhas 12-25;Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita. O Anexo V (declaração do AF) chama as séries 4 e 5 de 'subclasses Subordinadas Júniores'.;pending;"“Custodiante”       manifestada na própria Assembleia Especial, ou em instrumento de
+76;classe_serie_4;Subordinada;texto;toda a emissão;;;termo;;Termo 1065416, p.35, linhas 12-25;Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita. O Anexo V (declaração do AF) chama as séries 4 e 5 de 'subclasses Subordinadas Júniores'. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"“Custodiante”       manifestada na própria Assembleia Especial, ou em instrumento de
                     procuração que se refira especificamente à Assembleia Especial em que se
 “CVM”               dará a permissão de voto, nos termos previstos na Resolução CVM 60;
 “Data de Emissão    Significa os CRA da 1ª Série e os CRA da 2ª Série, quando referidos em
@@ -55,7 +55,7 @@ Rentabilidade”      relação aos CRA Subordinados, mas se subordinam, em rela
 Integralização das  moratórios eventualmente incorridos, de acordo com a Ordem de Alocação
 Notas Comerciais    dos Recursos;
 Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, quando referidos em"
-77;classe_serie_5;Subordinada;texto;toda a emissão;;;termo;;Termo 1065416, p.35, linhas 12-25;Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita. O Anexo V (declaração do AF) chama as séries 4 e 5 de 'subclasses Subordinadas Júniores'.;pending;"“Custodiante”       manifestada na própria Assembleia Especial, ou em instrumento de
+77;classe_serie_5;Subordinada;texto;toda a emissão;;;termo;;Termo 1065416, p.35, linhas 12-25;Definições de CRA Sêniores, CRA Mezanino e CRA Subordinados (Cláusula 1.1). Texto extraído em duas colunas: os rótulos à esquerda (ex.: 'Data de Emissão') não correspondem às definições à direita. O Anexo V (declaração do AF) chama as séries 4 e 5 de 'subclasses Subordinadas Júniores'. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"“Custodiante”       manifestada na própria Assembleia Especial, ou em instrumento de
                     procuração que se refira especificamente à Assembleia Especial em que se
 “CVM”               dará a permissão de voto, nos termos previstos na Resolução CVM 60;
 “Data de Emissão    Significa os CRA da 1ª Série e os CRA da 2ª Série, quando referidos em
@@ -69,7 +69,7 @@ Rentabilidade”      relação aos CRA Subordinados, mas se subordinam, em rela
 Integralização das  moratórios eventualmente incorridos, de acordo com a Ordem de Alocação
 Notas Comerciais    dos Recursos;
 Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, quando referidos em"
-78;subordinacao_mecanismo;"Prioridade de pagamento: Sênior > Mezanino > Subordinada (Mezanino subordina-se ao Sênior; Subordinada ao Sênior e ao Mezanino); sem preferência entre séries da mesma classe";texto;remuneração, amortização, vencimento e liquidação do Patrimônio Separado;;;termo;;Termo 1065416, p.69, linhas 6-19;Não há índice/razão mínima de subordinação nem forma de medição prevista no Termo (busca por 'subordinação mínima'/'índice de subordinação' sem resultado). Pagamentos de Mezanino e Subordinados só após todos os valores devidos aos Sêniores.;pending;"               Data de Pagamento da Remuneração aplicável imediatamente anterior, conforme o caso, até a data do efetivo
+78;subordinacao_mecanismo;"Prioridade de pagamento: Sênior > Mezanino > Subordinada (Mezanino subordina-se ao Sênior; Subordinada ao Sênior e ao Mezanino); sem preferência entre séries da mesma classe";texto;remuneração, amortização, vencimento e liquidação do Patrimônio Separado;;;termo;;Termo 1065416, p.69, linhas 6-19;Não há índice/razão mínima de subordinação nem forma de medição prevista no Termo (busca por 'subordinação mínima'/'índice de subordinação' sem resultado). Pagamentos de Mezanino e Subordinados só após todos os valores devidos aos Sêniores. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               Data de Pagamento da Remuneração aplicável imediatamente anterior, conforme o caso, até a data do efetivo
                pagamento, sobre todos e quaisquer valores em atraso, incidirão Encargos Moratórios.
 
                (xxv) Vantagens e Restrições dos CRA. Os CRA Sêniores terão prioridade sobre os CRA Mezanino
@@ -83,7 +83,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                Cláusula 12.2. Os CRA Mezanino subordinam-se aos CRA Sêniores e os CRA Subordinados
                subordinam-se aos CRA Sêniores e aos CRA Mezanino para todos os fins e efeitos de direito, incluindo,
                sem limitação, com relação ao pagamento da Remuneração dos CRA, pagamento do Valor Nominal"
-79;quantidade_serie_1;233142;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi) do Termo consolidado.;pending;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
+79;quantidade_serie_1;233142;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi) do Termo consolidado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
                (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondente aos CRA da 1ª Série;
                (b) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondente aos
                CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões de reais) correspondente aos
@@ -97,7 +97,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis
                mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª
                Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série."
-80;valor_emissao_serie_1;233142000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (v) do Termo consolidado.;pending;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
+80;valor_emissao_serie_1;233142000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (v) do Termo consolidado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
                (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondente aos CRA da 1ª Série;
                (b) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondente aos
                CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões de reais) correspondente aos
@@ -111,7 +111,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis
                mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª
                Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série."
-81;quantidade_serie_2;16858;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi) do Termo consolidado.;pending;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
+81;quantidade_serie_2;16858;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi) do Termo consolidado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
                (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondente aos CRA da 1ª Série;
                (b) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondente aos
                CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões de reais) correspondente aos
@@ -125,7 +125,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis
                mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª
                Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série."
-82;valor_emissao_serie_2;16858000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (v) do Termo consolidado.;pending;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
+82;valor_emissao_serie_2;16858000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (v) do Termo consolidado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
                (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondente aos CRA da 1ª Série;
                (b) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondente aos
                CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões de reais) correspondente aos
@@ -139,7 +139,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis
                mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª
                Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série."
-83;quantidade_serie_3;250000;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi) do Termo consolidado.;pending;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
+83;quantidade_serie_3;250000;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi) do Termo consolidado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
                (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondente aos CRA da 1ª Série;
                (b) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondente aos
                CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões de reais) correspondente aos
@@ -153,7 +153,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis
                mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª
                Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série."
-84;valor_emissao_serie_3;250000000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (v) do Termo consolidado.;pending;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
+84;valor_emissao_serie_3;250000000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (v) do Termo consolidado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
                (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondente aos CRA da 1ª Série;
                (b) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondente aos
                CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões de reais) correspondente aos
@@ -167,7 +167,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis
                mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª
                Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série."
-85;quantidade_serie_4;100000;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi) do Termo consolidado.;pending;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
+85;quantidade_serie_4;100000;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi) do Termo consolidado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
                (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondente aos CRA da 1ª Série;
                (b) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondente aos
                CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões de reais) correspondente aos
@@ -181,7 +181,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis
                mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª
                Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série."
-86;valor_emissao_serie_4;100000000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (v) do Termo consolidado.;pending;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
+86;valor_emissao_serie_4;100000000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (v) do Termo consolidado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
                (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondente aos CRA da 1ª Série;
                (b) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondente aos
                CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões de reais) correspondente aos
@@ -195,7 +195,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis
                mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª
                Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série."
-87;quantidade_serie_5;150000;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi) do Termo consolidado.;pending;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
+87;quantidade_serie_5;150000;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi) do Termo consolidado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
                (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondente aos CRA da 1ª Série;
                (b) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondente aos
                CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões de reais) correspondente aos
@@ -209,7 +209,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis
                mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª
                Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série."
-88;valor_emissao_serie_5;150000000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (v) do Termo consolidado.;pending;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
+88;valor_emissao_serie_5;150000000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (v) do Termo consolidado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
                (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondente aos CRA da 1ª Série;
                (b) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondente aos
                CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões de reais) correspondente aos
@@ -223,7 +223,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis
                mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª
                Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série."
-89;quantidade_total_cra;750000;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi).;pending;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
+89;quantidade_total_cra;750000;CRA;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.64, linhas 12-25;Cláusula 3.1 (vi). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               cinquenta milhões de reais) na Data de Emissão (“Valor Total da Emissão”), sendo (a) R$ 233.142.000,00
                (duzentos e trinta e três milhões, cento e quarenta e dois mil reais) correspondente aos CRA da 1ª Série;
                (b) R$ 16.858.000,00 (dezesseis milhões, oitocentos e cinquenta e oito mil reais) correspondente aos
                CRA da 2ª Série; (c) R$250.000.000,00 (duzentos e cinquenta milhões de reais) correspondente aos
@@ -237,7 +237,7 @@ Escriturais”        Significa os CRA da 4ª Série e os CRA da 5ª Série, qua
                233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis
                mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª
                Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série."
-90;valor_total_emissao;750000000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.54, linhas 30-43;"Definição 'Valor Total das Notas Comerciais Escriturais' (Cláusula 1.1); coincide com o Valor Total da Emissão da Cláusula 3.1 (v). Texto em duas colunas (rótulo 'Série”' intercalado).";pending;"                       Unitário ou saldo do Valor Nominal Unitário das Notas Comerciais
+90;valor_total_emissao;750000000.00;BRL;Data de Emissão 2025-12-15;;;termo;;Termo 1065416, p.54, linhas 30-43;"Definição 'Valor Total das Notas Comerciais Escriturais' (Cláusula 1.1); coincide com o Valor Total da Emissão da Cláusula 3.1 (v). Texto em duas colunas (rótulo 'Série”' intercalado). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"                       Unitário ou saldo do Valor Nominal Unitário das Notas Comerciais
 dos CRA da 5ª          Escriturais 5ª Série, conforme o caso.
                        Significa o valor total das Notas Comerciais Escriturais, de R$
 Série”                 750.000.000,00 (setecentos e cinquenta milhões de reais) na Data de
@@ -251,7 +251,7 @@ Unitário”              milhões, oitocentos e cinquenta e oito mil reais) rel
 Unitário das Notas     Comerciais Escriturais 4ª Série; e (v) R$ 150.000.000,00 (cento e
                        cinquenta milhões de reais) relativos às Notas Comerciais Escriturais 5ª
 Comerciais             Série;"
-91;data_emissao;2025-12-15;data;todas as séries;;;termo;;Termo 1065416, p.65, linhas 26-39;Cláusula 3.1 (ix).;pending;"               (ix) Data de Emissão – A Data de Emissão dos CRA é 15 de dezembro de 2025.
+91;data_emissao;2025-12-15;data;todas as séries;;;termo;;Termo 1065416, p.65, linhas 26-39;Cláusula 3.1 (ix). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               (ix) Data de Emissão – A Data de Emissão dos CRA é 15 de dezembro de 2025.
 
                (x) Valor Nominal Unitário — Os CRA terão valor nominal unitário de R$1.000,00 (mil reais), na
                Data de Emissão.
@@ -263,7 +263,7 @@ Comerciais             Série;"
                de Início da Rentabilidade até a data de seu efetivo pagamento, sendo o produto da Atualização Monetária
                automaticamente incorporado ao Valor Nominal Unitário ou ao saldo do Valor Nominal Unitário dos CRA
                da 5ª Série, conforme o caso, conforme fórmula prevista na Cláusula 6.1 abaixo."
-92;valor_nominal_unitario;1000.00;BRL;todas as séries, na Data de Emissão;;;termo;;Termo 1065416, p.65, linhas 26-39;Cláusula 3.1 (x).;pending;"               (ix) Data de Emissão – A Data de Emissão dos CRA é 15 de dezembro de 2025.
+92;valor_nominal_unitario;1000.00;BRL;todas as séries, na Data de Emissão;;;termo;;Termo 1065416, p.65, linhas 26-39;Cláusula 3.1 (x). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               (ix) Data de Emissão – A Data de Emissão dos CRA é 15 de dezembro de 2025.
 
                (x) Valor Nominal Unitário — Os CRA terão valor nominal unitário de R$1.000,00 (mil reais), na
                Data de Emissão.
@@ -275,7 +275,7 @@ Comerciais             Série;"
                de Início da Rentabilidade até a data de seu efetivo pagamento, sendo o produto da Atualização Monetária
                automaticamente incorporado ao Valor Nominal Unitário ou ao saldo do Valor Nominal Unitário dos CRA
                da 5ª Série, conforme o caso, conforme fórmula prevista na Cláusula 6.1 abaixo."
-93;remuneracao_serie_1;Prefixada 14,80% a.a., base 252 Dias Úteis;texto;1ª Série;;;termo;;Termo 1065416, p.81, linhas 14-27;"Cláusula 6.2 do Termo consolidado; taxa definida no Bookbuilding (versão de nov/2025 previa taxa-teto).";pending;"6.2. Remuneração dos CRA da 1ª Série: A partir da primeira Data de Integralização, sobre o Valor
+93;remuneracao_serie_1;Prefixada 14,80% a.a., base 252 Dias Úteis;texto;1ª Série;;;termo;;Termo 1065416, p.81, linhas 14-27;"Cláusula 6.2 do Termo consolidado; taxa definida no Bookbuilding (versão de nov/2025 previa taxa-teto). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"6.2. Remuneração dos CRA da 1ª Série: A partir da primeira Data de Integralização, sobre o Valor
 Nominal Unitário ou saldo do Valor Nominal Unitário dos CRA da 1ª Série, conforme o caso, incidirão
 juros remuneratórios prefixados correspondentes a 14,80% (quatorze inteiros e oitenta centésimos por
 cento)ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis (“Remuneração dos CRA da 1ª Série”).
@@ -289,7 +289,7 @@ obedecida a seguinte fórmula:
        𝐽 = 𝑉𝑁𝑒 × (𝐹𝑎𝑡𝑜𝑟 𝑑𝑒 𝐽𝑢𝑟𝑜𝑠 − 1)
 
 onde:"
-94;remuneracao_serie_1_taxa;0.1480;fração a.a. (base 252);1ª Série;;;termo;;Termo 1065416, p.81, linhas 14-27;;pending;"6.2. Remuneração dos CRA da 1ª Série: A partir da primeira Data de Integralização, sobre o Valor
+94;remuneracao_serie_1_taxa;0.1480;fração a.a. (base 252);1ª Série;;;termo;;Termo 1065416, p.81, linhas 14-27;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"6.2. Remuneração dos CRA da 1ª Série: A partir da primeira Data de Integralização, sobre o Valor
 Nominal Unitário ou saldo do Valor Nominal Unitário dos CRA da 1ª Série, conforme o caso, incidirão
 juros remuneratórios prefixados correspondentes a 14,80% (quatorze inteiros e oitenta centésimos por
 cento)ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis (“Remuneração dos CRA da 1ª Série”).
@@ -303,7 +303,7 @@ obedecida a seguinte fórmula:
        𝐽 = 𝑉𝑁𝑒 × (𝐹𝑎𝑡𝑜𝑟 𝑑𝑒 𝐽𝑢𝑟𝑜𝑠 − 1)
 
 onde:"
-95;remuneracao_serie_2;108,00% da Taxa DI;texto;2ª Série;;;termo;;Termo 1065416, p.67, linhas 40-50;Cláusula 3.1 (xix).;pending;"               ao final de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.2 deste
+95;remuneracao_serie_2;108,00% da Taxa DI;texto;2ª Série;;;termo;;Termo 1065416, p.67, linhas 40-50;Cláusula 3.1 (xix). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               ao final de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.2 deste
                Termo de Securitização.
 
                (xix) Remuneração dos CRA da 2ª Série — Sobre o Valor Nominal Unitário ou o saldo do Valor
@@ -314,7 +314,7 @@ onde:"
                Remuneração dos CRA da 2ª Série imediatamente anterior, o que ocorrer por último, até a data de seu
 
                                                                                                                                         67"
-96;remuneracao_serie_2_percentual_di;1.0800;fração da Taxa DI;2ª Série;;;termo;;Termo 1065416, p.67, linhas 40-50;;pending;"               ao final de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.2 deste
+96;remuneracao_serie_2_percentual_di;1.0800;fração da Taxa DI;2ª Série;;;termo;;Termo 1065416, p.67, linhas 40-50;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               ao final de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.2 deste
                Termo de Securitização.
 
                (xix) Remuneração dos CRA da 2ª Série — Sobre o Valor Nominal Unitário ou o saldo do Valor
@@ -325,7 +325,7 @@ onde:"
                Remuneração dos CRA da 2ª Série imediatamente anterior, o que ocorrer por último, até a data de seu
 
                                                                                                                                         67"
-97;remuneracao_serie_3;100% da Taxa DI + spread 1,50% a.a., base 252 Dias Úteis;texto;3ª Série;;;termo;;Termo 1065416, p.68, linhas 3-16;Cláusula 3.1 (xx).;pending;"               efetivo pagamento, e pagos ao final de cada Período de Capitalização, de acordo com a fórmula
+97;remuneracao_serie_3;100% da Taxa DI + spread 1,50% a.a., base 252 Dias Úteis;texto;3ª Série;;;termo;;Termo 1065416, p.68, linhas 3-16;Cláusula 3.1 (xx). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               efetivo pagamento, e pagos ao final de cada Período de Capitalização, de acordo com a fórmula
                constante da Cláusula 6.3 deste Termo de Securitização.
 
                (xx) Remuneração dos CRA da 3ª Série — Sobre o Valor Nominal Unitário ou saldo do Valor
@@ -338,7 +338,7 @@ onde:"
                imediatamente anterior, o que ocorrer por último, até a data de seu efetivo pagamento, e pagos ao final
                de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.4 deste Termo de
                Securitização."
-98;remuneracao_serie_3_spread;0.0150;fração a.a. sobre DI (base 252);3ª Série;;;termo;;Termo 1065416, p.68, linhas 3-16;;pending;"               efetivo pagamento, e pagos ao final de cada Período de Capitalização, de acordo com a fórmula
+98;remuneracao_serie_3_spread;0.0150;fração a.a. sobre DI (base 252);3ª Série;;;termo;;Termo 1065416, p.68, linhas 3-16;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               efetivo pagamento, e pagos ao final de cada Período de Capitalização, de acordo com a fórmula
                constante da Cláusula 6.3 deste Termo de Securitização.
 
                (xx) Remuneração dos CRA da 3ª Série — Sobre o Valor Nominal Unitário ou saldo do Valor
@@ -351,7 +351,7 @@ onde:"
                imediatamente anterior, o que ocorrer por último, até a data de seu efetivo pagamento, e pagos ao final
                de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.4 deste Termo de
                Securitização."
-99;remuneracao_serie_4;100% da Taxa DI + spread 2,50% a.a., base 252 Dias Úteis;texto;4ª Série;;;termo;;Termo 1065416, p.68, linhas 14-27;Cláusula 3.1 (xxi).;pending;"               de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.4 deste Termo de
+99;remuneracao_serie_4;100% da Taxa DI + spread 2,50% a.a., base 252 Dias Úteis;texto;4ª Série;;;termo;;Termo 1065416, p.68, linhas 14-27;Cláusula 3.1 (xxi). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.4 deste Termo de
                Securitização.
 
                (xxi) Remuneração dos CRA da 4ª Série — Sobre o Valor Nominal Unitário ou saldo do Valor
@@ -364,7 +364,7 @@ onde:"
                imediatamente anterior, o que ocorrer por último, até a data de seu efetivo pagamento, e pagos ao final
                de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.5 deste Termo de
                Securitização."
-100;remuneracao_serie_4_spread;0.0250;fração a.a. sobre DI (base 252);4ª Série;;;termo;;Termo 1065416, p.68, linhas 14-27;;pending;"               de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.4 deste Termo de
+100;remuneracao_serie_4_spread;0.0250;fração a.a. sobre DI (base 252);4ª Série;;;termo;;Termo 1065416, p.68, linhas 14-27;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.4 deste Termo de
                Securitização.
 
                (xxi) Remuneração dos CRA da 4ª Série — Sobre o Valor Nominal Unitário ou saldo do Valor
@@ -377,7 +377,7 @@ onde:"
                imediatamente anterior, o que ocorrer por último, até a data de seu efetivo pagamento, e pagos ao final
                de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.5 deste Termo de
                Securitização."
-101;remuneracao_serie_5;IPCA (atualização do VNU) + 8,88% a.a., base 252 Dias Úteis;texto;5ª Série;;;termo;;Termo 1065416, p.68, linhas 25-38;"Cláusula 3.1 (xxii); juros sobre o Valor Nominal Unitário Atualizado pelo IPCA (Cláusula 3.1 (xi)).";pending;"               de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.5 deste Termo de
+101;remuneracao_serie_5;IPCA (atualização do VNU) + 8,88% a.a., base 252 Dias Úteis;texto;5ª Série;;;termo;;Termo 1065416, p.68, linhas 25-38;"Cláusula 3.1 (xxii); juros sobre o Valor Nominal Unitário Atualizado pelo IPCA (Cláusula 3.1 (xi)). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"               de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.5 deste Termo de
                Securitização.
 
                (xxii) Remuneração dos CRA da 5ª Série — Sobre o Valor Nominal Unitário Atualizado dos CRA
@@ -391,7 +391,7 @@ onde:"
                Securitização.
 
                (xxiii) Destinação dos Recursos – Os recursos obtidos, pela Emissora, com a subscrição e integralização"
-102;remuneracao_serie_5_taxa;0.0888;fração a.a. sobre VNU atualizado por IPCA (base 252);5ª Série;;;termo;;Termo 1065416, p.68, linhas 25-38;;pending;"               de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.5 deste Termo de
+102;remuneracao_serie_5_taxa;0.0888;fração a.a. sobre VNU atualizado por IPCA (base 252);5ª Série;;;termo;;Termo 1065416, p.68, linhas 25-38;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               de cada Período de Capitalização, de acordo com a fórmula constante da Cláusula 6.5 deste Termo de
                Securitização.
 
                (xxii) Remuneração dos CRA da 5ª Série — Sobre o Valor Nominal Unitário Atualizado dos CRA
@@ -405,7 +405,7 @@ onde:"
                Securitização.
 
                (xxiii) Destinação dos Recursos – Os recursos obtidos, pela Emissora, com a subscrição e integralização"
-103;atualizacao_monetaria;"Apenas a 5ª Série é atualizada pelo IPCA; Sêniores, Mezanino e 4ª Série sem atualização monetária";texto;toda a emissão;;;termo;;Termo 1065416, p.65, linhas 29-42;Cláusula 3.1 (xi).;pending;"               (x) Valor Nominal Unitário — Os CRA terão valor nominal unitário de R$1.000,00 (mil reais), na
+103;atualizacao_monetaria;"Apenas a 5ª Série é atualizada pelo IPCA; Sêniores, Mezanino e 4ª Série sem atualização monetária";texto;toda a emissão;;;termo;;Termo 1065416, p.65, linhas 29-42;Cláusula 3.1 (xi). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               (x) Valor Nominal Unitário — Os CRA terão valor nominal unitário de R$1.000,00 (mil reais), na
                Data de Emissão.
 
                (xi) Atualização Monetária — O Valor Nominal Unitário ou o saldo do Valor Nominal Unitário dos
@@ -419,7 +419,7 @@ onde:"
                (xii) Forma e Comprovação de Titularidade — Os CRA foram emitidos de forma nominativa e
                escritural, sem emissão de certificados. Sua titularidade será comprovada pelo extrato de posição de
                ativos emitido pela B3 quando os CRA estiverem custodiados eletronicamente na B3. Adicionalmente,"
-104;periodicidade_remuneracao;Semestral, para todas as séries;texto;todas as séries;;;termo;;Termo 1065416, p.89, linhas 14-27;"Cláusula 6.9: demais pagamentos 'no segundo Dia Útil posterior ao pagamento da 3ª Emissão de Notas Comerciais dos meses de junho e dezembro'; datas no Anexo I.";pending;"               Período de Capitalização sucede o anterior sem solução de continuidade, até a Data de Vencimento dos
+104;periodicidade_remuneracao;Semestral, para todas as séries;texto;todas as séries;;;termo;;Termo 1065416, p.89, linhas 14-27;"Cláusula 6.9: demais pagamentos 'no segundo Dia Útil posterior ao pagamento da 3ª Emissão de Notas Comerciais dos meses de junho e dezembro'; datas no Anexo I. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"               Período de Capitalização sucede o anterior sem solução de continuidade, até a Data de Vencimento dos
                CRA.
 
                6.9. Pagamento da Remuneração dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação do
@@ -433,7 +433,7 @@ onde:"
 
                6.9.1. Os pagamentos da Remuneração serão realizados, pela Emissora, de acordo com os
                procedimentos estabelecidos pela B3."
-105;primeira_data_pagamento_remuneracao;2026-06-17;data;todas as séries;;;termo;;Termo 1065416, p.89, linhas 14-27;Cláusula 6.9. O Anexo I marca 'SIM' (juros) em 17/06/2026 para as 5 séries.;pending;"               Período de Capitalização sucede o anterior sem solução de continuidade, até a Data de Vencimento dos
+105;primeira_data_pagamento_remuneracao;2026-06-17;data;todas as séries;;;termo;;Termo 1065416, p.89, linhas 14-27;Cláusula 6.9. O Anexo I marca 'SIM' (juros) em 17/06/2026 para as 5 séries. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               Período de Capitalização sucede o anterior sem solução de continuidade, até a Data de Vencimento dos
                CRA.
 
                6.9. Pagamento da Remuneração dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação do
@@ -447,7 +447,7 @@ onde:"
 
                6.9.1. Os pagamentos da Remuneração serão realizados, pela Emissora, de acordo com os
                procedimentos estabelecidos pela B3."
-106;juros_devidos_2026_06_17_serie_1;SIM;texto;1ª Série, Anexo I (cronograma);;;termo;;Termo 1065416, p.153, linhas 10-23;"Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização.";pending;"CRONOGRAMA DE PAGAMENTO DA REMUNERAÇÃO E AMORTIZAÇÃO
+106;juros_devidos_2026_06_17_serie_1;SIM;texto;1ª Série, Anexo I (cronograma);;;termo;;Termo 1065416, p.153, linhas 10-23;"Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"CRONOGRAMA DE PAGAMENTO DA REMUNERAÇÃO E AMORTIZAÇÃO
 
     Data de   CRA da 1ª Série                                        Principal
 Pagamento do
@@ -460,7 +460,7 @@ Pagamento do
   20/06/2028          SIM                                            25,0000%
   19/12/2028          SIM                                            33,3333%
   19/06/2029          SIM                                            50,0000%"
-107;juros_devidos_2026_06_17_serie_2;SIM;texto;2ª Série, Anexo I (cronograma);;;termo;;Termo 1065416, p.153, linhas 25-38;"Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização.";pending;"  19/06/2030          SIM
+107;juros_devidos_2026_06_17_serie_2;SIM;texto;2ª Série, Anexo I (cronograma);;;termo;;Termo 1065416, p.153, linhas 25-38;"Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"  19/06/2030          SIM
   18/12/2030          SIM
 
     Data de   CRA da 2ª Série                                        Principal
@@ -474,7 +474,7 @@ Pagamento do
   20/06/2028          SIM
 
                                                                                 153"
-108;juros_devidos_2026_06_17_serie_3;SIM;texto;3ª Série, Anexo I (cronograma);;;termo;;Termo 1065416, p.154, linhas 10-23;"Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização.";pending;"                                                            SIM  100,0000%
+108;juros_devidos_2026_06_17_serie_3;SIM;texto;3ª Série, Anexo I (cronograma);;;termo;;Termo 1065416, p.154, linhas 10-23;"Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"                                                            SIM  100,0000%
 
     Data de   CRA da 3ª Série                                    Principal
 Pagamento do
@@ -487,7 +487,7 @@ Pagamento do
   20/06/2028          SIM                                        25,0000%
   19/12/2028          SIM                                        33,3333%
   19/06/2029          SIM                                        50,0000%"
-109;juros_devidos_2026_06_17_serie_4;SIM;texto;4ª Série, Anexo I (cronograma);;;termo;;Termo 1065416, p.154, linhas 25-38;"Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização.";pending;"  19/06/2030          SIM
+109;juros_devidos_2026_06_17_serie_4;SIM;texto;4ª Série, Anexo I (cronograma);;;termo;;Termo 1065416, p.154, linhas 25-38;"Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"  19/06/2030          SIM
   18/12/2030          SIM
 
     Data de   CRA da 4ª Série                                    Principal
@@ -500,7 +500,7 @@ Pagamento do
   17/12/2027          SIM                                        11,1111%
   20/06/2028          SIM
   19/12/2028          SIM"
-110;juros_devidos_2026_06_17_serie_5;SIM;texto;5ª Série, Anexo I (cronograma);;;termo;;Termo 1065416, p.155, linhas 16-29;"Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização.";pending;"                                                            SIM  100,0000%
+110;juros_devidos_2026_06_17_serie_5;SIM;texto;5ª Série, Anexo I (cronograma);;;termo;;Termo 1065416, p.155, linhas 16-29;"Anexo I: coluna Juros = SIM em 17/06/2026. A coluna 'Principal' do Anexo I está desalinhada na extração de texto (percentuais deslocados em relação às datas); usar a Cláusula 6.12 para início da amortização. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"                                                            SIM  100,0000%
 
     Data de   CRA da 5ª Série                                    Principal
 Pagamento do
@@ -513,7 +513,7 @@ Pagamento do
   20/06/2028          SIM                                        7,1429%
   19/12/2028          SIM                                        7,6923%
   19/06/2029          SIM                                        8,3333%"
-111;amortizacao_serie_1;"Semestral; 1ª parcela em 2027-06-17; última na Data de Vencimento";texto;1ª Série;;;termo;;Termo 1065416, p.89, linhas 33-46;"Cláusula 6.12 (i); percentuais no Anexo I.";pending;"               formalizar a taxa final da Remuneração dos CRA da 1ª Série, sem a necessidade de deliberação
+111;amortizacao_serie_1;"Semestral; 1ª parcela em 2027-06-17; última na Data de Vencimento";texto;1ª Série;;;termo;;Termo 1065416, p.89, linhas 33-46;"Cláusula 6.12 (i); percentuais no Anexo I. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"               formalizar a taxa final da Remuneração dos CRA da 1ª Série, sem a necessidade de deliberação
                societária adicional da Devedora, do Avalista, da Emissora ou aprovação pelos Titulares dos CRA.
 
                6.12. Pagamento da Amortização dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação do
@@ -527,7 +527,7 @@ Pagamento do
                amortizados semestralmente sendo o primeiro pagamento em 17 de dezembro de 2027 (inclusive) e o
                último na Data de Vencimento dos CRA da 4ª Série; e (iii) o Valor Nominal Unitário Atualizado ou o
                saldo do Valor Nominal Unitário Atualizado dos CRA da 5ª Série, serão amortizados semestralmente"
-112;amortizacao_serie_2;"Semestral; 1ª parcela em 2027-06-17; última na Data de Vencimento";texto;2ª Série;;;termo;;Termo 1065416, p.89, linhas 33-46;Cláusula 6.12 (i).;pending;"               formalizar a taxa final da Remuneração dos CRA da 1ª Série, sem a necessidade de deliberação
+112;amortizacao_serie_2;"Semestral; 1ª parcela em 2027-06-17; última na Data de Vencimento";texto;2ª Série;;;termo;;Termo 1065416, p.89, linhas 33-46;Cláusula 6.12 (i). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               formalizar a taxa final da Remuneração dos CRA da 1ª Série, sem a necessidade de deliberação
                societária adicional da Devedora, do Avalista, da Emissora ou aprovação pelos Titulares dos CRA.
 
                6.12. Pagamento da Amortização dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação do
@@ -541,7 +541,7 @@ Pagamento do
                amortizados semestralmente sendo o primeiro pagamento em 17 de dezembro de 2027 (inclusive) e o
                último na Data de Vencimento dos CRA da 4ª Série; e (iii) o Valor Nominal Unitário Atualizado ou o
                saldo do Valor Nominal Unitário Atualizado dos CRA da 5ª Série, serão amortizados semestralmente"
-113;amortizacao_serie_3;"Semestral; 1ª parcela em 2027-06-17; última na Data de Vencimento";texto;3ª Série;;;termo;;Termo 1065416, p.89, linhas 33-46;Cláusula 6.12 (i).;pending;"               formalizar a taxa final da Remuneração dos CRA da 1ª Série, sem a necessidade de deliberação
+113;amortizacao_serie_3;"Semestral; 1ª parcela em 2027-06-17; última na Data de Vencimento";texto;3ª Série;;;termo;;Termo 1065416, p.89, linhas 33-46;Cláusula 6.12 (i). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               formalizar a taxa final da Remuneração dos CRA da 1ª Série, sem a necessidade de deliberação
                societária adicional da Devedora, do Avalista, da Emissora ou aprovação pelos Titulares dos CRA.
 
                6.12. Pagamento da Amortização dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação do
@@ -555,7 +555,7 @@ Pagamento do
                amortizados semestralmente sendo o primeiro pagamento em 17 de dezembro de 2027 (inclusive) e o
                último na Data de Vencimento dos CRA da 4ª Série; e (iii) o Valor Nominal Unitário Atualizado ou o
                saldo do Valor Nominal Unitário Atualizado dos CRA da 5ª Série, serão amortizados semestralmente"
-114;amortizacao_serie_4;"Semestral; 1ª parcela em 2027-12-17; última na Data de Vencimento";texto;4ª Série;;;termo;;Termo 1065416, p.89, linhas 33-46;Cláusula 6.12 (ii).;pending;"               formalizar a taxa final da Remuneração dos CRA da 1ª Série, sem a necessidade de deliberação
+114;amortizacao_serie_4;"Semestral; 1ª parcela em 2027-12-17; última na Data de Vencimento";texto;4ª Série;;;termo;;Termo 1065416, p.89, linhas 33-46;Cláusula 6.12 (ii). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               formalizar a taxa final da Remuneração dos CRA da 1ª Série, sem a necessidade de deliberação
                societária adicional da Devedora, do Avalista, da Emissora ou aprovação pelos Titulares dos CRA.
 
                6.12. Pagamento da Amortização dos CRA: Ressalvadas as hipóteses de Eventos de Liquidação do
@@ -569,14 +569,14 @@ Pagamento do
                amortizados semestralmente sendo o primeiro pagamento em 17 de dezembro de 2027 (inclusive) e o
                último na Data de Vencimento dos CRA da 4ª Série; e (iii) o Valor Nominal Unitário Atualizado ou o
                saldo do Valor Nominal Unitário Atualizado dos CRA da 5ª Série, serão amortizados semestralmente"
-115;amortizacao_serie_5;"Semestral sobre VNU Atualizado; 1ª parcela em 2027-12-17; última na Data de Vencimento";texto;5ª Série;;;termo;;Termo 1065416, p.89, linhas 43-49;Cláusula 6.12 (iii). A definição 'Amortização dos CRA da 5ª Série' (Cláusula 1.1) diz 'último na Data de Vencimento dos CRA da 3ª Série' — provável erro material.;pending;"               o Valor Nominal Unitário ou o saldo do Valor Nominal Unitário dos CRA da 4ª Série, serão
+115;amortizacao_serie_5;"Semestral sobre VNU Atualizado; 1ª parcela em 2027-12-17; última na Data de Vencimento";texto;5ª Série;;;termo;;Termo 1065416, p.89, linhas 43-49;Cláusula 6.12 (iii). A definição 'Amortização dos CRA da 5ª Série' (Cláusula 1.1) diz 'último na Data de Vencimento dos CRA da 3ª Série' — provável erro material. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               o Valor Nominal Unitário ou o saldo do Valor Nominal Unitário dos CRA da 4ª Série, serão
                amortizados semestralmente sendo o primeiro pagamento em 17 de dezembro de 2027 (inclusive) e o
                último na Data de Vencimento dos CRA da 4ª Série; e (iii) o Valor Nominal Unitário Atualizado ou o
                saldo do Valor Nominal Unitário Atualizado dos CRA da 5ª Série, serão amortizados semestralmente
                sendo o primeiro pagamento em 17 de dezembro de 2027 (inclusive) e o último na Data de Vencimento
 
                                                                                                                                         89"
-116;vencimento_serie_1;2030-12-18;data;1ª Série;;;termo;;Termo 1065416, p.66, linhas 15-28;"Cláusula 3.1 (xvi); prazo 1829 dias. NC 1ª Série vence em 2030-12-16.";pending;"               bens e/ou direitos decorrentes dos itens “(a)” a “(d)” acima, conforme aplicável, com a consequente
+116;vencimento_serie_1;2030-12-18;data;1ª Série;;;termo;;Termo 1065416, p.66, linhas 15-28;"Cláusula 3.1 (xvi); prazo 1829 dias. NC 1ª Série vence em 2030-12-16. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"               bens e/ou direitos decorrentes dos itens “(a)” a “(d)” acima, conforme aplicável, com a consequente
                constituição do Patrimônio Separado.
 
                (xvi) Prazo e Data de Vencimento — Ressalvadas as hipóteses de Eventos de Liquidação do
@@ -590,7 +590,7 @@ Pagamento do
                CRA da 3ª Série terão prazo de vigência de 1829 (mil oitocentos e vinte e nove) dias corridos contados
                da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030 (“Data de Vencimento dos CRA
                da 3ª Série”); (iv) os CRA da 4ª Série terão prazo de vigência de 2559 (dois mil quinhentos e cinquenta"
-117;vencimento_serie_2;2030-12-18;data;2ª Série;;;termo;;Termo 1065416, p.66, linhas 15-28;Cláusula 3.1 (xvi).;pending;"               bens e/ou direitos decorrentes dos itens “(a)” a “(d)” acima, conforme aplicável, com a consequente
+117;vencimento_serie_2;2030-12-18;data;2ª Série;;;termo;;Termo 1065416, p.66, linhas 15-28;Cláusula 3.1 (xvi). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               bens e/ou direitos decorrentes dos itens “(a)” a “(d)” acima, conforme aplicável, com a consequente
                constituição do Patrimônio Separado.
 
                (xvi) Prazo e Data de Vencimento — Ressalvadas as hipóteses de Eventos de Liquidação do
@@ -604,7 +604,7 @@ Pagamento do
                CRA da 3ª Série terão prazo de vigência de 1829 (mil oitocentos e vinte e nove) dias corridos contados
                da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030 (“Data de Vencimento dos CRA
                da 3ª Série”); (iv) os CRA da 4ª Série terão prazo de vigência de 2559 (dois mil quinhentos e cinquenta"
-118;vencimento_serie_3;2030-12-18;data;3ª Série;;;termo;;Termo 1065416, p.66, linhas 15-28;Cláusula 3.1 (xvi).;pending;"               bens e/ou direitos decorrentes dos itens “(a)” a “(d)” acima, conforme aplicável, com a consequente
+118;vencimento_serie_3;2030-12-18;data;3ª Série;;;termo;;Termo 1065416, p.66, linhas 15-28;Cláusula 3.1 (xvi). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               bens e/ou direitos decorrentes dos itens “(a)” a “(d)” acima, conforme aplicável, com a consequente
                constituição do Patrimônio Separado.
 
                (xvi) Prazo e Data de Vencimento — Ressalvadas as hipóteses de Eventos de Liquidação do
@@ -618,7 +618,7 @@ Pagamento do
                CRA da 3ª Série terão prazo de vigência de 1829 (mil oitocentos e vinte e nove) dias corridos contados
                da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030 (“Data de Vencimento dos CRA
                da 3ª Série”); (iv) os CRA da 4ª Série terão prazo de vigência de 2559 (dois mil quinhentos e cinquenta"
-119;vencimento_serie_4;2032-12-17;data;4ª Série;;;termo;;Termo 1065416, p.66, linhas 25-38;"Cláusula 3.1 (xvi); prazo 2559 dias.";pending;"               vencendo, portanto, em 18 de dezembro de 2030 (“Data de Vencimento dos CRA da 2ª Série”); (iii) os
+119;vencimento_serie_4;2032-12-17;data;4ª Série;;;termo;;Termo 1065416, p.66, linhas 25-38;"Cláusula 3.1 (xvi); prazo 2559 dias. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"               vencendo, portanto, em 18 de dezembro de 2030 (“Data de Vencimento dos CRA da 2ª Série”); (iii) os
                CRA da 3ª Série terão prazo de vigência de 1829 (mil oitocentos e vinte e nove) dias corridos contados
                da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030 (“Data de Vencimento dos CRA
                da 3ª Série”); (iv) os CRA da 4ª Série terão prazo de vigência de 2559 (dois mil quinhentos e cinquenta
@@ -632,7 +632,7 @@ Pagamento do
 
                (xvii) Subscrição, Preço e Forma de Integralização — Os CRA serão subscritos no mercado primário
                e serão integralizados pelo Preço de Integralização, à vista, no ato da subscrição, em moeda corrente nacional,"
-120;vencimento_serie_5;2035-12-19;data;5ª Série;;;termo;;Termo 1065416, p.66, linhas 25-38;"Cláusula 3.1 (xvi); prazo 3656 dias. A definição de 'Data de Vencimento dos CRA da 5ª Série' (Cláusula 1.1) repete 'dos CRA da 4ª Série' — erro material; a DF do PS indica 17/12/2035.";pending;"               vencendo, portanto, em 18 de dezembro de 2030 (“Data de Vencimento dos CRA da 2ª Série”); (iii) os
+120;vencimento_serie_5;2035-12-19;data;5ª Série;;;termo;;Termo 1065416, p.66, linhas 25-38;"Cláusula 3.1 (xvi); prazo 3656 dias. A definição de 'Data de Vencimento dos CRA da 5ª Série' (Cláusula 1.1) repete 'dos CRA da 4ª Série' — erro material; a DF do PS indica 17/12/2035. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"               vencendo, portanto, em 18 de dezembro de 2030 (“Data de Vencimento dos CRA da 2ª Série”); (iii) os
                CRA da 3ª Série terão prazo de vigência de 1829 (mil oitocentos e vinte e nove) dias corridos contados
                da Data de Emissão, vencendo, portanto, em 18 de dezembro de 2030 (“Data de Vencimento dos CRA
                da 3ª Série”); (iv) os CRA da 4ª Série terão prazo de vigência de 2559 (dois mil quinhentos e cinquenta
@@ -646,7 +646,7 @@ Pagamento do
 
                (xvii) Subscrição, Preço e Forma de Integralização — Os CRA serão subscritos no mercado primário
                e serão integralizados pelo Preço de Integralização, à vista, no ato da subscrição, em moeda corrente nacional,"
-121;garantias_cra;"Nenhuma garantia específica (real ou pessoal) sobre os CRA; sem garantia flutuante da Emissora";texto;toda a emissão;;;termo;;Termo 1065416, p.69, linhas 25-38;"Cláusula 3.1 (xxv), 2º parágrafo; mesma regra na Cláusula 3.1 (xiii) e (xxxiii).";pending;"               prioridade ou subordinação entre os Titulares de CRA Subordinados, sendo que estes terão o direito de
+121;garantias_cra;"Nenhuma garantia específica (real ou pessoal) sobre os CRA; sem garantia flutuante da Emissora";texto;toda a emissão;;;termo;;Termo 1065416, p.69, linhas 25-38;"Cláusula 3.1 (xxv), 2º parágrafo; mesma regra na Cláusula 3.1 (xiii) e (xxxiii). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"               prioridade ou subordinação entre os Titulares de CRA Subordinados, sendo que estes terão o direito de
                partilhar os Direitos Creditórios do Agronegócio proporcionalmente ao seu crédito.
 
                Não foram constituídas garantias específicas, reais ou pessoais, em benefício dos Titulares dos CRA.
@@ -660,7 +660,7 @@ Pagamento do
                Agronegócio delas decorrentes, não contarão com garantias reais ou fidejussórias.
 
                (xxvi) Prorrogações dos Prazos de Pagamento — Considerar-se-ão prorrogados os prazos referentes"
-122;garantia_lastro_series_1_2_3;Aval do Avalista exclusivamente sobre as Notas Comerciais Escriturais 1ª, 2ª e 3ª Séries;texto;lastro das 1ª, 2ª e 3ª Séries;;;termo;;Termo 1065416, p.69, linhas 25-38;Avalista: Carlos Lee Participações e Administração Ltda. (definição 'Avalista', Cláusula 1.1).;pending;"               prioridade ou subordinação entre os Titulares de CRA Subordinados, sendo que estes terão o direito de
+122;garantia_lastro_series_1_2_3;Aval do Avalista exclusivamente sobre as Notas Comerciais Escriturais 1ª, 2ª e 3ª Séries;texto;lastro das 1ª, 2ª e 3ª Séries;;;termo;;Termo 1065416, p.69, linhas 25-38;Avalista: Carlos Lee Participações e Administração Ltda. (definição 'Avalista', Cláusula 1.1). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               prioridade ou subordinação entre os Titulares de CRA Subordinados, sendo que estes terão o direito de
                partilhar os Direitos Creditórios do Agronegócio proporcionalmente ao seu crédito.
 
                Não foram constituídas garantias específicas, reais ou pessoais, em benefício dos Titulares dos CRA.
@@ -674,7 +674,7 @@ Pagamento do
                Agronegócio delas decorrentes, não contarão com garantias reais ou fidejussórias.
 
                (xxvi) Prorrogações dos Prazos de Pagamento — Considerar-se-ão prorrogados os prazos referentes"
-123;garantia_lastro_series_4_5;Nenhuma garantia real ou fidejussória;texto;lastro das 4ª e 5ª Séries;;;termo;;Termo 1065416, p.69, linhas 25-38;;pending;"               prioridade ou subordinação entre os Titulares de CRA Subordinados, sendo que estes terão o direito de
+123;garantia_lastro_series_4_5;Nenhuma garantia real ou fidejussória;texto;lastro das 4ª e 5ª Séries;;;termo;;Termo 1065416, p.69, linhas 25-38;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               prioridade ou subordinação entre os Titulares de CRA Subordinados, sendo que estes terão o direito de
                partilhar os Direitos Creditórios do Agronegócio proporcionalmente ao seu crédito.
 
                Não foram constituídas garantias específicas, reais ou pessoais, em benefício dos Titulares dos CRA.
@@ -688,7 +688,7 @@ Pagamento do
                Agronegócio delas decorrentes, não contarão com garantias reais ou fidejussórias.
 
                (xxvi) Prorrogações dos Prazos de Pagamento — Considerar-se-ão prorrogados os prazos referentes"
-124;avalista;Carlos Lee Participações e Administração Ltda. (CNPJ 23.482.473/0001-78);texto;Aval das NCs 1ª a 3ª Séries;;;termo;;Termo 1065416, p.32, linhas 8-21;"Texto em duas colunas; a definição de 'Aval' aparece logo acima.";pending;"“BACEN”          ou  relação às Notas Comerciais Escriturais 1ª Série, às Notas Comerciais
+124;avalista;Carlos Lee Participações e Administração Ltda. (CNPJ 23.482.473/0001-78);texto;Aval das NCs 1ª a 3ª Séries;;;termo;;Termo 1065416, p.32, linhas 8-21;"Texto em duas colunas; a definição de 'Aval' aparece logo acima. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"“BACEN”          ou  relação às Notas Comerciais Escriturais 1ª Série, às Notas Comerciais
                      Escriturais 2ª Série e às Notas Comerciais Escriturais 3ª Série sem
 “Banco Central”      quaisquer benefícios de ordem;
                      Significa a CARLOS LEE PARTICIPAÇÕES E ADMINISTRAÇÃO
@@ -702,7 +702,7 @@ Pagamento do
                      2025, nos termos do artigo 13 da Resolução CVM 160;
 “Código Civil”       Significa a B3 S.A. – BRASIL, BOLSA, BALCÃO – BALCÃO B3,
 “Código de Ofertas   sociedade por ações de capital aberto com sede na cidade de São Paulo,"
-125;fundo_despesas_valor_inicial;295000.00;BRL;retido na primeira Data de Integralização das NCs;;;termo;;Termo 1065416, p.54, linhas 8-21;Definição 'Valor Inicial do Fundo de Despesas' (texto em duas colunas).;pending;"                       Possui o significado que lhe é atribuído na Cláusula 17.17.4 deste Termo
+125;fundo_despesas_valor_inicial;295000.00;BRL;retido na primeira Data de Integralização das NCs;;;termo;;Termo 1065416, p.54, linhas 8-21;Definição 'Valor Inicial do Fundo de Despesas' (texto em duas colunas). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                       Possui o significado que lhe é atribuído na Cláusula 17.17.4 deste Termo
 CRA da 1ª Série        de Securitização;
 
 “Valor da              Significa o montante equivalente a R$ 295.000,00 (duzentos e noventa e
@@ -716,7 +716,7 @@ CRA da 2ª Série
 “Valor Inicial do      R$1.000,00 (mil reais), na Data de Emissão;
                        Significa o Valor Nominal Unitário das Notas Comerciais Escriturais 1ª
 Fundo de Despesas”     Série, das Notas Comerciais Escriturais 2ª Série, das Notas Comerciais"
-126;fundo_despesas_valor_minimo;95000.00;BRL;saldo mínimo a manter;;;termo;;Termo 1065416, p.54, linhas 8-21;Definição 'Valor Mínimo do Fundo de Despesas'.;pending;"                       Possui o significado que lhe é atribuído na Cláusula 17.17.4 deste Termo
+126;fundo_despesas_valor_minimo;95000.00;BRL;saldo mínimo a manter;;;termo;;Termo 1065416, p.54, linhas 8-21;Definição 'Valor Mínimo do Fundo de Despesas'. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                       Possui o significado que lhe é atribuído na Cláusula 17.17.4 deste Termo
 CRA da 1ª Série        de Securitização;
 
 “Valor da              Significa o montante equivalente a R$ 295.000,00 (duzentos e noventa e
@@ -730,7 +730,7 @@ CRA da 2ª Série
 “Valor Inicial do      R$1.000,00 (mil reais), na Data de Emissão;
                        Significa o Valor Nominal Unitário das Notas Comerciais Escriturais 1ª
 Fundo de Despesas”     Série, das Notas Comerciais Escriturais 2ª Série, das Notas Comerciais"
-127;fundo_despesas_recomposicao;"Verificação semestral (ou a qualquer tempo); se saldo < Valor Mínimo, Emissora notifica a Devedora em até 1 Dia Útil e a Devedora recompõe em até 5 Dias Úteis";texto;sempre que o saldo for inferior ao Valor Mínimo;;;termo;;Termo 1065416, p.134, linhas 18-31;"Cláusula 15.1.4; sem recomposição, a Emissora pode usar recursos do Patrimônio Separado. Não há fundo de reserva previsto no Termo.";pending;"Termo de Emissão.
+127;fundo_despesas_recomposicao;"Verificação semestral (ou a qualquer tempo); se saldo < Valor Mínimo, Emissora notifica a Devedora em até 1 Dia Útil e a Devedora recompõe em até 5 Dias Úteis";texto;sempre que o saldo for inferior ao Valor Mínimo;;;termo;;Termo 1065416, p.134, linhas 18-31;"Cláusula 15.1.4; sem recomposição, a Emissora pode usar recursos do Patrimônio Separado. Não há fundo de reserva previsto no Termo. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"Termo de Emissão.
 
 15.1.4.           Semestralmente, ou a qualquer tempo que julgar necessário, a Emissora verificará o
 
@@ -743,7 +743,7 @@ ao Valor Mínimo do Fundo de Despesas na Conta Fundo de Despesas, a Emissora dev
 comprovação do valor existente na Conta Fundo de Despesas, devendo a Devedora (i) recompor, no
 
 prazo de até 5 (cinco) Dias Úteis a contar do recebimento de notificação, o Fundo de Despesas com o"
-128;ordem_alocacao_itens_i_a_iii;"(i) Despesas do Patrimônio Separado, inclusive recomposição do Fundo de Despesas; (ii) Encargos Moratórios dos CRA Sêniores; (iii) Remuneração dos CRA Sêniores";texto;a partir da Data de Integralização (Cláusula 12.2);;;termo;;Termo 1065416, p.125, linhas 27-40;;pending;"e/ou de quaisquer pagamentos relacionados aos lastros do CRA em observância, obrigatoriamente, à
+128;ordem_alocacao_itens_i_a_iii;"(i) Despesas do Patrimônio Separado, inclusive recomposição do Fundo de Despesas; (ii) Encargos Moratórios dos CRA Sêniores; (iii) Remuneração dos CRA Sêniores";texto;a partir da Data de Integralização (Cláusula 12.2);;;termo;;Termo 1065416, p.125, linhas 27-40;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"e/ou de quaisquer pagamentos relacionados aos lastros do CRA em observância, obrigatoriamente, à
 seguinte ordem de alocação (“Ordem de Alocação dos Recursos”):
 
 (i)  Despesas do Patrimônio Separado, inclusive recomposição do Fundo de Despesas, por conta
@@ -757,7 +757,7 @@ houver;
 
      (a) juros capitalizados em períodos anteriores e não pagos; e
      (b) juros vincendos na respectiva data de pagamento."
-129;ordem_alocacao_itens_iv_a_vi;"(iv) Amortização dos CRA Sêniores; (v) Encargos Moratórios dos CRA Mezanino; (vi) Remuneração dos CRA Mezanino";texto;Cláusula 12.2;;;termo;;Termo 1065416, p.125, linhas 39-50;;pending;"     (a) juros capitalizados em períodos anteriores e não pagos; e
+129;ordem_alocacao_itens_iv_a_vi;"(iv) Amortização dos CRA Sêniores; (v) Encargos Moratórios dos CRA Mezanino; (vi) Remuneração dos CRA Mezanino";texto;Cláusula 12.2;;;termo;;Termo 1065416, p.125, linhas 39-50;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"     (a) juros capitalizados em períodos anteriores e não pagos; e
      (b) juros vincendos na respectiva data de pagamento.
 
 (iv) Amortização do Valor Nominal Unitário ou o saldo do Valor Nominal Unitário dos CRA
@@ -769,7 +769,7 @@ houver;
 (vi) Remuneração dos CRA Mezanino vencida e não paga;
 
                                                                                              125"
-130;ordem_alocacao_itens_vii_a_ix;"(vii) Amortização dos CRA Mezanino; (viii) Encargos Moratórios dos CRA Subordinados; (ix) Remuneração dos CRA Subordinados";texto;Cláusula 12.2;;;termo;;Termo 1065416, p.126, linhas 3-16;;pending;"   (a) juros capitalizados em períodos anteriores e não pagos; e
+130;ordem_alocacao_itens_vii_a_ix;"(vii) Amortização dos CRA Mezanino; (viii) Encargos Moratórios dos CRA Subordinados; (ix) Remuneração dos CRA Subordinados";texto;Cláusula 12.2;;;termo;;Termo 1065416, p.126, linhas 3-16;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"   (a) juros capitalizados em períodos anteriores e não pagos; e
    (b) juros vincendos na respectiva data de pagamento.
 
 (vii) Amortização do Valor Nominal Unitário ou o saldo do Valor Nominal Unitário dos CRA
@@ -782,7 +782,7 @@ houver;
 
      (a) juros capitalizados em períodos anteriores e não pagos; e
      (b) juros vincendos na respectiva data de pagamento."
-131;ordem_alocacao_itens_x_xi;"(x) Amortização dos CRA Subordinados; (xi) saldo remanescente da Conta Centralizadora e do Fundo de Despesas liberado à Devedora";texto;Cláusula 12.2;;;termo;;Termo 1065416, p.126, linhas 14-27;;pending;"     (a) juros capitalizados em períodos anteriores e não pagos; e
+131;ordem_alocacao_itens_x_xi;"(x) Amortização dos CRA Subordinados; (xi) saldo remanescente da Conta Centralizadora e do Fundo de Despesas liberado à Devedora";texto;Cláusula 12.2;;;termo;;Termo 1065416, p.126, linhas 14-27;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"     (a) juros capitalizados em períodos anteriores e não pagos; e
      (b) juros vincendos na respectiva data de pagamento.
 
 (x) Amortização do Valor Nominal Unitário ou do Valor Nominal Unitário Atualizado ou o saldo
@@ -796,7 +796,7 @@ Despesas em favor da Devedora, na Conta de Livre Movimentação.
 
 13.1. Assembleia Especial: Os Titulares dos CRA poderão, a qualquer tempo, reunir-se em
 Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comunhão dos Titulares dos"
-132;ordem_imputacao_vencimento_antecipado_parte_1;"Após vencimento antecipado: (i) custos/despesas; (ii) encargos, (iii) Remuneração e (iv) principal das NCs 1ª e 2ª Séries; (v) encargos da NC 3ª Série...";texto;vencimento antecipado das NCs (Cláusula 7.8);;;termo;;Termo 1065416, p.96, linhas 41-49;Continua na página seguinte (itens vi a x).;pending;"               despesas devidos pela Devedora nos termos do Termo de Emissão e/ou de qualquer dos demais
+132;ordem_imputacao_vencimento_antecipado_parte_1;"Após vencimento antecipado: (i) custos/despesas; (ii) encargos, (iii) Remuneração e (iv) principal das NCs 1ª e 2ª Séries; (v) encargos da NC 3ª Série...";texto;vencimento antecipado das NCs (Cláusula 7.8);;;termo;;Termo 1065416, p.96, linhas 41-49;Continua na página seguinte (itens vi a x). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               despesas devidos pela Devedora nos termos do Termo de Emissão e/ou de qualquer dos demais
                Documentos da Operação (incluindo a remuneração e as despesas incorridas pela Securitizadora e pelo
                Agente Fiduciário dos CRA), que não sejam os valores a que se referem os itens “(ii)” a “(x)”desta
                Cláusula 7.8, com relação às Notas Comerciais Escriturais; (ii) Encargos Moratórios e demais encargos
@@ -805,7 +805,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
                Unitário das Notas Comerciais Escriturais 1ª e 2ª Séries; (v) Encargos Moratórios e demais encargos
 
                                                                                                                                         96"
-133;ordem_imputacao_vencimento_antecipado_parte_2;"(vi) Remuneração e (vii) principal da NC 3ª Série; (viii) encargos, (ix) Remuneração e (x) principal das NCs 4ª e 5ª Séries";texto;vencimento antecipado das NCs (Cláusula 7.8);;;termo;;Termo 1065416, p.97, linhas 1-14;;pending;"Docusign Envelope ID: EE4B47BD-07A4-4896-BFD7-4513B23B707F
+133;ordem_imputacao_vencimento_antecipado_parte_2;"(vi) Remuneração e (vii) principal da NC 3ª Série; (viii) encargos, (ix) Remuneração e (x) principal das NCs 4ª e 5ª Séries";texto;vencimento antecipado das NCs (Cláusula 7.8);;;termo;;Termo 1065416, p.97, linhas 1-14;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"Docusign Envelope ID: EE4B47BD-07A4-4896-BFD7-4513B23B707F
 
                devidos sob as obrigações decorrentes das Notas Comerciais Escriturais 3ª Série; (vi) Remuneração das
                Notas Comerciais Escriturais 3ª Série; (vii) saldo devedor do Valor Nominal Unitário das Notas
@@ -819,7 +819,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
                O descumprimento pela Devedora da obrigação prevista nesta Cláusula não impedirá a Securitizadora
                de, a seu exclusivo critério, exercer seus poderes, faculdades e pretensões previstas no Termo de
                Emissão, neste Termo de Securitização e/ou nos demais documentos relacionados aos CRA, inclusive"
-134;vencimento_antecipado_automatico;"9 hipóteses (Cláusula 7.1.1, itens i a ix); acarreta resgate de todos os CRA pelo Preço de Resgate Antecipado, sem assembleia";texto;Notas Comerciais Escriturais / todos os CRA;;;termo;;Termo 1065416, p.91, linhas 30-43;"Hipóteses: inadimplemento pecuniário; recuperação judicial/extrajudicial, falência etc. da Devedora/Avalista; cessão de obrigações sem anuência; uso do lastro em outra captação; desvio de destinação; tentativa de anular documentos; invalidade dos documentos; Legislação de Proteção Social; falsidade de declarações.";pending;"               7.1. Vencimento Antecipado Automático das Notas Comerciais Escriturais
+134;vencimento_antecipado_automatico;"9 hipóteses (Cláusula 7.1.1, itens i a ix); acarreta resgate de todos os CRA pelo Preço de Resgate Antecipado, sem assembleia";texto;Notas Comerciais Escriturais / todos os CRA;;;termo;;Termo 1065416, p.91, linhas 30-43;"Hipóteses: inadimplemento pecuniário; recuperação judicial/extrajudicial, falência etc. da Devedora/Avalista; cessão de obrigações sem anuência; uso do lastro em outra captação; desvio de destinação; tentativa de anular documentos; invalidade dos documentos; Legislação de Proteção Social; falsidade de declarações. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"               7.1. Vencimento Antecipado Automático das Notas Comerciais Escriturais
 
                7.1.1. A Securitizadora ou o Agente Fiduciário dos CRA e/ou qualquer terceiro que venha a sucedê-
                la como administradora do Patrimônio Separado vinculados à emissão dos CRA, ou os Titulares dos
@@ -832,14 +832,14 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
                Comerciais Escriturais e o consequente resgate, pela Securitizadora, de todos os CRA, pelo Preço de
                Resgate Antecipado, e de quaisquer outros valores eventualmente devidos pela Devedora nos termos
                deste Termo de Securitização:"
-135;va_automatico_inadimplemento_pecuniario;Não cumprimento de qualquer obrigação pecuniária pela Devedora e/ou Avalista, no prazo e forma devidos;texto;evento automático (Cláusula 7.1.1 i);;;termo;;Termo 1065416, p.91, linhas 43-49;Sem prazo de cura no Termo.;pending;"               deste Termo de Securitização:
+135;va_automatico_inadimplemento_pecuniario;Não cumprimento de qualquer obrigação pecuniária pela Devedora e/ou Avalista, no prazo e forma devidos;texto;evento automático (Cláusula 7.1.1 i);;;termo;;Termo 1065416, p.91, linhas 43-49;Sem prazo de cura no Termo. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               deste Termo de Securitização:
 
                (i) não cumprimento pela Devedora e/ou pelo Avalista, no prazo e na forma devida, de qualquer
                obrigação pecuniária, principal ou acessória, decorrente do Termo de Emissão ou em qualquer dos
                documentos relacionados à Operação de Securitização;
 
                                                                                                                                         91"
-136;va_nao_automatico_prazo_cura_nao_pecuniario;30;dias;Cláusula 7.2.1 (i), obrigação não pecuniária;;;termo;;Termo 1065416, p.93, linhas 2-15;Eventos não automáticos dependem de Assembleia Especial para NÃO declarar o vencimento.;pending;"               7.2. Vencimento Antecipado Não Automático das Notas Comerciais Escriturais
+136;va_nao_automatico_prazo_cura_nao_pecuniario;30;dias;Cláusula 7.2.1 (i), obrigação não pecuniária;;;termo;;Termo 1065416, p.93, linhas 2-15;Eventos não automáticos dependem de Assembleia Especial para NÃO declarar o vencimento. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               7.2. Vencimento Antecipado Não Automático das Notas Comerciais Escriturais
 
                7.2.1. Na ocorrência de quaisquer dos eventos indicados nesta Cláusula (“Eventos de Vencimento
                Antecipado Não Automático”), não sanados no prazo de cura eventualmente aplicável, a não declaração
@@ -852,7 +852,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
                contar da data do referido não cumprimento;
 
                (ii) se a Devedora e/ou os Avalistas inadimplirem com suas obrigações de qualquer natureza e/ou"
-137;va_cross_default_limite;25000000.00;BRL;"Cláusula 7.2.1 (ii), individual ou agregado; evento não automático";;;termo;;Termo 1065416, p.93, linhas 12-25;;pending;"               obrigação não pecuniária prevista no Termo de Emissão, não sanada no prazo de 30 (trinta) dias, a
+137;va_cross_default_limite;25000000.00;BRL;"Cláusula 7.2.1 (ii), individual ou agregado; evento não automático";;;termo;;Termo 1065416, p.93, linhas 12-25;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               obrigação não pecuniária prevista no Termo de Emissão, não sanada no prazo de 30 (trinta) dias, a
                contar da data do referido não cumprimento;
 
                (ii) se a Devedora e/ou os Avalistas inadimplirem com suas obrigações de qualquer natureza e/ou
@@ -866,7 +866,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
                responsável, ainda que na condição de garantidores, desde que não cancelado ou sustado no prazo de
                até 10 (dez) Dias Úteis contados da data do conhecimento, pela Devedora, do respectivo protesto, desde
                que em valor individual ou agregado seja igual ou superior a R$ 25.000.000,00 (vinte e cinco milhões"
-138;va_protesto_limite;25000000.00;BRL;"Cláusula 7.2.1 (iii); não cancelado/sustado em 10 Dias Úteis";;;termo;;Termo 1065416, p.93, linhas 19-32;;pending;"               individual ou agregado, igual ou superior a R$ 25.000.000,00 (vinte e cinco milhões de reais), ou seu
+138;va_protesto_limite;25000000.00;BRL;"Cláusula 7.2.1 (iii); não cancelado/sustado em 10 Dias Úteis";;;termo;;Termo 1065416, p.93, linhas 19-32;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               individual ou agregado, igual ou superior a R$ 25.000.000,00 (vinte e cinco milhões de reais), ou seu
                equivalente em outras moedas;
 
                (iii) se a Devedora e/ou o Avalista sofrerem legítimo protesto de título por cujo pagamento seja
@@ -880,7 +880,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
                requerida ou obtida homologação judicial do referido plano;
 
                (v) se houver alteração do objeto social e/ou de atividades realizadas pela Devedora de forma a"
-139;va_decisao_judicial_limite;25000000.00;BRL;"Cláusula 7.2.1 (xvi); evento não automático";;;termo;;Termo 1065416, p.94, linhas 40-49;;pending;"               jurisdição, incluindo, sem limitação, as Leis Anticorrupção e as Leis de Prevenção à Lavagem de
+139;va_decisao_judicial_limite;25000000.00;BRL;"Cláusula 7.2.1 (xvi); evento não automático";;;termo;;Termo 1065416, p.94, linhas 40-49;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               jurisdição, incluindo, sem limitação, as Leis Anticorrupção e as Leis de Prevenção à Lavagem de
                Dinheiro;
 
                (xvi) descumprimento, pela Devedora e/ou pelo Avalista, de qualquer decisão judicial transitada em
@@ -890,7 +890,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
                cinco milhões de reais), ou seu equivalente em outras moedas;
 
                                                                                                                                         94"
-140;va_auditor_devedora;DFs da Devedora devem ser auditadas por PwC, EY, Deloitte ou KPMG (ou sucessoras);texto;"Cláusula 7.2.1 (xvii); evento não automático";;;termo;;Termo 1065416, p.95, linhas 1-14;;pending;"Docusign Envelope ID: EE4B47BD-07A4-4896-BFD7-4513B23B707F
+140;va_auditor_devedora;DFs da Devedora devem ser auditadas por PwC, EY, Deloitte ou KPMG (ou sucessoras);texto;"Cláusula 7.2.1 (xvii); evento não automático";;;termo;;Termo 1065416, p.95, linhas 1-14;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"Docusign Envelope ID: EE4B47BD-07A4-4896-BFD7-4513B23B707F
 
                (xvii) caso a Devedora e deixe de ter auditadas suas demonstrações financeiras por qualquer dos
                seguintes auditores independentes: PricewaterhouseCoopers Auditores Independentes (CNPJ
@@ -903,7 +903,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
                quaisquer outros pagamentos a seus acionistas, caso a Devedora esteja em descumprimento dos índices
                Financeiros, exceto os dividendos obrigatórios por lei e os juros sobre capital próprio imputados aos
                dividendos obrigatórios nos termos da Lei das Sociedades por Ações; e/ou"
-141;va_quorum_nao_declaracao;"2/3 dos CRA em Circulação (1ª convocação); 50% + 1 dos CRA em Circulação presentes, com presença mínima de 20% (2ª convocação)";texto;Eventos de Vencimento Antecipado Não Automático;;;termo;;Termo 1065416, p.96, linhas 12-25;Cláusula 7.4: convocação em até 3 Dias Úteis da ciência do evento.;pending;"               abaixo, para deliberar sobre o não vencimento antecipado das Notas Comerciais Escriturais e,
+141;va_quorum_nao_declaracao;"2/3 dos CRA em Circulação (1ª convocação); 50% + 1 dos CRA em Circulação presentes, com presença mínima de 20% (2ª convocação)";texto;Eventos de Vencimento Antecipado Não Automático;;;termo;;Termo 1065416, p.96, linhas 12-25;Cláusula 7.4: convocação em até 3 Dias Úteis da ciência do evento. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               abaixo, para deliberar sobre o não vencimento antecipado das Notas Comerciais Escriturais e,
                consequentemente, dos CRA.
 
                7.5. A Assembleia Especial a que se refere a Cláusula 7.4 acima somente poderá determinar que a
@@ -917,7 +917,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
                caso (i) da não instalação, em segunda convocação, da referida Assembleia Especial; ou (ii) de não ser
                aprovado o exercício da faculdade prevista na Cláusula 7.5 acima, a Securitizadora deverá,
                imediatamente, considerar o vencimento antecipado das Notas Comerciais Escriturais e,"
-142;covenant_indice_liquidez_corrente_minimo;1.20;razão (Ativo Circulante / Passivo Circulante);cada Data de Verificação dos Índices Financeiros;;;termo;;Termo 1065416, p.95, linhas 12-25;Ativo e Passivo Circulante definidos com base nas DFs individuais e consolidadas do Avalista (Cláusula 1.1).;pending;"               Financeiros, exceto os dividendos obrigatórios por lei e os juros sobre capital próprio imputados aos
+142;covenant_indice_liquidez_corrente_minimo;1.20;razão (Ativo Circulante / Passivo Circulante);cada Data de Verificação dos Índices Financeiros;;;termo;;Termo 1065416, p.95, linhas 12-25;Ativo e Passivo Circulante definidos com base nas DFs individuais e consolidadas do Avalista (Cláusula 1.1). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               Financeiros, exceto os dividendos obrigatórios por lei e os juros sobre capital próprio imputados aos
                dividendos obrigatórios nos termos da Lei das Sociedades por Ações; e/ou
 
                (xix) não atendimento dos índices financeiros definidos abaixo (“Índices Financeiros”):
@@ -930,7 +930,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
 
                7.2.2. O descumprimento de quaisquer Índices Financeiros será considerado um Evento de
                Vencimento Antecipado Não Automático, conforme abaixo:"
-143;covenant_divida_liquida_ebitda_maximo;3.0;razão (Dívida Líquida / EBITDA);cada Data de Verificação dos Índices Financeiros;;;termo;;Termo 1065416, p.95, linhas 12-25;"Dívida Líquida e EBITDA definidos com base nas DFs do Avalista; ver exceção na Cláusula 7.2.2 (b).";pending;"               Financeiros, exceto os dividendos obrigatórios por lei e os juros sobre capital próprio imputados aos
+143;covenant_divida_liquida_ebitda_maximo;3.0;razão (Dívida Líquida / EBITDA);cada Data de Verificação dos Índices Financeiros;;;termo;;Termo 1065416, p.95, linhas 12-25;"Dívida Líquida e EBITDA definidos com base nas DFs do Avalista; ver exceção na Cláusula 7.2.2 (b). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"               Financeiros, exceto os dividendos obrigatórios por lei e os juros sobre capital próprio imputados aos
                dividendos obrigatórios nos termos da Lei das Sociedades por Ações; e/ou
 
                (xix) não atendimento dos índices financeiros definidos abaixo (“Índices Financeiros”):
@@ -943,7 +943,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
 
                7.2.2. O descumprimento de quaisquer Índices Financeiros será considerado um Evento de
                Vencimento Antecipado Não Automático, conforme abaixo:"
-144;covenant_endividamento_excecao;Não é evento se a Devedora tiver caixa/liquidez ≥ maior entre 100% da Dívida Bancária de curto prazo e a soma dos próximos 24 meses de pagamentos da Oferta;texto;Índice Financeiro de Endividamento;;;termo;;Termo 1065416, p.95, linhas 20-33;;pending;"                      (b) a razão entre a Dívida Líquida e o EBITDA (“Índice Financeiro de Endividamento”) do
+144;covenant_endividamento_excecao;Não é evento se a Devedora tiver caixa/liquidez ≥ maior entre 100% da Dívida Bancária de curto prazo e a soma dos próximos 24 meses de pagamentos da Oferta;texto;Índice Financeiro de Endividamento;;;termo;;Termo 1065416, p.95, linhas 20-33;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                      (b) a razão entre a Dívida Líquida e o EBITDA (“Índice Financeiro de Endividamento”) do
                               respectivo ano deverá ser igual ou inferior a 3,0x.
 
                7.2.2. O descumprimento de quaisquer Índices Financeiros será considerado um Evento de
@@ -957,7 +957,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
                         Devedora apresente um montante de caixa/liquidez que amparem, no mínimo, (i) o montante de
                         100% da Dívida Bancária de curto prazo; ou (ii) o equivalente a soma dos próximos 24 meses
                         de pagamento da totalidade da Oferta, dos dois o maior."
-145;covenant_verificacao;"Pela Securitizadora, em até 5 Dias Úteis do recebimento das DFs individuais e consolidadas do Avalista; 1ª verificação com DFs do exercício encerrado em dez/2025";texto;anual (conforme entrega das DFs do Avalista);;;termo;;Termo 1065416, p.95, linhas 32-45;;pending;"                        100% da Dívida Bancária de curto prazo; ou (ii) o equivalente a soma dos próximos 24 meses
+145;covenant_verificacao;"Pela Securitizadora, em até 5 Dias Úteis do recebimento das DFs individuais e consolidadas do Avalista; 1ª verificação com DFs do exercício encerrado em dez/2025";texto;anual (conforme entrega das DFs do Avalista);;;termo;;Termo 1065416, p.95, linhas 32-45;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                        100% da Dívida Bancária de curto prazo; ou (ii) o equivalente a soma dos próximos 24 meses
                         de pagamento da totalidade da Oferta, dos dois o maior.
 
                7.2.3. O acompanhamento do cumprimento dos Índices Financeiros será realizado pela Securitizadora
@@ -971,7 +971,7 @@ Assembleia Especial, a fim de deliberarem sobre a matéria de interesse da comun
                7.2.4. A Devedora e o Avalista obrigaram-se, no âmbito do Termo de Emissão, a disponibilizar a
                documentação necessária para verificação pela Securitizadora dos Índices Financeiros em conjunto com
                a memória de cálculo dos Índices Financeiros, a qual conterá todas as rubricas necessárias para"
-146;resgate_antecipado_hipoteses_serie_1;"Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Resgate Antecipado Facultativo Total da NC 1ª Série";texto;1ª Série;;;termo;;Termo 1065416, p.136, linhas 25-38;;pending;"        CLÁUSULA DÉCIMA SÉTIMA – RESGATE ANTECIPADO, AMORTIZAÇÃO
+146;resgate_antecipado_hipoteses_serie_1;"Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Resgate Antecipado Facultativo Total da NC 1ª Série";texto;1ª Série;;;termo;;Termo 1065416, p.136, linhas 25-38;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"        CLÁUSULA DÉCIMA SÉTIMA – RESGATE ANTECIPADO, AMORTIZAÇÃO
            EXTRAORDINÁRIA E OFERTA DE RESGATE ANTECIPADO DOS CRA
 
 17.1. Resgate Antecipado dos CRA da 1ª Série: Haverá o resgate antecipado dos CRA da 1ª Série
@@ -985,7 +985,7 @@ Comerciais Escriturais 1ª Série.
 na ocorrência de: (i) Resgate Antecipado Evento Voluntário de Retenção de Tributos; (ii) um Evento
 de Vencimento Antecipado, observados os procedimentos relacionados aos Eventos de Vencimento
 Antecipado previstos neste Termo de Securitização; (iii) adesão de Titulares dos CRA à Oferta de"
-147;resgate_antecipado_hipoteses_serie_2;"Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Resgate Antecipado Facultativo Total da NC 2ª Série; Taxa Substitutiva da Taxa DI";texto;2ª Série;;;termo;;Termo 1065416, p.136, linhas 32-45;;pending;"Resgate Antecipado dos CRA da 1ª Série; e (iv) Resgate Antecipado Facultativo Total das Notas
+147;resgate_antecipado_hipoteses_serie_2;"Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Resgate Antecipado Facultativo Total da NC 2ª Série; Taxa Substitutiva da Taxa DI";texto;2ª Série;;;termo;;Termo 1065416, p.136, linhas 32-45;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"Resgate Antecipado dos CRA da 1ª Série; e (iv) Resgate Antecipado Facultativo Total das Notas
 Comerciais Escriturais 1ª Série.
 
 17.2. Resgate Antecipado dos CRA da 2ª Série: Haverá o resgate antecipado dos CRA da 2ª Série
@@ -999,7 +999,7 @@ Comerciais Escriturais 2ª Série; e (vi) Resgate Antecipado Taxa Substitutiva d
 na ocorrência de: (i) Resgate Antecipado Evento Voluntário de Retenção de Tributos; (ii) um Evento
 de Vencimento Antecipado, observados os procedimentos relacionados aos Eventos de Vencimento
 Antecipado previstos neste Termo de Securitização; (iii) adesão de Titulares dos CRA à Oferta de"
-148;resgate_antecipado_hipoteses_serie_3;"Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Taxa Substitutiva da Taxa DI";texto;3ª Série;;;termo;;Termo 1065416, p.136, linhas 39-52;;pending;"Resgate Antecipado dos CRA da 2ª Série; (iv) Resgate Antecipado Facultativo Total das Notas
+148;resgate_antecipado_hipoteses_serie_3;"Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Taxa Substitutiva da Taxa DI";texto;3ª Série;;;termo;;Termo 1065416, p.136, linhas 39-52;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"Resgate Antecipado dos CRA da 2ª Série; (iv) Resgate Antecipado Facultativo Total das Notas
 Comerciais Escriturais 2ª Série; e (vi) Resgate Antecipado Taxa Substitutiva da Taxa DI.
 
 17.3. Resgate Antecipado dos CRA da 3ª Série: Haverá o resgate antecipado dos CRA da 3ª Série
@@ -1013,7 +1013,7 @@ na ocorrência de: (i) Resgate Antecipado Evento Voluntário de Retenção de Tr
 de Vencimento Antecipado, observados os procedimentos relacionados aos Eventos de Vencimento
 Antecipado previstos neste Termo de Securitização; adesão de Titulares dos CRA à Oferta de Resgate
 Antecipado dos CRA da 4ª Série; e (iv) Resgate Antecipado Taxa Substitutiva da Taxa DI."
-149;resgate_antecipado_hipoteses_serie_4;"Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Taxa Substitutiva da Taxa DI";texto;4ª Série;;;termo;;Termo 1065416, p.136, linhas 45-54;;pending;"Antecipado previstos neste Termo de Securitização; (iii) adesão de Titulares dos CRA à Oferta de
+149;resgate_antecipado_hipoteses_serie_4;"Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Taxa Substitutiva da Taxa DI";texto;4ª Série;;;termo;;Termo 1065416, p.136, linhas 45-54;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"Antecipado previstos neste Termo de Securitização; (iii) adesão de Titulares dos CRA à Oferta de
 Resgate Antecipado dos CRA da 3ª Série; e (iv) Resgate Antecipado Taxa Substitutiva da Taxa DI.
 
 17.4. Resgate Antecipado dos CRA da 4ª Série: Haverá o resgate antecipado dos CRA da 4ª Série
@@ -1023,7 +1023,7 @@ Antecipado previstos neste Termo de Securitização; adesão de Titulares dos CR
 Antecipado dos CRA da 4ª Série; e (iv) Resgate Antecipado Taxa Substitutiva da Taxa DI.
 
                                                                   136"
-150;resgate_antecipado_hipoteses_serie_5;"Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Taxa Substitutiva do IPCA";texto;5ª Série;;;termo;;Termo 1065416, p.137, linhas 1-14;;pending;"Docusign Envelope ID: EE4B47BD-07A4-4896-BFD7-4513B23B707F
+150;resgate_antecipado_hipoteses_serie_5;"Evento de Retenção de Tributos; Evento de Vencimento Antecipado; adesão a Oferta de Resgate Antecipado; Taxa Substitutiva do IPCA";texto;5ª Série;;;termo;;Termo 1065416, p.137, linhas 1-14;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"Docusign Envelope ID: EE4B47BD-07A4-4896-BFD7-4513B23B707F
 
                17.5. Resgate Antecipado dos CRA da 5ª Série: Haverá o resgate antecipado dos CRA da 5ª Série
                na ocorrência de: (i) Resgate Antecipado Evento Voluntário de Retenção de Tributos; (ii) um Evento
@@ -1036,7 +1036,7 @@ Antecipado dos CRA da 4ª Série; e (iv) Resgate Antecipado Taxa Substitutiva da
                Antecipado dos CRA da 2ª Série, um Resgate Antecipado dos CRA da 3ª Série, um Resgate Antecipado
                dos CRA da 4ª Série e/ou um Resgate Antecipado dos CRA da 5ª Série) as seguintes normas deverão
                ser observadas:"
-151;resgate_facultativo_total;"Vedado para NCs 3ª, 4ª e 5ª Séries; permitido (totalidade) para NCs 1ª e 2ª Séries a partir de 2028-06-15";texto;1ª e 2ª Séries;;;termo;;Termo 1065416, p.144, linhas 35-48;Ver 17.15.3 (1ª Série: maior entre VNU+juros e VP pela curva Pré x DI) e 17.15.4 (2ª Série: prêmio).;pending;"Devedora, e indicado na forma da Cláusula 17.14.2, “(v)” acima.
+151;resgate_facultativo_total;"Vedado para NCs 3ª, 4ª e 5ª Séries; permitido (totalidade) para NCs 1ª e 2ª Séries a partir de 2028-06-15";texto;1ª e 2ª Séries;;;termo;;Termo 1065416, p.144, linhas 35-48;Ver 17.15.3 (1ª Série: maior entre VNU+juros e VP pela curva Pré x DI) e 17.15.4 (2ª Série: prêmio). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"Devedora, e indicado na forma da Cláusula 17.14.2, “(v)” acima.
 
 17.15. Resgate Antecipado Facultativo Total dos CRA: A Devedora não poderá, voluntariamente,
 realizar o resgate antecipado das Notas Comerciais Escriturais da 3ª Série, das Notas Comerciais
@@ -1049,7 +1049,7 @@ das Notas Comerciais Escriturais 2ª Série (“Resgate Antecipado Facultativo d
 Escriturais 2ª Série” e, em conjunto com o Resgate Antecipado Facultativo das Notas Comerciais
 Escriturais 1ª Série, os “Resgates Antecipados Facultativos das Notas Comerciais Escriturais” ou,
 individualmente e indistintamente, “Resgate Antecipado Facultativo das Notas Comerciais"
-152;premio_resgate_facultativo_serie_2;0.0100;fração a.a. (× Prazo Remanescente/252, sobre PU);Resgate Antecipado Facultativo da 2ª Série;;;termo;;Termo 1065416, p.146, linhas 45-58;Cláusula 17.15.4.;pending;"da Remuneração dos CRA da 2ª Série calculada pro rata temporis desde a primeira Data de
+152;premio_resgate_facultativo_serie_2;0.0100;fração a.a. (× Prazo Remanescente/252, sobre PU);Resgate Antecipado Facultativo da 2ª Série;;;termo;;Termo 1065416, p.146, linhas 45-58;Cláusula 17.15.4. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"da Remuneração dos CRA da 2ª Série calculada pro rata temporis desde a primeira Data de
 Integralização, ou da Data de Pagamento da Remuneração imediatamente anterior, conforme o
 caso, até a Data do Resgate Antecipado Facultativo dos CRA da 2ª Série, acrescido da
 Remuneração dos CRA da 2ª Série;
@@ -1062,7 +1062,7 @@ Facultativo dos CRA da 2ª Série até a Data de Vencimento dos CRA da 2ª Séri
 17.15.5.         Ocorrendo o Resgate Antecipado Facultativo Total da respectiva Série das Notas
 
 Comerciais Escriturais pela Devedora, a Securitizadora deverá obrigatoriamente realizar o respectivo"
-153;amortizacao_extraordinaria_facultativa;"Vedada para 3ª, 4ª e 5ª Séries; facultativa para 1ª e 2ª Séries a partir de 2028-06-15, limitada a 98%";texto;1ª e 2ª Séries;;;termo;;Termo 1065416, p.147, linhas 19-32;"Cláusula 17.17; base do limite de 98% está na linha seguinte do texto.";pending;"realizar a amortização extraordinária das Notas Comerciais Escriturais da 3ª Série, das Notas
+153;amortizacao_extraordinaria_facultativa;"Vedada para 3ª, 4ª e 5ª Séries; facultativa para 1ª e 2ª Séries a partir de 2028-06-15, limitada a 98%";texto;1ª e 2ª Séries;;;termo;;Termo 1065416, p.147, linhas 19-32;"Cláusula 17.17; base do limite de 98% está na linha seguinte do texto. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"realizar a amortização extraordinária das Notas Comerciais Escriturais da 3ª Série, das Notas
 Comerciais Escriturais da 4ª Série ou das Notas Comerciais Escriturais da 5ª Série. Não obstante, a
 Devedora poderá, a partir de 15 de junho de 2028 (inclusive), a seu exclusivo critério, observados os
 termos e condições estabelecidos na Cláusula 5.10 e seguintes do Termo de Emissão, realizar a
@@ -1076,7 +1076,7 @@ Escriturais”), ocasião em que a Emissora deverá realizar, observados os term
 estabelecidos a seguir, a amortização extraordinária dos CRA da respectiva Série, limitada a 98%
 (noventa e oito por cento) do (i) Valor Nominal Unitário dos CRA da 1ª Série (“Amortização
 Extraordinária dos CRA da 1ª Série”); ou (ii) Valor Nominal Unitário dos CRA da 2ª Série"
-154;isin_serie_1;BRECOACRALJ8;texto;1ª Série;;;termo;;Termo 1065416, p.71, linhas 20-33;"O ISIN cadastrado para o ativo (BRECOACRALJ8) é o da 1ª Série; o Termo não cita códigos IF/CETIP.";pending;"               ANBIMA. Esta classificação foi realizada no momento inicial da Oferta, estando as características
+154;isin_serie_1;BRECOACRALJ8;texto;1ª Série;;;termo;;Termo 1065416, p.71, linhas 20-33;"O ISIN cadastrado para o ativo (BRECOACRALJ8) é o da 1ª Série; o Termo não cita códigos IF/CETIP. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"               ANBIMA. Esta classificação foi realizada no momento inicial da Oferta, estando as características
                dos CRA sujeitas a alterações.
 
                (xxxix) Código ISIN – BRECOACRALJ8 (CRA da 1ª Série), BRECOACRALK6 (CRA da 2ª Série) ,
@@ -1090,7 +1090,7 @@ Extraordinária dos CRA da 1ª Série”); ou (ii) Valor Nominal Unitário dos C
                                                         PRESTADORES DE SERVIÇO
 
                4.1. Plano de Distribuição: Os CRA serão objeto de oferta pública de distribuição, sob o rito de"
-155;isins_series_2_a_5;"2ª BRECOACRALK6; 3ª BRECOACRALL4; 4ª BRECOACRALM2; 5ª BRECOACRALN0";texto;2ª a 5ª Séries;;;termo;;Termo 1065416, p.71, linhas 20-33;;pending;"               ANBIMA. Esta classificação foi realizada no momento inicial da Oferta, estando as características
+155;isins_series_2_a_5;"2ª BRECOACRALK6; 3ª BRECOACRALL4; 4ª BRECOACRALM2; 5ª BRECOACRALN0";texto;2ª a 5ª Séries;;;termo;;Termo 1065416, p.71, linhas 20-33;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               ANBIMA. Esta classificação foi realizada no momento inicial da Oferta, estando as características
                dos CRA sujeitas a alterações.
 
                (xxxix) Código ISIN – BRECOACRALJ8 (CRA da 1ª Série), BRECOACRALK6 (CRA da 2ª Série) ,
@@ -1104,7 +1104,7 @@ Extraordinária dos CRA da 1ª Série”); ou (ii) Valor Nominal Unitário dos C
                                                         PRESTADORES DE SERVIÇO
 
                4.1. Plano de Distribuição: Os CRA serão objeto de oferta pública de distribuição, sob o rito de"
-156;rating_obrigacao;"Moody's Local BR; relatório para os CRA Sêniores atualizado no mínimo anualmente, sem interrupção";texto;vigência dos CRA Sêniores;;;termo;;Termo 1065416, p.70, linhas 9-22;Rating contratado apenas para os CRA Sêniores (1ª e 2ª Séries).;pending;"               (xxviii) Contrato de Estabilização de Preço. Não será celebrado contrato de estabilização de preço no
+156;rating_obrigacao;"Moody's Local BR; relatório para os CRA Sêniores atualizado no mínimo anualmente, sem interrupção";texto;vigência dos CRA Sêniores;;;termo;;Termo 1065416, p.70, linhas 9-22;Rating contratado apenas para os CRA Sêniores (1ª e 2ª Séries). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               (xxviii) Contrato de Estabilização de Preço. Não será celebrado contrato de estabilização de preço no
                âmbito da Oferta.
 
                (xxix) Classificação de Risco dos CRA — Foi contratada, como agência de classificação de risco dos
@@ -1118,7 +1118,7 @@ Extraordinária dos CRA da 1ª Série”); ou (ii) Valor Nominal Unitário dos C
                do primeiro relatório de classificação de risco: (a) manter, por conta e ordem da Devedora, contratada a
                Agência de Classificação de Risco para a atualização anual da classificação de risco dos CRA Sêniores,
                e (b) divulgar anualmente e permitir que a Agência de Classificação de Risco divulgue amplamente ao"
-157;obrigacao_relatorio_gestao_mensal;30;dias após o encerramento do mês;Emissora → Agente Fiduciário (Cláusula 10, item xl (i));;;termo;;Termo 1065416, p.109, linhas 3-16;Conteúdo: saldo do VNU por série + Remuneração, valor dos Direitos Creditórios, recebimentos e inadimplência.;pending;"                 (h) cópia de qualquer notificação judicial, extrajudicial ou administrativa recebida pela Emissora
+157;obrigacao_relatorio_gestao_mensal;30;dias após o encerramento do mês;Emissora → Agente Fiduciário (Cláusula 10, item xl (i));;;termo;;Termo 1065416, p.109, linhas 3-16;Conteúdo: saldo do VNU por série + Remuneração, valor dos Direitos Creditórios, recebimentos e inadimplência. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                 (h) cópia de qualquer notificação judicial, extrajudicial ou administrativa recebida pela Emissora
                relacionada a esta Emissão, no máximo, em 3 (três) Dias Úteis contados da data de seu recebimento;
 
                  (i) relatório de gestão mensal em até 30 (trinta) dias, contados do encerramento do mês a que se
@@ -1132,7 +1132,7 @@ Extraordinária dos CRA da 1ª Série”); ou (ii) Valor Nominal Unitário dos C
                à realização do relatório anual do Agente Fiduciário dos CRA, conforme Resolução CVM 17, que
                venham a ser solicitados pelo Agente Fiduciário dos CRA, em até 30 (trinta) dias antes do encerramento
                do prazo para disponibilização do referido relatório. O referido organograma do grupo societário da"
-158;obrigacao_relatorio_anual_gestao;90;dias após o término do exercício social;Emissora → Agente Fiduciário;;;termo;;Termo 1065416, p.108, linhas 16-29;Com declaração de não ocorrência de vencimento antecipado.;pending;"demonstrativos do Patrimônio Separado, assim como de todas as informações periódicas e eventuais
+158;obrigacao_relatorio_anual_gestao;90;dias após o término do exercício social;Emissora → Agente Fiduciário;;;termo;;Termo 1065416, p.108, linhas 16-29;Com declaração de não ocorrência de vencimento antecipado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"demonstrativos do Patrimônio Separado, assim como de todas as informações periódicas e eventuais
 relatórios, comunicados ou demais documentos que devam ser entregues à CVM;
 
  (b) dentro de 90 (noventa) dias após o término de cada exercício social, relatório anual de gestão e
@@ -1146,7 +1146,7 @@ Fiduciário dos CRA;
 informações, inclusive financeiras e contábeis, fornecidas pela Devedora e/ou pelo Avalista;
 
  (d) dentro de 5 (cinco) Dias Úteis, qualquer informação ou cópia de quaisquer documentos que lhe"
-159;obrigacao_df_patrimonio_separado;"Exercício social do Patrimônio Separado encerra em 30/06; DFs em até 90 dias";texto;anual;;;termo;;Termo 1065416, p.99, linhas 1-14;Cláusula 9.1.;pending;"Docusign Envelope ID: EE4B47BD-07A4-4896-BFD7-4513B23B707F
+159;obrigacao_df_patrimonio_separado;"Exercício social do Patrimônio Separado encerra em 30/06; DFs em até 90 dias";texto;anual;;;termo;;Termo 1065416, p.99, linhas 1-14;Cláusula 9.1. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"Docusign Envelope ID: EE4B47BD-07A4-4896-BFD7-4513B23B707F
 
 demonstrações financeiras em até 90 (noventa) dias após o término do seu respectivo exercício social.
 Para os fins aqui previstos, o encerramento do exercício social do Patrimônio Separado dar-se-á no dia
@@ -1159,7 +1159,7 @@ disposição legal ou regulamentar, dolo, negligência, imprudência, imperícia
 ou, ainda, por desvio de finalidade do Patrimônio Separado, desde que comprovado em devido processo
 
 legal e sentença judicial transitada em julgado."
-160;obrigacao_comunicacao_evento_va;3;dias corridos;Devedora → Securitizadora, contados da ocorrência;;;termo;;Termo 1065416, p.97, linhas 7-20;;pending;"               Comerciais Escriturais 4ª e 5ª Séries; (x) saldo devedor do Valor Nominal Unitário das Notas
+160;obrigacao_comunicacao_evento_va;3;dias corridos;Devedora → Securitizadora, contados da ocorrência;;;termo;;Termo 1065416, p.97, linhas 7-20;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               Comerciais Escriturais 4ª e 5ª Séries; (x) saldo devedor do Valor Nominal Unitário das Notas
                Comerciais Escriturais 4ª e 5ª Séries.
 
                7.9. A ocorrência de qualquer dos eventos descritos nas Cláusulas 7.1.1 e 7.2.1 acima deverá ser
@@ -1173,7 +1173,7 @@ legal e sentença judicial transitada em julgado."
                7.10. Além dos Encargos Moratórios, a Securitizadora poderá, em caso de inadimplência, cobrar da
                Devedora e do Avalista todas as despesas devidamente comprovadas de cobrança judicial ou
                extrajudicial, acrescidas das custas e quaisquer outras despesas judiciais e/ou processuais e os"
-161;taxa_administracao;R$ 18.000,00 (parcela única) + R$ 20.000,00 anuais atualizados pelo IPCA;texto;Emissora;;;termo;;Termo 1065416, p.99, linhas 12-25;;pending;"legal e sentença judicial transitada em julgado.
+161;taxa_administracao;R$ 18.000,00 (parcela única) + R$ 20.000,00 anuais atualizados pelo IPCA;texto;Emissora;;;termo;;Termo 1065416, p.99, linhas 12-25;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"legal e sentença judicial transitada em julgado.
 
 9.1.2.  A Emissora fará jus ao recebimento de taxa de administração correspondente a: (i)
 
@@ -1186,7 +1186,7 @@ pelo IPCA deste a Data de Emissão, calculada pro rata die (“Taxa de Administr
 9.1.3.  A Taxa de Administração será custeada diretamente pelo Fundo de Despesas, ou
 
 pela Devedora em caso de insuficiência do mesmo, e a primeira parcela anual será devida no prazo de"
-162;eventos_liquidacao_patrimonio_separado;Cláusula 9.3, itens (i) a (xi), relativos à Emissora: inclui pedido de recuperação judicial/extrajudicial e pedido de falência da Emissora;texto;Emissora;;;termo;;Termo 1065416, p.101, linhas 3-16;Demais itens: extinção/insolvência, desvio de finalidade, inadimplementos da Emissora, insuficiência de recursos para Despesas, violações anticorrupção.;pending;"Emissora ou de sociedades do seu mesmo grupo econômico, caso seja aplicado o disposto no artigo 76
+162;eventos_liquidacao_patrimonio_separado;Cláusula 9.3, itens (i) a (xi), relativos à Emissora: inclui pedido de recuperação judicial/extrajudicial e pedido de falência da Emissora;texto;Emissora;;;termo;;Termo 1065416, p.101, linhas 3-16;Demais itens: extinção/insolvência, desvio de finalidade, inadimplementos da Emissora, insuficiência de recursos para Despesas, violações anticorrupção. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"Emissora ou de sociedades do seu mesmo grupo econômico, caso seja aplicado o disposto no artigo 76
 da Medida Provisória nº 2.158-35, de 24 de agosto de 2001, ainda em vigor na presente data.
 
 9.3. Eventos de Liquidação do Patrimônio Separado: Sem prejuízo do disposto na Cláusula 9.2
@@ -1200,7 +1200,7 @@ independentemente de aprovação do plano de recuperação por seus credores ou 
 processamento da recuperação ou de sua concessão pelo juiz competente;
 
 (ii)  pedido de falência, recuperação judicial e/ou extrajudicial formulado por terceiros em face da"
-163;liquidacao_ps_inadimplemento_pecuniario_emissora_prazo;1;Dia Útil;Cláusula 9.3 (v): obrigação pecuniária da Emissora, havendo recursos no Patrimônio Separado;;;termo;;Termo 1065416, p.101, linhas 23-36;Cláusula 9.3 (vi): inadimplemento não pecuniário por mais de 30 dias (linha seguinte do texto).;pending;"(iv) desvio de finalidade do Patrimônio Separado devidamente comprovado, sendo certo que neste
+163;liquidacao_ps_inadimplemento_pecuniario_emissora_prazo;1;Dia Útil;Cláusula 9.3 (v): obrigação pecuniária da Emissora, havendo recursos no Patrimônio Separado;;;termo;;Termo 1065416, p.101, linhas 23-36;Cláusula 9.3 (vi): inadimplemento não pecuniário por mais de 30 dias (linha seguinte do texto). Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"(iv) desvio de finalidade do Patrimônio Separado devidamente comprovado, sendo certo que neste
 caso não haverá assunção imediata do Patrimônio Separado pelo Agente Fiduciário dos CRA;
 
 (v)   inadimplemento ou mora, pela Emissora, de qualquer das obrigações pecuniárias previstas
@@ -1214,3 +1214,15 @@ será contado da data do descumprimento;
 (vi) inadimplemento ou mora, pela Emissora, de qualquer das obrigações não pecuniárias previstas
 neste Termo de Securitização, sendo que, nesta hipótese, a assunção da administração do Patrimônio
 Separado pelo Agente Fiduciário dos CRA poderá ocorrer desde que tal inadimplemento perdure por"
+282;numero_emissao;426;texto;toda a emissão;;;termo;;Termo 1065416, p.1, linhas 2-15;Capa do Primeiro Aditamento ao Termo (17/12/2025), p.1.;pending;"               PRIMEIRO ADITAMENTO AO TERMO DE SECURITIZAÇÃO DE DIREITOS
+               CREDITÓRIOS DO AGRONEGÓCIO, EM ATÉ 5 (CINCO) SÉRIES, DA CLASSE SÊNIOR,
+               DA CLASSE MEZANINO E DA CLASSE SUBORDINADA, DA 426ª (QUADRINGENTÉSIMA
+               VIGÉSIMA SEXTA) EMISSÃO DE CERTIFICADOS DE RECEBÍVEIS DO AGRONEGÓCIO
+               DA ECO SECURITIZADORA DE DIREITOS CREDITÓRIOS DO AGRONEGÓCIO S.A.,
+               LASTREADOS EM DIREITOS CREDITÓRIOS DO AGRONEGÓCIO DEVIDOS PELA
+               ALIBEM ALIMENTOS S.A.
+
+                                                                          entre
+
+                     ECO SECURITIZADORA DE DIREITOS CREDITÓRIOS DO AGRONEGÓCIO S.A.
+                                                                    como Emissora"

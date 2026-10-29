@@ -1,0 +1,21 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA02500C1D",
+    "isin": "BRECOACRALJ8"
+  },
+  "source_document_id": "1065416",
+  "source_kind": "termo",
+  "topic": "campos_padrao_termo",
+  "proposed_by": "Claude (assistente), a partir dos trechos literais do Termo/Aditamento 1065416 (catálogo de campos 0.1.0)",
+  "proposed_at": "2026-10-29",
+  "parameters": [
+    {
+      "anchor": "DA CLASSE MEZANINO E DA CLASSE SUBORDINADA, DA 426ª (QUADRINGENTÉSIMA",
+      "parameter_name": "numero_emissao",
+      "parameter_value": "426",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Capa do Primeiro Aditamento ao Termo (17/12/2025), p.1."
+    }
+  ]
+}
