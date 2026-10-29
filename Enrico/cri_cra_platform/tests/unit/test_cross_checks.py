@@ -189,3 +189,12 @@ def test_superseded_parameters_are_ignored(config):
     c.execute("INSERT INTO extracted_values VALUES (9, 2, '/InformeMensalCRA/DadosGerais/Series/Serie/DataVencimento', '1', '2026-12-30')")
     result = _result(run_checks(c, config), "data_vencimento")
     assert result["verdict"] == "concordam" and result["values"] == ["2026-12-30"]
+
+
+def test_fixed_spread_next_to_an_index_is_not_a_prefixed_series():
+    from credit_assets.cross_checks import tokenize
+    assert tokenize("100% da variação do indexador (DI) + taxa prefixada 1,5% a.a.", "remuneracao") == {
+        "idx=DI", "mult=100", "taxa=1.5"}
+    assert tokenize("Taxa prefixada 8,88% a.a. (indexador IPCA)", "remuneracao") == {"idx=IPCA", "taxa=8.88"}
+    assert tokenize("108% da variação do indexador (DI)", "remuneracao") == {"idx=DI", "mult=108"}
+    assert tokenize("Taxa prefixada 14,8% a.a.", "remuneracao") == {"idx=PREFIXADA", "taxa=14.8"}

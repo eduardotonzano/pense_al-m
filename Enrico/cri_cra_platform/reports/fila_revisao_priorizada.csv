@@ -186,3 +186,27 @@
 5;parâmetro;268;CRA022009VM;numero_series;1 (série única);parâmetro sem conferência visual;Termo 355426, p.32, linhas 5-18
 5;parâmetro;275;CRA022009VM;atualizacao_monetaria;Não há atualização monetária;parâmetro sem conferência visual;Termo 355426, p.33, linhas 28-39
 5;parâmetro;277;CRA022009VM;encargos_moratorios;Multa moratória não compensatória de 2% + juros de mora de 1% ao mês, pro rata temporis (juros compostos), sobre o valor devido e não pago;parâmetro sem conferência visual;Termo 355426, p.38, linhas 11-24
+5;fato;839;CRA02500C1D;df_data_termino_serie_1;2030-12-18;sem conferência visual;Demonstrações Financeiras 1328400, p.10
+5;fato;840;CRA02500C1D;df_data_termino_serie_2;2030-12-18;sem conferência visual;Demonstrações Financeiras 1328400, p.10
+5;fato;841;CRA02500C1D;df_data_termino_serie_3;2030-12-18;sem conferência visual;Demonstrações Financeiras 1328400, p.10
+5;fato;842;CRA02500C1D;df_data_termino_serie_4;2032-12-17;sem conferência visual;Demonstrações Financeiras 1328400, p.10
+5;fato;843;CRA02500C1D;df_remuneracao_serie_1;Taxa prefixada 14,8% a.a.;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;844;CRA02500C1D;df_remuneracao_serie_2;108% da variação do indexador (DI);"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;845;CRA02500C1D;df_remuneracao_serie_3;100% da variação do indexador (DI) + taxa prefixada 1,5% a.a.;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;846;CRA02500C1D;df_remuneracao_serie_4;100% da variação do indexador (DI) + taxa prefixada 2,5% a.a.;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;847;CRA02500C1D;df_remuneracao_serie_5;Taxa prefixada 8,88% a.a. (indexador IPCA);"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;848;CRA02500C1D;df_prazo_meses_serie_1;59;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;849;CRA02500C1D;df_prazo_meses_serie_2;59;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;850;CRA02500C1D;df_prazo_meses_serie_3;59;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;851;CRA02500C1D;df_prazo_meses_serie_4;77;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;852;CRA02500C1D;df_prazo_meses_serie_5;120;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;853;CRA02500C1D;df_indexador_serie_1;Prefixada;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;854;CRA02500C1D;df_indexador_series_2_3_4;DI;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;855;CRA02500C1D;df_indexador_serie_5;IPCA;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;856;CRA02500C1D;df_cronograma_amortizacao_series_1_2_3;Semestral, a partir de 2027-06-17;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;857;CRA02500C1D;df_cronograma_amortizacao_series_4_5;Semestral, a partir de 2027-12-17;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.20
+5;fato;858;CRA02500C1D;df_classe_serie_1;Sênior;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.21
+5;fato;859;CRA02500C1D;df_classe_serie_2;Sênior;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.21
+5;fato;860;CRA02500C1D;df_classe_serie_3;Mezanino;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.21
+5;fato;861;CRA02500C1D;df_classe_serie_4;Subordinada;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.21
+5;fato;862;CRA02500C1D;df_classe_serie_5;Subordinada;"sem conferência visual; tem observação na proposta";Demonstrações Financeiras 1328400, p.21

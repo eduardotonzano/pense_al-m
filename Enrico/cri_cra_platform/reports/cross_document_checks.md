@@ -5,7 +5,7 @@ Verificações `0.1.0` (propostas). Só lê parâmetros e fatos não rejeitados.
 | Ativo | Concordam | Compatíveis (texto) | Divergem | Uma fonte só |
 |---|---|---|---|---|
 | 24G2100031 | 9 | 1 | 0 | 4 |
-| CRA022009VM | 3 | 1 | 2 | 7 |
+| CRA022009VM | 3 | 1 | 1 | 8 |
 | CRA02500C1D | 22 | 2 | 11 | 3 |
 
 ## 24G2100031: divergências
@@ -24,13 +24,6 @@ Nenhuma.
 |---|---|---|---|---|---|
 | 2026-12-30 |  | parâmetro | `data_vencimento_final_cdca_cra` | approved | Ata 619771, p.3, linhas 19-32 |
 | 2027-09-30 |  | informe | `DadosGerais/Series/Serie/DataVencimento` | approved | Informe 2026-08-31 (doc 1328844) |
-
-### Classe da série (sênior, mezanino, subordinada) (série 1)
-
-| Valor | Fichas | Origem | Nome | Revisão | Fonte |
-|---|---|---|---|---|---|
-| Série única (o Termo não divide os CRA em classes) |  | parâmetro | `classe_serie_1` | pending | Termo 355426, p.32, linhas 5-18 |
-| Sênior |  | informe | `DadosGerais/Series/Serie/Classe` | approved | Informe 2026-08-31 (doc 1328844) |
 
 ### CRA022009VM: textos compatíveis (uma fonte traz só parte do que a outra diz)
 
@@ -86,6 +79,7 @@ Nenhuma.
 | 2029-07-16 |  | informe | `DadosGerais/Series/Serie/DataVencimento` | approved | Informe 2026-09-30 (doc 1355952) |
 | 2030-12-18 |  | fato | `af_serie_1_data_vencimento` | approved | Relatório de Agente Fiduciário 1175590, p.3 |
 | 2030-12-18 |  | fato | `def_serie_1_vencimento` | approved | Prospecto de Distribuição Pública 1065463, p.15 |
+| 2030-12-18 |  | fato | `df_data_termino_serie_1` | pending | Demonstrações Financeiras 1328400, p.10 |
 | 2030-12-18 |  | fato | `lamina_serie_1_vencimento` | approved | Lâmina de Oferta de Securitização 1040834, p.6 |
 | 2030-12-18 |  | parâmetro | `vencimento_serie_1` | approved | Termo 1065416, p.66, linhas 15-28 |
 
@@ -94,6 +88,7 @@ Nenhuma.
 | Valor | Fichas | Origem | Nome | Revisão | Fonte |
 |---|---|---|---|---|---|
 | 2030-12-18 |  | fato | `def_serie_2_vencimento` | approved | Prospecto de Distribuição Pública 1065463, p.15 |
+| 2030-12-18 |  | fato | `df_data_termino_serie_2` | pending | Demonstrações Financeiras 1328400, p.10 |
 | 2030-12-18 |  | fato | `lamina_serie_2_vencimento` | approved | Lâmina de Oferta de Securitização 1040834, p.6 |
 | 2030-12-18 |  | parâmetro | `vencimento_serie_2` | approved | Termo 1065416, p.66, linhas 15-28 |
 | 2032-07-15 |  | informe | `DadosGerais/Series/Serie/DataVencimento` | approved | Informe 2026-09-30 (doc 1355952) |
@@ -103,6 +98,7 @@ Nenhuma.
 | Valor | Fichas | Origem | Nome | Revisão | Fonte |
 |---|---|---|---|---|---|
 | 2030-12-18 |  | fato | `def_serie_3_vencimento` | approved | Prospecto de Distribuição Pública 1065463, p.15 |
+| 2030-12-18 |  | fato | `df_data_termino_serie_3` | pending | Demonstrações Financeiras 1328400, p.10 |
 | 2030-12-18 |  | fato | `lamina_serie_3_vencimento` | approved | Lâmina de Oferta de Securitização 1040834, p.6 |
 | 2030-12-18 |  | parâmetro | `vencimento_serie_3` | approved | Termo 1065416, p.66, linhas 15-28 |
 | 2035-07-16 |  | informe | `DadosGerais/Series/Serie/DataVencimento` | approved | Informe 2026-09-30 (doc 1355952) |
@@ -114,6 +110,7 @@ Nenhuma.
 | 2030-07-15 |  | informe | `DadosGerais/Series/Serie/DataVencimento` | approved | Informe 2026-09-30 (doc 1355952) |
 | 2032-12-17 |  | fato | `af_serie_4_data_vencimento` | approved | Relatório de Agente Fiduciário 1175590, p.6 |
 | 2032-12-17 |  | fato | `def_serie_4_vencimento` | approved | Prospecto de Distribuição Pública 1065463, p.15 |
+| 2032-12-17 |  | fato | `df_data_termino_serie_4` | pending | Demonstrações Financeiras 1328400, p.10 |
 | 2032-12-17 |  | fato | `lamina_serie_4_vencimento` | approved | Lâmina de Oferta de Securitização 1040834, p.7 |
 | 2032-12-17 |  | parâmetro | `vencimento_serie_4` | approved | Termo 1065416, p.66, linhas 25-38 |
 
@@ -134,6 +131,7 @@ Nenhuma.
 |---|---|---|---|---|---|
 | CDI | idx=DI | fato | `af_serie_1_remuneracao` | approved | Relatório de Agente Fiduciário 1175590, p.3 |
 | PRÉ 14,8000 % a.a | idx=PREFIXADA, taxa=14.8 | informe | `DadosGerais/Series/Serie/TaxaJuros` | approved | Informe 2026-09-30 (doc 1355952) |
+| Taxa prefixada 14,8% a.a. | idx=PREFIXADA, taxa=14.8 | fato | `df_remuneracao_serie_1` | pending | Demonstrações Financeiras 1328400, p.20 |
 | Prefixada 14,80% a.a., base 252 Dias Úteis | idx=PREFIXADA, taxa=14.8 | parâmetro | `remuneracao_serie_1` | approved | Termo 1065416, p.81, linhas 14-27 |
 
 ### Classe da série (sênior, mezanino, subordinada) (série 4)
@@ -142,9 +140,10 @@ Nenhuma.
 |---|---|---|---|---|---|
 | Mezanino |  | informe | `DadosGerais/Series/Serie/Classe` | approved | Informe 2026-09-30 (doc 1355952) |
 | Subordinada |  | parâmetro | `classe_serie_4` | approved | Termo 1065416, p.35, linhas 12-25 |
+| Subordinada |  | fato | `df_classe_serie_4` | pending | Demonstrações Financeiras 1328400, p.21 |
 
 ### CRA02500C1D: textos compatíveis (uma fonte traz só parte do que a outra diz)
 
-- Remuneração por série (texto) (série 3): remuneracao_serie_3 → idx=DI, mult=100, taxa=1.5; af_serie_3_remuneracao → idx=DI, taxa=1.5; DadosGerais/Series/Serie/TaxaJuros → idx=DI, taxa=1.5
-- Remuneração por série (texto) (série 4): remuneracao_serie_4 → idx=DI, mult=100, taxa=2.5; af_serie_4_remuneracao → idx=DI, taxa=2.5; DadosGerais/Series/Serie/TaxaJuros → idx=DI, taxa=2.5
+- Remuneração por série (texto) (série 3): remuneracao_serie_3 → idx=DI, mult=100, taxa=1.5; af_serie_3_remuneracao → idx=DI, taxa=1.5; df_remuneracao_serie_3 → idx=DI, mult=100, taxa=1.5; DadosGerais/Series/Serie/TaxaJuros → idx=DI, taxa=1.5
+- Remuneração por série (texto) (série 4): remuneracao_serie_4 → idx=DI, mult=100, taxa=2.5; af_serie_4_remuneracao → idx=DI, taxa=2.5; df_remuneracao_serie_4 → idx=DI, mult=100, taxa=2.5; DadosGerais/Series/Serie/TaxaJuros → idx=DI, taxa=2.5
 

@@ -93,3 +93,28 @@ CRI Almeida Junior: nenhuma divergência (9 verificações concordam, 1 compatí
   mesmo vale para a classe da 4ª série. Faz sentido um alerta de qualidade "dado cadastral do Informe diverge do Termo", a propor numa
   próxima etapa.
 - Relatórios de AF também erram (itens 2 e 3). Convém tratá-los como fonte secundária para dados cadastrais.
+
+## Resolução do Alibem com base nas DFs de 30/06/2026 (pedido de Enrico em 29/10/2026)
+
+Base: DFs do Patrimônio Separado da 426ª emissão (doc 1328400, BDO, relatório de 24/09/2026). Os 24 fatos novos dessas DFs estão
+**pendentes** (`config/reported_facts/cra02500c1d_df_2026_06_complemento.json`) e a resolução abaixo é **proposta**, aguardando sua aprovação.
+
+| Dado | DFs (base) | Termo | Informe | AF 2025 | Resolução proposta |
+|---|---|---|---|---|---|
+| Vencimento, séries 1 a 3 | 18/12/2030 (p.10) | 18/12/2030 | 16/07/2029, 15/07/2032, 16/07/2035 | 18/12/2030 | **18/12/2030**; Informe errado |
+| Vencimento, série 4 | 17/12/2032 (p.10) | 17/12/2032 | 15/07/2030 | 17/12/2032 | **17/12/2032**; Informe errado |
+| Vencimento, série 5 | **17/12/2035** (p.10) | 19/12/2035 | 15/07/2030 | 19/12/2035 | **sem resolução**: DFs divergem do Termo em 2 dias (ver abaixo) |
+| Quantidade emitida, séries 1, 2, 4 e 5 | 233.142; 16.858; 100.000; 150.000 (p.17 e p.20) | idem | idem | 0 | **valores das DFs**; AF errado |
+| Remuneração da 1ª série | taxa prefixada 14,8% a.a. (p.20) | prefixada 14,80% | PRÉ 14,8% | "CDI" | **prefixada 14,8%**; AF errado |
+| Classe da 4ª série | Subordinada (nota 6b, p.21) | Subordinada | Mezanino | n/d | **Subordinada**; Informe errado |
+| Meses de pagamento | juros semestrais desde 17/06/2026; amortização desde 17/06/2027 (séries 1-3) e 17/12/2027 (4-5) | idem | vencimentos em julho | n/d | junho/dezembro; confirma o Termo, contradiz as datas do Informe |
+
+**Série 5 (o único ponto em que base e Termo se separam):** as DFs dizem 17/12/2035, o Termo, a Lâmina, o Prospecto definitivo e o AF dizem
+19/12/2035. Não adoto o valor das DFs em silêncio nem o do Termo: a hipótese é que as DFs citam a data da Nota Comercial (17/12/2035, Prospecto
+def. p.88), mas isso é interpretação. Decisão sua, ou consulta ao registro na B3/ANBIMA.
+
+**Inconsistência interna das DFs (baixa gravidade):** "Prazo de vencimento: 59 meses (1ª a 3ª), 77 meses (4ª), 120 meses (5ª)" (p.20); pelas datas
+seriam cerca de 60, 84 e 120 meses. Os 77 meses da 4ª série não fecham com 17/12/2032.
+
+**O que isso muda:** as três divergências de alta e média gravidade do Alibem (Informe, AF e classe) ficam explicadas por erro de **Informe e AF**,
+com as DFs auditadas, o Termo e a oferta do mesmo lado. O Informe e o AF passam a ser tratados como fonte secundária para dado cadastral do Alibem.

@@ -48,7 +48,7 @@ INDEXERS = (
     (re.compile(r"\b(?:pre-?fixad[ao]s?|pre)\b"), "PREFIXADA"),
 )
 MULT_AFTER = re.compile(
-    r"(?:d[aeo]s?\s+)?(?:variacao\s+(?:acumulada\s+)?(?:d[aeo]s?\s+)?)?(?:taxa\s+|indexador\s*\(\s*)?(?:c?di|ipca|selic)\b"
+    r"(?:d[aeo]s?\s+)?(?:variacao\s+(?:acumulada\s+)?(?:d[aeo]s?\s+)?)?(?:taxa\s+)?(?:c?di\b|ipca\b|selic\b|indexador\b)"
 )
 PERCENT = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
 NAME_STOPWORDS = {
@@ -72,6 +72,10 @@ def tokenize(text: str, tokenizer: str) -> frozenset[str]:
         for pattern, label in INDEXERS:
             if pattern.search(folded):
                 tokens.add("idx=" + label)
+        # "taxa prefixada 1,5%" ao lado de um indexador é só o spread fixo, não uma série prefixada
+        if "idx=PREFIXADA" in tokens and (tokens & {"idx=DI", "idx=IPCA", "idx=SELIC", "idx=IGPM"}
+                                          or any(t.startswith("mult=") for t in tokens)):
+            tokens.discard("idx=PREFIXADA")
     elif tokenizer == "nome":
         for cnpj in re.findall(r"\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2}", folded):
             tokens.add("cnpj=" + re.sub(r"\D", "", cnpj))

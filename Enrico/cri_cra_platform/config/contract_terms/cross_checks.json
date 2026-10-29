@@ -234,7 +234,8 @@
         "^remuneracao_serie_(?P<n>\\d+)$"
       ],
       "facts": [
-        "^af_serie_(?P<n>\\d+)_remuneracao$"
+        "^af_serie_(?P<n>\\d+)_remuneracao$",
+        "^df_remuneracao_serie_(?P<n>\\d+)$"
       ],
       "informe": {
         "path": "DadosGerais/Series/Serie/TaxaJuros$",
@@ -292,7 +293,9 @@
       "parameters": [
         "^classe_serie_(?P<n>\\d+)$"
       ],
-      "facts": [],
+      "facts": [
+        "^df_classe_serie_(?P<n>\\d+)$"
+      ],
       "informe": {
         "path": "DadosGerais/Series/Serie/Classe$",
         "group": "n"
