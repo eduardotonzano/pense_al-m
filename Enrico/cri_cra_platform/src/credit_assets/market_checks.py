@@ -16,7 +16,8 @@ MESES = ["janeiro", "fevereiro", "marco", "abril", "maio", "junho", "julho", "ag
 PERIODIC = re.compile(r"semestral|anual|trimestral|bimestral|quadrimestral")
 WEIGHTS = {"em_atraso": 5, "vencido_com_saldo_adimplente": 4, "informe_defasado": 3,
            "vencimento_fora_mes_base": 2, "isin_repetido": 3, "serie_sem_isin": 1,
-           "identificador_duplicado": 1}
+           "identificador_duplicado": 1, "isin_invalido": 2}
+ISIN_PATTERN = re.compile(r"^[A-Z]{2}[A-Z0-9]{9}[0-9]$")
 
 
 def fold(text: str | None) -> str:
@@ -66,8 +67,11 @@ def series_flags(row: dict[str, Any], reference: str) -> list[str]:
     if months and PERIODIC.search(fold(row.get("Pagamento_Periodicidade"))) and len(maturity) == 10:
         if int(maturity[5:7]) - 1 not in months:
             flags.append("vencimento_fora_mes_base")
-    if not (row.get("Codigo_ISIN") or "").strip():
+    isin = (row.get("Codigo_ISIN") or "").strip()
+    if not isin:
         flags.append("serie_sem_isin")
+    elif not ISIN_PATTERN.match(isin.upper()):
+        flags.append("isin_invalido")
     return flags
 
 
@@ -111,3 +115,54 @@ def rank_emissions(
         ranking.append(item)
     ranking.sort(key=lambda i: (-i["score"], -i["saldo"], i["certificado"]))
     return ranking
+
+
+def merge_alias_certificates(
+    rows: list[dict[str, Any]], last_filing: dict[str, str],
+) -> tuple[list[dict[str, Any]], dict[str, str], dict[str, list[str]]]:
+    """Une certificados que são a mesma emissão com dois códigos (ISIN e CETIP).
+
+    Dois certificados da mesma securitizadora que compartilham o ISIN de alguma série viram um só.
+    Devolve as linhas já unidas (uma por ISIN dentro da emissão), a última competência por emissão e
+    o mapa emissão -> códigos de certificado originais. Não altera a lista recebida."""
+
+    parent: dict[tuple[str, str], tuple[str, str]] = {}
+
+    def find(node):
+        while parent.setdefault(node, node) != node:
+            parent[node] = parent[parent[node]]
+            node = parent[node]
+        return node
+
+    owner: dict[tuple[str, str], tuple[str, str]] = {}
+    for row in rows:
+        node = (row.get("CNPJ_Emissora") or "", row["Codigo_Identificacao_Certificado"])
+        find(node)
+        isin = (row.get("Codigo_ISIN") or "").strip()
+        if isin:
+            key = (node[0], isin)
+            if key in owner:
+                parent[find(node)] = find(owner[key])
+            else:
+                owner[key] = node
+    members: dict[tuple[str, str], Counter] = defaultdict(Counter)
+    for row in rows:
+        node = (row.get("CNPJ_Emissora") or "", row["Codigo_Identificacao_Certificado"])
+        members[find(node)][node[1]] += 1
+    group_id = {root: sorted(codes.items(), key=lambda kv: (-kv[1], kv[0]))[0][0] for root, codes in members.items()}
+    merged: dict[tuple, dict[str, Any]] = {}
+    for row in rows:
+        node = (row.get("CNPJ_Emissora") or "", row["Codigo_Identificacao_Certificado"])
+        gid = group_id[find(node)]
+        isin = (row.get("Codigo_ISIN") or "").strip()
+        key = (node[0], gid, isin) if isin else (node[0], gid, "", row.get("Numero_Serie"), node[1])
+        candidate = {**row, "Codigo_Identificacao_Certificado": gid, "_original": node[1]}
+        if key not in merged or (row.get("Data_Referencia") or "") > (merged[key].get("Data_Referencia") or ""):
+            merged[key] = candidate
+    filing: dict[str, str] = {}
+    aliases: dict[str, list[str]] = {}
+    for root, codes in members.items():
+        gid = group_id[root]
+        aliases[gid] = sorted(codes)
+        filing[gid] = max((last_filing.get(code, "") for code in codes), default="")
+    return list(merged.values()), filing, aliases
