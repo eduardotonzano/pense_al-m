@@ -51,3 +51,10 @@ def test_detect_uses_previous_reported_month_and_skips_series_without_isin():
     events = detect(rows, "2026-08")
     assert [(e["evento"], e["mes_anterior"]) for e in events] == [("entrou_em_atraso", "2026-05")]
     assert events[0]["antes"] == "Adimplente" and events[0]["depois"] == "Em atraso"
+
+
+def test_rating_placeholders_are_not_rating_changes():
+    assert compare(row(Classificacao_Risco_Atual="AAA"), row(Classificacao_Risco_Atual="0")) == []
+    assert compare(row(Classificacao_Risco_Atual="-"), row(Classificacao_Risco_Atual="AA")) == []
+    assert compare(row(Classificacao_Risco_Atual="Não há"), row(Classificacao_Risco_Atual="AA")) == []
+    assert compare(row(Classificacao_Risco_Atual="AAA"), row(Classificacao_Risco_Atual="AA+")) == ["rating_mudou"]

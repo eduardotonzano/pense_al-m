@@ -9,7 +9,7 @@ Sinais para olhar o ativo, não conclusões (o dado é o do próprio Informe).
 |---|---|
 | Situação passou de Adimplente para Em atraso | 12 |
 | Situação passou de Em atraso para Adimplente | 0 |
-| Classificação de risco atual mudou | 4 |
+| Classificação de risco atual mudou | 1 |
 | Data de vencimento mudou (prorrogação ou antecipação) | 6 |
 | Taxa de juros informada mudou | 2 |
 | Saldo caiu mais que o limite sem amortização informada no mês | 23 |
@@ -19,18 +19,18 @@ Sinais para olhar o ativo, não conclusões (o dado é o do próprio Informe).
 
 | Mês | entrou_em_atraso | saiu_do_atraso | rating_mudou | vencimento_mudou | taxa_mudou | saldo_caiu_sem_amortizacao | saldo_zerou |
 |---|---|---|---|---|---|---|---|
-| 2025-09 | 5 | 0 | 2 | 4 | 5 | 50 | 21 |
+| 2025-09 | 5 | 0 | 1 | 4 | 5 | 50 | 21 |
 | 2025-10 | 10 | 1 | 14 | 7 | 6 | 18 | 7 |
 | 2025-11 | 4 | 1 | 0 | 5 | 1 | 36 | 15 |
 | 2025-12 | 9 | 0 | 1 | 2 | 2 | 48 | 22 |
-| 2026-01 | 2 | 50 | 5 | 7 | 7 | 15 | 9 |
+| 2026-01 | 2 | 50 | 2 | 7 | 7 | 15 | 9 |
 | 2026-02 | 17 | 0 | 6 | 11 | 4 | 9 | 22 |
 | 2026-03 | 2 | 16 | 1 | 2 | 0 | 21 | 12 |
-| 2026-04 | 4 | 0 | 15 | 4 | 2 | 29 | 15 |
+| 2026-04 | 4 | 0 | 0 | 4 | 2 | 29 | 15 |
 | 2026-05 | 0 | 0 | 0 | 1 | 24 | 50 | 14 |
 | 2026-06 | 0 | 3 | 5 | 4 | 2 | 54 | 22 |
 | 2026-07 | 10 | 0 | 7 | 7 | 3 | 35 | 24 |
-| 2026-08 | 12 | 0 | 4 | 6 | 2 | 23 | 16 |
+| 2026-08 | 12 | 0 | 1 | 6 | 2 | 23 | 16 |
 
 Maiores saldos com evento relevante em 2026-08:
 
@@ -68,7 +68,7 @@ Maiores saldos com evento relevante em 2026-08:
 |---|---|
 | Situação passou de Adimplente para Em atraso | 46 |
 | Situação passou de Em atraso para Adimplente | 1 |
-| Classificação de risco atual mudou | 15 |
+| Classificação de risco atual mudou | 0 |
 | Data de vencimento mudou (prorrogação ou antecipação) | 14 |
 | Taxa de juros informada mudou | 14 |
 | Saldo caiu mais que o limite sem amortização informada no mês | 85 |
@@ -78,18 +78,18 @@ Maiores saldos com evento relevante em 2026-08:
 
 | Mês | entrou_em_atraso | saiu_do_atraso | rating_mudou | vencimento_mudou | taxa_mudou | saldo_caiu_sem_amortizacao | saldo_zerou |
 |---|---|---|---|---|---|---|---|
-| 2025-09 | 19 | 17 | 1 | 15 | 10 | 39 | 41 |
-| 2025-10 | 7 | 55 | 1 | 72 | 57 | 35 | 18 |
+| 2025-09 | 19 | 17 | 0 | 15 | 10 | 39 | 41 |
+| 2025-10 | 7 | 55 | 0 | 72 | 57 | 35 | 18 |
 | 2025-11 | 14 | 46 | 8 | 22 | 14 | 33 | 29 |
 | 2025-12 | 122 | 6 | 0 | 42 | 23 | 46 | 59 |
 | 2026-01 | 17 | 173 | 2 | 83 | 35 | 138 | 25 |
 | 2026-02 | 75 | 5 | 0 | 24 | 8 | 77 | 36 |
 | 2026-03 | 18 | 60 | 0 | 14 | 15 | 68 | 34 |
-| 2026-04 | 18 | 90 | 80 | 8 | 14 | 149 | 60 |
-| 2026-05 | 2 | 15 | 2 | 9 | 67 | 71 | 31 |
-| 2026-06 | 96 | 42 | 5 | 3 | 10 | 138 | 42 |
+| 2026-04 | 18 | 90 | 0 | 8 | 14 | 149 | 60 |
+| 2026-05 | 2 | 15 | 0 | 9 | 67 | 71 | 31 |
+| 2026-06 | 96 | 42 | 0 | 3 | 10 | 138 | 42 |
 | 2026-07 | 49 | 2 | 0 | 23 | 9 | 102 | 54 |
-| 2026-08 | 46 | 1 | 15 | 14 | 14 | 85 | 31 |
+| 2026-08 | 46 | 1 | 0 | 14 | 14 | 85 | 31 |
 
 Maiores saldos com evento relevante em 2026-08:
 

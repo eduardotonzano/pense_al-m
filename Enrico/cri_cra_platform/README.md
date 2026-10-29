@@ -112,6 +112,8 @@ SQLite; scripts que gravam têm `--dry-run` ou `--preview` e só aplicam regras 
 | 19. Mercado inteiro (CVM) | `ingest_cvm_open_data.py --dry-run`, depois `--commit` | Informe Mensal de todos os CRA/CRI dos dados abertos da CVM em `data/cvm_open.db` (ver `reports/plano_escala_mercado.md`) |
 | 20. Triagem e universo | `run_market_checks.py`, `build_market_universe.py`, `validate_cvm_vs_xml.py` | ranking de emissões, universo por ISIN, candidatos a lote, validação CVM × XML |
 | 21. Prévia de campos em Termos novos | `preview_field_coverage.py` | localizador de campos sobre os Termos baixados, sem gravar no banco |
+| 22. Rotina mensal do mercado | `run_monthly_market.py --dry-run`, depois `--commit` | ingestão CVM, triagem, eventos de crédito, devedores, securitizadoras e painel `reports/painel_mercado.html` |
+| 23. Histórico de uma emissão | `market_asset_history.py --isin <ISIN>` | mês a mês por série, com eventos |
 
 Relatórios gerados ficam em `reports/`; o resumo do trabalho está em
 `reports/resumo_do_projeto_2026-10-28.md`.

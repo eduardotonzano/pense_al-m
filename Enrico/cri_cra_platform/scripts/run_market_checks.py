@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
 import sqlite3
 import sys
 from collections import Counter
@@ -16,7 +17,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from credit_assets.market_checks import WEIGHTS, rank_emissions, reference_competence
+from credit_assets.market_checks import WEIGHTS, merge_alias_certificates, rank_emissions, reference_competence
 
 LATEST_SERIES = """
     SELECT * FROM (
@@ -48,6 +49,7 @@ def main() -> int:
                 r[0]: r[1] for r in connection.execute(
                     f"SELECT Codigo_Identificacao_Certificado, MAX(Data_Referencia) FROM {kind}_classe_vigente GROUP BY 1")
             }
+            rows, last_filing, _ = merge_alias_certificates(rows, last_filing)  # mesma emissão com dois códigos vira uma
             ranking = rank_emissions(rows, reference, last_filing)
             results[kind] = ranking
             ativos = [i for i in ranking if i["ultima_competencia"] >= reference]
@@ -61,6 +63,12 @@ def main() -> int:
         connection.close()
 
     flags = list(WEIGHTS)
+    (ROOT / "reports" / "market_summary.json").write_text(json.dumps({
+        kind: {"referencia": info["reference"], "emissoes": info["emissoes"],
+               "emissoes_com_informe_recente": info["emissoes_com_informe_recente"], "com_sinal": info["com_sinal"],
+               "saldo_total": str(info["saldo_total"]), "sinais": dict(info["flags"])}
+        for kind, info in summary.items()
+    }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     with (ROOT / "reports" / "market_ranking.csv").open("w", newline="", encoding="utf-8-sig") as handle:
         writer = csv.writer(handle, delimiter=";")
         writer.writerow(["tipo", "certificado", "emissora_cnpj", "series", "saldo_brl", "ultima_competencia", "score"] + flags)

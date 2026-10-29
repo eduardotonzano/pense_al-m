@@ -64,6 +64,17 @@ def _has_number(tokens: frozenset[str]) -> bool:
     return any(t.startswith(("taxa=", "mult=")) for t in tokens)
 
 
+RATING_PLACEHOLDERS = {"0", "-", "--", "n/a", "na", "nao ha", "nao possui", "sem rating", "sem classificacao", "nao se aplica",
+                       "nao aplicavel", "nao avaliado", "nd", "n.d."}
+
+
+def _rating(value: str | None) -> str:
+    """Rating comparável; marcadores de vazio ("0", "-", "Não há") contam como sem rating, não como mudança."""
+
+    folded = _fold(value).rstrip(".")
+    return "" if folded in RATING_PLACEHOLDERS else folded
+
+
 def series_key(row: dict[str, Any]) -> tuple[str, str] | None:
     isin = (row.get("Codigo_ISIN") or "").strip().upper()
     return (row.get("CNPJ_Emissora") or "", isin) if isin else None
@@ -76,7 +87,7 @@ def compare(previous: dict[str, Any], current: dict[str, Any], threshold: Decima
         events.append("entrou_em_atraso")
     if before == "em atraso" and after == "adimplente":
         events.append("saiu_do_atraso")
-    rating_before, rating_after = _fold(previous.get("Classificacao_Risco_Atual")), _fold(current.get("Classificacao_Risco_Atual"))
+    rating_before, rating_after = _rating(previous.get("Classificacao_Risco_Atual")), _rating(current.get("Classificacao_Risco_Atual"))
     if rating_before and rating_after and rating_before != rating_after:
         events.append("rating_mudou")
     due_before, due_after = (previous.get("Data_Vencimento") or "")[:10], (current.get("Data_Vencimento") or "")[:10]
