@@ -1,0 +1,43 @@
+{
+  "rules_version": "0.1.0-draft",
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "approval_status": "pending",
+  "proposed_by": "Claude (assistente)",
+  "proposed_at": "2026-10-29",
+  "notes": "Compara dado cadastral do Informe Mensal vigente mais recente com parâmetro aprovado do Termo/ata. Proposta a partir da pesquisa de divergências de 29/10/2026 (reports/divergencias_pesquisa_2026-10-29.md). Só roda com aprovação (ou --preview). Não diz qual fonte está certa.",
+  "rules": {
+    "informe_cadastro_vs_termo": {
+      "type": "informe_registry_vs_terms",
+      "severity": "warning",
+      "comparisons": [
+        {
+          "label": "Vencimento",
+          "informe_path": "DadosGerais/Series/Serie/DataVencimento",
+          "parameter": "data_vencimento_final_cdca_cra",
+          "kind": "date"
+        },
+        {
+          "label": "ISIN",
+          "informe_path": "DadosGerais/Series/Serie/CodigoISIN",
+          "parameter": "isin",
+          "kind": "code"
+        },
+        {
+          "label": "Número da emissão",
+          "informe_path": "DadosGerais/Emissao/NumeroEmissao",
+          "parameter": "numero_emissao",
+          "kind": "code"
+        },
+        {
+          "label": "Data de emissão",
+          "informe_path": "DadosGerais/Emissao/DataEmissao",
+          "parameter": "data_emissao",
+          "kind": "date"
+        }
+      ]
+    }
+  }
+}

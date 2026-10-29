@@ -41,7 +41,11 @@ def main() -> int:
         for rule_id, items in result["evaluations"].items() for item in items
     ]
     suffix = "_previa" if args.preview else ""
-    path = ROOT / "reports" / f"{config['asset']['codigo_cetip'].lower()}_avaliacao_contratual{suffix}.csv"
+    cetip = config["asset"]["codigo_cetip"].lower()
+    # Arquivos de regras que não são "contractual_*" ganham o próprio nome, para não sobrescrever a prévia das demais.
+    family = args.rules.stem.removesuffix(f"_{cetip}")
+    kind = "contratual" if family == "contractual" else family
+    path = ROOT / "reports" / f"{cetip}_avaliacao_{kind}{suffix}.csv"
     with path.open("w", encoding="utf-8-sig", newline="") as handle:
         writer = csv.DictWriter(
             handle, fieldnames=["rule_id", "competencia_mes", "resultado", "message", "evidence_json"],

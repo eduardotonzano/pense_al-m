@@ -1,3 +1,5 @@
+import sqlite3
+
 import pytest
 
 from credit_assets.services.contract_alerts_service import (
@@ -159,3 +161,68 @@ def test_contract_rules_ignore_pending_facts(tmp_path):
                VALUES (1, 1, 1, 's', ?, '2026-06-30', '1', 'BRL', 'e', 'm', 'p', ?)""", (name, status))
     connection.commit()
     assert set(facts_by_date(connection, 1)["2026-06-30"]) == {"aprovado"}
+
+
+def _registry_database(informe_values, parameters):
+    connection = sqlite3.connect(":memory:")
+    connection.row_factory = sqlite3.Row
+    connection.executescript(
+        """CREATE TABLE documents (document_pk INTEGER PRIMARY KEY, source_document_id TEXT);
+           CREATE TABLE extracted_reports (report_id INTEGER PRIMARY KEY, asset_id INTEGER, document_id INTEGER,
+               reference_date TEXT, is_current INTEGER, human_review_status TEXT);
+           CREATE TABLE extracted_values (extracted_value_id INTEGER PRIMARY KEY, report_id INTEGER,
+               xml_path TEXT, instance_key TEXT, original_value TEXT);
+           INSERT INTO documents VALUES (1, '999');
+           INSERT INTO extracted_reports VALUES (1, 1, 1, '2026-09-30', 1, 'approved');"""
+    )
+    for path, key, value in informe_values:
+        connection.execute(
+            "INSERT INTO extracted_values (report_id, xml_path, instance_key, original_value) VALUES (1, ?, ?, ?)",
+            (path, key, value),
+        )
+    grouped = {name: [{"parameter_name": name, "parameter_value": value, "unit": "data",
+                       "source_reference": "Termo", "valid_from": None, "valid_to": None}]
+               for name, value in parameters.items()}
+    return connection, grouped
+
+
+REGISTRY_RULE = {"comparisons": [
+    {"label": "Vencimento", "informe_path": "DadosGerais/Series/Serie/DataVencimento",
+     "parameter": "vencimento_serie_{n}", "kind": "date"},
+]}
+PATH = "/InformeMensalCRA/DadosGerais/Series/Serie/DataVencimento"
+
+
+def test_informe_registry_flags_divergence_per_series():
+    from credit_assets.services.contract_alerts_service import informe_registry_vs_terms
+    connection, parameters = _registry_database(
+        [(PATH, "1", "2029-07-16"), (PATH, "2", "2030-12-18")],
+        {"vencimento_serie_1": "2030-12-18", "vencimento_serie_2": "2030-12-18"},
+    )
+    items = informe_registry_vs_terms(connection, 1, parameters, REGISTRY_RULE)
+    by_series = {item["evidence"]["serie"]: item for item in items}
+    assert by_series["1"]["compliant"] is False
+    assert by_series["1"]["evidence"]["valor_informe"] == "2029-07-16"
+    assert by_series["1"]["evidence"]["valor_termo"] == "2030-12-18"
+    assert by_series["2"]["compliant"] is True
+
+
+def test_informe_registry_ignores_missing_parameter_and_unapproved_report():
+    from credit_assets.services.contract_alerts_service import informe_registry_vs_terms
+    connection, parameters = _registry_database([(PATH, "3", "2035-07-16")], {})
+    assert informe_registry_vs_terms(connection, 1, parameters, REGISTRY_RULE) == []
+    connection.execute("UPDATE extracted_reports SET human_review_status = 'pending'")
+    connection, parameters = _registry_database([(PATH, "1", "2029-07-16")], {"vencimento_serie_1": "2030-12-18"})
+    connection.execute("UPDATE extracted_reports SET human_review_status = 'pending'")
+    assert informe_registry_vs_terms(connection, 1, parameters, REGISTRY_RULE) == []
+
+
+def test_informe_registry_series_filter_and_rule_type_registered():
+    from credit_assets.services.contract_alerts_service import informe_registry_vs_terms
+    rule = {"comparisons": [{**REGISTRY_RULE["comparisons"][0], "series": [1]}]}
+    connection, parameters = _registry_database(
+        [(PATH, "1", "2030-12-18"), (PATH, "2", "1999-01-01")],
+        {"vencimento_serie_1": "2030-12-18", "vencimento_serie_2": "2030-12-18"},
+    )
+    items = informe_registry_vs_terms(connection, 1, parameters, rule)
+    assert [item["evidence"]["serie"] for item in items] == ["1"]

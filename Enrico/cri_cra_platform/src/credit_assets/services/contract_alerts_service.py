@@ -16,9 +16,10 @@ from datetime import datetime, timezone
 from decimal import Decimal
 from typing import Any
 
+from credit_assets.cross_checks import normalize
 from credit_assets.services.data_quality_alerts_service import upsert_alert
 
-DETECTOR_VERSION = "0.2.0"
+DETECTOR_VERSION = "0.3.0"
 # Unidades de fatos convertidas para a unidade do parâmetro (BRL) nas regras de mínimo.
 UNIT_FACTORS = {"BRL": Decimal(1), "BRL_mil": Decimal(1000)}
 
@@ -282,6 +283,55 @@ def fact_flag(facts, parameters, rule) -> list[dict]:
     return evaluations
 
 
+def informe_registry_vs_terms(connection, asset_id, parameters, rule) -> list[dict]:
+    """Dado cadastral do Informe vigente mais recente × parâmetro aprovado do Termo (ou de ata).
+
+    Cada comparação: ``informe_path`` (final do xml_path), ``parameter`` (nome; ``{n}`` = série),
+    ``kind`` (date, code ou number). Sem parâmetro aprovado vigente, a comparação é ignorada:
+    nunca se presume o valor do Termo. Divergência não diz qual fonte está certa."""
+
+    report = connection.execute(
+        """SELECT r.report_id, r.reference_date, d.source_document_id
+           FROM extracted_reports r JOIN documents d ON d.document_pk = r.document_id
+           WHERE r.asset_id = ? AND r.is_current = 1 AND r.human_review_status = 'approved'
+           ORDER BY r.reference_date DESC, r.report_id DESC LIMIT 1""", (asset_id,),
+    ).fetchone()
+    if report is None:
+        return []
+    evaluations = []
+    for comparison in rule["comparisons"]:
+        for row in connection.execute(
+            """SELECT xml_path, instance_key, original_value FROM extracted_values
+               WHERE report_id = ? AND xml_path LIKE ? AND TRIM(COALESCE(original_value, '')) <> ''""",
+            (report["report_id"], "%" + comparison["informe_path"]),
+        ).fetchall():
+            series = str(row["instance_key"]) if row["instance_key"] is not None else "-"
+            if comparison.get("series") and series not in [str(n) for n in comparison["series"]]:
+                continue
+            name = comparison["parameter"].replace("{n}", series)
+            try:
+                parameter = parameter_row(parameters, name, report["reference_date"])
+            except ParameterNotApproved:
+                continue
+            informe_value = normalize(row["original_value"], comparison["kind"])
+            terms_value = normalize(parameter["parameter_value"], comparison["kind"])
+            if informe_value is None or terms_value is None:
+                continue
+            same = informe_value == terms_value
+            evaluations.append({
+                "month": report["reference_date"][:7],
+                "instance_key": f"{comparison['label']}:{series}",
+                "report_id": report["report_id"], "compliant": same,
+                "message": (f"{comparison['label']} (série {series}): Informe {report['reference_date'][:7]} traz "
+                            f"{row['original_value']!r}; {name} aprovado traz {parameter['parameter_value']!r}."),
+                "evidence": {"campo": comparison["label"], "serie": series,
+                             "valor_informe": row["original_value"], "valor_termo": parameter["parameter_value"],
+                             "parametro": name, "fonte_parametro": parameter["source_reference"],
+                             "informe": f"{report['reference_date']} (doc {report['source_document_id']})"},
+            })
+    return evaluations
+
+
 def evaluate_asset(connection, asset_id, config, persist: bool = True) -> dict[str, Any]:
     parameters = approved_parameters(connection, asset_id)
     facts = facts_by_date(connection, asset_id)
@@ -295,6 +345,8 @@ def evaluate_asset(connection, asset_id, config, persist: bool = True) -> dict[s
         "obligation_deadlines": lambda rule: obligation_deadlines(parameters, rule, today, facts),
         "fact_minimum": lambda rule: fact_minimum(facts, parameters, rule),
         "fact_flag": lambda rule: fact_flag(facts, parameters, rule),
+        "informe_registry_vs_terms": lambda rule: informe_registry_vs_terms(
+            connection, asset_id, parameters, rule),
     }
     evaluations = {}
     for rule_id, rule in rules.items():
