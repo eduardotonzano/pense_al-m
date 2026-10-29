@@ -61,6 +61,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--min-interval-seconds", type=float, default=2.0)
     parser.add_argument("--max-per-minute", type=int, default=20)
     parser.add_argument("--abandon-minutes", type=float, default=30.0)
+    parser.add_argument("--chunk-size", type=int, default=1, choices=range(1, 21), metavar="1-20",
+                        help="documentos do mesmo ativo por sessão de navegador (padrão 1)")
     parser.add_argument("--min-free-gb", type=float, default=10.0)
     return parser
 
@@ -81,6 +83,7 @@ def build_config(args: argparse.Namespace) -> QueueConfig:
         ),
         min_free_bytes_floor=int(args.min_free_gb * GIGABYTE),
         abandon_after_seconds=int(args.abandon_minutes * 60),
+        chunk_size=args.chunk_size,
         **extra,
     )
 

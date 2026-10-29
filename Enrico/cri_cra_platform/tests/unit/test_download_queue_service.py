@@ -421,3 +421,103 @@ def test_service_executor_failure_uses_attempt_http_status(connection):
                            "errors": [{"document_id": 1, "error": "size_limit_exceeded"}]})
     outcome = make_service_executor(service, connection)(document)
     assert not outcome.ok and outcome.http_status == 429 and outcome.error == "size_limit_exceeded"
+
+
+class ChunkExecutor:
+    def __init__(self, outcome_for=None):
+        self.chunks = []
+        self.singles = []
+        self.outcome_for = outcome_for or (lambda document: OK)
+
+    def __call__(self, document):
+        self.singles.append(document["source_document_id"])
+        return self.outcome_for(document)
+
+    def chunk(self, documents):
+        self.chunks.append([d["source_document_id"] for d in documents])
+        return [self.outcome_for(d) for d in documents]
+
+
+def _chunk_worker(connection, executor, **config):
+    return DownloadQueueWorker(connection, executor, _config(**config), clock=FakeClock(),
+                               disk_usage=_free_disk, worker_id="w1")
+
+
+def test_chunk_groups_documents_of_the_same_asset_in_one_session(connection):
+    _seed(connection, 5)
+    _seed(connection, 3, cetip="CRA2", isin="BRX2")
+    enqueue_documents(connection, _config(), dry_run=False)
+    executor = ChunkExecutor()
+    report = _chunk_worker(connection, executor, chunk_size=4).run()
+    assert sorted(len(c) for c in executor.chunks) == [3, 4] and len(executor.singles) == 1  # o resto do 1º ativo vai sozinho
+    assert all(len({sid.split("-")[0] for sid in chunk}) == 1 for chunk in executor.chunks)  # um ativo por grupo
+    assert report["processed"] == 8 and queue_status(connection)["items"] == {"done": 8}
+
+
+def test_chunk_size_one_keeps_single_document_behavior(connection):
+    _seed(connection, 3)
+    enqueue_documents(connection, _config(), dry_run=False)
+    executor = ChunkExecutor()
+    _chunk_worker(connection, executor, chunk_size=1).run()
+    assert executor.chunks == [] and len(executor.singles) == 3
+
+
+def test_chunk_records_each_item_and_retries_only_the_failed_one(connection):
+    _seed(connection, 3)
+    enqueue_documents(connection, _config(), dry_run=False)
+    calls = {"n": 0}
+
+    def outcome(document):
+        calls["n"] += 1
+        if document["source_document_id"] == "CRA1-1" and calls["n"] <= 3:
+            return DownloadOutcome(ok=False, error="TimeoutError: x")
+        return OK
+
+    executor = ChunkExecutor(outcome)
+    report = _chunk_worker(connection, executor, chunk_size=3).run()
+    assert executor.chunks == [["CRA1-0", "CRA1-1", "CRA1-2"]] and executor.singles == ["CRA1-1"]
+    assert report["failed"] == 1 and queue_status(connection)["items"] == {"done": 3}
+
+
+def test_http_403_inside_a_chunk_records_all_and_stops(connection):
+    _seed(connection, 4)
+    _seed(connection, 2, cetip="CRA2", isin="BRX2")
+    enqueue_documents(connection, _config(), dry_run=False)
+    executor = ChunkExecutor(lambda d: DownloadOutcome(ok=False, http_status=403))
+    report = _chunk_worker(connection, executor, chunk_size=4).run()
+    assert report["status"] == "stopped" and "403" in report["stop_reason"]
+    assert report["processed"] == 4  # todo o grupo foi registrado; o próximo nem começou
+    assert queue_status(connection)["items"]["pending"] == 2
+
+
+def test_chunk_size_is_validated():
+    import pytest
+    with pytest.raises(ValueError):
+        QueueConfig(chunk_size=0)
+    with pytest.raises(ValueError):
+        QueueConfig(chunk_size=21)
+
+
+def test_service_chunk_executor_maps_each_document(connection):
+    ids = _seed(connection, 3, category="Informe Mensal")
+    connection.execute(
+        """INSERT INTO collection_attempts (run_id, asset_id, document_id, source, started_at, status, http_status)
+           VALUES ('r1', 1, ?, 'Fundos.NET', 'now', 'failed', 404)""", (ids[1],))
+    connection.commit()
+    report = {
+        "errors": [{"source_document_id": "CRA1-1", "error": "documento não apareceu na grade paginada"}],
+        "files_downloaded": [
+            {"source_document_id": "CRA1-0", "result": "inserted", "size_bytes": 10},
+            {"source_document_id": "CRA1-2", "result": "unchanged", "size_bytes": 5},
+        ],
+        "failed": 1,
+    }
+    service = FakeService(report)
+    executor = make_service_executor(service, connection)
+    documents = [{"codigo_cetip": "CRA1", "isin": "BRX1", "category": "Informe Mensal",
+                  "source_document_id": f"CRA1-{i}", "document_pk": ids[i]} for i in range(3)]
+    ok0, bad, same = executor.chunk(documents)
+    assert ok0.ok and ok0.bytes_downloaded == 10 and not ok0.already_current
+    assert not bad.ok and bad.http_status == 404 and "grade" in bad.error
+    assert same.ok and same.already_current
+    assert service.calls[0][2]["max_documents"] == 3 and service.calls[0][2]["source_document_ids"] == ["CRA1-0", "CRA1-1", "CRA1-2"]

@@ -83,12 +83,15 @@ class QueueConfig:
     min_free_bytes_floor: int = 10 * GIGABYTE
     min_free_fraction: float = 0.10
     abandon_after_seconds: int = 1800
+    chunk_size: int = 1  # documentos do mesmo ativo por sessão de navegador
     categories: tuple[str, ...] = DEFAULT_CATEGORIES
     excluded_name_terms: tuple[str, ...] = DEFAULT_EXCLUDED_NAME_TERMS
 
     def __post_init__(self) -> None:
         if self.min_interval_seconds < 0 or self.max_requests_per_minute < 1:
             raise ValueError("limites de taxa inválidos")
+        if not 1 <= self.chunk_size <= 20:
+            raise ValueError("chunk_size deve estar entre 1 e 20")
         if self.max_attempts < 1 or len(self.retry_delays_seconds) < 1:
             raise ValueError("tentativas inválidas")
         if not 0 < self.failure_rate_threshold <= 1:
@@ -446,6 +449,42 @@ class DownloadQueueWorker:
             self.connection.rollback()
             raise
 
+    def _claim_more(self, first: sqlite3.Row, limit: int) -> list[sqlite3.Row]:
+        """Até ``limit`` itens pendentes do mesmo ativo do primeiro, para baixar na mesma sessão."""
+
+        if limit <= 0:
+            return []
+        now = _iso(self.clock.now())
+        self.connection.execute("BEGIN IMMEDIATE")
+        try:
+            rows = self.connection.execute(
+                """SELECT q.queue_id, q.attempts, q.max_attempts, d.document_pk,
+                          d.source_document_id, d.category, d.document_name,
+                          a.codigo_cetip, a.isin, a.asset_id
+                   FROM download_queue q
+                   JOIN documents d ON d.document_pk = q.document_id
+                   JOIN assets a ON a.asset_id = d.asset_id
+                   WHERE q.status = 'pending' AND a.asset_id = ?
+                     AND (q.next_attempt_at IS NULL OR q.next_attempt_at <= ?)
+                   ORDER BY q.priority, q.queue_id LIMIT ?""",
+                (first["asset_id"], now, limit),
+            ).fetchall()
+            claimed = []
+            for row in rows:
+                updated = self.connection.execute(
+                    """UPDATE download_queue SET status = 'running', worker_id = ?,
+                           batch_id = ?, started_at = ?, heartbeat_at = ?
+                       WHERE queue_id = ? AND status = 'pending'""",
+                    (self.worker_id, self.batch_id, now, now, row["queue_id"]),
+                )
+                if updated.rowcount == 1:
+                    claimed.append(row)
+            self.connection.commit()
+            return claimed
+        except Exception:
+            self.connection.rollback()
+            raise
+
     def _next_wake(self) -> datetime | None:
         scope = ""
         params: list[Any] = []
@@ -559,52 +598,61 @@ class DownloadQueueWorker:
                     self._heartbeat()
                     self.clock.sleep(max(wait, 0))
                     continue
-                self.limiter.wait()
-                document = {k: row[k] for k in row.keys()}
+                rows = [row] + self._claim_more(row, self.config.chunk_size - 1)
+                for _ in rows:
+                    self.limiter.wait()
+                documents = [{k: r[k] for k in r.keys()} for r in rows]
                 try:
-                    outcome = self.executor(document)
+                    if len(rows) > 1 and hasattr(self.executor, "chunk"):
+                        outcomes = list(self.executor.chunk(documents))
+                        if len(outcomes) != len(rows):
+                            raise RuntimeError("o executor devolveu número de resultados diferente do de documentos")
+                    else:
+                        outcomes = [self.executor(document) for document in documents]
                 except Exception as error:  # falha inesperada do executor
-                    outcome = DownloadOutcome(
-                        ok=False, error=f"{type(error).__name__}: {error}"
-                    )
-                final, error_class = self._record(row, outcome)
-                attempts_total += 1
-                stats["processed"] += 1
-                stats["bytes"] += outcome.bytes_downloaded if outcome.ok else 0
-                if outcome.ok:
-                    consecutive = 0
-                else:
-                    failures_total += 1
-                    consecutive += 1
-                    stats["failed"] += 1
-                results.append({
-                    "source_document_id": row["source_document_id"],
-                    "status": final, "error_class": error_class,
-                    "http_status": outcome.http_status,
-                })
+                    outcomes = [
+                        DownloadOutcome(ok=False, error=f"{type(error).__name__}: {error}")
+                        for _ in rows
+                    ]
+                stop: tuple[str, str] | None = None
+                for item, outcome in zip(rows, outcomes):
+                    final, error_class = self._record(item, outcome)
+                    attempts_total += 1
+                    stats["processed"] += 1
+                    stats["bytes"] += outcome.bytes_downloaded if outcome.ok else 0
+                    if outcome.ok:
+                        consecutive = 0
+                    else:
+                        failures_total += 1
+                        consecutive += 1
+                        stats["failed"] += 1
+                    results.append({
+                        "source_document_id": item["source_document_id"],
+                        "status": final, "error_class": error_class,
+                        "http_status": outcome.http_status,
+                    })
+                    if stop is None:
+                        if error_class == BLOCKED:
+                            stop = ("bloqueio detectado (HTTP 403)", "stopped")
+                        elif consecutive >= self.config.max_consecutive_failures:
+                            stop = (f"{consecutive} falhas consecutivas", "stopped")
+                        elif (
+                            attempts_total >= self.config.failure_rate_min_attempts
+                            and failures_total / attempts_total >= self.config.failure_rate_threshold
+                        ):
+                            stop = (
+                                f"taxa de falha {failures_total}/{attempts_total} "
+                                f">= {self.config.failure_rate_threshold:.0%}",
+                                "stopped",
+                            )
                 self.connection.execute(
                     """UPDATE download_batches SET items_processed = ?, items_failed = ?,
                            bytes_downloaded = ? WHERE batch_id = ?""",
                     (stats["processed"], stats["failed"], stats["bytes"], self.batch_id),
                 )
                 self._heartbeat()
-                if error_class == BLOCKED:
-                    stop_reason, status = "bloqueio detectado (HTTP 403)", "stopped"
-                    break
-                if consecutive >= self.config.max_consecutive_failures:
-                    stop_reason = f"{consecutive} falhas consecutivas"
-                    status = "stopped"
-                    break
-                if (
-                    attempts_total >= self.config.failure_rate_min_attempts
-                    and failures_total / attempts_total
-                    >= self.config.failure_rate_threshold
-                ):
-                    stop_reason = (
-                        f"taxa de falha {failures_total}/{attempts_total} "
-                        f">= {self.config.failure_rate_threshold:.0%}"
-                    )
-                    status = "stopped"
+                if stop is not None:
+                    stop_reason, status = stop
                     break
         except BaseException as error:
             self._requeue_running()
@@ -674,4 +722,40 @@ def make_service_executor(service: Any, connection: sqlite3.Connection) -> Execu
             already_current=result in {"unchanged", "duplicate_content"},
         )
 
+    def execute_chunk(documents: list[dict[str, Any]]) -> list[DownloadOutcome]:
+        """Um ativo, vários documentos, uma sessão de navegador."""
+
+        first = documents[0]
+        if any(d["isin"] != first["isin"] for d in documents):
+            raise ValueError("o grupo mistura ativos")
+        report = service.run(
+            first["codigo_cetip"], first["isin"],
+            max_documents=len(documents),
+            source_document_ids=[d["source_document_id"] for d in documents],
+            allow_other=any(d["category"] == "Outro" for d in documents),
+        )
+        outcomes = []
+        for document in documents:
+            sid = document["source_document_id"]
+            attempt = connection.execute(
+                """SELECT http_status, error_message FROM collection_attempts
+                   WHERE document_id = ? ORDER BY attempt_id DESC LIMIT 1""",
+                (document["document_pk"],),
+            ).fetchone()
+            http_status = attempt["http_status"] if attempt else None
+            error = next((e["error"] for e in report["errors"] if str(e.get("source_document_id")) == str(sid)), None)
+            if error is not None:
+                outcomes.append(DownloadOutcome(ok=False, http_status=http_status, error=error))
+                continue
+            entry = next((f for f in report["files_downloaded"] if str(f.get("source_document_id")) == str(sid)), None)
+            if entry is None:
+                outcomes.append(DownloadOutcome(ok=False, http_status=http_status, error="download sem resultado"))
+                continue
+            outcomes.append(DownloadOutcome(
+                ok=True, http_status=http_status, bytes_downloaded=int(entry.get("size_bytes") or 0),
+                already_current=entry.get("result") in {"unchanged", "duplicate_content"},
+            ))
+        return outcomes
+
+    execute.chunk = execute_chunk  # type: ignore[attr-defined]
     return execute
