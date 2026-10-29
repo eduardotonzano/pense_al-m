@@ -11,9 +11,15 @@ import io
 import zipfile
 
 from apoio import FAKE_CPF
+from apoio_cadastro import build_zip
+from apoio_cadastro import class_row
 from apoio_cadastro import csv_bytes
 from apoio_cadastro import fake_cnpj
+from apoio_cadastro import fund_row
 from apoio_cadastro import masked
+from fundos.cadastro.loader import load_cadastro
+from fundos.cadastro.reader import read_cadastro_bytes
+from fundos.cadastro.selection import select_fidc_fiagro
 from fundos.informe_fidc import columns as spec
 
 
@@ -127,6 +133,32 @@ def merge(*parts):
             merged[table].extend(rows)
 
     return merged
+
+
+def load_fictitious_cadastro(db, classes=(1,), funds_without_class=(), extra_classes=()):
+    """Carrega um cadastro ficticio pelo carregador do cadastro.
+
+    classes: para cada n, fundo e classe FIDC com o CNPJ ficticio n.
+    funds_without_class: fundos com o CNPJ n, sem classe.
+    extra_classes: pares (n, m), classe com o CNPJ n do fundo m.
+    """
+
+    fund_rows = [
+        fund_row(ID_Registro_Fundo=str(n), CNPJ_Fundo=fake_cnpj(n))
+        for n in tuple(classes) + tuple(funds_without_class)
+    ]
+    class_rows = [
+        class_row(ID_Registro_Fundo=str(n), ID_Registro_Classe=str(n), CNPJ_Classe=fake_cnpj(n))
+        for n in classes
+    ]
+    class_rows.extend(
+        class_row(ID_Registro_Fundo=str(m), ID_Registro_Classe=str(100000 + n), CNPJ_Classe=fake_cnpj(n))
+        for n, m in extra_classes
+    )
+    cadastro = read_cadastro_bytes(build_zip(fund_rows, class_rows), "registro_fundo_classe.zip")
+
+    with db.transaction() as connection:
+        load_cadastro(connection, cadastro, select_fidc_fiagro(cadastro), "2026-10-27")
 
 
 def build_informe_zip(
