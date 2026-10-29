@@ -94,3 +94,53 @@ def test_checks_never_write(config):
     before = c.execute("SELECT COUNT(*) FROM contract_parameters").fetchone()[0]
     run_checks(c, config)
     assert c.execute("SELECT COUNT(*) FROM contract_parameters").fetchone()[0] == before
+
+
+def test_tokenize_separates_multiplier_from_rate():
+    from credit_assets.cross_checks import tokenize
+    assert tokenize("100% da Taxa DI + spread 1,50% a.a.", "remuneracao") == {"idx=DI", "mult=100", "taxa=1.5"}
+    assert tokenize("1,5% a.a. sobre 100% do CDI", "remuneracao") == {"idx=DI", "mult=100", "taxa=1.5"}
+    assert tokenize("100% da variação do indexador (CDI) + 4,5% a.a.", "remuneracao") == {"idx=DI", "mult=100", "taxa=4.5"}
+    assert tokenize("Prefixada 14,80% a.a.", "remuneracao") == {"idx=PREFIXADA", "taxa=14.8"}
+    assert tokenize("IPCA + 8,88% a.a.", "remuneracao") == {"idx=IPCA", "taxa=8.88"}
+    assert tokenize("108% da Taxa DI", "remuneracao") == {"idx=DI", "mult=108"}
+
+
+def test_tokenize_names_and_cnpj():
+    from credit_assets.cross_checks import tokenize
+    tokens = tokenize("Alibem Alimentos S.A.; CNPJ 03.941.052/0001-50; NIRE 43", "nome")
+    assert "cnpj=03941052000150" in tokens and "w=ALIBEM" in tokens and "w=ALIMENTOS" in tokens
+    assert "w=NIRE" not in tokens
+
+
+def _text_database(entries):
+    c = _database()
+    for kind, name, value in entries:
+        (_param if kind == "p" else _fact)(c, name, value, unit="texto")
+    return c
+
+
+def test_text_verdict_agree_compatible_and_conflict(config):
+    # concordam
+    c = _text_database([("p", "remuneracao_serie_3", "100% da Taxa DI + 1,5% a.a."),
+                        ("f", "af_serie_3_remuneracao", "100% do CDI + 1,50%")])
+    assert _result(run_checks(c, config), "remuneracao_serie_texto", "3")["verdict"] == "concordam"
+    # compatíveis: uma fonte traz só parte
+    c = _text_database([("p", "remuneracao_serie_3", "100% da Taxa DI + 1,5% a.a."),
+                        ("f", "af_serie_3_remuneracao", "CDI + 1,5%")])
+    assert _result(run_checks(c, config), "remuneracao_serie_texto", "3")["verdict"] == "compativeis"
+    # divergem: indexador diferente
+    c = _text_database([("p", "remuneracao_serie_1", "Prefixada 14,80% a.a."),
+                        ("f", "af_serie_1_remuneracao", "CDI")])
+    assert _result(run_checks(c, config), "remuneracao_serie_texto", "1")["verdict"] == "divergem"
+    # divergem: taxa diferente
+    c = _text_database([("p", "remuneracao_serie_4", "100% da Taxa DI + 2,5% a.a."),
+                        ("f", "af_serie_4_remuneracao", "CDI + 3,5%")])
+    assert _result(run_checks(c, config), "remuneracao_serie_texto", "4")["verdict"] == "divergem"
+
+
+def test_text_check_requires_tokenizer(tmp_path):
+    path = tmp_path / "c.json"
+    path.write_text('{"version": "x", "checks": [{"id": "a", "label": "a", "kind": "text"}]}', encoding="utf-8")
+    with pytest.raises(ValueError, match="tokenizer"):
+        load_checks(path)

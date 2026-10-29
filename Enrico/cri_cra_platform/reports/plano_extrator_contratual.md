@@ -69,5 +69,10 @@ Um campo sem parâmetro pode ser (a) algo que ainda não extraímos ou (b) algo 
   As 4 divergências do Alibem são a mesma já conhecida e documentada em `cra02500c1d_analise.md`: o Relatório do AF de 2025
   traz "quantidade emitida 0" nas séries 1, 2, 4 e 5, contra o Termo, o Anúncio e o Comunicado de Oferta.
   O comparador reencontrou sozinho um achado que eu tinha visto à mão.
-- Limite conhecido: o Café Brasil quase não tem dado comparável em número/data (as DFs dele trazem texto). Próximo: comparar
-  também textos curtos lado a lado (ex.: remuneração da 1ª série do Alibem: AF diz "CDI", Termo diz prefixada 14,80%).
+- **Textos curtos (feito):** remuneração (por série e da emissão) e devedor passam a ser comparados por fichas: indexador,
+  multiplicador (100% do DI), taxa/spread, CNPJ e palavras do nome. Veredito: *concordam*, *compatíveis* (uma fonte traz só parte
+  do que a outra diz) ou *divergem* (mesmo campo com valores diferentes). É triagem; o texto original sempre aparece no relatório.
+  - **Alibem, 1ª série:** o Relatório do AF diz "CDI"; o Termo diz prefixada 14,80% a.a. Divergência real, ainda sem explicação
+    nos documentos lidos; vale conferir o Termo (p.81) e a ficha da série no AF (p.3).
+  - **Café Brasil:** a remuneração (100% do DI + 4,5% a.a.) concorda no Termo e nas três DFs.
+  - **CRI:** o Termo traz só "100% da Taxa DI + spread (tabela)" e o AF só "CDI + 1,5%": compatíveis, não divergentes.

@@ -46,7 +46,10 @@ def main() -> int:
 
     counts = {}
     for result in results:
-        counts.setdefault(result["codigo_cetip"], {"concordam": 0, "divergem": 0, "uma_fonte": 0})
+        counts.setdefault(
+            result["codigo_cetip"],
+            {"concordam": 0, "compativeis": 0, "divergem": 0, "uma_fonte": 0},
+        )
         counts[result["codigo_cetip"]][result["verdict"]] += 1
     lines = [
         "# Comparação do mesmo dado entre documentos",
@@ -54,27 +57,42 @@ def main() -> int:
         f"Verificações `{config['version']}` (propostas). Só lê parâmetros e fatos não rejeitados. "
         "Este relatório lista; não decide qual fonte está certa.",
         "",
-        "| Ativo | Concordam | Divergem | Uma fonte só |",
-        "|---|---|---|---|",
+        "| Ativo | Concordam | Compatíveis (texto) | Divergem | Uma fonte só |",
+        "|---|---|---|---|---|",
     ]
     for cetip, c in counts.items():
-        lines.append(f"| {cetip} | {c['concordam']} | {c['divergem']} | {c['uma_fonte']} |")
+        lines.append(
+            f"| {cetip} | {c['concordam']} | {c['compativeis']} | {c['divergem']} | {c['uma_fonte']} |"
+        )
     for cetip in counts:
         divergent = [r for r in results if r["codigo_cetip"] == cetip and r["verdict"] == "divergem"]
+        partial = [r for r in results if r["codigo_cetip"] == cetip and r["verdict"] == "compativeis"]
         lines += ["", f"## {cetip}: divergências", ""]
         if not divergent:
             lines.append("Nenhuma.")
         for result in divergent:
             title = result["label"] + (f" (série {result['group']})" if result["group"] != "-" else "")
             lines += [f"### {title}", ""]
-            lines.append("| Valor | Origem | Nome | Revisão | Fonte |")
-            lines.append("|---|---|---|---|---|")
+            lines.append("| Valor | Fichas | Origem | Nome | Revisão | Fonte |")
+            lines.append("|---|---|---|---|---|---|")
             for entry in sorted(result["entries"], key=lambda e: (e["normalized"] or "", e["name"])):
                 if entry["normalized"] is None:
                     continue
+                shown = (entry["raw"] or "").replace("|", "/")[:160]
+                tokens = ", ".join(sorted(entry["tokens"])) if entry["tokens"] is not None else ""
                 lines.append(
-                    f"| {entry['raw']} | {entry['origin']} | `{entry['name']}` | {entry['status']} | {entry['source']} |"
+                    f"| {shown} | {tokens} | {entry['origin']} | `{entry['name']}` | {entry['status']} | {entry['source']} |"
                 )
+            lines.append("")
+        if partial:
+            lines += [f"### {cetip}: textos compatíveis (uma fonte traz só parte do que a outra diz)", ""]
+            for result in partial:
+                title = result["label"] + (f" (série {result['group']})" if result["group"] != "-" else "")
+                parts = "; ".join(
+                    f"{e['name']} → {', '.join(sorted(e['tokens']))}"
+                    for e in result["entries"] if e["normalized"]
+                )
+                lines.append(f"- {title}: {parts}")
             lines.append("")
     (ROOT / "reports" / "cross_document_checks.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines[:12]))

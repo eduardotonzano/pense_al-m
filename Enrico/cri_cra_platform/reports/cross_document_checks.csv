@@ -31,9 +31,23 @@
 24G2100031;spread_cri_apos_2030;-;concordam;fato;lamina_spread_a_partir_2030_08_29;0.0275;fração a.a. sobre DI (base 252);approved;Lâmina de Oferta de Securitização 727225, p.2
 24G2100031;spread_cri_apos_2030;-;concordam;fato;prosp_def_spread_a_partir_2030_08_29;0.0275;fração a.a. sobre DI (base 252);pending;Prospecto de Distribuição Pública 727241, p.14
 24G2100031;spread_cri_apos_2030;-;concordam;fato;prospecto_spread_a_partir_73_mes;0.0275;fração a.a. sobre DI (base 252);approved;Prospecto de Distribuição Pública 722286, p.14
+24G2100031;remuneracao_emissao_texto;-;compativeis;parâmetro;remuneracao;100% da Taxa DI + spread (tabela), base 252 Dias Úteis, sobre o VNU ou saldo;texto;approved;Termo 722251, p.31, linhas 39-52
+24G2100031;remuneracao_emissao_texto;-;compativeis;fato;af_remuneracao;CDI + 1,5%;texto;approved;Relatório de Agente Fiduciário 1172041, p.3
+24G2100031;remuneracao_emissao_texto;-;compativeis;fato;df_passivo_taxa_prazo;"1,5% a.a. sobre 100% do CDI; prazo de 144 meses";texto;approved;Demonstrações Financeiras 988223, p.14
+24G2100031;remuneracao_emissao_texto;-;compativeis;fato;df_passivo_taxa_prazo;"1,5% a.a. sobre 100% do CDI; prazo remanescente de 121 meses";texto;approved;Demonstrações Financeiras 1298856, p.14
+24G2100031;devedor_texto;-;uma_fonte;parâmetro;devedora;Almeida Junior Shopping Centers S.A. (CNPJ 82.120.676/0001-83);texto;approved;Termo 722251, p.7, linhas 21-34
 CRA022009VM;valor_total_emissao;-;uma_fonte;parâmetro;valor_total_emissao;100000000.00;BRL;approved;Termo 355426, p.32, linhas 12-24
 CRA022009VM;quantidade_total;-;uma_fonte;parâmetro;quantidade_total_cra;100000;CRA;pending;Termo 355426, p.32, linhas 7-20
 CRA022009VM;data_emissao;-;uma_fonte;parâmetro;data_emissao;2022-09-21;data;pending;Termo 355426, p.32, linhas 17-24
+CRA022009VM;remuneracao_emissao_texto;-;concordam;parâmetro;remuneracao;100% da Taxa DI + 4,5% a.a., base 252 dias úteis;texto;approved;Termo 355426, p.21, linhas 15-32
+CRA022009VM;remuneracao_emissao_texto;-;concordam;fato;df2024_remuneracao;100% da variação do indexador (CDI) + 4,5% a.a.;texto;approved;AGO/E 725269, p.26
+CRA022009VM;remuneracao_emissao_texto;-;concordam;fato;df_passivo_taxa_prazo;"100% do CDI + 4,5% a.a.; prazo de 60 meses";texto;approved;Demonstrações Financeiras 485809, p.18
+CRA022009VM;remuneracao_emissao_texto;-;concordam;fato;df_passivo_taxa_prazo;"100% do CDI + 4,5% a.a.; prazo de 60 meses";texto;approved;Demonstrações Financeiras 698040, p.19
+CRA022009VM;remuneracao_emissao_texto;-;concordam;fato;df_passivo_taxa_prazo;"100% do DI + 4,5% a.a.; prazo de 60 meses; 100.000 CRA de valor nominal unitário R$ 1.000,00";texto;approved;Demonstrações Financeiras 935390, p.19
+CRA022009VM;devedor_texto;-;concordam;parâmetro;devedora;Café Brasil Indústria Comércio Importação e Exportação S.A. (sede em Alfenas/MG);texto;pending;Termo 355426, p.12, linhas 33-40
+CRA022009VM;devedor_texto;-;concordam;fato;df_entidade_devedora_cdca;Café Brasil Indústria Comércio Importação e Exportação S.A. (CDCA custodiados pela Vórtx DTVM);texto;approved;Demonstrações Financeiras 485809, p.16
+CRA022009VM;devedor_texto;-;concordam;fato;df_entidade_devedora_cdca;Café Brasil Indústria Comércio Importação e Exportação S.A. (CDCA custodiados pela Vórtx DTVM);texto;approved;Demonstrações Financeiras 698040, p.17
+CRA022009VM;devedor_texto;-;concordam;fato;df_entidade_devedora_cdca;Café Brasil Indústria Comércio Importação e Exportação S.A. (CDCA custodiados pela Vórtx DTVM);texto;approved;Demonstrações Financeiras 935390, p.16
 CRA02500C1D;valor_total_emissao;-;concordam;parâmetro;valor_total_emissao;750000000.00;BRL;approved;Termo 1065416, p.54, linhas 30-43
 CRA02500C1D;valor_total_emissao;-;concordam;fato;aviso_valor_total_oferta;750000000.00;BRL;approved;Aviso ao Mercado 1040833, p.1
 CRA02500C1D;valor_total_emissao;-;concordam;fato;comunicado_valor_total_emissao;750000000.00;BRL;approved;Outros Comunicados Não Considerados Fatos Relevantes  1064843, p.1
@@ -95,3 +109,14 @@ CRA02500C1D;percentual_di_serie_2;2;concordam;parâmetro;remuneracao_serie_2_per
 CRA02500C1D;percentual_di_serie_2;2;concordam;fato;lamina_serie_2_remuneracao;1.08;fração da Taxa DI (base 252);approved;Lâmina de Oferta de Securitização 1040834, p.7
 CRA02500C1D;taxa_real_serie_5;5;concordam;parâmetro;remuneracao_serie_5_taxa;0.0888;fração a.a. sobre VNU atualizado por IPCA (base 252);approved;Termo 1065416, p.68, linhas 25-38
 CRA02500C1D;taxa_real_serie_5;5;concordam;fato;lamina_serie_5_remuneracao_taxa_real;0.0888;fração a.a. (base 252) acima do IPCA;approved;Lâmina de Oferta de Securitização 1040834, p.7
+CRA02500C1D;remuneracao_serie_texto;1;divergem;parâmetro;remuneracao_serie_1;Prefixada 14,80% a.a., base 252 Dias Úteis;texto;approved;Termo 1065416, p.81, linhas 14-27
+CRA02500C1D;remuneracao_serie_texto;1;divergem;fato;af_serie_1_remuneracao;CDI;texto;approved;Relatório de Agente Fiduciário 1175590, p.3
+CRA02500C1D;remuneracao_serie_texto;2;concordam;parâmetro;remuneracao_serie_2;108,00% da Taxa DI;texto;approved;Termo 1065416, p.67, linhas 40-50
+CRA02500C1D;remuneracao_serie_texto;2;concordam;fato;af_serie_2_remuneracao;108% CDI;texto;approved;Relatório de Agente Fiduciário 1175590, p.4
+CRA02500C1D;remuneracao_serie_texto;3;compativeis;parâmetro;remuneracao_serie_3;100% da Taxa DI + spread 1,50% a.a., base 252 Dias Úteis;texto;approved;Termo 1065416, p.68, linhas 3-16
+CRA02500C1D;remuneracao_serie_texto;3;compativeis;fato;af_serie_3_remuneracao;CDI + 1,5%;texto;approved;Relatório de Agente Fiduciário 1175590, p.5
+CRA02500C1D;remuneracao_serie_texto;4;compativeis;parâmetro;remuneracao_serie_4;100% da Taxa DI + spread 2,50% a.a., base 252 Dias Úteis;texto;approved;Termo 1065416, p.68, linhas 14-27
+CRA02500C1D;remuneracao_serie_texto;4;compativeis;fato;af_serie_4_remuneracao;CDI + 2,5%;texto;approved;Relatório de Agente Fiduciário 1175590, p.6
+CRA02500C1D;remuneracao_serie_texto;5;concordam;parâmetro;remuneracao_serie_5;IPCA (atualização do VNU) + 8,88% a.a., base 252 Dias Úteis;texto;approved;Termo 1065416, p.68, linhas 25-38
+CRA02500C1D;remuneracao_serie_texto;5;concordam;fato;af_serie_5_remuneracao;IPCA + 8,88%;texto;approved;Relatório de Agente Fiduciário 1175590, p.7
+CRA02500C1D;devedor_texto;-;uma_fonte;fato;aviso_devedora_cnpj_nire;"Alibem Alimentos S.A.; CNPJ 03.941.052/0001-50; NIRE 43.3.0005793.3";texto;approved;Aviso ao Mercado 1040833, p.1

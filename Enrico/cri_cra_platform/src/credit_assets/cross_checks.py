@@ -9,12 +9,14 @@ from __future__ import annotations
 import json
 import re
 import sqlite3
+import unicodedata
 from collections import defaultdict
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
-KINDS = ("number", "date", "code")
+KINDS = ("number", "date", "code", "text")
+TOKENIZERS = ("remuneracao", "nome")
 REVIEW_RANK = {"approved": 0, "pending": 1}
 
 
@@ -26,9 +28,58 @@ def load_checks(path: Path) -> dict[str, Any]:
     for check in config["checks"]:
         if check["kind"] not in KINDS:
             raise ValueError(f"{check['id']}: kind inválido")
+        if check["kind"] == "text" and check.get("tokenizer") not in TOKENIZERS:
+            raise ValueError(f"{check['id']}: texto exige tokenizer em {TOKENIZERS}")
         check["_param"] = [re.compile(p) for p in check.get("parameters", [])]
         check["_fact"] = [re.compile(p) for p in check.get("facts", [])]
     return config
+
+
+def _fold(text: str) -> str:
+    decomposed = unicodedata.normalize("NFKD", text)
+    return "".join(c for c in decomposed if not unicodedata.combining(c)).lower()
+
+
+INDEXERS = (
+    (re.compile(r"\b(?:taxa\s+)?c?di\b"), "DI"),
+    (re.compile(r"\bipca\b"), "IPCA"),
+    (re.compile(r"\bselic\b"), "SELIC"),
+    (re.compile(r"\bigp-?m\b"), "IGPM"),
+    (re.compile(r"\bpre-?fixad[ao]s?\b"), "PREFIXADA"),
+)
+MULT_AFTER = re.compile(
+    r"(?:d[aeo]s?\s+)?(?:variacao\s+(?:acumulada\s+)?(?:d[aeo]s?\s+)?)?(?:taxa\s+|indexador\s*\(\s*)?(?:c?di|ipca|selic)\b"
+)
+PERCENT = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
+NAME_STOPWORDS = {
+    "s.a.", "sa", "s/a", "ltda", "e", "de", "do", "da", "dos", "das", "cnpj", "nire",
+    "sede", "cidade", "estado", "sociedade", "por", "acoes", "em", "no", "na",
+}
+
+
+def tokenize(text: str, tokenizer: str) -> frozenset[str]:
+    """Fichas comparáveis de um texto curto. É triagem, não leitura do contrato:
+    o relatório sempre mostra o texto original ao lado das fichas."""
+
+    folded = _fold(text or "")
+    tokens: set[str] = set()
+    if tokenizer == "remuneracao":
+        for match in PERCENT.finditer(folded):
+            number = format(Decimal(match.group(1).replace(",", ".")).normalize(), "f")
+            # percentual colado ao indexador ("100% da Taxa DI") é multiplicador; os demais são taxa/spread
+            multiplier = bool(MULT_AFTER.match(folded[match.end():match.end() + 40].lstrip()))
+            tokens.add(("mult=" if multiplier else "taxa=") + number)
+        for pattern, label in INDEXERS:
+            if pattern.search(folded):
+                tokens.add("idx=" + label)
+    elif tokenizer == "nome":
+        for cnpj in re.findall(r"\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2}", folded):
+            tokens.add("cnpj=" + re.sub(r"\D", "", cnpj))
+        head = re.split(r"[(,;]|\bsociedade\b|\bcnpj\b", folded)[0]
+        for word in re.findall(r"[a-z0-9]{3,}", head):
+            if word not in NAME_STOPWORDS:
+                tokens.add("w=" + word.upper())
+    return frozenset(tokens)
 
 
 def normalize(value: str | None, kind: str) -> str | None:
@@ -46,7 +97,7 @@ def normalize(value: str | None, kind: str) -> str | None:
         return text if re.fullmatch(r"\d{4}-\d{2}-\d{2}", text) else None
     if kind == "code":
         return re.sub(r"\s+", "", text).upper()
-    return None
+    return None  # texto usa tokenize()
 
 
 def _group(match: re.Match) -> str:
@@ -93,8 +144,40 @@ def _collect(connection: sqlite3.Connection, asset_id: int, check: dict[str, Any
     allowed = check.get("units")
     for entry in entries:
         entry["comparable"] = allowed is None or (entry["unit"] or "") in allowed
-        entry["normalized"] = normalize(entry["raw"], check["kind"]) if entry["comparable"] else None
+        entry["tokens"] = None
+        if check["kind"] == "text":
+            tokens = tokenize(entry["raw"], check["tokenizer"]) if entry["comparable"] else frozenset()
+            entry["tokens"] = tokens
+            entry["normalized"] = ";".join(sorted(tokens)) or None
+        else:
+            entry["normalized"] = (
+                normalize(entry["raw"], check["kind"]) if entry["comparable"] else None
+            )
     return entries
+
+
+def _slots(tokens: frozenset[str]) -> dict[str, frozenset[str]]:
+    slots: dict[str, set[str]] = defaultdict(set)
+    for token in tokens:
+        slot, _, value = token.partition("=")
+        slots[slot].add(value)
+    return {slot: frozenset(values) for slot, values in slots.items()}
+
+
+def _text_verdict(comparable: list[dict[str, Any]], tokenizer: str) -> str:
+    sets = [e["tokens"] for e in comparable]
+    if all(item == sets[0] for item in sets):
+        return "concordam"
+    if tokenizer == "remuneracao":
+        # conflito = duas fontes definem o mesmo campo (indexador, multiplicador, taxa) com valores diferentes
+        slotted = [_slots(item) for item in sets]
+        for i, first in enumerate(slotted):
+            for second in slotted[i + 1:]:
+                if any(first[k] != second[k] for k in first.keys() & second.keys()):
+                    return "divergem"
+        return "compativeis"
+    related = all(a <= b or b <= a for i, a in enumerate(sets) for b in sets[i + 1:])
+    return "compativeis" if related else "divergem"
 
 
 def run_checks(connection: sqlite3.Connection, config: dict[str, Any]) -> list[dict[str, Any]]:
@@ -114,6 +197,8 @@ def run_checks(connection: sqlite3.Connection, config: dict[str, Any]) -> list[d
                 origins = {e["source"] for e in comparable}
                 if len(comparable) < 2 or len(origins) < 2:
                     verdict = "uma_fonte"
+                elif check["kind"] == "text":
+                    verdict = _text_verdict(comparable, check["tokenizer"])
                 elif len(values) == 1:
                     verdict = "concordam"
                 else:
