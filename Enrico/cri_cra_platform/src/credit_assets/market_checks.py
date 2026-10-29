@@ -16,7 +16,8 @@ MESES = ["janeiro", "fevereiro", "marco", "abril", "maio", "junho", "julho", "ag
 PERIODIC = re.compile(r"semestral|anual|trimestral|bimestral|quadrimestral")
 WEIGHTS = {"em_atraso": 5, "vencido_com_saldo_adimplente": 4, "informe_defasado": 3,
            "vencimento_fora_mes_base": 2, "isin_repetido": 3, "serie_sem_isin": 1,
-           "identificador_duplicado": 1, "isin_invalido": 2}
+           "identificador_duplicado": 1, "isin_invalido": 2, "saldo_incompativel": 3}
+SUSPECT_BALANCE_FACTOR = Decimal(20)
 ISIN_PATTERN = re.compile(r"^[A-Z]{2}[A-Z0-9]{9}[0-9]$")
 
 
@@ -54,6 +55,25 @@ def base_months(text: str | None) -> list[int]:
     return [i for i, name in enumerate(MESES) if re.search(rf"\b{name}\b", folded)]
 
 
+def integralized(row: dict[str, Any]) -> Decimal:
+    """Valor integralizado da série (CRA: Valor_Total_Integralizado; CRI: Total_Integralizado)."""
+
+    return money(row.get("Valor_Total_Integralizado") or row.get("Total_Integralizado"))
+
+
+def balance_is_suspect(row: dict[str, Any]) -> bool:
+    """Saldo mais de 20 vezes o valor integralizado: erro de escala ou de preenchimento, não um saldo real."""
+
+    paid_in = integralized(row)
+    return paid_in > 0 and money(row.get("Valor_Certificados")) > SUSPECT_BALANCE_FACTOR * paid_in
+
+
+def trusted_balance(row: dict[str, Any]) -> Decimal:
+    """Saldo para somar em totais: zero quando o saldo informado é incompatível com o integralizado."""
+
+    return Decimal(0) if balance_is_suspect(row) else money(row.get("Valor_Certificados"))
+
+
 def series_flags(row: dict[str, Any], reference: str) -> list[str]:
     flags = []
     situation = fold(row.get("Situacao"))
@@ -61,6 +81,8 @@ def series_flags(row: dict[str, Any], reference: str) -> list[str]:
     maturity = (row.get("Data_Vencimento") or "")[:10]
     if situation == "em atraso":
         flags.append("em_atraso")
+    if balance_is_suspect(row):
+        flags.append("saldo_incompativel")
     if maturity and maturity < reference and balance > 0 and situation == "adimplente":
         flags.append("vencido_com_saldo_adimplente")
     months = base_months(row.get("Pagamento_Mes_Base"))
@@ -93,7 +115,7 @@ def rank_emissions(
             "certificado": cert, "emissora": row.get("CNPJ_Emissora"), "series": 0,
             "saldo": Decimal(0), "flags": Counter(), "ultima_competencia": last_filing.get(cert, ""),
         })
-        balance = money(row.get("Valor_Certificados"))
+        balance = trusted_balance(row)
         item["series"] += 1
         current = last_filing.get(cert, "") >= reference
         item["saldo"] += balance if current else Decimal(0)

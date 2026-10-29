@@ -71,3 +71,9 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
 - **Download do lote 1 (aprovação de Enrico):** 1.168 documentos enfileirados (atas/editais 700, outros 213, relatórios do AF 119, Termos 74,
   fatos relevantes 44, anúncios de encerramento 18). Informes Mensais fora (já cobertos pela base da CVM) e prospectos/suplementos fora.
   A fila passou a baixar em grupos de até 10 documentos do mesmo ativo por sessão de navegador (`--chunk-size`).
+- **Correção (29/10/2026):** o saldo total do mercado de CRA que informei antes (R$ 508 bi) estava inflado por uma série da Leverage
+  (BRLSECCRA083) com saldo de R$ 340 bi contra R$ 16,5 mi integralizados. Nova regra `saldo_incompativel` (saldo > 20 × integralizado):
+  41 séries (5 CRA, 36 CRI) ficam fora das somas. Totais corrigidos em ago/2026: **CRA R$ 167 bi, CRI R$ 183 bi**.
+- **Novos relatórios de mercado:** eventos de crédito mês a mês (`market_events.md`), exposição por devedor e contágio
+  (`market_debtors.md`: 1.033 devedores, 13 com contágio; 52% dos vínculos de devedor com CNPJ inválido) e placar por securitizadora
+  (`market_securitizadoras.md`: pontualidade, reenvios, erros cadastrais, saldo em atraso).

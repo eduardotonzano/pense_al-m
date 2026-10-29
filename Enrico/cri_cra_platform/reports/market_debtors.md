@@ -25,9 +25,8 @@ Sinais para olhar o devedor, não conclusões.
 | 52.548.435/0001-79 | CRA/CRI | 5 | 0 | 2,559.9 | Eco Securitizadora de Direitos Creditórios do Agronegócio | Série 1 -  |
 | 06.057.223/0001-71 | CRI | 7 | 0 | 2,438.9 | OPEA SECURITIZADORA S.A | 1ª Emissão de CRI |
 | 07.401.436/0002-12 | CRA | 2 | 0 | 2,140.7 | Opea Securtizadora | Sênior | 1ª Série da 14ª Emissão |
-| 47.242.860/0001-03 | CRA/CRI | 5 | 0 | 2,073.2 | Eco Securitizdora de Direitos Creditórios do Agronegócio | Série 1 - 2 |
+| 47.242.860/0001-03 | CRA/CRI | 5 | 0 | 1,995.8 | Eco Securitizdora de Direitos Creditórios do Agronegócio | Série 1 - 2 |
 | 92.660.604/0001-82 | CRA | 4 | 3 | 1,867.2 | Eco Securitizdora de Direitos Creditórios do Agronegócio | Série 66_67 |
-| 08.343.492/0001-20 | CRI | 8 | 0 | 1,558.6 | OPEA SECURITIZADORA S.A | 1ª Emissão de CRI |
 | 43.059.559/0001-08 | CRA | 2 | 0 | 1,416.2 | OPEA SECURITIZADORA S.A | 31ª Emissão de CRA |
 | 28.195.667/0001-06 | CRA | 2 | 0 | 1,326.7 | Vert Companhia Securitizadora | ABC |
 | 20.770.566/0001-00 | CRA | 2 | 0 | 1,183.9 | Vert Companhia Securitizadora | Cooxupé |
@@ -41,6 +40,7 @@ Sinais para olhar o devedor, não conclusões.
 | 51.466.860/0001-56 | CRA | 1 | 0 | 1,028.3 | Vert Companhia Securitizadora | São Martinho |
 | 07.903.169/0001-09 | CRA | 2 | 0 | 1,024.0 | Eco Securitizadora de Direitos Creditórios do Agronegócio | Série 1 -  |
 | 04.747.794/0001-02 | CRA | 3 | 0 | 982.6 | OPEA SECURITIZADORA S.A | 16ª Emissão de CRA |
+| 89.096.457/0001-55 | CRA | 1 | 0 | 955.8 | OPEA Securitizadora S.A. | 196ª Emissão de CRA |
 
 ## Contágio: devedor em atraso numa emissão e adimplente em outra
 

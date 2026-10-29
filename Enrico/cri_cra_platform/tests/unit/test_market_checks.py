@@ -83,3 +83,13 @@ def test_merge_alias_certificates_unites_isin_and_cetip_codes():
     assert sorted(aliases["BRABC1"]) == ["BRABC1", "CRA023X"] and filing["BRABC1"] == "2026-08-01"
     assert sum(1 for r in merged if r["Codigo_Identificacao_Certificado"] == "BRABC1") == 2  # S1 deduplicado, S2 mantido
     assert len(rows) == 5  # entrada não é alterada
+
+
+def test_balance_incompatible_with_paid_in_is_flagged_and_left_out_of_totals():
+    from credit_assets.market_checks import balance_is_suspect, trusted_balance
+    leverage = row(Valor_Certificados="340422343379.18", Valor_Total_Integralizado="16525000.00")
+    assert balance_is_suspect(leverage) and trusted_balance(leverage) == Decimal(0)
+    assert "saldo_incompativel" in series_flags(leverage, REF)
+    normal = row(Valor_Certificados="127906324.22", Total_Integralizado="123599000.00")
+    assert not balance_is_suspect(normal) and trusted_balance(normal) == Decimal("127906324.22")
+    assert not balance_is_suspect(row())  # sem integralizado informado não se julga

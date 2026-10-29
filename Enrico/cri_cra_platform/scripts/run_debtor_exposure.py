@@ -16,7 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.debtor_exposure import aggregate, format_cnpj
-from credit_assets.market_checks import fold, merge_alias_certificates, money, reference_competence
+from credit_assets.market_checks import fold, merge_alias_certificates, reference_competence, trusted_balance
 
 LINKS = """
     SELECT * FROM (
@@ -51,7 +51,7 @@ def main() -> int:
             group_of.setdefault(code, code)
         for row in merged:
             key = f"{kind}:{row['Codigo_Identificacao_Certificado']}"
-            balances[key] = balances.get(key, Decimal(0)) + money(row.get("Valor_Certificados"))
+            balances[key] = balances.get(key, Decimal(0)) + trusted_balance(row)
             if fold(row.get("Situacao")) == "em atraso":
                 delinquent.add(key)
         for row in connection.execute(
