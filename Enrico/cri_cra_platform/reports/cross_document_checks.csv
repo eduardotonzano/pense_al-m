@@ -1,0 +1,97 @@
+﻿ativo;verificacao;grupo;resultado;origem;nome;valor;unidade;revisao;fonte
+24G2100031;valor_total_emissao;-;concordam;parâmetro;valor_total_emissao;230000000.00;BRL;approved;Termo 722251, p.17, linhas 26-39
+24G2100031;valor_total_emissao;-;concordam;fato;af_volume_emitido;230000000.00;BRL;approved;Relatório de Agente Fiduciário 1172041, p.3
+24G2100031;valor_total_emissao;-;concordam;fato;aviso_valor_total_oferta;230000000.00;BRL;approved;Aviso ao Mercado 722271, p.1
+24G2100031;valor_total_emissao;-;concordam;fato;comunicado_valor_total_emissao;230000000.00;BRL;approved;Outros Comunicados Não Considerados Fatos Relevantes  725619, p.1
+24G2100031;valor_total_emissao;-;concordam;fato;enc_montante_total_data_emissao;230000000.00;BRL;pending;Anúncio de Encerramento de Distribuição Pública 730623, p.1
+24G2100031;valor_total_emissao;-;concordam;fato;lamina_montante_ofertado;230000000.00;BRL;approved;Lâmina de Oferta de Securitização 727225, p.2
+24G2100031;valor_total_emissao;-;concordam;fato;prospecto_valor_total_emissao;230000000.00;BRL;approved;Prospecto de Distribuição Pública 722286, p.13
+24G2100031;quantidade_total;-;concordam;parâmetro;quantidade_cri;230000;CRI;approved;Termo 722251, p.17, linhas 29-42
+24G2100031;quantidade_total;-;concordam;fato;af_quantidade_emitida;230000;CRI;approved;Relatório de Agente Fiduciário 1172041, p.3
+24G2100031;quantidade_total;-;concordam;fato;comunicado_quantidade_cri;230000;CRI;approved;Outros Comunicados Não Considerados Fatos Relevantes  725619, p.1
+24G2100031;quantidade_total;-;concordam;fato;enc_quantidade_distribuida;230000;CRI;approved;Anúncio de Encerramento de Distribuição Pública 730623, p.1
+24G2100031;quantidade_total;-;concordam;fato;lamina_quantidade_ofertada;230000;CRI;approved;Lâmina de Oferta de Securitização 727225, p.2
+24G2100031;quantidade_total;-;concordam;fato;prospecto_quantidade_cri;230000;CRI;approved;Prospecto de Distribuição Pública 722286, p.13
+24G2100031;data_emissao;-;concordam;parâmetro;data_emissao;2024-08-29;data;approved;Termo 722251, p.18, linhas 41-54
+24G2100031;data_emissao;-;concordam;fato;af_data_emissao;2024-08-29;data;approved;Relatório de Agente Fiduciário 1172041, p.3
+24G2100031;data_vencimento;-;concordam;parâmetro;data_vencimento;2036-08-29;data;approved;Termo 722251, p.18, linhas 43-56
+24G2100031;data_vencimento;-;concordam;fato;af_data_vencimento;2036-08-29;data;approved;Relatório de Agente Fiduciário 1172041, p.3
+24G2100031;data_vencimento;-;concordam;fato;lamina_data_vencimento;2036-08-29;data;approved;Lâmina de Oferta de Securitização 727225, p.4
+24G2100031;prazo_dias;-;concordam;parâmetro;prazo_dias;4383;dias;approved;Termo 722251, p.18, linhas 43-56
+24G2100031;prazo_dias;-;concordam;fato;lamina_prazo_dias;4383;dias;approved;Lâmina de Oferta de Securitização 727225, p.4
+24G2100031;isin_serie_1;-;concordam;parâmetro;isin;BRRBRACRIP13;texto;approved;Termo 722251, p.20, linhas 28-41
+24G2100031;isin_serie_1;-;concordam;fato;aviso_codigo_isin;BRRBRACRIP13;texto;approved;Aviso ao Mercado 722271, p.1
+24G2100031;isin_serie_1;-;concordam;fato;comunicado_isin;BRRBRACRIP13;texto;approved;Outros Comunicados Não Considerados Fatos Relevantes  725619, p.1
+24G2100031;isin_serie_1;-;concordam;fato;lamina_isin;BRRBRACRIP13;texto;approved;Lâmina de Oferta de Securitização 727225, p.1
+24G2100031;spread_cri_ate_2030;-;concordam;parâmetro;remuneracao_spread_ate_2030_08_29;0.0150;fração a.a. sobre DI (base 252);approved;Termo 722252, p.5, linhas 32-45
+24G2100031;spread_cri_ate_2030;-;concordam;fato;lamina_spread_ate_2030_08_29;0.0150;fração a.a. sobre DI (base 252);pending;Lâmina de Oferta de Securitização 727225, p.2
+24G2100031;spread_cri_ate_2030;-;concordam;fato;prosp_def_spread_ate_2030_08_29;0.0150;fração a.a. sobre DI (base 252);pending;Prospecto de Distribuição Pública 727241, p.14
+24G2100031;spread_cri_ate_2030;-;concordam;fato;prospecto_spread_ate_72_mes;0.0150;fração a.a. sobre DI (base 252);pending;Prospecto de Distribuição Pública 722286, p.14
+24G2100031;spread_cri_apos_2030;-;concordam;parâmetro;remuneracao_spread_a_partir_2030_08_29;0.0275;fração a.a. sobre DI (base 252);approved;Termo 722252, p.5, linhas 32-45
+24G2100031;spread_cri_apos_2030;-;concordam;fato;lamina_spread_a_partir_2030_08_29;0.0275;fração a.a. sobre DI (base 252);approved;Lâmina de Oferta de Securitização 727225, p.2
+24G2100031;spread_cri_apos_2030;-;concordam;fato;prosp_def_spread_a_partir_2030_08_29;0.0275;fração a.a. sobre DI (base 252);pending;Prospecto de Distribuição Pública 727241, p.14
+24G2100031;spread_cri_apos_2030;-;concordam;fato;prospecto_spread_a_partir_73_mes;0.0275;fração a.a. sobre DI (base 252);approved;Prospecto de Distribuição Pública 722286, p.14
+CRA022009VM;valor_total_emissao;-;uma_fonte;parâmetro;valor_total_emissao;100000000.00;BRL;approved;Termo 355426, p.32, linhas 12-24
+CRA022009VM;quantidade_total;-;uma_fonte;parâmetro;quantidade_total_cra;100000;CRA;pending;Termo 355426, p.32, linhas 7-20
+CRA022009VM;data_emissao;-;uma_fonte;parâmetro;data_emissao;2022-09-21;data;pending;Termo 355426, p.32, linhas 17-24
+CRA02500C1D;valor_total_emissao;-;concordam;parâmetro;valor_total_emissao;750000000.00;BRL;approved;Termo 1065416, p.54, linhas 30-43
+CRA02500C1D;valor_total_emissao;-;concordam;fato;aviso_valor_total_oferta;750000000.00;BRL;approved;Aviso ao Mercado 1040833, p.1
+CRA02500C1D;valor_total_emissao;-;concordam;fato;comunicado_valor_total_emissao;750000000.00;BRL;approved;Outros Comunicados Não Considerados Fatos Relevantes  1064843, p.1
+CRA02500C1D;quantidade_total;-;concordam;parâmetro;quantidade_total_cra;750000;CRA;approved;Termo 1065416, p.64, linhas 12-25
+CRA02500C1D;quantidade_total;-;concordam;fato;aviso_quantidade_ofertada;750000;CRA;approved;Aviso ao Mercado 1040833, p.1
+CRA02500C1D;quantidade_total;-;concordam;fato;lamina_quantidade_lote_base;750000;CRA;approved;Lâmina de Oferta de Securitização 1040834, p.2
+CRA02500C1D;data_emissao;-;concordam;parâmetro;data_emissao;2025-12-15;data;approved;Termo 1065416, p.65, linhas 26-39
+CRA02500C1D;data_emissao;-;concordam;fato;aviso_data_emissao;2025-12-15;data;approved;Aviso ao Mercado 1040833, p.2
+CRA02500C1D;isin_serie_1;-;concordam;parâmetro;isin_serie_1;BRECOACRALJ8;texto;approved;Termo 1065416, p.71, linhas 20-33
+CRA02500C1D;isin_serie_1;-;concordam;fato;aviso_isin_serie_1;BRECOACRALJ8;texto;approved;Aviso ao Mercado 1040833, p.1
+CRA02500C1D;isin_serie_1;-;concordam;fato;comunicado_isin_serie_1;BRECOACRALJ8;texto;approved;Outros Comunicados Não Considerados Fatos Relevantes  1064843, p.1
+CRA02500C1D;quantidade_serie;1;divergem;parâmetro;quantidade_serie_1;233142;CRA;approved;Termo 1065416, p.64, linhas 12-25
+CRA02500C1D;quantidade_serie;1;divergem;fato;af_serie_1_quantidade_emitida;0;CRA;approved;Relatório de Agente Fiduciário 1175590, p.3
+CRA02500C1D;quantidade_serie;1;divergem;fato;anuncio_serie_1_quantidade;233142;CRA;approved;Anúncio de Início de Distribuição Pública 1065461, p.2
+CRA02500C1D;quantidade_serie;1;divergem;fato;comunicado_quantidade_serie_1;233142;CRA;approved;Outros Comunicados Não Considerados Fatos Relevantes  1064843, p.2
+CRA02500C1D;quantidade_serie;2;divergem;parâmetro;quantidade_serie_2;16858;CRA;approved;Termo 1065416, p.64, linhas 12-25
+CRA02500C1D;quantidade_serie;2;divergem;fato;af_serie_2_quantidade_emitida;0;CRA;approved;Relatório de Agente Fiduciário 1175590, p.4
+CRA02500C1D;quantidade_serie;2;divergem;fato;anuncio_serie_2_quantidade;16858;CRA;approved;Anúncio de Início de Distribuição Pública 1065461, p.2
+CRA02500C1D;quantidade_serie;2;divergem;fato;comunicado_quantidade_serie_2;16858;CRA;approved;Outros Comunicados Não Considerados Fatos Relevantes  1064843, p.2
+CRA02500C1D;quantidade_serie;3;concordam;parâmetro;quantidade_serie_3;250000;CRA;approved;Termo 1065416, p.64, linhas 12-25
+CRA02500C1D;quantidade_serie;3;concordam;fato;af_serie_3_quantidade_emitida;250000;CRA;approved;Relatório de Agente Fiduciário 1175590, p.5
+CRA02500C1D;quantidade_serie;3;concordam;fato;anuncio_serie_3_quantidade;250000;CRA;approved;Anúncio de Início de Distribuição Pública 1065461, p.2
+CRA02500C1D;quantidade_serie;3;concordam;fato;comunicado_quantidade_serie_3;250000;CRA;approved;Outros Comunicados Não Considerados Fatos Relevantes  1064843, p.2
+CRA02500C1D;quantidade_serie;4;divergem;parâmetro;quantidade_serie_4;100000;CRA;approved;Termo 1065416, p.64, linhas 12-25
+CRA02500C1D;quantidade_serie;4;divergem;fato;af_serie_4_quantidade_emitida;0;CRA;approved;Relatório de Agente Fiduciário 1175590, p.6
+CRA02500C1D;quantidade_serie;4;divergem;fato;anuncio_serie_4_quantidade;100000;CRA;approved;Anúncio de Início de Distribuição Pública 1065461, p.2
+CRA02500C1D;quantidade_serie;4;divergem;fato;comunicado_quantidade_serie_4;100000;CRA;approved;Outros Comunicados Não Considerados Fatos Relevantes  1064843, p.2
+CRA02500C1D;quantidade_serie;5;divergem;parâmetro;quantidade_serie_5;150000;CRA;approved;Termo 1065416, p.64, linhas 12-25
+CRA02500C1D;quantidade_serie;5;divergem;fato;af_serie_5_quantidade_emitida;0;CRA;approved;Relatório de Agente Fiduciário 1175590, p.7
+CRA02500C1D;quantidade_serie;5;divergem;fato;anuncio_serie_5_quantidade;150000;CRA;approved;Anúncio de Início de Distribuição Pública 1065461, p.2
+CRA02500C1D;quantidade_serie;5;divergem;fato;comunicado_quantidade_serie_5;150000;CRA;approved;Outros Comunicados Não Considerados Fatos Relevantes  1064843, p.2
+CRA02500C1D;montante_serie;1;concordam;parâmetro;valor_emissao_serie_1;233142000.00;BRL;approved;Termo 1065416, p.64, linhas 12-25
+CRA02500C1D;montante_serie;1;concordam;fato;anuncio_serie_1_montante;233142000.00;BRL;approved;Anúncio de Início de Distribuição Pública 1065461, p.2
+CRA02500C1D;montante_serie;2;concordam;parâmetro;valor_emissao_serie_2;16858000.00;BRL;approved;Termo 1065416, p.64, linhas 12-25
+CRA02500C1D;montante_serie;2;concordam;fato;anuncio_serie_2_montante;16858000.00;BRL;approved;Anúncio de Início de Distribuição Pública 1065461, p.2
+CRA02500C1D;montante_serie;3;concordam;parâmetro;valor_emissao_serie_3;250000000.00;BRL;approved;Termo 1065416, p.64, linhas 12-25
+CRA02500C1D;montante_serie;3;concordam;fato;af_serie_3_volume_emitido;250000000.00;BRL;approved;Relatório de Agente Fiduciário 1175590, p.5
+CRA02500C1D;montante_serie;3;concordam;fato;anuncio_serie_3_montante;250000000.00;BRL;approved;Anúncio de Início de Distribuição Pública 1065461, p.2
+CRA02500C1D;montante_serie;4;concordam;parâmetro;valor_emissao_serie_4;100000000.00;BRL;approved;Termo 1065416, p.64, linhas 12-25
+CRA02500C1D;montante_serie;4;concordam;fato;anuncio_serie_4_montante;100000000.00;BRL;approved;Anúncio de Início de Distribuição Pública 1065461, p.2
+CRA02500C1D;montante_serie;5;concordam;parâmetro;valor_emissao_serie_5;150000000.00;BRL;approved;Termo 1065416, p.64, linhas 12-25
+CRA02500C1D;montante_serie;5;concordam;fato;anuncio_serie_5_montante;150000000.00;BRL;approved;Anúncio de Início de Distribuição Pública 1065461, p.2
+CRA02500C1D;vencimento_serie;1;concordam;parâmetro;vencimento_serie_1;2030-12-18;data;approved;Termo 1065416, p.66, linhas 15-28
+CRA02500C1D;vencimento_serie;1;concordam;fato;af_serie_1_data_vencimento;2030-12-18;data;approved;Relatório de Agente Fiduciário 1175590, p.3
+CRA02500C1D;vencimento_serie;2;uma_fonte;parâmetro;vencimento_serie_2;2030-12-18;data;approved;Termo 1065416, p.66, linhas 15-28
+CRA02500C1D;vencimento_serie;3;uma_fonte;parâmetro;vencimento_serie_3;2030-12-18;data;approved;Termo 1065416, p.66, linhas 15-28
+CRA02500C1D;vencimento_serie;4;concordam;parâmetro;vencimento_serie_4;2032-12-17;data;approved;Termo 1065416, p.66, linhas 25-38
+CRA02500C1D;vencimento_serie;4;concordam;fato;af_serie_4_data_vencimento;2032-12-17;data;approved;Relatório de Agente Fiduciário 1175590, p.6
+CRA02500C1D;vencimento_serie;5;concordam;parâmetro;vencimento_serie_5;2035-12-19;data;approved;Termo 1065416, p.66, linhas 25-38
+CRA02500C1D;vencimento_serie;5;concordam;fato;af_serie_5_data_vencimento;2035-12-19;data;approved;Relatório de Agente Fiduciário 1175590, p.7
+CRA02500C1D;spread_serie_3_4;3;concordam;parâmetro;remuneracao_serie_3_spread;0.0150;fração a.a. sobre DI (base 252);approved;Termo 1065416, p.68, linhas 3-16
+CRA02500C1D;spread_serie_3_4;3;concordam;fato;lamina_serie_3_remuneracao_spread;0.015;fração a.a. (base 252) sobre 100% da Taxa DI;approved;Lâmina de Oferta de Securitização 1040834, p.7
+CRA02500C1D;spread_serie_3_4;4;concordam;parâmetro;remuneracao_serie_4_spread;0.0250;fração a.a. sobre DI (base 252);approved;Termo 1065416, p.68, linhas 14-27
+CRA02500C1D;spread_serie_3_4;4;concordam;fato;lamina_serie_4_remuneracao_spread;0.025;fração a.a. (base 252) sobre 100% da Taxa DI;approved;Lâmina de Oferta de Securitização 1040834, p.7
+CRA02500C1D;taxa_prefixada_serie_1;1;concordam;parâmetro;remuneracao_serie_1_taxa;0.1480;fração a.a. (base 252);approved;Termo 1065416, p.81, linhas 14-27
+CRA02500C1D;taxa_prefixada_serie_1;1;concordam;fato;comunicado_remuneracao_serie_1;0.1480;fração a.a. (base 252);approved;Outros Comunicados Não Considerados Fatos Relevantes  1064843, p.2
+CRA02500C1D;taxa_prefixada_serie_1;1;concordam;fato;lamina_serie_1_taxa_teto_prefixada;0.148;fração a.a. (base 252);pending;Lâmina de Oferta de Securitização 1040834, p.7
+CRA02500C1D;percentual_di_serie_2;2;concordam;parâmetro;remuneracao_serie_2_percentual_di;1.0800;fração da Taxa DI;approved;Termo 1065416, p.67, linhas 40-50
+CRA02500C1D;percentual_di_serie_2;2;concordam;fato;lamina_serie_2_remuneracao;1.08;fração da Taxa DI (base 252);approved;Lâmina de Oferta de Securitização 1040834, p.7
+CRA02500C1D;taxa_real_serie_5;5;concordam;parâmetro;remuneracao_serie_5_taxa;0.0888;fração a.a. sobre VNU atualizado por IPCA (base 252);approved;Termo 1065416, p.68, linhas 25-38
+CRA02500C1D;taxa_real_serie_5;5;concordam;fato;lamina_serie_5_remuneracao_taxa_real;0.0888;fração a.a. (base 252) acima do IPCA;approved;Lâmina de Oferta de Securitização 1040834, p.7

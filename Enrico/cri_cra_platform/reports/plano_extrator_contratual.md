@@ -53,3 +53,21 @@ Um campo sem parâmetro pode ser (a) algo que ainda não extraímos ou (b) algo 
 1. O catálogo de 36 campos está certo? Falta algum campo que você considera essencial (ex.: eventos de inadimplemento
    específicos, regras de subordinação por série, taxa de administração da securitizadora)? Algum core que seria só "important"?
 2. Posso seguir para as etapas 2 e 3 (ligar buscas e extrair os faltantes dos 3 pilotos para revisão)?
+
+## Andamento (29/10/2026)
+- Etapas 1 a 3: catálogo de 36 campos, relatório de cobertura e extração dos campos faltantes do Café Brasil (15) e do Alibem (1),
+  pendentes de revisão.
+- Etapa 4 (comparação entre documentos): `scripts/report_cross_document_checks.py` → `reports/cross_document_checks.{md,csv}`.
+  Compara só número, data e código (texto livre fica de fora). Resultado de hoje:
+
+| Ativo | Concordam | Divergem | Uma fonte só |
+|---|---|---|---|
+| CRI Almeida Junior | 8 | 0 | 0 |
+| CRA Alibem | 18 | 4 | 2 |
+| CRA Café Brasil | 0 | 0 | 3 |
+
+  As 4 divergências do Alibem são a mesma já conhecida e documentada em `cra02500c1d_analise.md`: o Relatório do AF de 2025
+  traz "quantidade emitida 0" nas séries 1, 2, 4 e 5, contra o Termo, o Anúncio e o Comunicado de Oferta.
+  O comparador reencontrou sozinho um achado que eu tinha visto à mão.
+- Limite conhecido: o Café Brasil quase não tem dado comparável em número/data (as DFs dele trazem texto). Próximo: comparar
+  também textos curtos lado a lado (ex.: remuneração da 1ª série do Alibem: AF diz "CDI", Termo diz prefixada 14,80%).

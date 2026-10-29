@@ -106,6 +106,7 @@ SQLite; scripts que gravam têm `--dry-run` ou `--preview` e só aplicam regras 
 | 13. Séries da emissão | `load_asset_series.py --cetip … --dry-run`, depois `--commit` | código, ISIN e classes (Informe e Termo) |
 | 14. Fila de download | `run_download_queue.py --enqueue --dry-run`, `--run --dry-run`, depois `--commit`; `--status` | migration 003; 1 worker, limite de taxa, parada automática (ver `reports/plano_fila_download.md`) |
 | 15. Cobertura contratual | `report_contract_coverage.py` | campos padrão (`config/contract_terms/standard_fields.json`) por ativo; só leitura (ver `reports/plano_extrator_contratual.md`) |
+| 16. Comparação entre documentos | `report_cross_document_checks.py` | mesmo dado em Termo, oferta, AF e DFs (`config/contract_terms/cross_checks.json`); só leitura, lista divergências |
 
 Relatórios gerados ficam em `reports/`; o resumo do trabalho está em
 `reports/resumo_do_projeto_2026-10-28.md`.
