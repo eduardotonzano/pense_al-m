@@ -22,6 +22,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from credit_assets.market_checks import integralized, money
 from credit_assets.services.contract_terms_service import extract_pdf_pages
 from credit_assets.cross_checks import tokenize
+from credit_assets.cvm_lookup import emission as cvm_emission
 from credit_assets.termo_values import best, extract, remuneration_numbers
 
 TOLERANCE = Decimal("0.01")
@@ -35,35 +36,6 @@ APPROVED_MAP = {
 
 def close(a: Decimal, b: Decimal) -> bool:
     return b != 0 and abs(a - b) / abs(b) <= TOLERANCE
-
-
-def cvm_emission(connection: sqlite3.Connection, kind: str, isin: str):
-    row = connection.execute(
-        f"SELECT CNPJ_Emissora, Codigo_Identificacao_Certificado FROM {kind}_classe_vigente WHERE Codigo_ISIN = ? "
-        "ORDER BY Data_Referencia DESC LIMIT 1", (isin,)).fetchone()
-    if row is None:
-        return None
-    cnpj, cert = row
-    isins = [r[0] for r in connection.execute(
-        f"SELECT DISTINCT Codigo_ISIN FROM {kind}_classe_vigente WHERE Codigo_Identificacao_Certificado = ? AND Codigo_ISIN <> ''",
-        (cert,))]
-    codes = {cert} | {r[0] for r in connection.execute(
-        f"SELECT DISTINCT Codigo_Identificacao_Certificado FROM {kind}_classe_vigente WHERE CNPJ_Emissora = ? AND Codigo_ISIN IN "
-        f"({','.join('?' * len(isins))})", (cnpj, *isins))} if isins else {cert}
-    marks = ",".join("?" * len(codes))
-    last = connection.execute(
-        f"SELECT MAX(Data_Referencia) FROM {kind}_classe_vigente WHERE Codigo_Identificacao_Certificado IN ({marks})",
-        tuple(codes)).fetchone()[0]
-    series = {}
-    for r in connection.execute(
-            f"SELECT * FROM {kind}_classe_vigente WHERE Codigo_Identificacao_Certificado IN ({marks}) AND Data_Referencia = ?",
-            (*codes, last)):
-        series[(r["Codigo_ISIN"] or r["Numero_Serie"])] = dict(r)
-    geral = connection.execute(
-        f"SELECT Data_Emissao FROM {kind}_geral_vigente WHERE Codigo_Identificacao_Certificado IN ({marks}) "
-        "ORDER BY Data_Referencia DESC LIMIT 1", tuple(codes)).fetchone()
-    return {"codes": sorted(codes), "last": last, "series": list(series.values()),
-            "data_emissao": (geral[0] or "")[:10] if geral else ""}
 
 
 def main() -> int:
