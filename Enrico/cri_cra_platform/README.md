@@ -107,6 +107,7 @@ SQLite; scripts que gravam têm `--dry-run` ou `--preview` e só aplicam regras 
 | 14. Fila de download | `run_download_queue.py --enqueue --dry-run`, `--run --dry-run`, depois `--commit`; `--status` | migration 003; 1 worker, limite de taxa, parada automática (ver `reports/plano_fila_download.md`) |
 | 15. Cobertura contratual | `report_contract_coverage.py` | campos padrão (`config/contract_terms/standard_fields.json`) por ativo; só leitura (ver `reports/plano_extrator_contratual.md`) |
 | 16. Comparação entre documentos | `report_cross_document_checks.py` | mesmo dado em Termo, oferta, AF e DFs (`config/contract_terms/cross_checks.json`); só leitura, lista divergências |
+| 17. Fila de revisão priorizada | `build_review_queue.py` | ordena o que aguarda aprovação em 5 níveis; gera ids do nível 4 para aprovação em bloco; só leitura |
 
 Relatórios gerados ficam em `reports/`; o resumo do trabalho está em
 `reports/resumo_do_projeto_2026-10-28.md`.
