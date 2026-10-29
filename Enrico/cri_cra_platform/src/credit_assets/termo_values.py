@@ -157,3 +157,25 @@ def remuneration_numbers(pages: list[tuple[int, str]], window: int = 360) -> set
                 if slot in ("mult", "taxa"):
                     numbers.add(f"{slot}={format(round(_D(value), 2).normalize(), 'f')}")
     return numbers
+
+
+CNPJ_TEXT = re.compile(r"\d{2}\.?\d{3}\.?\d{3}\s*/\s*\d{4}\s*-?\s*\d{2}")
+DEBTOR_ANCHOR = re.compile(r"devedor[ae]?s?\b|cedentes?\b|emitente\b|avalistas?\b|fiador[ae]?s?\b")
+
+
+def debtor_cnpjs(pages: list[tuple[int, str]], window: int = 600) -> set[str]:
+    """CNPJs válidos citados logo depois de uma menção a devedor, cedente, emitente, avalista ou fiador."""
+
+    from credit_assets.debtor_exposure import normalize_cnpj
+
+    found: set[str] = set()
+    for _, text in pages:
+        flat = re.sub(r"\s+", " ", text)
+        lower = flat.lower()
+        for anchor in DEBTOR_ANCHOR.finditer(lower):
+            chunk = flat[anchor.start(): anchor.start() + window]
+            for raw in CNPJ_TEXT.findall(chunk):
+                cnpj = normalize_cnpj(raw)
+                if cnpj:
+                    found.add(cnpj)
+    return found

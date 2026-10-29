@@ -521,3 +521,22 @@ def test_service_chunk_executor_maps_each_document(connection):
     assert not bad.ok and bad.http_status == 404 and "grade" in bad.error
     assert same.ok and same.already_current
     assert service.calls[0][2]["max_documents"] == 3 and service.calls[0][2]["source_document_ids"] == ["CRA1-0", "CRA1-1", "CRA1-2"]
+
+
+def test_whole_session_failure_counts_as_one_consecutive_failure(connection):
+    _seed(connection, 10)
+    _seed(connection, 3, cetip="CRA2", isin="BRX2")
+    enqueue_documents(connection, _config(max_attempts=1), dry_run=False)
+    executor = ChunkExecutor(lambda d: DownloadOutcome(ok=False, error="RuntimeError: resposta documental inválida")
+                             if d["source_document_id"].startswith("CRA1") else OK)
+    report = _chunk_worker(connection, executor, chunk_size=10, failure_rate_min_attempts=1000).run()
+    assert report["status"] == "finished"  # a sessão ruim não dispara "5 falhas seguidas"
+    assert report["failed"] == 10 and queue_status(connection)["items"] == {"failed": 10, "done": 3}
+
+
+def test_different_errors_in_a_chunk_still_count_one_by_one(connection):
+    _seed(connection, 6)
+    enqueue_documents(connection, _config(max_attempts=1), dry_run=False)
+    executor = ChunkExecutor(lambda d: DownloadOutcome(ok=False, http_status=404, error=f"faltou {d['source_document_id']}"))
+    report = _chunk_worker(connection, executor, chunk_size=6, failure_rate_min_attempts=1000).run()
+    assert report["status"] == "stopped" and "5 falhas consecutivas" in report["stop_reason"]

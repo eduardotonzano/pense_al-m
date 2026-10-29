@@ -615,7 +615,10 @@ class DownloadQueueWorker:
                         for _ in rows
                     ]
                 stop: tuple[str, str] | None = None
-                for item, outcome in zip(rows, outcomes):
+                # a sessão inteira falhou com o mesmo erro (ex.: grade fora do ar): conta como uma falha seguida, não N
+                session_failure = (len(rows) > 1 and all(not o.ok for o in outcomes)
+                                   and len({o.error for o in outcomes}) == 1)
+                for position, (item, outcome) in enumerate(zip(rows, outcomes)):
                     final, error_class = self._record(item, outcome)
                     attempts_total += 1
                     stats["processed"] += 1
@@ -624,7 +627,8 @@ class DownloadQueueWorker:
                         consecutive = 0
                     else:
                         failures_total += 1
-                        consecutive += 1
+                        if not session_failure or position == 0:
+                            consecutive += 1
                         stats["failed"] += 1
                     results.append({
                         "source_document_id": item["source_document_id"],

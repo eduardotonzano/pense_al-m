@@ -23,7 +23,8 @@ from credit_assets.market_checks import integralized, money
 from credit_assets.services.contract_terms_service import extract_pdf_pages
 from credit_assets.cross_checks import tokenize
 from credit_assets.cvm_lookup import emission as cvm_emission
-from credit_assets.termo_values import best, extract, remuneration_numbers
+from credit_assets.debtor_exposure import format_cnpj, normalize_cnpj
+from credit_assets.termo_values import best, debtor_cnpjs, extract, remuneration_numbers
 
 TOLERANCE = Decimal("0.01")
 APPROVED_MAP = {
@@ -67,6 +68,7 @@ def main() -> int:
         first = items[0]
         per_doc: list[tuple[str, list]] = []  # na ordem: Termos antes de aditamentos, do mais antigo ao mais novo
         rate_numbers: set[str] = set()
+        termo_debtors: set[str] = set()
         for doc in items:
             path = ROOT / doc["local_file_path"]
             if not path.is_file():
@@ -75,6 +77,7 @@ def main() -> int:
             numbered = [(i + 1, t) for i, t in enumerate(pages)]
             per_doc.append((doc["source_document_id"], extract(numbered)))
             rate_numbers |= remuneration_numbers(numbered)
+            termo_debtors |= debtor_cnpjs(numbered)
 
         def termo(field):
             """Data de emissão: a do primeiro documento que a traz. Demais campos: união do melhor de cada documento
@@ -148,6 +151,20 @@ def main() -> int:
             else:
                 verdict(label, "concorda" if decisive <= rate_numbers else "diverge",
                         "; ".join(sorted(rate_numbers))[:120], s.get("Taxa_Juros") or "")
+        # devedor: algum CNPJ de devedor do Informe aparece no Termo junto de devedor/cedente/emitente/avalista?
+        kind = first["tipo_ativo"].lower()
+        marks = ",".join("?" * len(emission["codes"]))
+        informed_debtors = {normalize_cnpj(r[0]) for r in cvm.execute(
+            f"""SELECT t.CNPJ FROM {kind}_cedente_devedor t JOIN source_files f ON f.file_id = t._file_id
+                WHERE f.is_current = 1 AND t.Tipo = 'Devedor' AND t.Data_Referencia = ?
+                  AND t.Codigo_Identificacao_Certificado IN ({marks})""", (emission["last"], *emission["codes"]))} - {None}
+        if informed_debtors:
+            if not termo_debtors:
+                verdict("devedor", "sem_valor_no_termo", "", "; ".join(format_cnpj(c) for c in sorted(informed_debtors)))
+            else:
+                verdict("devedor", "concorda" if informed_debtors & termo_debtors else "diverge",
+                        "; ".join(format_cnpj(c) for c in sorted(termo_debtors))[:120],
+                        "; ".join(format_cnpj(c) for c in sorted(informed_debtors)))
         vnus = [Decimal(c.value) for _, c in termo("valor_nominal_unitario")]
         unit = [integralized(s) / money(s.get("Quantidade_Certificados")) for s in emission["series"]
                 if money(s.get("Quantidade_Certificados")) > 0 and integralized(s) > 0]
@@ -190,7 +207,7 @@ def main() -> int:
     totals = Counter((r["campo"].split(" ")[0], r["resultado"]) for r in results)
     lines += ["## Resultado por campo", "", "| Campo | Concorda | Diverge | Informe usa data do lastro | Sem valor no Termo |",
               "|---|---|---|---|---|"]
-    for field in ("data_emissao", "vencimento", "remuneracao", "valor_total", "quantidade", "valor_nominal_unitario"):
+    for field in ("data_emissao", "vencimento", "remuneracao", "devedor", "valor_total", "quantidade", "valor_nominal_unitario"):
         lines.append(f"| {field} | {totals[(field, 'concorda')]} | {totals[(field, 'diverge')]} | "
                      f"{totals[(field, 'informe_usa_data_do_lastro')]} | {totals[(field, 'sem_valor_no_termo')]} |")
     lines += ["", "## Resumo por ativo", "", "| Ativo | Concorda | Diverge | Informe usa data do lastro | Sem valor no Termo | Sem dado CVM |",
