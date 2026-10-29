@@ -55,3 +55,8 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
 - **Achado de identificação:** a mesma emissão aparece com **dois códigos** de certificado (um tipo ISIN e outro tipo CETIP) para a mesma
   securitizadora, o que **duplica a contagem de emissões** (107 emissões de CRA com esse padrão). A chave do universo deve ser o **ISIN da série**,
   não o código do certificado. ISIN repetido em securitizadoras diferentes é conflito real (28 emissões de CRA).
+- **Validação da base da CVM contra o nosso XML** (`scripts/validate_cvm_vs_xml.py` → `reports/cvm_vs_xml.md`): nos 3 pilotos, 610 valores
+  por série comparados (quantidade, saldo, rentabilidade, amortização e rendimentos); **588 iguais (96,4%)**. As 22 diferenças são todas a
+  `RentabilidadePeriodo` do CRI, que a CVM publica **arredondada em 2 casas** (0,01 onde o XML traz 0,00971…): perda de precisão no CSV da
+  CVM, não erro de extração. CRA: 100% igual. Consequência: a base da CVM serve como fonte do Informe em escala, mas regras que dependem da
+  rentabilidade do CRI (conciliação de saldo, rentabilidade fora do padrão) precisam do XML.
