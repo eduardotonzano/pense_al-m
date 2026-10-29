@@ -110,6 +110,8 @@ SQLite; scripts que gravam têm `--dry-run` ou `--preview` e só aplicam regras 
 | 17. Fila de revisão priorizada | `build_review_queue.py` | ordena o que aguarda aprovação em 5 níveis; gera ids do nível 4 para aprovação em bloco; só leitura |
 | 18. Localizador de campos | `evaluate_finder_recall.py` | `config/contract_terms/field_topics.json` localiza a cláusula de cada campo padrão; mede o recall contra os parâmetros aprovados (só leitura) |
 | 19. Mercado inteiro (CVM) | `ingest_cvm_open_data.py --dry-run`, depois `--commit` | Informe Mensal de todos os CRA/CRI dos dados abertos da CVM em `data/cvm_open.db` (ver `reports/plano_escala_mercado.md`) |
+| 20. Triagem e universo | `run_market_checks.py`, `build_market_universe.py`, `validate_cvm_vs_xml.py` | ranking de emissões, universo por ISIN, candidatos a lote, validação CVM × XML |
+| 21. Prévia de campos em Termos novos | `preview_field_coverage.py` | localizador de campos sobre os Termos baixados, sem gravar no banco |
 
 Relatórios gerados ficam em `reports/`; o resumo do trabalho está em
 `reports/resumo_do_projeto_2026-10-28.md`.
