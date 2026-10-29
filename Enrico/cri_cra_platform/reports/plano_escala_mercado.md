@@ -64,3 +64,10 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
   1.588 Informes Mensais, 646 atas/editais, 108 relatórios do AF, 71 Termos, 44 fatos relevantes). Os 3 que falharam ("securitizadora não
   localizada": Vert ×2 e Travessia ×1) tinham causas do coletor, corrigidas: empate entre nomes parecidos (resolvido pelo nome igual ao buscado)
   e "S/A" × "S.A". Reexecutados: 97, 83 e 108 documentos, sem erro. **Total estimado: 30 ativos, cerca de 2.900 documentos.**
+- **Lote 1 gravado no catálogo (aprovação de Enrico, 29/10/2026):** backup `cri_cra_20261029T220158_894939Z.sqlite3`; 29 dos 30 ativos
+  catalogados (2.909 documentos novos; total 32 ativos e 3.107 documentos); `integrity_check` ok, `foreign_key_check` vazio; segunda execução
+  sem duplicar (0 inseridos, 2.909 inalterados). BRVERTCRA344 ficou de fora: a CVM não traz código CETIP diferente do ISIN e o modelo recusa os
+  dois iguais (não inventamos código). Lista autorizada: `config/ativos_lote1.csv`.
+- **Download do lote 1 (aprovação de Enrico):** 1.168 documentos enfileirados (atas/editais 700, outros 213, relatórios do AF 119, Termos 74,
+  fatos relevantes 44, anúncios de encerramento 18). Informes Mensais fora (já cobertos pela base da CVM) e prospectos/suplementos fora.
+  A fila passou a baixar em grupos de até 10 documentos do mesmo ativo por sessão de navegador (`--chunk-size`).
