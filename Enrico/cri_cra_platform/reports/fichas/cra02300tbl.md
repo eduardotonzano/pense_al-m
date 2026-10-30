@@ -2,6 +2,7 @@
 
 - Securitizadora: Eco Securitizadora de Direitos Creditórios do Agronegócio (10.753.164/0001-43); emissão 223; ISIN de referência BRECOACRAF93.
 - Parâmetros contratuais aprovados no catálogo: 0.
+- Ficha contratual (trecho de cada campo do Termo): [../fichas_contratuais/cra02300tbl.md](../fichas_contratuais/cra02300tbl.md).
 
 ## Informe Mensal na CVM (competência 2026-08)
 

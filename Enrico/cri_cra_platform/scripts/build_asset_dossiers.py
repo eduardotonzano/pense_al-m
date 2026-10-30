@@ -72,7 +72,11 @@ def main() -> int:
         lines = [f"# Ficha: {cetip} ({asset['tipo_ativo']})", "",
                  f"- Securitizadora: {asset['securitizadora']} ({asset['cnpj_securitizadora']}); emissão {asset['emissao']}; "
                  f"ISIN de referência {asset['isin']}.",
-                 f"- Parâmetros contratuais aprovados no catálogo: {approved.get(asset['asset_id'], 0)}.", ""]
+                 f"- Parâmetros contratuais aprovados no catálogo: {approved.get(asset['asset_id'], 0)}."]
+        if (REPORTS / "fichas_contratuais" / f"{cetip.lower()}.md").is_file():
+            lines.append(f"- Ficha contratual (trecho de cada campo do Termo): [../fichas_contratuais/{cetip.lower()}.md]"
+                         f"(../fichas_contratuais/{cetip.lower()}.md).")
+        lines.append("")
         em = emission(cvm, kind, asset["isin"]) if asset["isin"] else None
         flags_line = ""
         late = 0

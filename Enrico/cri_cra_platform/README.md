@@ -116,6 +116,10 @@ SQLite; scripts que gravam têm `--dry-run` ou `--preview` e só aplicam regras 
 | 23. Histórico de uma emissão | `market_asset_history.py --isin <ISIN>` | mês a mês por série, com eventos |
 | 24. Termo × Informe da CVM | `run_termo_vs_cvm.py` | extrator determinístico de valores do Termo (emissão, vencimentos, valor, quantidade, VNU) comparado com a CVM |
 | 25. Assuntos de assembleias e fatos | `run_assembly_topics.py` | classificação por palavras-chave das atas, editais, fatos relevantes e comunicados baixados |
+| 26. Fichas por ativo | `build_asset_dossiers.py` | tudo o que a plataforma sabe de cada ativo do catálogo (`reports/fichas/`) |
+| 27. Sinais das DFs | `ingest_cvm_dfin.py --dry-run`, depois `--commit`; `run_dfin_checks.py` | opinião do auditor (ressalva, abstenção, piora), prazo e emissões sem DF (`data/cvm_dfin.db`) |
+| 28. Fichas contratuais | `build_contract_sheets.py [--only <cetip>…]` | trecho literal de cada um dos 36 campos padrão nos Termos e aditamentos, com página, parâmetro aprovado e Termo × CVM (`reports/fichas_contratuais/`); rodar depois de `run_termo_vs_cvm.py`; só leitura |
+| 29. OCR de PDFs em imagem | `ocr_document_pages.py --source-id … --cetip … --dry-run` | opcional (pymupdf + rapidocr); o texto de OCR fica em `document_text_pages` e os relatórios o usam quando a página nativa vem vazia |
 
 Relatórios gerados ficam em `reports/`; o resumo do trabalho está em
 `reports/resumo_do_projeto_2026-10-28.md`.
