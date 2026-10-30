@@ -169,7 +169,8 @@ def debtor_cnpjs(pages: list[tuple[int, str]], window: int = 600) -> set[str]:
     from credit_assets.debtor_exposure import normalize_cnpj
 
     found: set[str] = set()
-    for _, text in pages:
+    # o documento inteiro de uma vez: a definição de "Devedora" muitas vezes termina na página seguinte
+    for text in [" ".join(t for _, t in pages)]:
         flat = re.sub(r"\s+", " ", text)
         lower = flat.lower()
         for anchor in DEBTOR_ANCHOR.finditer(lower):

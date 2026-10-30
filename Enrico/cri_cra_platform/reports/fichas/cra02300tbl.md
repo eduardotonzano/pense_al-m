@@ -27,8 +27,9 @@ Eco Securitizadora de Direitos Creditórios do Agronegócio | Série 1 e 2 - 223
 
 ## Termo × Informe da CVM
 
-- concorda: 8
+- concorda: 8, diverge: 1
 
+- **diverge** devedor: Termo 00.405.805/0001-15; 02.392.738/0001-77; 06.116.723/0001-37; 33.866.324/0001-66;  × CVM 27.490.581/0001-43
 
 ## Assembleias, fatos relevantes e comunicados (assuntos)
 

@@ -44,3 +44,10 @@ def test_lastro_context():
     assert is_lastro_context("as debêntures terão prazo de 4.381 dias")
     assert not is_lastro_context("os cri desta emissão, lastreados em debêntures, terão prazo; os cri")
     assert not is_lastro_context("sem nada relevante")
+
+
+def test_debtor_cnpj_found_across_pages():
+    from credit_assets.termo_values import debtor_cnpjs
+    found = debtor_cnpjs(pages("“Devedora”: CAFE BRASIL INDUSTRIA, com sede na Avenida Alberto Vieira",
+                               "Romão nº 365, inscrita no CNPJ/ME sob o nº 01.486.546/0001-67. “Dia Útil”"))
+    assert found == {"01486546000167"}
