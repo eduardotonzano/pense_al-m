@@ -4,16 +4,16 @@ Fonte: dados abertos da CVM (`data/cvm_open.db`). Só leitura; nada entra no cat
 
 ## CRA (competência de referência 2026-08-01)
 
-- Códigos de certificado na base: 1263; emissões depois de unir os códigos duplicados: **1195** (68 eram a mesma emissão com dois códigos).
-- ISINs de série distintos: **2103**; emissões com informe recente: **628**.
+- Códigos de certificado na base: 1263; emissões depois de unir os códigos duplicados: **1209** (54 eram a mesma emissão com dois códigos).
+- ISINs de série distintos: **2077**; emissões com informe recente: **630**.
 - Já no catálogo do projeto (por ISIN): 20 ISINs (BRAPCSCRA0N4, BRAPCSCRA0T1, BRAPCSCRA0U9, BRAPCSCRA1Y9, BRCASCCRA0K5, BRECOACRAB97, BRECOACRABX0, BRECOACRAC13...).
 
 Candidatos ao lote-piloto (15): ver `config/lote_piloto_candidatos.csv`.
 
 ## CRI (competência de referência 2026-08-01)
 
-- Códigos de certificado na base: 4039; emissões depois de unir os códigos duplicados: **3690** (349 eram a mesma emissão com dois códigos).
-- ISINs de série distintos: **6929**; emissões com informe recente: **2312**.
+- Códigos de certificado na base: 4039; emissões depois de unir os códigos duplicados: **3813** (226 eram a mesma emissão com dois códigos).
+- ISINs de série distintos: **6836**; emissões com informe recente: **2369**.
 - Já no catálogo do projeto (por ISIN): 16 ISINs (BRAPCSCRICG3, BRAPCSCRIIE5, BRAPCSCRIIR7, BRAPCSCRIJL8, BRBASECRI115, BRBASECRI131, BRFSECCRID64, BRFSECCRIJN7...).
 
 Candidatos ao lote-piloto (15): ver `config/lote_piloto_candidatos.csv`.
@@ -24,7 +24,7 @@ Critério: pontuação de triagem > 0, informe recente, saldo ≥ R$ 10 mi, ISIN
 
 | Tipo | Código | ISIN | Securitizadora | Emissão | Saldo (R$ mi) | Pontos | Sinais |
 |---|---|---|---|---|---|---|---|
-| CRA | CRA024000GP | BRAPCSCRA2R1 | OPEA Securitizadora S.A. | 82 | 90.7 | 8 | em_atrasox1; situacao_mista_na_classex1 |
+| CRA | CRA024000GP | BRAPCSCRA2S9 | OPEA Securitizadora S.A. | 82 | 90.7 | 8 | em_atrasox1; situacao_mista_na_classex1 |
 | CRA | CRA019000XD | BRIMWLCRA093 | RIZA SECURITIZADORA S.A. | 3 | 64.6 | 6 | vencido_com_saldo_adimplentex1; vencimento_fora_mes_basex1 |
 | CRA | CRA024003PF | BRIMWLCRA7Y4 | RIZA SECURITIZADORA S.A. | 196 | 40.3 | 6 | vencido_com_saldo_adimplentex1; vencimento_fora_mes_basex2 |
 | CRA | CRA022008NB | BRAPCSCRA1B7 | OPEA SECURITIZADORA S.A | 38 | 2,414.6 | 5 | em_atrasox2 |
@@ -48,9 +48,9 @@ Critério: pontuação de triagem > 0, informe recente, saldo ≥ R$ 10 mi, ISIN
 | CRI | 23F2472075 | BRAPCSCRIIZ0 | OPEA Securitizadora S.A. | 181 | 26.4 | 8 | em_atrasox1; situacao_mista_na_classex1 |
 | CRI | 23F1829746 | BRPVSCCRI2E6 | Companhia Província de Securitização | 29 | 19.4 | 8 | em_atrasox1; situacao_mista_na_classex1 |
 | CRI | 24L2327181 | BRIMWLCRILH5 | RIZA SECURITIZADORA S.A. | 172 | 15.7 | 8 | em_atrasox1; situacao_mista_na_classex1 |
-| CRI | 24J0943210 | BRAPCSCRIQK5 | OPEA SECURITIZADORA S.A | 362 | 317.1 | 7 | vencimento_fora_mes_basex1; saldo_incompativelx2; isin_invalidox2 |
+| CRI | 23B0493519 | BRCASCCRI0D2 | CANAL COMPANHIA DE SECURITIZAÇÃO | 33 | 28.2 | 7 | em_atrasox3; vencimento_fora_mes_basex3 |
 | CRI | 23H1186528 | BRAPCSCRIJI4 | OPEA Securitizadora S.A. | 208 | 373.8 | 6 | vencido_com_saldo_adimplentex1; vencimento_fora_mes_basex3 |
+| CRI | 22E1273339 | BRCASCCRI018 | CANAL COMPANHIA DE SECURITIZAÇÃO | 2 | 157.3 | 6 | vencido_com_saldo_adimplentex1; isin_invalidox1 |
+| CRI | 16B0742429 | BRPLSCCRI0J1 | POLO CAPITAL SECURITIZADORA S.A. | 1 | 14.9 | 6 | vencido_com_saldo_adimplentex2; isin_invalidox2 |
 | CRI | 20H0225976 | BRFSECCRIC65 | FORTE SECURITIZADORA S.A. | 1 | 604.2 | 5 | em_atrasox8 |
 | CRI | 14L0157828 | BRCBSCCRI3B9 | RIZA II SECUTIRIZADORA S.A | 2 | 487.2 | 5 | em_atrasox4 |
-| CRI | 21H0769214 | BRFSECCRIFH7 | FORTE SECURITIZADORA S.A. | 1 | 435.9 | 5 | em_atrasox6 |
-| CRI | 25C3273266 | BRLSECCRI2L6 | Leverage Companhia Securitizadora | 11 | 267.3 | 5 | isin_invalidox1; isin_repetidox1 |

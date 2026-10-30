@@ -103,7 +103,9 @@ def main() -> int:
             per_issuer[item["emissora"]] += 1
             chosen += 1
             picks.append({
-                "codigo_cetip": first.get("Codigo_CETIP") or cert, "isin": first["Codigo_ISIN"],
+                # o Fundos.NET lista a emissão pelo código do certificado, que nem sempre é o ISIN da 1ª série
+                "codigo_cetip": first.get("Codigo_CETIP") or cert,
+                "isin": cert if ISIN_PATTERN.match(cert.upper()) else first["Codigo_ISIN"],
                 "securitizadora": info.get("Companhia_Emissora", ""), "cnpj_securitizadora": item["emissora"],
                 "emissao": info.get("Numero_Emissao", ""), "serie": first.get("Numero_Serie", ""),
                 "tipo_ativo": kind.upper(), "devedor": "", "cnpj_devedor": "", "ativo": "false",

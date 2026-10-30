@@ -7,9 +7,10 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 
 **Mercado inteiro (dados abertos da CVM)**
 - `ingest_cvm_open_data.py`: Informe Mensal de todos os CRA e CRI (2019 a 2026) num banco separado `data/cvm_open.db`, com valor
-  original preservado, SHA-256 por arquivo, recarga idempotente e todas as versões guardadas. Universo: 1.195 emissões de CRA e 3.690 de CRI.
+  original preservado, SHA-256 por arquivo, recarga idempotente e todas as versões guardadas. Universo: 1.209 emissões de CRA e 3.813 de CRI.
 - `run_market_checks.py` e `build_market_universe.py`: triagem do mercado (atraso, vencimento passado com saldo, informe defasado,
-  vencimento fora do mês-base, ISIN repetido ou inválido) e ranking de emissões; une a mesma emissão publicada com dois códigos.
+  vencimento fora do mês-base, ISIN repetido ou inválido) e ranking de emissões; une a mesma emissão publicada com dois códigos
+  (só por ISIN com formato válido: o placeholder "00000" juntava emissões diferentes).
 - `validate_cvm_vs_xml.py`: a base da CVM bate com a nossa extração do XML em 96,4% dos valores dos pilotos; a diferença é a rentabilidade
   do CRI, que a CVM publica arredondada.
 - Eventos de crédito mês a mês, exposição por devedor (CNPJ validado; não informado, CPF e CNPJ inválido contados à parte) com contágio,
@@ -24,6 +25,9 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
   padrão, com página; nos parâmetros aprovados conferíveis, o valor aparece nas páginas mostradas em 84%.
 - Atas: assuntos e o que foi decidido (aprovada, não instalada, suspensa, sem quórum; vencimento antecipado declarado ou não, waiver,
   repactuação, troca de prestador), com o trecho.
+
+**Lote 2 (preparado, não gravado)**
+- `config/lote2_ativos.csv`: 38 ativos (as 10 emissões da Leverage separadas), 2.701 documentos no dry-run do catálogo.
 
 **Coleta e documentos**
 - Fila de download em lotes (migration `003_download_queue.sql`): retomada, limite de taxa, parada automática (403, falhas seguidas,
@@ -48,7 +52,7 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 ### Como verificar
 ```powershell
 cd Enrico\cri_cra_platform
-$env:PYTHONPATH='..\..\src'; python -m pytest                       # 416 testes
+$env:PYTHONPATH='..\..\src'; python -m pytest                       # 417 testes
 python scripts/apply_migration.py --database data\cri_cra.db --dry-run
 python scripts/ingest_cvm_open_data.py --dry-run                     # lista os 16 arquivos da CVM, não grava
 python scripts/run_monthly_market.py --dry-run                       # rotina mensal sem gravar no banco

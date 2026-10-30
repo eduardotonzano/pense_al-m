@@ -22,6 +22,13 @@ SUSPECT_BALANCE_FACTOR = Decimal(20)
 ISIN_PATTERN = re.compile(r"^[A-Z]{2}[A-Z0-9]{9}[0-9]$")
 
 
+def real_isin(value: str | None) -> str:
+    """ISIN com formato válido, ou vazio. Placeholders como "00000" não identificam série e não unem emissões."""
+
+    text = (value or "").strip().upper()
+    return text if ISIN_PATTERN.match(text) else ""
+
+
 def fold(text: str | None) -> str:
     decomposed = unicodedata.normalize("NFKD", text or "")
     return "".join(c for c in decomposed if not unicodedata.combining(c)).lower().strip()
@@ -110,9 +117,9 @@ def rank_emissions(
     isin_owners: dict[str, set[str]] = defaultdict(set)
     isin_issuers: dict[str, set[str]] = defaultdict(set)
     for row in rows:
-        if row.get("Codigo_ISIN"):
-            isin_owners[row["Codigo_ISIN"]].add(row["Codigo_Identificacao_Certificado"])
-            isin_issuers[row["Codigo_ISIN"]].add(row.get("CNPJ_Emissora") or "")
+        if isin := real_isin(row.get("Codigo_ISIN")):
+            isin_owners[isin].add(row["Codigo_Identificacao_Certificado"])
+            isin_issuers[isin].add(row.get("CNPJ_Emissora") or "")
     emissions: dict[str, dict[str, Any]] = {}
     for row in rows:
         cert = row["Codigo_Identificacao_Certificado"]
@@ -127,7 +134,7 @@ def rank_emissions(
         flags = series_flags(row, reference) if current else []
         if current and balance > 0:
             situations[(cert, fold(row.get("Classe")))].add(fold(row.get("Situacao")))
-        isin = row.get("Codigo_ISIN")
+        isin = real_isin(row.get("Codigo_ISIN"))
         if isin and len(isin_owners[isin]) > 1:
             # mesmo ISIN em securitizadoras diferentes é conflito; na mesma securitizadora o certificado
             # aparece com dois códigos (ISIN e CETIP) e isso só duplica a contagem de emissões
@@ -169,7 +176,7 @@ def merge_alias_certificates(
     for row in rows:
         node = (row.get("CNPJ_Emissora") or "", row["Codigo_Identificacao_Certificado"])
         find(node)
-        isin = (row.get("Codigo_ISIN") or "").strip()
+        isin = real_isin(row.get("Codigo_ISIN"))
         if isin:
             key = (node[0], isin)
             if key in owner:
@@ -181,11 +188,16 @@ def merge_alias_certificates(
         node = (row.get("CNPJ_Emissora") or "", row["Codigo_Identificacao_Certificado"])
         members[find(node)][node[1]] += 1
     group_id = {root: sorted(codes.items(), key=lambda kv: (-kv[1], kv[0]))[0][0] for root, codes in members.items()}
+    # a mesma série publicada duas vezes, com ISIN e com placeholder: fica só a linha com ISIN
+    with_isin = {(row.get("CNPJ_Emissora") or "", group_id[find((row.get("CNPJ_Emissora") or "", row["Codigo_Identificacao_Certificado"]))],
+                  str(row.get("Numero_Serie"))) for row in rows if real_isin(row.get("Codigo_ISIN"))}
     merged: dict[tuple, dict[str, Any]] = {}
     for row in rows:
         node = (row.get("CNPJ_Emissora") or "", row["Codigo_Identificacao_Certificado"])
         gid = group_id[find(node)]
-        isin = (row.get("Codigo_ISIN") or "").strip()
+        isin = real_isin(row.get("Codigo_ISIN"))
+        if not isin and (node[0], gid, str(row.get("Numero_Serie"))) in with_isin:
+            continue
         key = (node[0], gid, isin) if isin else (node[0], gid, "", row.get("Numero_Serie"), node[1])
         candidate = {**row, "Codigo_Identificacao_Certificado": gid, "_original": node[1]}
         if key not in merged or (row.get("Data_Referencia") or "") > (merged[key].get("Data_Referencia") or ""):

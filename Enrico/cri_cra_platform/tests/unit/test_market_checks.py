@@ -70,11 +70,11 @@ def test_rank_orders_by_score_then_balance_and_flags_stale_and_duplicate_isin():
 def test_merge_alias_certificates_unites_isin_and_cetip_codes():
     from credit_assets.market_checks import merge_alias_certificates
     rows = [
-        row(Codigo_Identificacao_Certificado="BRABC1", Codigo_ISIN="S1", CNPJ_Emissora="1", Numero_Serie="1", Data_Referencia="2026-08-01"),
-        row(Codigo_Identificacao_Certificado="BRABC1", Codigo_ISIN="S2", CNPJ_Emissora="1", Numero_Serie="2", Data_Referencia="2026-08-01"),
-        row(Codigo_Identificacao_Certificado="CRA023X", Codigo_ISIN="S1", CNPJ_Emissora="1", Numero_Serie="1", Data_Referencia="2025-01-01"),
-        row(Codigo_Identificacao_Certificado="OUTRA", Codigo_ISIN="S9", CNPJ_Emissora="1", Numero_Serie="1", Data_Referencia="2026-08-01"),
-        row(Codigo_Identificacao_Certificado="DOUTRA", Codigo_ISIN="S1", CNPJ_Emissora="2", Numero_Serie="1", Data_Referencia="2026-08-01"),
+        row(Codigo_Identificacao_Certificado="BRABC1", Codigo_ISIN="BRABCDCRA011", CNPJ_Emissora="1", Numero_Serie="1", Data_Referencia="2026-08-01"),
+        row(Codigo_Identificacao_Certificado="BRABC1", Codigo_ISIN="BRABCDCRA029", CNPJ_Emissora="1", Numero_Serie="2", Data_Referencia="2026-08-01"),
+        row(Codigo_Identificacao_Certificado="CRA023X", Codigo_ISIN="BRABCDCRA011", CNPJ_Emissora="1", Numero_Serie="1", Data_Referencia="2025-01-01"),
+        row(Codigo_Identificacao_Certificado="OUTRA", Codigo_ISIN="BRABCDCRA094", CNPJ_Emissora="1", Numero_Serie="1", Data_Referencia="2026-08-01"),
+        row(Codigo_Identificacao_Certificado="DOUTRA", Codigo_ISIN="BRABCDCRA011", CNPJ_Emissora="2", Numero_Serie="1", Data_Referencia="2026-08-01"),
     ]
     last = {"BRABC1": "2026-08-01", "CRA023X": "2025-01-01", "OUTRA": "2026-08-01", "DOUTRA": "2026-08-01"}
     merged, filing, aliases = merge_alias_certificates(rows, last)
@@ -83,6 +83,27 @@ def test_merge_alias_certificates_unites_isin_and_cetip_codes():
     assert sorted(aliases["BRABC1"]) == ["BRABC1", "CRA023X"] and filing["BRABC1"] == "2026-08-01"
     assert sum(1 for r in merged if r["Codigo_Identificacao_Certificado"] == "BRABC1") == 2  # S1 deduplicado, S2 mantido
     assert len(rows) == 5  # entrada não é alterada
+
+
+def test_placeholder_isin_does_not_merge_emissions_or_series():
+    from credit_assets.market_checks import merge_alias_certificates
+    # Leverage: várias emissões com séries sem ISIN informado ("00000") não são a mesma emissão
+    rows = [
+        row(Codigo_Identificacao_Certificado="BRLSECCRI0Q9", Codigo_ISIN="BRLSECCRI0Q9", CNPJ_Emissora="1", Numero_Serie="2"),
+        row(Codigo_Identificacao_Certificado="BRLSECCRI0Q9", Codigo_ISIN="00000", CNPJ_Emissora="1", Numero_Serie="3"),
+        row(Codigo_Identificacao_Certificado="BRLSECCRI2L6", Codigo_ISIN="00000", CNPJ_Emissora="1", Numero_Serie="1"),
+        row(Codigo_Identificacao_Certificado="BRLSECCRI2L6", Codigo_ISIN="BRLSECCRI2L6", CNPJ_Emissora="1", Numero_Serie="1"),
+        row(Codigo_Identificacao_Certificado="OUTRA", Codigo_ISIN="00000", CNPJ_Emissora="2", Numero_Serie="1"),
+    ]
+    last = {c: REF for c in ("BRLSECCRI0Q9", "BRLSECCRI2L6", "OUTRA")}
+    merged, _, aliases = merge_alias_certificates(rows, last)
+    assert aliases["BRLSECCRI0Q9"] == ["BRLSECCRI0Q9"] and aliases["BRLSECCRI2L6"] == ["BRLSECCRI2L6"]
+    # série 3 sem ISIN fica; a série 1 do BRLSECCRI2L6 publicada também com "00000" conta uma vez só
+    assert sorted((r["Codigo_Identificacao_Certificado"], r["Numero_Serie"]) for r in merged) == [
+        ("BRLSECCRI0Q9", "2"), ("BRLSECCRI0Q9", "3"), ("BRLSECCRI2L6", "1"), ("OUTRA", "1")]
+    assert next(r for r in merged if r["Codigo_Identificacao_Certificado"] == "BRLSECCRI2L6")["Codigo_ISIN"] == "BRLSECCRI2L6"
+    ranking = {i["certificado"]: i for i in rank_emissions(rows, REF, last)}
+    assert all("isin_repetido" not in i["flags"] and "identificador_duplicado" not in i["flags"] for i in ranking.values())
 
 
 def test_balance_incompatible_with_paid_in_is_flagged_and_left_out_of_totals():

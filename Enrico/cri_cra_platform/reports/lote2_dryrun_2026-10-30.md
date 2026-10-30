@@ -32,14 +32,36 @@ Consulta ao Fundos.NET sem gravar nada (`run_document_catalog.py --dry-run`), ap
 | 20H0225976 | CRI | FORTE SECURITIZADORA S.A. | 604.2 | 168 | ok |
 | 14L0157828 | CRI | RIZA II SECURITIZADORA S.A. | 487.2 | 135 | ok depois da correção na lista (ver abaixo) |
 | 21H0769214 | CRI | FORTE SECURITIZADORA S.A. | 435.9 | 126 | ok |
-| 25C3273266 | CRI | Leverage Companhia Securitizadora | 267.3 | 0 | **bloqueado**: certificado validado não corresponde à emissão/devedor esperados |
 
-**Total: 28 ativos catalogáveis, 2528 documentos novos.**
+**Sem a Leverage: 28 ativos, 2.528 documentos novos.**
+
+## Leverage: as 11 emissões que a CVM juntava num certificado (pedido de Enrico: monitorar todas)
+
+O "certificado" 25C3273266 da lista era, na verdade, 11 emissões diferentes da Leverage unidas pelo placeholder de ISIN "00000" na triagem do mercado (erro da união, corrigido em `market_checks.real_isin`). Cada emissão virou um ativo, identificado no Fundos.NET pelo código do certificado. Dry-run de 30/10/2026:
+
+| Ativo (CETIP da 1ª série com ISIN) | Certificado | Emissão | Nome | Saldo (R$ mi) | Documentos |
+|---|---|---|---|---|---|
+| 24E2495042 | BRLSECCRI0Q9 | 11 | Yvy Supreme | 12.9 | 44 |
+| 25C3273266 | BRLSECCRI2L6 | 32 | Longitude | 44.8 | 33 |
+| 25K3156592 | BRLSECCRI3R1 | 58 | Meraki | 15.0 | 16 |
+| 25L2378911 | BRLSECCRI3V3 | 62 | Rottas | 30.1 | 15 |
+| 25L3279335 | BRLSECCRI441 | 65 | Genesis | 7.8 | 16 |
+| 26D2618959 | BRLSECCRI4I8 | 72 | Brio | 35.8 | 20 |
+| 26D4402695 | BRLSECCRI4P3 | 75 | Teriva | 19.8 | 9 |
+| 26D7086699 | BRLSECCRI4V1 | 56 | Cajamar | 70.9 | 8 |
+| 26F3681477 | BRLSECCRI5H7 | 96 | Bauten Tekoa | 7.9 | 5 |
+| 26G2446032 | BRLSECCRI5R6 | 94 | Huma Brooklin | 9.0 | 7 |
+
+- A 11ª, **TKN003LEVE001** (8ª emissão, CRI Haute, R$ 15,2 mi), é um token sem ISIN: o coletor localiza a emissão por ISIN, então ela fica fora até haver outro jeito de identificá-la no Fundos.NET.
+
+**Total do lote 2 (`config/lote2_ativos.csv`, congelado): 38 ativos e 2.701 documentos novos.**
 
 ## Correções e bloqueio
 
 - **CRA024000GP (Opea, 82ª emissão):** o Fundos.NET lista a emissão pelo código da 2ª série, BRAPCSCRA2S9 (que a CVM também traz para a emissão), e não pelo ISIN da 1ª série, BRAPCSCRA2R1. A lista passou a usar BRAPCSCRA2S9.
 - **14L0157828 (ex-Cibrasec):** o nome da securitizadora vem da CVM com erro de digitação ("RIZA II SECUTIRIZADORA S.A"). Corrigido para "RIZA II SECURITIZADORA S.A." na lista; o CNPJ 02.105.040/0001-23 não muda.
-- **25C3273266 (Leverage) continua bloqueado:** no Fundos.NET o ISIN BRLSECCRI2L6 é da emissão 32 (Longitude Incorporações), mas a lista diz emissão 11. O Informe da CVM agrupa nesse certificado 11 códigos de emissões diferentes (ISIN repetido e inválido). O coletor recusa o vínculo, como deve (conflito de identificador bloqueia). Para entrar, alguém precisa escolher qual emissão monitorar.
+- **25C3273266 (Leverage):** resolvido acima; o bloqueio do coletor estava certo (o ISIN era da emissão 32, a lista dizia 11).
 
-Próximo passo, com aprovação: gravar os ativos catalogáveis no catálogo (`--commit`) e, depois, baixar os documentos pela fila.
+A lista de candidatos (`config/lote_piloto_candidatos.csv`) é regerada pela triagem e mudou com a correção da união; o lote 2 aprovado para dry-run fica congelado em `config/lote2_ativos.csv` (ativo=false).
+
+Próximo passo, com aprovação: gravar os 38 ativos no catálogo (`--commit`) e, depois, baixar os 2.701 documentos pela fila.
