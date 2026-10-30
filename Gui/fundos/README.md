@@ -23,7 +23,7 @@ Coletor, acesso à rede, banco real, dados reais e adaptador para a camada compa
 - o `registro_subclasse` como dado (hoje só entra no manifesto);
 - a reapresentação do informe (FU4.2): hoje uma competência = um ZIP;
 - a `tab_VIII` e a `tab_X_4` do informe, lidas e conferidas mas **não carregadas** (várias linhas para o mesmo assunto e campo). A `tab_X_4` (captações, resgates e amortizações por série) fica **indisponível** até uma tarefa própria, com ADR (uma dimensão a mais em `observations`);
-- os cedentes do informe (FU4.3), que precisam de migration própria (veja "Papéis");
+- o uso dos cedentes: a regra para o percentual (em 09/2026, 385 valores acima de 100), as métricas de concentração e a forma de exibir são do Gui (Fases 6 a 10). Hoje os cedentes só são gravados;
 - a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
 - a carteira de cotas de fundos;
 - o mapa de séries sênior, mezanino e subordinada;
@@ -149,7 +149,7 @@ python scripts\load_cadastro.py --database C:\<pasta-local>\fundos.db --zip C:\<
 
 ## Como carregar o informe de FIDC
 
-O `scripts/load_informe_fidc.py` lê o `inf_mensal_fidc_AAAAMM.zip` da CVM (baixado à mão, fora do Git) e grava as observações do mês das classes e fundos que **já estão no banco**: o cadastro tem de ser carregado antes. `--database` e `--zip` são obrigatórios, e `--dry-run` ou `--commit` também. Não há `--reference-date`. Rode sempre o `--dry-run` antes. O `--commit` só com aprovação explícita.
+O `scripts/load_informe_fidc.py` lê o `inf_mensal_fidc_AAAAMM.zip` da CVM (baixado à mão, fora do Git) e grava as observações do mês, a administradora e os cedentes das classes e fundos que **já estão no banco**: o cadastro tem de ser carregado antes. `--database` e `--zip` são obrigatórios, e `--dry-run` ou `--commit` também. Não há `--reference-date`. Rode sempre o `--dry-run` antes. O `--commit` só com aprovação explícita.
 
 ```powershell
 cd Gui\fundos
@@ -166,7 +166,14 @@ python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip 
 - **O que vira observação:** `tab_<tabela>.<COLUNA>`, sem renomear. `TP_FUNDO_CLASSE`, `CNPJ_FUNDO_CLASSE` e `DT_COMPTC` são chave. `DENOM_SOCIAL` só da `tab_I` (nas outras 17 ela é conferida e a divergência é contada).
 - **Zeros são gravados:** zero é valor informado (cerca de 80% das células do mês). Valor vazio não tem linha.
 - **Notação científica** (`e` ou `E` seguido de expoente inteiro, como `1.5e+10`) é convertida de forma exata, sem arredondar e sem expoente, e contada por coluna no relatório. Qualquer outro formato fora do decimal com ponto aborta.
-- **Cedentes:** as 36 colunas `TAB_I2A12_CPF_CNPJ_CEDENTE_1..9`, `TAB_I2A12_PR_CEDENTE_1..9` e as mesmas `TAB_I2B12_*` são exigidas no cabeçalho e descartadas sem guardar o valor. O relatório mostra só o total de células preenchidas (conferência da exclusão e ponto de partida da FU4.3).
+- **Cedentes** (as 36 colunas `TAB_I2A12_CPF_CNPJ_CEDENTE_1..9` e `TAB_I2A12_PR_CEDENTE_1..9`, com risco, e as mesmas `TAB_I2B12_*`, sem risco): o identificador da posição n vai com o percentual da posição n do mesmo grupo.
+  - Só o cedente com **CNPJ válido** é gravado: uma linha em `party_observations` com papel `cedente`, campo = coluna real do identificador com a posição (por exemplo `tab_I.TAB_I2A12_CPF_CNPJ_CEDENTE_3`), sem nome, no mesmo assunto e com a mesma proveniência da administradora. O percentual vai em `party_observation_shares` (migration 003).
+  - Regra de implementação: **11 dígitos ou máscara de CPF são tratados como CPF e descartados, mesmo que fechem como CNPJ com zeros** (7 casos em 09/2026). 12 ou 13 dígitos com DV válido ganham os zeros à esquerda. Vazio ou inválido não tem linha.
+  - Percentual: decimal exato, como veio (notação científica convertida, como nas outras colunas numéricas); **formato inválido aborta a carga**, como em qualquer coluna numérica. Negativo ou acima de 100 é gravado como veio e contado no relatório.
+  - Identificador gravável sem percentual: a linha é gravada sem percentual. Percentual sem identificador gravável (vazio, CPF ou inválido): só contado, nada é gravado.
+  - O mesmo CNPJ em duas posições, ou nos dois grupos, vira linhas separadas (o campo é outro) e é contado.
+  - O relatório mostra, por grupo, só contagens: identificador CNPJ (com os zeros restaurados), CPF descartado, inválido, percentual com e sem identificador, identificador sem percentual, percentual negativo e acima de 100, CNPJ repetido; e o total de células preenchidas, que fecha com essas contagens.
+  - **Achado de 09/2026** (medição só de leitura, em memória): 7.452 células preenchidas; 3.605 cedentes com CNPJ válido (2.476 com risco e 1.129 sem risco), todos com percentual; 120 valores de 11 dígitos. Nos percentuais preenchidos: mínimo 0, **máximo de cerca de 17,5 milhões**, **385 acima de 100** (306 com risco e 79 sem risco), zeros 75 e 67, nenhum negativo. Em parte das linhas a coluna não traz um percentual. **A regra para usar o percentual em métricas de concentração é do Gui**; esta carga não decide nada sobre isso.
 - **Administradora:** `tab_I.CNPJ_ADMIN` e `tab_I.ADMIN` vão para `party_observations` (papel `administrador`), só com CNPJ válido. `tab_I.CNPJ_CLASSE` vira observação só com CNPJ válido (espaços nas pontas tirados; zero à esquerda só para 12 ou 13 dígitos); senão a célula é contada e não carregada.
 - **Séries** (`tab_X_1`, `tab_X_2`, `tab_X_3` e `tab_X_6`): a chave é o rótulo normalizado (sem acento, minúsculo, sem `|`, espaços colapsados); o rótulo original de cada tabela fica como observação da série. Regra do `ID_SUBCLASSE` (só na `tab_X_1`):
   - vira `cvm_subclass_id` só quando aparece num único assunto e rótulo do arquivo (em 09/2026, 63 IDs aparecem em mais de uma classe e não viram chave);
@@ -174,7 +181,9 @@ python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip 
   - em todos os casos, `tab_X_1.ID_SUBCLASSE` é gravado como observação.
 - **Não carregadas:** `tab_VIII` e `tab_X_4` são lidas e conferidas, entram no manifesto como `ignored` e ficam fora do banco (veja "O que ainda não existe").
 - **Uma competência = um ZIP até a FU4.2:** o mesmo ZIP (mesmo SHA-256) diz "Nada a carregar"; outro ZIP da mesma competência é recusado; uma competência nova é carga normal (série mensal).
-- **Antes do COMMIT:** `integrity_check`, `foreign_key_check`, nenhuma coluna com `cpf` e nenhum texto inteiro com formato de CPF no que a coleta gravou. Se algo falhar, desfaz tudo e mantém o backup.
+- **Versão do leitor:** o manifesto guarda `fundos.informe_fidc.v2`. Competência carregada por versão anterior (a v1, sem cedentes), com o mesmo ZIP ou com outro, é recusada: esta versão não atualiza esse carregamento; use um banco novo e carregue de novo.
+- **Migrations:** o informe exige 001, 002 e 003 (o cadastro continua exigindo só 001 e 002). Banco sem a 003: aplique antes com `scripts/apply_migration.py`.
+- **Antes do COMMIT:** `integrity_check`, `foreign_key_check`, nenhuma coluna com `cpf` e nenhum texto inteiro com formato de CPF no que a coleta gravou (inclusive percentual de cedente de 11 dígitos). Se algo falhar, desfaz tudo e mantém o backup. A mensagem cita só as contagens.
 - **Andamento:** uma linha por tabela lida (`lido tab_IX: ... linha(s)`) e, no `--commit`, uma por tabela gravada (`gravado tab_IX: ... observacao(oes), ... s`).
 - **Tamanho e tempo:** cerca de 0,6 GB por competência (1,57 milhão de observações em 09/2026). Medido com dados fictícios do volume real (1,56 milhão de observações), em disco local: o banco cresceu 0,56 GB, o `--commit` completo (backup, carga e verificação) levou 7,3 min e o `--dry-run`, 15 s. Sem inserção em lote.
 

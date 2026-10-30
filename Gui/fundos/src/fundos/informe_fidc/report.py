@@ -259,7 +259,15 @@ def format_candidates_report(counts):
         + ")"
     )
     lines.append("  series (assunto e rotulo): " + str(counts[("series_candidatas",)]))
-    lines.append("  party_observations administrador: " + str(counts[("papeis_candidatos",)]))
+    lines.append(
+        "  party_observations: administrador "
+        + str(counts[("papeis_candidatos", spec.ADMIN_ROLE)])
+        + ", cedente "
+        + str(counts[("papeis_candidatos", spec.CEDENTE_ROLE)])
+        + " (com percentual "
+        + str(counts[("percentuais_candidatos",)])
+        + ")"
+    )
 
     return lines
 
@@ -296,11 +304,21 @@ def format_load_report(result):
         + ", recusado pelo banco "
         + str(counts[("id_subclasse", "recusado")])
     )
+    for role in (spec.ADMIN_ROLE, spec.CEDENTE_ROLE):
+        lines.append(
+            "  party_observations "
+            + role
+            + ": criados "
+            + str(counts[("papeis", role, "criados")])
+            + ", existentes "
+            + str(counts[("papeis", role, "existentes")])
+        )
+
     lines.append(
-        "  party_observations administrador: criados "
-        + str(counts[("papeis", "criados")])
+        "  party_observation_shares (percentual do cedente): criados "
+        + str(counts[("percentuais", "criados")])
         + ", existentes "
-        + str(counts[("papeis", "existentes")])
+        + str(counts[("percentuais", "existentes")])
     )
     lines.append(
         "  conflitos abertos: data_conflicts "
@@ -318,6 +336,7 @@ def format_load_report(result):
         + str(counts[("varredura_cpf", "observations")])
         + ", party_observations "
         + str(counts[("varredura_cpf", "party_observations")])
+        + " (nome, CNPJ e percentual do cedente)"
     )
 
     return lines

@@ -3,21 +3,32 @@ import re
 import pytest
 
 from apoio import FAKE_CPF
+from apoio import FAKE_CPF_MASKED
 from apoio_cadastro import fake_cnpj
+from apoio_cadastro import fake_cnpj_with_leading_zero
 from apoio_informe_fidc import ADMIN_NAME
+from apoio_informe_fidc import CEDENTE_CNPJ
+from apoio_informe_fidc import CEDENTE_SHARE
 from apoio_informe_fidc import COMPETENCE
 from apoio_informe_fidc import SENIOR
 from apoio_informe_fidc import SUBORDINATE
 from apoio_informe_fidc import SUBORDINATE_X1
 from apoio_informe_fidc import ZIP_NAME
+from apoio_informe_fidc import ambiguous_cpf
 from apoio_informe_fidc import build_informe_zip
+from apoio_informe_fidc import cedente_cells
+from apoio_informe_fidc import cnpj_with_two_leading_zeros
 from apoio_informe_fidc import load_fictitious_cadastro
 from apoio_informe_fidc import merge
 from apoio_informe_fidc import row
 from apoio_informe_fidc import subject_rows
+from conftest import MIGRATION_001
+from conftest import MIGRATIONS_DIR
+from conftest import create_schema
 from fundos.cadastro.loader import LoadError
 from fundos.informe_fidc import columns
 from fundos.informe_fidc.loader import ALREADY_LOADED
+from fundos.informe_fidc.loader import OLDER_VERSION
 from fundos.informe_fidc.loader import CLASS_NOT_FOUND
 from fundos.informe_fidc.loader import CLASS_ONLY_FUND
 from fundos.informe_fidc.loader import FUND_NOT_FOUND
@@ -29,12 +40,13 @@ from fundos.informe_fidc.loader import load_informe
 from fundos.informe_fidc.loader import match_counts
 from fundos.informe_fidc.reader import read_informe_bytes
 from fundos.repositories.observation_repository import ObservationRepository
+from fundos.repositories.party_observation_repository import PartyObservationRepository
 from fundos.repositories.quota_series_repository import QuotaSeriesRepository
 
 
 INFORME_TABLES = (
-    "observations", "party_observations", "quota_series", "raw_records",
-    "collection_runs", "data_conflicts", "party_conflicts",
+    "observations", "party_observations", "party_observation_shares", "quota_series",
+    "raw_records", "collection_runs", "data_conflicts", "party_conflicts",
 )
 
 
@@ -90,7 +102,7 @@ def test_refuses_without_the_cadastro(full_db):
     assert count(full_db, "raw_records") == 0
 
 
-def test_loads_observations_series_and_administrator(loaded_db):
+def test_loads_observations_series_administrator_and_cedente(loaded_db):
     informe = read()
     before = count(loaded_db, "observations")
     result = load(loaded_db, informe)
@@ -114,10 +126,18 @@ def test_loads_observations_series_and_administrator(loaded_db):
     assert count(loaded_db, "data_conflicts") == 0
     assert rows(
         loaded_db,
-        "SELECT role, field_name, party_cnpj, name_field_name, party_name FROM party_observations"
-        " WHERE fund_class_id = ? AND field_name LIKE 'tab_I.%'",
+        "SELECT p.role, p.field_name, p.party_cnpj, p.name_field_name, p.party_name,"
+        " s.share_field_name, s.share_value"
+        " FROM party_observations p LEFT JOIN party_observation_shares s ON s.party_observation_id = p.id"
+        " WHERE p.fund_class_id = ? AND p.field_name LIKE 'tab_I.%' ORDER BY p.id",
         (class_id,),
-    ) == [("administrador", "tab_I.CNPJ_ADMIN", fake_cnpj(901), "tab_I.ADMIN", ADMIN_NAME)]
+    ) == [
+        ("administrador", "tab_I.CNPJ_ADMIN", fake_cnpj(901), "tab_I.ADMIN", ADMIN_NAME, None, None),
+        (
+            "cedente", "tab_I.TAB_I2B12_CPF_CNPJ_CEDENTE_1", CEDENTE_CNPJ, None, None,
+            "tab_I.TAB_I2B12_PR_CEDENTE_1", CEDENTE_SHARE,
+        ),
+    ]
     assert rows(loaded_db, "SELECT status, requested_items, successful_items, failed_items FROM collection_runs ORDER BY id DESC LIMIT 1") == [
         ("success", 1, 1, 0)
     ]
@@ -171,7 +191,7 @@ def test_manifest_has_the_zip_and_the_18_csv(loaded_db):
     assert {m[0]: m[3] for m in manifest}[columns.member_name("tab_VIII", "202609")] == "ignored"
     assert {m[0]: m[3] for m in manifest}[columns.member_name("tab_X_4", "202609")] == "ignored"
     assert sum(1 for m in manifest if m[3] == "processed") == 16
-    assert all(m[4] == "fundos.informe_fidc.v1" for m in manifest)
+    assert all(m[4] == "fundos.informe_fidc.v2" for m in manifest)
     assert [m[2] for m in manifest] == [informe.member(t).line_count for t in columns.TABLES]
 
 
@@ -282,23 +302,33 @@ def test_new_competence_is_history_without_conflict(loaded_db):
     assert count(loaded_db, "observations", "field_name LIKE 'tab%'") == 2 * first
     assert count(loaded_db, "data_conflicts") == 0
     assert count(loaded_db, "quota_series") == 2
+    assert count(loaded_db, "party_observations", "role = 'cedente'") == 2
+    assert count(loaded_db, "party_conflicts") == 0
 
 
-def test_cpf_and_cedentes_never_reach_the_database(loaded_db):
-    load(loaded_db)
+def all_text_values(db):
     values = []
 
-    with loaded_db.connection() as connection:
+    with db.connection() as connection:
         for (table,) in connection.execute("SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%'"):
             for record in connection.execute('SELECT * FROM "' + table + '"'):
                 values.extend(str(v) for v in tuple(record) if isinstance(v, str))
 
+    return values
+
+
+def test_cpf_never_reaches_the_database_and_the_cedente_only_as_a_party(loaded_db):
+    load(loaded_db)
+    values = all_text_values(loaded_db)
     cpf_like = re.compile(r"[0-9]{11}|[0-9]{3}[.][0-9]{3}[.][0-9]{3}-[0-9]{2}")
 
-    assert not any(FAKE_CPF in v or fake_cnpj(555) in v for v in values)
+    assert not any(FAKE_CPF in v for v in values)
     assert not any(cpf_like.fullmatch(v.strip()) for v in values)
     assert count(loaded_db, "observations", "field_name LIKE '%CPF_CNPJ_CEDENTE%' OR field_name LIKE '%PR_CEDENTE%'") == 0
+    # O percentual do CPF (60.5) vai embora junto com ele.
     assert count(loaded_db, "observations", "value_numeric = '60.5'") == 0
+    assert count(loaded_db, "party_observation_shares", "share_value = '60.5'") == 0
+    assert count(loaded_db, "party_observations", "party_cnpj = ?", (CEDENTE_CNPJ,)) == 1
 
 
 def test_cpf_like_text_undoes_the_load(loaded_db):
@@ -358,4 +388,132 @@ def test_match_counts_does_not_write_and_matches_the_load(loaded_db):
 
     assert candidates == created
     assert counts[("series_candidatas",)] == 2
-    assert counts[("papeis_candidatos",)] == 1
+    assert counts[("papeis_candidatos", "administrador")] == 1
+    assert counts[("papeis_candidatos", "cedente")] == 1
+    assert counts[("percentuais_candidatos",)] == 1
+    assert result.counts[("papeis", "cedente", "criados")] == 1
+    assert result.counts[("percentuais", "criados")] == 1
+
+
+def wrong_dv(cnpj):
+    return cnpj[:12] + ("00" if cnpj[12:] != "00" else "11")
+
+
+def cedente_field(prefix, position):
+    identifier, share = columns.cedente_columns(prefix, position)
+    return "tab_I." + identifier, "tab_I." + share
+
+
+def test_cedentes_are_recorded_by_the_rules(loaded_db):
+    repeated = fake_cnpj(701)
+    entries = [
+        ("TAB_I2A12", 1, repeated, "37.125"),
+        ("TAB_I2A12", 2, repeated, "-3.5"),
+        ("TAB_I2A12", 3, fake_cnpj_with_leading_zero(8)[1:], "1.5e1"),
+        ("TAB_I2A12", 4, cnpj_with_two_leading_zeros()[2:], "17521903.58"),
+        ("TAB_I2A12", 5, FAKE_CPF, "5.5"),
+        ("TAB_I2A12", 6, FAKE_CPF_MASKED, "4.5"),
+        ("TAB_I2A12", 7, ambiguous_cpf(), "3.25"),
+        ("TAB_I2A12", 8, wrong_dv(fake_cnpj(702)), "2.25"),
+        ("TAB_I2A12", 9, "", "1.25"),
+        ("TAB_I2B12", 1, repeated, "6.75"),
+        ("TAB_I2B12", 2, fake_cnpj(703), ""),
+    ]
+    tables = subject_rows()
+    tables["tab_I"] = [row("tab_I", **cedente_cells(*entries))]
+    informe = read(build_informe_zip(tables))
+    result = load(loaded_db, informe)
+    class_id = subject_id(loaded_db, "fund_classes", 1)
+    member = rows(
+        loaded_db,
+        "SELECT id FROM raw_records WHERE file_name = ?",
+        (columns.member_name("tab_I", "202609"),),
+    )[0][0]
+
+    with loaded_db.connection() as connection:
+        cedentes = PartyObservationRepository(connection).list_by_subject(
+            fund_class_id=class_id, role="cedente"
+        )
+
+    def expected(prefix, position, cnpj, share):
+        identifier, share_field = cedente_field(prefix, position)
+        return (identifier, cnpj, None if share is None else share_field, share)
+
+    assert sorted((p.field_name, p.party_cnpj, p.share_field_name, p.share_value) for p in cedentes) == sorted([
+        expected("TAB_I2A12", 1, repeated, "37.125"),
+        expected("TAB_I2A12", 2, repeated, "-3.5"),
+        expected("TAB_I2A12", 3, fake_cnpj_with_leading_zero(8), "15"),
+        expected("TAB_I2A12", 4, cnpj_with_two_leading_zeros(), "17521903.58"),
+        expected("TAB_I2B12", 1, repeated, "6.75"),
+        expected("TAB_I2B12", 2, fake_cnpj(703), None),
+    ])
+    assert all((p.name_field_name, p.party_name) == (None, None) for p in cedentes)
+    assert {(p.collection_run_id, p.raw_record_id, p.reference_date) for p in cedentes} == {
+        (result.run_id, member, COMPETENCE)
+    }
+    assert result.status == "success"
+    assert result.counts[("papeis", "cedente", "criados")] == 6
+    assert result.counts[("percentuais", "criados")] == 5
+    assert result.counts[("varredura_cpf", "party_observations")] == 0
+    assert count(loaded_db, "party_conflicts") == 0
+    assert count(loaded_db, "observations", "field_name LIKE '%CPF_CNPJ_CEDENTE%' OR field_name LIKE '%PR_CEDENTE%'") == 0
+    assert not any(
+        FAKE_CPF in v or ambiguous_cpf() in v or wrong_dv(fake_cnpj(702)) in v
+        for v in all_text_values(loaded_db)
+    )
+
+
+def test_competence_loaded_by_an_older_reader_version_is_refused(loaded_db):
+    informe = read()
+    load(loaded_db, informe)
+
+    with loaded_db.connection() as connection:
+        connection.execute(
+            "UPDATE raw_records SET parser_version = 'fundos.informe_fidc.v1'"
+            " WHERE parser_version = 'fundos.informe_fidc.v2'"
+        )
+
+    before = snapshot(loaded_db)
+    other_tables = subject_rows()
+    other_tables["tab_IV"] = [row("tab_IV", TAB_IV_A_VL_PL="1200.00")]
+    other = read(build_informe_zip(other_tables))
+    message = (
+        "O informe da competencia 2026-09 foi carregado por versao anterior do leitor"
+        " (fundos.informe_fidc.v1). Esta versao nao atualiza esse carregamento: use um"
+        " banco novo e carregue de novo."
+    )
+
+    with loaded_db.connection() as connection:
+        assert find_loaded_informe(connection, informe) == OLDER_VERSION
+        assert find_loaded_informe(connection, other) == OLDER_VERSION
+
+    for candidate in (informe, other):
+        with pytest.raises(LoadError) as error:
+            load(loaded_db, candidate)
+
+        assert str(error.value) == message
+
+    assert snapshot(loaded_db) == before
+
+
+def test_cpf_like_share_undoes_the_load(loaded_db):
+    tables = subject_rows()
+    tables["tab_I"] = [row("tab_I", **cedente_cells(("TAB_I2A12", 1, fake_cnpj(711), FAKE_CPF)))]
+    before = snapshot(loaded_db)
+
+    with pytest.raises(LoadError, match="Texto com formato de CPF") as error:
+        load(loaded_db, read(build_informe_zip(tables)))
+
+    assert "0 em observations, 1 em party_observations" in str(error.value)
+    assert FAKE_CPF not in str(error.value)
+    assert snapshot(loaded_db) == before
+
+
+def test_refuses_without_migration_003(tmp_path):
+    db = create_schema(tmp_path / "fundos.db", (MIGRATION_001, MIGRATIONS_DIR / "002_party_observations.sql"))
+    load_fictitious_cadastro(db)
+
+    with pytest.raises(LoadError, match="Faltam as migrations 003_party_observation_shares"):
+        load(db)
+
+    assert count(db, "raw_records", "file_name LIKE 'inf_mensal%'") == 0
