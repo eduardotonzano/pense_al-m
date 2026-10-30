@@ -8,23 +8,28 @@ nem classe e criado aqui.
 
 Grava uma coleta da fonte CVM_DADOS_ABERTOS, o manifesto do ZIP e dos 18 CSV
 (tab_VIII e tab_X_4 como 'ignored'), as observacoes (competencia =
-DT_COMPTC), as series (quota_series, pela chave do rotulo normalizado) e a
-administradora (party_observations). O ID_SUBCLASSE so vira chave da serie
-quando aparece num unico assunto e rotulo do arquivo; se o banco o recusar
-(IdentityConflictError), a serie fica so com o rotulo, as linhas sao
-carregadas e a coleta fica 'partial'.
+DT_COMPTC), as series (quota_series, pela chave do rotulo normalizado), a
+administradora e os cedentes de CNPJ valido (party_observations, com o
+percentual em party_observation_shares). Exige as migrations 001 a 003. O
+ID_SUBCLASSE so vira chave da serie quando aparece num unico assunto e
+rotulo do arquivo; se o banco o recusar (IdentityConflictError), a serie
+fica so com o rotulo, as linhas sao carregadas e a coleta fica 'partial'.
 
 Uma competencia = um ZIP ate a FU4.2 (reapresentacao): o mesmo ZIP nao e
-carregado de novo, e outro ZIP da mesma competencia e recusado.
+carregado de novo, e outro ZIP da mesma competencia e recusado. Competencia
+carregada por outra versao do leitor tambem e recusada (mesmo ZIP ou
+outro): esta versao nao atualiza esse carregamento.
 """
 
 import time
 from collections import Counter
 
+from fundos.cadastro.loader import REQUIRED_MIGRATIONS as CADASTRO_MIGRATIONS
 from fundos.cadastro.loader import SOURCE_CODE
 from fundos.cadastro.loader import LoadError
 from fundos.cadastro.loader import LoadResult
 from fundos.cadastro.loader import count_cpf_like
+from fundos.cadastro.loader import missing_migrations
 from fundos.cadastro.loader import verify
 from fundos.informe_fidc import columns as spec
 from fundos.repositories import IdentityConflictError
@@ -36,7 +41,10 @@ from fundos.repositories.raw_record_repository import RawRecordRepository
 from fundos.repositories.source_repository import SourceRepository
 
 
-PARSER_VERSION = "fundos.informe_fidc.v1"
+PARSER_VERSION = "fundos.informe_fidc.v2"
+
+# O cedente precisa da 003 (percentual em party_observation_shares).
+REQUIRED_MIGRATIONS = {**CADASTRO_MIGRATIONS, 3: "party_observation_shares"}
 
 # Cache da conexao da carga (KiB): ~1,5 milhao de observacoes por mes.
 CACHE_KIB = 200_000
@@ -62,6 +70,7 @@ REASONS = (
 
 ALREADY_LOADED = "mesmo ZIP"
 SAME_COMPETENCE = "mesma competencia"
+OLDER_VERSION = "versao anterior do leitor"
 
 
 def cadastro_loaded(connection):
@@ -84,32 +93,65 @@ def cadastro_loaded(connection):
     return manifest is not None and funds is not None
 
 
-def find_loaded_informe(connection, informe):
-    """ALREADY_LOADED, SAME_COMPETENCE (outro ZIP do mesmo mes) ou None.
+def _loaded_zips(connection, informe):
+    """(SHA-256, versao do leitor) dos ZIPs processados com o mesmo AAAAMM.
 
     Cada ZIP tem uma so competencia, do mes do AAAAMM dos membros; por isso
-    basta procurar o manifesto da tab_I do mesmo AAAAMM ja processado.
+    basta procurar o manifesto da tab_I do mesmo AAAAMM ja processado, de
+    qualquer versao do leitor.
     """
 
     rows = connection.execute(
         """
-        SELECT z.sha256
+        SELECT z.sha256, z.parser_version
         FROM raw_records r
         JOIN raw_records z ON z.id = r.parent_raw_record_id
         JOIN sources s ON s.id = r.source_id
         WHERE s.code = ?
           AND r.file_name = ?
-          AND z.parser_version = ?
           AND z.processing_status = 'processed'
         """,
-        (SOURCE_CODE, spec.member_name("tab_I", informe.zip.period), PARSER_VERSION),
+        (SOURCE_CODE, spec.member_name("tab_I", informe.zip.period)),
     ).fetchall()
-    hashes = {str(row[0]) for row in rows}
+
+    return [(str(row[0]), str(row[1])) for row in rows]
+
+
+def find_loaded_informe(connection, informe):
+    """OLDER_VERSION, ALREADY_LOADED, SAME_COMPETENCE (outro ZIP do mesmo mes) ou None.
+
+    OLDER_VERSION: a competencia foi carregada por outra versao do leitor,
+    com este ZIP ou com outro; vem antes dos outros casos.
+    """
+
+    loaded = _loaded_zips(connection, informe)
+
+    if any(version != PARSER_VERSION for _, version in loaded):
+        return OLDER_VERSION
+
+    hashes = {sha256 for sha256, _ in loaded}
 
     if informe.zip.sha256 in hashes:
         return ALREADY_LOADED
 
     return SAME_COMPETENCE if hashes else None
+
+
+def older_version_message(connection, informe):
+    """Mensagem da recusa de competencia carregada por outra versao do leitor."""
+
+    versions = sorted(
+        {version for _, version in _loaded_zips(connection, informe) if version != PARSER_VERSION}
+    )
+
+    return (
+        "O informe da competencia "
+        + informe.competence[:7]
+        + " foi carregado por versao anterior do leitor ("
+        + ", ".join(versions)
+        + "). Esta versao nao atualiza esse carregamento: use um banco novo e"
+        " carregue de novo."
+    )
 
 
 class SubjectResolver:
@@ -196,7 +238,11 @@ def match_counts(informe, resolver):
                 if value_type == "numeric" and value == "0":
                     counts[("candidatas_zero",)] += 1
 
-            counts[("papeis_candidatos",)] += len(row.parties)
+            for party in row.parties:
+                counts[("papeis_candidatos", party.role)] += 1
+
+                if party.share is not None:
+                    counts[("percentuais_candidatos",)] += 1
 
     count_subjects(subjects, counts)
     counts[("series_candidatas",)] = len(series)
@@ -289,12 +335,19 @@ class _Writer:
                 party_cnpj=party.cnpj,
                 name_field_name=party.name_field_name,
                 party_name=party.name,
+                share_field_name=party.share_field_name,
+                share_value=party.share,
                 source_id=self.source_id,
                 collection_run_id=self.run_id,
                 raw_record_id=raw_record_id,
                 reference_date=self.informe.competence,
             )
-            self.counts[("papeis", "criados" if result.created else "existentes")] += 1
+            status = "criados" if result.created else "existentes"
+            self.counts[("papeis", party.role, status)] += 1
+
+            if party.share is not None:
+                self.counts[("percentuais", status)] += 1
+
             self.counts[("conflitos", "party_conflicts")] += len(result.conflicts)
 
 
@@ -302,10 +355,20 @@ def load_informe(connection, informe, *, progress=None):
     """Grava o informe na transacao aberta; devolve LoadResult.
 
     progress(tabela, observacoes, segundos), se informado, e chamado ao fim
-    de cada tabela. Levanta LoadError se o cadastro nao estiver carregado,
-    se o ZIP ou a competencia ja estiverem no banco, ou se a verificacao
-    antes do COMMIT falhar; quem chama desfaz a transacao.
+    de cada tabela. Levanta LoadError se faltar migration, se o cadastro
+    nao estiver carregado, se o ZIP ou a competencia ja estiverem no banco
+    (tambem por outra versao do leitor), ou se a verificacao antes do
+    COMMIT falhar; quem chama desfaz a transacao.
     """
+
+    missing = missing_migrations(connection, REQUIRED_MIGRATIONS)
+
+    if missing:
+        raise LoadError(
+            "Faltam as migrations "
+            + ", ".join(missing)
+            + "; aplique antes com scripts/apply_migration.py."
+        )
 
     if not cadastro_loaded(connection):
         raise LoadError(
@@ -314,6 +377,9 @@ def load_informe(connection, informe, *, progress=None):
         )
 
     loaded = find_loaded_informe(connection, informe)
+
+    if loaded == OLDER_VERSION:
+        raise LoadError(older_version_message(connection, informe))
 
     if loaded is not None:
         raise LoadError(

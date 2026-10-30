@@ -88,7 +88,7 @@ def test_applying_twice_changes_nothing(tmp_path):
         connection.close()
 
     assert before == after
-    assert [row[0] for row in versions] == [1, 2]
+    assert [row[0] for row in versions] == [1, 2, 3]
 
 
 def test_accepts_a_valid_party(full_connection, base):
@@ -198,7 +198,8 @@ def test_apply_migration_applies_002_over_version_1(tmp_path, capsys):
     assert (dry, committed) == (0, 0)
     assert "002_party_observations" in dry_output
     assert "Dry-run concluido: o banco informado nao foi alterado." in dry_output
-    assert versions == [1, 2]
+    # A pasta real tambem tem a 003, aplicada junto.
+    assert versions == [1, 2, 3]
     assert funds == 1
     assert len(list(pathlib.Path(backup_dir).glob("fundos_*.sqlite3"))) == 1
     assert "colunas com cpf: 0" in output

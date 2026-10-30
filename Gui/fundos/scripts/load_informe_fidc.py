@@ -39,11 +39,14 @@ from fundos.cadastro.loader import LoadError  # noqa: E402
 from fundos.cadastro.loader import missing_migrations  # noqa: E402
 from fundos.database import Database  # noqa: E402
 from fundos.informe_fidc.loader import ALREADY_LOADED  # noqa: E402
+from fundos.informe_fidc.loader import OLDER_VERSION  # noqa: E402
+from fundos.informe_fidc.loader import REQUIRED_MIGRATIONS  # noqa: E402
 from fundos.informe_fidc.loader import SubjectResolver  # noqa: E402
 from fundos.informe_fidc.loader import cadastro_loaded  # noqa: E402
 from fundos.informe_fidc.loader import find_loaded_informe  # noqa: E402
 from fundos.informe_fidc.loader import load_informe  # noqa: E402
 from fundos.informe_fidc.loader import match_counts  # noqa: E402
+from fundos.informe_fidc.loader import older_version_message  # noqa: E402
 from fundos.informe_fidc.reader import read_informe_zip  # noqa: E402
 from fundos.informe_fidc.report import format_candidates_report  # noqa: E402
 from fundos.informe_fidc.report import format_load_report  # noqa: E402
@@ -71,7 +74,7 @@ def say(line):
 def describe_database(connection, informe):
     """(problema que faria o --commit recusar ou None, ja carregado)."""
 
-    missing = missing_migrations(connection)
+    missing = missing_migrations(connection, REQUIRED_MIGRATIONS)
 
     if missing:
         return (
@@ -89,6 +92,9 @@ def describe_database(connection, informe):
         )
 
     loaded = find_loaded_informe(connection, informe)
+
+    if loaded == OLDER_VERSION:
+        return older_version_message(connection, informe).rstrip("."), loaded
 
     if loaded is not None and loaded != ALREADY_LOADED:
         return (

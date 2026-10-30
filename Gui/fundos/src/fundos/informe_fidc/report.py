@@ -7,7 +7,10 @@ do codigo.
 
 from collections import Counter
 
+from fundos.cvm_csv import CNPJ
+from fundos.cvm_csv import CPF
 from fundos.cvm_csv import IDENTIFIER_STATUSES
+from fundos.cvm_csv import INVALID
 from fundos.informe_fidc import columns as spec
 from fundos.informe_fidc.loader import CLASS_SUBJECT
 from fundos.informe_fidc.loader import FUND_SUBJECT
@@ -22,6 +25,69 @@ LOADED_TABLES = tuple(table for table in spec.TABLES if table not in spec.NOT_LO
 
 def _statuses(counts, prefix):
     return " / ".join(str(counts[prefix + (status,)]) for status in IDENTIFIER_STATUSES)
+
+
+def _cedente_lines(counts):
+    """Secao Cedentes da leitura: so contagens, por grupo."""
+
+    lines = [
+        "Cedentes ("
+        + str(len(spec.CEDENTE_COLUMNS))
+        + " colunas da tab_I, "
+        + str(len(spec.CEDENTE_POSITIONS))
+        + " posicoes por grupo; so CNPJ valido vira papel cedente, sem nome;"
+        " CPF descartado junto com o percentual da posicao):"
+    ]
+
+    for prefix, label in spec.CEDENTE_GROUPS:
+        lines.append(
+            "  "
+            + label
+            + " ("
+            + prefix
+            + "): identificador CNPJ "
+            + str(counts[("cedente_identificador", prefix, CNPJ)])
+            + " (zeros restaurados "
+            + str(counts[("cedente_zeros_restaurados", prefix)])
+            + "), CPF descartado "
+            + str(counts[("cedente_identificador", prefix, CPF)])
+            + ", invalido "
+            + str(counts[("cedente_identificador", prefix, INVALID)])
+        )
+        lines.append(
+            "    percentual com identificador "
+            + str(counts[("cedente_percentual", prefix, "com_identificador")])
+            + ", sem identificador (so contado) "
+            + str(counts[("cedente_percentual", prefix, "sem_identificador")])
+            + "; identificador sem percentual "
+            + str(counts[("cedente_sem_percentual", prefix)])
+            + "; percentual gravado negativo "
+            + str(counts[("cedente_percentual_negativo", prefix)])
+            + ", acima de 100 "
+            + str(counts[("cedente_percentual_acima_de_100", prefix)])
+            + "; mesmo CNPJ repetido no grupo "
+            + str(counts[("cedente_repetido_no_grupo", prefix)])
+        )
+
+    identifiers = sum(n for key, n in counts.items() if key[0] == "cedente_identificador")
+    shares = sum(n for key, n in counts.items() if key[0] == "cedente_percentual")
+    lines.append(
+        "  mesmo CNPJ nos dois grupos do mesmo assunto: "
+        + str(counts[("cedente_nos_dois_grupos",)])
+        + "; assuntos com cedente de CNPJ valido: "
+        + str(counts[("cedente_assuntos_com_gravavel",)])
+    )
+    lines.append(
+        "  celulas preenchidas: "
+        + str(counts[("cedentes_preenchidas",)])
+        + " (identificadores "
+        + str(identifiers)
+        + " + percentuais "
+        + str(shares)
+        + ")"
+    )
+
+    return lines
 
 
 def format_read_report(informe):
@@ -103,12 +169,7 @@ def format_read_report(informe):
         " (ou ausentes da tab_I) nas outras tabelas: "
         + str(counts[("denom_divergente",)])
     )
-    lines.append(
-        "Cedentes ("
-        + str(len(spec.CEDENTE_COLUMNS))
-        + " colunas da tab_I, nao lidas; FU4.3): celulas preenchidas "
-        + str(counts[("cedentes_preenchidas",)])
-    )
+    lines.extend(_cedente_lines(counts))
     lines.append(
         "Series (assunto e rotulo normalizado distintos): "
         + ", ".join(table + " " + str(counts[("series", table)]) for table in spec.SERIES_TABLES)
@@ -198,7 +259,15 @@ def format_candidates_report(counts):
         + ")"
     )
     lines.append("  series (assunto e rotulo): " + str(counts[("series_candidatas",)]))
-    lines.append("  party_observations administrador: " + str(counts[("papeis_candidatos",)]))
+    lines.append(
+        "  party_observations: administrador "
+        + str(counts[("papeis_candidatos", spec.ADMIN_ROLE)])
+        + ", cedente "
+        + str(counts[("papeis_candidatos", spec.CEDENTE_ROLE)])
+        + " (com percentual "
+        + str(counts[("percentuais_candidatos",)])
+        + ")"
+    )
 
     return lines
 
@@ -235,11 +304,21 @@ def format_load_report(result):
         + ", recusado pelo banco "
         + str(counts[("id_subclasse", "recusado")])
     )
+    for role in (spec.ADMIN_ROLE, spec.CEDENTE_ROLE):
+        lines.append(
+            "  party_observations "
+            + role
+            + ": criados "
+            + str(counts[("papeis", role, "criados")])
+            + ", existentes "
+            + str(counts[("papeis", role, "existentes")])
+        )
+
     lines.append(
-        "  party_observations administrador: criados "
-        + str(counts[("papeis", "criados")])
+        "  party_observation_shares (percentual do cedente): criados "
+        + str(counts[("percentuais", "criados")])
         + ", existentes "
-        + str(counts[("papeis", "existentes")])
+        + str(counts[("percentuais", "existentes")])
     )
     lines.append(
         "  conflitos abertos: data_conflicts "
@@ -257,6 +336,7 @@ def format_load_report(result):
         + str(counts[("varredura_cpf", "observations")])
         + ", party_observations "
         + str(counts[("varredura_cpf", "party_observations")])
+        + " (nome, CNPJ e percentual do cedente)"
     )
 
     return lines

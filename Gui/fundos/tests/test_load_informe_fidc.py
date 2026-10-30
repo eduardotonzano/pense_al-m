@@ -6,17 +6,22 @@ import sqlite3
 import pytest
 
 from apoio import FAKE_CPF
+from apoio import FAKE_CPF_MASKED
 from apoio_cadastro import fake_cnpj
 from apoio_cadastro import masked
 from apoio_cadastro import write_zip
 from apoio_informe_fidc import ADMIN_NAME
 from apoio_informe_fidc import SENIOR
 from apoio_informe_fidc import ZIP_NAME
+from apoio_informe_fidc import ambiguous_cpf
 from apoio_informe_fidc import build_informe_zip
+from apoio_informe_fidc import cedente_cells
 from apoio_informe_fidc import load_fictitious_cadastro
 from apoio_informe_fidc import row
 from apoio_informe_fidc import subject_name
 from apoio_informe_fidc import subject_rows
+from conftest import MIGRATION_001
+from conftest import MIGRATIONS_DIR
 from conftest import create_full_schema
 from conftest import create_schema
 
@@ -145,7 +150,8 @@ def test_dry_run_with_cadastro_shows_the_match_and_writes_nothing(script, databa
     assert "  tab_I: classe 1, fundo 0; fora 0" in output
     assert "Assuntos (TP_FUNDO_CLASSE e CNPJ): classe 1, fundo 0; fora 0" in output
     assert "  series (assunto e rotulo): 2" in output
-    assert "  party_observations administrador: 1" in output
+    assert "  party_observations: administrador 1, cedente 1 (com percentual 1)" in output
+    assert "  celulas preenchidas: 4 (identificadores 2 + percentuais 2)" in output
     assert "Dry-run concluido: nenhum banco foi alterado." in output
 
 
@@ -165,6 +171,8 @@ def test_commit_makes_the_backup_before_loading(script, database, zip_path, tmp_
     assert "  gravado tab_X_4: 0 observacao(oes)" in output
     assert "Gravado (coleta" in output
     assert "varredura de CPF (texto inteiro com 11 digitos ou mascara): observations 0, party_observations 0" in output
+    assert "  party_observations cedente: criados 1, existentes 0" in output
+    assert "  party_observation_shares (percentual do cedente): criados 1, existentes 0" in output
     assert "integrity_check: ok" in output
     assert "Carga concluida." in output
 
@@ -300,4 +308,92 @@ def test_output_has_only_aggregates(script, database, zip_path, tmp_path, capsys
     text = dry.out + dry.err + committed.out + committed.err
 
     for secret in SECRETS:
+        assert secret not in text
+
+
+def test_database_without_migration_003_is_refused(script, zip_path, tmp_path, capsys):
+    path = tmp_path / "versao_2.db"
+    load_fictitious_cadastro(create_schema(path, (MIGRATION_001, MIGRATIONS_DIR / "002_party_observations.sql")))
+    before = file_hash(path)
+
+    dry = run_with(script, path, zip_path, "--dry-run")
+    dry_output = capsys.readouterr().out
+    code = run_with(script, path, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"))
+    error = capsys.readouterr().err
+
+    assert dry == 0
+    assert "o --commit seria recusado: faltam as migrations 003_party_observation_shares" in dry_output
+    assert code == 1
+    assert "faltam as migrations 003_party_observation_shares" in error
+    assert file_hash(path) == before
+    assert not (tmp_path / "bk").exists()
+
+
+def test_competence_loaded_by_an_older_reader_version_is_refused(script, database, zip_path, tmp_path, capsys):
+    run_with(script, database, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"))
+    capsys.readouterr()
+    connection = sqlite3.connect(database)
+
+    try:
+        with connection:
+            connection.execute(
+                "UPDATE raw_records SET parser_version = 'fundos.informe_fidc.v1'"
+                " WHERE parser_version = 'fundos.informe_fidc.v2'"
+            )
+    finally:
+        connection.close()
+
+    before = file_hash(database)
+    message = (
+        "O informe da competencia 2026-09 foi carregado por versao anterior do leitor"
+        " (fundos.informe_fidc.v1). Esta versao nao atualiza esse carregamento: use um"
+        " banco novo e carregue de novo"
+    )
+
+    dry = run_with(script, database, zip_path, "--dry-run")
+    dry_output = capsys.readouterr().out
+    code = run_with(script, database, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"))
+    error = capsys.readouterr().err
+
+    assert dry == 0
+    assert "o --commit seria recusado: " + message in dry_output
+    assert code == 1
+    assert message in error
+    assert file_hash(database) == before
+    assert len(backups_in(tmp_path / "bk")) == 1
+
+
+def test_output_with_varied_cedentes_has_only_aggregates(script, database, tmp_path, capsys):
+    secrets = (
+        fake_cnpj(721), fake_cnpj(722), FAKE_CPF, FAKE_CPF_MASKED, ambiguous_cpf(),
+        "37.125", "17521903.58", "4.875",
+    )
+    tables = subject_rows()
+    tables["tab_I"] = [
+        row(
+            "tab_I",
+            **cedente_cells(
+                ("TAB_I2A12", 1, fake_cnpj(721), "37.125"),
+                ("TAB_I2A12", 2, FAKE_CPF, "4.875"),
+                ("TAB_I2A12", 3, FAKE_CPF_MASKED, "4.875"),
+                ("TAB_I2A12", 4, ambiguous_cpf(), "4.875"),
+                ("TAB_I2B12", 1, fake_cnpj(722), "17521903.58"),
+            ),
+        )
+    ]
+    other_dir = tmp_path / "cedentes"
+    other_dir.mkdir()
+    path = write_zip(other_dir, build_informe_zip(tables), name=ZIP_NAME)
+
+    run_with(script, database, path, "--dry-run")
+    dry = capsys.readouterr()
+    code = run_with(script, database, path, "--commit", "--backup-dir", str(tmp_path / "bk"))
+    committed = capsys.readouterr()
+    text = dry.out + dry.err + committed.out + committed.err
+
+    assert code == 0
+    assert "  com risco (TAB_I2A12): identificador CNPJ 1 (zeros restaurados 0), CPF descartado 3, invalido 0" in text
+    assert "  party_observations cedente: criados 2, existentes 0" in text
+
+    for secret in secrets + SECRETS:
         assert secret not in text

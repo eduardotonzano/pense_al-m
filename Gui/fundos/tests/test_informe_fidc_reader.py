@@ -5,23 +5,30 @@ import zipfile
 import pytest
 
 from apoio import FAKE_CPF
+from apoio import FAKE_CPF_MASKED
 from apoio_cadastro import csv_bytes
 from apoio_cadastro import fake_cnpj
 from apoio_cadastro import fake_cnpj_with_leading_zero
 from apoio_cadastro import masked
 from apoio_cadastro import write_zip
 from apoio_informe_fidc import ADMIN_NAME
+from apoio_informe_fidc import CEDENTE_CNPJ
+from apoio_informe_fidc import CEDENTE_SHARE
 from apoio_informe_fidc import COMPETENCE
 from apoio_informe_fidc import OPERATIONS
 from apoio_informe_fidc import SENIOR
 from apoio_informe_fidc import SUBORDINATE
 from apoio_informe_fidc import SUBORDINATE_X1
 from apoio_informe_fidc import ZIP_NAME
+from apoio_informe_fidc import ambiguous_cpf
 from apoio_informe_fidc import build_informe_zip
+from apoio_informe_fidc import cedente_cells
+from apoio_informe_fidc import cnpj_with_two_leading_zeros
 from apoio_informe_fidc import merge
 from apoio_informe_fidc import row
 from apoio_informe_fidc import subject_name
 from apoio_informe_fidc import subject_rows
+from fundos.cnpj import is_valid_cnpj
 from fundos.informe_fidc import columns
 from fundos.informe_fidc.reader import InformeFormatError
 from fundos.informe_fidc.reader import convert_numeric
@@ -78,24 +85,34 @@ def test_series_tables_follow_the_data_not_the_dictionary():
     assert "ID_SUBCLASSE" in columns.HEADERS["tab_X_1"]
 
 
-def test_cedente_columns_are_exactly_the_36_excluded():
-    expected = set()
+def test_cedente_columns_are_18_identifiers_and_18_shares():
+    identifiers = set()
+    shares = set()
 
     for prefix in ("TAB_I2A12", "TAB_I2B12"):
         for position in range(1, 10):
-            expected.add(prefix + "_CPF_CNPJ_CEDENTE_" + str(position))
-            expected.add(prefix + "_PR_CEDENTE_" + str(position))
+            identifiers.add(prefix + "_CPF_CNPJ_CEDENTE_" + str(position))
+            shares.add(prefix + "_PR_CEDENTE_" + str(position))
+            assert columns.cedente_columns(prefix, position) == (
+                prefix + "_CPF_CNPJ_CEDENTE_" + str(position),
+                prefix + "_PR_CEDENTE_" + str(position),
+            )
 
-    excluded = {
-        column
-        for table, kinds in columns.KINDS.items()
-        for column, kind in kinds.items()
-        if kind == columns.EXCLUDED
-    }
+    def of_kind(kind):
+        return {
+            column
+            for kinds in columns.KINDS.values()
+            for column, found in kinds.items()
+            if found == kind
+        }
 
-    assert len(expected) == 36
-    assert excluded == expected
-    assert all(column in columns.HEADERS["tab_I"] for column in expected)
+    assert (len(identifiers), len(shares)) == (18, 18)
+    assert of_kind(columns.CEDENTE_ID) == identifiers
+    assert of_kind(columns.CEDENTE_SHARE) == shares
+    assert set(columns.CEDENTE_COLUMNS) == identifiers | shares
+    assert all(column in columns.HEADERS["tab_I"] for column in identifiers | shares)
+    assert not hasattr(columns, "EXCLUDED")
+    assert "excluded" not in {kind for kinds in columns.KINDS.values() for kind in kinds.values()}
 
 
 def test_reads_the_18_members_and_the_competence():
@@ -137,8 +154,15 @@ def test_rows_are_normalized_and_keys_are_not_values():
     for key in ("TP_FUNDO_CLASSE", "CNPJ_FUNDO_CLASSE", "DT_COMPTC", "CNPJ_ADMIN", "ADMIN", "PRAZO_CONVERSAO_COTA"):
         assert key not in tab_i.values
 
-    assert [(p.role, p.field_name, p.cnpj, p.name_field_name, p.name) for p in tab_i.parties] == [
-        ("administrador", "tab_I.CNPJ_ADMIN", fake_cnpj(901), "tab_I.ADMIN", ADMIN_NAME)
+    assert [
+        (p.role, p.field_name, p.cnpj, p.name_field_name, p.name, p.share_field_name, p.share)
+        for p in tab_i.parties
+    ] == [
+        ("administrador", "tab_I.CNPJ_ADMIN", fake_cnpj(901), "tab_I.ADMIN", ADMIN_NAME, None, None),
+        (
+            "cedente", "tab_I.TAB_I2B12_CPF_CNPJ_CEDENTE_1", CEDENTE_CNPJ, None, None,
+            "tab_I.TAB_I2B12_PR_CEDENTE_1", CEDENTE_SHARE,
+        ),
     ]
     assert first(informe, "tab_IV").values["TAB_IV_A_VL_PL"] == "1000.5"
 
@@ -294,20 +318,195 @@ def test_value_out_of_format_aborts_without_repeating_it(table, column, value, k
     assert value not in message
 
 
-def test_cedentes_are_never_kept_and_only_the_total_is_counted():
+def test_default_cedentes_keep_only_the_cnpj_with_its_share():
     informe = read()
+    tab_i = first(informe, "tab_I")
     everything = repr(informe) + repr([r for table in columns.TABLES for r in informe.rows(table)])
     report = "\n".join(format_read_report(informe))
+    cedentes = [p for p in tab_i.parties if p.role == "cedente"]
 
+    assert [(p.cnpj, p.share) for p in cedentes] == [(CEDENTE_CNPJ, CEDENTE_SHARE)]
     assert informe.counts[("cedentes_preenchidas",)] == 4
+    assert informe.counts[("cedente_identificador", "TAB_I2A12", "cpf")] == 1
+    assert informe.counts[("cedente_percentual", "TAB_I2A12", "sem_identificador")] == 1
     assert FAKE_CPF not in everything
-    assert fake_cnpj(555) not in everything
+    assert CEDENTE_CNPJ not in everything
     assert "60.5" not in everything
     assert FAKE_CPF not in report
-    assert "celulas preenchidas 4" in report
+    assert CEDENTE_CNPJ not in report
+    assert "celulas preenchidas: 4 (identificadores 2 + percentuais 2)" in report
+    assert not any(column in tab_i.values for column in columns.CEDENTE_COLUMNS)
 
-    for r in informe.rows("tab_I"):
-        assert not any(column in r.values for column in columns.CEDENTE_COLUMNS)
+
+def cedente_row(*entries, n=1):
+    return row("tab_I", n, **cedente_cells(*entries))
+
+
+def cedentes_of(informe):
+    return [
+        (p.field_name, p.cnpj, p.share_field_name, p.share)
+        for r in informe.rows("tab_I")
+        for p in r.parties
+        if p.role == "cedente"
+    ]
+
+
+def expected_cedente(prefix, position, cnpj, share):
+    """(campo do identificador, CNPJ, campo do percentual, percentual) esperados."""
+
+    identifier, share_column = columns.cedente_columns(prefix, position)
+    return (
+        "tab_I." + identifier,
+        cnpj,
+        None if share is None else "tab_I." + share_column,
+        share,
+    )
+
+
+def wrong_dv(cnpj):
+    return cnpj[:12] + ("00" if cnpj[12:] != "00" else "11")
+
+
+def test_cedente_identifier_rules():
+    invalid = wrong_dv(fake_cnpj(602))
+    entries = [
+        ("TAB_I2A12", 1, fake_cnpj(601), "37.125"),
+        ("TAB_I2A12", 2, fake_cnpj_with_leading_zero(7)[1:], "12.5"),
+        ("TAB_I2A12", 3, cnpj_with_two_leading_zeros()[2:], "8.25"),
+        ("TAB_I2A12", 4, FAKE_CPF, "5.5"),
+        ("TAB_I2A12", 5, ambiguous_cpf(), "4.75"),
+        ("TAB_I2A12", 6, FAKE_CPF_MASKED, "3.5"),
+        ("TAB_I2A12", 7, invalid, "2.5"),
+        ("TAB_I2A12", 8, "", "1.5"),
+        ("TAB_I2B12", 1, fake_cnpj(603), ""),
+    ]
+    informe = read(with_table("tab_I", [cedente_row(*entries)]))
+    counts = informe.counts
+    everything = repr(informe) + repr(list(informe.rows("tab_I")))
+    report = "\n".join(format_read_report(informe))
+
+    # O ambiguo fecha como CNPJ com zeros, mas 11 digitos sao tratados como CPF.
+    assert is_valid_cnpj(ambiguous_cpf().zfill(14))
+    assert cedentes_of(informe) == [
+        expected_cedente("TAB_I2A12", 1, fake_cnpj(601), "37.125"),
+        expected_cedente("TAB_I2A12", 2, fake_cnpj_with_leading_zero(7), "12.5"),
+        expected_cedente("TAB_I2A12", 3, cnpj_with_two_leading_zeros(), "8.25"),
+        expected_cedente("TAB_I2B12", 1, fake_cnpj(603), None),
+    ]
+    assert [counts[("cedente_identificador", "TAB_I2A12", s)] for s in ("cnpj", "cpf", "invalido")] == [3, 3, 1]
+    assert counts[("cedente_zeros_restaurados", "TAB_I2A12")] == 2
+    assert counts[("cedente_percentual", "TAB_I2A12", "com_identificador")] == 3
+    assert counts[("cedente_percentual", "TAB_I2A12", "sem_identificador")] == 5
+    assert counts[("cedente_sem_percentual", "TAB_I2B12")] == 1
+    assert counts[("cedentes_preenchidas",)] == 16
+
+    for value in (fake_cnpj(601), fake_cnpj(603), FAKE_CPF, FAKE_CPF_MASKED, ambiguous_cpf(), invalid, "37.125", "4.75"):
+        assert value not in everything
+        assert value not in report
+
+
+def test_same_cnpj_in_two_positions_and_in_both_groups_is_kept_and_counted():
+    repeated = fake_cnpj(611)
+    entries = [
+        ("TAB_I2A12", 1, repeated, "10.5"),
+        ("TAB_I2A12", 2, repeated, "9.5"),
+        ("TAB_I2B12", 1, repeated, "1.25"),
+        ("TAB_I2B12", 2, fake_cnpj(612), "2.25"),
+    ]
+    informe = read(with_table("tab_I", [cedente_row(*entries)]))
+
+    assert [entry[1] for entry in cedentes_of(informe)] == [repeated, repeated, repeated, fake_cnpj(612)]
+    assert informe.counts[("cedente_repetido_no_grupo", "TAB_I2A12")] == 1
+    assert informe.counts[("cedente_repetido_no_grupo", "TAB_I2B12")] == 0
+    assert informe.counts[("cedente_nos_dois_grupos",)] == 1
+    assert informe.counts[("cedente_assuntos_com_gravavel",)] == 1
+
+
+def test_share_in_scientific_notation_negative_and_above_100():
+    entries = [
+        ("TAB_I2A12", 1, fake_cnpj(621), "1.5e1"),
+        ("TAB_I2A12", 2, fake_cnpj(622), "-3.5"),
+        ("TAB_I2A12", 3, fake_cnpj(623), "17521903.58"),
+        ("TAB_I2B12", 1, fake_cnpj(624), "100"),
+    ]
+    informe = read(with_table("tab_I", [cedente_row(*entries)]))
+    report = format_read_report(informe)
+
+    assert [entry[3] for entry in cedentes_of(informe)] == ["15", "-3.5", "17521903.58", "100"]
+    assert informe.counts[("notacao_cientifica", "tab_I.TAB_I2A12_PR_CEDENTE_1")] == 1
+    assert informe.counts[("cedente_percentual_negativo", "TAB_I2A12")] == 1
+    assert informe.counts[("cedente_percentual_acima_de_100", "TAB_I2A12")] == 1
+    assert informe.counts[("cedente_percentual_acima_de_100", "TAB_I2B12")] == 0
+    assert any(
+        line.startswith("    percentual com identificador 3,") and "negativo 1, acima de 100 1;" in line
+        for line in report
+    )
+    assert "17521903.58" not in "\n".join(report)
+
+
+@pytest.mark.parametrize("identifier", [fake_cnpj(631), FAKE_CPF, ""])
+def test_share_out_of_format_aborts_without_the_value(identifier):
+    data = with_table("tab_I", [cedente_row(("TAB_I2A12", 1, identifier, "12,5"))])
+
+    with pytest.raises(InformeFormatError) as error:
+        read(data)
+
+    message = str(error.value)
+    assert "linha 2, coluna TAB_I2A12_PR_CEDENTE_1: valor fora do formato numeric" in message
+    assert "12,5" not in message
+
+
+def test_cedente_counts_close_with_the_filled_cells():
+    rows = [
+        row("tab_I", 1),
+        cedente_row(
+            ("TAB_I2A12", 1, fake_cnpj(641), "20"),
+            ("TAB_I2A12", 2, FAKE_CPF, "10"),
+            ("TAB_I2A12", 3, "", "5"),
+            ("TAB_I2B12", 4, fake_cnpj(642), ""),
+            ("TAB_I2B12", 5, wrong_dv(fake_cnpj(643)), "1"),
+            n=2,
+        ),
+    ]
+    tables = merge(subject_rows(1), subject_rows(2))
+    tables["tab_I"] = rows
+    counts = read(build_informe_zip(tables)).counts
+    identifiers = sum(n for key, n in counts.items() if key[0] == "cedente_identificador")
+    shares = sum(n for key, n in counts.items() if key[0] == "cedente_percentual")
+
+    assert counts[("cedentes_preenchidas",)] == identifiers + shares == 6 + 6
+
+    for prefix, _ in columns.CEDENTE_GROUPS:
+        assert counts[("cedente_identificador", prefix, "cnpj")] == (
+            counts[("cedente_percentual", prefix, "com_identificador")]
+            + counts[("cedente_sem_percentual", prefix)]
+        )
+
+
+def test_reports_cedentes_by_group():
+    report = format_read_report(read())
+
+    assert "  com risco (TAB_I2A12): identificador CNPJ 0 (zeros restaurados 0), CPF descartado 1, invalido 0" in report
+    assert "  sem risco (TAB_I2B12): identificador CNPJ 1 (zeros restaurados 0), CPF descartado 0, invalido 0" in report
+    assert (
+        "    percentual com identificador 0, sem identificador (so contado) 1; identificador sem percentual 0;"
+        " percentual gravado negativo 0, acima de 100 0; mesmo CNPJ repetido no grupo 0"
+    ) in report
+    assert "  mesmo CNPJ nos dois grupos do mesmo assunto: 0; assuntos com cedente de CNPJ valido: 1" in report
+
+
+def test_repr_shows_no_identifier_name_or_value():
+    informe = read()
+    everything = repr(informe) + repr([r for table in columns.TABLES for r in informe.rows(table)])
+
+    for value in (
+        fake_cnpj(1), masked(fake_cnpj(1)), subject_name(1), fake_cnpj(901), ADMIN_NAME,
+        CEDENTE_CNPJ, FAKE_CPF, "Classe Ficticia Unica", SENIOR, "1000.5", "SUBFICTICIA0001",
+    ):
+        assert value not in everything
+
+    assert "role='cedente'" in everything
+    assert "field_name='tab_I.TAB_I2B12_CPF_CNPJ_CEDENTE_1'" in everything
 
 
 def test_cnpj_classe_rules():
@@ -337,7 +536,7 @@ def test_administrator_without_a_valid_cnpj_loses_the_name():
     wrong = fake_cnpj(901)[:12] + ("00" if fake_cnpj(901)[12:] != "00" else "11")
     informe = read(with_table("tab_I", [row("tab_I", CNPJ_ADMIN=wrong)]))
 
-    assert first(informe, "tab_I").parties == ()
+    assert [p for p in first(informe, "tab_I").parties if p.role == "administrador"] == []
     assert informe.counts[("administradora", "invalido")] == 1
     assert informe.counts[("nome_descartado", "tab_I.ADMIN")] == 1
     assert ADMIN_NAME not in repr(list(informe.rows("tab_I")))

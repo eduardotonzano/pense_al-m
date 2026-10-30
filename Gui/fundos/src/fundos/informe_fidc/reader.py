@@ -13,12 +13,14 @@ texto. Notacao cientifica ("e" ou "E" seguido de expoente inteiro) e
 convertida de forma exata, sem expoente, e contada por coluna; qualquer
 outro formato fora do decimal com ponto aborta a leitura.
 
-Dados pessoais (decisao 3 de Fundos): as 36 colunas de cedente sao exigidas
-no cabecalho e descartadas sem guardar o valor; so o total de celulas
-preenchidas e contado (conferencia da exclusao e partida da FU4.3). A
+Dados pessoais (decisao 3 de Fundos): nas 36 colunas de cedente, so o
+cedente com CNPJ valido vira papel cedente, sem nome, com o percentual da
+mesma posicao do mesmo grupo. 11 digitos ou mascara de CPF sao tratados
+como CPF e descartados, mesmo que fechem como CNPJ com zeros a esquerda;
+o percentual da mesma posicao vai junto. Tudo e contado por grupo. A
 administradora so fica com CNPJ valido; o nome sem CNPJ valido e
-descartado e contado. As mensagens citam arquivo, linha e coluna, nunca o
-valor.
+descartado e contado. Nenhum objeto mostra CNPJ, nome ou valor no repr.
+As mensagens citam arquivo, linha e coluna, nunca o valor.
 """
 
 import hashlib
@@ -37,6 +39,7 @@ from types import MappingProxyType
 
 from fundos.cadastro.reader import PartyValue
 from fundos.cvm_csv import CNPJ
+from fundos.cvm_csv import EMPTY
 from fundos.cvm_csv import MAX_MEMBER_BYTES
 from fundos.cvm_csv import MAX_ZIP_BYTES
 from fundos.cvm_csv import NUMERIC
@@ -86,18 +89,20 @@ class InformeRow:
     CNPJ_FUNDO_CLASSE sem mascara, ou None se invalido. values tem so o que
     vira observacao (sem chave, sem cedente, sem a administradora e sem
     DENOM_SOCIAL fora da tab_I). name e a DENOM_SOCIAL, para conferencia.
+    parties tem a administradora e os cedentes de CNPJ valido. CNPJ, nome,
+    rotulo e valores nunca aparecem no repr.
     """
 
     table: str
     line: int
     subject_type: str | None
-    cnpj: str | None
+    cnpj: str | None = field(repr=False)
     competence: str
-    name: str | None
-    series_label: str | None
-    series_key: str | None
-    subclass_id: str | None
-    values: MappingProxyType
+    name: str | None = field(repr=False)
+    series_label: str | None = field(repr=False)
+    series_key: str | None = field(repr=False)
+    subclass_id: str | None = field(repr=False)
+    values: MappingProxyType = field(repr=False)
     parties: tuple[PartyValue, ...]
 
 
@@ -113,7 +118,7 @@ class InformeFile:
     members: tuple[MemberManifest, ...]
     competence: str
     counts: Counter
-    shared_subclass_ids: frozenset[str]
+    shared_subclass_ids: frozenset[str] = field(repr=False)
     contents: MappingProxyType = field(repr=False, compare=False)
 
     def member(self, table):
@@ -196,6 +201,105 @@ def _parse_admin(table, record, counts):
     )
 
 
+def _count_cedente(counts, prefix, value, status, share):
+    """Conta uma posicao de cedente (identificador e percentual) do grupo."""
+
+    if status != EMPTY:
+        counts[("cedente_identificador", prefix, status)] += 1
+
+    if status == CNPJ and value.strip().isdigit() and len(value.strip()) < 14:
+        counts[("cedente_zeros_restaurados", prefix)] += 1
+
+    if share is None:
+        if status == CNPJ:
+            counts[("cedente_sem_percentual", prefix)] += 1
+
+        return
+
+    if status != CNPJ:
+        # Percentual sem identificador gravavel (vazio, CPF ou invalido):
+        # so contado, nunca gravado.
+        counts[("cedente_percentual", prefix, "sem_identificador")] += 1
+        return
+
+    counts[("cedente_percentual", prefix, "com_identificador")] += 1
+    number = Decimal(share)
+
+    if number < 0:
+        counts[("cedente_percentual_negativo", prefix)] += 1
+
+    if number > 100:
+        counts[("cedente_percentual_acima_de_100", prefix)] += 1
+
+
+def _parse_cedentes(table, member, line, record, counts):
+    """Os cedentes da linha com CNPJ valido, cada um com o percentual da posicao.
+
+    O identificador n vai com o percentual n do mesmo grupo. CPF (11 digitos
+    ou mascara), vazio e invalido nao viram papel. O percentual e decimal
+    exato (notacao cientifica convertida, como nas colunas numericas); fora
+    do formato, aborta a leitura.
+    """
+
+    parties = []
+    groups = defaultdict(set)
+
+    for prefix, _ in spec.CEDENTE_GROUPS:
+        seen = set()
+
+        for position in spec.CEDENTE_POSITIONS:
+            id_column, share_column = spec.cedente_columns(prefix, position)
+            value = record[id_column]
+            status, cnpj = classify_identifier(value)
+            share = None
+
+            if record[share_column].strip():
+                try:
+                    share, scientific = convert_numeric(record[share_column])
+                except ValueError as error:
+                    raise _format_error(member, line, share_column, NUMERIC) from error
+
+                if scientific and counts is not None:
+                    counts[("notacao_cientifica", spec.field_name(table, share_column))] += 1
+
+            if counts is not None:
+                _count_cedente(counts, prefix, value, status, share)
+
+            if status != CNPJ:
+                continue
+
+            if cnpj in seen and counts is not None:
+                counts[("cedente_repetido_no_grupo", prefix)] += 1
+
+            seen.add(cnpj)
+            parties.append(
+                PartyValue(
+                    role=spec.CEDENTE_ROLE,
+                    field_name=spec.field_name(table, id_column),
+                    cnpj=cnpj,
+                    name_field_name=None,
+                    name=None,
+                    share_field_name=(
+                        None if share is None else spec.field_name(table, share_column)
+                    ),
+                    share=share,
+                )
+            )
+
+        for cnpj in seen:
+            groups[cnpj].add(prefix)
+
+    if counts is not None:
+        counts[("cedente_nos_dois_grupos",)] += sum(
+            1 for prefixes in groups.values() if len(prefixes) > 1
+        )
+
+        if parties:
+            counts[("cedente_assuntos_com_gravavel",)] += 1
+
+    return tuple(parties)
+
+
 def parse_row(table, member, line, fields, counts=None):
     """Normaliza uma linha; com counts, conta o que foi descartado."""
 
@@ -228,8 +332,9 @@ def parse_row(table, member, line, fields, counts=None):
         if kind in (spec.KEY, spec.PARTY_ID, spec.PARTY_NAME):
             continue
 
-        if kind == spec.EXCLUDED:
-            # Cedentes (FU4.3): so o total de celulas preenchidas.
+        if kind in (spec.CEDENTE_ID, spec.CEDENTE_SHARE):
+            # Lidos em _parse_cedentes; aqui so o total de celulas
+            # preenchidas, que fecha com as contagens por grupo.
             if counts is not None and value.strip():
                 counts[("cedentes_preenchidas",)] += 1
 
@@ -298,7 +403,9 @@ def parse_row(table, member, line, fields, counts=None):
     parties = ()
 
     if spec.ADMIN_ID_COLUMN in kinds:
-        parties = _parse_admin(table, record, counts)
+        parties = _parse_admin(table, record, counts) + _parse_cedentes(
+            table, member, line, record, counts
+        )
 
     return InformeRow(
         table=table,

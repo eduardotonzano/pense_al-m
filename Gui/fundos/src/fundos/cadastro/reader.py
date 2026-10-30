@@ -23,6 +23,7 @@ import io
 import zipfile
 from collections import Counter
 from dataclasses import dataclass
+from dataclasses import field
 from pathlib import Path
 from types import MappingProxyType
 
@@ -65,13 +66,19 @@ class ZipManifest:
 
 @dataclass(frozen=True)
 class PartyValue:
-    """Um papel de uma linha. So existe com CNPJ valido."""
+    """Um papel de uma linha. So existe com CNPJ valido.
+
+    share_field_name e share so existem no cedente do informe de FIDC (o
+    percentual). CNPJ, nome e percentual nunca aparecem no repr.
+    """
 
     role: str
     field_name: str
-    cnpj: str
+    cnpj: str = field(repr=False)
     name_field_name: str | None
-    name: str | None
+    name: str | None = field(repr=False)
+    share_field_name: str | None = None
+    share: str | None = field(default=None, repr=False)
 
 
 @dataclass(frozen=True)
