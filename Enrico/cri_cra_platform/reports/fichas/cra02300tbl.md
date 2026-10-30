@@ -58,6 +58,12 @@ Eco Securitizadora de Direitos Creditórios do Agronegócio | Série 1 e 2 - 223
 - 2026-06-01 | Ata/Edital 1209957 | inadimplencia_devedor
 - 2026-06-09 | Ata/Edital 1215243 | inadimplencia_devedor
 
+## O que as atas decidiram (regras de texto; conferir na ata)
+
+- 2026-06-09 | ata 1215243 | aprovada | outras materias aprovadas
+- 2025-07-30 | ata 956271 | aprovada | waiver aprovado; waiver aprovado em bloco; dfs aprovado em bloco
+- e 7 atas de assembleia não instalada
+
 ## Documentos no catálogo
 
 | Categoria | Baixados | Não baixados |

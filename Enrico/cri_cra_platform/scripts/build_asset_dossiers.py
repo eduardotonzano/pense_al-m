@@ -135,6 +135,15 @@ def main() -> int:
         lines += ["", "## Assembleias, fatos relevantes e comunicados (assuntos)", ""]
         lines += [f"- {r['data']} | {r['categoria']} {r['documento']} | {r['assuntos_relevantes']}"
                   f"{' | não instalada' if r['nao_instalada'] == '1' else ''}" for r in sorted(topics, key=lambda r: r["data"])] or ["- nenhum assunto relevante nos documentos baixados"]
+        decided = [r for r in assemblies if r["ativo"] == cetip and r.get("documento_tipo") == "ata" and r.get("decisoes")
+                   and r.get("resultado") != "nao_instalada"]
+        if decided:
+            lines += ["", "## O que as atas decidiram (regras de texto; conferir na ata)", ""]
+            lines += [f"- {r['data']} | ata {r['documento']} | {r['resultado'].replace('_', ' ')} | {r['decisoes'].replace('_', ' ')}"
+                      for r in sorted(decided, key=lambda r: r["data"], reverse=True)]
+            not_installed = sum(1 for r in assemblies if r["ativo"] == cetip and r.get("resultado") == "nao_instalada")
+            if not_installed:
+                lines.append(f"- e {not_installed} atas de assembleia não instalada")
         counts = doc_counts.get(asset["asset_id"], Counter())
         lines += ["", "## Documentos no catálogo", "", "| Categoria | Baixados | Não baixados |", "|---|---|---|"]
         for category in sorted({c for c, _ in counts}):

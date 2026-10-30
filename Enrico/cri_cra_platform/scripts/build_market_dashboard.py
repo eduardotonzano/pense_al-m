@@ -169,9 +169,11 @@ def main() -> int:
         "<h2 id='assembleias'>Assembleias, fatos relevantes e comunicados (ativos com documentos baixados)</h2>",
         "<p class='muted'>Assuntos por palavras-chave: o que foi discutido, não o que foi decidido.</p>",
         table("t-assembleias", [("Data", False), ("Ativo", False), ("Documento", False), ("Assuntos", False),
-                                ("Não instalada", False), ("Trecho", False)],
+                                ("Resultado da ata", False), ("Decisões", False), ("Trecho", False)],
               [[e(r["data"]), e(r["ativo"]), e(f"{r['categoria']} {r['documento']}"), e(r["assuntos_relevantes"]),
-                "sim" if r["nao_instalada"] == "1" else "", e(r["trecho"][:140])]
+                e((r.get("resultado") or "").replace("_", " ") if r.get("documento_tipo") == "ata" else ""),
+                e((r.get("decisoes") or "").replace("_", " ")),
+                e((r.get("trecho_decisao") or r["trecho"])[:160])]
                for r in sorted(assemblies, key=lambda r: r["data"], reverse=True)]),
         "<h2 id='dfin'>Demonstrações financeiras dos patrimônios separados</h2>",
         ("<p class='muted'>Opinião do auditor como informada à CVM; ler o relatório antes de concluir.</p>" if dfin else

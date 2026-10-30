@@ -1,5 +1,7 @@
 """Assuntos das atas, editais, fatos relevantes e comunicados baixados, por ativo (só leitura; não grava no banco).
 
+Nas atas, também o que foi decidido (credit_assets.assembly_outcomes): aprovada, rejeitada, não instalada, suspensa,
+sem quórum, e os eventos (vencimento antecipado declarado ou não, waiver, repactuação, troca de prestador...).
 Lê o texto das páginas no banco (nativo; OCR quando o PDF é imagem; sem páginas no banco, pdftotext em memória), classifica por palavras-chave (credit_assets.assembly_topics) e monta a linha do
 tempo dos assuntos relevantes de cada ativo. Gera reports/assembleias_topicos.{md,csv}. Triagem: aponta o que foi
 discutido, não o que foi decidido. Documento lido por OCR vem marcado: o trecho pode ter erro de leitura.
@@ -16,6 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from credit_assets.assembly_outcomes import decide
 from credit_assets.assembly_topics import classify, relevant
 from credit_assets.services.contract_terms_service import document_pages
 
@@ -44,7 +47,7 @@ def main() -> int:
             return f"{text[6:10]}-{text[3:5]}-{text[0:2]}"
         return text[:10]
 
-    rows, per_asset = [], defaultdict(list)
+    rows, per_asset, decided = [], defaultdict(list), defaultdict(list)
     skipped_image = read_by_ocr = 0
     for doc in docs:
         name = (doc["document_name"] or "").lower()
@@ -66,14 +69,20 @@ def main() -> int:
         read_by_ocr += ocr
         hits, marks = classify(text)
         topics = relevant(hits)
+        outcome = decide(text) if doc["category"] == "Ata/Edital" else None
         row = {"ativo": doc["codigo_cetip"], "tipo": doc["tipo_ativo"], "documento": doc["source_document_id"],
                "categoria": doc["category"], "nome": doc["document_name"], "data": date,
                "assuntos_relevantes": "; ".join(topics), "rotina": "; ".join(h.topic for h in hits if h.level == "rotina"),
                "ocr": int(ocr), "nao_instalada": int(marks["nao_instalada"]), "segunda_convocacao": int(marks["segunda_convocacao"]),
-               "trecho": next((h.excerpt for h in hits if h.level == "relevante"), "")[:300]}
+               "trecho": next((h.excerpt for h in hits if h.level == "relevante"), "")[:300],
+               "documento_tipo": outcome.kind if outcome else "", "resultado": outcome.status if outcome else "",
+               "decisoes": "; ".join(d.event for d in outcome.decisions) if outcome else "",
+               "trecho_decisao": (outcome.decisions[0].excerpt[:400] if outcome and outcome.decisions else "")}
         rows.append(row)
         if topics:
             per_asset[doc["codigo_cetip"]].append(row)
+        if outcome and outcome.kind == "ata":
+            decided[doc["codigo_cetip"]].append(row)
 
     connection.close()
     with (ROOT / "reports" / "assembleias_topicos.csv").open("w", newline="", encoding="utf-8-sig") as handle:
@@ -86,16 +95,35 @@ def main() -> int:
              "o que foi discutido, não o que foi decidido.", "",
              "| Assunto relevante | Documentos |", "|---|---|"]
     lines += [f"| {t} | {n} |" for t, n in topic_count.most_common()]
+    atas = [r for r in rows if r["documento_tipo"] == "ata"]
+    status_count = Counter(r["resultado"] for r in atas)
+    event_count = Counter(e for r in atas for e in r["decisoes"].split("; ") if e)
+    lines += ["", "## O que as atas decidiram", "",
+              f"{len(atas)} atas (o resto são editais e comunicados). Regras de texto sobre a parte da decisão, depois da ordem do "
+              "dia: candidatos para leitura, não conclusões.", "", "| Resultado | Atas |", "|---|---|"]
+    lines += [f"| {k.replace('_', ' ')} | {n} |" for k, n in status_count.most_common()]
+    lines += ["", "| Decisão | Atas |", "|---|---|"]
+    lines += [f"| {k.replace('_', ' ')} | {n} |" for k, n in event_count.most_common() if k != "nao_instalada"]
+    lines += ["", "### Decisões de crédito por ativo (mais recentes primeiro)", "",
+              "| Ativo | Data | Ata | Resultado | Decisões | Trecho |", "|---|---|---|---|---|---|"]
+    credit = ("vencimento_antecipado", "waiver", "prorrogacao", "liquidacao", "dacao", "resgate", "garantias", "troca_prestador",
+              "nao_declaracao", "assembleia_suspensa", "sem_quorum", "ordem_do_dia")
+    for asset, items in sorted(decided.items()):
+        for r in sorted(items, key=lambda r: r["data"], reverse=True):
+            if any(r["decisoes"].startswith(c) or f"; {c}" in r["decisoes"] for c in credit):
+                lines.append(f"| {asset} | {r['data']} | {r['documento']} | {r['resultado'].replace('_', ' ')} | "
+                             f"{r['decisoes'].replace('_', ' ')} | {r['trecho_decisao'][:180].replace('|', '/')} |")
     lines += ["", "## Ativos com mais assuntos relevantes", "", "| Ativo | Documentos relevantes | Assuntos |", "|---|---|---|"]
     for asset, items in sorted(per_asset.items(), key=lambda kv: -len(kv[1])):
         topics = Counter(t for r in items for t in r["assuntos_relevantes"].split("; ") if t)
         lines.append(f"| {asset} | {len(items)} | {', '.join(f'{t}×{n}' for t, n in topics.most_common())} |")
     lines += ["", "## Linha do tempo (assuntos relevantes)", ""]
     for asset, items in sorted(per_asset.items()):
-        lines += [f"### {asset}", "", "| Data | Documento | Assuntos | Marcas | Trecho |", "|---|---|---|---|---|"]
+        lines += [f"### {asset}", "", "| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |", "|---|---|---|---|---|---|"]
         for r in sorted(items, key=lambda r: r["data"]):
             marks = ", ".join(m for m, flag in (("não instalada", r["nao_instalada"]), ("2ª convocação", r["segunda_convocacao"]), ("lido por OCR", r["ocr"])) if flag)
-            lines.append(f"| {r['data']} | {r['categoria']} {r['documento']} | {r['assuntos_relevantes']} | {marks} | "
+            lines.append(f"| {r['data']} | {r['categoria']} {r['documento']} | {r['assuntos_relevantes']} | "
+                         f"{r['resultado'].replace('_', ' ') if r['documento_tipo'] == 'ata' else ''} | {marks} | "
                          f"{r['trecho'][:160].replace('|', '/')} |")
         lines.append("")
     (ROOT / "reports" / "assembleias_topicos.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
