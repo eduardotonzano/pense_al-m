@@ -1,8 +1,9 @@
 """Prévia do localizador de campos nos Termos já baixados (só leitura; não grava no banco).
 
-Extrai o texto dos PDFs de Termo/Aditamento em memória (pdftotext) e conta, por ativo, quantos dos
+Lê o texto dos Termos/Aditamentos no banco (nativo; OCR quando o PDF é imagem; sem páginas no banco,
+pdftotext em memória) e conta, por ativo, quantos dos
 36 campos padrão têm ao menos uma página sugerida. Campo sem página pode não existir no Termo ou estar
-com redação diferente: é ponto de leitura, não conclusão. PDF sem texto vai para a lista de OCR.
+com redação diferente: é ponto de leitura, não conclusão. PDF ainda sem texto vai para a lista de OCR.
 Gera reports/field_coverage_preview.{md,csv}.
 """
 from __future__ import annotations
@@ -18,7 +19,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.contract_fields import load_catalog
 from credit_assets.field_finder import hit_pages, load_topics
-from credit_assets.services.contract_terms_service import extract_pdf_pages
+from credit_assets.services.contract_terms_service import document_pages
 
 
 def main() -> int:
@@ -32,7 +33,7 @@ def main() -> int:
     connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=30)
     connection.row_factory = sqlite3.Row
     rows = connection.execute(
-        """SELECT a.codigo_cetip, a.tipo_ativo, d.source_document_id, d.category, d.document_name, v.local_file_path
+        """SELECT a.codigo_cetip, a.tipo_ativo, d.source_document_id, d.category, d.document_name, v.version_id, v.local_file_path
            FROM document_versions v
            JOIN documents d ON d.document_pk = v.document_id
            JOIN assets a ON a.asset_id = d.asset_id
@@ -40,16 +41,14 @@ def main() -> int:
              AND d.category IN ('Termo de Securitização', 'Aditamento')
            ORDER BY a.codigo_cetip, d.source_document_id"""
     ).fetchall()
-    connection.close()
 
     per_asset: dict[str, dict] = {}
     needs_ocr: list[str] = []
     for row in rows:
-        path = ROOT / row["local_file_path"]
-        if not path.is_file():
+        pages = document_pages(connection, row["version_id"], ROOT / row["local_file_path"])
+        if not pages:
             continue
-        pages, _ = extract_pdf_pages(path)
-        numbered = [(i + 1, text) for i, text in enumerate(pages)]
+        numbered = [(number, text) for number, text, _ in pages]
         if not any(text.strip() for _, text in numbered):
             needs_ocr.append(f"{row['codigo_cetip']} {row['source_document_id']}")
             continue
@@ -61,6 +60,7 @@ def main() -> int:
             if hits:
                 item["hits"][field] = item["hits"].get(field, 0) + len(hits)
 
+    connection.close()
     with (ROOT / "reports" / "field_coverage_preview.csv").open("w", newline="", encoding="utf-8-sig") as handle:
         writer = csv.writer(handle, delimiter=";")
         writer.writerow(["ativo", "tipo", "documentos", "paginas"] + field_ids)

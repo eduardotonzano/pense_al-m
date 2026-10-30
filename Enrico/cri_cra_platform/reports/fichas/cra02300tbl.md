@@ -33,6 +33,27 @@ Eco Securitizadora de Direitos Creditórios do Agronegócio | Série 1 e 2 - 223
 
 ## Assembleias, fatos relevantes e comunicados (assuntos)
 
+- 2025-02-17 | Ata/Edital 843259 | resgate_amortizacao
+- 2025-04-08 | Ata/Edital 875546 | resgate_amortizacao
+- 2025-06-12 | Ata/Edital 923372 | vencimento_antecipado; resgate_amortizacao
+- 2025-06-13 | Ata/Edital 924181 | vencimento_antecipado; resgate_amortizacao
+- 2025-06-23 | Fato Relevante 929602 | vencimento_antecipado; waiver; inadimplencia_devedor; resgate_amortizacao
+- 2025-06-25 | Ata/Edital 932239 | vencimento_antecipado; waiver; inadimplencia_devedor
+- 2025-06-26 | Ata/Edital 932861 | vencimento_antecipado; waiver; inadimplencia_devedor
+- 2025-07-16 | Ata/Edital 948744 | vencimento_antecipado; waiver; inadimplencia_devedor | não instalada
+- 2025-07-17 | Ata/Edital 949198 | vencimento_antecipado; waiver; inadimplencia_devedor
+- 2025-07-30 | Ata/Edital 956271 | vencimento_antecipado; waiver; inadimplencia_devedor
+- 2026-03-13 | Ata/Edital 1137451 | vencimento_antecipado
+- 2026-03-17 | Ata/Edital 1139808 | vencimento_antecipado; inadimplencia_devedor
+- 2026-03-18 | Ata/Edital 1140032 | vencimento_antecipado; inadimplencia_devedor
+- 2026-03-27 | Ata/Edital 1147094 | vencimento_antecipado; inadimplencia_devedor
+- 2026-04-06 | Ata/Edital 1154491 | vencimento_antecipado; inadimplencia_devedor | não instalada
+- 2026-04-22 | Fato Relevante 1167536 | vencimento_antecipado; inadimplencia_devedor
+- 2026-04-29 | Ata/Edital 1173605 | inadimplencia_devedor
+- 2026-05-04 | Ata/Edital 1179103 | inadimplencia_devedor
+- 2026-05-08 | Outro 1183653 | vencimento_antecipado; waiver
+- 2026-05-14 | Ata/Edital 1191134 | inadimplencia_devedor
+- 2026-05-19 | Ata/Edital 1199167 | inadimplencia_devedor | não instalada
 - 2026-06-01 | Ata/Edital 1209957 | inadimplencia_devedor
 - 2026-06-09 | Ata/Edital 1215243 | inadimplencia_devedor
 
@@ -40,11 +61,11 @@ Eco Securitizadora de Direitos Creditórios do Agronegócio | Série 1 e 2 - 223
 
 | Categoria | Baixados | Não baixados |
 |---|---|---|
-| Anúncio de Encerramento | 0 | 1 |
+| Anúncio de Encerramento | 1 | 0 |
 | Ata/Edital | 29 | 0 |
 | Fato Relevante | 2 | 0 |
 | Informe Mensal | 0 | 38 |
-| Outro | 2 | 9 |
+| Outro | 8 | 3 |
 | Relatório Agente Fiduciário | 4 | 0 |
 | Termo de Securitização | 3 | 0 |
 

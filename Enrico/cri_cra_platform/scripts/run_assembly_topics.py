@@ -1,8 +1,8 @@
 """Assuntos das atas, editais, fatos relevantes e comunicados baixados, por ativo (só leitura; não grava no banco).
 
-Lê os PDFs em memória (pdftotext), classifica por palavras-chave (credit_assets.assembly_topics) e monta a linha do
+Lê o texto das páginas no banco (nativo; OCR quando o PDF é imagem; sem páginas no banco, pdftotext em memória), classifica por palavras-chave (credit_assets.assembly_topics) e monta a linha do
 tempo dos assuntos relevantes de cada ativo. Gera reports/assembleias_topicos.{md,csv}. Triagem: aponta o que foi
-discutido, não o que foi decidido.
+discutido, não o que foi decidido. Documento lido por OCR vem marcado: o trecho pode ter erro de leitura.
 """
 from __future__ import annotations
 
@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.assembly_topics import classify, relevant
-from credit_assets.services.contract_terms_service import extract_pdf_pages
+from credit_assets.services.contract_terms_service import document_pages
 
 CATEGORIES = ("Ata/Edital", "Fato Relevante", "Outro")
 EXCLUDED_NAMES = ("demonstra", "lâmina", "lamina", "anúncio de início", "anuncio de inicio", "aviso ao mercado", "prospecto",
@@ -33,11 +33,10 @@ def main() -> int:
     connection.row_factory = sqlite3.Row
     docs = connection.execute(
         f"""SELECT a.codigo_cetip, a.tipo_ativo, d.source_document_id, d.category, d.document_name, d.publication_date,
-                   d.reference_date, v.local_file_path
+                   d.reference_date, v.version_id, v.local_file_path
             FROM document_versions v JOIN documents d ON d.document_pk = v.document_id JOIN assets a ON a.asset_id = d.asset_id
             WHERE v.is_current = 1 AND v.validation_status = 'valid' AND lower(v.file_format) = 'pdf'
               AND d.category IN ({','.join('?' * len(CATEGORIES))})""", CATEGORIES).fetchall()
-    connection.close()
 
     def iso(value: str | None) -> str:
         text = (value or "").strip()
@@ -46,7 +45,7 @@ def main() -> int:
         return text[:10]
 
     rows, per_asset = [], defaultdict(list)
-    skipped_image = 0
+    skipped_image = read_by_ocr = 0
     for doc in docs:
         name = (doc["document_name"] or "").lower()
         # "Outro" mistura DFs, documentos de oferta e comunicados: só comunicados entram (o resto é texto padrão)
@@ -56,32 +55,34 @@ def main() -> int:
         date = iso(doc["publication_date"]) or iso(doc["reference_date"])
         if date and date < args.since:
             continue
-        path = ROOT / doc["local_file_path"]
-        if not path.is_file():
+        pages = document_pages(connection, doc["version_id"], ROOT / doc["local_file_path"])
+        if not pages:
             continue
-        pages, _ = extract_pdf_pages(path)
-        text = "\n".join(pages)
+        text = "\n".join(t for _, t, _ in pages)
         if not text.strip():
             skipped_image += 1
             continue
+        ocr = any(o and t.strip() for _, t, o in pages)
+        read_by_ocr += ocr
         hits, marks = classify(text)
         topics = relevant(hits)
         row = {"ativo": doc["codigo_cetip"], "tipo": doc["tipo_ativo"], "documento": doc["source_document_id"],
                "categoria": doc["category"], "nome": doc["document_name"], "data": date,
                "assuntos_relevantes": "; ".join(topics), "rotina": "; ".join(h.topic for h in hits if h.level == "rotina"),
-               "nao_instalada": int(marks["nao_instalada"]), "segunda_convocacao": int(marks["segunda_convocacao"]),
+               "ocr": int(ocr), "nao_instalada": int(marks["nao_instalada"]), "segunda_convocacao": int(marks["segunda_convocacao"]),
                "trecho": next((h.excerpt for h in hits if h.level == "relevante"), "")[:300]}
         rows.append(row)
         if topics:
             per_asset[doc["codigo_cetip"]].append(row)
 
+    connection.close()
     with (ROOT / "reports" / "assembleias_topicos.csv").open("w", newline="", encoding="utf-8-sig") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]) if rows else ["ativo"], delimiter=";")
         writer.writeheader()
         writer.writerows(rows)
     topic_count = Counter(t for r in rows for t in r["assuntos_relevantes"].split("; ") if t)
     lines = ["# Assuntos de atas, editais, fatos relevantes e comunicados", "",
-             f"Documentos lidos desde {args.since}: {len(rows)} (PDFs em imagem pulados: {skipped_image}). Classificação por palavras-chave: "
+             f"Documentos lidos desde {args.since}: {len(rows)}, {read_by_ocr} deles por OCR (PDFs ainda sem texto: {skipped_image}). Classificação por palavras-chave: "
              "o que foi discutido, não o que foi decidido.", "",
              "| Assunto relevante | Documentos |", "|---|---|"]
     lines += [f"| {t} | {n} |" for t, n in topic_count.most_common()]
@@ -93,7 +94,7 @@ def main() -> int:
     for asset, items in sorted(per_asset.items()):
         lines += [f"### {asset}", "", "| Data | Documento | Assuntos | Marcas | Trecho |", "|---|---|---|---|---|"]
         for r in sorted(items, key=lambda r: r["data"]):
-            marks = ", ".join(m for m, flag in (("não instalada", r["nao_instalada"]), ("2ª convocação", r["segunda_convocacao"])) if flag)
+            marks = ", ".join(m for m, flag in (("não instalada", r["nao_instalada"]), ("2ª convocação", r["segunda_convocacao"]), ("lido por OCR", r["ocr"])) if flag)
             lines.append(f"| {r['data']} | {r['categoria']} {r['documento']} | {r['assuntos_relevantes']} | {marks} | "
                          f"{r['trecho'][:160].replace('|', '/')} |")
         lines.append("")

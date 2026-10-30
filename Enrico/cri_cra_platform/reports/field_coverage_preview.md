@@ -1,10 +1,10 @@
 # Prévia do localizador de campos nos Termos baixados
 
-Só leitura. 31 ativos com Termo/Aditamento em texto; 1 PDFs sem texto (precisam de OCR).
+Só leitura. 31 ativos com Termo/Aditamento em texto; 0 PDFs sem texto (precisam de OCR).
 
 | Ativo | Tipo | Docs | Páginas | Campos com página (de 36) | Core com página (de 23) | Core sem página |
 |---|---|---|---|---|---|---|
-| 21A0870788 | CRI | 7 | 701 | 35 | 22 | classe_serie |
+| 21A0870788 | CRI | 8 | 719 | 35 | 22 | classe_serie |
 | 24G2100031 | CRI | 2 | 195 | 35 | 22 | classe_serie |
 | CRA024007PW | CRA | 2 | 428 | 34 | 22 | classe_serie |
 | 22D0836679 | CRI | 1 | 152 | 33 | 21 | isin, ordem_pagamentos |
@@ -48,5 +48,3 @@ Campos sem página no maior número de ativos (ponto de leitura; pode não se ap
 - `identificacao.numero_series`: 7 de 31
 - `identificacao.devedor`: 5 de 31
 - `remuneracao.amortizacao`: 5 de 31
-
-PDFs sem texto (OCR): 21A0870788 1120326

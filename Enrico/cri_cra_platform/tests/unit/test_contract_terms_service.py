@@ -53,3 +53,24 @@ def test_preferred_pages_uses_native_text_and_falls_back_to_ocr():
     chosen = {row["page_number"]: (row["text"], row["extractor"]) for row in preferred_pages(connection, 1)}
     assert chosen == {1: ("texto nativo", "pdftotext"), 2: ("so ocr", "ocr: x"), 3: ("", "pdftotext")}
     assert [r["page_number"] for r in preferred_pages(connection, 1, 2)] == [2]
+
+
+def test_document_pages_marks_ocr_and_falls_back_to_pdf_only_without_stored_pages(tmp_path, monkeypatch):
+    import sqlite3
+    from credit_assets.services import contract_terms_service as service
+
+    connection = sqlite3.connect(":memory:")
+    connection.row_factory = sqlite3.Row
+    connection.execute(
+        """CREATE TABLE document_text_pages (document_version_id INTEGER, page_number INTEGER,
+           text TEXT, text_sha256 TEXT, extractor TEXT, extracted_at TEXT)"""
+    )
+    connection.executemany("INSERT INTO document_text_pages VALUES (?, ?, ?, ?, ?, ?)", [
+        (1, 1, "nativo", "a", "pdftotext", "t"), (1, 2, "", "b", "pdftotext", "t"), (1, 2, "do ocr", "c", "ocr: x", "t")])
+    assert service.document_pages(connection, 1) == [(1, "nativo", False), (2, "do ocr", True)]
+    pdf = tmp_path / "x.pdf"
+    pdf.write_bytes(b"%PDF")
+    monkeypatch.setattr(service, "extract_pdf_pages", lambda path: (["p1", "p2"], "pdftotext"))
+    assert service.document_pages(connection, 2, pdf) == [(1, "p1", False), (2, "p2", False)]
+    assert service.document_pages(connection, 2, tmp_path / "nao_existe.pdf") == []
+    assert service.document_pages(connection, 2) == []

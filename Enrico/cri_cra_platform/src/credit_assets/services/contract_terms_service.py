@@ -96,6 +96,21 @@ def preferred_pages(connection, document_version_id: int, page_number: int | Non
     return [best[number] for number in sorted(best)]
 
 
+def document_pages(connection, document_version_id: int, pdf_path: Path | None = None) -> list[tuple[int, str, bool]]:
+    """(página, texto, veio_do_ocr) de um documento: o que está no banco (nativo; OCR quando o nativo vem vazio).
+
+    Sem páginas no banco, lê o PDF em memória com o pdftotext (não grava). Valor tirado de página de OCR
+    precisa de conferência visual no PDF.
+    """
+    rows = preferred_pages(connection, document_version_id)
+    if rows:
+        return [(r["page_number"], r["text"], r["extractor"].startswith("ocr")) for r in rows]
+    if pdf_path is not None and pdf_path.is_file():
+        pages, _ = extract_pdf_pages(pdf_path)
+        return [(number, text, False) for number, text in enumerate(pages, start=1)]
+    return []
+
+
 def find_candidates(pages: list[tuple[int, str, str]], config: dict[str, Any]) -> list[dict[str, Any]]:
     """``pages``: (número, texto, sha256). Devolve um candidato por ocorrência de tema."""
     window = int(config["window_lines"])

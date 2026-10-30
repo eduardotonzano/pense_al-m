@@ -1,6 +1,7 @@
 """Termo de Securitização × Informe Mensal da CVM, para todos os ativos com Termo baixado (só leitura).
 
-Lê o texto dos PDFs de Termo/Aditamento em memória (pdftotext), extrai valores com regex
+Lê o texto dos Termos/Aditamentos no banco (nativo; OCR quando o PDF é imagem; sem páginas no banco,
+pdftotext em memória), extrai valores com regex
 (credit_assets.termo_values: candidatos, nunca parâmetros aprovados) e compara com o que a securitizadora
 informa à CVM: data de emissão, vencimento por série, valor total, quantidade e valor nominal unitário.
 Nos pilotos, mede também o acerto do extrator contra os parâmetros aprovados.
@@ -20,7 +21,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.market_checks import integralized, money
-from credit_assets.services.contract_terms_service import extract_pdf_pages
+from credit_assets.services.contract_terms_service import document_pages
 from credit_assets.cross_checks import tokenize
 from credit_assets.cvm_lookup import emission as cvm_emission
 from credit_assets.debtor_exposure import format_cnpj, normalize_cnpj
@@ -50,12 +51,14 @@ def main() -> int:
     cvm.row_factory = sqlite3.Row
     docs = defaultdict(list)
     for row in catalog.execute(
-            """SELECT a.asset_id, a.codigo_cetip, a.isin, a.tipo_ativo, d.source_document_id, d.category, v.local_file_path
+            """SELECT a.asset_id, a.codigo_cetip, a.isin, a.tipo_ativo, d.source_document_id, d.category, v.version_id, v.local_file_path
                FROM document_versions v JOIN documents d ON d.document_pk = v.document_id JOIN assets a ON a.asset_id = d.asset_id
                WHERE v.is_current = 1 AND v.validation_status = 'valid' AND lower(v.file_format) = 'pdf'
                  AND d.category IN ('Termo de Securitização', 'Aditamento')
                ORDER BY a.codigo_cetip, (d.category <> 'Termo de Securitização'), CAST(d.source_document_id AS INTEGER)"""):
         docs[row["asset_id"]].append(dict(row))
+    pages_by_version = {doc["version_id"]: document_pages(catalog, doc["version_id"], ROOT / doc["local_file_path"])
+                        for items in docs.values() for doc in items}
     approved = defaultdict(dict)
     for row in catalog.execute(
             "SELECT asset_id, parameter_name, parameter_value FROM contract_parameters WHERE review_status = 'approved' "
@@ -69,12 +72,13 @@ def main() -> int:
         per_doc: list[tuple[str, list]] = []  # na ordem: Termos antes de aditamentos, do mais antigo ao mais novo
         rate_numbers: set[str] = set()
         termo_debtors: set[str] = set()
+        ocr_pages: set[tuple[str, int]] = set()
         for doc in items:
-            path = ROOT / doc["local_file_path"]
-            if not path.is_file():
+            pages = pages_by_version[doc["version_id"]]
+            if not pages:
                 continue
-            pages, _ = extract_pdf_pages(path)
-            numbered = [(i + 1, t) for i, t in enumerate(pages)]
+            numbered = [(number, text) for number, text, _ in pages]
+            ocr_pages |= {(doc["source_document_id"], number) for number, text, ocr in pages if ocr and text.strip()}
             per_doc.append((doc["source_document_id"], extract(numbered)))
             rate_numbers |= remuneration_numbers(numbered)
             termo_debtors |= debtor_cnpjs(numbered)
@@ -94,7 +98,8 @@ def main() -> int:
                "termos": len(items), "competencia_cvm": (emission or {}).get("last", "")[:7] if emission else ""}
 
         def verdict(field, ok, termo_value, cvm_value, source=""):
-            results.append({**row, "campo": field, "resultado": ok, "termo": termo_value, "cvm": cvm_value, "fonte_termo": source})
+            results.append({**row, "campo": field, "resultado": ok, "termo": termo_value, "cvm": cvm_value, "fonte_termo": source,
+                            "ocr": int(bool(ocr_pages))})
 
         if emission is None:
             verdict("emissao", "sem_dado_cvm", "", "")
@@ -104,7 +109,7 @@ def main() -> int:
         if emi:
             sid, c = emi[0]
             verdict("data_emissao", "concorda" if c.value == emission["data_emissao"] else "diverge", c.value,
-                    emission["data_emissao"], f"{sid} p.{c.page}")
+                    emission["data_emissao"], f"{sid} p.{c.page}" + (" (OCR)" if (sid, c.page) in ocr_pages else ""))
         else:
             verdict("data_emissao", "sem_valor_no_termo", "", emission["data_emissao"])
         # vencimento por série
@@ -190,7 +195,7 @@ def main() -> int:
 
     with (ROOT / "reports" / "termo_vs_cvm.csv").open("w", newline="", encoding="utf-8-sig") as handle:
         writer = csv.DictWriter(handle, fieldnames=["ativo", "isin", "tipo", "termos", "competencia_cvm", "campo", "resultado",
-                                                    "termo", "cvm", "fonte_termo"], delimiter=";")
+                                                    "termo", "cvm", "fonte_termo", "ocr"], delimiter=";")
         writer.writeheader()
         writer.writerows(results)
     per_asset = defaultdict(Counter)
@@ -198,7 +203,8 @@ def main() -> int:
         per_asset[r["ativo"]][r["resultado"]] += 1
     lines = ["# Termo de Securitização × Informe Mensal da CVM", "",
              "Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) comparados com o Informe da CVM. "
-             "Divergência pede leitura humana: pode ser erro do Informe, aditamento não lido ou extração errada.", ""]
+             "Divergência pede leitura humana: pode ser erro do Informe, aditamento não lido ou extração errada. "
+             "Ativo com Termo lido por OCR vem marcado: número de OCR precisa de conferência no PDF.", ""]
     if accuracy:
         lines += ["## Acerto do extrator contra parâmetros aprovados (pilotos)", "", "| Campo | Acertos | Erros |", "|---|---|---|"]
         for field in sorted({f for f, _ in accuracy}):
@@ -215,10 +221,10 @@ def main() -> int:
     for asset, c in sorted(per_asset.items(), key=lambda kv: -kv[1]["diverge"]):
         lines.append(f"| {asset} | {c['concorda']} | {c['diverge']} | {c['informe_usa_data_do_lastro']} | "
                      f"{c['sem_valor_no_termo']} | {c['sem_dado_cvm']} |")
-    lines += ["", "## Divergências", "", "| Ativo | Campo | Termo | CVM | Fonte no Termo |", "|---|---|---|---|---|"]
+    lines += ["", "## Divergências", "", "| Ativo | Campo | Termo | CVM | Fonte no Termo | OCR |", "|---|---|---|---|---|---|"]
     for r in results:
         if r["resultado"] == "diverge":
-            lines.append(f"| {r['ativo']} | {r['campo']} | {r['termo'][:70]} | {r['cvm']} | {r['fonte_termo']} |")
+            lines.append(f"| {r['ativo']} | {r['campo']} | {r['termo'][:70]} | {r['cvm']} | {r['fonte_termo']} | {'sim' if r['ocr'] else ''} |")
     (ROOT / "reports" / "termo_vs_cvm.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines))
     return 0

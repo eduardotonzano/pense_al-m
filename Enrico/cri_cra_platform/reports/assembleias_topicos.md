@@ -1,16 +1,16 @@
 # Assuntos de atas, editais, fatos relevantes e comunicados
 
-Documentos lidos desde 2024-01-01: 637 (PDFs em imagem pulados: 39). Classificação por palavras-chave: o que foi discutido, não o que foi decidido.
+Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 0). Classificação por palavras-chave: o que foi discutido, não o que foi decidido.
 
 | Assunto relevante | Documentos |
 |---|---|
-| vencimento_antecipado | 223 |
-| inadimplencia_devedor | 161 |
-| resgate_amortizacao | 123 |
-| prorrogacao_repactuacao | 116 |
-| garantias | 65 |
-| waiver | 53 |
-| troca_prestador | 12 |
+| vencimento_antecipado | 237 |
+| inadimplencia_devedor | 170 |
+| resgate_amortizacao | 132 |
+| prorrogacao_repactuacao | 118 |
+| garantias | 68 |
+| waiver | 57 |
+| troca_prestador | 13 |
 | liquidacao_patrimonio | 10 |
 | remuneracao | 5 |
 
@@ -20,25 +20,25 @@ Documentos lidos desde 2024-01-01: 637 (PDFs em imagem pulados: 39). Classifica�
 |---|---|---|
 | CRA022008C4 | 46 | resgate_amortizacao×44, vencimento_antecipado×35, prorrogacao_repactuacao×27, waiver×7, liquidacao_patrimonio×2, inadimplencia_devedor×1 |
 | CRA022009VM | 38 | resgate_amortizacao×34, vencimento_antecipado×29, waiver×16, prorrogacao_repactuacao×16, garantias×12 |
-| CRA022009C1F | 26 | inadimplencia_devedor×23, prorrogacao_repactuacao×16, garantias×9, vencimento_antecipado×6, liquidacao_patrimonio×1, waiver×1 |
-| CRA02300JR5 | 25 | inadimplencia_devedor×25, vencimento_antecipado×18, resgate_amortizacao×2, liquidacao_patrimonio×1 |
-| CRA020001P7 | 24 | inadimplencia_devedor×23, vencimento_antecipado×17, resgate_amortizacao×2, liquidacao_patrimonio×1 |
+| CRA024007PW | 36 | vencimento_antecipado×25, inadimplencia_devedor×17, prorrogacao_repactuacao×8, waiver×6, resgate_amortizacao×5 |
+| CRA02300JR5 | 27 | inadimplencia_devedor×27, vencimento_antecipado×19, resgate_amortizacao×2, liquidacao_patrimonio×1 |
+| CRA022009C1F | 27 | inadimplencia_devedor×24, prorrogacao_repactuacao×17, garantias×10, vencimento_antecipado×6, liquidacao_patrimonio×1, waiver×1 |
+| CRA020001P7 | 26 | inadimplencia_devedor×25, vencimento_antecipado×19, resgate_amortizacao×2, liquidacao_patrimonio×1 |
 | CRA02300TBL | 23 | inadimplencia_devedor×17, vencimento_antecipado×15, waiver×7, resgate_amortizacao×5 |
-| CRA024007PW | 23 | vencimento_antecipado×17, inadimplencia_devedor×13, prorrogacao_repactuacao×8, waiver×4, resgate_amortizacao×1 |
 | CRA0230005N | 22 | inadimplencia_devedor×16, prorrogacao_repactuacao×11, vencimento_antecipado×8, resgate_amortizacao×4, remuneracao×4, garantias×1 |
 | 21A0870788 | 21 | vencimento_antecipado×17, garantias×16, prorrogacao_repactuacao×5, inadimplencia_devedor×3, waiver×3 |
 | 21L0967403 | 15 | vencimento_antecipado×13, garantias×13, resgate_amortizacao×7, prorrogacao_repactuacao×6, inadimplencia_devedor×3, waiver×2 |
 | 21K0660418 | 15 | prorrogacao_repactuacao×8, vencimento_antecipado×7, resgate_amortizacao×4, garantias×4, liquidacao_patrimonio×2, inadimplencia_devedor×1 |
 | CRA019003V3 | 12 | inadimplencia_devedor×12, vencimento_antecipado×9, liquidacao_patrimonio×1, resgate_amortizacao×1 |
 | CRA020001P8 | 11 | inadimplencia_devedor×11, vencimento_antecipado×8, liquidacao_patrimonio×1, resgate_amortizacao×1 |
-| 20L0504499 | 8 | vencimento_antecipado×7, prorrogacao_repactuacao×7, waiver×4, inadimplencia_devedor×4, garantias×3, troca_prestador×1 |
+| 20L0504499 | 9 | vencimento_antecipado×7, prorrogacao_repactuacao×7, waiver×4, inadimplencia_devedor×4, garantias×3, troca_prestador×2 |
+| 23H1753231 | 6 | garantias×5, vencimento_antecipado×4, resgate_amortizacao×2, inadimplencia_devedor×1, prorrogacao_repactuacao×1 |
+| 23H1487992 | 6 | resgate_amortizacao×6, vencimento_antecipado×1, liquidacao_patrimonio×1 |
+| 22D0836679 | 6 | resgate_amortizacao×6, vencimento_antecipado×4, waiver×3, garantias×2, remuneracao×1 |
 | CRA023000B5 | 5 | resgate_amortizacao×4, inadimplencia_devedor×3, vencimento_antecipado×3, prorrogacao_repactuacao×1, waiver×1, garantias×1 |
-| 23H1753231 | 5 | vencimento_antecipado×4, garantias×4, resgate_amortizacao×2, inadimplencia_devedor×1 |
-| 23H1487992 | 4 | resgate_amortizacao×4, liquidacao_patrimonio×1 |
 | 23K2122788 | 4 | troca_prestador×2, prorrogacao_repactuacao×2 |
 | 23C1835265 | 4 | vencimento_antecipado×4, prorrogacao_repactuacao×4, troca_prestador×4, waiver×3, inadimplencia_devedor×3, garantias×1 |
 | CRA021000S9 | 3 | resgate_amortizacao×3, inadimplencia_devedor×1 |
-| 22D0836679 | 3 | resgate_amortizacao×3, vencimento_antecipado×2, remuneracao×1, garantias×1, waiver×1 |
 | 24D3466320 | 3 | vencimento_antecipado×3, waiver×3, prorrogacao_repactuacao×3, troca_prestador×3 |
 | 23I1698089 | 3 | troca_prestador×2, waiver×1, prorrogacao_repactuacao×1 |
 | 24G2100031 | 1 | prorrogacao_repactuacao×1 |
@@ -60,6 +60,7 @@ Documentos lidos desde 2024-01-01: 637 (PDFs em imagem pulados: 39). Classifica�
 | 2025-06-16 | Ata/Edital 926428 | vencimento_antecipado; waiver; prorrogacao_repactuacao; inadimplencia_devedor |  | io de 2025 (inclusive), de forma que a Securitizadora se abstenha de declarar o vencimento antecipado das Debêntures (“Concessão de Waiver”); Página 1 de 5 (iii |
 | 2025-06-18 | Ata/Edital 928630 | vencimento_antecipado; waiver; prorrogacao_repactuacao; inadimplencia_devedor |  | io de 2025 (inclusive), de forma que a Securitizadora se abstenha de declarar o vencimento antecipado das Debêntures Concessão de Waiver Página 1 de 16 (iii) A  |
 | 2025-10-03 | Ata/Edital 1006196 | troca_prestador |  | uciário e de Custodiante, na data da Assembleia e a partir de seu encerramento(“Substituição do Agente Fiduciário e Custodiante”); e (iii) a autorização ou não  |
+| 2025-11-03 | Ata/Edital 1026866 | troca_prestador | lido por OCR | enta e quatro centésimos por cento) a favor e O% (zero) de abstencao: Aprovar a Substituicao do Agente Fiduciario e Custodiante; e (ili) em Circulacao contra, 9 |
 
 ### 21A0870788
 
@@ -133,7 +134,10 @@ Documentos lidos desde 2024-01-01: 637 (PDFs em imagem pulados: 39). Classifica�
 |---|---|---|---|---|
 | 2024-07-01 | Ata/Edital 690516 | resgate_amortizacao | 2ª convocação | cipação do pagamento dos créditos imobiliários pelos devedores da operação, por amortização extraordinária ou regaste antecipado conforme previsto no termo de s |
 | 2024-12-26 | Ata/Edital 808390 | vencimento_antecipado; waiver; resgate_amortizacao |  | rentes ao exercício de 2024, sem que tal não atendimento configure um Evento de Vencimento Antecipado das Debêntures e o consequente Resgate Antecipado dos CRI; |
+| 2025-08-08 | Ata/Edital 963606 | vencimento_antecipado; waiver; resgate_amortizacao | lido por OCR | ador Registro (i) Aprovaraconcessaodeanuenciaprevia,afastando-seassimosefeitosdoVencimento Antecipado das Debentures，e, consequentemente，Resgate Antecipado dos  |
 | 2025-12-23 | Ata/Edital 1069212 | vencimento_antecipado; remuneracao; garantias; resgate_amortizacao |  | onforme definido na Escritura de Emissão); (v) A inclusão do seguinte Evento de Vencimento Antecipado não automático na Escritura de Emissão e nos demais Docume |
+| 2025-12-29 | Ata/Edital 1071660 | vencimento_antecipado; garantias; resgate_amortizacao | lido por OCR | ativo(conformedefinidonaEscrituradeEmissao); (v)Ainclusao do seguinte Evento de Vencimento Antecipado nao automatico na Escritura de Emissaoe nos demaisDocument |
+| 2026-05-08 | Ata/Edital 1184174 | waiver; resgate_amortizacao | lido por OCR | m (i) doTermodeSecuritizacao; (i)Caso aprovado o item (i) acima, a concessao de anuencia previa para que o poder decontroledaWindsorsejatransferidoaempresaBTGlQ |
 
 ### 23C1835265
 
@@ -163,12 +167,15 @@ Documentos lidos desde 2024-01-01: 637 (PDFs em imagem pulados: 39). Classifica�
 | 2024-01-17 | Ata/Edital 586427 | resgate_amortizacao |  | uneração imediatamente vincenda; (vi) utilização dos recursos excedentes para a amortização extraordinária da CCB; e www.truesecuritizadora.com.br 2 Av. Santo A |
 | 2024-01-31 | Ata/Edital 593915 | resgate_amortizacao |  | uneração imediatamente vincenda; (vi) utilização dos recursos excedentes para a amortização extraordinária da CCB; e www.truesecuritizadora.com.br 2 Av. Santo A |
 | 2024-10-05 | Ata/Edital 752449 | resgate_amortizacao | 2ª convocação | cipação do pagamento dos créditos imobiliários pelos devedores da operação, por amortização extraordinária ou regaste antecipado conforme previsto no termo de s |
+| 2025-05-28 | Ata/Edital 913075 | resgate_amortizacao | lido por OCR | observado que, apos o resgate integral da Classe Senior, podera ser realizada a Amortizacao Extraordinaria da Classe Subordinada,nos termos da Ordem de Priorida |
 | 2025-11-17 | Ata/Edital 1043530 | liquidacao_patrimonio; resgate_amortizacao |  | atação será realizada às expensas do Patrimônio Separado, sendo que, em caso de insuficiência de recursos, a despesa deverá ser suportada pelos Titulares dos CR |
+| 2026-01-08 | Ata/Edital 1077564 | vencimento_antecipado; resgate_amortizacao | lido por OCR | osicaodosinvestidoresaoriscode credito da Devedora,em razao da naQ declaracao dovencimento antecipado das Notas Comerciais e,consequentemente,doResgate Antecipa |
 
 ### 23H1753231
 
 | Data | Documento | Assuntos | Marcas | Trecho |
 |---|---|---|---|---|
+| 2024-12-30 | Ata/Edital 810477 | prorrogacao_repactuacao; garantias | lido por OCR | ser apurado apos a formalizacao dos aditamentosdosDocumentosdaOperacao; (iv) A prorrogacao das Datas de Vencimento da CCBe dos CRl, originalmente previstas para |
 | 2025-04-23 | Ata/Edital 884001 | vencimento_antecipado; garantias; inadimplencia_devedor |  | os da notificação da Emissora nesse sentido, sob pena de caracterizar Evento de Vencimento Antecipado, nos termos da Cláusula 5.3., item (vii) da CCB. b. Unidad |
 | 2025-04-25 | Ata/Edital 884848 | vencimento_antecipado; garantias |  | razo para quitação do Valor Financiado - 94, sob pena de caracterizar Evento de Vencimento Antecipado, nos termos da Cláusula 5.3., item (vii) da CCB. 5. INSTAL |
 | 2025-06-24 | Ata/Edital 930790 | garantias |  | es ao final desta ata. 5. ORDEM DO DIA: Deliberar sobre: (i) Aprovar a imediata liberação da garantia real dos imóveis do empreendimento Edifício Concetto Campo |
@@ -238,10 +245,12 @@ Documentos lidos desde 2024-01-01: 637 (PDFs em imagem pulados: 39). Classifica�
 | 2026-04-28 | Ata/Edital 1171811 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (iv), do item (c) da Clá |
 | 2026-04-30 | Ata/Edital 1175821 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (iv), do item (c) da Clá |
 | 2026-05-06 | Ata/Edital 1181195 | vencimento_antecipado; inadimplencia_devedor | não instalada | o Extrajudicial”); 2) O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (iv), do item (c) da Clá |
+| 2026-05-07 | Ata/Edital 1181750 | vencimento_antecipado; inadimplencia_devedor | não instalada, lido por OCR | dicial"); Assinador 2)O pedido de Recuperacäo Extrajudicial configura Evento de Vencimento Antecipado Automatico,nostermos do subitem(iv),doitem (c)daClausula 4 |
 | 2026-05-18 | Ata/Edital 1198001 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (iv), do item (c) da Clá |
 | 2026-05-18 | Ata/Edital 1197998 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (iv), do item (c) da Clá |
 | 2026-05-28 | Fato Relevante 1206856 | inadimplencia_devedor |  | continuidade às informações já divulgadas pela Emissora a respeito do pedido de Recuperação Extrajudicial requerido pela Raízen Energia S.A. (“Devedora”) e dema |
 | 2026-05-28 | Ata/Edital 1206582 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (iv), do item (c) da Clá |
+| 2026-06-01 | Ata/Edital 1209187 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação, lido por OCR | o Extrajudicial"); 2) O pedido de Recuperacao Extrajudicial configura Evento de Vencimento Antecipado Automatico, nostermos do subitem (iv), doitem (c) da Claus |
 | 2026-06-03 | Ata/Edital 1212228 | inadimplencia_devedor | 2ª convocação | a e em defesa dos interesses e para proteção dos Titulares de CRA, no âmbito da Recuperação Extrajudicial, recursos ou processos relacionados, os quais serão de |
 | 2026-06-03 | Fato Relevante 1211572 | inadimplencia_devedor |  | nuidade às informações previamente divulgadas pela Emissora acerca do pedido de Recuperação Extrajudicial formulado pela Raízen Energia S.A. (“Devedora”) e dema |
 | 2026-06-08 | Ata/Edital 1214402 | inadimplencia_devedor | 2ª convocação | provou(aram) os termos e condições econômico- financeiras propostos no Plano de Recuperação Extrajudicial, divulgada pela Emissora em seu website (www.opea.com. |
@@ -362,6 +371,7 @@ Documentos lidos desde 2024-01-01: 637 (PDFs em imagem pulados: 39). Classifica�
 | 2025-10-30 | Ata/Edital 1024037 | prorrogacao_repactuacao; garantias; inadimplencia_devedor | 2ª convocação | seja aprovado, a Securitizadora também estará autorizada a formalizar eventual repactuação diretamente com as Recuperandas na qualidade de credora extraconcursa |
 | 2025-10-30 | Ata/Edital 1023880 | prorrogacao_repactuacao; garantias; inadimplencia_devedor | 2ª convocação | seja aprovado, a Securitizadora também estará autorizada a formalizar eventual repactuação diretamente com as Recuperandas na qualidade de credora extraconcursa |
 | 2025-11-04 | Outro 1027872 | inadimplencia_devedor; liquidacao_patrimonio | 2ª convocação | .Net e que está atuando na defesa do interesse dos Titulares dos CRA no bojo da Recuperação Judicial da Patense (Anexo I); e (ii) Parecer do escritório Pinheiro |
+| 2025-11-07 | Ata/Edital 1030634 | prorrogacao_repactuacao; garantias; inadimplencia_devedor | lido por OCR | m seja aprovado, a Securitizadora tambem estara autorizada a formalizareventual repactuacao (i) alternativamente, adotar as medidas judiciais necessarias para p |
 | 2026-02-09 | Outro 1105523 | inadimplencia_devedor |  | CRA022009C1I, que, em 15 de janeiro de 2026, foi proferida decisão nos autos da recuperação judicial da Indústria de Rações Patense Ltda. e de seu grupo econôni |
 
 ### CRA022009VM
@@ -459,6 +469,7 @@ Documentos lidos desde 2024-01-01: 637 (PDFs em imagem pulados: 39). Classifica�
 | 2026-04-28 | Ata/Edital 1171825 | vencimento_antecipado; inadimplencia_devedor |  | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
 | 2026-04-30 | Ata/Edital 1175962 | vencimento_antecipado; inadimplencia_devedor |  | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
 | 2026-05-06 | Ata/Edital 1181247 | vencimento_antecipado; inadimplencia_devedor | não instalada | o Extrajudicial”); 2) O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-05-07 | Ata/Edital 1181741 | vencimento_antecipado; inadimplencia_devedor | lido por OCR | dicial"); Assinador 2)O pedido de Recuperacäo Extrajudicial configura Evento de Vencimento Antecipado Automatico,nostermos do subitem(d),doitem (ii)da Clausula8 |
 | 2026-05-18 | Ata/Edital 1197991 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
 | 2026-05-18 | Ata/Edital 1197988 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
 | 2026-05-28 | Fato Relevante 1206857 | inadimplencia_devedor |  | continuidade às informações já divulgadas pela Emissora a respeito do pedido de Recuperação Extrajudicial requerido pela Raízen Energia S.A. (“Devedora”) e dema |
@@ -469,6 +480,7 @@ Documentos lidos desde 2024-01-01: 637 (PDFs em imagem pulados: 39). Classifica�
 | 2026-06-03 | Fato Relevante 1211574 | inadimplencia_devedor |  | nuidade às informações previamente divulgadas pela Emissora acerca do pedido de Recuperação Extrajudicial formulado pela Raízen Energia S.A. (“Devedora”) e dema |
 | 2026-06-08 | Ata/Edital 1214405 | inadimplencia_devedor | 2ª convocação | provou(aram) os termos e condições econômico- financeiras propostos no Plano de Recuperação Extrajudicial, divulgada pela Emissora em seu website (www.opea.com. |
 | 2026-06-08 | Fato Relevante 1213465 | inadimplencia_devedor |  | nuidade às informações previamente divulgadas pela Emissora acerca do pedido de Recuperação Extrajudicial formulado pela Raízen Energia S.A. (“Devedora”) e dema |
+| 2026-06-15 | Ata/Edital 1221920 | inadimplencia_devedor | lido por OCR | ES Considerandoque: 1) demarcode2026,informandoacercadoajuizamentode seupedidoderecuperacao extrajudicial,autosn°4037759-13.2026.8.26.0100,emtramiteperantea3aVa |
 | 2026-06-22 | Ata/Edital 1225377 | vencimento_antecipado; inadimplencia_devedor | não instalada, 2ª convocação | o Extrajudicial”); 2) O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
 | 2026-07-14 | Ata/Edital 1246609 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
 | 2026-07-17 | Ata/Edital 1252109 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação | 703v1 909000/2 CLM 2) O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
@@ -516,17 +528,30 @@ Documentos lidos desde 2024-01-01: 637 (PDFs em imagem pulados: 39). Classifica�
 | 2025-03-14 | Ata/Edital 857927 | vencimento_antecipado; prorrogacao_repactuacao; inadimplencia_devedor | 2ª convocação | setecentos e oitenta e três) CRA da 2ª Série; (iii) Aprovar a não decretação do Vencimento Antecipado Não Automático das Cédulas de Produto Rural com Liquidação |
 | 2025-03-14 | Ata/Edital 857884 | vencimento_antecipado; prorrogacao_repactuacao; inadimplencia_devedor | não instalada | setecentos e oitenta e três) CRA da 2ª Série; (iii) Aprovar a não decretação do Vencimento Antecipado Não Automático das Cédulas de Docusign Envelope ID: 0EB579 |
 | 2025-04-03 | Ata/Edital 872285 | vencimento_antecipado; prorrogacao_repactuacao; inadimplencia_devedor |  | setecentos e oitenta e três) CRA da 2ª Série; (iii) Aprovar a não decretação do Vencimento Antecipado Não Automático das Cédulas de Produto Rural com Liquidação |
+| 2025-05-23 | Ata/Edital 910397 | inadimplencia_devedor | lido por OCR | (i) acima, deliberar acerca das medidas a serem tomadas com relacao aoreferido inadimplemento e o novooperacional relacionado a remuneracao em questao; Instruco |
 | 2025-05-29 | Ata/Edital 913930 | vencimento_antecipado | não instalada | cretário). 6. ORDEM DO DIA: discutir e deliberar sobre: (i) Declarar, ou não, o Vencimento Antecipado das CPR-Fs e, consequentemente, dos CRA, nos termos da clá |
 | 2025-06-23 | Ata/Edital 929601 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação | guintes matérias da ordem do dia: (i) Aprovação a não decretação dos efeitos de Vencimento Antecipado dos CRA em razão do descumprimento de obrigação pecuniária |
+| 2025-08-07 | Ata/Edital 961481 | vencimento_antecipado | lido por OCR | DocusignEnvelopeID:B03960F6-8951-4F67-AF7B-E87E8058C5F8 (i) Declarar, ou nao, o Vencimento Antecipado das CPR-Fs e, consequentemente, dos CRA,nos termosdaclausu |
+| 2025-08-07 | Ata/Edital 961480 | vencimento_antecipado; inadimplencia_devedor | não instalada, 2ª convocação, lido por OCR | A:discutiredeliberarsobre: (i) Aprovacao, ou nao , da decretacao dos efeitos de Vencimento Antecipado dos CRA em razao do descumprimento de obrigacaopecuniariap |
 | 2025-08-27 | Ata/Edital 978995 | vencimento_antecipado | 2ª convocação | s matérias da ordem do dia: (i) Deliberar sobre a não decretação dos efeitos de Vencimento Antecipado Não Automático dos CRA em razão do descumprimento de obrig |
+| 2025-09-24 | Ata/Edital 997554 | vencimento_antecipado | lido por OCR | IA:discutiredeliberarsobre: (i) Deliberar sobre a nao decretacao dos efeitos de Vencimento Antecipado Nao Automatico dos CRA em razao do descumprimento de obrig |
+| 2025-10-16 | Ata/Edital 1016404 | vencimento_antecipado | lido por OCR | IA:discutiredeliberarsobre: (i) Deliberar sobre a nao decretacao dos efeitos de Vencimento Antecipado Nao Automatico dos CRA em razao do descumprimento de obrig |
 | 2025-10-30 | Ata/Edital 1024796 | waiver | 2ª convocação | rado entre os Cedentes Fiduciantes e a Emissora em 29 de julho de 2024, aprovar waiver referente ao não cumprimento da obrigação de apresentação dos Contratos M |
 | 2025-11-21 | Ata/Edital 1045159 | waiver | 2ª convocação | rado entre os Cedentes Fiduciantes e a Emissora em 29 de julho de 2024, aprovar waiver referente ao não cumprimento da obrigação de apresentação dos Contratos M |
 | 2025-11-21 | Ata/Edital 1045156 | vencimento_antecipado | 2ª convocação | s matérias da ordem do dia: (i) Deliberar sobre a não decretação dos efeitos de Vencimento Antecipado Não Automático dos CRA em razão do descumprimento de obrig |
 | 2025-11-21 | Ata/Edital 1045150 | waiver | não instalada, 2ª convocação | rado entre os Cedentes Fiduciantes e a Emissora em 29 de julho de 2024, aprovar waiver referente ao não cumprimento da obrigação de apresentação dos Contratos M |
 | 2025-11-21 | Ata/Edital 1045146 | vencimento_antecipado | não instalada, 2ª convocação | discutir e deliberar sobre: (i) Deliberar sobre a não decretação dos efeitos de Vencimento Antecipado Não Automático dos CRA em razão do descumprimento de obrig |
 | 2025-12-08 | Ata/Edital 1056166 | vencimento_antecipado; resgate_amortizacao | 2ª convocação | s CPR-Fs imediatamente anterior e 15 de janeiro de 2026; (ii) Não declaração do Vencimento Antecipado das CPR-Fs e, consequentemente, dos CRA, nos termos da clá |
+| 2026-01-13 | Ata/Edital 1080791 | vencimento_antecipado; resgate_amortizacao | lido por OCR | , para que passe a ser devida anteriore15dejaneirode2026; (i) Nao declaracao do Vencimento Antecipado das CPR-Fs e, consequentemente, dos CRA,nos Docusign Envel |
 | 2026-02-03 | Ata/Edital 1100650 | vencimento_antecipado; inadimplencia_devedor | 2ª convocação | em sobre as seguintes matérias da ordem do dia: (i) Aprovar a não decretação de Vencimento Antecipado Não Automático das CPR-F, em razão do inadimplemento, pelo |
+| 2026-02-26 | Ata/Edital 1122115 | inadimplencia_devedor | lido por OCR | Aprovar a naodecretacaodeVencimentoAntecipadoNaoAutomaticodas CPR-F,emrazao do inadimplemento, pelo Devedor, das parcelas do Cronograma de Pagamento das CPR-F o |
+| 2026-02-26 | Ata/Edital 1122111 | waiver | 2ª convocação, lido por OCR | rado entre os Cedentes Fiduciantes e a Emissora em 29 de julho de 2024, aprovar waiver referente ao nao cumprimento da obrigacao de apresentacao dos Contratos M |
+| 2026-02-26 | Ata/Edital 1122109 | vencimento_antecipado; resgate_amortizacao | lido por OCR | ente Fiduciario"). 6. ORDEMDoDlA:discutiredeliberarsobre: (i) Nao declaracäo do Vencimento Antecipado das CPR-Fs e, consequentemente, dos CRA, nos termos da cla |
 | 2026-02-26 | Ata/Edital 1122105 | vencimento_antecipado; inadimplencia_devedor |  | ). 6. ORDEM DO DIA: discutir e deliberar sobre: (i) Aprovar a não decretação de Vencimento Antecipado Não Automático das CPR-F, em razão do inadimplemento, pelo |
 | 2026-02-26 | Ata/Edital 1122103 | waiver | 2ª convocação | rado entre os Cedentes Fiduciantes e a Emissora em 29 de julho de 2024, aprovar waiver referente ao não cumprimento da obrigação de apresentação dos Contratos M |
 | 2026-02-26 | Ata/Edital 1122101 | vencimento_antecipado | não instalada, 2ª convocação | discutir e deliberar sobre: (i) Deliberar sobre a não decretação dos efeitos de Vencimento Antecipado Não Automático dos CRA em razão do descumprimento de obrig |
+| 2026-03-10 | Ata/Edital 1132493 | waiver | 2ª convocação, lido por OCR | rado entre os Cedentes Fiduciantes e a Emissora em 29 de julho de 2024, aprovar waiver referente ao nao cumprimento da obrigacao de apresentacao dos Contratos M |
+| 2026-03-10 | Ata/Edital 1132492 | inadimplencia_devedor | lido por OCR | Aprovar a naodecretacaodeVencimentoAntecipadoNaoAutomatico das CPR-F,emrazao do inadimplemento, pelo Devedor, das parcelas do Cronograma de Pagamento das CPR-F  |
+| 2026-03-10 | Ata/Edital 1132490 | vencimento_antecipado; resgate_amortizacao | lido por OCR | teFiduciario"). 6. ORDEMDODIA:discutire deliberar sobre: (ii) Nao declaracao do Vencimento Antecipado das CPR-Fs e, consequentemente, dos CRA, nos termos da cla |
+| 2026-04-13 | Ata/Edital 1160327 | vencimento_antecipado; resgate_amortizacao | lido por OCR | I desta Ata. 6. ORDEMDODIA:discutiredeliberarsobre: (i) Aprovar a decretacao de Vencimento Antecipado das CPR-F na presente data, em razao:(a) do em 17 de novem |
 

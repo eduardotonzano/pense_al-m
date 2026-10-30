@@ -85,3 +85,12 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
   direto dos Termos baixados, sem gravar no banco. Nos pilotos acerta **16 de 16** parâmetros aprovados. Em 31 ativos: data de emissão
   29 de 30 concordam; vencimento 63 concordam, 25 divergem e em 3 o Informe traz a data do lastro; valor total 25/30; quantidade 19/29;
   VNU 27/30. Divergência é triagem para leitura humana (aditamento, programa com várias séries ou erro do Informe).
+- **OCR dos PDFs em imagem do lote 1:** 53 documentos, 1.058 páginas gravadas em `document_text_pages` com o extrator `ocr: ...`
+  (o texto nativo continua com prioridade). `integrity_check` ok. Um arquivo está corrompido e não abre: 451412 (relatório do AF de
+  2022 do 21L0967403, 16 KB). Assembleias, Termo × CVM e a prévia de campos passaram a ler as páginas do banco (`document_pages`),
+  com o OCR marcado. Assembleias: 676 documentos lidos desde 2024, 39 deles só por OCR, nenhum pulado. Entre eles há atas da Opea
+  (CRA02300JR5 e CRA020001P7, maio e junho de 2026) que tratam o pedido de recuperação extrajudicial da devedora como vencimento
+  antecipado automático. Texto de OCR pode ter erro de leitura: confirmar no PDF antes de usar como fato.
+- **Nova regra de triagem `situacao_mista_na_classe` (peso provisório 3):** na mesma emissão e na mesma classe, séries com saldo
+  em atraso e outras adimplentes, uma vez por emissão. Em ago/2026: 5 emissões de CRA e 18 de CRI. Exemplo: a 73ª da Opea
+  (BRAPCSCRA1Y9) tem as séries 2 e 3 em atraso e a 1 adimplente, todas Sênior, depois do pedido de recuperação extrajudicial.
