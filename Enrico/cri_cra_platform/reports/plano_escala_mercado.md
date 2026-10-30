@@ -104,3 +104,15 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
 - **Nova regra de triagem `situacao_mista_na_classe` (peso provisório 3):** na mesma emissão e na mesma classe, séries com saldo
   em atraso e outras adimplentes, uma vez por emissão. Em ago/2026: 5 emissões de CRA e 18 de CRI. Exemplo: a 73ª da Opea
   (BRAPCSCRA1Y9) tem as séries 2 e 3 em atraso e a 1 adimplente, todas Sênior, depois do pedido de recuperação extrajudicial.
+- **Devedor do Café Brasil no Informe (30/10/2026):** Enrico identificou 31.943.818/0001-71 como Agro Quartzo Administração e
+  Participações; sem vínculo nos documentos baixados (item 8 de `divergencias_pesquisa_2026-10-29.md`).
+- **DFIN carregado (aprovação de Enrico, 30/10/2026):** 17 arquivos em `data/cvm_dfin.db` (3.295 DFs de CRA, 12.216 de CRI), integrity ok.
+  Sinais só para emissões vivas: 48 DFs com ressalva, 6 com abstenção ou adversa, 64 emissões sem DF nos últimos 15 meses. Prazo de 90
+  dias é parâmetro de triagem (muitas DFs saem entre 91 e 120 dias); confirmar a regra antes de virar alerta.
+- **Correção da união de códigos (30/10/2026):** o placeholder de ISIN "00000" juntava emissões diferentes (11 da Leverage num
+  certificado). Universo corrigido: 1.209 emissões de CRA e 3.813 de CRI.
+- **Lote 2 gravado no catálogo (aprovação de Enrico, 30/10/2026):** backup `cri_cra_20261030T191504_420629Z.sqlite3`; 38 ativos de
+  `config/ativos_lote2.csv` (28 da triagem e as 10 emissões da Leverage), 2.701 documentos novos; total 70 ativos e 5.808 documentos;
+  `integrity_check` ok, `foreign_key_check` vazio; segunda execução sem duplicar (2.701 inalterados, 1 documento publicado no intervalo).
+  Download: 1.199 documentos enfileirados (atas/editais 678, outros 262, AF 107, Termos 88, fatos relevantes 35, encerramentos 29),
+  sem Informes Mensais, como no lote 1.
