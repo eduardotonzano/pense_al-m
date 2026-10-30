@@ -47,6 +47,9 @@ def test_detect_uses_previous_reported_month_and_skips_series_without_isin():
         row(Codigo_ISIN="", Data_Referencia="2026-07-01"),
         row(Codigo_ISIN="", Data_Referencia="2026-08-01", Situacao="Em atraso"),
         row(Codigo_ISIN="BRBBBBBBBBB1", Data_Referencia="2026-08-01"),  # série nova, sem mês anterior
+        # placeholder "00000" em emissões diferentes não vira uma série só
+        row(Codigo_ISIN="00000", Codigo_Identificacao_Certificado="C2", Data_Referencia="2026-07-01"),
+        row(Codigo_ISIN="00000", Codigo_Identificacao_Certificado="C3", Data_Referencia="2026-08-01", Data_Vencimento="2028-01-01"),
     ]
     events = detect(rows, "2026-08")
     assert [(e["evento"], e["mes_anterior"]) for e in events] == [("entrou_em_atraso", "2026-05")]

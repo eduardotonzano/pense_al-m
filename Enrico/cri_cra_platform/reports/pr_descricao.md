@@ -26,8 +26,9 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 - Atas: assuntos e o que foi decidido (aprovada, não instalada, suspensa, sem quórum; vencimento antecipado declarado ou não, waiver,
   repactuação, troca de prestador), com o trecho.
 
-**Lote 2 (preparado, não gravado)**
-- `config/lote2_ativos.csv`: 38 ativos (as 10 emissões da Leverage separadas), 2.701 documentos no dry-run do catálogo.
+**Lote 2 (38 ativos)**
+- `config/ativos_lote2.csv`: 28 da triagem e as 10 emissões da Leverage separadas; 2.701 documentos catalogados, 1.176 baixados,
+  texto de 1.198 PDFs e OCR de 43.
 
 **Coleta e documentos**
 - Fila de download em lotes (migration `003_download_queue.sql`): retomada, limite de taxa, parada automática (403, falhas seguidas,
@@ -52,7 +53,7 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 ### Como verificar
 ```powershell
 cd Enrico\cri_cra_platform
-$env:PYTHONPATH='..\..\src'; python -m pytest                       # 417 testes
+$env:PYTHONPATH='..\..\src'; python -m pytest                       # 418 testes
 python scripts/apply_migration.py --database data\cri_cra.db --dry-run
 python scripts/ingest_cvm_open_data.py --dry-run                     # lista os 16 arquivos da CVM, não grava
 python scripts/run_monthly_market.py --dry-run                       # rotina mensal sem gravar no banco

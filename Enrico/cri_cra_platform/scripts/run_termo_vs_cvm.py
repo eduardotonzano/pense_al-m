@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from credit_assets.market_checks import integralized, money
+from credit_assets.market_checks import integralized, money, real_isin
 from credit_assets.services.contract_terms_service import document_pages
 from credit_assets.cross_checks import tokenize
 from credit_assets.cvm_lookup import emission as cvm_emission
@@ -117,7 +117,7 @@ def main() -> int:
         lastro_dates = {c.value for _, c in termo("data_vencimento_lastro")}
         for s in emission["series"]:
             due = (s.get("Data_Vencimento") or "")[:10]
-            label = f"vencimento {s.get('Codigo_ISIN') or 'série ' + str(s.get('Numero_Serie'))}"
+            label = f"vencimento {real_isin(s.get('Codigo_ISIN')) or 'série ' + str(s.get('Numero_Serie'))}"
             if not dates and not lastro_dates:
                 verdict(label, "sem_valor_no_termo", "", due)
             elif due in dates:
@@ -148,7 +148,7 @@ def main() -> int:
                         if slot in ("mult", "taxa")}
             # "100%" do índice é o padrão e quase nunca aparece escrito ao lado do spread: não decide sozinho
             decisive = {n for n in informed if n != "mult=100"}
-            label = f"remuneracao {s.get('Codigo_ISIN') or 'série ' + str(s.get('Numero_Serie'))}"
+            label = f"remuneracao {real_isin(s.get('Codigo_ISIN')) or 'série ' + str(s.get('Numero_Serie'))}"
             if not decisive:
                 continue
             if not rate_numbers:

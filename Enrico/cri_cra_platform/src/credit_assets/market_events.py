@@ -11,6 +11,7 @@ from decimal import Decimal, InvalidOperation
 from typing import Any, Iterable
 
 from credit_assets.cross_checks import tokenize
+from credit_assets.market_checks import real_isin
 
 EVENTS = {
     "entrou_em_atraso": "Situação passou de Adimplente para Em atraso",
@@ -76,7 +77,9 @@ def _rating(value: str | None) -> str:
 
 
 def series_key(row: dict[str, Any]) -> tuple[str, str] | None:
-    isin = (row.get("Codigo_ISIN") or "").strip().upper()
+    """Série identificada pelo ISIN; sem ISIN válido (vazio ou placeholder "00000") a série fica fora dos eventos."""
+
+    isin = real_isin(row.get("Codigo_ISIN"))
     return (row.get("CNPJ_Emissora") or "", isin) if isin else None
 
 

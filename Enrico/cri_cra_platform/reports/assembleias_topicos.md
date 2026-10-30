@@ -1,58 +1,60 @@
 # Assuntos de atas, editais, fatos relevantes e comunicados
 
-Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 0). Classificação por palavras-chave: o que foi discutido, não o que foi decidido.
+Documentos lidos desde 2024-01-01: 1296, 70 deles por OCR (PDFs ainda sem texto: 0). Classificação por palavras-chave: o que foi discutido, não o que foi decidido.
 
 | Assunto relevante | Documentos |
 |---|---|
-| vencimento_antecipado | 237 |
-| inadimplencia_devedor | 170 |
-| resgate_amortizacao | 132 |
-| prorrogacao_repactuacao | 118 |
-| garantias | 68 |
-| waiver | 57 |
-| troca_prestador | 13 |
-| liquidacao_patrimonio | 10 |
-| remuneracao | 5 |
+| vencimento_antecipado | 406 |
+| inadimplencia_devedor | 297 |
+| prorrogacao_repactuacao | 210 |
+| resgate_amortizacao | 182 |
+| waiver | 163 |
+| garantias | 113 |
+| troca_prestador | 39 |
+| liquidacao_patrimonio | 21 |
+| remuneracao | 7 |
 
 ## O que as atas decidiram
 
-326 atas (o resto são editais e comunicados). Regras de texto sobre a parte da decisão, depois da ordem do dia: candidatos para leitura, não conclusões.
+670 atas (o resto são editais e comunicados). Regras de texto sobre a parte da decisão, depois da ordem do dia: candidatos para leitura, não conclusões.
 
 | Resultado | Atas |
 |---|---|
-| nao instalada | 143 |
-| aprovada | 104 |
-| sem decisao identificada | 48 |
-| suspensa | 26 |
+| nao instalada | 268 |
+| aprovada | 205 |
+| sem decisao identificada | 142 |
+| suspensa | 47 |
 | sem quorum para deliberar | 4 |
-| rejeitada | 1 |
+| rejeitada | 4 |
 
 | Decisão | Atas |
 |---|---|
-| outras materias aprovadas | 29 |
-| assembleia suspensa | 27 |
-| vencimento antecipado nao declarado | 24 |
-| prorrogacao repactuacao aprovado | 16 |
-| waiver aprovado | 12 |
-| troca prestador aprovado | 12 |
-| vencimento antecipado nao declarado em bloco | 10 |
-| dfs aprovado | 10 |
-| resgate amortizacao aprovado | 6 |
-| resgate amortizacao aprovado em bloco | 5 |
-| prorrogacao repactuacao aprovado em bloco | 5 |
+| outras materias aprovadas | 79 |
+| assembleia suspensa | 48 |
+| dfs aprovado | 28 |
+| vencimento antecipado nao declarado | 27 |
+| troca prestador aprovado | 23 |
+| waiver aprovado | 22 |
+| prorrogacao repactuacao aprovado | 22 |
+| vencimento antecipado nao declarado em bloco | 11 |
+| resgate amortizacao aprovado | 8 |
+| prorrogacao repactuacao aprovado em bloco | 8 |
+| resgate amortizacao aprovado em bloco | 6 |
+| waiver aprovado em bloco | 5 |
 | sem quorum para deliberar | 4 |
-| waiver aprovado em bloco | 4 |
 | dfs aprovado em bloco | 4 |
+| prorrogacao repactuacao rejeitado | 4 |
+| dacao em pagamento aprovado | 2 |
 | garantias aprovado | 2 |
-| prorrogacao repactuacao rejeitado | 1 |
+| vencimento antecipado declarado | 2 |
 | nao declaracao do vencimento antecipado rejeitada | 1 |
 | ordem do dia aprovada em bloco | 1 |
-| dacao em pagamento aprovado | 1 |
 
 ### Decisões de crédito por ativo (mais recentes primeiro)
 
 | Ativo | Data | Ata | Resultado | Decisões | Trecho |
 |---|---|---|---|---|---|
+| 14L0157828 | 2026-02-24 | 1120709 | aprovada | dacao em pagamento aprovado | de o Titular dos CRI, após a conclusão da transação da dação em pagamento aprovada na Assembleia Geral de Titular dos CRI realizada em 17 de abril de 2023 às 09h00 (“AGT de 17/04/2 |
 | 20L0504499 | 2025-11-03 | 1026866 | aprovada | troca prestador aprovado | essenta e quatro centésimos por cento) a favor e O% (zero) de abstencao: Aprovar a Substituicao do Agente Fiduciario e Custodiante; e (ili) em Circulacao contra, 99,64%(noventa e n |
 | 20L0504499 | 2025-06-18 | 928630 | aprovada | waiver aprovado; dfs aprovado | o) dos CRI em Circulação a favor, 0 (zero) contra e 0 (zero) de abstenção: aprovar a Concessão de Waiver; (iii) Por 94,51% (noventa e quatro inteiros e cinquenta e um centésimos po |
 | 20L0504499 | 2025-06-16 | 926428 | aprovada | waiver aprovado; dfs aprovado | o) dos CRI em Circulação a favor, 0 (zero) contra e 0 (zero) de abstenção: aprovar a Concessão de Waiver; (iii) Por 94,51% (noventa e quatro inteiros e cinquenta e um centésimos po |
@@ -93,8 +95,22 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 23C1835265 | 2025-06-17 | 927769 | aprovada | troca prestador aprovado; prorrogacao repactuacao aprovado | ões dos itens constantes da Ordem do Dia, os Titulares dos CRI Presentes deliberaram, por unanimidade e sem ressalvas, por: (i) aprovar a substituição do Agente Fiduciário; (ii) ap |
 | 23C1835265 | 2025-06-09 | 920399 | aprovada | troca prestador aprovado; prorrogacao repactuacao aprovado | ões dos itens constantes da Ordem do Dia, os Titulares dos CRI Presentes deliberaram, por unanimidade e sem ressalvas, por: (i) aprovar a substituição do Agente Fiduciário; (ii) ap |
 | 23C1835265 | 2024-02-02 | 595080 | aprovada | prorrogacao repactuacao aprovado; troca prestador aprovado | ão a favor, 0% (zero por cento) contra e 0% (zero por cento) de abstenção: aprovar a Concessão de Carência; (iv) Por 100% (cem por cento) de Titulares dos CRI Presentes, ou seja, 1 |
+| 23F2472075 | 2025-09-29 | 1001652 | aprovada | vencimento antecipado nao declarado; resgate amortizacao aprovado; waiver aprovado | em manifestação de voto contrário ou abstenção com relação a este item, aprovaram a não decretação do Vencimento Antecipado das Notas Comerciais, e, consequentemente o resgate tota |
+| 23F2472075 | 2025-05-05 | 894393 | aprovada | waiver aprovado | em manifestação de voto contrário ou abstenção com relação a este item, aprovaram a concessão de waiver prévio para o descumprimento da Razão de Garantia após a integralização das  |
+| 23G1576657 | 2025-06-18 | 928257 | aprovada | troca prestador aprovado | oes dos itens constantes da Ordem do Dia,osTitularesdosCRlPresentesdeliberaram,porunanimidadeesemressalvas,por: (i)a aprovarasubstituicaodoAgenteFiduciario; (il) aprovar a autoriza |
+| 23G1576657 | 2025-06-17 | 927770 | aprovada | troca prestador aprovado | ões dos itens constantes da Ordem do Dia, os Titulares dos CRI Presentes deliberaram, por unanimidade e sem ressalvas, por: (i) aprovar a substituição do Agente Fiduciário; (ii) ap |
+| 23G1576657 | 2025-06-09 | 920402 | aprovada | troca prestador aprovado | ões dos itens constantes da Ordem do Dia, os Titulares dos CRI Presentes deliberaram, por unanimidade e sem ressalvas, por: (i) aprovar a substituição do Agente Fiduciário; (ii) ap |
+| 23G1576657 | 2024-02-02 | 595084 | aprovada | troca prestador aprovado; prorrogacao repactuacao aprovado | o) dos CRI Presentes, ou seja, 100% (cem por cento) dos CRI em Circulação deliberaram por: (i) aprovar a Substituição do Custodiante; (ii) aprovar a Concessão de Carência; (iii) ap |
+| 23H1097588 | 2025-06-23 | 929343 | aprovada | troca prestador aprovado | s, ou seja, 100% (cem por cento) dos CRI em Circulação deliberam por: (i) aprovar a Substituição do Agente Fiduciário; (ii) aprovar a autorização para que a Securitizadora, a Trust |
+| 23H1097588 | 2025-06-23 | 929314 | aprovada | troca prestador aprovado | s, ou seja, 100% (cem por cento) dos CRI em Circulação deliberam por: (i) aprovar a Substituição do Agente Fiduciário; (ii) aprovar a autorização para que a Securitizadora, a Trust |
+| 23H1097588 | 2024-03-26 | 627321 | aprovada | prorrogacao repactuacao aprovado | ulação delibera por: (i) aprovar a Reestruturação das Garantias; (ii) aprovar a autorização para a Concessão de Carência, observadas as Condições Precedentes à Concessão de Carênci |
+| 23H1097588 | 2024-03-26 | 627316 | aprovada | prorrogacao repactuacao aprovado | ulação delibera por: (i) aprovar a Reestruturação das Garantias; (ii) aprovar a autorização para a Concessão de Carência, observadas as Condições Precedentes à Concessão de Carênci |
 | 23H1753231 | 2026-10-29 | 1362766 | aprovada | vencimento antecipado nao declarado em bloco; resgate amortizacao aprovado em bloco | presentam 100% dos CRI em circulação, por unanimidade e sem ressalvas, aprovaram todas as matérias da ordem do dia, desde já dispensando a transcrição destas novamente nas delibera |
 | 23H1753231 | 2026-03-30 | 1148448 | aprovada | vencimento antecipado nao declarado em bloco; resgate amortizacao aprovado em bloco | presentam 100% dos CRI em circulação, por unanimidade e sem ressalvas, aprovaram todas as matérias da ordem do dia, desde já dispensando a transcrição destas novamente nas delibera |
+| 23I0096173 | 2025-06-20 | 928760 | aprovada | troca prestador aprovado | ões dos itens constantes da Ordem do Dia, os Titulares dos CRI Presentes deliberaram, por unanimidade e sem ressalvas, por: (i) aprovar a substituição do Agente Fiduciário; (ii) ap |
+| 23I0096173 | 2025-06-17 | 927775 | aprovada | troca prestador aprovado | ões dos itens constantes da Ordem do Dia, os Titulares dos CRI Presentes deliberaram, por unanimidade e sem ressalvas, por: (i) aprovar a substituição do Agente Fiduciário; (ii) ap |
+| 23I0096173 | 2025-06-09 | 920410 | aprovada | troca prestador aprovado | ões dos itens constantes da Ordem do Dia, os Titulares dos CRI Presentes deliberaram, por unanimidade e sem ressalvas, por: (i) aprovar a substituição do Agente Fiduciário; (ii) ap |
+| 23I0096173 | 2024-02-02 | 595106 | aprovada | prorrogacao repactuacao aprovado | aram por: (i) aprovar a Substituição da Instituição Custodiante; (ii) aprovar a Concessão de Carência dos CRI da Série B e das Notas Comerciais da Série B, sendo certo que o Anexo  |
 | 23I1698089 | 2025-06-26 | 932914 | aprovada | troca prestador aprovado | s, ou seja, 100% (cem por cento) dos CRI em Circulação deliberam por: (i) aprovar a Substituição do Agente Fiduciário; (ii) aprovar a concessão do prazo de 30 (trinta) dias para a  |
 | 23I1698089 | 2025-06-23 | 929350 | aprovada | troca prestador aprovado | s, ou seja, 100% (cem por cento) dos CRI em Circulação deliberam por: (i) aprovar a Substituição do Agente Fiduciário; (ii) aprovar a concessão do prazo de 30 (trinta) dias para a  |
 | 23I1698089 | 2024-09-24 | 743298 | aprovada | prorrogacao repactuacao aprovado | o deliberam por: (i) aprovar a Suspensão Provisória da Boletagem; (ii) aprovar a Rerratificação das deliberações da Assembleia Especial de Investidores realizada em 02 de fevereiro |
@@ -105,6 +121,32 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 24D3466320 | 2025-06-30 | 935484 | aprovada | troca prestador aprovado; prorrogacao repactuacao aprovado | ões dos itens constantes da Ordem do Dia, os Titulares dos CRI Presentes deliberaram, por unanimidade e sem ressalvas, por: (i) aprovar a substituição do Agente Fiduciário; (ii) ap |
 | 24D3466320 | 2025-06-17 | 927778 | aprovada | troca prestador aprovado; prorrogacao repactuacao aprovado | ões dos itens constantes da Ordem do Dia, os Titulares dos CRI Presentes deliberaram, por unanimidade e sem ressalvas, por: (i) aprovar a substituição do Agente Fiduciário; (ii) ap |
 | 24D3466320 | 2025-06-09 | 920411 | aprovada | troca prestador aprovado; prorrogacao repactuacao aprovado | ões dos itens constantes da Ordem do Dia, os Titulares dos CRI Presentes deliberaram, por unanimidade e sem ressalvas, por: (i) aprovar a substituição do Agente Fiduciário; (ii) ap |
+| 24E2495042 | 2025-10-20 | 1017483 | rejeitada | prorrogacao repactuacao rejeitado | modo que o quórum de deliberação não foi atingido e, portanto, a matéria não foi aprovada.” (ii) A alteração do Cronograma de Pagamentos dos CRI 1ª Série, previsto no Anexo I ao Te |
+| 24E2495042 | 2025-10-20 | 1017480 | rejeitada | prorrogacao repactuacao rejeitado | modo que o quórum de deliberação não foi atingido e, portanto, a matéria não foi aprovada.” (ii) A alteração do Cronograma de Pagamentos dos CRI 1ª Série, previsto no Anexo I ao Te |
+| 24E2495042 | 2025-10-09 | 1009742 | rejeitada | prorrogacao repactuacao rejeitado | modo que o quórum de deliberação não foi atingido e, portanto, a matéria não foi aprovada.” (ii) A alteração do Cronograma de Pagamentos dos CRI 1ª Série, previsto no Anexo I ao Te |
+| 24E2535171 | 2025-06-23 | 929313 | aprovada | troca prestador aprovado | s, ou seja, 100% (cem por cento) dos CRI em Circulação deliberam por: (i) aprovar a Substituição do Agente Fiduciário; e (ii) aprovar a autorização para que a Securitizadora, a REA |
+| CRA02000130 | 2025-11-19 | 1044826 | aprovada | dfs aprovado; troca prestador aprovado | ntra, 55% (cinquenta e cinco por cento) a favor e 0% (zero) de abstenção: Aprovar as demonstrações financeiras; (ii) Por 100% (cem por cento) de Titulares dos CRA Presentes, ou sej |
+| CRA022001JL | 2026-10-16 | 1353631 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-10-09 | 1344831 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-10-02 | 1338991 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-09-18 | 1324000 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-09-04 | 1310413 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-08-14 | 1293354 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-07-31 | 1272078 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-07-27 | 1264789 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-06-30 | 1234244 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-06-11 | 1217906 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-06-02 | 1210454 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-05-06 | 1181219 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-04-22 | 1167506 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-04-07 | 1155557 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-03-12 | 1134679 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-02-23 | 1119591 | suspensa | assembleia suspensa | ntes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes, deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-02-11 | 1108628 | suspensa | assembleia suspensa | ntes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes, deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-02-05 | 1102877 | suspensa | assembleia suspensa | ntes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes, deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-01-29 | 1095800 | suspensa | assembleia suspensa | ntes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes, deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2026-01-14 | 1082450 | suspensa | assembleia suspensa | ntes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes, deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
+| CRA022001JL | 2025-03-27 | 866605 | aprovada | waiver aprovado | tulares dos CRA Presentes, representando 95,96% dos CRA em Circulação aprovaram, com condições, conforme abaixo previstas, a concessão de anuência prévia para o eventual descumprim |
 | CRA022008C4 | 2026-10-29 | 1362792 | aprovada | vencimento antecipado nao declarado; prorrogacao repactuacao aprovado | lação Docusign Envelope ID: 9B576BA5-F366-86DD-81B2-DE45BE2EC781 aprovaram a não declaração do vencimento antecipado do CDCA e, consequentemente, a não realização do resgate anteci |
 | CRA022008C4 | 2026-10-22 | 1356936 | suspensa | assembleia suspensa | antes na ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
 | CRA022008C4 | 2026-10-13 | 1347896 | suspensa | assembleia suspensa | antes da ordem do dia foram colocadas em discussão e votação, sendo que os Titulares dos CRA Presentes deliberaram pela suspensão da presente Assembleia, para fins de reabertura em |
@@ -138,12 +180,29 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | CRA022009VM | 2025-06-17 | 927400 | aprovada | vencimento antecipado nao declarado | e setenta e um centésimos por cento) dos Titulares dos CRA em Circulação aprovaram, nenhum dos Titulares dos CRA em Circulação presentes se abstiveram e nenhum dos Titulares dos CR |
 | CRA022009VM | 2025-06-05 | 918130 | suspensa | assembleia suspensa | esentativos de 69,87% (sessenta e nove inteiros e oitenta e sete décimos por cento) dos CRA em Circulação aprovaram uma nova suspensão da presente assembleia, a qual deverá ser rea |
 | CRA022009VM | 2024-03-14 | 619771 | aprovada | vencimento antecipado nao declarado; waiver aprovado; resgate amortizacao aprovado | te inteiros e oitenta e sete centésimos por cento) dos CRA em Circulação aprovaram a não declaração do vencimento antecipado do Certificado de Direitos Creditórios do Agronegócio – |
+| CRA023000040H | 2026-09-29 | 1333161 | aprovada | vencimento antecipado nao declarado | lares dos CRA, representando 100% (cem por cento) dos CRA em Circulação aprovaram não declaração do vencimento antecipado do Termo de , conforme disposto no item (iii) Cláusula 6.1 |
 | CRA0230005N | 2026-08-11 | 1282882 | aprovada | prorrogacao repactuacao aprovado | Presentes, representativos de 96,57% dos CRA em Circulação presentes aprovaram a proposta de repactuação, nos termos apresentados pela Devedora e divulgados pela Securitizadora no  |
 | CRA0230005N | 2024-07-31 | 709574 | rejeitada | prorrogacao repactuacao rejeitado; nao declaracao do vencimento antecipado rejeitada | m e 0,30% (trinta centésimos por cento) dos CRA em Circulação presentes rejeitaram, a proposta de repactuação para o pagamento dos valores devidos no âmbito dos CDCAs apresentada p |
 | CRA0230005N | 2024-05-27 | 669079 | sem quorum para deliberar | sem quorum para deliberar | tir as alterações necessárias. 6. ABERTURA, ESCLARECIMENTOS E DELIBERAÇÕES: 6.1. Em vista da ausência do quórum mínimo para deliberação das matérias constantes na ordem do dia, a S |
 | CRA0230005N | 2024-05-09 | 656401 | sem quorum para deliberar | sem quorum para deliberar | tir as alterações necessárias. 6. ABERTURA, ESCLARECIMENTOS E DELIBERAÇÕES: 6.2. Em vista da ausência do quórum mínimo para deliberação das matérias constantes na ordem do dia, a S |
 | CRA023000B5 | 2024-01-29 | 591012 | aprovada | waiver aprovado em bloco | (cem por cento) dos CRA em Circulação, sem voto contrário ou abstenção, aprovaram os itens (i) a (vii) da Ordem do Dia. 6.1. Para os fins desta assembleia, os termos aqui iniciados |
+| CRA0230018I | 2024-10-18 | 761274 | aprovada | vencimento antecipado nao declarado em bloco; waiver aprovado em bloco; prorrogacao repactuacao aprovado em bloco; resgate amortizacao aprovado em bloco | oitenta e cinco centésimos por cento) dos CRA em Circulação presentes, aprovaram, sem qualquer ressalva ou restrição, a integralidade das matérias constantes na Ordem do Dia desta  |
+| CRA0230018I | 2024-04-22 | 643081 | aprovada | vencimento antecipado nao declarado; waiver aprovado | os Titulares dos CRA presentes, sem abstenções com relação a este item, aprovaram a concessão de waiver temporário pelo prazo de 120 (cento e vinte) dias, a contar da data da aprov |
 | CRA02300TBL | 2025-07-30 | 956271 | aprovada | waiver aprovado; waiver aprovado em bloco; dfs aprovado em bloco | tulares dos CRA, representando 92,83% dos Titulares dos CRA Presentes aprovaram à renúncia (waiver) ao direito de declarar o vencimento antecipado das Notas Comerciais e, com efeit |
+| CRA02300VY3 | 2025-11-04 | 1027635 | aprovada | waiver aprovado | do Dia, os Titulares dos CRA representando 66,64% dos CRA em Circulação aprovaram a matéria sem qualquer reprovação e/ou abstenção, ficando consignado pelos Titulares dos CRA que a |
+| CRA024000GP | 2025-08-26 | 977699 | aprovada | waiver aprovado | venta e trés centésimos por cento)dos CRA em circulacao,sendo,30,01% aprovando, 1,06% reprovando e 0,85% se abstendo com relacao a este item, aprovou(aram) a renunciaprevia(waiver) |
+| CRA024002S4 | 2024-11-25 | 786537 | aprovada | vencimento antecipado declarado | a Ordem do Dia, os Titulares dos CRA, representando 100% dos presentes, aprovaram o Vencimento Antecipado da Operação nos termos das Cláusulas 6.1, subitem “(i)” da CPR-F e 5.1.1 d |
+| CRA024003PF | 2026-03-23 | 1142254 | aprovada | prorrogacao repactuacao aprovado | os do Anexo II, com honorários custeados pelos Titulares dos CRA; (iii) Aprovaram a alteração da data de vencimento final da CPR-F 002/2024, atrelada à 2ª Série da 196ª Emissão, de |
+| CRA024003PF | 2026-03-20 | 1141699 | aprovada | prorrogacao repactuacao aprovado | os do Anexo II, com honorários custeados pelos Titulares dos CRA; (iii) Aprovaram a alteração da data de vencimento final da CPR-F 002/2024, atrelada à 2ª Série da 196ª Emissão, de |
+| CRA024003PF | 2025-03-13 | 856997 | aprovada | prorrogacao repactuacao aprovado em bloco | s que tal hipótese inexiste. 6. DELIBERAÇÕES: Examinadas e debatidas, foi aprovada, pelo Titular dos CRA representando 100% (cem por cento) dos CRA em circulação, a integralidade d |
+| CRA024003PF | 2025-03-11 | 856031 | aprovada | prorrogacao repactuacao aprovado em bloco | s que tal hipótese inexiste. 6. DELIBERAÇÕES: Examinadas e debatidas, foi aprovada, pelo Titular dos CRA representando 100% (cem por cento) dos CRA em circulação, a integralidade d |
+| CRA024006N5 | 2026-10-20 | 1354801 | suspensa | assembleia suspensa | rios. 6. DELIBERAÇÕES: Iniciados os trabalhos e após leitura da ordem do dia, os Titulares de CRA presentes aprovaram a suspensão da presente Assembleia com reabertura programada p |
+| CRA024006N5 | 2026-07-20 | 1260791 | aprovada | vencimento antecipado declarado | cial de Titulares dos CRA realizada em 02 de julho de 2026, ocasião em que foi aprovada a declaração de vencimento antecipado da operação, permanecendo tal deliberação plenamente v |
+| CRA024006N5 | 2025-09-23 | 996021 | aprovada | waiver aprovado | lação ao item (iii) da Ordem do Dia, 100% dos Titulares dos CRA presentes aprovaram o waiver para recomposição do Fundo de Despesa no prazo de 10 (dez) Dias corridos, condicionada  |
+| CRA024006N5 | 2025-09-08 | 986418 | aprovada | waiver aprovado | lação ao item (iii) da Ordem do Dia, 100% dos Titulares dos CRA presentes aprovaram o waiver para recomposição do Fundo de Despesa no prazo de 10 (dez) Dias corridos, condicionada  |
+| CRA024006N5 | 2025-08-07 | 961684 | aprovada | waiver aprovado | lação ao item (iii) da Ordem do Dia, 100% dos Titulares dos CRA presentes aprovaram o waiver na Assembleia anterior de 31 de julho de 2025 a fim de recompor o Fundo de Despesa no p |
+| CRA024006N5 | 2025-07-31 | 957425 | aprovada | waiver aprovado | lação ao item (iii) da Ordem do Dia, 100% dos Titulares dos CRA presentes aprovaram o waiver para recomposição do Fundo de Despesa no prazo de 10 (dez) Dias corridos, condicionada  |
+| CRA024006N5 | 2025-05-27 | 911854 | aprovada | resgate amortizacao aprovado | elação ao item (vi) da Ordem do Dia, 100% dos Titulares dos CRA presentes aprovaram a respectiva matéria, sem qualquer voto contrário e/ou abstenções. Fica, ainda, ratificado que a |
 | CRA024007PW | 2026-03-10 | 1132490 | suspensa | assembleia suspensa | res inteiros e vinte e quatro e um inteiros e vintee quatro centesimosporcento)dosCRA emCirculacao,deliberaramporsuspender avotacao dositensdaordemdodiacomreaberturamarcadaparaodia |
 | CRA024007PW | 2026-02-26 | 1122109 | suspensa | assembleia suspensa | res inteiros e vinte e quatro e um inteiros e vinte e quatro centésimos por cento) dos CRA em Circulacao, deliberaram por suspender a votacao dositensdaordemdodiacomreaberturamarca |
 | CRA024007PW | 2026-02-26 | 1122105 | suspensa | assembleia suspensa | e quarenta e três centésimos por cento) dos CRA em Circulação, deliberaram sem quaisquer ressalvas ou restrições, por suspender a votação dos itens da ordem do dia com reabertura m |
@@ -156,35 +215,73 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 
 | Ativo | Documentos relevantes | Assuntos |
 |---|---|---|
+| CRA024006N5 | 58 | vencimento_antecipado×49, waiver×29, inadimplencia_devedor×27, resgate_amortizacao×16, garantias×9, liquidacao_patrimonio×2 |
+| CRA02300VY3 | 50 | vencimento_antecipado×47, waiver×25, inadimplencia_devedor×22, garantias×15, prorrogacao_repactuacao×8 |
 | CRA022008C4 | 46 | resgate_amortizacao×44, vencimento_antecipado×35, prorrogacao_repactuacao×27, waiver×7, liquidacao_patrimonio×2, inadimplencia_devedor×1 |
 | CRA022009VM | 38 | resgate_amortizacao×34, vencimento_antecipado×29, waiver×16, prorrogacao_repactuacao×16, garantias×12 |
 | CRA024007PW | 36 | vencimento_antecipado×25, inadimplencia_devedor×17, prorrogacao_repactuacao×8, waiver×6, resgate_amortizacao×5 |
+| CRA022001JL | 34 | waiver×29, inadimplencia_devedor×27, prorrogacao_repactuacao×25, liquidacao_patrimonio×4, resgate_amortizacao×3, vencimento_antecipado×1 |
 | CRA02300JR5 | 27 | inadimplencia_devedor×27, vencimento_antecipado×19, resgate_amortizacao×2, liquidacao_patrimonio×1 |
 | CRA022009C1F | 27 | inadimplencia_devedor×24, prorrogacao_repactuacao×17, garantias×10, vencimento_antecipado×6, liquidacao_patrimonio×1, waiver×1 |
 | CRA020001P7 | 26 | inadimplencia_devedor×25, vencimento_antecipado×19, resgate_amortizacao×2, liquidacao_patrimonio×1 |
+| CRA022008NB | 26 | inadimplencia_devedor×25, vencimento_antecipado×17, resgate_amortizacao×2, liquidacao_patrimonio×1 |
 | CRA02300TBL | 23 | inadimplencia_devedor×17, vencimento_antecipado×15, waiver×7, resgate_amortizacao×5 |
 | CRA0230005N | 22 | inadimplencia_devedor×16, prorrogacao_repactuacao×11, vencimento_antecipado×8, resgate_amortizacao×4, remuneracao×4, garantias×1 |
 | 21A0870788 | 21 | vencimento_antecipado×17, garantias×16, prorrogacao_repactuacao×5, inadimplencia_devedor×3, waiver×3 |
+| CRA0230018I | 21 | vencimento_antecipado×17, resgate_amortizacao×14, waiver×10, garantias×10, inadimplencia_devedor×9, prorrogacao_repactuacao×5 |
+| CRA024002S4 | 16 | vencimento_antecipado×6, inadimplencia_devedor×6, troca_prestador×5, prorrogacao_repactuacao×4, resgate_amortizacao×3 |
 | 21L0967403 | 15 | vencimento_antecipado×13, garantias×13, resgate_amortizacao×7, prorrogacao_repactuacao×6, inadimplencia_devedor×3, waiver×2 |
 | 21K0660418 | 15 | prorrogacao_repactuacao×8, vencimento_antecipado×7, resgate_amortizacao×4, garantias×4, liquidacao_patrimonio×2, inadimplencia_devedor×1 |
+| 23F2472075 | 14 | vencimento_antecipado×11, waiver×8, garantias×6, resgate_amortizacao×3, inadimplencia_devedor×2, liquidacao_patrimonio×1 |
 | CRA019003V3 | 12 | inadimplencia_devedor×12, vencimento_antecipado×9, liquidacao_patrimonio×1, resgate_amortizacao×1 |
 | CRA020001P8 | 11 | inadimplencia_devedor×11, vencimento_antecipado×8, liquidacao_patrimonio×1, resgate_amortizacao×1 |
+| CRA02400E1M | 10 | prorrogacao_repactuacao×9, inadimplencia_devedor×1 |
 | 20L0504499 | 9 | vencimento_antecipado×7, prorrogacao_repactuacao×7, waiver×4, inadimplencia_devedor×4, garantias×3, troca_prestador×2 |
+| CRA023000040H | 9 | vencimento_antecipado×7, liquidacao_patrimonio×2, inadimplencia_devedor×2, prorrogacao_repactuacao×1 |
+| CRA02000130 | 9 | troca_prestador×6, prorrogacao_repactuacao×3 |
+| CRA024003PF | 8 | vencimento_antecipado×6, prorrogacao_repactuacao×5, inadimplencia_devedor×4, remuneracao×2 |
+| 20H0225976 | 7 | prorrogacao_repactuacao×7, troca_prestador×3 |
+| 21H0769214 | 7 | prorrogacao_repactuacao×7, troca_prestador×2 |
+| 24E2495042 | 7 | prorrogacao_repactuacao×7, vencimento_antecipado×1, inadimplencia_devedor×1, resgate_amortizacao×1 |
 | 23H1753231 | 6 | garantias×5, vencimento_antecipado×4, resgate_amortizacao×2, inadimplencia_devedor×1, prorrogacao_repactuacao×1 |
 | 23H1487992 | 6 | resgate_amortizacao×6, vencimento_antecipado×1, liquidacao_patrimonio×1 |
 | 22D0836679 | 6 | resgate_amortizacao×6, vencimento_antecipado×4, waiver×3, garantias×2, remuneracao×1 |
 | CRA023000B5 | 5 | resgate_amortizacao×4, inadimplencia_devedor×3, vencimento_antecipado×3, prorrogacao_repactuacao×1, waiver×1, garantias×1 |
+| CRA024000GP | 5 | waiver×4, vencimento_antecipado×3, prorrogacao_repactuacao×1 |
+| CRA024004XT | 5 | vencimento_antecipado×2, garantias×1, resgate_amortizacao×1, prorrogacao_repactuacao×1 |
 | 23K2122788 | 4 | troca_prestador×2, prorrogacao_repactuacao×2 |
 | 23C1835265 | 4 | vencimento_antecipado×4, prorrogacao_repactuacao×4, troca_prestador×4, waiver×3, inadimplencia_devedor×3, garantias×1 |
+| 23I0096173 | 4 | troca_prestador×3, prorrogacao_repactuacao×1 |
+| 23H1097588 | 4 | troca_prestador×2, prorrogacao_repactuacao×2, resgate_amortizacao×2 |
+| 23G1576657 | 4 | troca_prestador×4, prorrogacao_repactuacao×1 |
+| 24L2327181 | 4 | prorrogacao_repactuacao×4, vencimento_antecipado×2, inadimplencia_devedor×1, garantias×1 |
 | CRA021000S9 | 3 | resgate_amortizacao×3, inadimplencia_devedor×1 |
 | 24D3466320 | 3 | vencimento_antecipado×3, waiver×3, prorrogacao_repactuacao×3, troca_prestador×3 |
 | 23I1698089 | 3 | troca_prestador×2, waiver×1, prorrogacao_repactuacao×1 |
+| 25K3156592 | 2 | garantias×2, resgate_amortizacao×2 |
 | 24G2100031 | 1 | prorrogacao_repactuacao×1 |
 | CRA022007VI | 1 | vencimento_antecipado×1, inadimplencia_devedor×1 |
 | 23E2052239 | 1 | resgate_amortizacao×1 |
 | 23F2454937 | 1 | resgate_amortizacao×1 |
+| 24E2535171 | 1 | troca_prestador×1 |
+| 21H1002745 | 1 | resgate_amortizacao×1 |
+| 23F1829746 | 1 | waiver×1, prorrogacao_repactuacao×1 |
+| 23H1186528 | 1 | resgate_amortizacao×1 |
+| 25L3279335 | 1 | garantias×1, liquidacao_patrimonio×1, resgate_amortizacao×1 |
 
 ## Linha do tempo (assuntos relevantes)
+
+### 20H0225976
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-07-31 | Ata/Edital 709573 | prorrogacao_repactuacao |  |  | tps://fortesec.com.br/relacao-investidor/), com a consequente: (i) concessão de carência à Devedora no pagamento das obrigações pecuniárias relacionadas à amort |
+| 2024-08-19 | Ata/Edital 723091 | prorrogacao_repactuacao | sem decisao identificada |  | nte, pelo Anexo B e Anexo C à presente ata, com a consequente: (a) concessão de carência à Devedora, no pagamento das obrigações pecuniárias relacionadas à amor |
+| 2025-09-24 | Ata/Edital 997704 | prorrogacao_repactuacao |  |  | ps://fortesec.com.br/relacao- investidor/), com a consequente: (a) concessão de carência à Devedora no pagamento das obrigações pecuniárias relacionadas à amort |
+| 2025-09-29 | Ata/Edital 1001687 | prorrogacao_repactuacao |  |  | tps://fortesec.com.br/relacao-investidor/), com a consequente: (a) concessão de carência à Devedora no pagamento das obrigações pecuniárias relacionadas à amort |
+| 2025-10-20 | Ata/Edital 1017437 | prorrogacao_repactuacao; troca_prestador | sem decisao identificada |  | s://fortesec.com.br/relacao-investidor/), com a 1 consequente: (a) concessão de carência à Devedora no pagamento das obrigações pecuniárias relacionadas à amort |
+| 2025-10-27 | Ata/Edital 1021701 | prorrogacao_repactuacao; troca_prestador | sem decisao identificada |  | tps://fortesec.com.br/relacao-investidor/), com a consequente: (a) concessão de carência à Devedora no pagamento das obrigações pecuniárias relacionadas à amort |
+| 2025-10-27 | Ata/Edital 1021700 | prorrogacao_repactuacao; troca_prestador | sem decisao identificada |  | tps://fortesec.com.br/relacao-investidor/), com a consequente: (a) concessão de carência à Devedora no pagamento das obrigações pecuniárias relacionadas à amort |
 
 ### 20L0504499
 
@@ -225,6 +322,24 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 2026-02-24 | Ata/Edital 1120228 | vencimento_antecipado; garantias | aprovada |  | objetivo deliberar sobre as seguintes matérias: (i) Aprovar a não decretação de Vencimento Antecipado das CCBs, e consequentemente dos CRI, com fulcro na cláusu |
 | 2026-06-10 | Ata/Edital 1216517 | vencimento_antecipado; garantias | aprovada |  | deliberar sobre as seguintes matérias: (i) Deliberar sobre a não decretação de Vencimento Antecipado das CCBs, e consequentemente dos CRI, com fulcro na cláusul |
 | 2026-06-12 | Ata/Edital 1218783 | vencimento_antecipado; garantias | aprovada |  | deliberar sobre as seguintes matérias: (i) Deliberar sobre a não decretação de Vencimento Antecipado das CCBs, e consequentemente dos CRI, com fulcro na cláusul |
+
+### 21H0769214
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-07-31 | Ata/Edital 709436 | prorrogacao_repactuacao |  |  | em https://fortesec.com.br/relacao-investidor/), com a consequente concessão de carência à Devedora no pagamento das obrigações pecuniárias relacionadas à amort |
+| 2024-08-19 | Ata/Edital 723058 | prorrogacao_repactuacao | sem decisao identificada |  | ivamente, pelo Anexo B e Anexo C à presente ata, com a consequente concessão de carência à Devedora, no pagamento das obrigações pecuniárias relacionadas à amor |
+| 2024-08-23 | Ata/Edital 725094 | prorrogacao_repactuacao | sem decisao identificada |  | ivamente, pelo Anexo B e Anexo C à presente ata, com a consequente concessão de carência à Devedora, no pagamento das obrigações pecuniárias relacionadas à amor |
+| 2025-09-24 | Ata/Edital 997706 | prorrogacao_repactuacao |  |  | tps://fortesec.com.br/relacao-investidor/), com a consequente: (a) concessão de carência à Devedora no pagamento das obrigações pecuniárias relacionadas à amort |
+| 2025-09-29 | Ata/Edital 1001691 | prorrogacao_repactuacao |  |  | tps://fortesec.com.br/relacao-investidor/), com a consequente: (a) concessão de carência à Devedora no pagamento das obrigações pecuniárias relacionadas à amort |
+| 2025-10-20 | Ata/Edital 1017438 | prorrogacao_repactuacao; troca_prestador | sem decisao identificada |  | tps://fortesec.com.br/relacao-investidor/), com a consequente: (a) concessão de carência à Devedora no pagamento das obrigações 1 pecuniárias relacionadas à amo |
+| 2025-10-27 | Ata/Edital 1021709 | prorrogacao_repactuacao; troca_prestador | sem decisao identificada |  | tps://fortesec.com.br/relacao-investidor/), com a consequente: (a) concessão de carência à Devedora no pagamento das obrigações pecuniárias relacionadas à amort |
+
+### 21H1002745
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-10-08 | Ata/Edital 754350 | resgate_amortizacao |  | 2ª convocação | tos imobiliários pelos devedores da operação, por amortização extraordinária ou resgate antecipado conforme previsto no termo de securitização da operação. Séri |
 
 ### 21K0660418
 
@@ -292,11 +407,60 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 |---|---|---|---|---|---|
 | 2024-10-04 | Ata/Edital 752426 | resgate_amortizacao |  | 2ª convocação | cipação do pagamento dos créditos imobiliários pelos devedores da operação, por amortização extraordinária ou regaste antecipado conforme previsto no termo de s |
 
+### 23F1829746
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-06-13 | Ata/Edital 679499 | waiver; prorrogacao_repactuacao | aprovada |  | ão, conforme o caso; e (3) A repactuação nunca poderá envolver qualquer tipo de perdão de dívida, apenas carência, com alongamento do fluxo, conforme o caso, ex |
+
 ### 23F2454937
 
 | Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
 |---|---|---|---|---|---|
 | 2024-07-01 | Ata/Edital 690660 | resgate_amortizacao |  |  | cipação do pagamento dos créditos imobiliários pelos devedores da operação, por amortização extraordinária ou regaste antecipado conforme previsto no termo de s |
+
+### 23F2472075
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-04-05 | Ata/Edital 634518 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ndar cj. 21 e 22 / Itaim Bibi São Paulo 1 (i) Aprovar a sustação dos efeitos do Vencimento Antecipado das Notas Comerciais, e consequentemente dos CRI, nos term |
+| 2024-04-11 | Ata/Edital 637675 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ID: B13F7DFA-2EE0-44E4-B33D-E05177317791 (i) Aprovar a sustação dos efeitos do Vencimento Antecipado das Notas Comerciais, e consequentemente dos CRI, nos termo |
+| 2024-09-18 | Ata/Edital 740910 | vencimento_antecipado | sem decisao identificada |  | ndar cj. 21 e 22 / Itaim Bibi São Paulo 1 (i) Aprovar a sustação dos efeitos do Vencimento Antecipado das Notas Comerciais, e consequentemente dos CRI, nos term |
+| 2024-09-27 | Ata/Edital 747347 | vencimento_antecipado | sem decisao identificada |  | ID: B26D0872-ED46-4596-90DD-F96925DC9004 (i) Aprovar a sustação dos efeitos do Vencimento Antecipado das Notas Comerciais, e consequentemente dos CRI, nos termo |
+| 2024-10-10 | Ata/Edital 755822 | vencimento_antecipado; waiver; garantias; inadimplencia_devedor; resgate_amortizacao |  | 2ª convocação | liários, cujos investidores deliberaram para aprovar: a sustação dos efeitos do Vencimento Antecipado das Notas Comerciais, e consequentemente dos CRI, em razão |
+| 2025-04-07 | Ata/Edital 875109 | vencimento_antecipado | sem decisao identificada | lido por OCR | a Rodrigues. 5. ORDEMDODIA:deliberarsobre: 1 opea ! Aprovar a nao declaracao de Vencimento Antecipado das Notas Comerciais e consequentemente doResgateAntecipad |
+| 2025-05-05 | Ata/Edital 894393 | vencimento_antecipado; waiver; garantias; resgate_amortizacao | aprovada |  | das quantidades parciais da 4ª (quarta) série, afastando-se assim os efeitos do Vencimento Antecipado das Notas Comerciais e consequentemente do Resgate Antecip |
+| 2025-07-10 | Ata/Edital 943613 | waiver | sem decisao identificada |  | : Thatiane Azenha Machado. 5. ORDEM DO DIA: deliberar sobre: (i) A concessão de anuência prévia para uso extraordinário do valor retido no Fundo de Obras, do mo |
+| 2025-07-22 | Ata/Edital 950603 | waiver | sem decisao identificada | lido por OCR | Documento 5. ORDEMDODIA:deliberarsobre: opea.com.br IlI opea (i)A concessao de anuencia prévia para uso extraordinario do valor retido no Fundode Obras,do monta |
+| 2025-09-29 | Ata/Edital 1001652 | vencimento_antecipado; waiver; garantias; resgate_amortizacao | aprovada |  | z Bincoletto. 5. ORDEM DO DIA: deliberar sobre: (i) Aprovar a não decretação do Vencimento Antecipado das Notas Comerciais, e, consequentemente o resgate total  |
+| 2025-10-01 | Ata/Edital 1004160 | vencimento_antecipado; waiver | aprovada | lido por OCR | letto. 5. ORDEMDODIA:deliberarsobre: assinadono (i) Aprovar a nao decretacao do Vencimento Antecipado das Notas Comerciais, e, 19(Primeira)EmissaoDeNotasComerci |
+| 2026-02-09 | Ata/Edital 1106227 | vencimento_antecipado; garantias | sem decisao identificada | lido por OCR | oveis. 5. ORDEMDODIA:deliberarsobre: oAssinador Registro (i)A nao declaracao do vencimento antecipado das Notas Comerciais é, consequentemente,do resgate dos CR |
+| 2026-03-17 | Fato Relevante 1139669 | inadimplencia_devedor; liquidacao_patrimonio |  |  | o foi realizado por insuficiência de recursos no Patrimônio Separado, devido ao inadimplemento total, pela Devedora, no pagamento dos Créditos Imobiliários venc |
+| 2026-06-01 | Ata/Edital 1209580 | vencimento_antecipado |  |  | de Oliveira Buffara. 5. ORDEM DO DIA: deliberar sobre: (i) A não declaração do vencimento antecipado das Notas Comerciais e, consequentemente, do resgate dos CR |
+
+### 23G1576657
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-02-02 | Ata/Edital 595084 | prorrogacao_repactuacao; troca_prestador | aprovada |  | orme o Anexo II e Anexo III à presente Ata, e, consequentemente, a concessão de carência no pagamento das Amortizações Programadas e da Remuneração dos CRI e da |
+| 2025-06-09 | Ata/Edital 920402 | troca_prestador | aprovada |  | Agente Fiduciário, na data da Assembleia Geral e a partir de seu encerramento (“Substituição do Agente Fiduciário”); (ii) a autorização ou não para que a Securi |
+| 2025-06-17 | Ata/Edital 927770 | troca_prestador | aprovada |  | Documentos da Operação aplicáveis atualmente à Trustee, na qualidade de Agente Substituição do Agente Fiduciário ; (ii) a autorização ou não para que a Securiti |
+| 2025-06-18 | Ata/Edital 928257 | troca_prestador | aprovada | lido por OCR | e dos Fiduciario, na data da Assembleia Geral e a partir de seu encerramento ("Substituicao do Agente Fiduciario"); (ili) qualquer ato, celebrem todos e quaisqu |
+
+### 23H1097588
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-03-26 | Ata/Edital 627321 | prorrogacao_repactuacao; resgate_amortizacao | aprovada |  | da Série A). (ii) a aprovação, ou não, da autorização prévia para concessão de carência, pela Securitizadora à Cedente, no pagamento de Juros e Amortização da 2 |
+| 2024-03-26 | Ata/Edital 627316 | prorrogacao_repactuacao; resgate_amortizacao | aprovada |  | da Série A). (ii) a aprovação, ou não, da autorização prévia para concessão de carência, pela Securitizadora à Cedente, no pagamento de Juros e Amortização da 2 |
+| 2025-06-23 | Ata/Edital 929343 | troca_prestador | aprovada |  | Agente Fiduciário, na data da Assembleia Geral e a partir de seu encerramento (“Substituição do Agente Fiduciário”); (ii) a autorização ou não para que a Securi |
+| 2025-06-23 | Ata/Edital 929314 | troca_prestador | aprovada |  | Agente Fiduciário, na data da Assembleia Geral e a partir de seu encerramento (“Substituição do Agente Fiduciário”); (ii) a autorização ou não para que a Securi |
+
+### 23H1186528
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-09-30 | Ata/Edital 748236 | resgate_amortizacao |  |  | cipação do pagamento dos créditos imobiliários pelos devedores da operação, por amortização extraordinária ou regaste antecipado conforme previsto no termo de s |
 
 ### 23H1487992
 
@@ -319,6 +483,15 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 2025-06-24 | Ata/Edital 930790 | garantias | sem decisao identificada |  | es ao final desta ata. 5. ORDEM DO DIA: Deliberar sobre: (i) Aprovar a imediata liberação da garantia real dos imóveis do empreendimento Edifício Concetto Campo |
 | 2026-03-30 | Ata/Edital 1148448 | vencimento_antecipado; garantias; resgate_amortizacao | aprovada |  | nique Araújo Martins. 5. ORDEM DO DIA: Deliberar sobre: (i) a não declaração de Vencimento Antecipado Não Automático da CCB, e, consequentemente o Resgate Antec |
 | 2026-10-29 | Ata/Edital 1362766 | vencimento_antecipado; resgate_amortizacao | aprovada |  | nique Araújo Martins. 5. ORDEM DO DIA: Deliberar sobre: (i) A não declaração de Vencimento Antecipado Não Automático da CCB, e, consequentemente o Resgate Antec |
+
+### 23I0096173
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-02-02 | Ata/Edital 595106 | prorrogacao_repactuacao | aprovada |  | orme o Anexo II e Anexo III à presente Ata, e, consequentemente, a concessão de carência no pagamento das Amortizações Programadas e da Remuneração dos CRI da S |
+| 2025-06-09 | Ata/Edital 920410 | troca_prestador | aprovada |  | Agente Fiduciário, na data da Assembleia Geral e a partir de seu encerramento (“Substituição do Agente Fiduciário”); (ii) Caso aprovado o item (i) da Ordem do D |
+| 2025-06-17 | Ata/Edital 927775 | troca_prestador | aprovada |  | Documentos da Operação aplicáveis atualmente à Planner, na qualidade de Agente Substituição do Agente Fiduciário ; (ii) Caso aprovado o item (i) da Ordem do Dia |
+| 2025-06-20 | Ata/Edital 928760 | troca_prestador | aprovada |  | Agente Fiduciário, na data da Assembleia Geral e a partir de seu encerramento (“Substituição do Agente Fiduciário”); (ii) Caso aprovado o item (i) da Ordem do D |
 
 ### 23I1698089
 
@@ -345,11 +518,51 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 2025-06-17 | Ata/Edital 927778 | vencimento_antecipado; waiver; prorrogacao_repactuacao; troca_prestador | aprovada |  | ão de waiver à CRL SPE I no sentido de a Securitizadora abster-se de decretar o vencimento antecipado das Notas Comerciais em razão do descumprimento das obriga |
 | 2025-06-30 | Ata/Edital 935484 | vencimento_antecipado; waiver; prorrogacao_repactuacao; troca_prestador | aprovada |  | ão de waiver à CRL SPE I no sentido de a Securitizadora abster-se de decretar o vencimento antecipado das Notas Comerciais em razão do descumprimento das obriga |
 
+### 24E2495042
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2025-02-27 | Ata/Edital 849722 | prorrogacao_repactuacao | sem decisao identificada |  | nte data (inclusive) (“Nova Remuneração da CCB 1 e dos CRI Seniores”); e (ii) A alteração do Cronograma de Pagamentos dos CRI 1ª Série, previsto no Anexo I ao T |
+| 2025-02-28 | Ata/Edital 851322 | vencimento_antecipado; prorrogacao_repactuacao; inadimplencia_devedor; resgate_amortizacao | sem decisao identificada | 2ª convocação | ive) até a data de pagamento da Remuneração em questão ou data de pagamento por vencimento antecipado em decorrência de um Evento de Inadimplemento, o que ocorr |
+| 2025-09-29 | Ata/Edital 1001321 | prorrogacao_repactuacao | sem decisao identificada |  | LEVERAGE COMPANHIA SECURITIZADORA REALIZADA EM 29 DE SETEMBRO DE 2025, ÀS 17H00 NOVO CRONOGRAMA DE PAGAMENTOS DOS CRI 1ª SÉRIE 1ª Série Período Data de Pagament |
+| 2025-10-09 | Ata/Edital 1009742 | prorrogacao_repactuacao | rejeitada |  | LEVERAGE COMPANHIA SECURITIZADORA REALIZADA EM 09 DE OUTUBRO DE 2025, ÀS 14H00 NOVO CRONOGRAMA DE PAGAMENTOS DOS CRI 1ª SÉRIE 1ª Série Período Data de Pagamento |
+| 2025-10-14 | Ata/Edital 1013028 | prorrogacao_repactuacao | sem decisao identificada |  | LEVERAGE COMPANHIA SECURITIZADORA REALIZADA EM 29 DE SETEMBRO DE 2025, ÀS 17H00 NOVO CRONOGRAMA DE PAGAMENTOS DOS CRI 1ª SÉRIE 1ª Série Período Data de Pagament |
+| 2025-10-20 | Ata/Edital 1017483 | prorrogacao_repactuacao | rejeitada |  | LEVERAGE COMPANHIA SECURITIZADORA REALIZADA EM 09 DE OUTUBRO DE 2025, ÀS 14H00 NOVO CRONOGRAMA DE PAGAMENTOS DOS CRI 1ª SÉRIE 1ª Série Período Data de Pagamento |
+| 2025-10-20 | Ata/Edital 1017480 | prorrogacao_repactuacao | rejeitada |  | LEVERAGE COMPANHIA SECURITIZADORA REALIZADA EM 09 DE OUTUBRO DE 2025, ÀS 14H00 NOVO CRONOGRAMA DE PAGAMENTOS DOS CRI 1ª SÉRIE 1ª Série Período Data de Pagamento |
+
+### 24E2535171
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2025-06-23 | Ata/Edital 929313 | troca_prestador | aprovada |  | Agente Fiduciário, na data da Assembleia Geral e a partir de seu encerramento (“Substituição do Agente Fiduciário”); e Página 1 de 5 Docusign Envelope ID: 60F42 |
+
 ### 24G2100031
 
 | Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
 |---|---|---|---|---|---|
 | 2024-08-26 | Outro 725619 | prorrogacao_repactuacao |  |  | a Resolução CVM 160. (3) Caso ocorram alterações das circunstâncias, suspensão, prorrogação, revogação ou modificação da Oferta, tal cronograma poderá ser alter |
+
+### 24L2327181
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2026-03-06 | Ata/Edital 1130312 | vencimento_antecipado; prorrogacao_repactuacao; garantias |  |  | 22.610.500/0001-88 (“Agente Fiduciário”). Deliberar sobre: A não declaração do vencimento antecipado dos Créditos Imobiliários e, consequentemente do resgate do |
+| 2026-07-03 | Ata/Edital 1239524 | vencimento_antecipado; prorrogacao_repactuacao; inadimplencia_devedor | sem decisao identificada | lido por OCR | 1D7568-6646-8686-8208-3C38CEC1470A RIZAISEC (# Aprovar a sustacao dos efeitos dovencimento antecipadodas Notas Comerciaise, consequentemente,doresgatedosCRl,nos |
+| 2026-08-06 | Outro 1279180 | prorrogacao_repactuacao |  |  | de Securitização”), comunicar, nos termos do artigo 13 da Resolução CVM 160, a alteração do cronograma da Oferta, conforme divulgado no “Anúncio de Início da Of |
+| 2026-08-10 | Outro 1282078 | prorrogacao_repactuacao |  |  | de Securitização”), comunicar, nos termos do artigo 13 da Resolução CVM 160, a alteração do cronograma da Oferta, conforme divulgado no “Comunicado ao Mercado d |
+
+### 25K3156592
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2026-06-23 | Ata/Edital 1226602 | garantias; resgate_amortizacao | sem decisao identificada |  | composição do Fundos de Despesas, caso a Devedora tenha sido notificada sobre o desenquadramento do Valor Mínimo do Fundo de Despesas, e não tenham realizado a  |
+| 2026-06-30 | Ata/Edital 1234874 | garantias; resgate_amortizacao | sem decisao identificada |  | composição do Fundos de Despesas, caso a Devedora tenha sido notificada sobre o desenquadramento do Valor Mínimo do Fundo de Despesas, e não tenham realizado a  |
+
+### 25L3279335
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2026-10-09 | Ata/Edital 1344359 | garantias; liquidacao_patrimonio; resgate_amortizacao | aprovada |  | m após a satisfação dos demais itens da Cascata de Pagamentos.” “4.21.1. Caso a Razão de Garantia (adiante definida) esteja atingida e inferior a 170% (cento e  |
 
 ### CRA019003V3
 
@@ -367,6 +580,20 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 2026-06-08 | Ata/Edital 1214398 | inadimplencia_devedor |  | 2ª convocação | aprovou(aram) os termos e condições econômico-financeiras propostos no Plano de Recuperação Extrajudicial, divulgada pela Emissora em seu website (www.opea.com. |
 | 2026-06-08 | Fato Relevante 1213459 | inadimplencia_devedor |  |  | nuidade às informações previamente divulgadas pela Emissora acerca do pedido de Recuperação Extrajudicial formulado pela Raízen Energia S.A. (“Devedora”) e dema |
 | 2026-07-14 | Ata/Edital 1246615 | vencimento_antecipado; inadimplencia_devedor |  | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (iv), do item (c) da Clá |
+
+### CRA02000130
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-12-20 | Ata/Edital 806181 | prorrogacao_repactuacao |  |  | e 40 Página 11 de 40 Página 12 de 40 Página 13 de 40 Página 14 de 40 ANEXO II-A NOVO CRONOGRAMA DE PAGAMENTOS DAS CPR E DOS CRA, SE APROVADO O ITEM (I) DA ORDEM |
+| 2025-01-10 | Ata/Edital 816797 | prorrogacao_repactuacao | aprovada |  | e 42 Página 13 de 42 Página 14 de 42 Página 15 de 42 Página 16 de 42 ANEXO II-A NOVO CRONOGRAMA DE PAGAMENTOS DAS CPR E DOS CRA, SE APROVADO O ITEM (I) DA ORDEM |
+| 2025-01-15 | Ata/Edital 819968 | prorrogacao_repactuacao | aprovada |  | d6762 Página 21 de 47 Clicksign 7e16f185-5d87-4496-83df-734a803d6762 ANEXO II-A NOVO CRONOGRAMA DE PAGAMENTOS DAS CPR E DOS CRA, SE APROVADO O ITEM (I) DA ORDEM |
+| 2025-10-07 | Ata/Edital 1008070 | troca_prestador |  |  | uciário e de Custodiante, na data da Assembleia e a partir de seu encerramento(“Substituição do Agente Fiduciário e Custodiante”); (iii) aprovação, ou não, da a |
+| 2025-10-28 | Ata/Edital 1022772 | troca_prestador | nao instalada | não instalada, 2ª convocação | ciário e de Custodiante, na data da Assembleia e a partir de seu encerramento (“Substituição do Agente Fiduciário e Custodiante”); e (iii) a autorização ou não  |
+| 2025-10-30 | Ata/Edital 1024648 | troca_prestador |  | 2ª convocação | uciário e de Custodiante, na data da Assembleia e a partir de seu encerramento(“Substituição do Agente Fiduciário e Custodiante”); (iii) aprovação, ou não, da a |
+| 2025-11-05 | Ata/Edital 1028797 | troca_prestador | nao instalada | não instalada, 2ª convocação | ciário e de Custodiante, na data da Assembleia e a partir de seu encerramento (“Substituição do Agente Fiduciário e Custodiante”); e (iii) a autorização ou não  |
+| 2025-11-19 | Ata/Edital 1044826 | troca_prestador | aprovada | 2ª convocação | ciário e de Custodiante, na data da Assembleia e a partir de seu encerramento (“Substituição do Agente Fiduciário e Custodiante”); (iii) aprovação, ou não, da a |
+| 2025-11-25 | Ata/Edital 1046311 | troca_prestador |  | 2ª convocação, lido por OCR | , 55% (cinquenta e cinco por cento) a favor e 0% (zero) de abstencao: Aprovar a Substituicao do Agente Fiduciario e Custodiante; (iii) Por 1oo% (cem por cento)  |
 
 ### CRA020001P7
 
@@ -422,6 +649,45 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 2025-08-28 | Ata/Edital 979205 | resgate_amortizacao |  | 2ª convocação | do Fundo de Reserva em 18 de agosto de 2025 (“Data Base”), para a realização de Amortização Extraordinária Facultativa das Debêntures da 2ª Série e, consequente |
 | 2025-09-02 | Ata/Edital 982341 | resgate_amortizacao |  | 2ª convocação | do Fundo de Reserva em 18 de agosto de 2025 (“Data Base”), para a realização de Amortização Extraordinária Facultativa das Debêntures da 2ª Série e, consequente |
 | 2025-09-18 | Ata/Edital 994076 | inadimplencia_devedor; resgate_amortizacao | aprovada |  | cusign Envelope ID: 16C48983-212A-4D2C-8268-3DB6652535E6 posteriores em caso de inadimplemento da Devedora, bem como, os riscos operacionais para a efetivação d |
+
+### CRA022001JL
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-05-08 | Ata/Edital 654774 | liquidacao_patrimonio; resgate_amortizacao |  |  | or nominal unitário dos CRA Sênior na data de vencimento; e (iv) na hipótese de liquidação do Patrimônio Separado, não havendo qualquer tipo de preferência, pri |
+| 2024-05-29 | Ata/Edital 671375 | liquidacao_patrimonio; resgate_amortizacao |  | 2ª convocação | or nominal unitário dos CRA Sênior na data de vencimento; e (iv) na hipótese de liquidação do Patrimônio Separado, não havendo qualquer tipo de preferência, pri |
+| 2025-02-17 | Ata/Edital 843348 | liquidacao_patrimonio; resgate_amortizacao |  | 2ª convocação | or nominal unitário dos CRA Sênior na data de vencimento; e (iv) na hipótese de liquidação do Patrimônio Separado, não havendo qualquer tipo de preferência, pri |
+| 2025-02-27 | Ata/Edital 848577 | waiver |  |  | 60”), a ordem do dia da Assembleia, a seguir exposta: i. aprovar a concessão de anuência prévia para o eventual descumprimento do item (xxvi), da Cláusula 8.3 d |
+| 2025-02-27 | Ata/Edital 848575 | waiver |  |  | rio, para deliberarem sobre a seguinte Ordem do Dia: (i) aprovar a concessão de anuência prévia para o eventual descumprimento do item (xxvi), da Cláusula 8.3 d |
+| 2025-03-19 | Ata/Edital 861894 | waiver | sem decisao identificada |  | anna Luiza Batista. 5. ORDEM DO DIA: Deliberar sobre: i. aprovar a concessão de anuência prévia para o eventual descumprimento do item (xxvi), da Cláusula 8.3 d |
+| 2025-03-27 | Ata/Edital 866605 | waiver | aprovada |  | anna Luiza Batista. 5. ORDEM DO DIA: Deliberar sobre: i. aprovar a concessão de anuência prévia para o eventual descumprimento do item (xxvi), da Cláusula 8.3 d |
+| 2025-11-27 | Fato Relevante 1048982 | vencimento_antecipado; inadimplencia_devedor |  |  | uer impacto direto sobre os CRA, especialmente no que se refere à decretação de vencimento antecipado automático. Não obstante, considerando que na data de hoje |
+| 2025-12-01 | Fato Relevante 1051849 | inadimplencia_devedor; liquidacao_patrimonio |  |  | CETIP CRA022001JL e CRA022001P5 que, transcorrido o prazo de cura, em razão do inadimplemento, pela Devedora, da parcela da Cédula de Produto Rural Financeira n |
+| 2025-12-03 | Ata/Edital 1052881 | waiver; prorrogacao_repactuacao; inadimplencia_devedor |  |  | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2025-12-16 | Outro 1064665 | waiver; prorrogacao_repactuacao; inadimplencia_devedor |  |  | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2025-12-23 | Ata/Edital 1068565 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | nao instalada | não instalada | e 2025 ("Inadimplemento da CPR-Financeira"); ii. deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelo |
+| 2026-01-06 | Ata/Edital 1075553 | waiver; prorrogacao_repactuacao; inadimplencia_devedor |  | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-01-07 | Ata/Edital 1076509 | waiver; prorrogacao_repactuacao; inadimplencia_devedor |  | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-01-14 | Ata/Edital 1082450 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | e 2025 ("Inadimplemento da CPR-Financeira"); ii. deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelo |
+| 2026-01-29 | Ata/Edital 1095800 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | e 2025 ("Inadimplemento da CPR-Financeira"); ii. deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelo |
+| 2026-02-05 | Ata/Edital 1102877 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | e 2025 ("Inadimplemento da CPR-Financeira"); ii. deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelo |
+| 2026-02-11 | Ata/Edital 1108628 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | e 2025 ("Inadimplemento da CPR-Financeira"); ii. deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelo |
+| 2026-02-23 | Ata/Edital 1119591 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | e 2025 ("Inadimplemento da CPR-Financeira"); ii. deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelo |
+| 2026-03-12 | Ata/Edital 1134679 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | e 2025 ("Inadimplemento da CPR-Financeira"); ii. deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelo |
+| 2026-04-07 | Ata/Edital 1155557 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | e 2025 ("Inadimplemento da CPR-Financeira"); ii. deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelo |
+| 2026-04-22 | Ata/Edital 1167506 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | e 2025 ("Inadimplemento da CPR-Financeira"); ii. deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelo |
+| 2026-05-06 | Ata/Edital 1181219 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | e 2025 ("Inadimplemento da CPR-Financeira"); ii. deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelo |
+| 2026-06-02 | Ata/Edital 1210454 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-06-11 | Ata/Edital 1217906 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-06-30 | Ata/Edital 1234244 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-07-27 | Ata/Edital 1264789 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-07-31 | Ata/Edital 1272078 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-08-14 | Ata/Edital 1293354 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-09-04 | Ata/Edital 1310413 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-09-18 | Ata/Edital 1324000 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-10-02 | Ata/Edital 1338991 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-10-09 | Ata/Edital 1344831 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
+| 2026-10-16 | Ata/Edital 1353631 | waiver; prorrogacao_repactuacao; inadimplencia_devedor | suspensa | 2ª convocação | 2025 ("Inadimplemento da CPR-Financeira"); (ii) deliberar sobre a concessão de waiver em razão do não cumprimento, pela Devedora, dos prazos estabelecidos pelos |
 
 ### CRA022007VI
 
@@ -479,6 +745,37 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 2026-10-13 | Ata/Edital 1347896 | vencimento_antecipado; prorrogacao_repactuacao; resgate_amortizacao | suspensa |  | uiza Batista. 5. ORDEM DO DIA: Deliberar sobre: (i) aprovar a não declaração do vencimento antecipado do “Certificado de Direitos Creditórios do Agronegócio – C |
 | 2026-10-22 | Ata/Edital 1356936 | vencimento_antecipado; prorrogacao_repactuacao; resgate_amortizacao | suspensa |  | elo Lazareth. 5. ORDEM DO DIA: Deliberar sobre: (i) aprovar a não declaração do vencimento antecipado do “Certificado de Direitos Creditórios do Agronegócio – C |
 | 2026-10-29 | Ata/Edital 1362792 | vencimento_antecipado; prorrogacao_repactuacao; resgate_amortizacao | aprovada |  | uiza Batista. 5. ORDEM DO DIA: Deliberar sobre: (i) aprovar a não declaração do vencimento antecipado do “Certificado de Direitos Creditórios do Agronegócio – C |
+
+### CRA022008NB
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-07-01 | Ata/Edital 690079 | resgate_amortizacao | aprovada | não instalada | pação do pagamento dos créditos do agronegócio pelos devedores da operação, por amortização extraordinária ou regaste antecipado conforme previsto no termo de s |
+| 2026-03-12 | Fato Relevante 1135159 | vencimento_antecipado; inadimplencia_devedor; liquidacao_patrimonio; resgate_amortizacao |  |  | / A propositura pela Devedora da Recuperação Extrajudicial, configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-03-13 | Fato Relevante 1137850 | vencimento_antecipado; inadimplencia_devedor |  |  | nte divulgado em 12 de março de 2026 e considerando a configuração do Evento de Vencimento Antecipado Automático dos CRA, decorrente da Recuperação Extrajudicia |
+| 2026-03-13 | Fato Relevante 1137798 | vencimento_antecipado; inadimplencia_devedor |  |  | / A propositura pela Devedora da Recuperação Extrajudicial, configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-03-20 | Fato Relevante 1141708 | vencimento_antecipado; inadimplencia_devedor |  |  | o de 2026 e 13 de março de 2026, como consequência da configuração do Evento de Vencimento Antecipado Automático dos CRA, decorrente da Recuperação Extrajudicia |
+| 2026-04-06 | Ata/Edital 1155008 | vencimento_antecipado; inadimplencia_devedor |  |  | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-04-06 | Ata/Edital 1155007 | vencimento_antecipado; inadimplencia_devedor |  |  | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-04-23 | Ata/Edital 1168259 | vencimento_antecipado; inadimplencia_devedor |  |  | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-04-28 | Ata/Edital 1171819 | vencimento_antecipado; inadimplencia_devedor |  |  | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-04-30 | Ata/Edital 1175913 | vencimento_antecipado; inadimplencia_devedor |  |  | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-05-07 | Ata/Edital 1181688 | vencimento_antecipado; inadimplencia_devedor | nao instalada | não instalada | o Extrajudicial”); 2) O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-05-08 | Ata/Edital 1183570 | vencimento_antecipado; inadimplencia_devedor | nao instalada | lido por OCR | dicial"); Assinador 2)O pedido de Recuperacao Extrajudicial configura Evento de Vencimento Antecipado Automatico,nostermos do subitem (d),do item (ii) da Clausu |
+| 2026-05-18 | Ata/Edital 1198015 | vencimento_antecipado; inadimplencia_devedor |  | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-05-18 | Ata/Edital 1198014 | vencimento_antecipado; inadimplencia_devedor |  | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-05-28 | Fato Relevante 1206855 | inadimplencia_devedor |  |  | continuidade às informações já divulgadas pela Emissora a respeito do pedido de Recuperação Extrajudicial requerido pela Raízen Energia S.A. (“Devedora”) e dema |
+| 2026-05-28 | Ata/Edital 1206602 | vencimento_antecipado; inadimplencia_devedor |  | 2ª convocação | o Extrajudicial”); 2. O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-05-29 | Fato Relevante 1208231 | inadimplencia_devedor |  |  | continuidade às informações já divulgadas pela Emissora a respeito do pedido de Recuperação Extrajudicial requerido pela Raízen Energia S.A. (“Devedora”) e dema |
+| 2026-06-01 | Ata/Edital 1209202 | vencimento_antecipado; inadimplencia_devedor |  | 2ª convocação | o Extrajudicial”); 2) O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-06-03 | Ata/Edital 1212229 | inadimplencia_devedor | sem decisao identificada | 2ª convocação | a e em defesa dos interesses e para proteção dos Titulares de CRA, no âmbito da Recuperação Extrajudicial, recursos ou processos relacionados, os quais serão de |
+| 2026-06-03 | Fato Relevante 1211573 | inadimplencia_devedor |  |  | nuidade às informações previamente divulgadas pela Emissora acerca do pedido de Recuperação Extrajudicial formulado pela Raízen Energia S.A. (“Devedora”) e dema |
+| 2026-06-08 | Ata/Edital 1214399 | inadimplencia_devedor | sem decisao identificada | 2ª convocação | provou(aram) os termos e condições econômico- financeiras propostos no Plano de Recuperação Extrajudicial, divulgada pela Emissora em seu website (www.opea.com. |
+| 2026-06-08 | Fato Relevante 1213464 | inadimplencia_devedor |  |  | nuidade às informações previamente divulgadas pela Emissora acerca do pedido de Recuperação Extrajudicial formulado pela Raízen Energia S.A. (“Devedora”) e dema |
+| 2026-06-15 | Ata/Edital 1221896 | inadimplencia_devedor | nao instalada | 2ª convocação, lido por OCR | to relevante em 11 de marcode 2026,informandoacercado ajuizamentode seu pedidoderecuperacao extrajudicial,autosn°4037759-13.2026.8.26.0100,emtramiteperantea3aVa |
+| 2026-06-22 | Ata/Edital 1225381 | vencimento_antecipado; inadimplencia_devedor | nao instalada | não instalada, 2ª convocação | o Extrajudicial”); 2) O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-07-15 | Ata/Edital 1249729 | vencimento_antecipado; inadimplencia_devedor |  | 2ª convocação | o Extrajudicial”). 2) O pedido de Recuperação Extrajudicial configura Evento de Vencimento Antecipado Automático, nos termos do subitem (d), do item (iii) da Cl |
+| 2026-08-05 | Ata/Edital 1277497 | inadimplencia_devedor |  |  | a e em defesa dos interesses e para proteção dos Titulares de CRA, no âmbito da Recuperação Extrajudicial, recursos ou processos relacionados, os quais serão de |
 
 ### CRA022009C1F
 
@@ -555,6 +852,20 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 2026-05-15 | Ata/Edital 1194480 | vencimento_antecipado; waiver; resgate_amortizacao | aprovada | 2ª convocação | epresentativos de 73,87% dos CRA em Circulação, ratificaram a não declaração do vencimento antecipado do CDCA e, consequentemente, a não realização do resgate a |
 | 2026-10-23 | Outro 1358128 | resgate_amortizacao |  |  | ”), comunicação informando o interesse em realizar, em 28 de outubro de 2026, o Resgate Antecipado Facultativo Total do CDCA, nos termos da Cláusula 6.3, cujo v |
 
+### CRA023000040H
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-06-10 | Fato Relevante 676846 | vencimento_antecipado |  |  | eitos dos titulares dos CRAs. Por fim, informamos que ainda não foi declarado o vencimento antecipado do lastro dos CRAs, o que será objeto de deliberação em As |
+| 2024-06-19 | Ata/Edital 683404 | vencimento_antecipado | sem decisao identificada |  | Termo de Securitização. 6. ORDEM DO DIA: Deliberar sobre: (I) A ratificação do vencimento antecipado automático das Notas Comerciais nos termos do item (i) da C |
+| 2024-06-20 | Ata/Edital 683610 | vencimento_antecipado | sem decisao identificada |  | Termo de Securitização. 6. ORDEM DO DIA: Deliberar sobre: (I) A ratificação do vencimento antecipado automático das Notas Comerciais nos termos do item (i) da C |
+| 2024-07-04 | Ata/Edital 692369 | vencimento_antecipado | aprovada |  | stratégia a ser adotada pela Emissora para recuperação do crédito decorrente do vencimento antecipado do “Termo de Emissão da 1ª (Primeira) Emissão de Notas Com |
+| 2024-11-19 | Ata/Edital 784610 | vencimento_antecipado |  |  | olvidos: Em 20 de junho de 2024 a devedora foi notificada sobre a declaração do vencimento antecipado das Notas Comerciais, conforme previsto nas cláusulas 6.1. |
+| 2024-12-09 | Ata/Edital 796712 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | oteção dos direitos e interesses dos Titulares dos CRA, diante da declaração do vencimento antecipado das obrigações objeto do Termo de Securitização; Os Titula |
+| 2025-09-01 | Ata/Edital 982073 | liquidacao_patrimonio | aprovada |  | : Deliberar sobre: i. Aporte de capital por parte dos investidores, em razão da insuficiência de recursos no Patrimônio Separado, no montante de R$ 500.000,00 ( |
+| 2026-01-06 | Ata/Edital 1076223 | prorrogacao_repactuacao; inadimplencia_devedor |  | 2ª convocação | seja aprovado, a Securitizadora também estará autorizada a formalizar eventual repactuação diretamente com as Recuperandas na qualidade de credora extraconcursa |
+| 2026-09-29 | Ata/Edital 1333161 | vencimento_antecipado; liquidacao_patrimonio | aprovada |  | sentando 100% (cem por cento) dos CRA em Circulação aprovaram não declaração do vencimento antecipado do Termo de , conforme disposto no item (iii) Cláusula 6.1 |
+
 ### CRA0230005N
 
 | Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
@@ -591,6 +902,32 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 2024-04-24 | Ata/Edital 644175 | vencimento_antecipado; inadimplencia_devedor; resgate_amortizacao | sem decisao identificada |  | a Regina Martins Ribeiro. 5. ORDEM DO DIA: Deliberar sobre: (i) A declaração do vencimento antecipado automático da “Cédula de Produto Rural com Liquidação Fina |
 | 2024-04-26 | Ata/Edital 646280 | resgate_amortizacao | sem decisao identificada |  | tes de que as aprovações ora deliberadas e descritas acima: (i) não ocasionam a amortização extraordinária dos CRA e/ou de qualquer obrigação assumida nos termo |
 | 2024-07-08 | Ata/Edital 694164 | prorrogacao_repactuacao; inadimplencia_devedor | sem decisao identificada |  | a substituí-lo, caso a vigência seja superior a 12 (doze) meses e não haja nova repactuação de serviços e honorários. Cláusula 11ª. A qualquer tempo, de comum a |
+
+### CRA0230018I
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-03-25 | Ata/Edital 625571 | vencimento_antecipado; waiver; garantias; resgate_amortizacao |  |  | o e vinte) dias, a contar da data da aprovação em AGT, para a não declaração do Vencimento Antecipado Não Automático da CPR-F e, consequentemente a não realizaç |
+| 2024-04-01 | Ata/Edital 631745 | vencimento_antecipado; waiver; garantias; resgate_amortizacao |  | 2ª convocação | o e vinte) dias, a contar da data da aprovação em AGT, para a não declaração do Vencimento Antecipado Não Automático da CPR-F e, consequentemente a não realizaç |
+| 2024-04-16 | Ata/Edital 641271 | vencimento_antecipado; waiver; garantias; resgate_amortizacao |  |  | o e vinte) dias, a contar da data da aprovação em AGT, para a não declaração do Vencimento Antecipado Não Automático da CPR-F e, consequentemente a não realizaç |
+| 2024-04-19 | Ata/Edital 642589 | vencimento_antecipado; waiver; garantias; resgate_amortizacao | nao instalada | não instalada | o e vinte) dias, a contar da data da aprovação em AGT, para a não declaração do Vencimento Antecipado Não Automático da CPR-F e, consequentemente a não realizaç |
+| 2024-04-22 | Ata/Edital 643081 | vencimento_antecipado; waiver; garantias; resgate_amortizacao | aprovada | 2ª convocação | o e vinte) dias, a contar da data da aprovação em AGT, para a não declaração do Vencimento Antecipado Não Automático da CPR-F e, consequentemente a não realizaç |
+| 2024-09-04 | Ata/Edital 731732 | vencimento_antecipado; waiver; prorrogacao_repactuacao; garantias; inadimplencia_devedor; resgate_amortizacao | sem decisao identificada |  | escumprimento será verificado na data da AGT, aprovar a sustação dos efeitos do vencimento antecipado automático da CPF- R (conforme abaixo definida) e, consequ |
+| 2024-09-25 | Ata/Edital 743846 | vencimento_antecipado; waiver; prorrogacao_repactuacao; garantias; inadimplencia_devedor; resgate_amortizacao | sem decisao identificada | 2ª convocação | escumprimento será verificado na data da AGT, aprovar a sustação dos efeitos do vencimento antecipado automático da CPF- R (conforme abaixo definida) e, consequ |
+| 2024-09-25 | Ata/Edital 743828 | vencimento_antecipado; waiver; prorrogacao_repactuacao; garantias; inadimplencia_devedor; resgate_amortizacao |  | não instalada, 2ª convocação | escumprimento será verificado na data da AGT, aprovar a sustação dos efeitos do vencimento antecipado automático da CPR-F (conforme abaixo definida) e, conseque |
+| 2024-09-27 | Ata/Edital 747018 | vencimento_antecipado; waiver; prorrogacao_repactuacao; garantias; inadimplencia_devedor; resgate_amortizacao |  | 2ª convocação | escumprimento será verificado na data da AGT, aprovar a sustação dos efeitos do vencimento antecipado automático da CPF- R (conforme abaixo definida) e, consequ |
+| 2024-10-18 | Ata/Edital 761274 | vencimento_antecipado; waiver; prorrogacao_repactuacao; garantias; inadimplencia_devedor; resgate_amortizacao | aprovada |  | escumprimento será verificado na data da AGT, aprovar a sustação dos efeitos do vencimento antecipado automático da CPF-R (conforme abaixo definida) e, conseque |
+| 2025-02-17 | Outro 842530 | vencimento_antecipado |  |  | (“AGT 2024.10.18”). Ocorre que, os referidos descumprimentos ensejam Eventos de Vencimento Antecipado Automático, conforme disposto na Cláusula 8.1 da Cédula de |
+| 2025-02-20 | Ata/Edital 845774 | vencimento_antecipado; resgate_amortizacao |  |  | s pecuniárias e não pecuniárias pendentes, aprovar que seja declarado Evento de Vencimento Antecipado e, consequentemente, a realização do Resgate Antecipado Ob |
+| 2025-02-24 | Fato Relevante 847208 | vencimento_antecipado |  |  | té a presente data. Ocorre que, os referidos descumprimentos ensejam Eventos de Vencimento Antecipado Automático, conforme disposto na Cláusula 8.1 da CPR-F, o  |
+| 2025-03-12 | Ata/Edital 856612 | vencimento_antecipado; resgate_amortizacao | nao instalada | não instalada, 2ª convocação | s pecuniárias e não pecuniárias pendentes, aprovar que seja declarado Evento de Vencimento Antecipado e, consequentemente, a realização do Resgate Antecipado Ob |
+| 2025-03-21 | Ata/Edital 862801 | vencimento_antecipado; resgate_amortizacao |  | 2ª convocação | s pecuniárias e não pecuniárias pendentes, aprovar que seja declarado Evento de Vencimento Antecipado e, consequentemente, a realização do Resgate Antecipado Ob |
+| 2025-05-20 | Fato Relevante 909214 | vencimento_antecipado |  | 2ª convocação | Emissão Da Emissora realizada na presente data, restou configurado o Evento de Vencimento Antecipado Automático, conforme disposto na Cláusula 8.1 da CPR-F, o q |
+| 2025-05-20 | Ata/Edital 909116 | vencimento_antecipado; resgate_amortizacao |  | 2ª convocação | s pecuniárias e não pecuniárias pendentes, aprovar que seja declarado Evento de Vencimento Antecipado e, consequentemente, a realização do Resgate Antecipado Ob |
+| 2025-09-10 | Ata/Edital 987600 | inadimplencia_devedor |  | não instalada, 2ª convocação | o lastro dos CRA e das garantias a eles relacionadas no contexto do processo de recuperação judicial autuado sob o nº 1002602-64.2025.8.11.0041, em trâmite na 1 |
+| 2025-09-30 | Ata/Edital 1002412 | inadimplencia_devedor | nao instalada | não instalada, 2ª convocação | o lastro dos CRA e das garantias a eles relacionadas no contexto do processo de recuperação judicial autuado sob o nº 1002602-64.2025.8.11.0041, em trâmite na 1 |
+| 2025-10-01 | Ata/Edital 1003956 | inadimplencia_devedor |  | não instalada, 2ª convocação | o lastro dos CRA e das garantias a eles relacionadas no contexto do processo de recuperação judicial autuado sob o nº 1002602-64.2025.8.11.0041, em trâmite na 1 |
+| 2025-10-28 | Ata/Edital 1022780 | inadimplencia_devedor | aprovada | 2ª convocação | o lastro dos CRA e das garantias a eles relacionadas no contexto do processo de recuperação judicial autuado sob o nº 1002602-64.2025.8.11.0041, em trâmite na 1 |
 
 ### CRA02300JR5
 
@@ -652,6 +989,178 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 2026-06-01 | Ata/Edital 1209957 | inadimplencia_devedor |  | 2ª convocação | rocessos que envolvam excussão das garantias, execução de valores inadimplidos, recuperação judicial ou extrajudicial e requerimento de antecipação de efeitos d |
 | 2026-06-09 | Ata/Edital 1215243 | inadimplencia_devedor | aprovada |  | rocessos que envolvam excussão das garantias, execução de valores inadimplidos, recuperação judicial ou extrajudicial e requerimento de antecipação de efeitos d |
 
+### CRA02300VY3
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2025-06-23 | Ata/Edital 929525 | vencimento_antecipado; waiver; prorrogacao_repactuacao; garantias | aprovada |  | (i) Aprovar a concessão de Waiver prévio, a fim de não configurar um Evento de Vencimento Antecipado, conforme descrito na Cláusula 7.3. do Termo de Securitizaç |
+| 2025-09-09 | Ata/Edital 987138 | vencimento_antecipado; waiver; prorrogacao_repactuacao; inadimplencia_devedor |  | não instalada, 2ª convocação | er-se iv. Aprovar a concessão de waiver para que não seja configurado Evento de Vencimento Antecipado Não Automático, previsto na Cláusula 8.2, subitem (xx), da |
+| 2025-09-09 | Ata/Edital 987134 | vencimento_antecipado; waiver; prorrogacao_repactuacao; inadimplencia_devedor |  | não instalada, 2ª convocação | er-se iv. Aprovar a concessão de waiver para que não seja configurado Evento de Vencimento Antecipado Não Automático, previsto na Cláusula 8.2, subitem (xx), da |
+| 2025-09-09 | Ata/Edital 986914 | vencimento_antecipado; waiver; prorrogacao_repactuacao; inadimplencia_devedor |  | não instalada, 2ª convocação | er-se iv. Aprovar a concessão de waiver para que não seja configurado Evento de Vencimento Antecipado Não Automático, previsto na Cláusula 8.2, subitem (xx), da |
+| 2025-09-29 | Ata/Edital 1000947 | vencimento_antecipado; waiver; prorrogacao_repactuacao; garantias | aprovada |  | eia; (iv) Aprovar a concessão de waiver para que não seja configurado Evento de Vencimento Antecipado Não Automático, previsto na Cláusula 8.2, subitem (xx), da |
+| 2025-10-06 | Ata/Edital 1006840 | vencimento_antecipado; waiver |  | não instalada, 2ª convocação | rações: i. Aprovar a concessão de waiver para sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), da Cédu |
+| 2025-10-15 | Ata/Edital 1014187 | vencimento_antecipado; waiver; garantias |  | não instalada, 2ª convocação | rações: i. Aprovar a concessão de waiver para sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), da Cédu |
+| 2025-11-04 | Ata/Edital 1027635 | vencimento_antecipado; waiver; garantias | aprovada |  | sobre: (i) Aprovar a concessão de waiver para sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), da Cédu |
+| 2025-12-22 | Ata/Edital 1067693 | vencimento_antecipado; waiver; prorrogacao_repactuacao; inadimplencia_devedor | aprovada |  | a, aplicação de penalidades, encargos adicionais ou caracterização de Evento de Vencimento Antecipado, conforme previsto no Termo de Securitização e nos Anexos  |
+| 2026-01-05 | Ata/Edital 1075112 | vencimento_antecipado; waiver; prorrogacao_repactuacao; inadimplencia_devedor | sem decisao identificada |  | a, aplicação de penalidades, encargos adicionais ou caracterização de Evento de Vencimento Antecipado, conforme previsto no Termo de Securitização e nos Anexos  |
+| 2026-01-05 | Fato Relevante 1074845 | inadimplencia_devedor |  |  | termos da legislação e regulamentação aplicáveis, informar que foi identificado inadimplemento de obrigação pecuniária, em razão do não pagamento da parcela da  |
+| 2026-01-07 | Ata/Edital 1076596 | vencimento_antecipado; inadimplencia_devedor |  | não instalada | rusteedtvm.com.br. Deliberações: i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR |
+| 2026-01-20 | Ata/Edital 1088474 | vencimento_antecipado; waiver; prorrogacao_repactuacao; inadimplencia_devedor | aprovada |  | a, aplicação de penalidades, encargos adicionais ou caracterização de Evento de Vencimento Antecipado, conforme previsto no Termo de Securitização e nos Anexos  |
+| 2026-01-27 | Ata/Edital 1093795 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-02-02 | Ata/Edital 1099388 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-02-09 | Ata/Edital 1105548 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-02-10 | Ata/Edital 1107012 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-02-10 | Ata/Edital 1106975 | vencimento_antecipado; waiver; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-02-18 | Ata/Edital 1117259 | inadimplencia_devedor |  |  | ão ingressou lecer políticas públicas e modelos da Papuda, em Brasília. ciais e Falências de São José do ça necessária para manter o com pedido de recuperação j |
+| 2026-02-27 | Fato Relevante 1124563 | inadimplencia_devedor |  |  | termos da legislação e regulamentação aplicáveis, informar que foi identificado inadimplemento de obrigação pecuniária, em razão do não pagamento da parcela da  |
+| 2026-03-10 | Ata/Edital 1132006 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-03-11 | Ata/Edital 1133366 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-03-20 | Ata/Edital 1141528 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-03-27 | Ata/Edital 1147080 | vencimento_antecipado; waiver; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-04-08 | Ata/Edital 1156883 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-04-08 | Ata/Edital 1156852 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-04-15 | Ata/Edital 1163753 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-04-22 | Ata/Edital 1167233 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-05-04 | Ata/Edital 1179168 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-05-05 | Ata/Edital 1179711 | vencimento_antecipado; waiver; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-05-12 | Ata/Edital 1186882 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-05-19 | Ata/Edital 1199418 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-05-26 | Ata/Edital 1204176 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-06-02 | Ata/Edital 1210813 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-06-02 | Ata/Edital 1210805 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-06-10 | Ata/Edital 1216344 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-06-26 | Ata/Edital 1230693 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-06-26 | Ata/Edital 1230690 | vencimento_antecipado | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-07-01 | Ata/Edital 1236739 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-07-06 | Ata/Edital 1240401 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-07-14 | Ata/Edital 1247635 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-07-20 | Ata/Edital 1260203 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-07-27 | Ata/Edital 1265269 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-08-04 | Ata/Edital 1275530 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-08-17 | Ata/Edital 1295122 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-09-11 | Ata/Edital 1316255 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-09-11 | Ata/Edital 1316253 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-09-11 | Ata/Edital 1316251 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-09-11 | Ata/Edital 1316250 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+| 2026-09-18 | Ata/Edital 1324048 | vencimento_antecipado; waiver; garantias | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1, subitem (i), das CPR- |
+
+### CRA024000GP
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-02-29 | Outro 612807 | prorrogacao_repactuacao |  |  | poderá ser alterado. (2) Caso ocorram alterações das circunstâncias, suspensão, prorrogação, revogação ou modificação da Oferta, tal cronograma poderá ser alter |
+| 2025-07-31 | Ata/Edital 957387 | vencimento_antecipado; waiver |  | 2ª convocação | 25 e 2026, de modo a afastar previamente a eventual caracterização de Evento de Vencimento Antecipado Não Automático previsto na Cláusula 7.4.2, inciso (xxiv),  |
+| 2025-07-31 | Ata/Edital 957381 | vencimento_antecipado; waiver |  |  | 25 e 2026, de modo a afastar previamente a eventual caracterização de Evento de Vencimento Antecipado Não Automático previsto na Cláusula 7.4.2, inciso (xxiv),  |
+| 2025-08-21 | Ata/Edital 975858 | vencimento_antecipado; waiver |  |  | 25 e 2026, de modo a afastar previamente a eventual caracterização de Evento de Vencimento Antecipado Não Automático previsto na Cláusula 7.4.2, inciso (xxiv),  |
+| 2025-08-26 | Ata/Edital 977699 | waiver | aprovada | lido por OCR | io(a):JoséRoberto Del'AgnoloMazer. 5. ORDEMDODIA:deliberarsobre: renunciaprévia(waiver)emrelacaoaeventualdescumprimento,pela Devedora, da obrigacao nao pecuniar |
+
+### CRA024002S4
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-05-10 | Ata/Edital 657136 | vencimento_antecipado; inadimplencia_devedor; resgate_amortizacao | aprovada |  | s aprovações ora deliberadas e descritas acima: (i) não ensejam a declaração de vencimento antecipado da CPR-F, do Termo de Securitização e dos demais Documento |
+| 2024-07-23 | Ata/Edital 702958 | prorrogacao_repactuacao |  | 2ª convocação | utirem e deliberarem sobre as seguintes matérias da ordem do dia: (i) Aprovar a alteração do cronograma de pagamento das CPR-F e CPR-F 02 (conforme definido no  |
+| 2024-07-26 | Ata/Edital 704772 | prorrogacao_repactuacao |  | 2ª convocação | utirem e deliberarem sobre as seguintes matérias da ordem do dia: (i) Aprovar a alteração do cronograma de pagamento das CPR-F e CPR-F 02 (conforme definido no  |
+| 2024-08-15 | Ata/Edital 720130 | prorrogacao_repactuacao | sem decisao identificada |  | curitização”, respectivamente). 4. ORDEM DO DIA: Deliberar sobre: (i) Aprovar a alteração do cronograma de pagamento das CPR-F e CPR-F 02 (conforme definido no  |
+| 2024-10-01 | Outro 750316 | inadimplencia_devedor |  |  | issão, ajuizou ação de Recuperação de Crédito, apresentada na 1 ª Vara Cível de Falências e Recuperações Judiciais da Comarca de Gurupi, processo nº 0012084- 51 |
+| 2024-10-10 | Ata/Edital 755313 | vencimento_antecipado; inadimplencia_devedor |  | 2ª convocação | nhado para af.assembleias@oliveiratrust.com.br Deliberações: i. Declarar ou não Vencimento Antecipado da Operação, nos termos das Cláusulas 4.17.1, (iv), do Ter |
+| 2024-10-30 | Ata/Edital 768611 | vencimento_antecipado; inadimplencia_devedor | nao instalada | não instalada | - São Paulo/ SP - 04538-001 www.canalsecuritizadora.com.br (i) Declarar ou não Vencimento Antecipado da Operação, nos termos das Cláusulas 4.17.1, (iv), do Term |
+| 2024-11-05 | Outro 771757 | vencimento_antecipado |  |  | Securitização, não foi efetuado aos investidores, podendo ensejar um evento de vencimento antecipado, nos termos da Cláusula 6.1, subitem (i), da CPR-F, cuja ef |
+| 2024-11-05 | Ata/Edital 771605 | vencimento_antecipado; inadimplencia_devedor; resgate_amortizacao |  | 2ª convocação | nhado para af.assembleias@oliveiratrust.com.br Deliberações: i. Declarar ou não Vencimento Antecipado da Operação, nos termos das Cláusulas 4.17.1, (iv), do Ter |
+| 2024-11-25 | Ata/Edital 786537 | vencimento_antecipado; inadimplencia_devedor; resgate_amortizacao | aprovada |  | zação”, respectivamente). 4. ORDEM DO DIA: Deliberar sobre: (i) Declarar ou não Vencimento Antecipado da Operação, nos termos das Cláusulas 4.17.1, (iv), do Ter |
+| 2025-07-10 | Ata/Edital 943192 | prorrogacao_repactuacao |  |  | o- ga+, lançada no fim de 2024 produção. A linha Irriga+ pos- até 60 meses, sem carência. melhores condições de crédito Imagens divulgadas em redes calizado e p |
+| 2025-12-16 | Ata/Edital 1064260 | troca_prestador |  | 2ª convocação | ao exercício de suas funções no âmbito da presente Emissão, bem como aprovar a substituição da Emissora, pela nova securitizadora, a ser deliberada no momento d |
+| 2026-01-06 | Ata/Edital 1075934 | troca_prestador | sem decisao identificada |  | ao exercício de suas funções no âmbito da presente Emissão, bem como aprovar a substituição da Emissora, pela nova securitizadora, a ser deliberada no momento d |
+| 2026-02-06 | Ata/Edital 1103985 | troca_prestador | sem decisao identificada |  | ao exercício de suas funções no âmbito da presente Emissão, bem como aprovar a substituição da Emissora, pela nova securitizadora, a ser deliberada no momento d |
+| 2026-03-16 | Ata/Edital 1138899 | troca_prestador | sem decisao identificada |  | ao exercício de suas funções no âmbito da presente Emissão, bem como aprovar a substituição da Emissora, pela nova securitizadora, a ser deliberada no momento d |
+| 2026-04-15 | Ata/Edital 1163636 | troca_prestador | sem decisao identificada |  | ao exercício de suas funções no âmbito da presente Emissão, bem como aprovar a substituição da Emissora, pela nova securitizadora, a ser deliberada no momento d |
+
+### CRA024003PF
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-07-09 | Ata/Edital 694543 | vencimento_antecipado | aprovada |  | Contrato de Alienação Fiduciária de Imóvel, sem que seja configurado Evento de Vencimento Antecipado Automático, nos termos da cláusula 12.1, item “(xv)”e 8.1,  |
+| 2024-07-10 | Ata/Edital 695432 | vencimento_antecipado | aprovada |  | Contrato de Alienação Fiduciária de Imóvel, sem que seja configurado Evento de Vencimento Antecipado Automático, nos termos da cláusula 12.1, item “(xv)”e 8.1,  |
+| 2025-03-11 | Ata/Edital 856031 | prorrogacao_repactuacao; remuneracao | aprovada |  | aulo Henrique Resende Coutinho; 5. ORDEM DO DIA: Deliberar sobre: (i) Aprovar a alteração da Data de Vencimento da Cédula de Produto Rural nº 001/2024 (“CPR- F  |
+| 2025-03-13 | Ata/Edital 856997 | prorrogacao_repactuacao; remuneracao | aprovada |  | aulo Henrique Resende Coutinho; 5. ORDEM DO DIA: Deliberar sobre: (i) Aprovar a alteração da Data de Vencimento da Cédula de Produto Rural nº 001/2024 (“CPR- F  |
+| 2026-01-20 | Fato Relevante 1088725 | vencimento_antecipado; inadimplencia_devedor |  |  | tra em segredo de justiça. Em sendo confirmado tal pedido, tal evento configura Vencimento Antecipado Automático da CPR-F 1 (“Evento de Inadimplemento Automátic |
+| 2026-03-20 | Ata/Edital 1141699 | vencimento_antecipado; prorrogacao_repactuacao; inadimplencia_devedor | aprovada |  | 13.5. do Termo de Securitização, para a sustação pela Emissora, dos efeitos do Vencimento Antecipado da Cédula de Produto Rural com Liquidação Financeira nº 001 |
+| 2026-03-23 | Ata/Edital 1142254 | vencimento_antecipado; prorrogacao_repactuacao; inadimplencia_devedor | aprovada |  | 13.5. do Termo de Securitização, para a sustação pela Emissora, dos efeitos do Vencimento Antecipado da Cédula de Produto Rural com Liquidação Financeira nº 001 |
+| 2026-10-19 | Ata/Edital 1354317 | vencimento_antecipado; prorrogacao_repactuacao; inadimplencia_devedor | aprovada |  | la 13.5. do Termo de Securitização, a declaração, pela Emissora, dos efeitos do Vencimento Antecipado da CPR-F 001/2024, ante a configuração do Evento de Vencim |
+
+### CRA024004XT
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-06-10 | Outro 676848 | prorrogacao_repactuacao |  |  | pações sem aviso prévio. Caso ocorram alterações das circunstâncias, suspensão, prorrogação, revogação ou modificação da Oferta, tal cronograma poderá ser alter |
+| 2024-09-24 | Ata/Edital 743403 | resgate_amortizacao |  | 2ª convocação | pação do pagamento dos créditos do agronegócio pelos devedores da operação, por amortização extraordinária ou regaste antecipado conforme previsto no termo de s |
+| 2025-09-23 | Ata/Edital 997183 | vencimento_antecipado | aprovada |  | vados os itens (i) e (ii) da Ordem do Dia, aprovar o afastamento dos efeitos do Vencimento Antecipado das CPR-F, e, consequentemente dos CRA, previstos na Cláus |
+| 2025-09-24 | Ata/Edital 998035 | vencimento_antecipado | aprovada | lido por OCR | (i)e(ii) da Ordem doDia,aprovaro afastamento dos efeitos do Documento assinador Vencimento Antecipado das CPR-F,e,consequentemente dos CRA,previstos na Clausula |
+| 2026-03-25 | Ata/Edital 1144410 | garantias | aprovada |  | tempos em tempos, mediante a assinatura, pela Emissora, do respectivo termo de liberação de garantia, a ser apresentado à Companhia em até 3 (três) dias úteis c |
+
+### CRA024006N5
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2024-07-23 | Ata/Edital 702936 | waiver |  | 2ª convocação | e deliberarem sobre as seguintes matérias da ordem do dia: (i) Concessão de um waiver para dispensar temporariamente a obrigação de envio do relatório de rating |
+| 2024-08-12 | Ata/Edital 715320 | waiver | sem decisao identificada |  | zação”, respectivamente). 4. ORDEM DO DIA: Deliberar sobre: (i) Concessão de um waiver para dispensar temporariamente a obrigação de envio do relatório de ratin |
+| 2024-12-11 | Ata/Edital 798723 | vencimento_antecipado; waiver |  | 2ª convocação | Devedora a ser encerrado em 2024, de modo que não seja configurado um Evento de Vencimento Antecipado Não-Automático, conforme descrito no item “(m)” da cláusul |
+| 2024-12-12 | Ata/Edital 799223 | vencimento_antecipado; waiver |  | 2ª convocação | Devedora a ser encerrado em 2024, de modo que não seja configurado um Evento de Vencimento Antecipado Não-Automático, conforme descrito no item “(m)” da cláusul |
+| 2024-12-31 | Ata/Edital 811465 | vencimento_antecipado; waiver; resgate_amortizacao | sem decisao identificada |  | Devedora a ser encerrado em 2024, de modo que não seja configurado um Evento de Vencimento Antecipado Não-Automático, conforme descrito no item “(m)” da cláusul |
+| 2025-01-07 | Ata/Edital 813690 | vencimento_antecipado; waiver |  | 2ª convocação | liberações: i. A concessão de waiver para que não seja configurado um Evento de Vencimento Antecipado Não-Automático, nos termos da Cláusula 8.1.2, alínea “p” d |
+| 2025-01-27 | Ata/Edital 825204 | vencimento_antecipado; waiver | nao instalada | não instalada | rar sobre: (i) A concessão de waiver para que não seja configurado um Evento de Vencimento Antecipado Não-Automático, nos termos da Cláusula 8.1.2, alínea “p” d |
+| 2025-01-27 | Ata/Edital 825145 | vencimento_antecipado; waiver | nao instalada | não instalada | rar sobre: (i) A concessão de waiver para que não seja configurado um Evento de Vencimento Antecipado Não-Automático, nos termos da Cláusula 8.1.2, alínea “p” d |
+| 2025-02-10 | Ata/Edital 834280 | vencimento_antecipado; waiver |  |  | liberações: i. A concessão de waiver para que não seja configurado um Evento de Vencimento Antecipado Não-Automático, nos termos da Cláusula 8.1.2, alínea “p” d |
+| 2025-03-03 | Ata/Edital 851628 | vencimento_antecipado; waiver | sem decisao identificada |  | rar sobre: (i) A concessão de waiver para que não seja configurado um Evento de Vencimento Antecipado Não-Automático, nos termos da Cláusula 8.1.2, alínea “p” d |
+| 2025-05-07 | Ata/Edital 896027 | vencimento_antecipado; waiver; resgate_amortizacao |  | não instalada | de Emissão”), aprovar a concessão de um waiver para não configurar um evento de vencimento antecipado das obrigações da Devedora decorrentes do Termo de Emissão |
+| 2025-05-07 | Fato Relevante 895126 | vencimento_antecipado; resgate_amortizacao |  |  | tará caracterizada, a partir de 7 de maio de 2025, a ocorrência de um Evento de Vencimento Antecipado Automático das obrigações vinculadas aos CRA, conforme dis |
+| 2025-05-08 | Outro 896752 | resgate_amortizacao |  |  | de maio de 2025, informar que, na mesma data, recebeu os recursos referentes à amortização extraordinária aprovada na Assembleia Geral de Titulares realizada em |
+| 2025-05-08 | Outro 896747 | resgate_amortizacao |  |  | de maio de 2025, informar que, na mesma data, recebeu os recursos referentes à amortização extraordinária aprovada na Assembleia Geral de Titulares realizada em |
+| 2025-05-15 | Fato Relevante 903748 | resgate_amortizacao |  |  | mercado em geral que, no dia 14 de maio de 2025, foi concluída a liquidação da amortização extraordinária com o pagamento dos encargos moratórios devidos, aprov |
+| 2025-05-27 | Ata/Edital 911854 | vencimento_antecipado; waiver; resgate_amortizacao | aprovada |  | de Emissão”), aprovar a concessão de um waiver para não configurar um evento de vencimento antecipado das obrigações da Devedora decorrentes do Termo de Emissão |
+| 2025-06-06 | Ata/Edital 918699 | vencimento_antecipado; waiver; resgate_amortizacao | aprovada |  | de Emissão”), aprovar a concessão de um waiver para não configurar um evento de vencimento antecipado das obrigações da Devedora decorrentes do Termo de Emissão |
+| 2025-06-13 | Ata/Edital 924520 | vencimento_antecipado; waiver; resgate_amortizacao | aprovada |  | de Emissão”), aprovar a concessão de um waiver para não configurar um evento de vencimento antecipado das obrigações da Devedora decorrentes do Termo de Emissão |
+| 2025-06-27 | Ata/Edital 934281 | vencimento_antecipado; waiver; resgate_amortizacao | aprovada |  | de Emissão”), aprovar a concessão de um waiver para não configurar um evento de vencimento antecipado das obrigações da Devedora decorrentes do Termo de Emissão |
+| 2025-07-08 | Ata/Edital 941812 | vencimento_antecipado; waiver; garantias |  | não instalada, 2ª convocação | erações: I. Aprovar a concessão de waiver, a fim de não configurar um Evento de Vencimento Antecipado Não Automático, conforme previsto na Cláusula 8.1.2, alíne |
+| 2025-07-11 | Ata/Edital 944591 | vencimento_antecipado; waiver; resgate_amortizacao | aprovada |  | de Emissão”), aprovar a concessão de um waiver para não configurar um evento de vencimento antecipado das obrigações da Devedora decorrentes do Termo de Emissão |
+| 2025-07-28 | Ata/Edital 954143 | vencimento_antecipado; waiver; garantias | aprovada |  | sobre: (i) Aprovar a concessão de waiver, a fim de não configurar um Evento de Vencimento Antecipado Não Automático, conforme previsto na Cláusula 8.1.2, alínea |
+| 2025-07-31 | Ata/Edital 957425 | vencimento_antecipado; waiver; garantias | aprovada |  | sobre: (i) Aprovar a concessão de waiver, a fim de não configurar um Evento de Vencimento Antecipado Não Automático, conforme previsto na Cláusula 8.1.2, alínea |
+| 2025-08-01 | Ata/Edital 958401 | vencimento_antecipado; waiver; resgate_amortizacao | aprovada |  | de Emissão”), aprovar a concessão de um waiver para não configurar um evento de vencimento antecipado das obrigações da Devedora decorrentes do Termo de Emissão |
+| 2025-08-07 | Ata/Edital 961684 | vencimento_antecipado; waiver; garantias | aprovada |  | sobre: (i) Aprovar a concessão de waiver, a fim de não configurar um Evento de Vencimento Antecipado Não Automático, conforme previsto na Cláusula 8.1.2, alínea |
+| 2025-08-08 | Ata/Edital 962923 | vencimento_antecipado; inadimplencia_devedor |  | não instalada | ntes do Anexo II ao presente edital, sob pena de ficar configurado um Evento de Vencimento Antecipado Não Automático, nos termos da Cláusula 8.1.2 do Termo de E |
+| 2025-08-14 | Ata/Edital 970280 | vencimento_antecipado; waiver; resgate_amortizacao | aprovada |  | de Emissão”), aprovar a concessão de um waiver para não configurar um evento de vencimento antecipado das obrigações da Devedora decorrentes do Termo de Emissão |
+| 2025-08-28 | Ata/Edital 979432 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | 451.001 - São Paulo – SP. Tel.: (11) 3045.8808 I www.canalsecuritizadora.com.br Vencimento Antecipado Não Automático, nos termos da Cláusula 8.1.2 do Termo de E |
+| 2025-08-29 | Ata/Edital 980457 | vencimento_antecipado; waiver; resgate_amortizacao | aprovada |  | de Emissão”), aprovar a concessão de um waiver para não configurar um evento de vencimento antecipado das obrigações da Devedora decorrentes do Termo de Emissão |
+| 2025-09-05 | Fato Relevante 985774 | vencimento_antecipado; garantias; inadimplencia_devedor |  |  | a e cinco mil reais). Os inadimplementos acima mencionados configuram Evento de Vencimento Antecipado Automático, nos termos da Cláusula 8.1.1, item (g), do “Te |
+| 2025-09-08 | Ata/Edital 986418 | vencimento_antecipado; waiver; garantias | aprovada |  | sobre: (i) Aprovar a concessão de waiver, a fim de não configurar um Evento de Vencimento Antecipado Não Automático, conforme previsto na Cláusula 8.1.2, alínea |
+| 2025-09-12 | Ata/Edital 989652 | vencimento_antecipado; waiver; resgate_amortizacao | aprovada |  | de Emissão”), aprovar a concessão de um waiver para não configurar um evento de vencimento antecipado das obrigações da Devedora decorrentes do Termo de Emissão |
+| 2025-09-23 | Ata/Edital 996021 | vencimento_antecipado; waiver; garantias | aprovada |  | sobre: (i) Aprovar a concessão de waiver, a fim de não configurar um Evento de Vencimento Antecipado Não Automático, conforme previsto na Cláusula 8.1.2, alínea |
+| 2025-10-03 | Ata/Edital 1005894 | vencimento_antecipado; waiver; resgate_amortizacao | aprovada |  | de Emissão”), aprovar a concessão de um waiver para não configurar um evento de vencimento antecipado das obrigações da Devedora decorrentes do Termo de Emissão |
+| 2025-10-20 | Ata/Edital 1017154 | vencimento_antecipado; inadimplencia_devedor |  | não instalada, 2ª convocação | as@oliveiratrust.com.br. Deliberações: i. Aprovar a não decretação do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2025-10-20 | Ata/Edital 1017151 | vencimento_antecipado; inadimplencia_devedor |  | não instalada, 2ª convocação | as@oliveiratrust.com.br. Deliberações: i. Aprovar a não decretação do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2025-11-10 | Ata/Edital 1032564 | vencimento_antecipado; inadimplencia_devedor | sem decisao identificada |  | ta. 5. ORDEM DO DIA: Deliberar sobre: (i) Aprovar a não decretação do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-01-09 | Fato Relevante 1078336 | garantias; inadimplencia_devedor |  |  | serva no prazo estipulado, permanecendo, assim, o referido Fundo em situação de desenquadramento. O inadimplemento acima mencionado configura um Evento previsto |
+| 2026-02-23 | Fato Relevante 1119710 | garantias; inadimplencia_devedor |  |  | serva no prazo estipulado, permanecendo, assim, o referido Fundo em situação de desenquadramento. O inadimplemento acima mencionado configura um Evento previsto |
+| 2026-02-25 | Fato Relevante 1121498 | vencimento_antecipado; inadimplencia_devedor |  |  | to Pecuniário”), não foi sanado dentro do prazo de cura, ensejando um evento de vencimento antecipado, nos termos da Cláusula 8.1.1, subitem (g), do “Termo Da P |
+| 2026-02-27 | Ata/Edital 1123718 | vencimento_antecipado; inadimplencia_devedor |  | não instalada, 2ª convocação | ssembleias@oliveiratrust.com.br. i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-03-19 | Ata/Edital 1140904 | vencimento_antecipado; inadimplencia_devedor | aprovada |  | . ORDEM DO DIA: Deliberar sobre: i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-03-30 | Ata/Edital 1148468 | vencimento_antecipado; inadimplencia_devedor | aprovada |  | . ORDEM DO DIA: Deliberar sobre: i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-04-13 | Ata/Edital 1160256 | vencimento_antecipado; inadimplencia_devedor | aprovada |  | . ORDEM DO DIA: Deliberar sobre: i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-04-24 | Ata/Edital 1169040 | vencimento_antecipado; inadimplencia_devedor | aprovada |  | . ORDEM DO DIA: Deliberar sobre: i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-05-04 | Ata/Edital 1179376 | vencimento_antecipado; inadimplencia_devedor | aprovada |  | . ORDEM DO DIA: Deliberar sobre: i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-05-18 | Ata/Edital 1198418 | vencimento_antecipado; inadimplencia_devedor | aprovada |  | . ORDEM DO DIA: Deliberar sobre: i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-05-26 | Ata/Edital 1203503 | vencimento_antecipado; inadimplencia_devedor | aprovada |  | . ORDEM DO DIA: Deliberar sobre: i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-05-27 | Ata/Edital 1205394 | vencimento_antecipado; inadimplencia_devedor | aprovada |  | . ORDEM DO DIA: Deliberar sobre: i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-05-28 | Ata/Edital 1206132 | vencimento_antecipado; inadimplencia_devedor | aprovada |  | . ORDEM DO DIA: Deliberar sobre: i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-06-01 | Ata/Edital 1209398 | vencimento_antecipado; inadimplencia_devedor | nao instalada | não instalada, 2ª convocação | 5 ORDEM DO DIA: Deliberar sobre: i. Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo |
+| 2026-06-18 | Ata/Edital 1224082 | vencimento_antecipado; waiver; inadimplencia_devedor; liquidacao_patrimonio | sem decisao identificada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo  |
+| 2026-06-19 | Fato Relevante 1224929 | vencimento_antecipado; inadimplencia_devedor |  |  | corre que, a apresentação do Pedido de Recuperação Judicial constitui Evento de Vencimento Antecipado, nos termos da cláusula 8.1.1, alínea (b) da Nota Comercia |
+| 2026-06-22 | Fato Relevante 1225523 | vencimento_antecipado; inadimplencia_devedor |  |  | Pecuniário”), não foi sanado no prazo estipulado acima, ensejando um evento de vencimento antecipado, nos termos da Cláusula 8.1.1, subitem (g), do “Termo Da Pr |
+| 2026-07-03 | Ata/Edital 1238621 | vencimento_antecipado; waiver; inadimplencia_devedor; liquidacao_patrimonio | aprovada |  | ORDEM DO DIA: Deliberar sobre: (i) Aprovar a sustação dos efeitos do Evento de Vencimento Antecipado Automático, previsto na Cláusula 8.1.1, item (g) do “Termo  |
+| 2026-07-20 | Ata/Edital 1260791 | vencimento_antecipado; inadimplencia_devedor | aprovada |  | 8 I www.canalsecuritizadora.com.br Deliberar sobre: (i) Aprovar a declaração de vencimento antecipado dos CRA, em razão da ocorrência de Evento de Vencimento An |
+| 2026-10-20 | Ata/Edital 1354802 | inadimplencia_devedor | aprovada |  | izar que os Titulares dos CRA que assim desejarem pleiteiem, perante o juízo da Recuperação Judicial da Prime Agro Produtos Agrícolas S.A. e Outros (Processo nº |
+| 2026-10-20 | Ata/Edital 1354801 | inadimplencia_devedor | suspensa |  | izar que os Titulares dos CRA que assim desejarem pleiteiem, perante o juízo da Recuperação Judicial da Prime Agro Produtos Agrícolas S.A. e Outros (Processo nº |
+
 ### CRA024007PW
 
 | Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
@@ -692,4 +1201,19 @@ Documentos lidos desde 2024-01-01: 676, 39 deles por OCR (PDFs ainda sem texto: 
 | 2026-03-10 | Ata/Edital 1132492 | inadimplencia_devedor | sem decisao identificada | lido por OCR | Aprovar a naodecretacaodeVencimentoAntecipadoNaoAutomatico das CPR-F,emrazao do inadimplemento, pelo Devedor, das parcelas do Cronograma de Pagamento das CPR-F  |
 | 2026-03-10 | Ata/Edital 1132490 | vencimento_antecipado; resgate_amortizacao | suspensa | lido por OCR | teFiduciario"). 6. ORDEMDODIA:discutire deliberar sobre: (ii) Nao declaracao do Vencimento Antecipado das CPR-Fs e, consequentemente, dos CRA, nos termos da cla |
 | 2026-04-13 | Ata/Edital 1160327 | vencimento_antecipado; resgate_amortizacao |  | lido por OCR | I desta Ata. 6. ORDEMDODIA:discutiredeliberarsobre: (i) Aprovar a decretacao de Vencimento Antecipado das CPR-F na presente data, em razao:(a) do em 17 de novem |
+
+### CRA02400E1M
+
+| Data | Documento | Assuntos | Resultado da ata | Marcas | Trecho |
+|---|---|---|---|---|---|
+| 2025-11-27 | Fato Relevante 1048991 | inadimplencia_devedor |  |  | al sobre bens da Cooperativa, nos casos de obrigações da Cooperativa sujeitas à recuperação judicial. A Securitizadora esclarece que a Cooperativa não figura co |
+| 2026-07-08 | Ata/Edital 1242408 | prorrogacao_repactuacao |  |  | s parâmetros mínimos que deverão ser observados pela Securitizadora em eventual repactuação da CPRF Lastros; (iv) Deliberar sobre eventual Contratação de assess |
+| 2026-07-09 | Ata/Edital 1242953 | prorrogacao_repactuacao |  |  | s parâmetros mínimos que deverão ser observados pela Securitizadora em eventual repactuação da CPRF Lastros; (iii) Deliberar sobre eventual Contratação de asses |
+| 2026-07-31 | Ata/Edital 1272322 | prorrogacao_repactuacao |  | 2ª convocação | s parâmetros mínimos que deverão ser observados pela Securitizadora em eventual repactuação da CPRF Lastros; (iii) Deliberar sobre eventual Contratação de asses |
+| 2026-08-14 | Ata/Edital 1291484 | prorrogacao_repactuacao | sem decisao identificada |  | s parâmetros mínimos que deverão ser observados pela Securitizadora em eventual repactuação da CPRF Lastros; (iii) deliberar sobre eventual Contratação de asses |
+| 2026-08-28 | Ata/Edital 1303274 | prorrogacao_repactuacao | sem decisao identificada | 2ª convocação | s parâmetros mínimos que deverão ser observados pela Securitizadora em eventual repactuação da CPRF Lastros; (iii) deliberar sobre eventual Contratação de asses |
+| 2026-09-29 | Ata/Edital 1333137 | prorrogacao_repactuacao | sem decisao identificada | 2ª convocação | s parâmetros mínimos que deverão ser observados pela Securitizadora em eventual repactuação da CPRF Lastros; (iii) deliberar sobre eventual Contratação de asses |
+| 2026-10-13 | Ata/Edital 1347900 | prorrogacao_repactuacao | sem decisao identificada | 2ª convocação | s parâmetros mínimos que deverão ser observados pela Securitizadora em eventual repactuação da CPRF Lastros; (iii) deliberar sobre eventual Contratação de asses |
+| 2026-10-16 | Ata/Edital 1353634 | prorrogacao_repactuacao | sem decisao identificada | 2ª convocação | s parâmetros mínimos que deverão ser observados pela Securitizadora em eventual repactuação da CPRF Lastros; (iii) deliberar sobre eventual Contratação de asses |
+| 2026-10-23 | Ata/Edital 1358031 | prorrogacao_repactuacao | sem decisao identificada | 2ª convocação | s parâmetros mínimos que deverão ser observados pela Securitizadora em eventual repactuação da CPRF Lastros; (iii) deliberar sobre eventual Contratação de asses |
 

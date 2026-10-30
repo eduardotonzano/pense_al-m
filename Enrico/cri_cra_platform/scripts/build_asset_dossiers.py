@@ -19,7 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.cvm_lookup import emission, history
-from credit_assets.market_checks import balance_is_suspect, fold, money
+from credit_assets.market_checks import balance_is_suspect, fold, money, real_isin
 from credit_assets.market_events import compare
 
 REPORTS = ROOT / "reports"
@@ -102,7 +102,7 @@ def main() -> int:
             rows = history(cvm, kind, em["codes"], since)
             by_series = defaultdict(list)
             for r in rows:
-                by_series[r["Codigo_ISIN"] or str(r["Numero_Serie"])].append(r)
+                by_series[real_isin(r["Codigo_ISIN"]) or f"série {r['Numero_Serie']}"].append(r)
             events = []
             for key, items in by_series.items():
                 previous = None

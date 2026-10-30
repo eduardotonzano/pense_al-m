@@ -15,7 +15,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from credit_assets.market_checks import balance_is_suspect, money
+from credit_assets.market_checks import balance_is_suspect, money, real_isin
 from credit_assets.market_events import compare
 
 
@@ -66,7 +66,7 @@ def main() -> int:
              f"Códigos do certificado na base: {', '.join(sorted(codes))}. Fonte: dados abertos da CVM (versão vigente de cada mês).", ""]
     by_series: dict[str, list[dict]] = {}
     for row in rows:
-        key = row["Codigo_ISIN"] or f"série {row['Numero_Serie']}"
+        key = real_isin(row["Codigo_ISIN"]) or f"série {row['Numero_Serie']}"
         by_series.setdefault(key, [])
         # um registro por mês (o código-irmão pode repetir o mesmo mês)
         if not by_series[key] or by_series[key][-1]["Data_Referencia"] != row["Data_Referencia"]:

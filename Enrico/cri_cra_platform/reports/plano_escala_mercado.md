@@ -116,3 +116,10 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
   `integrity_check` ok, `foreign_key_check` vazio; segunda execução sem duplicar (2.701 inalterados, 1 documento publicado no intervalo).
   Download: 1.199 documentos enfileirados (atas/editais 678, outros 262, AF 107, Termos 88, fatos relevantes 35, encerramentos 29),
   sem Informes Mensais, como no lote 1.
+- **Download e texto do lote 2 (30/10/2026):** 1.176 baixados (1,1 GB), 22 já estavam na versão vigente, 1 recusado por passar de
+  25 MB (fila 2363, documento 4122). Texto de 1.198 PDFs, sem falha; OCR de 43 PDFs em imagem (264 páginas). `integrity_check` ok.
+  Catálogo com 70 ativos. Atas desde 2024: 670 (205 aprovadas, 268 não instaladas, 47 suspensas, 4 rejeitadas). Termo × CVM do lote 2:
+  257 concordam, 74 divergem.
+- **Mesma correção do placeholder "00000" na consulta por emissão e nos eventos (30/10/2026):** a consulta à CVM por ativo
+  (`cvm_lookup`) e a chave de série dos eventos de crédito juntavam séries de emissões diferentes; corrigido (Termo × CVM da Leverage
+  comparava cada Termo com as séries das 10 emissões).
