@@ -23,6 +23,7 @@ outro): esta versao nao atualiza esse carregamento.
 
 import time
 from collections import Counter
+from dataclasses import dataclass
 
 from fundos.cadastro.loader import REQUIRED_MIGRATIONS as CADASTRO_MIGRATIONS
 from fundos.cadastro.loader import SOURCE_CODE
@@ -32,6 +33,7 @@ from fundos.cadastro.loader import count_cpf_like
 from fundos.cadastro.loader import missing_migrations
 from fundos.cadastro.loader import verify
 from fundos.informe_fidc import columns as spec
+from fundos.informe_fidc.compare import Comparison
 from fundos.repositories import IdentityConflictError
 from fundos.repositories.collection_repository import CollectionRunRepository
 from fundos.repositories.observation_repository import ObservationRepository
@@ -93,28 +95,48 @@ def cadastro_loaded(connection):
     return manifest is not None and funds is not None
 
 
-def _loaded_zips(connection, informe):
-    """(SHA-256, versao do leitor) dos ZIPs processados com o mesmo AAAAMM.
+@dataclass(frozen=True)
+class LoadedZip:
+    """Manifesto de um ZIP ja processado da competencia."""
+
+    id: int
+    sha256: str
+    parser_version: str
+    last_modified: str | None
+    collected_at: str
+
+
+def loaded_zips(connection, informe):
+    """ZIPs processados com o mesmo AAAAMM, de qualquer versao do leitor.
 
     Cada ZIP tem uma so competencia, do mes do AAAAMM dos membros; por isso
-    basta procurar o manifesto da tab_I do mesmo AAAAMM ja processado, de
-    qualquer versao do leitor.
+    basta procurar o manifesto da tab_I do mesmo AAAAMM ja processado.
     """
 
     rows = connection.execute(
         """
-        SELECT z.sha256, z.parser_version
+        SELECT z.id, z.sha256, z.parser_version, z.last_modified, z.collected_at
         FROM raw_records r
         JOIN raw_records z ON z.id = r.parent_raw_record_id
         JOIN sources s ON s.id = r.source_id
         WHERE s.code = ?
           AND r.file_name = ?
           AND z.processing_status = 'processed'
+        ORDER BY z.id
         """,
         (SOURCE_CODE, spec.member_name("tab_I", informe.zip.period)),
     ).fetchall()
 
-    return [(str(row[0]), str(row[1])) for row in rows]
+    return [
+        LoadedZip(
+            id=int(row[0]),
+            sha256=str(row[1]),
+            parser_version=str(row[2]),
+            last_modified=None if row[3] is None else str(row[3]),
+            collected_at=str(row[4]),
+        )
+        for row in rows
+    ]
 
 
 def find_loaded_informe(connection, informe):
@@ -124,12 +146,12 @@ def find_loaded_informe(connection, informe):
     com este ZIP ou com outro; vem antes dos outros casos.
     """
 
-    loaded = _loaded_zips(connection, informe)
+    loaded = loaded_zips(connection, informe)
 
-    if any(version != PARSER_VERSION for _, version in loaded):
+    if any(z.parser_version != PARSER_VERSION for z in loaded):
         return OLDER_VERSION
 
-    hashes = {sha256 for sha256, _ in loaded}
+    hashes = {z.sha256 for z in loaded}
 
     if informe.zip.sha256 in hashes:
         return ALREADY_LOADED
@@ -141,7 +163,7 @@ def older_version_message(connection, informe):
     """Mensagem da recusa de competencia carregada por outra versao do leitor."""
 
     versions = sorted(
-        {version for _, version in _loaded_zips(connection, informe) if version != PARSER_VERSION}
+        {z.parser_version for z in loaded_zips(connection, informe) if z.parser_version != PARSER_VERSION}
     )
 
     return (
@@ -246,6 +268,47 @@ def match_counts(informe, resolver):
 
     count_subjects(subjects, counts)
     counts[("series_candidatas",)] = len(series)
+    return counts
+
+
+def reapresentation_counts(connection, informe, resolver):
+    """Contagens do dry-run de outro ZIP da competencia ja carregada, sem escrever.
+
+    Casamento com o cadastro e comparacao com o ultimo valor carregado
+    (compare.py), tabela por tabela.
+    """
+
+    counts = Counter()
+    subjects = {}
+    comparison = Comparison(connection, informe, [z.id for z in loaded_zips(connection, informe)])
+    parties = comparison.parties()
+
+    for table in spec.TABLES:
+        state = None if table in spec.NOT_LOADED else comparison.table(table)
+
+        for row, column, subject_id in iter_matched(informe, table, resolver, counts, subjects):
+            if state is None:
+                continue
+
+            series_id = None
+
+            if table in spec.SERIES_TABLES:
+                if row.series_key is None:
+                    continue
+
+                series_id = comparison.series_id(column, subject_id, row.series_key)
+
+            state.row(row, column, subject_id, series_id)
+
+            for party in row.parties:
+                parties.party(column, subject_id, party)
+
+        if state is not None:
+            state.finish()
+
+    parties.finish()
+    count_subjects(subjects, counts)
+    counts.update(comparison.finish())
     return counts
 
 

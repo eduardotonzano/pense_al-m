@@ -27,6 +27,8 @@ from fundos.informe_fidc import columns as spec
 PERIOD = "202609"
 COMPETENCE = "2026-09-30"
 MEMBER_DATE = (2026, 10, 24, 8, 34, 6)
+# A semana seguinte: o mesmo conteudo com esta data tem outro SHA-256.
+LATER_MEMBER_DATE = (2026, 10, 29, 8, 34, 6)
 ZIP_NAME = "inf_mensal_fidc_" + PERIOD + ".zip"
 
 ADMIN_NAME = "Administradora Ficticia SA"
@@ -167,6 +169,24 @@ def subject_rows(n=1, subject_type="Classe", subclass_ids=("SUBFICTICIA0001", ""
             rows[table] = [row(table, n, subject_type)]
 
     return rows
+
+
+def changed(tables=None, **changes):
+    """Copia das linhas (padrao: o assunto 1) com {tabela: {coluna: valor}} em todas as linhas da tabela."""
+
+    tables = subject_rows() if tables is None else tables
+    copy = {table: [dict(r) for r in rows] for table, rows in tables.items()}
+
+    for table, columns in changes.items():
+        copy[table] = [dict(r, **columns) for r in copy[table]]
+
+    return copy
+
+
+def later_zip(tables=None, date_time=LATER_MEMBER_DATE):
+    """Outro ZIP da mesma competencia (outra semana): outro SHA-256 mesmo sem mudar valor."""
+
+    return build_informe_zip(tables, date_time=date_time)
 
 
 def merge(*parts):

@@ -16,6 +16,8 @@ from apoio_informe_fidc import ZIP_NAME
 from apoio_informe_fidc import ambiguous_cpf
 from apoio_informe_fidc import build_informe_zip
 from apoio_informe_fidc import cedente_cells
+from apoio_informe_fidc import changed
+from apoio_informe_fidc import later_zip
 from apoio_informe_fidc import load_fictitious_cadastro
 from apoio_informe_fidc import row
 from apoio_informe_fidc import subject_name
@@ -213,6 +215,30 @@ def test_other_zip_of_the_same_competence_is_refused(script, database, zip_path,
     assert "reapresentacao e a FU4.2" in error
     assert file_hash(database) == before
     assert len(backups_in(tmp_path / "bk")) == 1
+
+
+def test_dry_run_of_another_zip_shows_the_comparison_and_writes_nothing(script, database, zip_path, tmp_path, capsys):
+    run_with(script, database, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"))
+    capsys.readouterr()
+    before = file_hash(database)
+    other_dir = tmp_path / "semana_seguinte"
+    other_dir.mkdir()
+    tables = changed(tab_IV={"TAB_IV_A_VL_PL": "98765.4321"}, tab_I={"TAB_I2B12_PR_CEDENTE_1": "12.375"})
+    other = write_zip(other_dir, later_zip(tables), name=ZIP_NAME)
+
+    code = run_with(script, database, other, "--dry-run")
+    output = capsys.readouterr()
+    text = output.out + output.err
+
+    assert code == 0
+    assert "Reapresentacao: comparacao com o ultimo valor carregado desta fonte na competencia" in text
+    assert "  celulas tab_IV: iguais 1, alteradas 1, novas 0, voltam a valor anterior 0, sumiram 0" in text
+    assert "percentual alterado 1" in text
+    assert file_hash(database) == before
+    assert len(backups_in(tmp_path / "bk")) == 1
+
+    for secret in SECRETS + ("98765.4321", "12.375"):
+        assert secret not in text
 
 
 def test_database_without_migration_002_is_refused(script, zip_path, tmp_path, capsys):

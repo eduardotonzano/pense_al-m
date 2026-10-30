@@ -41,17 +41,20 @@ from fundos.database import Database  # noqa: E402
 from fundos.informe_fidc.loader import ALREADY_LOADED  # noqa: E402
 from fundos.informe_fidc.loader import OLDER_VERSION  # noqa: E402
 from fundos.informe_fidc.loader import REQUIRED_MIGRATIONS  # noqa: E402
+from fundos.informe_fidc.loader import SAME_COMPETENCE  # noqa: E402
 from fundos.informe_fidc.loader import SubjectResolver  # noqa: E402
 from fundos.informe_fidc.loader import cadastro_loaded  # noqa: E402
 from fundos.informe_fidc.loader import find_loaded_informe  # noqa: E402
 from fundos.informe_fidc.loader import load_informe  # noqa: E402
 from fundos.informe_fidc.loader import match_counts  # noqa: E402
 from fundos.informe_fidc.loader import older_version_message  # noqa: E402
+from fundos.informe_fidc.loader import reapresentation_counts  # noqa: E402
 from fundos.informe_fidc.reader import read_informe_zip  # noqa: E402
 from fundos.informe_fidc.report import format_candidates_report  # noqa: E402
 from fundos.informe_fidc.report import format_load_report  # noqa: E402
 from fundos.informe_fidc.report import format_match_report  # noqa: E402
 from fundos.informe_fidc.report import format_read_report  # noqa: E402
+from fundos.informe_fidc.report import format_reapresentation_report  # noqa: E402
 
 
 NETWORK_WARNING = (
@@ -122,10 +125,16 @@ def dry_run(database_path, informe):
 
             if problem is None and loaded is None:
                 counts = match_counts(informe, SubjectResolver(connection))
+            elif loaded == SAME_COMPETENCE:
+                counts = reapresentation_counts(connection, informe, SubjectResolver(connection))
             else:
                 counts = None
         finally:
             connection.close()
+
+        if loaded == SAME_COMPETENCE:
+            for line in format_match_report(counts) + format_reapresentation_report(counts):
+                say(line)
 
         if problem is not None:
             say("Banco: o --commit seria recusado: " + problem + ".")
