@@ -19,7 +19,7 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | data_emissao | 29 | 1 | 0 | 1 |
 | vencimento | 63 | 25 | 3 | 2 |
 | remuneracao | 73 | 8 | 0 | 1 |
-| devedor | 10 | 5 | 0 | 1 |
+| devedor | 11 | 5 | 0 | 1 |
 | valor_total | 25 | 5 | 0 | 0 |
 | quantidade | 19 | 10 | 0 | 0 |
 | valor_nominal_unitario | 27 | 3 | 0 | 0 |
@@ -29,7 +29,7 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | Ativo | Concorda | Diverge | Informe usa data do lastro | Sem valor no Termo | Sem dado CVM |
 |---|---|---|---|---|---|
 | 13D0358495 | 2 | 6 | 0 | 0 | 0 |
-| 23C1835265 | 22 | 6 | 0 | 0 | 0 |
+| 23C1835265 | 23 | 6 | 0 | 0 | 0 |
 | 23H1753231 | 4 | 5 | 0 | 0 | 0 |
 | CRA02500C1D | 10 | 5 | 0 | 0 | 0 |
 | 23F2454937 | 7 | 3 | 0 | 0 | 0 |

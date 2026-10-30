@@ -75,7 +75,9 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
   (BRLSECCRA083) com saldo de R$ 340 bi contra R$ 16,5 mi integralizados. Nova regra `saldo_incompativel` (saldo > 20 × integralizado):
   41 séries (5 CRA, 36 CRI) ficam fora das somas. Totais corrigidos em ago/2026, já sem contar duas vezes a mesma emissão publicada com dois códigos: **CRA R$ 160 bi (628 emissões com informe recente), CRI R$ 168 bi (2.312)**.
 - **Novos relatórios de mercado:** eventos de crédito mês a mês (`market_events.md`), exposição por devedor e contágio
-  (`market_debtors.md`: 1.033 devedores, 13 com contágio; 52% dos vínculos de devedor com CNPJ inválido) e placar por securitizadora
+  (`market_debtors.md`: 1.037 devedores, 14 com contágio; dos 2.966 vínculos de devedor do mês, 1.363 vêm sem devedor informado
+  — vazio, "0" ou "NA" —, 132 têm CNPJ inválido e 27 são CPF de pessoa física; os "52% inválidos" que informei antes somavam o não
+  informado ao inválido) e placar por securitizadora
   (`market_securitizadoras.md`: pontualidade, reenvios, erros cadastrais, saldo em atraso).
 - **Rotina mensal num comando:** `scripts/run_monthly_market.py --dry-run|--commit` (ingestão, triagem, eventos, universo, devedores,
   securitizadoras e painel `reports/painel_mercado.html`); as análises levam cerca de 40 s. Histórico de uma emissão:

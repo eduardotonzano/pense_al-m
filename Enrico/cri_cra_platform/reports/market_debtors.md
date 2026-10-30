@@ -4,8 +4,8 @@ Fonte: Informe Mensal (dados abertos da CVM), tabela de cedentes e devedores; CR
 Exposição estimada = percentual do devedor × saldo dos certificados da emissão. Só CNPJ válido entra; nada é unido por nome.
 Sinais para olhar o devedor, não conclusões.
 
-- Vínculos de devedor no mês: 2966; CNPJ inválido ou vazio: 1530; percentual inválido (ex.: -1): 40.
-- Devedores distintos: **1033**; com mais de uma emissão: **204**; **com contágio** (uma emissão em atraso e outra ainda adimplente): **13**.
+- Vínculos de devedor no mês: 2966; devedor não informado (vazio, "0", "NA"): 1363; CPF de pessoa física (contado, não exibido): 27; CNPJ inválido: 132; CNPJ que perdeu os zeros à esquerda, recuperado pelos dígitos verificadores: 8; percentual inválido (ex.: -1): 40.
+- Devedores distintos: **1037**; com mais de uma emissão: **207**; **com contágio** (uma emissão em atraso e outra ainda adimplente): **14**.
 
 ## Maiores exposições (top 30)
 
@@ -48,6 +48,7 @@ Sinais para olhar o devedor, não conclusões.
 |---|---|---|---|---|---|
 | 08.070.508/0001-78 | 6 | 5 | 1 | 6,483.2 | BRAPCSCRA0M6, BRAPCSCRA0T1, BRAPCSCRA0U9, BRAPCSCRA1B7, BRAPCSCRA1Y9 |
 | 92.660.604/0001-82 | 4 | 3 | 1 | 1,867.2 | BRECOACRA0Q4, BRECOACRA1K5, BRECOACRADO5 |
+| 07.687.928/0001-35 | 2 | 1 | 1 | 652.5 | BRFSECCRIJN7 |
 | 06.047.087/0001-39 | 11 | 1 | 10 | 397.8 | BRAPCSCRI5T2 |
 | 08.065.557/0001-12 | 3 | 1 | 2 | 257.1 | BRAPCSCRICG3 |
 | 31.943.818/0001-71 | 2 | 1 | 1 | 177.4 | BRECOACRABX0 |

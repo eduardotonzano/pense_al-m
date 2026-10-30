@@ -20,7 +20,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from credit_assets.debtor_exposure import normalize_cnpj
+from credit_assets.debtor_exposure import classify_identifier
 from credit_assets.market_checks import fold, reference_competence, series_flags, trusted_balance
 
 DEADLINE_DAYS = 30
@@ -53,7 +53,7 @@ def main() -> int:
     board: dict[str, dict] = defaultdict(lambda: {
         "nome": "", "tipos": set(), "informes": 0, "atrasos_entrega": [], "reenvios": 0, "emissoes": set(),
         "series_ref": 0, "flags_cadastro": 0, "saldo": Decimal(0), "saldo_atraso": Decimal(0),
-        "devedor_vinculos": 0, "devedor_cnpj_invalido": 0,
+        "devedor_vinculos": 0, "devedor_nao_informado": 0, "devedor_cnpj_invalido": 0,
     })
     refs = {}
     for kind in ("cra", "cri"):
@@ -95,7 +95,9 @@ def main() -> int:
                 WHERE f.is_current = 1 AND t.Tipo = 'Devedor' AND substr(t.Data_Referencia, 1, 7) = ?""", (ref[:7],)):
             item = board[row["CNPJ_Emissora"]]
             item["devedor_vinculos"] += 1
-            item["devedor_cnpj_invalido"] += normalize_cnpj(row["CNPJ"]) is None
+            kind_of_id, _ = classify_identifier(row["CNPJ"])
+            item["devedor_nao_informado"] += kind_of_id == "nao_informado"
+            item["devedor_cnpj_invalido"] += kind_of_id == "invalido"
     connection.close()
 
     rows = []
@@ -111,6 +113,8 @@ def main() -> int:
             "pct_entregue_apos_30d": round(100 * late / len(delays), 1) if delays else None,
             "reenvios_por_100_informes": round(100 * item["reenvios"] / max(1, item["informes"]), 1),
             "pct_series_com_erro_cadastral": round(100 * item["flags_cadastro"] / max(1, item["series_ref"]), 1),
+            "pct_devedor_nao_informado": round(100 * item["devedor_nao_informado"] / item["devedor_vinculos"], 1)
+            if item["devedor_vinculos"] else None,
             "pct_devedor_cnpj_invalido": round(100 * item["devedor_cnpj_invalido"] / item["devedor_vinculos"], 1)
             if item["devedor_vinculos"] else None,
             "saldo_mi": round(item["saldo"] / 1_000_000, 1),
@@ -128,14 +132,15 @@ def main() -> int:
              f"securitizadoras com pelo menos {args.min_emissions} emissões informadas.",
              f"Prazo de referência de entrega: {DEADLINE_DAYS} dias após o fim do mês (régua de comparação; conferir na norma antes de "
              "tratar como descumprimento). Erro cadastral = vencimento fora do mês-base, série sem ISIN, ISIN inválido ou vencido com "
-             "saldo e adimplente.", "",
+             "saldo e adimplente. Devedor não informado = CNPJ vazio, \"0\" ou \"NA\"; CNPJ inválido = dígitos verificadores não batem (CPF de pessoa física não conta como inválido).", "",
              "| Securitizadora | Tipos | Emissões | Saldo (R$ mi) | % saldo em atraso | Atraso mediano de entrega (dias) | "
-             "% entregue após 30 dias | reenvios por 100 informes | % séries com erro cadastral | % CNPJ de devedor inválido |",
-             "|---|---|---|---|---|---|---|---|---|---|"]
+             "% entregue após 30 dias | reenvios por 100 informes | % séries com erro cadastral | % devedor não informado | "
+             "% CNPJ de devedor inválido |",
+             "|---|---|---|---|---|---|---|---|---|---|---|"]
     for r in rows:
         lines.append(f"| {r['nome']} | {r['tipos']} | {r['emissoes']} | {r['saldo_mi']:,.1f} | {fmt(r['pct_saldo_em_atraso'])} | "
                      f"{fmt(r['atraso_mediano_dias'])} | {fmt(r['pct_entregue_apos_30d'])} | {fmt(r["reenvios_por_100_informes"])} | "
-                     f"{fmt(r['pct_series_com_erro_cadastral'])} | {fmt(r['pct_devedor_cnpj_invalido'])} |")
+                     f"{fmt(r['pct_series_com_erro_cadastral'])} | {fmt(r['pct_devedor_nao_informado'])} | {fmt(r['pct_devedor_cnpj_invalido'])} |")
     (ROOT / "reports" / "market_securitizadoras.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print("\n".join(lines))
     return 0

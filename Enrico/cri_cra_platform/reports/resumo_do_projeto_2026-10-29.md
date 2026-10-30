@@ -15,7 +15,7 @@ comparados automaticamente com o que a securitizadora informa à CVM.
 - **Universo (chave = ISIN da série; a mesma emissão às vezes aparece com dois códigos):** 1.195 emissões de CRA (2.103 séries)
   e 3.690 de CRI (6.929 séries) desde 2019; em ago/2026, 628 CRAs (R$ 160 bi) e 2.312 CRIs (R$ 168 bi) com informe recente.
 - **Erros de dado encontrados na própria base:** séries com saldo incompatível com o integralizado (41; ex.: uma série da Leverage com
-  R$ 340 bi contra R$ 16,5 mi integralizados), metade dos vínculos de devedor com CNPJ inválido ou vazio, ISIN inválido ou repetido.
+  R$ 340 bi contra R$ 16,5 mi integralizados), quase metade dos vínculos de devedor sem devedor informado (só 4,5% com CNPJ de fato inválido), ISIN inválido ou repetido.
 
 ## 2. O que a plataforma calcula todo mês (`scripts/run_monthly_market.py`, cerca de 40 s)
 | Relatório | O que mostra |

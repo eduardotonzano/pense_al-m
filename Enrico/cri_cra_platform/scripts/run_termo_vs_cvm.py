@@ -24,7 +24,7 @@ from credit_assets.market_checks import integralized, money
 from credit_assets.services.contract_terms_service import document_pages
 from credit_assets.cross_checks import tokenize
 from credit_assets.cvm_lookup import emission as cvm_emission
-from credit_assets.debtor_exposure import format_cnpj, normalize_cnpj
+from credit_assets.debtor_exposure import format_cnpj, informed_cnpj
 from credit_assets.termo_values import best, debtor_cnpjs, extract, remuneration_numbers
 
 TOLERANCE = Decimal("0.01")
@@ -159,7 +159,7 @@ def main() -> int:
         # devedor: algum CNPJ de devedor do Informe aparece no Termo junto de devedor/cedente/emitente/avalista?
         kind = first["tipo_ativo"].lower()
         marks = ",".join("?" * len(emission["codes"]))
-        informed_debtors = {normalize_cnpj(r[0]) for r in cvm.execute(
+        informed_debtors = {informed_cnpj(r[0]) for r in cvm.execute(
             f"""SELECT t.CNPJ FROM {kind}_cedente_devedor t JOIN source_files f ON f.file_id = t._file_id
                 WHERE f.is_current = 1 AND t.Tipo = 'Devedor' AND t.Data_Referencia = ?
                   AND t.Codigo_Identificacao_Certificado IN ({marks})""", (emission["last"], *emission["codes"]))} - {None}

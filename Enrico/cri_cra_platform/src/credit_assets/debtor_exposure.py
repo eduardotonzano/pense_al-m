@@ -2,7 +2,9 @@
 
 A tabela ``*_cedente_devedor`` do Informe traz, por certificado, o CNPJ dos devedores (e cedentes) que
 representam mais de 20% dos créditos e o percentual. Aqui:
-  - o CNPJ é normalizado (só dígitos) e validado pelos dígitos verificadores; inválido fica de fora e é contado;
+  - o CNPJ é normalizado (só dígitos) e validado pelos dígitos verificadores; o que não é CNPJ fica de fora e é
+    contado por motivo: não informado (vazio, "0", "NA"), CPF de pessoa física (contado, nunca exibido) ou inválido;
+    CNPJ com 12 ou 13 dígitos que perdeu os zeros à esquerda só é aceito se os dígitos verificadores baterem;
   - a exposição estimada é percentual × saldo dos certificados da emissão no mês;
   - "contágio" = devedor com alguma emissão em atraso e outra emissão ainda adimplente.
 CNPJ é o identificador forte (regra 6 do projeto): nada é unido por nome.
@@ -29,6 +31,40 @@ def normalize_cnpj(value: str | None) -> str | None:
     return digits if digits[12:] == first + second else None
 
 
+def _is_cpf(digits: str) -> bool:
+    if len(digits) != 11 or len(set(digits)) == 1:
+        return False
+    for size in (9, 10):
+        total = sum(int(d) * (size + 1 - i) for i, d in enumerate(digits[:size]))
+        if total * 10 % 11 % 10 != int(digits[size]):
+            return False
+    return True
+
+
+def classify_identifier(value: str | None) -> tuple[str, str | None]:
+    """Identificador de devedor do Informe: ("cnpj" | "cnpj_sem_zeros", dígitos), ("cpf", None),
+    ("nao_informado", None) ou ("invalido", None). CPF não é devolvido: não sai em relatório."""
+
+    digits = re.sub(r"\D", "", value or "")
+    if not digits or (len(digits) <= 2 and set(digits) <= {"0", "1"}):
+        return "nao_informado", None
+    cnpj = normalize_cnpj(digits)
+    if cnpj:
+        return "cnpj", cnpj
+    if len(digits) in (12, 13) and (padded := normalize_cnpj(digits.zfill(14))):
+        return "cnpj_sem_zeros", padded
+    if _is_cpf(digits):
+        return "cpf", None
+    return "invalido", None
+
+
+def informed_cnpj(value: str | None) -> str | None:
+    """CNPJ de um campo do Informe da CVM (aceita o que perdeu os zeros à esquerda, com dígitos verificadores)."""
+
+    kind, digits = classify_identifier(value)
+    return digits if kind in ("cnpj", "cnpj_sem_zeros") else None
+
+
 def fraction(value: str | None) -> Decimal | None:
     """Percentual do Informe como fração entre 0 e 1; fora disso (ex.: -1) é inválido."""
 
@@ -49,7 +85,8 @@ def aggregate(
     """``links``: linhas {certificado, tipo, cnpj, percentual, kind}. ``balances``: saldo por certificado.
     ``delinquent``: certificados com alguma série em atraso. Devolve devedores ordenados por exposição e contadores."""
 
-    stats = {"vinculos": 0, "cnpj_invalido": 0, "percentual_invalido": 0}
+    stats = {"vinculos": 0, "nao_informado": 0, "cpf": 0, "cnpj_invalido": 0, "cnpj_sem_zeros": 0,
+             "percentual_invalido": 0}
     seen: set[tuple[str, str]] = set()
     debtors: dict[str, dict[str, Any]] = defaultdict(lambda: {
         "cnpj": "", "certificados": set(), "em_atraso": set(), "exposicao": Decimal(0), "tipos": set(),
@@ -58,10 +95,12 @@ def aggregate(
         if link.get("tipo") != "Devedor":
             continue
         stats["vinculos"] += 1
-        cnpj = normalize_cnpj(link.get("cnpj"))
+        kind, cnpj = classify_identifier(link.get("cnpj"))
         if cnpj is None:
-            stats["cnpj_invalido"] += 1
+            stats["cnpj_invalido" if kind == "invalido" else kind] += 1
             continue
+        if kind == "cnpj_sem_zeros":
+            stats["cnpj_sem_zeros"] += 1
         cert = link["certificado"]
         if (cnpj, cert) in seen:
             continue

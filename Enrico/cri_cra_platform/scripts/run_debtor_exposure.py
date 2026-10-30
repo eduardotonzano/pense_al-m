@@ -79,7 +79,9 @@ def main() -> int:
              f"Fonte: Informe Mensal (dados abertos da CVM), tabela de cedentes e devedores; CRA {refs['cra']}, CRI {refs['cri']}.",
              "Exposição estimada = percentual do devedor × saldo dos certificados da emissão. Só CNPJ válido entra; nada é unido por nome.",
              "Sinais para olhar o devedor, não conclusões.", "",
-             f"- Vínculos de devedor no mês: {stats['vinculos']}; CNPJ inválido ou vazio: {stats['cnpj_invalido']}; "
+             f"- Vínculos de devedor no mês: {stats['vinculos']}; devedor não informado (vazio, \"0\", \"NA\"): {stats['nao_informado']}; "
+             f"CPF de pessoa física (contado, não exibido): {stats['cpf']}; CNPJ inválido: {stats['cnpj_invalido']}; "
+             f"CNPJ que perdeu os zeros à esquerda, recuperado pelos dígitos verificadores: {stats['cnpj_sem_zeros']}; "
              f"percentual inválido (ex.: -1): {stats['percentual_invalido']}.",
              f"- Devedores distintos: **{len(ranking)}**; com mais de uma emissão: **{len(multi)}**; "
              f"**com contágio** (uma emissão em atraso e outra ainda adimplente): **{len(contagion)}**.", "",
