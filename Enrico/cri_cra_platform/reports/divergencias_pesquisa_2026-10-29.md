@@ -139,6 +139,16 @@ Fonte: Informe Mensal (dados abertos da CVM, tabela de cedentes e devedores, e o
   07/2022 a 12/2023).
 
 **Leitura:** o Informe do CRA do Café Brasil traz devedor e cedente que não são os do Termo. Hipótese: erro de preenchimento da securitizadora
-(o cedente com CNPJ inválido se repete em várias emissões). Isso é interpretação. Pendente: identificar a quem pertence 31.943.818/0001-71
-(consulta ao CNPJ na Receita ou pergunta à securitizadora). Até lá, o devedor do Café Brasil na plataforma é o do Termo; o do Informe não
-é usado.
+(o cedente com CNPJ inválido se repete em várias emissões). Isso é interpretação. O devedor do Café Brasil na plataforma é o do Termo; o do
+Informe não é usado.
+
+**Atualização de 30/10/2026:** Enrico consultou o CNPJ na Receita: 31.943.818/0001-71 é **Agro Quartzo Administração e Participações
+Sociedade Unipessoal Ltda.** Conferências feitas depois disso (só leitura):
+- "Quartzo" não aparece em nenhuma página do Café Brasil. As únicas ocorrências no catálogo são de outra empresa, a BTGI Quartzo
+  Participações S.A., no CRI 22D0836679 (Tecnisa/Windsor).
+- Nenhuma holding citada nos documentos do Café Brasil (Termo, atas, relatórios do AF) é a Agro Quartzo.
+- Na CVM, a Agro Quartzo é devedora só desta emissão: de 10/2022 a 08/2026 no BRECOACRAC05 e de 11/2022 a 08/2026 no BRECOACRABX0. Em 10/2022
+  o BRECOACRABX0 trazia como devedor o mesmo CNPJ inválido do cedente (23.357.072/0001-81).
+
+O vínculo da Agro Quartzo com o Café Brasil (sócia, controladora, garantidora ou erro de preenchimento) não tem evidência nos documentos.
+Fica pendente para pergunta à securitizadora ou ao AF. A plataforma mantém o devedor do Termo.
