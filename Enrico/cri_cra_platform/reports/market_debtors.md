@@ -4,7 +4,7 @@ Fonte: Informe Mensal (dados abertos da CVM), tabela de cedentes e devedores; CR
 Exposição estimada = percentual do devedor × saldo dos certificados da emissão. Só CNPJ válido entra; nada é unido por nome.
 Sinais para olhar o devedor, não conclusões.
 
-- Vínculos de devedor no mês: 2966; devedor não informado (vazio, "0", "NA"): 1363; CPF de pessoa física (contado, não exibido): 27; CNPJ inválido: 132; CNPJ que perdeu os zeros à esquerda, recuperado pelos dígitos verificadores: 8; percentual inválido (ex.: -1): 40.
+- Vínculos de devedor no mês: 2966; devedor não informado (vazio, "0", "NA", só zeros ou só noves): 1453; CPF de pessoa física (contado, não exibido): 27; CNPJ inválido: 42; CNPJ que perdeu os zeros à esquerda, recuperado pelos dígitos verificadores: 8; percentual inválido (ex.: -1): 40.
 - Devedores distintos: **1037**; com mais de uma emissão: **207**; **com contágio** (uma emissão em atraso e outra ainda adimplente): **14**.
 
 ## Maiores exposições (top 30)

@@ -118,3 +118,27 @@ seriam cerca de 60, 84 e 120 meses. Os 77 meses da 4ª série não fecham com 17
 
 **O que isso muda:** as três divergências de alta e média gravidade do Alibem (Informe, AF e classe) ficam explicadas por erro de **Informe e AF**,
 com as DFs auditadas, o Termo e a oferta do mesmo lado. O Informe e o AF passam a ser tratados como fonte secundária para dado cadastral do Alibem.
+
+## 8. Café Brasil: devedor e cedente informados à CVM (pesquisa de 29/10/2026, noite)
+
+Fonte: Informe Mensal (dados abertos da CVM, tabela de cedentes e devedores, e o XML já extraído no catálogo) e texto dos
+781 páginas baixadas do ativo (Termo, atas, relatórios do AF e outros). Só leitura.
+
+| O que | Informe da CVM (BRECOACRABX0 e BRECOACRAC05, mesma emissão) | Termo e atas |
+|---|---|---|
+| Devedor | 31.943.818/0001-71 (CNPJ válido), de 10/2022 a 08/2026 | Café Brasil Indústria, Comércio, Importação e Exportação S.A., 01.486.546/0001-67 (Termo p.13; atas de waiver) |
+| Cedente | 23.357.072/0001-81, de 10/2022 a 08/2026 | não é citado |
+
+- **31.943.818/0001-71 não aparece em nenhuma das 781 páginas** do ativo; na base da CVM, só nessa emissão. Nome não identificado (o XML do
+  Informe traz só o CNPJ).
+- **23.357.072/0001-81 é CNPJ inválido** (dígitos verificadores não batem). A raiz 23.357.072 é da Indústria de Rações Patense Ltda.,
+  devedora do CRA022009C1F, cujo Termo traz o CNPJ válido 23.357.072/0007-81. O mesmo CNPJ inválido aparece como cedente e/ou devedor em
+  outros 7 códigos de certificado da mesma securitizadora (alguns podem ser a mesma emissão com dois códigos: BRECOACRABM3, BRECOACRABR2, BRECOACRABW2, BRECOACRAC13, BRECOACRAC62, BRECOACRACC2,
+  BRECOACRACD0), o que indica preenchimento repetido no Informe, não um vínculo real com o Café Brasil.
+- O CNPJ do Café Brasil (01.486.546/0001-67) aparece na CVM só como devedor de outra emissão da mesma securitizadora (BRECOACRA1O7,
+  07/2022 a 12/2023).
+
+**Leitura:** o Informe do CRA do Café Brasil traz devedor e cedente que não são os do Termo. Hipótese: erro de preenchimento da securitizadora
+(o cedente com CNPJ inválido se repete em várias emissões). Isso é interpretação. Pendente: identificar a quem pertence 31.943.818/0001-71
+(consulta ao CNPJ na Receita ou pergunta à securitizadora). Até lá, o devedor do Café Brasil na plataforma é o do Termo; o do Informe não
+é usado.

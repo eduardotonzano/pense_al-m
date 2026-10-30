@@ -1,14 +1,14 @@
 # Placar por securitizadora (CRA e CRI)
 
 Fonte: Informe Mensal (dados abertos da CVM). Janela de 12 meses até CRA 2026-08 / CRI 2026-08; securitizadoras com pelo menos 5 emissões informadas.
-Prazo de referência de entrega: 30 dias após o fim do mês (régua de comparação; conferir na norma antes de tratar como descumprimento). Erro cadastral = vencimento fora do mês-base, série sem ISIN, ISIN inválido ou vencido com saldo e adimplente. Devedor não informado = CNPJ vazio, "0" ou "NA"; CNPJ inválido = dígitos verificadores não batem (CPF de pessoa física não conta como inválido).
+Prazo de referência de entrega: 30 dias após o fim do mês (régua de comparação; conferir na norma antes de tratar como descumprimento). Erro cadastral = vencimento fora do mês-base, série sem ISIN, ISIN inválido ou vencido com saldo e adimplente. Devedor não informado = CNPJ vazio, "0", "NA", só zeros ou só noves; CNPJ inválido = dígitos verificadores não batem (CPF de pessoa física não conta como inválido).
 
 | Securitizadora | Tipos | Emissões | Saldo (R$ mi) | % saldo em atraso | Atraso mediano de entrega (dias) | % entregue após 30 dias | reenvios por 100 informes | % séries com erro cadastral | % devedor não informado | % CNPJ de devedor inválido |
 |---|---|---|---|---|---|---|---|---|---|---|
 | VIRGO COMPANHIA DE SECURITIZACAO | CRA/CRI | 531 | 76,725.8 | 0.8 | 36.0 | 50.9 | 197.1 | 23.1 | 100.0 | 0.0 |
-| OPEA Securitizadora S.A. | CRA/CRI | 1288 | 72,195.9 | 9.9 | 27.0 | 3.7 | 4.2 | 9.7 | 49.9 | 3.2 |
+| OPEA Securitizadora S.A. | CRA/CRI | 1288 | 72,195.9 | 9.9 | 27.0 | 3.7 | 4.2 | 9.7 | 52.2 | 0.9 |
 | Eco Securitizdora de Direitos Creditórios do  | CRA/CRI | 247 | 69,925.9 | 2.4 | 28 | 3.6 | 0.2 | 13.2 | 6.0 | 3.4 |
-| VERT Companhia Securitizadora | CRA/CRI | 173 | 37,511.8 | 1.7 | 29 | 12.2 | 0.3 | 4.0 | 7.2 | 29.3 |
+| VERT Companhia Securitizadora | CRA/CRI | 173 | 37,511.8 | 1.7 | 29 | 12.2 | 0.3 | 4.0 | 35.9 | 0.6 |
 | Companhia Província de Securitização | CRA/CRI | 180 | 11,093.3 | 0.0 | 30.0 | 17.8 | 0.5 | 4.2 | 86.4 | 0.0 |
 | FORTE SECURITIZADORA S.A. | CRA/CRI | 60 | 10,549.2 | 44.7 | 30.0 | 25.0 | 1.0 | 1.9 | 0.0 | 0.0 |
 | HABITASEC SECURITIZADORA S.A. | CRA/CRI | 188 | 7,941.1 | 16.3 | 26 | 4.3 | 0.5 | 8.9 | 19.9 | 3.7 |

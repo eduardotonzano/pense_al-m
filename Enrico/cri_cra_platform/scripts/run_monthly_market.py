@@ -4,8 +4,9 @@
   --commit    atualiza data/cvm_open.db com os dados abertos da CVM e roda as análises
 
 Etapas: ingestão (só com --commit), triagem e ranking, eventos do mês, universo por ISIN e candidatos a lote,
-exposição por devedor, placar por securitizadora e painel HTML (reports/painel_mercado.html).
-Para a primeira etapa que falhar e devolve o código dela.
+exposição por devedor, placar por securitizadora, sinais das DFs, e sobre os ativos do catálogo (só leitura de
+data/cri_cra.db): Termo × CVM, assuntos de assembleias, fichas contratuais e fichas por ativo; por último o painel HTML
+(reports/painel_mercado.html). Para a primeira etapa que falhar e devolve o código dela.
 """
 from __future__ import annotations
 
@@ -23,6 +24,10 @@ ANALYSES = [
     "run_debtor_exposure.py",
     "run_securitizadora_scorecard.py",
     "run_dfin_checks.py",
+    "run_termo_vs_cvm.py",
+    "run_assembly_topics.py",
+    "build_contract_sheets.py",
+    "build_asset_dossiers.py",
     "build_market_dashboard.py",
 ]
 

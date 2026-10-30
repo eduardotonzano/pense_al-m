@@ -46,8 +46,8 @@ def classify_identifier(value: str | None) -> tuple[str, str | None]:
     ("nao_informado", None) ou ("invalido", None). CPF não é devolvido: não sai em relatório."""
 
     digits = re.sub(r"\D", "", value or "")
-    if not digits or (len(digits) <= 2 and set(digits) <= {"0", "1"}):
-        return "nao_informado", None
+    if not digits or (len(digits) <= 2 and set(digits) <= {"0", "1"}) or len(set(digits)) == 1:
+        return "nao_informado", None  # vazio, "0", "NA", "00000000000000", "99.999.999/9999-99"
     cnpj = normalize_cnpj(digits)
     if cnpj:
         return "cnpj", cnpj

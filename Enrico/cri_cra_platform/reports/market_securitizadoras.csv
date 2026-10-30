@@ -1,8 +1,8 @@
 ﻿cnpj;nome;tipos;emissoes;informes;atraso_mediano_dias;pct_entregue_apos_30d;reenvios_por_100_informes;pct_series_com_erro_cadastral;pct_devedor_nao_informado;pct_devedor_cnpj_invalido;saldo_mi;pct_saldo_em_atraso
 08.769.451/0001-08;VIRGO COMPANHIA DE SECURITIZACAO;CRA/CRI;531;1950;36.0;50.9;197.1;23.1;100.0;0.0;76725.8;0.8
-02.773.542/0001-22;OPEA Securitizadora S.A.;CRA/CRI;1288;12802;27.0;3.7;4.2;9.7;49.9;3.2;72195.9;9.9
+02.773.542/0001-22;OPEA Securitizadora S.A.;CRA/CRI;1288;12802;27.0;3.7;4.2;9.7;52.2;0.9;72195.9;9.9
 10.753.164/0001-43;Eco Securitizdora de Direitos Creditórios do ;CRA/CRI;247;2549;28;3.6;0.2;13.2;6.0;3.4;69925.9;2.4
-25.005.683/0001-09;VERT Companhia Securitizadora;CRA/CRI;173;1859;29;12.2;0.3;4.0;7.2;29.3;37511.8;1.7
+25.005.683/0001-09;VERT Companhia Securitizadora;CRA/CRI;173;1859;29;12.2;0.3;4.0;35.9;0.6;37511.8;1.7
 04.200.649/0001-07;Companhia Província de Securitização;CRA/CRI;180;1744;30.0;17.8;0.5;4.2;86.4;0.0;11093.3;0.0
 12.979.898/0001-70;FORTE SECURITIZADORA S.A.;CRA/CRI;60;680;30.0;25.0;1.0;1.9;0.0;0.0;10549.2;44.7
 09.304.427/0001-58;HABITASEC SECURITIZADORA S.A.;CRA/CRI;188;1853;26;4.3;0.5;8.9;19.9;3.7;7941.1;16.3

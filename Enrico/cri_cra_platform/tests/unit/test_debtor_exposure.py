@@ -54,7 +54,7 @@ def test_classify_identifier_separates_missing_cpf_lost_zeros_and_invalid():
     assert classify_identifier("01.486.546/0001-67") == ("cnpj", CAFE)
     assert classify_identifier("1486546000167") == ("cnpj_sem_zeros", CAFE)  # CSV perdeu o zero à esquerda
     assert classify_identifier("1486546000168") == ("invalido", None)  # sem zero e com dígito errado: não recupera
-    for missing in ("", "0", "1", ",", "NA", None):
+    for missing in ("", "0", "1", ",", "NA", None, "00000000000000", "99.999.999/9999-99"):
         assert classify_identifier(missing) == ("nao_informado", None)
     assert classify_identifier("529.982.247-25") == ("cpf", None)  # CPF não é devolvido
     assert classify_identifier("01486546000168") == ("invalido", None)

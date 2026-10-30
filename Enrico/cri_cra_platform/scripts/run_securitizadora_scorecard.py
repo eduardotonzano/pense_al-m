@@ -132,7 +132,7 @@ def main() -> int:
              f"securitizadoras com pelo menos {args.min_emissions} emissões informadas.",
              f"Prazo de referência de entrega: {DEADLINE_DAYS} dias após o fim do mês (régua de comparação; conferir na norma antes de "
              "tratar como descumprimento). Erro cadastral = vencimento fora do mês-base, série sem ISIN, ISIN inválido ou vencido com "
-             "saldo e adimplente. Devedor não informado = CNPJ vazio, \"0\" ou \"NA\"; CNPJ inválido = dígitos verificadores não batem (CPF de pessoa física não conta como inválido).", "",
+             "saldo e adimplente. Devedor não informado = CNPJ vazio, \"0\", \"NA\", só zeros ou só noves; CNPJ inválido = dígitos verificadores não batem (CPF de pessoa física não conta como inválido).", "",
              "| Securitizadora | Tipos | Emissões | Saldo (R$ mi) | % saldo em atraso | Atraso mediano de entrega (dias) | "
              "% entregue após 30 dias | reenvios por 100 informes | % séries com erro cadastral | % devedor não informado | "
              "% CNPJ de devedor inválido |",
