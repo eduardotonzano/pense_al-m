@@ -28,6 +28,7 @@ ANALYSES = [
     "run_assembly_topics.py",
     "build_contract_sheets.py",
     "build_asset_dossiers.py",
+    "build_credit_watchlist.py",
     "build_market_dashboard.py",
 ]
 

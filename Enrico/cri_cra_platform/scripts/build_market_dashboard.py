@@ -105,6 +105,7 @@ def main() -> int:
     termo = read_csv("termo_vs_cvm.csv")
     assemblies = [r for r in read_csv("assembleias_topicos.csv") if r.get("assuntos_relevantes")]
     dfin = read_csv("market_dfin.csv")
+    watch = read_csv("acompanhamento_credito.csv")
     e = html.escape
 
     kpis = []
@@ -125,10 +126,18 @@ def main() -> int:
         f"<p class='muted'>Fonte: Informe Mensal dos dados abertos da CVM. Competência de referência: {e(reference)}. "
         f"Gerado em {datetime.now(timezone.utc).strftime('%d/%m/%Y %H:%M')} UTC. "
         "Sinais para triagem, não conclusões: o dado é o do próprio Informe e erros de preenchimento vêm junto.</p>",
-        "<nav><a href='#eventos'>Eventos do mês</a><a href='#ranking'>Ranking</a><a href='#devedores'>Devedores</a>"
+        "<nav><a href='#acompanhamento'>Acompanhamento</a><a href='#eventos'>Eventos do mês</a><a href='#ranking'>Ranking</a><a href='#devedores'>Devedores</a>"
         "<a href='#securitizadoras'>Securitizadoras</a><a href='#termo'>Termo × Informe</a><a href='#assembleias'>Assembleias e fatos</a><a href='#dfin'>DFs</a></nav>",
         "<div class='kpis'>" + "".join(f"<div class='kpi'><span class='muted'>{e(label)}</span><b>{e(value)}</b></div>"
                                        for label, value in kpis) + "</div>",
+        "<h2 id='acompanhamento'>Acompanhamento de crédito dos ativos do catálogo</h2>",
+        "<p class='muted'>Do mais grave para o menos: 1 evento grave nas atas (vencimento antecipado declarado, recuperação, "
+        "dação, liquidação), 2 atraso no Informe, 3 estresse recente (waiver, repactuação, DF com ressalva, contágio), "
+        "4 outros sinais, 5 sem sinal. Decisões de ata vêm de regras de texto: conferir na ata.</p>",
+        table("t-acompanhamento", [("Nível", True), ("Ativo", False), ("Tipo", False), ("Securitizadora", False),
+                                   ("Saldo (R$ mi)", True), ("Séries em atraso", True), ("Motivos", False)],
+              [[e(r["nivel"]), e(r["ativo"]), e(r["tipo"]), e(r["securitizadora"][:32]), brl_mi(r["saldo_brl"]),
+                e(r["series_em_atraso"]), e(r["motivos"][:300])] for r in watch]) if watch else "",
         "<h2 id='eventos'>Eventos de crédito no mês</h2>",
         table("t-eventos", [("Tipo", False), ("Evento", False), ("ISIN", False), ("Certificado", False), ("Antes", False),
                             ("Depois", False), ("Saldo (R$ mi)", True)],
