@@ -4,6 +4,12 @@ field_name = tabela.coluna da CVM, sem renomear e sem mudar maiusculas.
 Valor ausente nao vira linha. Reapresentacao (mesma fonte) ou divergencia
 (outra fonte) com valor diferente para o mesmo assunto, campo e competencia
 gera uma linha nova e um conflito aberto; nenhuma observacao e sobrescrita.
+
+Valor que volta (A, depois B, depois A): por padrao o terceiro A acha o
+checksum do primeiro e nao gera linha, e o valor atual continua B. Com
+restatement=True (so a carga do informe de FIDC usa), o A volta como linha
+reapresentada, com a coleta no checksum, e vira o valor atual; o conflito
+A x B, que ja existe, nao e aberto de novo.
 """
 
 import hashlib
@@ -200,7 +206,14 @@ class ObservationRepository:
 
     @staticmethod
     def checksum(subject_column, subject_id, source_id, field_name,
-                 reference_date, value_type, value, unit):
+                 reference_date, value_type, value, unit,
+                 restated_in_run=None):
+        """SHA-256 da chave e do valor.
+
+        A coleta so entra na linha reapresentada: o checksum das outras
+        linhas e o mesmo de antes da FU4.2.
+        """
+
         data = {
             "subject": subject_column,
             "subject_id": int(subject_id),
@@ -211,6 +224,10 @@ class ObservationRepository:
             "value": str(value),
             "unit": unit,
         }
+
+        if restated_in_run is not None:
+            data["restated_in_run"] = int(restated_in_run)
+
         serialized = json.dumps(
             data,
             sort_keys=True,
@@ -245,12 +262,17 @@ class ObservationRepository:
         unit=None,
         confidence="reported",
         collected_at=None,
+        restatement=False,
     ):
         """Grava a observacao; devolve RecordResult.
 
         Mesmo assunto, fonte, campo, competencia, valor e unidade: devolve a
         observacao existente (idempotente). Valor diferente para o mesmo
         assunto, campo e competencia: linha nova e conflito aberto.
+
+        restatement=True: o valor ja foi gravado na chave, mas o atual e
+        outro (quem chama confere). Grava a linha reapresentada, com a
+        coleta no checksum; exige que o valor ja exista na chave.
         """
 
         if not isinstance(value_type, str) or value_type not in VALUE_TYPES:
@@ -324,7 +346,7 @@ class ObservationRepository:
             else normalize_timestamp(collected_at, "A data de coleta")
         )
 
-        checksum = self.checksum(
+        key = (
             subject_column,
             subject_id,
             source_id,
@@ -334,10 +356,23 @@ class ObservationRepository:
             stored_value,
             normalized_unit,
         )
+        checksum = self.checksum(*key)
         existing = self.connection.execute(
             "SELECT * FROM observations WHERE checksum = ?",
             (checksum,),
         ).fetchone()
+
+        if restatement:
+            if existing is None:
+                raise ValueError(
+                    "Linha reapresentada so existe para valor ja gravado na chave."
+                )
+
+            checksum = self.checksum(*key, restated_in_run=collection_run_id)
+            existing = self.connection.execute(
+                "SELECT * FROM observations WHERE checksum = ?",
+                (checksum,),
+            ).fetchone()
 
         if existing is not None:
             return RecordResult(self.row_to_record(existing), False, ())
@@ -369,7 +404,7 @@ class ObservationRepository:
                 ),
             )
             observation = self.get_by_id(cursor.lastrowid)
-            conflicts = self._open_conflicts(observation, subject_column)
+            conflicts = self._open_conflicts(observation, subject_column, restatement)
             self.connection.execute(
                 "RELEASE SAVEPOINT fundos_observation_record"
             )
@@ -395,8 +430,28 @@ class ObservationRepository:
             observation["unit"],
         )
 
-    def _open_conflicts(self, observation, subject_column):
-        """Abre conflito contra cada valor diferente ja gravado para a chave."""
+    def _conflicting_values(self, rows):
+        """Pares de valores da chave que ja tem conflito, de qualquer status."""
+
+        values = {int(row["id"]): self._stored_value(row) for row in rows}
+        pairs = self.connection.execute(
+            "SELECT observation_a_id, observation_b_id FROM data_conflicts"
+            " WHERE observation_a_id IN (" + ", ".join("?" * len(values)) + ")",
+            tuple(values),
+        ).fetchall()
+
+        return {
+            frozenset((values[a], values[b]))
+            for a, b in pairs
+            if a in values and b in values
+        }
+
+    def _open_conflicts(self, observation, subject_column, restated=False):
+        """Abre conflito contra cada valor diferente ja gravado para a chave.
+
+        Na linha reapresentada, o par de valores que ja tem conflito nao
+        ganha outro.
+        """
 
         row = self.connection.execute(
             "SELECT * FROM observations WHERE id = ?",
@@ -416,10 +471,21 @@ class ObservationRepository:
         ).fetchall()
 
         created = []
+        known = self._conflicting_values([row, *others]) if restated else set()
 
         for other in others:
-            if self._stored_value(other) == new_value:
+            other_value = self._stored_value(other)
+
+            if other_value == new_value:
                 continue
+
+            if restated:
+                pair = frozenset((other_value, new_value))
+
+                if pair in known:
+                    continue
+
+                known.add(pair)
 
             first, second = sorted((int(other["id"]), observation.id))
             cursor = self.connection.execute(
