@@ -38,11 +38,25 @@ SAMPLE_CATEGORIES = (
     "Ata/Edital",
 )
 
+# Categorias aceitas apenas no download por source_document_id explícito; a
+# amostra padrão da D2 continua restrita a SAMPLE_CATEGORIES.
+EXPLICIT_CATEGORIES = SAMPLE_CATEGORIES + (
+    "Relatório Agente Fiduciário",
+    "Fato Relevante",
+    "Anúncio de Encerramento",
+)
+# "Outro" (ex.: comunicados ao mercado) só com opt-in explícito (allow_other).
+OTHER_CATEGORY = "Outro"
+
 CATEGORY_DIRECTORIES = {
     "Termo de Securitização": "termo_securitizacao",
     "Aditamento": "aditamentos",
     "Informe Mensal": "informes_mensais",
     "Ata/Edital": "atas_editais",
+    "Relatório Agente Fiduciário": "relatorios_agente_fiduciario",
+    "Fato Relevante": "fatos_relevantes",
+    "Anúncio de Encerramento": "anuncios_encerramento",
+    "Outro": "outros",
 }
 
 FORMAT_EXTENSIONS = {
@@ -57,6 +71,7 @@ FORMAT_EXTENSIONS = {
 }
 
 MAX_SAMPLE_DOCUMENTS = len(SAMPLE_CATEGORIES)
+MAX_EXPLICIT_DOCUMENTS = 20
 DEFAULT_MAX_BYTES = 25_000_000
 
 
@@ -65,13 +80,17 @@ def _fold(value: str) -> str:
     return "".join(char for char in normalized if not unicodedata.combining(char))
 
 
-def infer_sample_category(category: str, document_name: str) -> str | None:
-    if category in SAMPLE_CATEGORIES:
-        return category
+def infer_sample_category(
+    category: str, document_name: str, allowed: tuple[str, ...] = SAMPLE_CATEGORIES
+) -> str | None:
     classified = classify_document(
         {"categoriaDocumento": category, "document_name": document_name}
     )
-    return classified if classified in SAMPLE_CATEGORIES else None
+    if classified in allowed:
+        return classified
+    if category in allowed:
+        return category
+    return None
 
 
 def _parse_sort_date(value: str | None) -> datetime:
@@ -116,7 +135,13 @@ def select_sample_documents(
     isin: str,
     categories: Iterable[str] | None = None,
     max_documents: int = MAX_SAMPLE_DOCUMENTS,
+    source_document_ids: Iterable[str] | None = None,
+    allow_other: bool = False,
 ) -> dict[str, Any]:
+    if source_document_ids is not None:
+        return _select_explicit_documents(
+            connection, codigo_cetip, isin, source_document_ids, allow_other
+        )
     if max_documents < 1 or max_documents > MAX_SAMPLE_DOCUMENTS:
         raise ValueError(f"max_documents deve estar entre 1 e {MAX_SAMPLE_DOCUMENTS}")
     requested = tuple(categories or SAMPLE_CATEGORIES)
@@ -203,6 +228,92 @@ def select_sample_documents(
         "missing_categories": [category for category in requested if category not in found_categories],
         "selected": selected,
         "excluded_candidates": excluded,
+        "description_validation": {
+            "database_asset_isin_matches": True,
+            "live_grade_rows_matched": 0,
+            "live_grade_rows_isin_verified": 0,
+            "all_selected_rows_verified": False,
+        },
+    }
+
+
+def _select_explicit_documents(
+    connection: sqlite3.Connection,
+    codigo_cetip: str,
+    isin: str,
+    source_document_ids: Iterable[str],
+    allow_other: bool = False,
+) -> dict[str, Any]:
+    allowed = EXPLICIT_CATEGORIES + ((OTHER_CATEGORY,) if allow_other else ())
+    requested_ids = list(dict.fromkeys(
+        str(source_id).strip() for source_id in source_document_ids
+        if str(source_id).strip()
+    ))
+    if not requested_ids or len(requested_ids) > MAX_EXPLICIT_DOCUMENTS:
+        raise ValueError(
+            f"informe entre 1 e {MAX_EXPLICIT_DOCUMENTS} source_document_id distintos"
+        )
+    asset = connection.execute(
+        "SELECT * FROM assets WHERE codigo_cetip = ? AND isin = ?",
+        (codigo_cetip, isin),
+    ).fetchone()
+    if asset is None:
+        raise ValueError(f"Ativo {codigo_cetip} com ISIN {isin} não encontrado no SQLite")
+    selected = []
+    for source_id in requested_ids:
+        row = connection.execute(
+            """SELECT d.*, a.isin AS asset_isin, a.codigo_cetip AS stored_cetip,
+                      COALESCE(v.file_hash, d.file_hash) AS verified_file_hash
+               FROM documents d
+               JOIN assets a ON a.asset_id = d.asset_id
+               LEFT JOIN document_versions v
+                 ON v.document_id = d.document_pk
+                AND v.is_current = 1
+                AND v.validation_status = 'valid'
+               WHERE d.source = 'Fundos.NET' AND d.source_document_id = ?""",
+            (source_id,),
+        ).fetchone()
+        if row is None:
+            raise ValueError(f"source_document_id {source_id} não catalogado no SQLite")
+        if row["asset_isin"] != isin or int(row["asset_id"]) != int(asset["asset_id"]):
+            raise ValueError(
+                f"source_document_id {source_id} pertence a outro ativo ({row['asset_isin']})"
+            )
+        category = infer_sample_category(row["category"], row["document_name"], allowed)
+        if category is None:
+            raise ValueError(
+                f"source_document_id {source_id} tem categoria fora da amostra "
+                f"aprovada ({row['category']})"
+            )
+        parsed_url = urlsplit(str(row["source_url"] or "").strip())
+        if parsed_url.scheme not in {"http", "https"} or not parsed_url.netloc:
+            raise ValueError(f"source_document_id {source_id} sem URL válida")
+        selected.append({
+            "document_id": int(row["document_pk"]),
+            "source_document_id": source_id,
+            "asset_id": int(row["asset_id"]),
+            "asset_isin": row["asset_isin"],
+            "stored_cetip": row["stored_cetip"],
+            "category": category,
+            "document_name": row["document_name"],
+            "reference_date": row["reference_date"],
+            "publication_date": row["publication_date"],
+            "source_url": row["source_url"],
+            "source": row["source"],
+            "source_version": None,
+            "current_file_hash": row["verified_file_hash"],
+        })
+    found = list(dict.fromkeys(document["category"] for document in selected))
+    return {
+        "asset_id": int(asset["asset_id"]),
+        "codigo_cetip": codigo_cetip,
+        "isin": isin,
+        "requested_categories": found,
+        "found_categories": found,
+        "missing_categories": [],
+        "requested_source_document_ids": requested_ids,
+        "selected": selected,
+        "excluded_candidates": [],
         "description_validation": {
             "database_asset_isin_matches": True,
             "live_grade_rows_matched": 0,
@@ -417,7 +528,7 @@ class FundosNetBrowserDownloader:
                         })
                         actual_category = (
                             classified_category
-                            if classified_category in SAMPLE_CATEGORIES
+                            if classified_category in CATEGORY_DIRECTORIES
                             else None
                         )
                         if actual_category != document["category"]:
@@ -708,11 +819,14 @@ class DocumentDownloadService:
         dry_run: bool = False,
         max_documents: int = MAX_SAMPLE_DOCUMENTS,
         categories: Iterable[str] | None = None,
+        source_document_ids: Iterable[str] | None = None,
+        allow_other: bool = False,
     ) -> dict[str, Any]:
         started = time.perf_counter()
         run_id = uuid.uuid4().hex
         sample = select_sample_documents(
-            self.connection, codigo_cetip, isin, categories, max_documents
+            self.connection, codigo_cetip, isin, categories, max_documents,
+            source_document_ids=source_document_ids, allow_other=allow_other,
         )
         report: dict[str, Any] = {
             "run_id": run_id,

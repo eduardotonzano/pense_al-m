@@ -95,7 +95,31 @@ def main() -> int:
         choices=range(1, MAX_SAMPLE_DOCUMENTS + 1),
     )
     parser.add_argument("--category", choices=SAMPLE_CATEGORIES)
+    parser.add_argument(
+        "--source-id",
+        action="append",
+        dest="source_ids",
+        help="source_document_id explícito (repetível ou separado por vírgula)",
+    )
+    parser.add_argument(
+        "--allow-other", action="store_true",
+        help="com --source-id, aceita documentos da categoria Outro (ex.: comunicados)",
+    )
+    parser.add_argument(
+        "--max-megabytes", type=int, default=25, choices=range(1, 201), metavar="1-200",
+        help="limite de tamanho por arquivo (padrão 25); acima dele o download é recusado",
+    )
     args = parser.parse_args()
+    source_ids = (
+        [part for value in args.source_ids for part in value.split(",")]
+        if args.source_ids else None
+    )
+    if source_ids and args.category:
+        parser.error("--source-id não pode ser combinado com --category")
+    report_stem = (
+        f"{args.cetip.lower()}_sample_download_by_id_latest"
+        if source_ids else "cafe_brasil_sample_download_latest"
+    )
 
     database = ROOT / "data" / "cri_cra.db"
     connection = connect(database)
@@ -106,6 +130,7 @@ def main() -> int:
             connection,
             DocumentVersionRepository(connection),
             ROOT,
+            max_bytes=args.max_megabytes * 1_000_000,
         )
         categories = [args.category] if args.category else None
         report = service.run(
@@ -114,11 +139,13 @@ def main() -> int:
             dry_run=args.dry_run,
             max_documents=args.max_documents,
             categories=categories,
+            source_document_ids=source_ids,
+            allow_other=args.allow_other,
         )
         write_reports(
             report,
-            ROOT / "reports" / "cafe_brasil_sample_download_latest.json",
-            ROOT / "reports" / "cafe_brasil_sample_download_latest.md",
+            ROOT / "reports" / f"{report_stem}.json",
+            ROOT / "reports" / f"{report_stem}.md",
         )
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return 0 if report["failed"] == 0 else 1

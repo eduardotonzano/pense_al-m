@@ -1,0 +1,305 @@
+{
+  "version": "0.1.0",
+  "status": "proposed",
+  "notes": "Verificações do mesmo dado em documentos diferentes. 'parameters' e 'facts' são regex sobre contract_parameters.parameter_name e reported_facts.fact_name; o grupo (?P<n>) separa por série. 'units' restringe a unidade comparável (evita comparar BRL com BRL_mil). Texto livre não entra. Verificações 'text' usam um tokenizer (remuneracao ou nome) e comparam fichas (percentuais, indexadores, CNPJ, palavras do nome). 'compativeis' = uma fonte traz só parte do que a outra diz; 'divergem' = fichas conflitantes. É triagem: o texto original sempre aparece no relatório.",
+  "checks": [
+    {
+      "id": "valor_total_emissao",
+      "label": "Valor total da emissão (BRL)",
+      "kind": "number",
+      "units": [
+        "BRL"
+      ],
+      "parameters": [
+        "^valor_total_emissao$"
+      ],
+      "facts": [
+        "^(comunicado_valor_total_emissao|aviso_valor_total_oferta|prospecto_valor_total_emissao|lamina_montante_ofertado|af_volume_emitido|enc_montante_total_data_emissao)$"
+      ]
+    },
+    {
+      "id": "quantidade_total",
+      "label": "Quantidade total de CRI/CRA",
+      "kind": "number",
+      "units": [
+        "CRA",
+        "CRI"
+      ],
+      "parameters": [
+        "^(quantidade_total_cra|quantidade_cri)$"
+      ],
+      "facts": [
+        "^(comunicado_quantidade_cri|aviso_quantidade_ofertada|lamina_quantidade_ofertada|lamina_quantidade_lote_base|prospecto_quantidade_cri|af_quantidade_emitida|enc_quantidade_distribuida)$"
+      ]
+    },
+    {
+      "id": "data_emissao",
+      "label": "Data de emissão",
+      "kind": "date",
+      "parameters": [
+        "^data_emissao$"
+      ],
+      "facts": [
+        "^(af_data_emissao|aviso_data_emissao)$"
+      ],
+      "informe": {
+        "path": "DadosGerais/Emissao/DataEmissao$",
+        "group": "-"
+      }
+    },
+    {
+      "id": "data_vencimento",
+      "label": "Data de vencimento final",
+      "kind": "date",
+      "parameters": [
+        "^data_vencimento(_final_cdca_cra|_termo_original)?$"
+      ],
+      "facts": [
+        "^(af_data_vencimento|lamina_data_vencimento)$"
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/DataVencimento$",
+        "group": "-"
+      }
+    },
+    {
+      "id": "prazo_dias",
+      "label": "Prazo total (dias)",
+      "kind": "number",
+      "units": [
+        "dias"
+      ],
+      "parameters": [
+        "^prazo_dias$"
+      ],
+      "facts": [
+        "^lamina_prazo_dias$"
+      ]
+    },
+    {
+      "id": "isin_serie_1",
+      "label": "ISIN da 1ª série ou série única",
+      "kind": "code",
+      "parameters": [
+        "^(isin|isin_serie_1)$"
+      ],
+      "facts": [
+        "^(comunicado_isin|aviso_codigo_isin|lamina_isin|aviso_isin_serie_1|comunicado_isin_serie_1)$"
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/CodigoISIN$",
+        "group": "-",
+        "instance": "1"
+      }
+    },
+    {
+      "id": "quantidade_serie",
+      "label": "Quantidade por série",
+      "kind": "number",
+      "units": [
+        "CRA",
+        "CRI"
+      ],
+      "parameters": [
+        "^quantidade_serie_(?P<n>\\d+)$"
+      ],
+      "facts": [
+        "^comunicado_quantidade_serie_(?P<n>\\d+)$",
+        "^anuncio_serie_(?P<n>\\d+)_quantidade$",
+        "^af_serie_(?P<n>\\d+)_quantidade_emitida$"
+      ],
+      "informe": {
+        "path": "DetalhesSeries/Series/Serie/QtdCertificadosPorClasse$",
+        "group": "n"
+      }
+    },
+    {
+      "id": "montante_serie",
+      "label": "Montante por série (BRL)",
+      "kind": "number",
+      "units": [
+        "BRL"
+      ],
+      "parameters": [
+        "^valor_emissao_serie_(?P<n>\\d+)$"
+      ],
+      "facts": [
+        "^anuncio_serie_(?P<n>\\d+)_montante$",
+        "^af_serie_(?P<n>\\d+)_volume_emitido$"
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/VlrTotalIntegralizado$",
+        "group": "n"
+      }
+    },
+    {
+      "id": "vencimento_serie",
+      "label": "Vencimento por série",
+      "kind": "date",
+      "parameters": [
+        "^vencimento_serie_(?P<n>\\d+)$"
+      ],
+      "facts": [
+        "^af_serie_(?P<n>\\d+)_data_vencimento$",
+        "^(lamina|def)_serie_(?P<n>\\d+)_vencimento$",
+        "^df_data_termino_serie_(?P<n>\\d+)$"
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/DataVencimento$",
+        "group": "n"
+      }
+    },
+    {
+      "id": "spread_serie_3_4",
+      "label": "Spread sobre DI das séries 3 e 4",
+      "kind": "number",
+      "parameters": [
+        "^remuneracao_serie_(?P<n>[34])_spread$"
+      ],
+      "facts": [
+        "^lamina_serie_(?P<n>[34])_remuneracao_spread$"
+      ]
+    },
+    {
+      "id": "taxa_prefixada_serie_1",
+      "label": "Taxa prefixada da 1ª série",
+      "kind": "number",
+      "parameters": [
+        "^remuneracao_serie_(?P<n>1)_taxa$"
+      ],
+      "facts": [
+        "^comunicado_remuneracao_serie_(?P<n>1)$",
+        "^lamina_serie_(?P<n>1)_taxa_teto_prefixada$"
+      ]
+    },
+    {
+      "id": "percentual_di_serie_2",
+      "label": "Percentual do DI da 2ª série",
+      "kind": "number",
+      "parameters": [
+        "^remuneracao_serie_(?P<n>2)_percentual_di$"
+      ],
+      "facts": [
+        "^lamina_serie_(?P<n>2)_remuneracao$"
+      ]
+    },
+    {
+      "id": "taxa_real_serie_5",
+      "label": "Taxa real (sobre IPCA) da 5ª série",
+      "kind": "number",
+      "parameters": [
+        "^remuneracao_serie_(?P<n>5)_taxa$"
+      ],
+      "facts": [
+        "^lamina_serie_(?P<n>5)_remuneracao_taxa_real$"
+      ]
+    },
+    {
+      "id": "spread_cri_ate_2030",
+      "label": "Spread do CRI até 29/08/2030",
+      "kind": "number",
+      "applies_to": [
+        "CRI"
+      ],
+      "parameters": [
+        "^remuneracao_spread_ate_2030_08_29$"
+      ],
+      "facts": [
+        "^(lamina_spread_ate_2030_08_29|prospecto_spread_ate_72_mes|prosp_def_spread_ate_2030_08_29)$"
+      ]
+    },
+    {
+      "id": "spread_cri_apos_2030",
+      "label": "Spread do CRI a partir de 29/08/2030",
+      "kind": "number",
+      "applies_to": [
+        "CRI"
+      ],
+      "parameters": [
+        "^remuneracao_spread_a_partir_2030_08_29$"
+      ],
+      "facts": [
+        "^(lamina_spread_a_partir_2030_08_29|prospecto_spread_a_partir_73_mes|prosp_def_spread_a_partir_2030_08_29)$"
+      ]
+    },
+    {
+      "id": "remuneracao_serie_texto",
+      "label": "Remuneração por série (texto)",
+      "kind": "text",
+      "tokenizer": "remuneracao",
+      "applies_to": [
+        "CRA"
+      ],
+      "parameters": [
+        "^remuneracao_serie_(?P<n>\\d+)$"
+      ],
+      "facts": [
+        "^af_serie_(?P<n>\\d+)_remuneracao$",
+        "^df_remuneracao_serie_(?P<n>\\d+)$"
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/TaxaJuros$",
+        "group": "n"
+      }
+    },
+    {
+      "id": "remuneracao_emissao_texto",
+      "label": "Remuneração da emissão (texto)",
+      "kind": "text",
+      "tokenizer": "remuneracao",
+      "parameters": [
+        "^remuneracao$"
+      ],
+      "facts": [
+        "^(af_remuneracao|df_passivo_taxa_prazo|df2024_remuneracao)$"
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/TaxaJuros$",
+        "group": "-"
+      }
+    },
+    {
+      "id": "devedor_texto",
+      "label": "Devedor (nome e CNPJ)",
+      "kind": "text",
+      "tokenizer": "nome",
+      "parameters": [
+        "^devedora$"
+      ],
+      "facts": [
+        "^(df_entidade_devedora_cdca|aviso_devedora_cnpj_nire)$"
+      ]
+    },
+    {
+      "id": "numero_emissao",
+      "label": "Número da emissão",
+      "kind": "code",
+      "parameters": [
+        "^numero_emissao$"
+      ],
+      "facts": [],
+      "informe": {
+        "path": "DadosGerais/Emissao/NumeroEmissao$",
+        "group": "-"
+      }
+    },
+    {
+      "id": "classe_serie",
+      "label": "Classe da série (sênior, mezanino, subordinada)",
+      "kind": "code",
+      "applies_to": [
+        "CRA"
+      ],
+      "parameters": [
+        "^classe_serie_(?P<n>\\d+)$"
+      ],
+      "facts": [
+        "^df_classe_serie_(?P<n>\\d+)$"
+      ],
+      "informe": {
+        "path": "DadosGerais/Series/Serie/Classe$",
+        "group": "n"
+      }
+    }
+  ]
+}

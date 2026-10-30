@@ -1,0 +1,678 @@
+﻿parameter_id;parameter_name;parameter_value;unit;applies_when;valid_from;valid_to;source_kind;supersedes;source_reference;observacao;review_status;trecho_literal
+1;razao_garantia_minima_jan_ago;0.70;fração do valor nominal dos CRA;"janeiro a agosto; verificação em 31/08";;2025-06-16;termo;;Termo 355426, p.20, linhas 16-33;Soma de Cessão Fiduciária, AF Imóvel, AF Estoque e saldo da Conta Garantia. Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"“Razão de Garantia”     (i) no período compreendido entre janeiro e agosto de cada
+                        ano, a Emitente deverá manter o valor do somatório das
+                        garantias de Cessão Fiduciária, Alienação Fiduciária de Imóvel,
+                        Alienação Fiduciária de Estoque e o saldo da Conta Garantia
+                        correspondente a, no mínimo 70% (setenta por cento) do valor
+                        nominal dos CRA; e
+
+                        (ii) No período compreendido entre setembro e dezembro de
+                        cada ano, a Emitente deverá manter o valor do somatório das
+                        garantias de Cessão Fiduciária, Alienação Fiduciária de Imóvel,
+                        Alienação Fiduciária de Estoque (se aplicável) e o saldo da Conta
+                        Garantia correspondente à, no mínimo, 120% (cento e vinte por
+                        cento) do valor nominal dos CRA , observado que na Data de
+                        Verificação da Razão de Garantia a Cessão Fiduciária deverá
+                        corresponder a, no mínimo, R$ 65.000.000,00 (sessenta e cinco
+                        milhões de reais).
+
+“Recebíveis de Compra e os recebíveis de contratos de compra e venda de produtos"
+2;razao_garantia_minima_set_dez;1.20;fração do valor nominal dos CRA;"setembro a dezembro; verificação em 15/12";;2025-06-16;termo;;Termo 355426, p.20, linhas 16-33;AF Estoque 'se aplicável' neste período. Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"“Razão de Garantia”     (i) no período compreendido entre janeiro e agosto de cada
+                        ano, a Emitente deverá manter o valor do somatório das
+                        garantias de Cessão Fiduciária, Alienação Fiduciária de Imóvel,
+                        Alienação Fiduciária de Estoque e o saldo da Conta Garantia
+                        correspondente a, no mínimo 70% (setenta por cento) do valor
+                        nominal dos CRA; e
+
+                        (ii) No período compreendido entre setembro e dezembro de
+                        cada ano, a Emitente deverá manter o valor do somatório das
+                        garantias de Cessão Fiduciária, Alienação Fiduciária de Imóvel,
+                        Alienação Fiduciária de Estoque (se aplicável) e o saldo da Conta
+                        Garantia correspondente à, no mínimo, 120% (cento e vinte por
+                        cento) do valor nominal dos CRA , observado que na Data de
+                        Verificação da Razão de Garantia a Cessão Fiduciária deverá
+                        corresponder a, no mínimo, R$ 65.000.000,00 (sessenta e cinco
+                        milhões de reais).
+
+“Recebíveis de Compra e os recebíveis de contratos de compra e venda de produtos"
+3;cessao_fiduciaria_minima_na_verificacao;65000000.00;BRL;"Data de Verificação de 15/12 (item ii, redação literal); aplicação em 31/08 não confirmada";;2025-06-16;termo;;Termo 355426, p.20, linhas 16-33;"Redação no item (ii); confirmar se vale também para a verificação de 31/08. Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).";approved;"“Razão de Garantia”     (i) no período compreendido entre janeiro e agosto de cada
+                        ano, a Emitente deverá manter o valor do somatório das
+                        garantias de Cessão Fiduciária, Alienação Fiduciária de Imóvel,
+                        Alienação Fiduciária de Estoque e o saldo da Conta Garantia
+                        correspondente a, no mínimo 70% (setenta por cento) do valor
+                        nominal dos CRA; e
+
+                        (ii) No período compreendido entre setembro e dezembro de
+                        cada ano, a Emitente deverá manter o valor do somatório das
+                        garantias de Cessão Fiduciária, Alienação Fiduciária de Imóvel,
+                        Alienação Fiduciária de Estoque (se aplicável) e o saldo da Conta
+                        Garantia correspondente à, no mínimo, 120% (cento e vinte por
+                        cento) do valor nominal dos CRA , observado que na Data de
+                        Verificação da Razão de Garantia a Cessão Fiduciária deverá
+                        corresponder a, no mínimo, R$ 65.000.000,00 (sessenta e cinco
+                        milhões de reais).
+
+“Recebíveis de Compra e os recebíveis de contratos de compra e venda de produtos"
+4;datas_verificacao_razao_garantia;"31/08 (período jan–ago); 15/12 (período set–dez)";texto;anual;;2025-06-16;termo;;Termo 355426, p.12, linhas 13-30;Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"“Datas de Verificação da Razão São as datas em que a Emissora verificará o atendimento da
+
+de Garantia”:                Razão de Garantia:
+
+                             (i) Para o período compreendido entre janeiro e agosto,
+                                      no dia 31 de agosto de cada ano; e
+
+                             (ii) Para o período compreendido entre setembro e
+                                      dezembro, no dia 15 de dezembro de cada ano.
+
+“Despesas de Estruturação”:  as despesas incorridas pela Emissora para estruturação da
+                             Oferta, conforme descritas no item 15.1. deste Termo de
+                             Securitização.
+
+“Despesas Recorrentes”:      as despesas incorridas pela Emissora para manutenção da
+                             estrutura da Oferta, conforme descritas no item 15.2. deste
+                             Termo de Securitização, as quais serão arcadas pelo Fundo de
+                             Despesas."
+5;recomposicao_garantia;Recompor garantias ou depositar na Conta Garantia até reenquadrar a Razão de Garantia;texto;desenquadramento da Razão de Garantia ou garantias nulas/ineficazes;;;termo;;Termo 355426, p.21, linhas 3-20;Detalhes no CDCA. Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"“Recomposição de Garantia”:      a obrigação da Devedora de, caso verificado o
+                                 desenquadramento da Razão de Garantia ou caso as Garantias
+                                 venham a se tornar nulas, inválidas ou ineficazes, recompor as
+                                 Garantias em favor do Credor ou mediante o depósito do valor
+                                 correspondente na Conta Garantia, até o reenquadramento da
+                                 Razão de Garantia, nos termos do CDCA.
+
+“Regime Fiduciário”:             o regime fiduciário sobre o Patrimônio Separado, nos termos da
+                                 Lei 11.076, da Lei 9.514 e da Lei 14.430, conforme aplicável,
+                                 segregando-os do patrimônio comum da Emissora, até o
+                                 pagamento integral dos CRA.
+
+“Remuneração dos CRA”:           a remuneração que será paga aos Titulares de CRA, incidente
+                                 sobre o Valor Nominal Unitário ou sobre o saldo do Valor Nominal
+                                 Unitário, conforme o caso, desde a primeira Data de
+                                 Integralização até a respectiva data de pagamento, equivalentes
+                                 a 100% (cem por cento) da variação acumulada da Taxa DI
+                                 acrescida exponencialmente de sobretaxa de 4,5% (quatro e"
+6;garantias;"Aval; Cessão Fiduciária; Alienação Fiduciária de Imóvel; Alienação Fiduciária de Estoque";texto;toda a emissão;;;termo;;Termo 355426, p.41, linhas 4-21;Informe Mensal declara 'não conta com garantias reais' e VlrTotalGarantias = 0. Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"          conforme o caso, constituídas as seguintes garantias: (i) Aval; (ii) Cessão Fiduciária; (iii) Alienação
+          Fiduciária de Imóvel; e (iv) Alienação Fiduciária de Estoque.
+
+          Aval
+
+          5.20.3. O CDCA conta com garantia fidejussória, representada pelo Aval prestado pelos Avalistas,
+          na forma regulada pelo CDCA, por meio da qual cada Avalista se tornou devedor solidário e principal
+          pagador perante a Securitizadora do Valor Garantido.
+
+          Cessão Fiduciária
+
+          5.20.4. Sem prejuízo do Aval, em garantia ao fiel e integral pagamento do Valor Garantido, a
+          Devedora obriga-se a constituir e formalizar incluindo o respectivo registro na Central Depositária
+          e/ou Cartórios de Títulos e Documentos das sedes das partes signatárias do instrumento de garantia,
+          conforme aplicável, até a Data Limite de Constituição a Cessão Fiduciária sobre os Direitos
+          Creditórios em Garantia em favor do Credor correspondente e, no mínimo, ao Valor da Garantia de
+          Cessão Fiduciária, na melhor forma de direito, em caráter irrevogável e irretratável, nos termos do
+          Contrato de Cessão Fiduciária."
+7;fundo_despesas_valor_inicial;3626417.56;BRL;constituição na integralização;;;termo;;Termo 355426, p.45, linhas 32-37;Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"          8.1. O Fundo de Despesas será composto por meio de dedução do Preço de Aquisição, no
+          montante equivalente a R$ 3.626.417,56 (três milhões, seiscentos e vinte e seis mil, quatrocentos
+          e dezessete reais e cinquenta e seis centavos), e será utilizado para pagamento das despesas
+          indicadas na Cláusula Décima Quinta abaixo.
+
+                                                                                             45"
+8;fundo_despesas_recomposicao;Anual a partir de 01/09/2023, no montante informado pela Securitizadora;texto;anual;;;termo;;Termo 355426, p.46, linhas 3-20;Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"8.2. O Fundo de Despesas deverá ser recomposto pela Devedora anualmente, a partir do dia 01
+de setembro de cada ano, iniciando a partir do dia 01 de setembro de 2023, no montante necessário
+à recomposição do Fundo de Despesas a ser informado pela Securitizadora, com recursos próprios
+ou mediante retenção, pela Securitizadora, dos recursos advindos do pagamento dos Direitos
+Creditórios em Garantia depositados na Conta Garantia, observado a obrigação de Recomposição
+de Garantia (conforme definido do Contrato de Cessão Fiduciária), cujos recursos deverão,
+enquanto não utilizado para esta finalidade, ser investidos em Outros Ativos.
+
+8.2.1.  Será retido do Preço de Aquisição, previamente ao desembolso que trata a
+
+Cláusula 7.3. do CDCA, o montante suficiente para o pagamento integral por conta e ordem
+
+da Devedora, pela Securitizadora, do CDCA n 5564582, de emissão da Café Brasil Industria
+
+Comercio Importação e Exportação S.A., na conta corrente nº 37987-5 , agência nº 0002 ,
+
+mantida no Banco Alfa Investimentos."
+9;fundo_retencao_valor;Projeção da próxima parcela de Remuneração dos CRA;texto;anual a partir de 01/09 (início em 01/10/2022);;;termo;;Termo 355426, p.46, linhas 27-42;Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"8.5. O Fundo de Retenção deverá ser constituído pela Devedora, anualmente, a partir do dia 01
+de setembro de cada ano, iniciando a partir de 01 de outubro de 2022, no valor equivalente à
+projeção da próxima parcela de pagamento da Remuneração dos CRA, a ser informado pela
+Securitizadora à Devedora, com recursos próprios da Devedora ou mediante retenção pela Emissora
+dos recursos advindos do pagamento Direitos Creditórios em Garantia depositados na Conta
+Garantia, no montante necessário à recomposição do Fundo de Retenção para constituição ou
+recomposição do Fundo de Retenção; observado a obrigação de Recomposição de Garantia
+(conforme definido do Contrato de Cessão Fiduciária.
+
+8.6. A Devedora autorizou a Securitizadora valer-se dos recursos advindos do pagamento dos
+Direitos Creditórios em Garantia depositados na Conta Garantia, a partir de 01 de setembro de cada
+ano, para recomposição do Fundo de Despesas e a partir de 01 de setembro de cada ano, para
+composição e recomposição do Fundo de Retenção, observado a obrigação de Recomposição de
+Garantia (conforme definido do Contrato de Cessão Fiduciária).
+
+                                                            46"
+10;remuneracao;100% da Taxa DI + 4,5% a.a., base 252 dias úteis;texto;toda a emissão;;;termo;;Termo 355426, p.21, linhas 15-32;Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"“Remuneração dos CRA”:           a remuneração que será paga aos Titulares de CRA, incidente
+                                 sobre o Valor Nominal Unitário ou sobre o saldo do Valor Nominal
+                                 Unitário, conforme o caso, desde a primeira Data de
+                                 Integralização até a respectiva data de pagamento, equivalentes
+                                 a 100% (cem por cento) da variação acumulada da Taxa DI
+                                 acrescida exponencialmente de sobretaxa de 4,5% (quatro e
+                                 meio por cento) ao ano, base 252 (duzentos e cinquenta e dois)
+                                 Dias Úteis.
+
+“Resgate Antecipado Facultativo  a possibilidade de, a qualquer tempo, a Devedora resgatar
+do CDCA”:                        integralmente o CDCA, mediante o pagamento total do valor
+                                 nominal do CDCA, ou seu saldo, acrescido da respectiva
+                                 remuneração, nos termos da Cláusula Sexta do CDCA.
+
+“Resgate Antecipado Obrigatório  a obrigação de a Devedora efetuar o resgate antecipado do CDCA
+do CDCA”:                        mediante o pagamento total do valor nominal do CDCA, ou seu
+                                 saldo, acrescido da respectiva remuneração, nos termos da
+                                 Cláusula Sexta do CDCA."
+11;valor_nominal_unitario_emissao;1000.00;BRL;data de emissão 21/09/2022;;;termo;;Termo 355426, p.32, linhas 12-24;Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"          5.3.1. Os CRA têm Valor Nominal Unitário de R$ 1.000,00 (mil reais) na Data de Emissão.
+          5.4. Valor Total da Oferta
+          5.4.1. O valor total da Emissão é de R$ 100.000.000,00 (cem milhões de reais), na data de emissão,
+          observado que a Oferta pode ser concluída mesmo em caso de Distribuição Parcial, observado o
+          Montante Mínimo.
+          5.5. Valor Global
+          5.5.1. O valor global dos CRA é de R$ 100.000.000,00 (cem milhões de reais).
+          5.6. Data e Local de Emissão
+          5.6.1. Para todos os efeitos e fins legais, a Data de Emissão dos CRA é 21 de setembro de 2022. O
+          local de emissão é a cidade de São Paulo, Estado de São Paulo.
+          5.7. Forma e Comprovação de Titularidade
+
+                                                                                             32"
+12;valor_total_emissao;100000000.00;BRL;data de emissão 21/09/2022;;;termo;;Termo 355426, p.32, linhas 12-24;Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"          5.3.1. Os CRA têm Valor Nominal Unitário de R$ 1.000,00 (mil reais) na Data de Emissão.
+          5.4. Valor Total da Oferta
+          5.4.1. O valor total da Emissão é de R$ 100.000.000,00 (cem milhões de reais), na data de emissão,
+          observado que a Oferta pode ser concluída mesmo em caso de Distribuição Parcial, observado o
+          Montante Mínimo.
+          5.5. Valor Global
+          5.5.1. O valor global dos CRA é de R$ 100.000.000,00 (cem milhões de reais).
+          5.6. Data e Local de Emissão
+          5.6.1. Para todos os efeitos e fins legais, a Data de Emissão dos CRA é 21 de setembro de 2022. O
+          local de emissão é a cidade de São Paulo, Estado de São Paulo.
+          5.7. Forma e Comprovação de Titularidade
+
+                                                                                             32"
+13;vencimento_antecipado_fonte;Hipóteses na Cláusula Quarta do CDCA;texto;toda a emissão;;;termo;;Termo 355426, p.24, linhas 19-36;CDCA não está no catálogo Fundos.NET do ativo. Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"“Vencimento Antecipado”          as hipóteses previstas na Cláusula Quarta do CDCA, ocasião em
+                                 que a Devedora deverá proceder ao pagamento total do Valor
+                                 Nominal do CDCA, ou seu saldo, acrescido da Remuneração do
+                                 CDCA.
+
+1.2. Todos os prazos aqui estipulados serão contados em dias corridos, exceto se expressamente
+indicado de modo diverso. Na hipótese de qualquer data aqui prevista não ser Dia Útil, haverá
+prorrogação para o primeiro Dia Útil subsequente, sem qualquer penalidade.
+
+CLÁUSULA SEGUNDA – DA AUTORIZAÇÃO PARA REALIZAR A EMISSÃO E A OFERTA
+
+2.1. A Emissão e a Oferta dos CRA foram aprovadas em Reunião da Diretoria da Emissora,
+realizada em 30 de maio de 2022, cuja ata será devidamente arquivada perante a Junta Comercial
+do Estado de São Paulo (“JUCESP”).
+
+CLÁUSULA TERCEIRA – DA VINCULAÇÃO DOS CRÉDITOS DO AGRONEGÓCIO
+
+3.1 Pelo presente Termo de Securitização, a Emissora vincula, em caráter irrevogável e"
+14;indices_financeiros_fonte;Definidos no CDCA;texto;toda a emissão;;;termo;;Termo 355426, p.41, linhas 34-38;Covenants financeiros indisponíveis sem o CDCA. Revisão: approved por Enrico Suman Marques (conversa de desenvolvimento 2026-10-26).;approved;"          constatado um Evento de Vencimento Antecipado, incluindo sem limitar-se, ao descumprimento
+          dos Índices Financeiros (conforme definido no CDCA); (ii) qualquer evento que enseje o Vencimento
+          Antecipado do Contrato de Cessão Fiduciária ou do CDCA; ou (iii) até que haja a Recomposição de
+
+                                                                                             41"
+43;razao_garantia_minima_jan_ago;0.70;fração do Saldo Devedor dos CRA;1º semestre;2025-06-17;;assembleia;razao_garantia_minima_jan_ago;Ata 927400, p.2, linhas 36-40;AGT 17/06/2025: base passa a ser o Saldo Devedor dos CRA. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"As matérias aprovadas acima foram condicionadas ao cumprimento, pela Devedora, das seguintes
+condicionantes:
+
+    (a) a Razão de Garantia 1º Semestre será o valor dos Direitos Creditórios em Garantia somado ao
+    valor existente na Conta Garantia, somado ao valor da Alienação Fiduciária de Imóvel e da Alienação"
+44;razao_garantia_minima_set_dez;1.20;fração do Saldo Devedor dos CRA;"2º semestre; verificação em 30/12";2025-06-17;;assembleia;razao_garantia_minima_set_dez;Ata 927400, p.3, linhas 2-15;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                       Fiduciária de Estoque e o saldo da Conta Garantia que deverão corresponder, em conjunto, à no
+                       mínimo 70% (setenta por cento) do valor do Saldo Devedor dos CRA;
+                       (b) nas datas de medição da Razão de Garantia 2º Semestre, será mantido o percentual de 120% do
+                       valor do Saldo Devedor dos CRA, sendo que o valor dos Direitos Creditórios em Garantia somado ao
+                       valor existente na Conta Garantia deverá corresponder à no mínimo R$ 10.000.000,00 (dez milhões
+                       de reais);
+                       (c) a Data de Verificação da Razão de Garantia para o período de setembro à dezembro será 30 de
+                       dezembro de cada ano;
+                       (d) Manutenção da apresentação dos balancetes trimestrais não auditados e dos calls trimestrais
+                       com os Titulares dos CRA até dezembro de 2025;
+                       (e) Vedação da distribuição de dividendos acima do mínimo legal para o exercício de 2025; e
+                       (f) Limitação de CAPEX no exercício de 2025 a, no máximo, R$ 12.000.000,00 (doze milhões de reais)."
+45;cessao_fiduciaria_mais_conta_minima_2sem;10000000.00;BRL;"2º semestre; Direitos Creditórios em Garantia + Conta Garantia";2025-06-17;;assembleia;cessao_fiduciaria_minima_na_verificacao;Ata 927400, p.3, linhas 2-15;Substitui o mínimo de R$ 65 mi só de Cessão Fiduciária. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                       Fiduciária de Estoque e o saldo da Conta Garantia que deverão corresponder, em conjunto, à no
+                       mínimo 70% (setenta por cento) do valor do Saldo Devedor dos CRA;
+                       (b) nas datas de medição da Razão de Garantia 2º Semestre, será mantido o percentual de 120% do
+                       valor do Saldo Devedor dos CRA, sendo que o valor dos Direitos Creditórios em Garantia somado ao
+                       valor existente na Conta Garantia deverá corresponder à no mínimo R$ 10.000.000,00 (dez milhões
+                       de reais);
+                       (c) a Data de Verificação da Razão de Garantia para o período de setembro à dezembro será 30 de
+                       dezembro de cada ano;
+                       (d) Manutenção da apresentação dos balancetes trimestrais não auditados e dos calls trimestrais
+                       com os Titulares dos CRA até dezembro de 2025;
+                       (e) Vedação da distribuição de dividendos acima do mínimo legal para o exercício de 2025; e
+                       (f) Limitação de CAPEX no exercício de 2025 a, no máximo, R$ 12.000.000,00 (doze milhões de reais)."
+46;datas_verificacao_razao_garantia;set–dez: 30/12 (jan–ago: sem alteração na ata);texto;anual;2025-06-17;;assembleia;datas_verificacao_razao_garantia;Ata 927400, p.3, linhas 6-19;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                       valor do Saldo Devedor dos CRA, sendo que o valor dos Direitos Creditórios em Garantia somado ao
+                       valor existente na Conta Garantia deverá corresponder à no mínimo R$ 10.000.000,00 (dez milhões
+                       de reais);
+                       (c) a Data de Verificação da Razão de Garantia para o período de setembro à dezembro será 30 de
+                       dezembro de cada ano;
+                       (d) Manutenção da apresentação dos balancetes trimestrais não auditados e dos calls trimestrais
+                       com os Titulares dos CRA até dezembro de 2025;
+                       (e) Vedação da distribuição de dividendos acima do mínimo legal para o exercício de 2025; e
+                       (f) Limitação de CAPEX no exercício de 2025 a, no máximo, R$ 12.000.000,00 (doze milhões de reais).
+
+                    6.2. A presente Ata de Assembleia será encaminhada à Comissão de Valores Mobiliários, por sistema
+                     eletrônico, sendo dispensada a publicação em jornais em que a Securitizadora divulga suas informações
+                     societárias."
+47;vedacao_dividendos_2025;Dividendos limitados ao mínimo legal;texto;exercício 2025;2025-06-17;;assembleia;;Ata 927400, p.3, linhas 10-23;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                       dezembro de cada ano;
+                       (d) Manutenção da apresentação dos balancetes trimestrais não auditados e dos calls trimestrais
+                       com os Titulares dos CRA até dezembro de 2025;
+                       (e) Vedação da distribuição de dividendos acima do mínimo legal para o exercício de 2025; e
+                       (f) Limitação de CAPEX no exercício de 2025 a, no máximo, R$ 12.000.000,00 (doze milhões de reais).
+
+                    6.2. A presente Ata de Assembleia será encaminhada à Comissão de Valores Mobiliários, por sistema
+                     eletrônico, sendo dispensada a publicação em jornais em que a Securitizadora divulga suas informações
+                     societárias.
+
+                    6.3. O Presidente da mesa, nos termos da Resolução CVM 60, registra a presença dos Titulares dos CRA,
+                     de forma que será dispensada sua assinatura ao final desta ata.
+
+                    6.4. A Securitizadora atesta que a presente Assembleia foi realizada atendendo a todos os requisitos,"
+48;limite_capex_2025;12000000.00;BRL;exercício 2025;2025-06-17;;assembleia;;Ata 927400, p.3, linhas 11-24;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                       (d) Manutenção da apresentação dos balancetes trimestrais não auditados e dos calls trimestrais
+                       com os Titulares dos CRA até dezembro de 2025;
+                       (e) Vedação da distribuição de dividendos acima do mínimo legal para o exercício de 2025; e
+                       (f) Limitação de CAPEX no exercício de 2025 a, no máximo, R$ 12.000.000,00 (doze milhões de reais).
+
+                    6.2. A presente Ata de Assembleia será encaminhada à Comissão de Valores Mobiliários, por sistema
+                     eletrônico, sendo dispensada a publicação em jornais em que a Securitizadora divulga suas informações
+                     societárias.
+
+                    6.3. O Presidente da mesa, nos termos da Resolução CVM 60, registra a presença dos Titulares dos CRA,
+                     de forma que será dispensada sua assinatura ao final desta ata.
+
+                    6.4. A Securitizadora atesta que a presente Assembleia foi realizada atendendo a todos os requisitos,
+                     orientações e procedimentos, conforme determina a Resolução CVM 60."
+49;limite_novos_mutuos_2026;39000000.00;BRL;a partir de jul/2026, exercício 2026;2026-02-12;;assembleia;;Ata 1110477, p.3, linhas 11-24;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"               Fica estabelecido que os Titulares de CRA presentes, condicionaram a aprovação das matérias acima,
+               ao cumprimento, pela Devedora, das seguintes condicionantes:
+
+                    (i) a limitação de novos mútuos a partir de julho de 2026, no limite de até R$ 39.000.000,00
+                     (trinta e nove milhões de reais) durante o exercício de 2026;
+                     (ii) o envio dos balancetes mensais não auditados, o que deverá ser realizado após 30 (trinta) dias
+                     do fechamento de cada mês, durante o exercício de 2026, observado que em referido balancete
+                     deverá estar expresso os valores de mútuos;
+                     (iii) a realização de amortização extraordinária, em valor equivalente a 10% (dez por cento) do
+                     Saldo Devedor em 31 de outubro de 2026; e
+                     (iv) a realização de amortização extraordinária do saldo do Valor Nominal Unitário dos CRA,
+                     mediante a implementação do mecanismo de Cash Sweep, incidente sobre a totalidade dos
+                     recursos provenientes da liquidação dos Direitos Creditórios em Garantia e/ou de quaisquer
+                     recursos recebidos pela Devedora, a qualquer tempo, observada a Ordem de Alocação de"
+50;balancetes_mensais_2026;Envio mensal, 30 dias após o fechamento, com valores de mútuos;texto;exercício 2026;2026-02-12;;assembleia;;Ata 1110477, p.3, linhas 13-26;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                    (i) a limitação de novos mútuos a partir de julho de 2026, no limite de até R$ 39.000.000,00
+                     (trinta e nove milhões de reais) durante o exercício de 2026;
+                     (ii) o envio dos balancetes mensais não auditados, o que deverá ser realizado após 30 (trinta) dias
+                     do fechamento de cada mês, durante o exercício de 2026, observado que em referido balancete
+                     deverá estar expresso os valores de mútuos;
+                     (iii) a realização de amortização extraordinária, em valor equivalente a 10% (dez por cento) do
+                     Saldo Devedor em 31 de outubro de 2026; e
+                     (iv) a realização de amortização extraordinária do saldo do Valor Nominal Unitário dos CRA,
+                     mediante a implementação do mecanismo de Cash Sweep, incidente sobre a totalidade dos
+                     recursos provenientes da liquidação dos Direitos Creditórios em Garantia e/ou de quaisquer
+                     recursos recebidos pela Devedora, a qualquer tempo, observada a Ordem de Alocação de
+                     Recursos, nos termos do Termo de Securitização."
+51;amortizacao_extraordinaria_out_2026;0.10;fração do Saldo Devedor;em 31/10/2026;2026-02-12;;assembleia;;Ata 1110477, p.3, linhas 16-29;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                     (ii) o envio dos balancetes mensais não auditados, o que deverá ser realizado após 30 (trinta) dias
+                     do fechamento de cada mês, durante o exercício de 2026, observado que em referido balancete
+                     deverá estar expresso os valores de mútuos;
+                     (iii) a realização de amortização extraordinária, em valor equivalente a 10% (dez por cento) do
+                     Saldo Devedor em 31 de outubro de 2026; e
+                     (iv) a realização de amortização extraordinária do saldo do Valor Nominal Unitário dos CRA,
+                     mediante a implementação do mecanismo de Cash Sweep, incidente sobre a totalidade dos
+                     recursos provenientes da liquidação dos Direitos Creditórios em Garantia e/ou de quaisquer
+                     recursos recebidos pela Devedora, a qualquer tempo, observada a Ordem de Alocação de
+                     Recursos, nos termos do Termo de Securitização.
+
+               6.2. A presente Ata de Assembleia será encaminhada à Comissão de Valores Mobiliários, por
+               sistema eletrônico, sendo dispensada a publicação em jornais em que a Securitizadora divulga suas
+               informações societárias."
+52;cash_sweep;Totalidade dos recursos da liquidação dos Direitos Creditórios em Garantia e demais recursos recebidos pela Devedora;texto;a qualquer tempo;2026-02-12;;assembleia;;Ata 1110477, p.3, linhas 18-31;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"                     deverá estar expresso os valores de mútuos;
+                     (iii) a realização de amortização extraordinária, em valor equivalente a 10% (dez por cento) do
+                     Saldo Devedor em 31 de outubro de 2026; e
+                     (iv) a realização de amortização extraordinária do saldo do Valor Nominal Unitário dos CRA,
+                     mediante a implementação do mecanismo de Cash Sweep, incidente sobre a totalidade dos
+                     recursos provenientes da liquidação dos Direitos Creditórios em Garantia e/ou de quaisquer
+                     recursos recebidos pela Devedora, a qualquer tempo, observada a Ordem de Alocação de
+                     Recursos, nos termos do Termo de Securitização.
+
+               6.2. A presente Ata de Assembleia será encaminhada à Comissão de Valores Mobiliários, por
+               sistema eletrônico, sendo dispensada a publicação em jornais em que a Securitizadora divulga suas
+               informações societárias.
+
+               6.3. O Presidente da mesa, nos termos da Resolução CVM 60, registra a presença dos Titulares dos"
+53;parcela_vencida_prazo_quitacao;2026-03-31;data;repactuação aprovada em 12/02/2026;2026-02-12;;assembleia;;Ata 1189040, p.2, linhas 19-32;Ata 13/05/2026 registra quitação em 28/04/2026. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"    realização do resgate antecipado dos CRA, em razão do pagamento parcial da parcela do
+    CDCA vencida em 30 de dezembro de 2025 (“Parcela Vencida”), cuja repactuação foi
+    aprovada na Assembleia de 12 de fevereiro de 2026, nos termos da proposta apresentada
+    pela Devedora, que deveria ter sido paga até 31 de março de 2026 em sua totalidade; e
+
+    (iii) autorização e aprovação expressa para que sejam celebrados e registrados
+    conforme o caso, quaisquer instrumentos relacionados à matéria aqui aprovada, inclusive
+    aditivos aos Documentos da Oferta (conforme definido no Termo de Securitização), para
+    constar as deliberações aprovadas pelos Titulares de CRA e refletir as alterações
+    necessárias.
+
+6. ABERTURA, ESCLARECIMENTOS E DELIBERAÇÕES:
+
+6.1. A Securitizadora esclarece que houve um erro formal de digitação no item (i) da ordem do"
+54;covenant_divida_liquida_ebitda_max;3.0;x;item (xv) da Cláusula 4.3 do CDCA;2026-05-13;;assembleia;;Ata 1189040, p.2, linhas 33-40;"Covenant do CDCA conhecido pela ata; waiver aprovado em 15/05/2026. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).";approved;"dia, especificamente no que se refere aos índices financeiros relativos à Dívida Líquida/EBITDA e
+ao indicador de liquidez corrente (“Waiver Índices Financeiros”). Dessa forma, onde constou
+“Dívida Líquida/EBITDA cujo resultado deve ser igual ou inferior a 3x; e o indicador de liquidez
+corrente cujo resultado deve ser igual ou inferior a 1x”, deve ser considerado correto “Dívida
+Líquida/EBITDA cujo resultado deve ser igual ou inferior a 3x; e o indicador de liquidez corrente
+cujo resultado deve ser igual ou superior a 1x”.
+
+6.2. Após as devidas explicações e apresentações pela Devedora, as matérias constantes nos itens"
+55;covenant_liquidez_corrente_min;1.0;x;item (xv) da Cláusula 4.3 do CDCA;2026-05-13;;assembleia;;Ata 1189040, p.2, linhas 33-40;Redação corrigida para 'igual ou superior a 1x'. Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"dia, especificamente no que se refere aos índices financeiros relativos à Dívida Líquida/EBITDA e
+ao indicador de liquidez corrente (“Waiver Índices Financeiros”). Dessa forma, onde constou
+“Dívida Líquida/EBITDA cujo resultado deve ser igual ou inferior a 3x; e o indicador de liquidez
+corrente cujo resultado deve ser igual ou inferior a 1x”, deve ser considerado correto “Dívida
+Líquida/EBITDA cujo resultado deve ser igual ou inferior a 3x; e o indicador de liquidez corrente
+cujo resultado deve ser igual ou superior a 1x”.
+
+6.2. Após as devidas explicações e apresentações pela Devedora, as matérias constantes nos itens"
+56;dfs_auditadas_prazo;2026-05-30;data;condição do waiver de 15/05/2026;2026-05-15;;assembleia;;Ata 1194480, p.2, linhas 39-44;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"Circulação, condicionaram a aprovação da matéria acima, ao cumprimento, pela Devedora, das
+seguintes condicionantes:
+
+        (i) A apresentação, pela Devedora, das demonstrações financeiras auditadas até 30 de maio
+        de 2026; e
+        (ii) Pagamento de “waiver fee” equivalente a 0,5% (cinco centésimos por cento) sobre o"
+57;waiver_fee;0.005;fração do Saldo Devedor;até 31/10/2026, salvo resgate antecipado total do CDCA até out/2026;2026-05-15;;assembleia;;Ata 1194480, p.2, linhas 41-44;Revisão: approved por Enrico Suman Marques (conversa 2026-10-27).;approved;"        (i) A apresentação, pela Devedora, das demonstrações financeiras auditadas até 30 de maio
+        de 2026; e
+        (ii) Pagamento de “waiver fee” equivalente a 0,5% (cinco centésimos por cento) sobre o"
+258;cronograma_amortizacao_cdca_cra;"30/12/2024: R$ 30.000.000,00 (30% do Valor Nominal); 30/12/2025: R$ 30.002.000,00 (42,86% do saldo); 30/12/2026: R$ 39.998.000,00 (100% do saldo); sem amortização em 30/12/2022 e 29/12/2023";texto;toda a emissão, a partir de 14/03/2024;2024-03-14;;assembleia;;Ata 619771, p.3, linhas 19-32;"AGT 14/03/2024, item (iii): substitui o fluxo original (amortização anual parcial a partir de 30/12/2025, vencimento 30/09/2027). Datas e valores atribuídos pela ordem das colunas da tabela (extração desalinhada); reconciliado com o saldo do AF em 31/12/2024 (R$ 70,04 mi) e o PU 399,98 do resgate de out/2026. Confirmar no PDF. Nenhum parâmetro aprovado anterior trata do cronograma. Revisão: approved por Enrico Suman Marques (conversa 2026-10-28).";approved;"       Datas De Pagamento  Remuneração      Principal      % do Saldo do
+                                                           Valor Nominal
+               30/12/2022          SIM      Amortizado
+               29/12/2023          SIM                          0,0000%
+               30/12/2024          SIM  R$              -       0,0000%
+               30/12/2025          SIM                         30,0000%
+               30/12/2026          SIM  R$              -      42,8600%
+                                                              100,0000%
+                                        R$ 30.000.000,00
+
+                                        R$ 30.002.000,00
+
+                                        R$ 39.998.000,00"
+259;data_vencimento_final_cdca_cra;2026-12-30;data;CDCA e CRA, a partir de 14/03/2024;2024-03-14;;assembleia;;Ata 619771, p.3, linhas 19-32;"AGT 14/03/2024, item (iii): a ata altera a Data de Vencimento do CDCA e dos CRA sem citá-la por extenso; 30/12/2026 é a última data da tabela. Coerente com os AF de 2023–2025 e com as DFs de 31/03/2026. Diverge do Termo 355426, das DFs de 31/03/2024 e do Informe Mensal (30/09/2027). Revisão: approved por Enrico Suman Marques (conversa 2026-10-28).";approved;"       Datas De Pagamento  Remuneração      Principal      % do Saldo do
+                                                           Valor Nominal
+               30/12/2022          SIM      Amortizado
+               29/12/2023          SIM                          0,0000%
+               30/12/2024          SIM  R$              -       0,0000%
+               30/12/2025          SIM                         30,0000%
+               30/12/2026          SIM  R$              -      42,8600%
+                                                              100,0000%
+                                        R$ 30.000.000,00
+
+                                        R$ 30.002.000,00
+
+                                        R$ 39.998.000,00"
+260;premio_resgate_antecipado_facultativo_ate;2026-01-01;data;Resgate Antecipado Facultativo (cláusula 6.3.1 do CDCA);2024-03-14;;assembleia;;Ata 619771, p.3, linhas 30-43;AGT 14/03/2024, item (iv). A ata não define o percentual do Prêmio (consta do CDCA, fora do catálogo) nem o que ocorre após 01/01/2026. Revisão: approved por Enrico Suman Marques (conversa 2026-10-28).;approved;"                                        R$ 39.998.000,00
+
+(iv)   Em razão da aprovação do item acima, os Titulares de CRA presentes,
+       representando 77,87% (setenta e sete inteiros e oitenta e sete centésimos por
+       cento) dos CRA em Circulação aprovam a alteração da cláusula 6.3.1 do CDCA,
+       para que, na hipótese de Resgate Antecipado Facultativo, a incidência do Prêmio
+       ocorra até 01 de janeiro de 2026; e
+
+(v) Os Titulares de CRA presentes, representando 77,87% (setenta e sete inteiros
+          e oitenta e sete centésimos por cento) dos CRA em Circulação aprovaram a
+          autorização para que sejam celebrados e registrados, conforme o caso,
+          quaisquer instrumentos relacionados à matéria aqui aprovada, inclusive aditivos
+          aos documentos da oferta, para constar as deliberações aprovadas pelos"
+261;waiver_fee_2024;0.0075;fração do saldo devedor dos CRA em 14/03/2024;parcela única, em até 5 dias úteis da data da assembleia;2024-03-14;;assembleia;;Ata 619771, p.4, linhas 1-14;Condição (a) da AGT de 14/03/2024. A proposta do edital previa 0,5% do Saldo Devedor do CDCA na próxima Data de Pagamento. Revisão: approved por Enrico Suman Marques (conversa 2026-10-28).;approved;"     a. O pagamento de waiver fee correspondente à 0,75% (setenta e cinco centésimos por
+          cento) calculado sobre o saldo devedor dos CRA nesta data, em parcela única, a ser
+          paga em até 5 (cinco) dias úteis contados da data da Assembleia.
+
+     b. A partir de 01 de setembro de 2024 e até 30 de dezembro de 2024, todos os recursos
+          oriundos do pagamento dos Direitos Creditórios em Garantia, deverão ficar retidos na
+          Conta Garantia da Emissão, os quais serão utilizados para pagamento da parcela do
+          principal e/ou juros prevista para dezembro de 2024, conforme o novo fluxo aprovado
+          no item (iii);
+
+     c. A Devedora não poderá distribuir dividendos acima do mínimo legal no ano de 2024;
+
+     d. A limitação do CAPEX que poderá ser realizado pela Devedora no ano de 2024 ao
+          montante máximo de R$ 15.000.000,00 (quinze milhões de reais), o qual deverá ser"
+262;retencao_conta_garantia_set_dez_2024;Todos os recursos dos Direitos Creditórios em Garantia retidos na Conta Garantia, para pagar a parcela de principal e/ou juros de dez/2024;texto;de 01/09/2024 a 30/12/2024;2024-03-14;;assembleia;;Ata 619771, p.4, linhas 2-15;Condição (b) da AGT de 14/03/2024. Revisão: approved por Enrico Suman Marques (conversa 2026-10-28).;approved;"          cento) calculado sobre o saldo devedor dos CRA nesta data, em parcela única, a ser
+          paga em até 5 (cinco) dias úteis contados da data da Assembleia.
+
+     b. A partir de 01 de setembro de 2024 e até 30 de dezembro de 2024, todos os recursos
+          oriundos do pagamento dos Direitos Creditórios em Garantia, deverão ficar retidos na
+          Conta Garantia da Emissão, os quais serão utilizados para pagamento da parcela do
+          principal e/ou juros prevista para dezembro de 2024, conforme o novo fluxo aprovado
+          no item (iii);
+
+     c. A Devedora não poderá distribuir dividendos acima do mínimo legal no ano de 2024;
+
+     d. A limitação do CAPEX que poderá ser realizado pela Devedora no ano de 2024 ao
+          montante máximo de R$ 15.000.000,00 (quinze milhões de reais), o qual deverá ser
+          calculado com base na saída de valores do caixa da Devedora, conforme Demonstrativo"
+263;vedacao_dividendos_2024;Dividendos limitados ao mínimo legal;texto;exercício 2024;2024-03-14;;assembleia;;Ata 619771, p.4, linhas 8-21;Condição (c) da AGT de 14/03/2024. Revisão: approved por Enrico Suman Marques (conversa 2026-10-28).;approved;"          principal e/ou juros prevista para dezembro de 2024, conforme o novo fluxo aprovado
+          no item (iii);
+
+     c. A Devedora não poderá distribuir dividendos acima do mínimo legal no ano de 2024;
+
+     d. A limitação do CAPEX que poderá ser realizado pela Devedora no ano de 2024 ao
+          montante máximo de R$ 15.000.000,00 (quinze milhões de reais), o qual deverá ser
+          calculado com base na saída de valores do caixa da Devedora, conforme Demonstrativo
+          de Fluxo de Caixa da Devedora. Fica estabelecido que não será considerado para este
+          cálculo, eventuais recursos oriundos de clientes inadimplentes desde que esses
+          recursos não usem o caixa da Devedora;
+
+     e. Inclusão de obrigação de entrega pela Devedora à Securitizadora dos balancetes
+          trimestrais não auditados, referentes aos três primeiros trimestres de cada ano, em"
+264;limite_capex_2024;15000000.00;BRL;"exercício 2024; calculado pela saída de caixa (Demonstrativo de Fluxo de Caixa da Devedora)";2024-03-14;;assembleia;;Ata 619771, p.4, linhas 10-23;"Condição (d) da AGT de 14/03/2024; não conta recursos de clientes inadimplentes que não usem o caixa da Devedora. Em 2025 o limite caiu para R$ 12 mi (ata 927400). Revisão: approved por Enrico Suman Marques (conversa 2026-10-28).";approved;"     c. A Devedora não poderá distribuir dividendos acima do mínimo legal no ano de 2024;
+
+     d. A limitação do CAPEX que poderá ser realizado pela Devedora no ano de 2024 ao
+          montante máximo de R$ 15.000.000,00 (quinze milhões de reais), o qual deverá ser
+          calculado com base na saída de valores do caixa da Devedora, conforme Demonstrativo
+          de Fluxo de Caixa da Devedora. Fica estabelecido que não será considerado para este
+          cálculo, eventuais recursos oriundos de clientes inadimplentes desde que esses
+          recursos não usem o caixa da Devedora;
+
+     e. Inclusão de obrigação de entrega pela Devedora à Securitizadora dos balancetes
+          trimestrais não auditados, referentes aos três primeiros trimestres de cada ano, em
+          até 45 (quarenta e cinco) dias contados do encerramento do respectivo trimestre
+          (“Prazo de Apresentação dos Balancetes Trimestrais”), o que deverá ser feito durante"
+265;balancetes_trimestrais_nao_auditados;Balancetes trimestrais não auditados dos três primeiros trimestres de cada ano, em até 45 dias do encerramento do trimestre;texto;durante toda a vigência restante da Emissão;2024-03-14;;assembleia;;Ata 619771, p.4, linhas 17-30;"Condição (e) da AGT de 14/03/2024. A ata de 12/02/2026 (1110477) exige balancetes mensais em 2026, sem declarar substituição desta obrigação; por isso não foi usado 'supersedes'. Revisão: approved por Enrico Suman Marques (conversa 2026-10-28).";approved;"          cálculo, eventuais recursos oriundos de clientes inadimplentes desde que esses
+          recursos não usem o caixa da Devedora;
+
+     e. Inclusão de obrigação de entrega pela Devedora à Securitizadora dos balancetes
+          trimestrais não auditados, referentes aos três primeiros trimestres de cada ano, em
+          até 45 (quarenta e cinco) dias contados do encerramento do respectivo trimestre
+          (“Prazo de Apresentação dos Balancetes Trimestrais”), o que deverá ser feito durante
+          toda a vigência restante da Emissão; e
+
+     f. Durante o ano de 2024, a obrigatoriedade de realização de reuniões virtuais trimestrais
+          entre a Securitizadora, a Devedora e os Titulares de CRA, objetivando atualizá-los
+          acerca do contexto comercial e financeiro da Devedora. A reunião será realizada em
+          até 15 (quinze) dias contados do encerramento do Prazo de Apresentação dos
+          Balancetes Trimestrais, em data a ser oportunamente indicada pela Securitizadora"
+266;reunioes_virtuais_trimestrais_2024;Reuniões virtuais trimestrais entre Securitizadora, Devedora e Titulares, em até 15 dias do fim do prazo dos balancetes;texto;exercício 2024;2024-03-14;;assembleia;;Ata 619771, p.4, linhas 23-36;"Condição (f) da AGT de 14/03/2024; data a ser divulgada por Comunicado ao Mercado. Revisão: approved por Enrico Suman Marques (conversa 2026-10-28).";approved;"          (“Prazo de Apresentação dos Balancetes Trimestrais”), o que deverá ser feito durante
+          toda a vigência restante da Emissão; e
+
+     f. Durante o ano de 2024, a obrigatoriedade de realização de reuniões virtuais trimestrais
+          entre a Securitizadora, a Devedora e os Titulares de CRA, objetivando atualizá-los
+          acerca do contexto comercial e financeiro da Devedora. A reunião será realizada em
+          até 15 (quinze) dias contados do encerramento do Prazo de Apresentação dos
+          Balancetes Trimestrais, em data a ser oportunamente indicada pela Securitizadora
+          através de Comunicado ao Mercado aos Titulares de CRA.
+
+6.3. A presente Ata de Assembleia será encaminhada à Comissão de Valores Mobiliários, por
+sistema eletrônico, sendo dispensada a publicação em jornais em que a Emissora divulga suas
+informações societárias."
+267;numero_emissao;190;texto;toda a emissão;;;termo;;Termo 355426, p.1, linhas 4-17;Capa do Termo (p.1).;pending;"                                                                  para emissão de
+
+                                           CERTIFICADOS DE RECEBÍVEIS DO AGRONEGÓCIO
+                               DA 190ª (CENTÉSIMA NONAGÉSIMA) EMISSÃO, EM SÉRIE ÚNICA, DA
+
+                          ECO SECURITIZADORA DE DIREITOS CREDITÓRIOS DO AGRONEGÓCIO S.A.
+                                                               como Securitizadora
+
+                         LASTREADOS EM DIREITOS CREDITÓRIOS DO AGRONEGÓCIO DEVIDOS PELA
+                            CAFÉ BRASIL INDÚSTRIA COMÉRCIO IMPORTAÇÃO E EXPORTAÇÃO S.A.
+                                                                   celebrado com
+
+                         OLIVEIRA TRUST DISTRIBUIDORA DE TÍTULOS E VALORES MOBILIÁRIOS S.A.
+                                                             como Agente Fiduciário"
+268;numero_series;1 (série única);texto;toda a emissão;;;termo;;Termo 355426, p.32, linhas 5-18;;pending;"          CLÁUSULA QUINTA – DAS CARACTERÍSTICAS DOS CRA
+          Os CRA apresentam as seguintes características:
+          5.1. Séries
+          5.1.1. Será emitida 1 (uma) série única de CRA.
+          5.2. Quantidade de CRA
+          5.2.1. A Emissão compreende 100.000 (cem mil) CRA.
+          5.3. Valor Nominal Unitário
+          5.3.1. Os CRA têm Valor Nominal Unitário de R$ 1.000,00 (mil reais) na Data de Emissão.
+          5.4. Valor Total da Oferta
+          5.4.1. O valor total da Emissão é de R$ 100.000.000,00 (cem milhões de reais), na data de emissão,
+          observado que a Oferta pode ser concluída mesmo em caso de Distribuição Parcial, observado o
+          Montante Mínimo.
+          5.5. Valor Global
+          5.5.1. O valor global dos CRA é de R$ 100.000.000,00 (cem milhões de reais)."
+269;classe_serie_1;Série única (o Termo não divide os CRA em classes);texto;toda a emissão;;;termo;;Termo 355426, p.32, linhas 5-18;"Interpretação: a cláusula só diz 'série única'; a ausência de classes é inferida do silêncio do Termo. Revisar.";pending;"          CLÁUSULA QUINTA – DAS CARACTERÍSTICAS DOS CRA
+          Os CRA apresentam as seguintes características:
+          5.1. Séries
+          5.1.1. Será emitida 1 (uma) série única de CRA.
+          5.2. Quantidade de CRA
+          5.2.1. A Emissão compreende 100.000 (cem mil) CRA.
+          5.3. Valor Nominal Unitário
+          5.3.1. Os CRA têm Valor Nominal Unitário de R$ 1.000,00 (mil reais) na Data de Emissão.
+          5.4. Valor Total da Oferta
+          5.4.1. O valor total da Emissão é de R$ 100.000.000,00 (cem milhões de reais), na data de emissão,
+          observado que a Oferta pode ser concluída mesmo em caso de Distribuição Parcial, observado o
+          Montante Mínimo.
+          5.5. Valor Global
+          5.5.1. O valor global dos CRA é de R$ 100.000.000,00 (cem milhões de reais)."
+270;devedora;Café Brasil Indústria Comércio Importação e Exportação S.A. (sede em Alfenas/MG);texto;toda a emissão;;;termo;;Termo 355426, p.12, linhas 33-40;Definição de 'Devedora' (p.12).;pending;"                             referidas sem conjunto, conforme descritas na Cláusula Décima
+                             Quinta deste Termo de Securitização.
+
+“Devedora”:                  CAFE BRASIL INDUSTRIA COMERCIO IMPORTACAO E
+                             EXPORTACAO S.A., sociedade por ações, com sede na cidade de
+                             Alfenas, Estado de Minas Gerais, na Avenida Alberto Vieira
+
+                                                            12"
+271;data_emissao;2022-09-21;data;toda a emissão;;;termo;;Termo 355426, p.32, linhas 17-24;;pending;"          5.5. Valor Global
+          5.5.1. O valor global dos CRA é de R$ 100.000.000,00 (cem milhões de reais).
+          5.6. Data e Local de Emissão
+          5.6.1. Para todos os efeitos e fins legais, a Data de Emissão dos CRA é 21 de setembro de 2022. O
+          local de emissão é a cidade de São Paulo, Estado de São Paulo.
+          5.7. Forma e Comprovação de Titularidade
+
+                                                                                             32"
+272;quantidade_total_cra;100000;CRA;toda a emissão;;;termo;;Termo 355426, p.32, linhas 7-20;;pending;"          5.1. Séries
+          5.1.1. Será emitida 1 (uma) série única de CRA.
+          5.2. Quantidade de CRA
+          5.2.1. A Emissão compreende 100.000 (cem mil) CRA.
+          5.3. Valor Nominal Unitário
+          5.3.1. Os CRA têm Valor Nominal Unitário de R$ 1.000,00 (mil reais) na Data de Emissão.
+          5.4. Valor Total da Oferta
+          5.4.1. O valor total da Emissão é de R$ 100.000.000,00 (cem milhões de reais), na data de emissão,
+          observado que a Oferta pode ser concluída mesmo em caso de Distribuição Parcial, observado o
+          Montante Mínimo.
+          5.5. Valor Global
+          5.5.1. O valor global dos CRA é de R$ 100.000.000,00 (cem milhões de reais).
+          5.6. Data e Local de Emissão
+          5.6.1. Para todos os efeitos e fins legais, a Data de Emissão dos CRA é 21 de setembro de 2022. O"
+273;data_vencimento_termo_original;2027-09-30;data;toda a emissão;;2024-03-13;termo;;Termo 355426, p.33, linhas 7-20;Vencimento do Termo (1.836 dias corridos). Foi alterado para 30/12/2026 pela assembleia de 14/03/2024 (parâmetro data_vencimento_final_cdca_cra).;pending;"          5.8. Data de Vencimento
+
+          5.8.1. Observadas as hipóteses de Resgate Antecipado, previstas neste Termo de Securitização, os
+          CRA vencerão na Data de Vencimento, qual seja, 30 de setembro de 2027, equivalente a 1.836 (mil
+          oitocentos e trinta e seis) dias corridos contados da Data de Emissão.
+
+          5.8.2. Não haverá vencimento antecipado dos CRA, mas tão somente eventual Resgate Antecipado,
+          conforme disposto no presente Termo de Securitização.
+
+          5.9. Preço de Subscrição e Forma de Integralização
+
+          5.9.1. O Preço de Subscrição dos CRA será correspondente ao Valor Nominal Unitário dos CRA. Após
+          a primeira Data de Integralização, o Preço de Integralização corresponderá ao Valor Nominal"
+274;vencimento_antecipado_cra;"Não há vencimento antecipado dos CRA; apenas Resgate Antecipado (hipóteses de vencimento antecipado ficam no CDCA)";texto;toda a emissão;;;termo;;Termo 355426, p.33, linhas 11-24;;pending;"          CRA vencerão na Data de Vencimento, qual seja, 30 de setembro de 2027, equivalente a 1.836 (mil
+          oitocentos e trinta e seis) dias corridos contados da Data de Emissão.
+
+          5.8.2. Não haverá vencimento antecipado dos CRA, mas tão somente eventual Resgate Antecipado,
+          conforme disposto no presente Termo de Securitização.
+
+          5.9. Preço de Subscrição e Forma de Integralização
+
+          5.9.1. O Preço de Subscrição dos CRA será correspondente ao Valor Nominal Unitário dos CRA. Após
+          a primeira Data de Integralização, o Preço de Integralização corresponderá ao Valor Nominal
+          Unitário dos CRA acrescido da Remuneração, desde a primeira Data de Integralização dos CRA até
+          a data efetiva da subscrição e integralização dos CRA, observada a possibilidade de ágio ou deságio,
+          de acordo com os procedimentos da B3, desde que aplicado de forma igualitária aos CRA “de uma
+          ou mais séries” integralizados em uma mesma data."
+275;atualizacao_monetaria;Não há atualização monetária;texto;toda a emissão;;;termo;;Termo 355426, p.33, linhas 28-39;;pending;"          5.10. Atualização Monetária e Remuneração
+
+          5.10.1. O Valor Nominal dos CRA não será atualizado monetariamente.
+
+          5.10.2. Os CRA farão jus a juros remuneratórios, incidentes sobre o Valor Nominal ou sobre o
+          saldo do Valor Nominal, conforme o caso, correspondentes a 100% (cem por cento) da variação
+          acumulada da Taxa DI Over, acrescida exponencialmene de sobretaxa de 4,5% (quatro e meio por
+          cento) ao ano, base 252 (duzentos e cinquenta e dois) Dias Úteis, calculados de forma exponencial
+          e cumulativa pro rata temporis por Dias Úteis decorridos (“Remuneração”) desde à Primeira Data
+
+                                                                                             33"
+276;periodicidade_remuneracao;Datas de Pagamento da Remuneração (Anexo II): 30/12/2022, 29/12/2023, 30/12/2024, 30/12/2025, 30/12/2026 e 30/09/2027 (anual, mais o vencimento);texto;toda a emissão;;;termo;;Termo 355426, p.101, linhas 2-15;As datas são literais. 'Anual' é a leitura do intervalo. Os percentuais de amortização da mesma tabela vêm desalinhados na extração e NÃO foram registrados aqui (o fluxo vigente é o da assembleia de 14/03/2024).;pending;"                                                            ANEXO II
+
+DATAS DE PAGAMENTO DA REMUNERAÇÃO DOS CRA
+
+Data de Pagamento da                                             Pagamento do Saldo do
+Remuneração dos CRA                                                    Valor Nominal
+                                                                           0,0000%
+       30/12/2022                                                          0,0000%
+       29/12/2023                                                          0,0000%
+       30/12/2024                                                          20,0000%
+       30/12/2025                                                          37,5000%
+       30/12/2026                                                         100,0000%
+       30/09/2027"
+277;encargos_moratorios;Multa moratória não compensatória de 2% + juros de mora de 1% ao mês, pro rata temporis (juros compostos), sobre o valor devido e não pago;texto;toda a emissão;;;termo;;Termo 355426, p.38, linhas 11-24;;pending;"          5.14. Multa e Juros Moratórios
+
+          5.14.1. Na hipótese de atraso no pagamento de qualquer quantia devida aos Titulares de CRA,
+          incidirão, a partir do inadimplemento até a data de seu efetivo pagamento, multa moratória não
+          compensatória de 2% (dois por cento) e juros de mora de 1% (um por cento) ao mês, calculados de
+          forma pro rata temporis (Juros compostos) sobre o valor devido, independentemente de aviso,
+          notificação ou interpelação judicial ou extrajudicial, ambos incidentes sobre o valor devido e não
+          pago.
+
+          5.15. Local de Pagamentos
+
+          5.15.1. Os pagamentos dos CRA serão efetuados pela Securitizadora utilizando-se os
+          procedimentos adotados pela B3. Caso, por qualquer razão, a qualquer tempo, os CRA não estejam"
+278;rating_obrigacao;Não há rating: não será atribuída nota de classificação de risco aos CRA;texto;toda a emissão;;;termo;;Termo 355426, p.40, linhas 30-40;;pending;"          5.19. Classificação de Risco
+
+          5.19.1. Não será atribuída nota de classificação de risco aos CRA.
+
+          5.20. Garantias
+
+          5.20.1. Não serão constituídas garantias específicas, reais, pessoais ou flutuantes sobre os CRA,
+          que gozarão das Garantias que integram os Créditos do Agronegócio, conforme descritas abaixo.
+
+                                                                                             40"
+279;lastro;Créditos do Agronegócio vinculados em caráter irrevogável e irretratável aos CRA (cláusula 3.1);texto;toda a emissão;;;termo;;Termo 355426, p.24, linhas 33-40;Natureza dos créditos (CDCA) descrita nas cláusulas seguintes e nos anexos.;pending;"CLÁUSULA TERCEIRA – DA VINCULAÇÃO DOS CRÉDITOS DO AGRONEGÓCIO
+
+3.1 Pelo presente Termo de Securitização, a Emissora vincula, em caráter irrevogável e
+irretratável, a totalidade dos Créditos do Agronegócio, incluindo seus respectivos acessórios, aos
+CRA objeto da Emissão, conforme características descritas na Cláusula Quarta abaixo, de forma que
+
+                                                            24"
+280;ordem_alocacao_itens_i_a_iii;"(i) despesas dos itens 15.2 e 15.3 e recomposição do Fundo de Despesas; (ii) composição e recomposição do Fundo de Retenção; (iii) multa e juros moratórios dos CRA";texto;toda a emissão;;;termo;;Termo 355426, p.66, linhas 24-37;;pending;"          CLÁUSULA DÉCIMA TERCEIRA – DA ORDEM DE ALOCAÇÃO DE RECURSOS
+
+          13.1. A partir da Data de Emissão até a liquidação integral dos CRA, a Emissora obriga-se a utilizar
+          os recursos financeiros decorrentes de quaisquer pagamentos relacionados aos Créditos do
+          Agronegócio, observada, obrigatoriamente, a seguinte ordem de alocação (“Ordem de Alocação de
+          Recursos”):
+
+          (i) pagamento das despesas descritas nos itens 15.2 e 15.3 abaixo e recomposição de Fundo de
+                    Despesas, se o caso;
+
+          (ii) composição e recomposição do Fundo de Retenção, se o caso
+
+          (iii) multa e juros moratórios dos CRA, caso existam;"
+281;ordem_alocacao_itens_iv_a_vi;"(iv) Remuneração dos CRA; (v) Valor Nominal Unitário dos CRA; (vi) saldo da Conta Fundo de Despesas à Consultora, observada a cláusula 4.5.5";texto;toda a emissão;;;termo;;Termo 355426, p.67, linhas 1-14;;pending;"DocuSign Envelope ID: 54F150D4-C26C-47BB-A41B-0AD741294D19
+
+          (iv) pagamento da Remuneração dos CRA;
+
+          (v) pagamento do Valor Nominal Unitário dos CRA; e
+
+          (vi) disponibilização à Consultora de eventual saldo existente na Conta Fundo de Despesas,
+                    observada a Cláusula 4.5.5. acima.
+
+          CLÁUSULA DÉCIMA QUARTA - DAS ASSEMBLEIAS DE TITULARES DE CRA
+
+          14.1. Os Titulares de CRA poderão, a qualquer tempo, reunir-se em Assembleia de Titulares de
+          CRA, a fim de deliberarem sobre matéria de interesse da comunhão dos Titulares de CRA."

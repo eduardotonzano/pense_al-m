@@ -1,0 +1,4881 @@
+{
+  "diagnostic_version": "0.1.0",
+  "mapping_version": "0.1.1",
+  "layout_version": null,
+  "layout_validation_status": "structural_only",
+  "files_analyzed": 10,
+  "source_document_ids": [
+    "1094453",
+    "1118810",
+    "1148114",
+    "1173821",
+    "1200762",
+    "1232756",
+    "1265631",
+    "1300232",
+    "1331980",
+    "1355952"
+  ],
+  "root_tags": [
+    "InformeMensalCRA"
+  ],
+  "encodings": [
+    "UTF-8"
+  ],
+  "namespaces": [
+    "xsi=http://www.w3.org/2001/XMLSchema-instance"
+  ],
+  "layout_versions_declared": [
+    "None"
+  ],
+  "maximum_depth": 5,
+  "paths_total": 235,
+  "classification_counts": {
+    "mapped": 182,
+    "ignored": 51,
+    "pending_decision": 2
+  },
+  "classification_coverage": 1.0,
+  "paths_only_in_some_files": [
+    "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao/@{http://www.w3.org/2001/XMLSchema-instance}nil",
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual/@{http://www.w3.org/2001/XMLSchema-instance}nil"
+  ],
+  "paths": [
+    {
+      "xml_path": "/InformeMensalCRA",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753870915.63",
+        "762981458.53",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes/CotasFILiquidezDiaria",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes/OperacoesCompromissadas",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes/Outros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/CaixaEquivalentes/TitulosPublicosFederais",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/Derivativos",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/Derivativos/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/Derivativos/ContratosTermo",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/Derivativos/Futuros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/Derivativos/Opcoes",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/Derivativos/Swap",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753870915.63",
+        "762981458.53",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerComParcelasAtraso",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerSemParcelasAtraso",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753870915.63",
+        "762981458.53",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/OutrosAtivos",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Ativo/ProvisaoRecuperacaoDireitosCreditorios",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/ContingenciaPatrimonioSeparado",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/ContingenciaPatrimonioSeparado/OutrasContigenciasRelevantes",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Nada a destacar"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes/PrincipaisFatos",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Nada a destacar."
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes/ValoresBensDireitosEnvolvidos",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Nada a destacar."
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/AgenteFiduciario",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Vortx DTVM LTDA."
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/CNPJCompanhia",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "10753164000143"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/CompanhiaEmissora",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Eco Securitizdora de Direitos Creditórios do Agronegócio"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Competencia",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "date_iso"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2025-12-31",
+        "2026-01-31",
+        "2026-02-28"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/CustodianteRegistradora",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Vortx DTVM LTDA."
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/DetalhamentoLastro",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Direitos Creditórios"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Emissao",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Emissao/CodigoIdentificacao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "BRECOACRALJ8"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Emissao/DataEmissao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "date_iso"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2025-12-15"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Emissao/NomeEmissao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Série 1,2, 3, 4 e 5 - 426ª Emissão - Alibem"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Emissao/NumeroEmissao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "426"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Emissao/QuantidadeSeries",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "5"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/InstituicaoRegimeFiduciario",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Sim"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/CadeiaProducao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Produtor rural"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/OutrasCaracteristicasEmissao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Nada a destacar."
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/RetentorRisco",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "00000000000000"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/TipoRetencaoRisco",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 0,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "empty"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/TipoSegmento",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Pecuária"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Revolvencia",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Não"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 5,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/Classe",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Sênior",
+        "Mezanino",
+        "Subordinada"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/CodigoISIN",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "BRECOACRALJ8",
+        "BRECOACRALK6",
+        "BRECOACRALL4"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/CodigoNegociacaoMercadoSec",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "CRA02500C1D",
+        "CRA02500C1E",
+        "CRA02500C1F"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/DataVencimento",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "date_iso"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2029-07-16",
+        "2032-07-15",
+        "2035-07-16"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/MesBaseApuracaoPagtoRemunAmort",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Junho e Dezembro"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/NumeroSerie",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1",
+        "2",
+        "3"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/PeriodicidadePagtoRemunAmort",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Semestral"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/Situacao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Adimplente"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/TaxaJuros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "PRÉ 14,8000 % a.a",
+        "108% do CDI",
+        "CDI + 1,5000% a.a"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/TipoOferta",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Público em geral"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Series/Serie/VlrTotalIntegralizado",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "233142000",
+        "16858000",
+        "250000000"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/Sobrecolateralizacao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Não aplicável. Não há sobrecolaterização."
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DadosGerais/TipoLastro",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Créditos"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Cambio",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/CommoditiesAgricolas",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Juros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Outros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Cambio",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/CommoditiesAgricolas",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Juros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Outros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Cambio",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/CommoditiesAgricolas",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Juros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Outros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Cambio",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/CommoditiesAgricolas",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Juros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Outros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/AgenciaClassificadora",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Moody´s Local"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 7,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "date_iso",
+        "xsi_nil"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "2025-12-17",
+        "2026-01-29",
+        "2026-09-03"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao/@{http://www.w3.org/2001/XMLSchema-instance}nil",
+      "node_kind": "attribute",
+      "files_present": 3,
+      "files_absent": 7,
+      "files_filled": 3,
+      "min_occurrences": 0,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "true"
+      ],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 5,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/AmortizacoesRealizadasPeriodo",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/Classe",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Sênior",
+        "Mezanino",
+        "Subordinada"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 6,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text",
+        "xsi_nil"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "A.br (sf)"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual/@{http://www.w3.org/2001/XMLSchema-instance}nil",
+      "node_kind": "attribute",
+      "files_present": 4,
+      "files_absent": 6,
+      "files_filled": 4,
+      "min_occurrences": 0,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "true"
+      ],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 0,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "xsi_nil"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase/@{http://www.w3.org/2001/XMLSchema-instance}nil",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "true"
+      ],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 0,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "xsi_nil"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo/@{http://www.w3.org/2001/XMLSchema-instance}nil",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "true"
+      ],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/NumeroSerie",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1",
+        "2",
+        "3"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/QtdCertificadosPorClasse",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "233142",
+        "16858",
+        "250000"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/RendimentosDistribuidosPeriodo",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot",
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0",
+        "15837891.86",
+        "1233313.41"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/RentabilidadePeriodo",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot",
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0",
+        "0.0116",
+        "0.0126"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 5,
+      "max_occurrences": 5,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot",
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "234037564.63",
+        "16928388.21",
+        "251070204.24"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Subordinacao",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/Subordinacao/RecomposicaoIndice",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Não aplicável. Não houve recomposição de índices."
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/totalAmortizacoesRealizadas",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/totalQtdCertificados",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "750000"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/totalRendimentosDistribuidos",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot",
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0",
+        "50298813.38"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/DetalhesSeries/totalVlrCertificados",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753008973.69",
+        "762110393.96",
+        "770062689.3"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoCaixaEquivalentes",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoNovosDireitosCreditorios",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosPagamentos",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosRecebimentos",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PagamentosDespesas",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot",
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0",
+        "15837891.87"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/AmortizacaoPrincipal",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/Juros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot",
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0",
+        "15837891.87"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot",
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0",
+        "33227608.12"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/AmortizacaoPrincipal",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/Juros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot",
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0",
+        "33227608.12"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot",
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0",
+        "1233313.41"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/AmortizacaoPrincipal",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/Juros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot",
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0",
+        "1233313.41"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/RecebimentosAlienacaoCaixaEquivalentes",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/RecebimentosDireitosCreditorios",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot",
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0",
+        "50298813.4"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/VariacaoLiquidaCaixaPatrimonioSeparado",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753870915.63",
+        "762981458.53",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Acima361Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753870915.63",
+        "762981458.53",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Ate30Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De121a150Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De151a180Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De181a360Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De31a60Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De61a90Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De91a120Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/CNPJ",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "cnpj_formatted"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "03.941.052/0001-50"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/Percentual",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/Concentracao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Concentrado - mais de 20%"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoCedente",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoCedente/MaiorCedente",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 0,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "xsi_nil"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "true"
+      ],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 0,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "xsi_nil"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "true"
+      ],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/MaiorDevedor",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 0,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "xsi_nil"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "true"
+      ],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/CNPJ",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "cnpj_formatted"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "03.941.052/0001-50"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/Percentual",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "integer"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "1"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/DurationCarteira",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Dez anos"
+      ],
+      "classification_status": "pending_decision",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/OutrasConsideracoesRelevantes",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Nada a destacar."
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PercentualDireitosCreditoriosCedentesTerceiros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PercentualDireitosCreditoriosOutrasGarantias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PeriodicidadeAvaliacaoGarantias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Não aplicável. A operação não conta com garantias reais."
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrDividasAdquiridasEmissorSecuritizadora",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalDirCredRelacaoVlrTotalEmissao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "pending_decision",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalGarantias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/InfoImpactoPrePgtoInvestidores",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Não há. Não houve pré-pagamento para os investidores."
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 0,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "xsi_nil"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro/@{http://www.w3.org/2001/XMLSchema-instance}nil",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "true"
+      ],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Acima361Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre121e150Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre151e180Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre181e360Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre1e30Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre31e60Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre61e90Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre91e120Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753870915.63",
+        "762981458.53",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoInsumosAgropecuarios",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoMaquinasImplementos",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoProdutosAgropecuarios",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoInsumosAgropecuarios",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoMaquinasImplementos",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoProdutosAgropecuarios",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoInsumosAgropecuarios",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoMaquinasImplementos",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoProdutosAgropecuarios",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoInsumosAgropecuarios",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoMaquinasImplementos",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoProdutosAgropecuarios",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753870915.63",
+        "762981458.53",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrTotalParcelasAtraso",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/OutrasInfoRelevantesDesempenhoEmissao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "text"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "Nada a destacar."
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753870915.63",
+        "762981458.53",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo/CompanhiaSecuritizadoraEmissora",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo/Derivativos",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo/Derivativos/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo/Derivativos/ContratosTermo",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo/Derivativos/Futuros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo/Derivativos/Opcoes",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo/Derivativos/Swap",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo/Outros",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo/ReducaoVlrEmissao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "-861941.94",
+        "-871064.57",
+        "-910845.62"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/Passivo/VlrAtualizadoEmissao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753008973.69",
+        "762110393.96",
+        "770062689.3"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPatrimonioLiquidoEmissao",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753870915.63",
+        "762981458.53",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Acima361Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "753870915.63",
+        "762981458.53",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Ate30Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De121a150Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De151a180Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De181a360Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De31a60Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De61a90Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De91a120Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr",
+      "node_kind": "container",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": null,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [],
+      "classification_status": "ignored",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/@total",
+      "node_kind": "attribute",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 0,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "250965952.84",
+        "253886272.92",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Acima361Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "decimal_dot"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "250965952.84",
+        "253886272.92",
+        "770973534.92"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Ate30Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De121a150Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De151a180Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De181a360Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De31a60Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De61a90Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    },
+    {
+      "xml_path": "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De91a120Dias",
+      "node_kind": "leaf",
+      "files_present": 10,
+      "files_absent": 0,
+      "files_filled": 10,
+      "min_occurrences": 1,
+      "max_occurrences": 1,
+      "max_repeated_within_parent": 1,
+      "value_shapes": [
+        "zero"
+      ],
+      "long_text_flag": false,
+      "base64_suspected": false,
+      "personal_data_suspected": false,
+      "example_values": [
+        "0"
+      ],
+      "classification_status": "mapped",
+      "classification_source": "mapping"
+    }
+  ],
+  "errors": [],
+  "asset": {
+    "codigo_cetip": "CRA02500C1D",
+    "isin": "BRECOACRALJ8",
+    "category": "Informe Mensal"
+  }
+}

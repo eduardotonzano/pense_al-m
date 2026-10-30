@@ -1,0 +1,11 @@
+{
+  "asset": {"codigo_cetip": "CRA022009VM", "isin": "BRECOACRABX0"},
+  "source_note": "Correções propostas a partir da conferência visual de 28/10/2026 (reports/cra022009vm_conferencia_visual.md): o valor original ia além do que o documento diz. Substituem os fatos 376 e 405, que continuam pendentes para rejeição.",
+  "proposed_by": "Claude (assistente), conferência visual",
+  "proposed_at": "2026-10-28",
+  "extraction_method": "leitura_manual_com_conferencia_visual",
+  "facts": [
+    {"source_document_id": "619771", "page_number": 1, "fact_name": "assembleia_cdca_2024_presenca_titulares", "reference_date": "2024-03-14", "value": "Titulares presentes: 77,87% dos CRA em Circulação; também presentes Devedora, Securitizadora e Agente Fiduciário (a ata não diz 'instalada' nem 'em 1ª convocação'; cita o edital de primeira convocação)", "unit": "texto", "excerpt": "os Titulares dos CRA representativos de 77,87% (setenta e sete inteiros e oitenta e sete centésimos por cento) dos Certificados de Recebíveis do Agronegócio em Circulação", "note": "Substitui o fato 376."},
+    {"source_document_id": "755722", "page_number": 2, "fact_name": "assembleia_dfs_2024_2a_convocacao_sem_quorum", "reference_date": "2024-10-10", "value": "não instalada: sem investidores representativos do quórum mínimo de instalação (cl. 14.11 do Termo); a ata lista só Agente Fiduciário e Securitizadora", "unit": "texto", "excerpt": "Não houve a presença de investidores representativos do quórum mínimo de instalação desta Assembleia, em segunda convocação", "note": "Substitui o fato 405."}
+  ]
+}

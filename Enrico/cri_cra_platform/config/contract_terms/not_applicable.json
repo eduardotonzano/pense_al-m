@@ -1,0 +1,14 @@
+{
+  "notes": "Campos padrão que o documento diz não existirem para o ativo. Só valem como 'não se aplica' depois de aprovados (status approved + revisor). Cada entrada aponta o parâmetro com o trecho literal que sustenta a ausência.",
+  "entries": [
+    {
+      "codigo_cetip": "CRA02500C1D",
+      "field_id": "garantias.razao_minima",
+      "evidence_parameter": "garantias_cra",
+      "reason": "Os CRA não contam com garantia real ou fidejussória (Termo, p.14), então não há razão de garantia a monitorar.",
+      "status": "pending",
+      "reviewed_by": null,
+      "reviewed_at": null
+    }
+  ]
+}

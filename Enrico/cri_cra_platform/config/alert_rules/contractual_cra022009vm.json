@@ -1,0 +1,95 @@
+{
+  "rules_version": "0.2.0",
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "approval_status": "approved",
+  "approved_by": "Enrico Suman Marques",
+  "approved_at": "2026-10-26",
+  "interpretations": {
+    "valor_nominal_dos_cra": "saldo devedor dos CRA (C) informado pelo Agente Fiduciário na mesma data-base",
+    "data_de_verificacao": "posição de 31/12 do Relatório do AF usada como aproximação da verificação de 15/12",
+    "saldo_conta_garantia": "'Saldo em conta (B)' do Relatório do AF"
+  },
+  "rules": {
+    "cessao_fiduciaria_minima": {
+      "severity": "warning",
+      "months": [
+        "12"
+      ],
+      "variants": [
+        {
+          "parameter": "cessao_fiduciaria_minima_na_verificacao",
+          "facts": [
+            "garantia_cessao_fiduciaria_valor"
+          ]
+        },
+        {
+          "parameter": "cessao_fiduciaria_mais_conta_minima_2sem",
+          "facts": [
+            "garantia_cessao_fiduciaria_valor",
+            "saldo_em_conta"
+          ]
+        }
+      ]
+    },
+    "razao_garantia_minima": {
+      "severity": "warning",
+      "parameters": {
+        "01-08": "razao_garantia_minima_jan_ago",
+        "09-12": "razao_garantia_minima_set_dez"
+      },
+      "numerator_facts": [
+        "garantia_cessao_fiduciaria_valor",
+        "garantia_af_estoque_valor",
+        "garantia_af_imovel_valor",
+        "saldo_em_conta"
+      ],
+      "denominator_fact": "saldo_devedor_cra"
+    },
+    "payment_reconciliation": {
+      "severity": "warning",
+      "fact": "pagamento_cra",
+      "informe_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total",
+      "tolerance_brl": "1.00",
+      "coverage_months": [
+        "2025-12",
+        "2026-01",
+        "2026-02",
+        "2026-03",
+        "2026-04"
+      ],
+      "coverage_note": "Comunicados ao mercado baixados apenas de dez/2025 a abr/2026."
+    },
+    "trustee_payment_statement": {
+      "severity": "warning",
+      "fact": "pagamentos_no_exercicio",
+      "informe_path": "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total"
+    },
+    "obligation_deadlines": {
+      "severity": "info",
+      "approval_status": "approved",
+      "warn_days": 30,
+      "obligations": [
+        {
+          "parameter": "waiver_fee",
+          "due": "2026-10-31",
+          "label": "Waiver fee de 0,5% do saldo devedor"
+        },
+        {
+          "parameter": "amortizacao_extraordinaria_out_2026",
+          "due": "2026-10-31",
+          "label": "Amortização extraordinária de 10% do saldo devedor"
+        },
+        {
+          "parameter": "dfs_auditadas_prazo",
+          "label": "Demonstrações financeiras auditadas da Devedora"
+        }
+      ],
+      "approved_by": "Enrico Suman Marques",
+      "approved_at": "2026-10-27"
+    }
+  },
+  "changes_0_2_0": "Parâmetros por vigência (alterações das assembleias de 2025-2026); variantes da cessão mínima; regra informativa de prazos (aprovada em 2026-10-27)."
+}

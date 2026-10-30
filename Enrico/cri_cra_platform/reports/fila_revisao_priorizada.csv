@@ -1,0 +1,188 @@
+﻿tier;tipo;id;ativo;nome;valor;motivo;fonte
+1;fato;455;24G2100031;lamina_garantia_af_titularidade_emissora;"texto da Lâmina: imóvel ""de titularidade da Emissora""";nota com contradição/interpretação;Lâmina de Oferta de Securitização 727225, p.9
+1;fato;498;24G2100031;prospecto_risco_rating_atualizacao_trimestral;classificação de risco atualizada trimestralmente (texto do fator de risco 21);nota com contradição/interpretação;Prospecto de Distribuição Pública 722286, p.37
+1;fato;762;24G2100031;prosp_def_cronograma_bookbuilding;2024-08-26;nota com contradição/interpretação;Prospecto de Distribuição Pública 727241, p.62
+1;fato;778;24G2100031;prosp_def_fitch_tabela_rating_anterior_exp;"ISIN BRRBRACRIP13: AA-sf(bra), perspectiva Stable; coluna do rating anterior: (EXP)sf(bra); 'New Rating'";"conferência visual diverge; nota com contradição/interpretação";Prospecto de Distribuição Pública 727241, p.601
+1;fato;789;24G2100031;enc_linha_parcial_1709_subscritores_221120_cri;"1.709 subscritores; 221.120 CRI (tipo de investidor não identificável na extração)";conferência visual diverge;Anúncio de Encerramento de Distribuição Pública 730623, p.2
+1;fato;790;24G2100031;enc_linha_parcial_1_subscritor_8880_cri;"1 subscritor; 8.880 CRI (tipo de investidor não identificável na extração)";conferência visual diverge;Anúncio de Encerramento de Distribuição Pública 730623, p.2
+1;fato;268;CRA022009VM;df_garantias_estrutura_nota_1;A operação não conta com garantia;nota com contradição/interpretação;Demonstrações Financeiras 485809, p.10
+1;fato;298;CRA022009VM;df_assembleias_periodo;nenhuma;nota com contradição/interpretação;Demonstrações Financeiras 698040, p.19
+1;fato;318;CRA022009VM;df_amortizacao_principal_cra_exercicio;30000;nota com contradição/interpretação;Demonstrações Financeiras 935390, p.18
+1;fato;327;CRA022009VM;df_assembleias_periodo;nenhuma;nota com contradição/interpretação;Demonstrações Financeiras 935390, p.19
+1;fato;331;CRA022009VM;comunicado_assembleia_data_citada;2023-03-14;nota com contradição/interpretação;Outros Comunicados Não Considerados Fatos Relevantes  620811, p.1
+1;fato;361;CRA022009VM;assembleia_dfs_2023_2a_convocacao_presenca;"presentes 17,11% dos CRA em Circulação; sem quórum de deliberação";nota com contradição/interpretação;AGO/E 538424, p.2
+1;fato;376;CRA022009VM;assembleia_cdca_2024_presenca;"instalada em 1ª convocação; Titulares presentes: 77,87% dos CRA em Circulação; Devedora, Securitizadora e Agente Fiduciário presentes";conferência visual inconclusivo;AGO/E 619771, p.1
+1;fato;403;CRA022009VM;assembleia_dfs_2024_2a_convocacao_edital_publicado;edital de 2ª convocação publicado em 02/10/2024 (instrução de voto à distância);nota com contradição/interpretação;AGO/E 750841, p.3
+1;fato;405;CRA022009VM;assembleia_dfs_2024_2a_convocacao_nao_instalada;não instalada: nenhum investidor presente (quórum mínimo de instalação, cláusula 14.11 do Termo);conferência visual inconclusivo;AGO/E 755722, p.2
+1;fato;416;CRA022009VM;df2024_assembleias_no_exercicio;a DF diz que não houve assembleias no exercício 01/04/2023 a 31/03/2024;nota com contradição/interpretação;AGO/E 725269, p.26
+1;fato;724;CRA02500C1D;def_comissao_sucesso_nota;não aplicável (nota 1d);nota com contradição/interpretação;Prospecto de Distribuição Pública 1065463, p.170
+1;fato;809;CRA02500C1D;enc_serie_3_total_cra;250000;nota com contradição/interpretação;Anúncio de Encerramento de Distribuição Pública 1068059, p.3
+2;fato;811;24G2100031;af2024_quantidade_emitida;230000;leitura por OCR;Relatório de Agente Fiduciário 892072, p.3
+2;fato;812;24G2100031;af2024_volume_emitido;230000000.00;leitura por OCR;Relatório de Agente Fiduciário 892072, p.3
+2;fato;813;24G2100031;af2024_remuneracao;CDI + 1,5%;leitura por OCR;Relatório de Agente Fiduciário 892072, p.3
+2;fato;814;24G2100031;af2024_data_vencimento;2036-08-29;leitura por OCR;Relatório de Agente Fiduciário 892072, p.3
+2;fato;815;24G2100031;af2024_rating;não existe rating para a operação no período analisado;"alimenta alerta contratual; leitura por OCR";Relatório de Agente Fiduciário 892072, p.3
+2;fato;816;24G2100031;af2024_primeiro_pagamento_previsto;2024-09-26;leitura por OCR;Relatório de Agente Fiduciário 892072, p.4
+2;fato;817;24G2100031;af2024_inadimplemento_periodo;Adimplente;leitura por OCR;Relatório de Agente Fiduciário 892072, p.4
+2;fato;818;24G2100031;af2024_contratos_listados;"AF imóvel; CF; CF - 1º aditamento; emissão CCI; emissão CCI - 1º aditamento; emissão debêntures; emissão debêntures - 1º aditamento; TS; TS - 1º aditamento";leitura por OCR;Relatório de Agente Fiduciário 892072, p.4
+2;fato;819;24G2100031;af2024_certificados_em_circulacao;230000;leitura por OCR;Relatório de Agente Fiduciário 892072, p.5
+2;fato;820;24G2100031;af2024_saldo_devedor;230118275.40;leitura por OCR;Relatório de Agente Fiduciário 892072, p.5
+2;fato;821;24G2100031;af2024_pgto_juros_por_cri;10.02330500;leitura por OCR;Relatório de Agente Fiduciário 892072, p.5
+2;fato;822;24G2100031;af2024_pgto_juros_por_cri;9.72125200;leitura por OCR;Relatório de Agente Fiduciário 892072, p.5
+2;fato;823;24G2100031;af2024_pgto_juros_por_cri;9.91988900;leitura por OCR;Relatório de Agente Fiduciário 892072, p.5
+2;fato;824;24G2100031;af2024_pgto_juros_por_cri;9.90435399;leitura por OCR;Relatório de Agente Fiduciário 892072, p.5
+2;fato;825;24G2100031;af2024_relatorio_gestao_patrimonio_separado;não disponibilizado ao Agente Fiduciário;leitura por OCR;Relatório de Agente Fiduciário 892072, p.7
+2;fato;826;24G2100031;af2024_assembleias;nenhuma no período;leitura por OCR;Relatório de Agente Fiduciário 892072, p.7
+2;fato;827;24G2100031;af2024_garantias_constituicao;alienação fiduciária de imóvel e cessão fiduciária de outros listadas com a coluna 'Constituição' sem marcação ('-');leitura por OCR;Relatório de Agente Fiduciário 892072, p.8
+2;fato;828;24G2100031;af2024_suficiencia_garantias;"remetida à aba 'Relatórios de Garantias' do site da Vórtx; não analisada no relatório";leitura por OCR;Relatório de Agente Fiduciário 892072, p.8
+2;fato;829;24G2100031;af2024_declaracao_inadimplemento;o AF declara não ter conhecimento de inadimplemento ou atraso na prestação de informações;leitura por OCR;Relatório de Agente Fiduciário 892072, p.10
+2;regra de alerta;contractual_24g2100031.json;24G2100031;contractual_24g2100031;pendente;"regra proposta; só roda com --preview";config\alert_rules\contractual_24g2100031.json
+2;regra de alerta;informe_cadastro_24g2100031.json;24G2100031;informe_cadastro_24g2100031;pendente;"regra proposta; só roda com --preview";config\alert_rules\informe_cadastro_24g2100031.json
+2;fato;254;CRA022009VM;df_total_ativo;104657;alimenta alerta contratual;Demonstrações Financeiras 485809, p.7
+2;fato;308;CRA022009VM;df_total_ativo;72994;alimenta alerta contratual;Demonstrações Financeiras 935390, p.7
+2;parâmetro;267;CRA022009VM;numero_emissao;190;campo core do catálogo;Termo 355426, p.1, linhas 4-17
+2;parâmetro;270;CRA022009VM;devedora;Café Brasil Indústria Comércio Importação e Exportação S.A. (sede em Alfenas/MG);campo core do catálogo;Termo 355426, p.12, linhas 33-40
+2;parâmetro;271;CRA022009VM;data_emissao;2022-09-21;campo core do catálogo;Termo 355426, p.32, linhas 17-24
+2;parâmetro;272;CRA022009VM;quantidade_total_cra;100000;campo core do catálogo;Termo 355426, p.32, linhas 7-20
+2;parâmetro;273;CRA022009VM;data_vencimento_termo_original;2027-09-30;campo core do catálogo;Termo 355426, p.33, linhas 7-20
+2;parâmetro;274;CRA022009VM;vencimento_antecipado_cra;"Não há vencimento antecipado dos CRA; apenas Resgate Antecipado (hipóteses de vencimento antecipado ficam no CDCA)";campo core do catálogo;Termo 355426, p.33, linhas 11-24
+2;parâmetro;276;CRA022009VM;periodicidade_remuneracao;Datas de Pagamento da Remuneração (Anexo II): 30/12/2022, 29/12/2023, 30/12/2024, 30/12/2025, 30/12/2026 e 30/09/2027 (anual, mais o vencimento);campo core do catálogo;Termo 355426, p.101, linhas 2-15
+2;parâmetro;278;CRA022009VM;rating_obrigacao;Não há rating: não será atribuída nota de classificação de risco aos CRA;campo core do catálogo;Termo 355426, p.40, linhas 30-40
+2;parâmetro;279;CRA022009VM;lastro;Créditos do Agronegócio vinculados em caráter irrevogável e irretratável aos CRA (cláusula 3.1);campo core do catálogo;Termo 355426, p.24, linhas 33-40
+2;parâmetro;280;CRA022009VM;ordem_alocacao_itens_i_a_iii;"(i) despesas dos itens 15.2 e 15.3 e recomposição do Fundo de Despesas; (ii) composição e recomposição do Fundo de Retenção; (iii) multa e juros moratórios dos CRA";campo core do catálogo;Termo 355426, p.66, linhas 24-37
+2;parâmetro;281;CRA022009VM;ordem_alocacao_itens_iv_a_vi;"(iv) Remuneração dos CRA; (v) Valor Nominal Unitário dos CRA; (vi) saldo da Conta Fundo de Despesas à Consultora, observada a cláusula 4.5.5";campo core do catálogo;Termo 355426, p.67, linhas 1-14
+2;regra de alerta;informe_cadastro_cra022009vm.json;CRA022009VM;informe_cadastro_cra022009vm;pendente;"regra proposta; só roda com --preview";config\alert_rules\informe_cadastro_cra022009vm.json
+2;não se aplica;garantias.razao_minima;CRA02500C1D;garantias.razao_minima;não se aplica;Os CRA não contam com garantia real ou fidejussória (Termo, p.14), então não há razão de garantia a monitorar.;parâmetro garantias_cra
+2;parâmetro;282;CRA02500C1D;numero_emissao;426;campo core do catálogo;Termo 1065416, p.1, linhas 2-15
+2;regra de alerta;contractual_cra02500c1d.json;CRA02500C1D;contractual_cra02500c1d;pendente;"regra proposta; só roda com --preview";config\alert_rules\contractual_cra02500c1d.json
+2;regra de alerta;informe_cadastro_cra02500c1d.json;CRA02500C1D;informe_cadastro_cra02500c1d;pendente;"regra proposta; só roda com --preview";config\alert_rules\informe_cadastro_cra02500c1d.json
+2;configuração;cross_checks.json;todos;verificações entre documentos;proposto;define o que será extraído/comparado em todo ativo;config/contract_terms/cross_checks.json
+2;configuração;standard_fields.json;todos;catálogo de campos padrão;proposto;define o que será extraído/comparado em todo ativo;config/contract_terms/standard_fields.json
+3;fato;419;24G2100031;aviso_rating_preliminar;AA-(EXP)sf(bra) - Fitch Ratings, preliminar, realizada em 2024-07-29;"conferido visualmente; ler a observação da proposta";Aviso ao Mercado 722271, p.1
+3;fato;421;24G2100031;aviso_publico_alvo;Investidores Qualificados;"conferido visualmente; ler a observação da proposta";Aviso ao Mercado 722271, p.1
+3;fato;427;24G2100031;anuncio_rating_definitivo;AA-(EXP)sf(bra) - Fitch Ratings, 'definitiva' segundo o Anúncio, realizada em 2024-08-27;"conferido visualmente; ler a observação da proposta";Anúncio de Início de Distribuição Pública 727228, p.1
+3;fato;430;24G2100031;anuncio_cronograma_modificacao_oferta;2024-08-09;"conferido visualmente; ler a observação da proposta";Anúncio de Início de Distribuição Pública 727228, p.2
+3;fato;436;24G2100031;lamina16_codigo_cvm_a_obter;CVM: a ser obtido;"conferido visualmente; ler a observação da proposta";Lâmina de Oferta de Securitização 722282, p.1
+3;fato;446;24G2100031;lamina_spread_ate_2030_08_29;0.0150;"conferido visualmente; ler a observação da proposta";Lâmina de Oferta de Securitização 727225, p.2
+3;fato;450;24G2100031;lamina_debentures_saldo_devedor_2024_06_30;1111934;"conferido visualmente; ler a observação da proposta";Lâmina de Oferta de Securitização 727225, p.4
+3;fato;453;24G2100031;lamina_duration;4,86 anos, calculado em 2024-08-07;"conferido visualmente; ler a observação da proposta";Lâmina de Oferta de Securitização 727225, p.9
+3;fato;456;24G2100031;lamina_garantia_af_a_ser_constituida;a ser constituída (nos termos da Escritura Pública de Alienação Fiduciária de Imóvel);"conferido visualmente; ler a observação da proposta";Lâmina de Oferta de Securitização 727225, p.9
+3;fato;459;24G2100031;lamina_rating;AA-(EXP)sf(bra), em 2024-08-27;"conferido visualmente; ler a observação da proposta";Lâmina de Oferta de Securitização 727225, p.9
+3;fato;463;24G2100031;prospecto_rating_preliminar_capa;AA-(EXP)sf(bra) - Fitch Ratings, preliminar, realizada em 2024-07-29;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.1
+3;fato;466;24G2100031;prospecto_garantias_capa;"AF de imóvel ""a ser constituída""; cessão fiduciária de recebíveis ""observada a Condição Suspensiva""";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.1
+3;fato;467;24G2100031;prospecto_contrato_cf_a_ser_celebrado;"Contrato de Cessão Fiduciária de Recebíveis ""a ser celebrado"" (capa)";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.1
+3;fato;471;24G2100031;prospecto_duration;4,93 anos, calculado em 2024-07-24;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.8
+3;fato;474;24G2100031;prospecto_resgate_facultativo_data_inicial;2027-08-29;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.11
+3;fato;475;24G2100031;prospecto_premio_resgate_tabela;"29/07/2026-29/07/2027: 1,50%; 29/07/2027-29/07/2028: 1,00%; 29/07/2028-29/07/2029: 0,50%; 29/07/2029-29/07/2030: N/A; após 29/07/2030: 1,50%";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.12
+3;fato;480;24G2100031;prospecto_rating_agencia_atualizacao_anual;"Fitch Ratings do Brasil Ltda. contratada pela Devedora; atualização anual; serviço não pode ser interrompido na vigência dos CRI";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.14
+3;fato;481;24G2100031;prospecto_spread_ate_72_mes;0.0150;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.14
+3;fato;487;24G2100031;prospecto_prazo_escritura_af_imovel;"escritura de AF até 2024-08-25; constituição mediante registro no 1º RI de Blumenau";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.17
+3;fato;489;24G2100031;prospecto_cf_condicao_suspensiva;condição suspensiva: registro do termo de liberação dos direitos creditórios objeto da cessão fiduciária de 23/09/2021;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.18
+3;fato;495;24G2100031;prospecto_risco_af_nao_condicao_liquidacao;"registro da AF de imóvel não é condição precedente da liquidação financeira; registro da CF no RTD é condição precedente";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.28
+3;fato;508;24G2100031;prospecto_condicao_precedente_registro_cf_rtd;comprovante de registro da cessão fiduciária de recebíveis no RTD, antes da liquidação;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.106
+3;fato;509;24G2100031;prospecto_condicao_precedente_protocolo_af;comprovante de PROTOCOLO (não de registro) da escritura de AF no cartório de imóveis;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.106
+3;fato;510;24G2100031;prospecto_custo_rating_anual;30000.00;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.107
+3;fato;517;24G2100031;prospecto_escritura_af_onus_existente_51pct;51% do imóvel já alienados fiduciariamente (instrumento de 2021, R-140/R-106 das matrículas 22.139 e 27.368);"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.284
+3;fato;518;24G2100031;prospecto_escritura_af_efeito_37_24_imediato;"37,24% imediato; 51% apenas após registro da escritura e cancelamento do Ônus Existente (Termo de Liberação)";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.285
+3;fato;521;24G2100031;prospecto_escritura_debentures_vencimento;2036-08-27;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.291
+3;fato;525;24G2100031;prospecto_fitch_rating_final_na_liquidacao;o comunicado de rating da Fitch na liquidação incluirá os ratings finais;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 722286, p.530
+3;fato;746;24G2100031;prosp_def_registro_cvm;CVM/SRE/AUT/CRI/PRI/2024/622, concedido em 2024-08-27;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.1
+3;fato;747;24G2100031;prosp_def_rating_capa;AA-(EXP)sf(bra) - Fitch Ratings, rotulada 'definitiva' na capa, realizada em 2024-08-27;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.1
+3;fato;748;24G2100031;prosp_def_publicacao_e_republicacao;Prospecto publicado originalmente em 2024-07-29 e republicado em 2024-08-09 por modificação da oferta;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.1
+3;fato;749;24G2100031;prosp_def_escritura_emissao_registro_aditamento;"Escritura de Emissão (26/07/2024) registrada na JUCESP em 2024-08-06 sob nº ED006069-0/000; aditada em 2024-08-08 e protocolada na JUCESP em 2024-08-22 sob nº 2.272.348/24-5";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.1
+3;fato;750;24G2100031;prosp_def_escritura_af_data_celebracao;2024-08-23;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.1
+3;fato;751;24G2100031;prosp_def_contrato_cf_celebracao_registro_rtd;"Contrato de Cessão Fiduciária celebrado em 2024-07-26 e registrado no 2º Oficial de Registro de Títulos e Documentos de São Paulo sob nº 3.792.419; aditado em 2024-08-08";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.1
+3;fato;752;24G2100031;prosp_def_garantias_capa;"AF de imóvel ""a ser constituída""; cessão fiduciária de recebíveis ""celebrada ... observada a Condição Suspensiva""";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.1
+3;fato;753;24G2100031;prosp_def_duration;4,86 anos, calculado em 2024-08-07;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.8
+3;fato;754;24G2100031;prosp_def_resgate_facultativo_data_inicial;2026-08-29;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.11
+3;fato;755;24G2100031;prosp_def_premio_resgate_tabela;"29/08/2026-29/08/2027: 1,50%; 29/08/2027-29/08/2028: 1,00%; 29/08/2028-29/08/2029: 0,50%; 29/08/2029-29/08/2030: N/A; após 29/08/2030: 1,50%";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.12
+3;fato;756;24G2100031;prosp_def_amortizacao_extraordinaria_data_inicial;2026-08-29;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.12
+3;fato;757;24G2100031;prosp_def_amortizacao_extraordinaria_premio_tabela;"29/08/2026-29/08/2027: 1,50%; 29/08/2027-29/08/2028: 1,00%; 29/08/2028-29/08/2029: 0,50%; 29/08/2029-29/08/2030: N/A; após 29/08/2030: 1,50%";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.13
+3;fato;758;24G2100031;prosp_def_follow_on_premio_condicao;prêmio acrescido somente se o Percentual de Liberação das Garantias Follow On for superior a 20%;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.13
+3;fato;760;24G2100031;prosp_def_spread_ate_2030_08_29;0.0150;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.14
+3;fato;761;24G2100031;prosp_def_spread_a_partir_2030_08_29;0.0275;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.14
+3;fato;771;24G2100031;prosp_def_intencoes_perante_coordenador_lider;cada intenção de investimento foi realizada perante o Coordenador Líder;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.70
+3;fato;772;24G2100031;prosp_def_bookbuilding_sem_rateio;"demanda não excedeu o Valor Total da Emissão; sem rateio";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.71
+3;fato;775;24G2100031;prosp_def_divida_liquida_ebitda_ajustado_2024_06_30;4.74;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.44
+3;fato;776;24G2100031;prosp_def_fitch_rating_final_atribuido;AA-sf(bra), perspectiva estável, atribuído pela Fitch em 2024-08-27 à série única da 301ª emissão (BRL 230 milhões);"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.600
+3;fato;779;24G2100031;prosp_def_fitch_spread_72_73_meses;"spread 1,5% a.a. até 72 meses após a integralização; a partir do 73º mês, 2,75% a.a.";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.602
+3;fato;780;24G2100031;prosp_def_fitch_documentos_finais_ate;Fitch recebeu os documentos finais da transação até 2024-08-27, em conformidade com os analisados na atribuição do rating à proposta de emissão;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 727241, p.602
+3;fato;783;24G2100031;enc_montante_total_data_emissao;230000000.00;"conferido visualmente; ler a observação da proposta";Anúncio de Encerramento de Distribuição Pública 730623, p.1
+3;fato;784;24G2100031;enc_rating_definitiva_grafia;AA-(EXP)sf(bra) - Fitch Ratings Brasil, rotulada 'definitiva', realizada em 2024-08-27;"conferido visualmente; ler a observação da proposta";Anúncio de Encerramento de Distribuição Pública 730623, p.1
+3;fato;787;24G2100031;enc_subscritores_total;1710;"conferido visualmente; ler a observação da proposta";Anúncio de Encerramento de Distribuição Pública 730623, p.2
+3;fato;788;24G2100031;enc_total_cri_subscritos;230000;"conferido visualmente; ler a observação da proposta";Anúncio de Encerramento de Distribuição Pública 730623, p.2
+3;fato;237;CRA022009VM;amortizacao_extraordinaria_pu_juros_moratorios_retificado;8.59505233;"conferido visualmente; ler a observação da proposta";Outros Comunicados Não Considerados Fatos Relevantes  1140992, p.2
+3;fato;258;CRA022009VM;df_direitos_creditorios_nao_circulante;100000;"conferido visualmente; ler a observação da proposta";Demonstrações Financeiras 485809, p.17
+3;fato;259;CRA022009VM;df_direitos_creditorios_circulante;4393;"conferido visualmente; ler a observação da proposta";Demonstrações Financeiras 485809, p.17
+3;fato;282;CRA022009VM;df_caixa_equivalentes;345;"conferido visualmente; ler a observação da proposta";Demonstrações Financeiras 698040, p.16
+3;fato;285;CRA022009VM;df_fundo_retencao;181;"conferido visualmente; ler a observação da proposta";Demonstrações Financeiras 698040, p.20
+3;fato;286;CRA022009VM;df_direitos_creditorios_circulante;3724;"conferido visualmente; ler a observação da proposta";Demonstrações Financeiras 698040, p.7
+3;fato;311;CRA022009VM;df_fundo_retencao;0;"conferido visualmente; ler a observação da proposta";Demonstrações Financeiras 935390, p.19
+3;fato;313;CRA022009VM;df_direitos_creditorios_circulante;32909;"conferido visualmente; ler a observação da proposta";Demonstrações Financeiras 935390, p.7
+3;fato;314;CRA022009VM;df_direitos_creditorios_nao_circulante;39998;"conferido visualmente; ler a observação da proposta";Demonstrações Financeiras 935390, p.17
+3;fato;335;CRA022009VM;comunicado_waiver_fee_prazo_recebimento;2024-03-20;"conferido visualmente; ler a observação da proposta";Outros Comunicados Não Considerados Fatos Relevantes  620811, p.1
+3;fato;339;CRA022009VM;reuniao_trimestral_devedora_anunciada;2024-05-15;"conferido visualmente; ler a observação da proposta";Outros Comunicados Não Considerados Fatos Relevantes  657326, p.1
+3;fato;342;CRA022009VM;reuniao_trimestral_devedora_anunciada;2024-08-14;"conferido visualmente; ler a observação da proposta";Outros Comunicados Não Considerados Fatos Relevantes  713883, p.1
+3;fato;345;CRA022009VM;reuniao_trimestral_devedora_anunciada;2024-11-26;"conferido visualmente; ler a observação da proposta";Outros Comunicados Não Considerados Fatos Relevantes  770804, p.1
+3;fato;348;CRA022009VM;reuniao_trimestral_devedora_anunciada;2025-09-09;"conferido visualmente; ler a observação da proposta";Outros Comunicados Não Considerados Fatos Relevantes  982255, p.1
+3;fato;355;CRA022009VM;assembleia_dfs_2023_1a_convocacao_presenca;não instalada: presentes 12,17% dos CRA (abaixo do quórum de instalação);"conferido visualmente; ler a observação da proposta";AGO/E 521170, p.2
+3;fato;364;CRA022009VM;assembleia_cdca_2024_convocacao_1a;"1ª convocação 2024-03-14 às 10:00 (Zoom); edital de 23/02/2024";"conferido visualmente; ler a observação da proposta";AGO/E 608832, p.1
+3;fato;369;CRA022009VM;assembleia_cdca_2024_proposta_waiver_fee;0,5% sobre o Saldo Devedor do CDCA na próxima Data de Pagamento, destinado aos investidores (se aprovados os itens i, ii e iii);"conferido visualmente; ler a observação da proposta";AGO/E 608832, p.2
+3;fato;371;CRA022009VM;assembleia_cdca_2024_quorum_deliberacao_1a;2/3 mais um dos CRA em Circulação (cláusula 14.18 do Termo);"conferido visualmente; ler a observação da proposta";AGO/E 608832, p.3
+3;fato;372;CRA022009VM;assembleia_cdca_2024_proposta_inicio_amortizacao_extraordinaria;01/04/2026 (proposta da Devedora);"conferido visualmente; ler a observação da proposta";AGO/E 608833, p.3
+3;fato;373;CRA022009VM;assembleia_cdca_2024_proposta_limite_vencimento_recebiveis;Duplicatas, CPR e Recebíveis de Compra e Venda (Cessão Fiduciária) sem vencimento posterior a 01/06/2026 (proposta da Devedora);"conferido visualmente; ler a observação da proposta";AGO/E 608833, p.3
+3;fato;378;CRA022009VM;assembleia_cdca_2024_aprovacao_i_nao_declaracao_vencimento_antecipado;aprovada por Titulares presentes que representam 77,87% dos CRA em Circulação, com as ressalvas indicadas;"conferido visualmente; ler a observação da proposta";AGO/E 619771, p.2
+3;fato;379;CRA022009VM;assembleia_cdca_2024_aprovacao_ii_anuencia_divida_liquida_ebitda;aprovada (77,87% dos CRA em Circulação, dos presentes), com ressalvas: anuência prévia a eventual descumprimento de Dívida Líquida/EBITDA apurado nas DFs de 31/12/2023;"conferido visualmente; ler a observação da proposta";AGO/E 619771, p.3
+3;fato;383;CRA022009VM;assembleia_cdca_2024_cronograma_amortizacao_2024_12_30;30000000.00;"conferido visualmente; ler a observação da proposta";AGO/E 619771, p.3
+3;fato;384;CRA022009VM;assembleia_cdca_2024_cronograma_amortizacao_2025_12_30;30002000.00;"conferido visualmente; ler a observação da proposta";AGO/E 619771, p.3
+3;fato;385;CRA022009VM;assembleia_cdca_2024_cronograma_amortizacao_2026_12_30;39998000.00;"conferido visualmente; ler a observação da proposta";AGO/E 619771, p.3
+3;fato;386;CRA022009VM;assembleia_cdca_2024_cronograma_percentuais;"0,0000% (2022); 0,0000% (2023); 30,0000% (2024); 42,8600% (2025); 100,0000% (2026), por ordem de colunas";"conferido visualmente; ler a observação da proposta";AGO/E 619771, p.3
+3;fato;388;CRA022009VM;assembleia_cdca_2024_condicao_a_waiver_fee;0,75% sobre o saldo devedor dos CRA em 14/03/2024, parcela única, em até 5 dias úteis da data da assembleia;"conferido visualmente; ler a observação da proposta";AGO/E 619771, p.4
+3;fato;391;CRA022009VM;assembleia_cdca_2024_condicao_d_capex;CAPEX de 2024 limitado a R$ 15.000.000,00, apurado pela saída de caixa (Demonstrativo de Fluxo de Caixa da Devedora);"conferido visualmente; ler a observação da proposta";AGO/E 619771, p.4
+3;fato;401;CRA022009VM;assembleia_dfs_2024_convocacao_2a;"2ª convocação 2024-10-10 às 11:15 (Zoom); ordem do dia: DFs do PS de 31/03/2024";"conferido visualmente; ler a observação da proposta";AGO/E 750834, p.1
+3;fato;407;CRA022009VM;df2024_parecer_auditor;opinião sem modificação (Grant Thornton), relatório de 12/07/2024;"conferido visualmente; ler a observação da proposta";AGO/E 725269, p.10
+3;fato;408;CRA022009VM;df2024_datas_inicio_termino_emissao;2022-09-21 a 2027-09-30;"conferido visualmente; ler a observação da proposta";AGO/E 725269, p.17
+3;fato;412;CRA022009VM;df2024_pagamento_juros_exercicio;18846;"conferido visualmente; ler a observação da proposta";AGO/E 725269, p.26
+3;fato;413;CRA022009VM;df2024_saldo_cra_31_03_2024;103724;"conferido visualmente; ler a observação da proposta";AGO/E 725269, p.26
+3;fato;414;CRA022009VM;df2024_caracteristicas_amortizacao;amortização anual parcial a partir de 30/12/2025 (cronograma original do Termo);"conferido visualmente; ler a observação da proposta";AGO/E 725269, p.26
+3;fato;539;CRA02500C1D;aviso_coordenador_lider;Itaú BBA Assessoria Financeira S.A.;"conferido visualmente; ler a observação da proposta";Aviso ao Mercado 1040833, p.1
+3;fato;557;CRA02500C1D;lamina_serie_4_e_5_classe;4ª e 5ª séries: CRA Subordinados;"conferido visualmente; ler a observação da proposta";Lâmina de Oferta de Securitização 1040834, p.2
+3;fato;561;CRA02500C1D;lamina_serie_1_taxa_teto_spread_sobre_di_futuro;0.012;"conferido visualmente; ler a observação da proposta";Lâmina de Oferta de Securitização 1040834, p.7
+3;fato;563;CRA02500C1D;lamina_serie_1_taxa_teto_prefixada;0.148;"conferido visualmente; ler a observação da proposta";Lâmina de Oferta de Securitização 1040834, p.7
+3;fato;571;CRA02500C1D;lamina_serie_1_prazo_dias_corridos;1829;"conferido visualmente; ler a observação da proposta";Lâmina de Oferta de Securitização 1040834, p.6
+3;fato;587;CRA02500C1D;lamina_rating_classificacao_e_data;"A.br; realizada em 2025-11-14";"conferido visualmente; ler a observação da proposta";Lâmina de Oferta de Securitização 1040834, p.9
+3;fato;632;CRA02500C1D;prelim1_serie_1_taxa_teto_definicao;a maior entre (i) Taxa DI do contrato futuro com vencimento em 02/01/2030 + 1,20% a.a. e (ii) 14,80% a.a.;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1040835, p.16
+3;fato;640;CRA02500C1D;prelim2_serie_1_taxa_teto_definicao;a maior entre (i) Taxa DI do contrato futuro com vencimento em 02/01/2030 + 1,20% a.a. e (ii) 14,80% a.a.;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1047358, p.16
+3;fato;644;CRA02500C1D;prelim1_moody_rating_proposta_notas_comerciais;"A.br (Notas Comerciais 1ª e 2ª Séries, proposta); rating preliminar, 14/11/2025";"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1040835, p.837
+3;fato;645;CRA02500C1D;prelim1_moody_alavancagem_proforma_carlos_lee;3.9x pró-forma (dívida bruta/EBITDA) contra 2.7x nos 12 meses até 2025-09;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1040835, p.839
+3;fato;669;CRA02500C1D;def_serie_5_vencimento;2035-12-19;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1065463, p.15
+3;fato;678;CRA02500C1D;def_serie_1_remuneracao_prefixada;0.148;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1065463, p.16
+3;fato;700;CRA02500C1D;def_destinacao_cronograma_percentual_semestral;0.05;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1065463, p.29
+3;fato;703;CRA02500C1D;def_destinacao_gastos_carnes_5_anos;3982332000.00;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1065463, p.30
+3;fato;720;CRA02500C1D;def_custo_total_distribuicao;12056725.39;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1065463, p.169
+3;fato;725;CRA02500C1D;def_fundo_despesas_valor_inicial;295000.00;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1065463, p.377
+3;fato;726;CRA02500C1D;def_fundo_despesas_valor_minimo;95000.00;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1065463, p.377
+3;fato;728;CRA02500C1D;def_anexo_conflito_interesses_subclasses;Classe Subordinada: 1 subclasse Mezanino e 2 subclasses Subordinadas Júniores;"conferido visualmente; ler a observação da proposta";Prospecto de Distribuição Pública 1065463, p.841
+3;fato;735;CRA02500C1D;termo_oferta_quantidade_maxima_series_1_e_2;250000;"conferido visualmente; ler a observação da proposta";Documento 1040836, p.37
+3;fato;736;CRA02500C1D;termo_oferta_serie_1_taxa_teto_prefixada;0.148;"conferido visualmente; ler a observação da proposta";Documento 1040836, p.40
+3;fato;803;CRA02500C1D;enc_rating_definitivo_seniores;"Moody's Local BR; escala nacional A.br (CRA Sêniores); realizada em 2025-12-17";"conferido visualmente; ler a observação da proposta";Anúncio de Encerramento de Distribuição Pública 1068059, p.1
+3;fato;807;CRA02500C1D;enc_serie_1_total_subscritores_e_cra;"998 subscritores; 233.142 CRA subscritos e integralizados";"conferido visualmente; ler a observação da proposta";Anúncio de Encerramento de Distribuição Pública 1068059, p.3
+3;fato;808;CRA02500C1D;enc_serie_2_total_subscritores_e_cra;"173 subscritores; 16.858 CRA subscritos e integralizados";"conferido visualmente; ler a observação da proposta";Anúncio de Encerramento de Distribuição Pública 1068059, p.3
+4;fato;830;24G2100031;assembleia_dfs_2026_2a_convocacao;não instalada: nenhum Titular presente ou voto à distância;conferido visualmente, sem observação;AGO/E 1360837, p.1
+4;fato;831;24G2100031;assembleia_dfs_2026_aprovacao_automatica;DFs do PS de 30/06/2026 aprovadas automaticamente (art. 25, §2º, Res. CVM 60);conferido visualmente, sem observação;AGO/E 1360837, p.2
+4;golden set;IMCRI-AJ-018;24G2100031;InfoCreditos/OutrasInfoCreditosAReceber/PeriodicidadeAvaliacaoGarantias;;caso de cobertura proposto;Informe doc 939497
+4;golden set;IMCRI-AJ-019;24G2100031;FluxoCaixaLiquidoMes/VariacaoLiquidaCaixaPatrimonioSeparado;-4779.56;caso de cobertura proposto;Informe doc 1264371
+4;golden set;IMCRA-ALB-011;CRA02500C1D;DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo;;caso de cobertura proposto;Informe doc 1355952
+4;golden set;IMCRA-ALB-012;CRA02500C1D;Passivo/ReducaoVlrEmissao;-925149.2;caso de cobertura proposto;Informe doc 1355952
+4;golden set;IMCRA-ALB-014;CRA02500C1D;DetalhesSeries/Series/Serie/RendimentosDistribuidosPeriodo;0;caso de cobertura proposto;Informe doc 1355952
+4;golden set;IMCRA-ALB-015;CRA02500C1D;DadosGerais/Emissao/DataEmissao;2025-12-15;caso de cobertura proposto;Informe doc 1355952
+5;fato;832;24G2100031;prosp_def_fitch_acao_rating;"Natl LT: AA-sf(bra), Rating Outlook Stable, New Rating; anterior (PRIOR): AA-(EXP)sf(bra), Rating Outlook Stable";"sem conferência visual; tem observação na proposta";Prospecto de Distribuição Pública 727241, p.601
+5;fato;833;24G2100031;enc_pessoas_naturais_subscritores;1709;"sem conferência visual; tem observação na proposta";Anúncio de Encerramento de Distribuição Pública 730623, p.2
+5;fato;834;24G2100031;enc_pessoas_naturais_cri;221120;"sem conferência visual; tem observação na proposta";Anúncio de Encerramento de Distribuição Pública 730623, p.2
+5;fato;835;24G2100031;enc_instituicoes_financeiras_ligadas_subscritores;1;"sem conferência visual; tem observação na proposta";Anúncio de Encerramento de Distribuição Pública 730623, p.2
+5;fato;836;24G2100031;enc_instituicoes_financeiras_ligadas_cri;8880;"sem conferência visual; tem observação na proposta";Anúncio de Encerramento de Distribuição Pública 730623, p.2
+5;fato;837;CRA022009VM;assembleia_cdca_2024_presenca_titulares;"Titulares presentes: 77,87% dos CRA em Circulação; também presentes Devedora, Securitizadora e Agente Fiduciário (a ata não diz 'instalada' nem 'em 1ª convocação'; cita o edital de primeira convocação)";"sem conferência visual; tem observação na proposta";AGO/E 619771, p.1
+5;fato;838;CRA022009VM;assembleia_dfs_2024_2a_convocacao_sem_quorum;"não instalada: sem investidores representativos do quórum mínimo de instalação (cl. 14.11 do Termo); a ata lista só Agente Fiduciário e Securitizadora";"sem conferência visual; tem observação na proposta";AGO/E 755722, p.2
+5;parâmetro;268;CRA022009VM;numero_series;1 (série única);parâmetro sem conferência visual;Termo 355426, p.32, linhas 5-18
+5;parâmetro;275;CRA022009VM;atualizacao_monetaria;Não há atualização monetária;parâmetro sem conferência visual;Termo 355426, p.33, linhas 28-39
+5;parâmetro;277;CRA022009VM;encargos_moratorios;Multa moratória não compensatória de 2% + juros de mora de 1% ao mês, pro rata temporis (juros compostos), sobre o valor devido e não pago;parâmetro sem conferência visual;Termo 355426, p.38, linhas 11-24

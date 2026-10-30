@@ -1,0 +1,20 @@
+﻿data_base;indicador;valor_df_mil;revisao;fato;fact_id;fonte;informe_competencia;valor_informe_reais;diferenca_mil;confronto
+2025-06-30;direitos_creditorios_total;230000;approved;df_direitos_creditorios_total;180;doc 988223 p.13;2025-06-01;230000000;0.000;confere
+2025-06-30;direitos_creditorios_circulante;32658;approved;df_direitos_creditorios_circulante;178;doc 988223 p.13;;;;
+2025-06-30;direitos_creditorios_nao_circulante;197342;approved;df_direitos_creditorios_nao_circulante;179;doc 988223 p.13;;;;
+2025-06-30;saldo_certificados_total;230000;approved;df_saldo_cri;184;doc 988223 p.15;2025-06-01;230000000;0.000;confere
+2025-06-30;caixa_equivalentes;222;approved;df_caixa_equivalentes;177;doc 988223 p.12;2025-06-01;221756.77;-0.243;confere
+2025-06-30;fundo_despesas;195;approved;df_fundo_despesas;186;doc 988223 p.15;;;;
+2025-06-30;juros_apropriados_direitos_creditorios;25192;approved;df_juros_direitos_creditorios_periodo;181;doc 988223 p.13;;;;
+2025-06-30;juros_pagos_titulares;25192;approved;df_pagamento_juros_cri_periodo;183;doc 988223 p.15;;;;
+2025-06-30;recebimentos_direitos_creditorios;25210;approved;df_recebimento_direitos_creditorios_periodo;182;doc 988223 p.13;;;;
+2026-06-30;total_ativo;230364;approved;df_total_ativo;198;doc 1298856 p.7;2026-06-01;230364483.03;0.483;confere
+2026-06-30;direitos_creditorios_total;230134;approved;df_direitos_creditorios_total;201;doc 1298856 p.13;2026-06-01;230134417.69;0.418;confere
+2026-06-30;direitos_creditorios_circulante;31166;approved;df_direitos_creditorios_circulante;199;doc 1298856 p.13;;;;
+2026-06-30;direitos_creditorios_nao_circulante;198968;approved;df_direitos_creditorios_nao_circulante;200;doc 1298856 p.13;;;;
+2026-06-30;saldo_certificados_total;230134;approved;df_saldo_cri;205;doc 1298856 p.14;2026-06-01;230134417.69;0.418;confere
+2026-06-30;caixa_equivalentes;230;approved;df_caixa_equivalentes;197;doc 1298856 p.7;2026-06-01;230065.34;0.065;confere
+2026-06-30;fundo_despesas;230;approved;df_fundo_despesas;209;doc 1298856 p.14;;;;
+2026-06-30;juros_apropriados_direitos_creditorios;35376;approved;df_juros_direitos_creditorios_exercicio;202;doc 1298856 p.8;;;;
+2026-06-30;juros_pagos_titulares;35242;approved;df_pagamento_juros_cri_exercicio;204;doc 1298856 p.14;;;;
+2026-06-30;recebimentos_direitos_creditorios;35362;approved;df_recebimento_direitos_creditorios_exercicio;203;doc 1298856 p.13;;;;

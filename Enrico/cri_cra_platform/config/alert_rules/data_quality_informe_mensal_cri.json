@@ -1,0 +1,46 @@
+{
+  "rules_version": "cri-0.1.0",
+  "approval_status": "approved",
+  "derived_from": "config/alert_rules/data_quality_informe_mensal_cra.json 0.1.0",
+  "notes": "Mesmas regras e limites do CRA, com caminhos do leiaute InformeMensalCRI. Única mudança de conteúdo: balance_reconciliation usa Passivo/VlrAtualizadoEmissao como saldo, porque no CRI 24G2100031 DetalhesSeries/totalVlrCertificados traz o PU (1000.45 com 230.000 CRI). Aprovado em 2026-10-27.",
+  "rules": {
+    "status_vs_delinquency": {
+      "severity": "warning",
+      "description": "Situação de alguma série = 'Em atraso' com todos os campos de atraso zerados/vazios, ou campos de atraso > 0 com todas as séries 'Adimplente'.",
+      "delinquency_paths": [
+        "/InformeMensalCRI/Ativo/CreditosTotais/CreditosAVencerComParcelasAtrasadas",
+        "/InformeMensalCRI/Ativo/CreditosTotais/CreditosVencidosNaoPagos",
+        "/InformeMensalCRI/InfoCreditos/VlrTotalParcelasAtraso",
+        "/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/@total"
+      ],
+      "status_path": "/InformeMensalCRI/DadosGerais/Series/Serie/Situacao"
+    },
+    "balance_reconciliation": {
+      "severity": "warning",
+      "description": "Série única: |saldo_t - (saldo_t-1 * (1 + rentabilidade_t) - pagamentos_t)| / saldo_t-1 acima da tolerância. Meses com escala suspeita são ignorados.",
+      "tolerance": "0.001",
+      "balance_path": "/InformeMensalCRI/Passivo/VlrAtualizadoEmissao",
+      "return_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/RentabilidadePeriodo",
+      "payments_path": "/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total",
+      "series_count_path": "/InformeMensalCRI/DadosGerais/Emissao/QuantidadeSeries"
+    },
+    "return_outlier": {
+      "severity": "warning",
+      "description": "Rentabilidade mensal da série com desvio robusto |r - mediana| / (1.4826 * MAD) acima do limite, usando o histórico vigente do próprio ativo (mínimo de meses exigido).",
+      "robust_z_threshold": "5",
+      "minimum_months": 12,
+      "return_path": "/InformeMensalCRI/DetalhesSeries/Series/Serie/RentabilidadePeriodo"
+    },
+    "key_party_changed": {
+      "severity": "info",
+      "description": "CNPJ de devedor/cedente com mais de 20% muda entre competências vigentes consecutivas.",
+      "paths": [
+        "/InformeMensalCRI/InfoCreditos/DevedoresRepresentamMais20Porcento/Devedor/CNPJ",
+        "/InformeMensalCRI/InfoCreditos/CedentesRepresentamMais20Porcento/Cedente/CNPJ"
+      ]
+    }
+  },
+  "approved_by": "Enrico Suman Marques",
+  "approved_at": "2026-10-27",
+  "approval_source": "conversa de desenvolvimento"
+}

@@ -1,0 +1,986 @@
+{
+  "asset": {
+    "codigo_cetip": "24G2100031",
+    "isin": "BRRBRACRIP13"
+  },
+  "source_note": "Relatório Anual do Agente Fiduciário (Vórtx), exercício 2025, doc. 1172041 (o relatório de 2024, doc. 892072, não tem texto extraível: 199 páginas vazias, nenhum fato registrado); Demonstrações financeiras auditadas do Patrimônio Separado da 1ª Série da 301ª Emissão: período até 30/06/2025 (Grant Thornton), doc. 988223, e exercício encerrado em 30/06/2026 (CLA), doc. 1298856, valores em milhares de reais, como publicados; Comunicado ao Mercado do resultado do Bookbuilding de 26/08/2024, doc. 725619; editais, propostas e termos de não instalação das assembleias de aprovação das DFs (docs. 1044868, 1059168, 1059642, 1068151, 1331184, 1332334, 1354536, 1355102). Os balanços e as movimentações das DFs têm colunas desalinhadas na extração de texto: valores atribuídos pela ordem das linhas e conferidos pela soma (ver 'note').",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-27",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_codigo_if_isin",
+      "reference_date": "2025-12-31",
+      "value": "24G2100031 / BRRBRACRIP13",
+      "unit": "texto",
+      "excerpt": "IF 24G2100031 ISIN BRRBRACRIP13"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_quantidade_emitida",
+      "reference_date": "2025-12-31",
+      "value": "230000",
+      "unit": "CRI",
+      "excerpt": "Quantidade emitida 230.000 Volume emitido R$230.000.000,00"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_volume_emitido",
+      "reference_date": "2025-12-31",
+      "value": "230000000.00",
+      "unit": "BRL",
+      "excerpt": "Quantidade emitida 230.000 Volume emitido R$230.000.000,00"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_remuneracao",
+      "reference_date": "2025-12-31",
+      "value": "CDI + 1,5%",
+      "unit": "texto",
+      "excerpt": "Remuneração CDI + 1,5% Amortização Mensal",
+      "note": "O AF não menciona o step-up para 2,75% a.a. a partir de 29/08/2030 (Primeiro Aditamento)."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_periodicidade_amortizacao",
+      "reference_date": "2025-12-31",
+      "value": "Mensal",
+      "unit": "texto",
+      "excerpt": "Remuneração CDI + 1,5% Amortização Mensal"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_data_emissao",
+      "reference_date": "2025-12-31",
+      "value": "2024-08-29",
+      "unit": "data",
+      "excerpt": "Data emissão 29/08/2024 Data vencimento 29/08/2036"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_data_vencimento",
+      "reference_date": "2025-12-31",
+      "value": "2036-08-29",
+      "unit": "data",
+      "excerpt": "Data emissão 29/08/2024 Data vencimento 29/08/2036"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_rating",
+      "reference_date": "2025-12-31",
+      "value": "não existe rating no período",
+      "unit": "texto",
+      "excerpt": "Rating Não existe rating para esse operação no período analisado",
+      "note": "O Termo (Cláusula 4.1.3 xxx) exige rating da Fitch atualizado anualmente; o comunicado de 26/08/2024 informa rating preliminar AA-(EXP)sf(bra)."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_periodicidade_juros",
+      "reference_date": "2025-12-31",
+      "value": "Mensal",
+      "unit": "texto",
+      "excerpt": "Pagamento de juros Mensal"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_data_primeira_integralizacao",
+      "reference_date": "2025-12-31",
+      "value": "2024-08-29",
+      "unit": "data",
+      "excerpt": "Data da primeira 29/08/2024 integralização"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_data_primeiro_pagamento_previsto",
+      "reference_date": "2025-12-31",
+      "value": "2024-09-26",
+      "unit": "data",
+      "excerpt": "Data do primeiro 26/09/2024 pagamento previsto",
+      "note": "Diverge do Anexo III do Termo (1ª data dos CRI = 30/09/2024); 26/09/2024 é a 1ª data das Debêntures (Anexo I)."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 3,
+      "fact_name": "af_inadimplemento_no_periodo",
+      "reference_date": "2025-12-31",
+      "value": "Adimplente",
+      "unit": "texto",
+      "excerpt": "em contrato Primeira Integralização Início da Adimplente rentabilidade Inadimplemento no",
+      "note": "Rótulos e valores intercalados na extração ('Início da rentabilidade: Primeira Integralização'; 'Inadimplemento no período: Adimplente')."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 4,
+      "fact_name": "af_tipo_lastro",
+      "reference_date": "2025-12-31",
+      "value": "Debenture (risco Corporativo)",
+      "unit": "texto",
+      "excerpt": "período Corporativo Risco Debenture Lastro"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 4,
+      "fact_name": "af_contratos_da_operacao",
+      "reference_date": "2025-12-31",
+      "value": "AF Imóvel; CF e 1º aditamento; Emissão CCI e 1º aditamento; Emissão Debêntures e 1º aditamento; TS e 1º aditamento",
+      "unit": "texto",
+      "excerpt": "AF IMOVEL CF CF - 1 ADITAMENTO EMISSAO CCI EMISSAO CCI - 1 ADITAMENTO EMISSAO DEBENTURES EMISSAO DEBENTURES - 1 ADITAMENTO TS TS - 1 ADITAMENTO"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 4,
+      "fact_name": "af_cri_emitidos",
+      "reference_date": "2025-12-31",
+      "value": "230000",
+      "unit": "CRI",
+      "excerpt": "IF 24G2100031 Emitida 230.000 Em circulação 230.000"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 4,
+      "fact_name": "af_cri_em_circulacao",
+      "reference_date": "2025-12-31",
+      "value": "230000",
+      "unit": "CRI",
+      "excerpt": "IF 24G2100031 Emitida 230.000 Em circulação 230.000"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_cri_resgatados",
+      "reference_date": "2025-12-31",
+      "value": "0",
+      "unit": "CRI",
+      "excerpt": "Resgatadas 0 Saldo R$230.280.880,80"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_saldo_devedor",
+      "reference_date": "2025-12-31",
+      "value": "230280880.80",
+      "unit": "BRL",
+      "excerpt": "Resgatadas 0 Saldo R$230.280.880,80",
+      "note": "Saldo total da série em 31/12/2025 (≈ R$1.001,22 por CRI sobre 230.000 CRI; cálculo não consta do documento)."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-01-29",
+      "value": "10.85476799",
+      "unit": "BRL_por_CRI",
+      "excerpt": "29/01/2025 10,85476799",
+      "note": "Linha com cabeçalho intercalado ('Ordinária Extraordi.'); Pgto. Total igual ao juros."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-02-28",
+      "value": "12.01602400",
+      "unit": "BRL_por_CRI",
+      "excerpt": "28/02/2025 12,01602400 0,00000000 0,00000000 0,00000000 12,01602400"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-03-31",
+      "value": "10.63312300",
+      "unit": "BRL_por_CRI",
+      "excerpt": "31/03/2025 10,63312300 0,00000000 0,00000000 0,00000000 10,63312300"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-04-29",
+      "value": "11.16266800",
+      "unit": "BRL_por_CRI",
+      "excerpt": "29/04/2025 11,16266800 0,00000000 0,00000000 0,00000000 11,16266800"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-05-29",
+      "value": "12.55558700",
+      "unit": "BRL_por_CRI",
+      "excerpt": "29/05/2025 12,55558700 0,00000000 0,00000000 0,00000000 12,55558700"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-06-30",
+      "value": "12.73989499",
+      "unit": "BRL_por_CRI",
+      "excerpt": "30/06/2025 12,73989499 0,00000000 0,00000000 0,00000000 12,73989499"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-07-29",
+      "value": "12.89750100",
+      "unit": "BRL_por_CRI",
+      "excerpt": "29/07/2025 12,89750100 0,00000000 0,00000000 0,00000000 12,89750100"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-08-29",
+      "value": "14.13448200",
+      "unit": "BRL_por_CRI",
+      "excerpt": "29/08/2025 14,13448200 0,00000000 0,00000000 0,00000000 14,13448200"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-09-29",
+      "value": "12.89750100",
+      "unit": "BRL_por_CRI",
+      "excerpt": "29/09/2025 12,89750100 0,00000000 0,00000000 0,00000000 12,89750100"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-10-29",
+      "value": "13.51580199",
+      "unit": "BRL_por_CRI",
+      "excerpt": "29/10/2025 13,51580199 0,00000000 0,00000000 0,00000000 13,51580199"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-11-28",
+      "value": "12.89750100",
+      "unit": "BRL_por_CRI",
+      "excerpt": "28/11/2025 12,89750100 0,00000000 0,00000000 0,00000000 12,89750100"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_pagamento_juros_pu",
+      "reference_date": "2025-12-29",
+      "value": "12.27957900",
+      "unit": "BRL_por_CRI",
+      "excerpt": "29/12/2025 12,27957900 0,00000000 0,00000000 0,00000000 12,27957900"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 5,
+      "fact_name": "af_amortizacoes_2025",
+      "reference_date": "2025-12-31",
+      "value": "nenhuma amortização ordinária ou extraordinária em 2025",
+      "unit": "texto",
+      "excerpt": "28/02/2025 12,01602400 0,00000000 0,00000000 0,00000000 12,01602400",
+      "note": "Colunas Amrt. Ordinária, Amrt. Extraordinária e Amortização zeradas em todas as datas de 2025, conforme a carência até 08/2027."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 6,
+      "fact_name": "af_obrigacoes_notificacoes",
+      "reference_date": "2025-12-31",
+      "value": "obrigações não adimplidas no prazo foram objeto de notificação (sem detalhamento no relatório)",
+      "unit": "texto",
+      "excerpt": "Eventuais obrigações não adimplidas no prazo, durante o período de análise deste Relatório, foram objeto de notificação"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 6,
+      "fact_name": "af_relatorio_gestao_patrimonio_separado",
+      "reference_date": "2025-12-31",
+      "value": "Informe Mensal 12/2025 anexado como relatório de gestão",
+      "unit": "texto",
+      "excerpt": "Informe_Mensal_12-2025_CRI - OPEA SECURITIZADORA S.A - 301EUS - ALMEIDA JUNIOR.pdf"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 6,
+      "fact_name": "af_assembleias_2025",
+      "reference_date": "2025-12-31",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "Não foram realizadas assembleias no período analisado.",
+      "note": "Em 12/12/2025 e 23/12/2025 houve assembleias convocadas e não instaladas (docs. 1059642 e 1068151)."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 7,
+      "fact_name": "af_destinacao_recursos",
+      "reference_date": "2025-12-31",
+      "value": "AF ainda não recebeu os documentos comprobatórios; diligenciando junto à Emissora",
+      "unit": "texto",
+      "excerpt": "O Agente Fiduciário ainda não recebeu os documentos comprobatórios da correta destinação dos recursos."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 7,
+      "fact_name": "af_garantia_alienacao_fiduciaria_imovel_constituida",
+      "reference_date": "2025-12-31",
+      "value": "NÃO",
+      "unit": "texto",
+      "excerpt": "Alienação Fiduciária de Imovel NÃO",
+      "note": "Diverge das DFs do PS, que dizem que a emissão 'conta com' alienação fiduciária de imóvel."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 7,
+      "fact_name": "af_garantia_cessao_fiduciaria_constituida",
+      "reference_date": "2025-12-31",
+      "value": "NÃO",
+      "unit": "texto",
+      "excerpt": "Cessão Fiduciária de Outros NÃO",
+      "note": "A Cessão Fiduciária está sob condição suspensiva no Termo (Cláusula 8.4.2)."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 8,
+      "fact_name": "af_suficiencia_garantias",
+      "reference_date": "2025-12-31",
+      "value": "não analisada no relatório; remete à aba 'Relatórios de Garantias' do site da Vórtx",
+      "unit": "texto",
+      "excerpt": "As análises da Suficiência de Garantias, quando aplicáveis, se encontram na aba “Relatórios de Garantias” ao acessar a operação no site da Vórtx"
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 8,
+      "fact_name": "af_covenants_financeiros",
+      "reference_date": "2025-12-31",
+      "value": "não analisados no relatório; remete à aba 'Relatórios de Garantias' do site da Vórtx",
+      "unit": "texto",
+      "excerpt": "As análises de Covenants Financeiros, quando aplicáveis, se encontram na aba “Relatórios de Garantias” ao acessar a operação no site da Vórtx",
+      "note": "Não há declaração sobre ICSD, LTV ou limite de endividamento."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 8,
+      "fact_name": "af_bens_entregues",
+      "reference_date": "2025-12-31",
+      "value": "nenhum",
+      "unit": "texto",
+      "excerpt": "Não foram entregues bens à administração do Agente Fiduciário no período analisado."
+    },
+    {
+      "source_document_id": "1172041",
+      "page_number": 8,
+      "fact_name": "af_parecer_omissao_inverdade",
+      "reference_date": "2025-12-31",
+      "value": "AF não tem conhecimento de omissão ou inverdade",
+      "unit": "texto",
+      "excerpt": "não tem conhecimento de eventual omissão ou inverdade contida nas informações divulgadas pela companhia"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 1,
+      "fact_name": "df_entidade",
+      "reference_date": "2025-06-30",
+      "value": "Patrimônio Separado da 1ª Série da 301ª Emissão (ISIN BRRBRACRIP13)",
+      "unit": "texto",
+      "excerpt": "Opea Securitizadora S.A. 1a Série da 301a Emissão – ISIN BRRBRACRIP13"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 1,
+      "fact_name": "df_data_inicio_operacao_relatorio_auditor",
+      "reference_date": "2025-06-30",
+      "value": "2024-08-19",
+      "unit": "data",
+      "excerpt": "período de 19 de agosto de 2024 (data de início da operação) a 30 de junho de 2025",
+      "note": "O relatório do auditor indica 19/08/2024; as demonstrações e notas indicam 29/08/2024 (Data de Emissão). Provável erro de digitação no relatório."
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 8,
+      "fact_name": "df_data_inicio_operacao_demonstracoes",
+      "reference_date": "2025-06-30",
+      "value": "2024-08-29",
+      "unit": "data",
+      "excerpt": "Período de 29 de agosto de 2024 (data de início da operação) a 30 de junho de 2025"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 6,
+      "fact_name": "df_auditor",
+      "reference_date": "2025-06-30",
+      "value": "Grant Thornton Auditores Independentes Ltda. (relatório de 09/09/2025)",
+      "unit": "texto",
+      "excerpt": "São Paulo, 09 de setembro de 2025 Grant Thornton Auditores Independentes Ltda."
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 4,
+      "fact_name": "df_opiniao_auditor",
+      "reference_date": "2025-06-30",
+      "value": "sem ressalva, com parágrafo de ênfase sobre a base de elaboração",
+      "unit": "texto",
+      "excerpt": "Nossa opinião não contém ressalva com relação a esse assunto."
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 10,
+      "fact_name": "df_data_inicio_termino_emissao",
+      "reference_date": "2025-06-30",
+      "value": "2024-08-29 a 2036-08-29",
+      "unit": "texto",
+      "excerpt": "(i) Data de início e término da emissão: 29/08/2024 e 29/08/2036;"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 10,
+      "fact_name": "df_garantias_e_rating",
+      "reference_date": "2025-06-30",
+      "value": "emissão conta com AF de imóvel e CF de recebíveis; sem classificação de risco contratada no período",
+      "unit": "texto",
+      "excerpt": "a emissão conta com garantia de Alienação Fiduciária de Imóvel, Cessão Fiduciária de Recebíveis e não foi contratada classificação de riscos para o período das demonstrações financeiras.",
+      "note": "Diverge do Relatório do AF 2025 (garantias NÃO constituídas) e do Termo (rating Fitch obrigatório)."
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 12,
+      "fact_name": "df_caixa_equivalentes",
+      "reference_date": "2025-06-30",
+      "value": "222",
+      "unit": "BRL_mil",
+      "excerpt": "Aplicação - Itaú (a) 30/06/2025 Total 222 222"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 13,
+      "fact_name": "df_direitos_creditorios_circulante",
+      "reference_date": "2025-06-30",
+      "value": "32658",
+      "unit": "BRL_mil",
+      "excerpt": "Direitos creditórios – Circulante 30/06/2025 Direitos creditórios – Não Circulante 32.658 197.342 Total 230.000"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 13,
+      "fact_name": "df_direitos_creditorios_nao_circulante",
+      "reference_date": "2025-06-30",
+      "value": "197342",
+      "unit": "BRL_mil",
+      "excerpt": "Direitos creditórios – Circulante 30/06/2025 Direitos creditórios – Não Circulante 32.658 197.342 Total 230.000"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 13,
+      "fact_name": "df_direitos_creditorios_total",
+      "reference_date": "2025-06-30",
+      "value": "230000",
+      "unit": "BRL_mil",
+      "excerpt": "Direitos creditórios – Circulante 30/06/2025 Direitos creditórios – Não Circulante 32.658 197.342 Total 230.000"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 13,
+      "fact_name": "df_juros_direitos_creditorios_periodo",
+      "reference_date": "2025-06-30",
+      "value": "25192",
+      "unit": "BRL_mil",
+      "excerpt": "(-) Recebimento de direitos creditórios 6.284 (+) Fundo 25.192 Saldo Final (25.210)",
+      "note": "Movimentação com valores deslocados uma linha acima: Captação 223.716; Captação (não caixa) 6.284; Juros 25.192; Recebimento (25.210); Fundo 18; Saldo final 230.000 (soma confere)."
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 13,
+      "fact_name": "df_recebimento_direitos_creditorios_periodo",
+      "reference_date": "2025-06-30",
+      "value": "25210",
+      "unit": "BRL_mil",
+      "excerpt": "(-) Recebimento de direitos creditórios 6.284 (+) Fundo 25.192 Saldo Final (25.210)",
+      "note": "Ver nota de deslocamento em df_juros_direitos_creditorios_periodo."
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 15,
+      "fact_name": "df_pagamento_juros_cri_periodo",
+      "reference_date": "2025-06-30",
+      "value": "25192",
+      "unit": "BRL_mil",
+      "excerpt": "25.192 (25.192) 230.000 O certificado CRI 1 é da classe Única",
+      "note": "Movimentação dos CRI com valores deslocados: Captação 223.716; não caixa 6.284; Juros 25.192; Pagamento de juros (25.192); Saldo final 230.000."
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 15,
+      "fact_name": "df_saldo_cri",
+      "reference_date": "2025-06-30",
+      "value": "230000",
+      "unit": "BRL_mil",
+      "excerpt": "25.192 (25.192) 230.000 O certificado CRI 1 é da classe Única"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 15,
+      "fact_name": "df_classe_e_assembleias",
+      "reference_date": "2025-06-30",
+      "value": "classe única; nenhuma deliberação de investidores em assembleia",
+      "unit": "texto",
+      "excerpt": "O certificado CRI 1 é da classe Única e não houve nenhuma deliberação de investidores reunidos em assembleia."
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 15,
+      "fact_name": "df_fundo_despesas",
+      "reference_date": "2025-06-30",
+      "value": "195",
+      "unit": "BRL_mil",
+      "excerpt": "Rendimentos não sujeitos ao patrimônio separado (a) 27 Fundos (b) 195 Total 222"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 13,
+      "fact_name": "df_provisao_perdas",
+      "reference_date": "2025-06-30",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "Não foi identificada pela Administração a necessidade da contabilização de uma provisão"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 13,
+      "fact_name": "df_cobranca_pre_pagamento",
+      "reference_date": "2025-06-30",
+      "value": "nenhuma cobrança e nenhum pré-pagamento",
+      "unit": "texto",
+      "excerpt": "No atual período não houve necessidade de procedimento de cobrança e não houve também evento de pré-pagamento."
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 14,
+      "fact_name": "df_passivo_taxa_prazo",
+      "reference_date": "2025-06-30",
+      "value": "1,5% a.a. sobre 100% do CDI; prazo de 144 meses",
+      "unit": "texto",
+      "excerpt": "Taxa de juros efetiva: 1,5% a.a. Prazo de vencimento: 144 meses Indexador: 100% da variação do CDI"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 14,
+      "fact_name": "df_cronograma",
+      "reference_date": "2025-06-30",
+      "value": "amortização mensal a partir de setembro de 2027; juros mensais",
+      "unit": "texto",
+      "excerpt": "Cronograma de amortização: Mensal a partir de setembro de 2027 Cronograma de pagamento de juros: Mensal"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 14,
+      "fact_name": "df_resgate_facultativo_data_inicial_citada",
+      "reference_date": "2025-06-30",
+      "value": "2027-08-29",
+      "unit": "data",
+      "excerpt": "isto é, a partir de 29 de agosto de 2027",
+      "note": "A DF reproduz a Cláusula 4.5 do Termo original; o Primeiro Aditamento (08/08/2024) antecipou para 29/08/2026."
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 16,
+      "fact_name": "df_rating",
+      "reference_date": "2025-06-30",
+      "value": "não contratada",
+      "unit": "texto",
+      "excerpt": "Não foi contratada empresa de classificação de riscos para o período das demonstrações financeiras."
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 16,
+      "fact_name": "df_eventos_subsequentes",
+      "reference_date": "2025-06-30",
+      "value": "nenhum",
+      "unit": "texto",
+      "excerpt": "a Administração afirma que não houve eventos subsequentes relevantes"
+    },
+    {
+      "source_document_id": "988223",
+      "page_number": 16,
+      "fact_name": "df_contingencias",
+      "reference_date": "2025-06-30",
+      "value": "nenhuma conhecida",
+      "unit": "texto",
+      "excerpt": "A Administração não tem conhecimento de quaisquer processos relacionados à 1ª Série da 301ª Emissão"
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 6,
+      "fact_name": "df_auditor",
+      "reference_date": "2026-06-30",
+      "value": "CLA - Clifton Larson Allen Brasil Auditores Independentes S/S Ltda. (relatório de 21/08/2026)",
+      "unit": "texto",
+      "excerpt": "São Paulo, 21 de agosto de 2026. CLA - Clifton Larson Allen Brasil Auditores Independentes S/S Ltda.",
+      "note": "O Termo nomeia a Grant Thornton como auditor do PS (substituível sem assembleia)."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 4,
+      "fact_name": "df_opiniao_auditor",
+      "reference_date": "2026-06-30",
+      "value": "sem ressalva, com parágrafo de ênfase sobre a base de elaboração",
+      "unit": "texto",
+      "excerpt": "Nossa opinião não contém ressalva com relação a esse assunto."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 7,
+      "fact_name": "df_caixa_equivalentes",
+      "reference_date": "2026-06-30",
+      "value": "230",
+      "unit": "BRL_mil",
+      "excerpt": "Caixa e equivalentes de caixa 6 230 222"
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 7,
+      "fact_name": "df_total_ativo",
+      "reference_date": "2026-06-30",
+      "value": "230364",
+      "unit": "BRL_mil",
+      "excerpt": "230.364 230.222",
+      "note": "Linha do 'Total do ativo' deslocada na extração; confere com caixa 230 + direitos creditórios 230.134. Comparativo 30/06/2025: 230.222."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 13,
+      "fact_name": "df_direitos_creditorios_circulante",
+      "reference_date": "2026-06-30",
+      "value": "31166",
+      "unit": "BRL_mil",
+      "excerpt": "Direitos creditórios – Circulante 30/06/2026 30/06/2025 Direitos creditórios – Não Circulante 31.166 32.658 Total 198.968 197.342 230.134 230.000"
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 13,
+      "fact_name": "df_direitos_creditorios_nao_circulante",
+      "reference_date": "2026-06-30",
+      "value": "198968",
+      "unit": "BRL_mil",
+      "excerpt": "Direitos creditórios – Circulante 30/06/2026 30/06/2025 Direitos creditórios – Não Circulante 31.166 32.658 Total 198.968 197.342 230.134 230.000",
+      "note": "O valor não circulante aparece na linha 'Total' por desalinhamento; o total real é 230.134."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 13,
+      "fact_name": "df_direitos_creditorios_total",
+      "reference_date": "2026-06-30",
+      "value": "230134",
+      "unit": "BRL_mil",
+      "excerpt": "Direitos creditórios – Circulante 30/06/2026 30/06/2025 Direitos creditórios – Não Circulante 31.166 32.658 Total 198.968 197.342 230.134 230.000"
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 8,
+      "fact_name": "df_juros_direitos_creditorios_exercicio",
+      "reference_date": "2026-06-30",
+      "value": "35376",
+      "unit": "BRL_mil",
+      "excerpt": "Receita financeira de juros c/ Direitos Creditórios Imobiliários 35.376"
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 13,
+      "fact_name": "df_recebimento_direitos_creditorios_exercicio",
+      "reference_date": "2026-06-30",
+      "value": "35362",
+      "unit": "BRL_mil",
+      "excerpt": "35.376 6.284 (+) Fundo (35.362 25.192",
+      "note": "Movimentação desalinhada: saldo inicial 230.000 + juros 35.376 − recebimento 35.362 + fundo 120 = 230.134 (soma confere)."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 14,
+      "fact_name": "df_pagamento_juros_cri_exercicio",
+      "reference_date": "2026-06-30",
+      "value": "35242",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo Final (35.242 (25.192)",
+      "note": "Movimentação desalinhada: 230.000 + juros 35.376 − pagamento 35.242 = 230.134 (soma confere). Também consta na DFC como (35.242)."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 14,
+      "fact_name": "df_saldo_cri",
+      "reference_date": "2026-06-30",
+      "value": "230134",
+      "unit": "BRL_mil",
+      "excerpt": "Valor da série atualizado: R$ 230.134 (R$ 230.000 em 2025)",
+      "note": "Não há amortização nem resgate no exercício; saldo cresce por juros apropriados."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 14,
+      "fact_name": "df_passivo_taxa_prazo",
+      "reference_date": "2026-06-30",
+      "value": "1,5% a.a. sobre 100% do CDI; prazo remanescente de 121 meses",
+      "unit": "texto",
+      "excerpt": "Taxa de juros efetiva: 1,5% a.a. Prazo remanescente: 121 meses"
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 14,
+      "fact_name": "df_cronograma",
+      "reference_date": "2026-06-30",
+      "value": "amortização mensal a partir de setembro de 2027; juros mensais",
+      "unit": "texto",
+      "excerpt": "Cronograma de amortização: Mensal a partir de setembro de 2027 Cronograma de pagamento de juros: Mensal"
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 14,
+      "fact_name": "df_classe_e_assembleias",
+      "reference_date": "2026-06-30",
+      "value": "classe única; nenhuma deliberação de investidores em assembleia",
+      "unit": "texto",
+      "excerpt": "A 1ª série da 301ª emissão é da classe Única e não houve nenhuma deliberação de investidores reunidos em assembleia."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 14,
+      "fact_name": "df_fundo_despesas",
+      "reference_date": "2026-06-30",
+      "value": "230",
+      "unit": "BRL_mil",
+      "excerpt": "Fundos (a) - 27 230 195 230 222",
+      "note": "Colunas 2026/2025: rendimentos a repassar – / 27; fundos 230 / 195; total 230 / 222."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 13,
+      "fact_name": "df_garantias",
+      "reference_date": "2026-06-30",
+      "value": "emissão conta com AF de imóvel e CF de recebíveis",
+      "unit": "texto",
+      "excerpt": "A emissão conta com garantias de alienação fiduciária de imóvel e cessão fiduciária de recebíveis.",
+      "note": "Declaração genérica, sem valor de garantias; Relatório do AF 2025 diz NÃO constituídas; Informe Mensal informa VlrTotalGarantias = 0."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 13,
+      "fact_name": "df_pre_pagamento",
+      "reference_date": "2026-06-30",
+      "value": "nenhum",
+      "unit": "texto",
+      "excerpt": "Não ocorreram eventos de pré-pagamento nos exercícios findos em 30 de junho de 2026 e 2025,"
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 13,
+      "fact_name": "df_cobranca",
+      "reference_date": "2026-06-30",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "No atual exercício não houve necessidade de procedimento de cobrança e não houve também evento de pré-pagamento."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 13,
+      "fact_name": "df_provisao_perdas",
+      "reference_date": "2026-06-30",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "Não foi identificada pela a administração a necessidade da contabilização de uma provisão"
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 15,
+      "fact_name": "df_processos_judiciais",
+      "reference_date": "2026-06-30",
+      "value": "PS é parte em processos judiciais de natureza cível",
+      "unit": "texto",
+      "excerpt": "O Patrimônio Separado é parte integrante em processos judiciais, oriundos do curso normal de suas operações. Estes procesos envolvem assuntos de natureza cível."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 15,
+      "fact_name": "df_contingencias_possiveis",
+      "reference_date": "2026-06-30",
+      "value": "54375",
+      "unit": "BRL_mil",
+      "excerpt": "as contingências possíveis somam o montante de R$ 54.375 e R$ 0, respectivamente.",
+      "note": "Unidade presumida pelo cabeçalho '(Em milhares de reais)' (≈ R$54 milhões); a nota escreve 'R$ 54.375' sem indicar milhares. A nota diz que os processos não afetam o lastro e que eventuais desembolsos sairiam do fundo. Revisão humana."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 15,
+      "fact_name": "df_rating",
+      "reference_date": "2026-06-30",
+      "value": "não contratada",
+      "unit": "texto",
+      "excerpt": "Não foi contratada empresa de classificação de riscos para o exercício das demonstrações financeiras."
+    },
+    {
+      "source_document_id": "1298856",
+      "page_number": 16,
+      "fact_name": "df_eventos_subsequentes",
+      "reference_date": "2026-06-30",
+      "value": "nenhum (até 21/08/2026)",
+      "unit": "texto",
+      "excerpt": "a Administração afirma que não houve eventos subsequentes relevantes no contexto das demonstrações financeiras",
+      "note": "Única evidência documental próxima ao Informe de set/2026: até a emissão das DFs (21/08/2026) não há resgate nem evento subsequente."
+    },
+    {
+      "source_document_id": "725619",
+      "page_number": 1,
+      "fact_name": "comunicado_bookbuilding_concluido",
+      "reference_date": "2024-08-26",
+      "value": "2024-08-26",
+      "unit": "data",
+      "excerpt": "que, em 26 de agosto de 2024, foi concluído o Procedimento de Bookbuilding"
+    },
+    {
+      "source_document_id": "725619",
+      "page_number": 1,
+      "fact_name": "comunicado_valor_total_emissao",
+      "reference_date": "2024-08-26",
+      "value": "230000000.00",
+      "unit": "BRL",
+      "excerpt": "R$230.000.000,00 (duzentos e trinta milhões de reais)"
+    },
+    {
+      "source_document_id": "725619",
+      "page_number": 1,
+      "fact_name": "comunicado_quantidade_cri",
+      "reference_date": "2024-08-26",
+      "value": "230000",
+      "unit": "CRI",
+      "excerpt": "de 230.000 (duzentos e trinta mil) certificados de recebíveis imobiliários, nominativos e escriturais,"
+    },
+    {
+      "source_document_id": "725619",
+      "page_number": 1,
+      "fact_name": "comunicado_isin",
+      "reference_date": "2024-08-26",
+      "value": "BRRBRACRIP13",
+      "unit": "texto",
+      "excerpt": "Código ISIN dos CRI: BRRBRACRIP13"
+    },
+    {
+      "source_document_id": "725619",
+      "page_number": 1,
+      "fact_name": "comunicado_rating_preliminar",
+      "reference_date": "2024-08-26",
+      "value": "AA-(EXP)sf(bra) – Fitch Ratings, preliminar, realizada em 2024-07-29",
+      "unit": "texto",
+      "excerpt": "FITCH RATINGS DO BRASIL LTDA.: ‘AA-(EXP)sf(bra)’*. *Esta classificação foi realizada em 29 de julho de 2024, estando sujeita a alterações."
+    },
+    {
+      "source_document_id": "725619",
+      "page_number": 1,
+      "fact_name": "comunicado_excesso_demanda",
+      "reference_date": "2024-08-26",
+      "value": "sem excesso de demanda; colocação permitida a Pessoas Vinculadas",
+      "unit": "texto",
+      "excerpt": "não houve excesso de demanda aos CRI Ofertados, de modo que será permitida a colocação de CRI junto aos Investidores da Oferta que sejam Pessoas Vinculadas."
+    },
+    {
+      "source_document_id": "725619",
+      "page_number": 2,
+      "fact_name": "comunicado_liquidacao_prevista",
+      "reference_date": "2024-08-26",
+      "value": "2024-08-29",
+      "unit": "data",
+      "excerpt": "11. Liquidação dos CRI 29/08/2024"
+    },
+    {
+      "source_document_id": "1044868",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2025_convocacao",
+      "reference_date": "2025-11-21",
+      "value": "1ª convocação 2025-12-12; 2ª convocação 2025-12-23; ordem do dia: DFs do PS de 30/06/2025",
+      "unit": "texto",
+      "excerpt": "A SER REALIZADA EM 12 DE DEZEMBRO DE 2025 EM PRIMEIRA CONVOCAÇÃO E EM 23 DE DEZEMBRO DE 2025 EM SEGUNDA CONVOCAÇÃO"
+    },
+    {
+      "source_document_id": "1059168",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2025_proposta_materia",
+      "reference_date": "2025-12-11",
+      "value": "DFs do PS de 30/06/2025 emitidas sem opinião modificada",
+      "unit": "texto",
+      "excerpt": "referentes ao exercício social encerrado em 30 de junho de 2025, apresentadas pela Emissora e disponibilizadas em seu website (www.opea.com.br), as quais foram emitidas sem opinião modificada"
+    },
+    {
+      "source_document_id": "1059642",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2025_1a_convocacao",
+      "reference_date": "2025-12-12",
+      "value": "não instalada: nenhum Titular presente ou voto à distância",
+      "unit": "texto",
+      "excerpt": "nenhum Titular dos CRI compareceu à assembleia pela plataforma Microsoft Teams ou enviou manifestação de voto à distância, sendo assim, não foi atingindo o quórum de instalação da assembleia."
+    },
+    {
+      "source_document_id": "1068151",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2025_2a_convocacao",
+      "reference_date": "2025-12-23",
+      "value": "não instalada: nenhum Titular presente ou voto à distância",
+      "unit": "texto",
+      "excerpt": "nenhum Titular dos CRI compareceu à assembleia pela plataforma Microsoft Teams ou enviou manifestação de voto à distância, sendo assim, não foi atingindo o quórum de instalação da assembleia."
+    },
+    {
+      "source_document_id": "1068151",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2025_aprovacao_automatica",
+      "reference_date": "2025-12-23",
+      "value": "DFs do PS de 30/06/2025 aprovadas automaticamente (art. 25, §2º, Res. CVM 60)",
+      "unit": "texto",
+      "excerpt": "consideram-se aprovadas automaticamente, exclusivamente, as demonstrações financeiras do Patrimônio Separado e o respectivo relatório do Auditor Independente, referentes ao exercício social encerrado em 30 de junho de 2025"
+    },
+    {
+      "source_document_id": "1331184",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2026_convocacao",
+      "reference_date": "2026-09-28",
+      "value": "1ª convocação 2026-10-19; 2ª convocação 2026-10-28; ordem do dia: DFs do PS de 30/06/2026",
+      "unit": "texto",
+      "excerpt": "A SER REALIZADA EM 19 DE OUTUBRO DE 2026 EM PRIMEIRA CONVOCAÇÃO E EM 28 DE OUTUBRO DE 2026 EM SEGUNDA CONVOCAÇÃO",
+      "note": "Edital de 28/09/2026 convoca os Titulares dos CRI da série, sem menção a resgate; o edital diz 'emitidas sem ressalvas e opinião modificada' (redação ambígua; a proposta e o termo dizem 'sem opinião modificada')."
+    },
+    {
+      "source_document_id": "1332334",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_2026_proposta_data",
+      "reference_date": "2026-09-29",
+      "value": "2026-09-29",
+      "unit": "data",
+      "excerpt": "São Paulo, 29 de setembro de 2026."
+    },
+    {
+      "source_document_id": "1354536",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2026_1a_convocacao",
+      "reference_date": "2026-10-19",
+      "value": "não instalada: nenhum Titular presente ou voto à distância; 2ª convocação em 2026-10-28 às 14:30",
+      "unit": "texto",
+      "excerpt": "nenhum Titular dos CRI compareceu à assembleia pela plataforma Microsoft Teams ou enviou manifestação de voto à distância, sendo assim, não foi atingido o quórum de instalação da assembleia."
+    },
+    {
+      "source_document_id": "1355102",
+      "page_number": 1,
+      "fact_name": "assembleia_dfs_2026_1a_convocacao_termo_assinado",
+      "reference_date": "2026-10-19",
+      "value": "não instalada (mesmo termo de 19/10/2026, versão com assinaturas eletrônicas)",
+      "unit": "texto",
+      "excerpt": "REALIZADA EM PRIMEIRA CONVOCAÇÃO EM 19 DE OUTUBRO DE 2026",
+      "note": "Documento classificado como 'Ata da Assembleia' no Fundos.NET, mas é o termo de não instalação da 1ª convocação assinado no Assinador Registro de Imóveis. Não há documento da 2ª convocação (28/10/2026)."
+    }
+  ]
+}

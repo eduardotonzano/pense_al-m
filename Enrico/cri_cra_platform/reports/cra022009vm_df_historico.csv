@@ -1,0 +1,35 @@
+﻿data_base;indicador;valor_df_mil;revisao;fato;fact_id;fonte;informe_competencia;valor_informe_reais;diferenca_mil;confronto
+2023-03-31;total_ativo;104657;pending;df_total_ativo;254;doc 485809 p.7;2023-03-01;104393.01;;não comparado: escala do Informe suspeita
+2023-03-31;direitos_creditorios_total;104393;approved;df_direitos_creditorios_total;260;doc 485809 p.17;2023-03-01;104393.01;;não comparado: escala do Informe suspeita
+2023-03-31;direitos_creditorios_circulante;4393;pending;df_direitos_creditorios_circulante;259;doc 485809 p.17;;;;
+2023-03-31;direitos_creditorios_nao_circulante;100000;pending;df_direitos_creditorios_nao_circulante;258;doc 485809 p.17;;;;
+2023-03-31;saldo_certificados_total;104393;approved;df_saldo_cra_total;263;doc 485809 p.18;2023-03-01;104393.01;;não comparado: escala do Informe suspeita
+2023-03-31;caixa_equivalentes;264;approved;df_caixa_equivalentes;255;doc 485809 p.16;2023-03-01;0;;não comparado: escala do Informe suspeita
+2023-03-31;fundo_despesas;83;approved;df_fundo_despesas;256;doc 485809 p.16;;;;
+2023-03-31;fundo_retencao;181;pending;df_fundo_retencao;285;doc 698040 p.20;;;;
+2023-03-31;juros_apropriados_direitos_creditorios;8218;approved;df_juros_direitos_creditorios_periodo;261;doc 485809 p.8;;;;
+2023-03-31;juros_pagos_titulares;3825;approved;df_pagamento_juros_cra_periodo;264;doc 485809 p.18;;;;
+2023-03-31;recebimentos_direitos_creditorios;3825;approved;df_recebimento_direitos_creditorios_periodo;262;doc 485809 p.16;;;;
+2024-03-31;direitos_creditorios_total;103724;approved;df_direitos_creditorios_total;287;doc 698040 p.17;2024-03-31;103724022.2;0.022;confere
+2024-03-31;direitos_creditorios_circulante;3724;pending;df_direitos_creditorios_circulante;286;doc 698040 p.7;;;;
+2024-03-31;saldo_certificados_total;103724;approved;df_saldo_cra_total;291;doc 698040 p.19;2024-03-31;103724022.2;0.022;confere
+2024-03-31;caixa_equivalentes;345;pending;df_caixa_equivalentes;282;doc 698040 p.16;2024-03-31;0;-345.000;diverge
+2024-03-31;fundo_despesas;148;approved;df_fundo_despesas;284;doc 698040 p.22;;;;
+2024-03-31;fundo_retencao;197;approved;df_fundo_retencao;283;doc 698040 p.20;;;;
+2024-03-31;juros_apropriados_direitos_creditorios;18177;approved;df_juros_direitos_creditorios_exercicio;288;doc 698040 p.16;;;;
+2024-03-31;juros_pagos_titulares;18846;approved;df_pagamento_juros_cra_exercicio;290;doc 698040 p.19;;;;
+2024-03-31;recebimentos_direitos_creditorios;18846;approved;df_recebimento_direitos_creditorios_exercicio;289;doc 698040 p.16;;;;
+2025-03-31;total_ativo;72994;pending;df_total_ativo;308;doc 935390 p.7;2025-03-31;72907376.5;-86.624;diverge
+2025-03-31;direitos_creditorios_total;72907;approved;df_direitos_creditorios_total;315;doc 935390 p.16;2025-03-31;72907376.5;0.376;confere
+2025-03-31;direitos_creditorios_circulante;32909;pending;df_direitos_creditorios_circulante;313;doc 935390 p.7;;;;
+2025-03-31;direitos_creditorios_nao_circulante;39998;pending;df_direitos_creditorios_nao_circulante;314;doc 935390 p.17;;;;
+2025-03-31;saldo_certificados_total;72907;approved;df_saldo_cra_total;320;doc 935390 p.18;2025-03-31;72907376.49;0.376;confere
+2025-03-31;caixa_equivalentes;87;approved;df_caixa_equivalentes;309;doc 935390 p.16;2025-03-31;0;-87.000;diverge
+2025-03-31;fundo_despesas;87;approved;df_fundo_despesas;310;doc 935390 p.21;;;;
+2025-03-31;fundo_retencao;0;pending;df_fundo_retencao;311;doc 935390 p.19;;;;
+2025-03-31;juros_apropriados_direitos_creditorios;14994;approved;df_juros_direitos_creditorios_exercicio;316;doc 935390 p.16;;;;
+2025-03-31;juros_pagos_titulares;15811;approved;df_pagamento_juros_cra_exercicio;319;doc 935390 p.18;;;;
+2025-03-31;recebimentos_direitos_creditorios;45811;approved;df_recebimento_direitos_creditorios_exercicio;317;doc 935390 p.16;;;;
+2025-03-31;amortizacao_principal;30000;pending;df_amortizacao_principal_cra_exercicio;318;doc 935390 p.18;;;;
+2026-03-31;direitos_creditorios_total;48925;approved;direitos_creditorios_total;19;doc 1232148 p.17;2026-03-31;49148052.72;223.053;diverge
+2026-03-31;vencidos_nao_pagos;7089;approved;direitos_creditorios_vencidos_nao_pagos;18;doc 1232148 p.17;2026-03-31;0;-7089.000;diverge

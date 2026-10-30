@@ -1,0 +1,75 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "source_note": "Comunicado ao Mercado 1358128 (23/10/2026): intenção de Resgate Antecipado Facultativo Total do CDCA; Termo de Não Instalação 1340289 (05/10/2026). O resgate é anunciado, não confirmado.",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-27",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "1358128",
+      "page_number": 1,
+      "fact_name": "resgate_antecipado_total_cdca_data_pretendida",
+      "reference_date": "2026-10-23",
+      "value": "2026-10-28",
+      "unit": "data",
+      "excerpt": "comunicação informando o interesse em realizar, em 28 de outubro de 2026, o Resgate Antecipado Facultativo Total do CDCA, nos termos da Cláusula 6.3"
+    },
+    {
+      "source_document_id": "1358128",
+      "page_number": 1,
+      "fact_name": "resgate_antecipado_valor_projetado",
+      "reference_date": "2026-10-28",
+      "value": "46331143.48",
+      "unit": "BRL",
+      "excerpt": "cujo valor projetado para a data pretendida corresponde ao montante de R$ 46.331.143,48"
+    },
+    {
+      "source_document_id": "1358128",
+      "page_number": 1,
+      "fact_name": "resgate_antecipado_cra_data_evento",
+      "reference_date": "2026-10-23",
+      "value": "2026-10-29",
+      "unit": "data",
+      "excerpt": "Emissão, em 29 de outubro de 2026 (“Data do Evento”)"
+    },
+    {
+      "source_document_id": "1358128",
+      "page_number": 1,
+      "fact_name": "resgate_antecipado_pu_principal",
+      "reference_date": "2026-10-29",
+      "value": "399.98",
+      "unit": "BRL_por_CRA",
+      "excerpt": "PU Principal 399,98"
+    },
+    {
+      "source_document_id": "1358128",
+      "page_number": 1,
+      "fact_name": "resgate_antecipado_pu_juros",
+      "reference_date": "2026-10-29",
+      "value": "63.33143486",
+      "unit": "BRL_por_CRA",
+      "excerpt": "PU Juros Remuneratórios 63,33143486"
+    },
+    {
+      "source_document_id": "1358128",
+      "page_number": 1,
+      "fact_name": "resgate_antecipado_pu_total",
+      "reference_date": "2026-10-29",
+      "value": "463.31143486",
+      "unit": "BRL_por_CRA",
+      "excerpt": "PU Total 463,31143486"
+    },
+    {
+      "source_document_id": "1340289",
+      "page_number": 2,
+      "fact_name": "assembleia_dfs_patrimonio_separado_nao_instalada",
+      "reference_date": "2026-10-05",
+      "value": "sem quórum em 1ª convocação",
+      "unit": "texto",
+      "excerpt": "Constatada a ausência de quórum mínimo para a instalação da assembleia, a realização desta em primeira convocação restou prejudicada"
+    }
+  ]
+}

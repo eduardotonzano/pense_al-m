@@ -82,8 +82,14 @@ def test_catalog_partial_failure_keeps_run_id_and_processes_remaining_assets(
     project = Path(__file__).parents[2]
     namespace = runpy.run_path(str(project / "scripts" / "run_document_catalog.py"))
     config = tmp_path / "ativos.csv"
+    pilot_rows = (project / "config" / "ativos_piloto.csv").read_text(
+        encoding="utf-8"
+    ).splitlines()
     config.write_text(
-        (project / "config" / "ativos_piloto.csv").read_text(encoding="utf-8"),
+        "\n".join(
+            [pilot_rows[0]]
+            + [row for row in pilot_rows[1:] if "BRECOACRABX0" in row or "BRRBRACRIP13" in row]
+        ) + "\n",
         encoding="utf-8",
     )
     def collect_with_metrics(_self, asset, run_id):

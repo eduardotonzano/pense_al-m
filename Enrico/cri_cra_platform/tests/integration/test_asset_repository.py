@@ -169,4 +169,5 @@ def test_foundation_runs_reuse_assets_without_duplicates(tmp_path):
     assert rows == [
         ("24G2100031", "BRRBRACRIP13", "1"),
         ("CRA022009VM", "BRECOACRABX0", "1"),
+        ("CRA02500C1D", "BRECOACRALJ8", "1"),
     ]

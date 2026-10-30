@@ -47,6 +47,7 @@ def test_load_assets_is_not_limited_to_two_isins(tmp_path):
     assert [asset.isin for asset in assets] == [
         "BRECOACRABX0",
         "BRRBRACRIP13",
+        "BRECOACRALJ8",
         "BRTSTCRA0017",
     ]
 
@@ -88,7 +89,7 @@ def test_dry_run_without_a_database_creates_nothing(tmp_path):
     assert result["dry_run"] is True
     assert result["database_existe"] is False
     assert {item.name for item in tmp_path.iterdir()} == before
-    assert [asset["documentos_novos"] for asset in result["assets"]] == [2, 2]
+    assert [asset["documentos_novos"] for asset in result["assets"]] == [2, 2, 2]
     assert result["errors"] == 0
 
 
@@ -110,8 +111,8 @@ def test_dry_run_leaves_an_existing_database_and_outputs_untouched(tmp_path):
 
     assert [file_sha256(item) for item in watched] == before
     assert result["database_existe"] is True
-    assert [asset["documentos_novos"] for asset in result["assets"]] == [0, 0]
-    assert [asset["documentos_existentes"] for asset in result["assets"]] == [2, 2]
+    assert [asset["documentos_novos"] for asset in result["assets"]] == [0, 0, 0]
+    assert [asset["documentos_existentes"] for asset in result["assets"]] == [2, 2, 2]
 
 
 def test_dry_run_reports_new_documents_keys_and_grid_fields(tmp_path, monkeypatch):
@@ -179,7 +180,7 @@ def test_main_reports_pending_migrations_without_a_traceback(tmp_path, capsys):
     error = capsys.readouterr().err
 
     assert code == 1
-    assert "migrations pendentes (001)" in error
+    assert "migrations pendentes (001" in error
     assert "apply_migration.py" in error
     assert "Traceback" not in error
     assert not (tmp_path / "catalog.csv").exists()

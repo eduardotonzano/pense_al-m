@@ -1,0 +1,222 @@
+﻿xml_path,node_kind,files_present,files_absent,files_filled,min_occurrences,max_occurrences,max_repeated_within_parent,value_shapes,long_text_flag,base64_suspected,personal_data_suspected,example_values,classification_status,classification_source
+/InformeMensalCRI,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/Ativo,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/Ativo/@total,attribute,26,0,26,1,1,0,decimal_dot,False,False,False,230505433.56 | 230501421.99 | 230271156.45,mapped,mapping
+/InformeMensalCRI/Ativo/CaixaEquivalentes,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/Ativo/CaixaEquivalentes/@total,attribute,26,0,26,1,1,0,decimal_dot,False,False,False,505433.56 | 289411.22 | 271156.45,mapped,mapping
+/InformeMensalCRI/Ativo/CaixaEquivalentes/CotasFILiquidezDiaria,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Ativo/CaixaEquivalentes/OperacoesCompromissadas,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,500745.42 | 289399.09 | 271099.86,mapped,mapping
+/InformeMensalCRI/Ativo/CaixaEquivalentes/Outros,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,4688.14 | 12.13 | 56.59,mapped,mapping
+/InformeMensalCRI/Ativo/CaixaEquivalentes/TitulosPublicosFederais,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Ativo/CreditosTotais,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/Ativo/CreditosTotais/@total,attribute,26,0,26,1,1,0,decimal_dot | integer | zero,False,False,False,230000000 | 230212010.77 | 230118275.4,mapped,mapping
+/InformeMensalCRI/Ativo/CreditosTotais/CreditosAVencerComParcelasAtrasadas,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Ativo/CreditosTotais/CreditosAVencerSemParcelasAtrasadas,leaf,26,0,26,1,1,1,decimal_dot | integer | zero,False,False,False,230000000 | 230212010.77 | 230118275.4,mapped,mapping
+/InformeMensalCRI/Ativo/CreditosTotais/CreditosVencidosNaoPagos,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Ativo/Derivativos,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/Ativo/Derivativos/@total,attribute,26,0,26,1,1,0,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Ativo/Derivativos/ContratosTermo,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Ativo/Derivativos/Futuros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Ativo/Derivativos/Opcoes,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Ativo/Derivativos/Swap,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Ativo/OutrosAtivos,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Ativo/ProvisaoRecuperacaoCreditos,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/ContingenciaPatrimonioSeparado,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/ContingenciaPatrimonioSeparado/OutrasContigenciasRelevantes,leaf,26,0,0,1,1,1,empty,False,False,False,,mapped,mapping
+/InformeMensalCRI/ContingenciaPatrimonioSeparado/ProcessosRelevantes,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/ContingenciaPatrimonioSeparado/ProcessosRelevantes/PrincipaisFatos,leaf,26,0,0,1,1,1,empty,False,False,False,,mapped,mapping
+/InformeMensalCRI/ContingenciaPatrimonioSeparado/ProcessosRelevantes/ValoresBensDireitosEnvolvidos,leaf,26,0,0,1,1,1,empty,False,False,False,,mapped,mapping
+/InformeMensalCRI/DadosGerais,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DadosGerais/AgenteFiduciario,leaf,26,0,26,1,1,1,text,False,False,False,Vortx DTVM,mapped,mapping
+/InformeMensalCRI/DadosGerais/CNPJCompanhia,leaf,26,0,26,1,1,1,integer,False,False,False,02773542000122,mapped,mapping
+/InformeMensalCRI/DadosGerais/CompanhiaEmissora,leaf,26,0,26,1,1,1,text,False,False,False,Opea Securtizadora,mapped,mapping
+/InformeMensalCRI/DadosGerais/Competencia,leaf,26,0,26,1,1,1,date_iso,False,False,False,2024-09-01 | 2024-10-01 | 2024-11-01,mapped,mapping
+/InformeMensalCRI/DadosGerais/CustodianteRegistradora,leaf,26,0,26,1,1,1,text,False,False,False,Vortx DTVM,mapped,mapping
+/InformeMensalCRI/DadosGerais/DetalhamentoLastro,leaf,26,0,26,1,1,1,text,False,False,False,Debêntures | Nota Comercial | Debênture,mapped,mapping
+/InformeMensalCRI/DadosGerais/Emissao,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DadosGerais/Emissao/CodigoIdentificacao,leaf,26,0,26,1,1,1,text,False,False,False,BRRBRACRIP13,mapped,mapping
+/InformeMensalCRI/DadosGerais/Emissao/DataEmissao,leaf,26,0,26,1,1,1,date_iso,False,False,False,2024-08-29,mapped,mapping
+/InformeMensalCRI/DadosGerais/Emissao/NomeEmissao,leaf,26,0,26,1,1,1,text,False,False,False,Sênior | 1ª Série da 301ª Emissão | Almeida Junior | Corporativoª Série da Comercial / Lajes Corporativasª Emissão,mapped,mapping
+/InformeMensalCRI/DadosGerais/Emissao/NumeroEmissao,leaf,26,0,26,1,1,1,integer,False,False,False,301,mapped,mapping
+/InformeMensalCRI/DadosGerais/Emissao/QuantidadeSeries,leaf,26,0,26,1,1,1,integer,False,False,False,1,mapped,mapping
+/InformeMensalCRI/DadosGerais/InstituicaoRegimeFiduciario,leaf,26,0,26,1,1,1,text,False,False,False,Sim,mapped,mapping
+/InformeMensalCRI/DadosGerais/OutrasCaracteristicasEmissao,leaf,26,0,26,1,1,1,text,False,False,False,Não aplicável.,mapped,mapping
+/InformeMensalCRI/DadosGerais/RetencaoRisco,container,3,23,,0,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DadosGerais/RetencaoRisco/RetentorRisco,leaf,3,23,0,0,1,1,empty,False,False,False,,mapped,mapping
+/InformeMensalCRI/DadosGerais/RetencaoRisco/TipoRetencaoRisco,leaf,3,23,3,0,1,1,text,False,False,False,Não se aplica,mapped,mapping
+/InformeMensalCRI/DadosGerais/Revolvencia,leaf,26,0,26,1,1,1,text,False,False,False,Não,mapped,mapping
+/InformeMensalCRI/DadosGerais/Series,container/leaf,26,0,,1,1,1,empty,False,False,False,,ignored,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie,container,25,1,,0,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie/Classe,leaf,25,1,25,0,1,1,text,False,False,False,Sênior,mapped,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie/CodigoISIN,leaf,25,1,25,0,1,1,text,False,False,False,BRRBRACRIP13,mapped,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie/CodigoNegociacaoMercadoSec,leaf,25,1,25,0,1,1,text,False,False,False,24G2100031,mapped,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie/DataVencimento,leaf,25,1,25,0,1,1,date_iso,False,False,False,2036-08-29,mapped,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie/MesBaseApuracaoPagtoRemunAmort,leaf,25,1,25,0,1,1,integer,False,False,False,45565 | 45596 | 45626,mapped,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie/NumeroSerie,leaf,25,1,25,0,1,1,integer,False,False,False,1,mapped,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie/PeriodicidadePagtoRemunAmort,leaf,25,1,25,0,1,1,text,False,False,False,Mensal,mapped,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie/Situacao,leaf,25,1,25,0,1,1,text,False,False,False,Adimplente,mapped,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie/TaxaJuros,leaf,25,1,25,0,1,1,text,False,False,False,"100% CDI + 1,5% a.a.",mapped,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie/TipoOferta,leaf,25,1,25,0,1,1,text,False,False,False,Profissionais,mapped,mapping
+/InformeMensalCRI/DadosGerais/Series/Serie/VlrTotalIntegralizado,leaf,25,1,25,0,1,1,integer,False,False,False,230000000,mapped,mapping
+/InformeMensalCRI/DadosGerais/Sobrecolateralizacao,leaf,26,0,26,1,1,1,text,False,False,False,"Não aplicável, a emissão não conta com sobrecolaterização.",mapped,mapping
+/InformeMensalCRI/DadosGerais/TipoLastro,leaf,26,0,26,1,1,1,text,False,False,False,Título de Dívida,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Futuros,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Futuros/Cambio,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Futuros/Commodities,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Futuros/Juros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Futuros/Outros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/MercadoTermo,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/MercadoTermo/Cambio,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/MercadoTermo/Commodities,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/MercadoTermo/Juros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/MercadoTermo/Outros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Opcoes,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Opcoes/Cambio,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Opcoes/Commodities,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Opcoes/Juros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Opcoes/Outros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Swap,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Swap/Cambio,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Swap/Commodities,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Swap/Juros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DerivativosExposicaoLiquida/Swap/Outros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DetalhesSeries,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DetalhesSeries/Series,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DetalhesSeries/Series/Serie,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DetalhesSeries/Series/Serie/AmortizacoesRealizadasPeriodo,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/Series/Serie/Classe,leaf,26,0,26,1,1,1,text,False,False,False,Sênior,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual,leaf,26,0,0,1,1,1,empty,False,False,False,,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/Series/Serie/NumeroSerie,leaf,26,0,26,1,1,1,integer,False,False,False,1,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/Series/Serie/QtdCertificadosPorClasse,leaf,26,0,26,1,1,1,integer,False,False,False,230000,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/Series/Serie/RendimentosDistribuidosPeriodo,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,2305360.15 | 2235887.96 | 2281574.47,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/Series/Serie/RentabilidadePeriodo,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,0.010023305 | 0.00971231666866483 | 0.009919889,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse,leaf,26,0,26,1,1,1,decimal_dot | integer,False,False,False,1000 | 1000.92 | 1000.51,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/Subordinacao,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/DetalhesSeries/Subordinacao/RecomposicaoIndice,leaf,26,0,26,1,1,1,text,False,False,False,Não aplicável.,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/totalAmortizacoesRealizadas,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/totalQtdCertificados,leaf,26,0,26,1,1,1,integer,False,False,False,230000,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/totalRendimentosDistribuidos,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,2305360.15 | 2235887.96 | 2281574.47,mapped,mapping
+/InformeMensalCRI/DetalhesSeries/totalVlrCertificados,leaf,26,0,26,1,1,1,decimal_dot | integer,False,False,False,1000 | 1000.92 | 1000.51,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/AquisicaoCaixaEquivalentes,leaf,26,0,26,1,1,1,decimal_dot | integer | zero,False,False,False,0 | 5110 | 139382.97,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/AquisicaoNovosCreditos,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/OutrosPagamentos,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/OutrosRecebimentos,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,0 | 1.36 | 1.39,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PagamentosDespesas,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,0 | 20025.1 | 8953.46,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total,attribute,26,0,26,1,1,0,decimal_dot | zero,False,False,False,2305360.15 | 2235887.96 | 2281574.47,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/AmortizacaoPrincipal,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/Juros,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,2305360.15 | 2235887.96 | 2281574.47,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/@total,attribute,26,0,26,1,1,0,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/AmortizacaoPrincipal,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/Juros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/@total,attribute,26,0,26,1,1,0,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/AmortizacaoPrincipal,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/Juros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/RecebimentosAlienacaoCaixaEquivalentes,leaf,26,0,26,1,1,1,decimal_dot | integer | zero,False,False,False,0 | 19443.83 | 8872.22,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/RecebimentosCreditos,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,2305360.15 | 2235887.96 | 2281574.47,mapped,mapping
+/InformeMensalCRI/FluxoCaixaLiquidoMes/VariacaoLiquidaCaixaPatrimonioSeparado,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,0 | -575.21 | -75.34,mapped,mapping
+/InformeMensalCRI/InfoCreditos,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/@total,attribute,26,0,26,1,1,0,decimal_dot | integer,False,False,False,230000000 | 230212010.77 | 230118275.4,mapped,mapping
+/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/Acima361Dias,leaf,26,0,26,1,1,1,decimal_dot | integer,False,False,False,203537212.85 | 202789246.98 | 201046783.79,mapped,mapping
+/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/Ate30Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2215837.21 | 2260209.08 | 2247094.15,mapped,mapping
+/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De121a150Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2334216.73 | 2089402.07 | 2201699.93,mapped,mapping
+/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De151a180Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2023920.28 | 2093386.65 | 2447787.83,mapped,mapping
+/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De181a360Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,13353321.1 | 14108672.22 | 14996888.69,mapped,mapping
+/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De31a60Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2205609.41 | 2170907.3 | 2371014.28,mapped,mapping
+/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De61a90Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2108395.14 | 2290585.24 | 2502457.65,mapped,mapping
+/InformeMensalCRI/InfoCreditos/AVencerPorPrazoVencimento/De91a120Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2221487.28 | 2409601.23 | 2186273.68,mapped,mapping
+/InformeMensalCRI/InfoCreditos/CedentesRepresentamMais20Porcento,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/CedentesRepresentamMais20Porcento/Cedente,container,26,0,,1,5,5,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/CedentesRepresentamMais20Porcento/Cedente/CNPJ,leaf,26,0,26,1,5,1,cnpj_formatted | zero,False,False,False,0 | 82.120.676/0001-83,mapped,mapping
+/InformeMensalCRI/InfoCreditos/CedentesRepresentamMais20Porcento/Cedente/Percentual,leaf,26,0,26,1,5,1,integer | zero,False,False,False,0 | 1,mapped,mapping
+/InformeMensalCRI/InfoCreditos/Concentracao,leaf,26,0,26,1,1,1,text,False,False,False,Concentrado - mais de 20%,mapped,mapping
+/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoCedente,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoCedente/CincoMaioresCedentes,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoCedente/DezMaioresCedentes,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoCedente/MaiorCedente,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoCedente/VinteMaioresCedentes,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoDevedor,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoDevedor/MaiorDevedor,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/DevedoresRepresentamMais20Porcento,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/DevedoresRepresentamMais20Porcento/Devedor,container,26,0,,1,5,5,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/DevedoresRepresentamMais20Porcento/Devedor/CNPJ,leaf,26,0,26,1,5,1,cnpj_formatted | zero,False,False,False,0 | 82.120.676/0001-83,mapped,mapping
+/InformeMensalCRI/InfoCreditos/DevedoresRepresentamMais20Porcento/Devedor/Percentual,leaf,26,0,26,1,5,1,integer | zero,False,False,False,0 | 1,mapped,mapping
+/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/DurationCarteira,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,4.88 | 4.77 | 4.62,pending_decision,mapping
+/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/OutrasConsideracoesRelevantes,leaf,26,0,22,1,1,1,empty | text,False,False,False,-,mapped,mapping
+/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/PercentualCreditosCedentesTerceiros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/PercentualCreditosOutrasGarantias,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/PeriodicidadeAvaliacaoGarantias,leaf,26,0,25,1,1,1,text | xsi_nil,False,False,False,Indefinido | Mensal,mapped,mapping
+/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/PeriodicidadeAvaliacaoGarantias/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,1,25,1,0,1,0,text,False,False,False,true,ignored,mapping
+/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/VlrDividasAdquiridasEmissorSecuritizadora,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/VlrTotalCreditosRelacaoVlrTotalEmissao,leaf,26,0,26,1,1,1,integer,False,False,False,1,pending_decision,mapping
+/InformeMensalCRI/InfoCreditos/OutrasInfoCreditosAReceber/VlrTotalGarantias,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/PrePgtosPeriodo,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/PrePgtosPeriodo/@total,attribute,26,0,26,1,1,0,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/PrePgtosPeriodo/InfoImpactoPrePgtoInvestidores,leaf,26,0,26,1,1,1,text,False,False,False,Não ocorreram eventos de pré-pagamento no fluxo previsto da operação.,mapped,mapping
+/InformeMensalCRI/InfoCreditos/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VencidosNaoPagos,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/@total,attribute,26,0,26,1,1,0,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Acima361Dias,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre121e150Dias,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre151e180Dias,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre181e360Dias,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre1e30Dias,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre31e60Dias,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre61e90Dias,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VencidosNaoPagos/Entre91e120Dias,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/@total,attribute,26,0,26,1,1,0,decimal_dot | integer | zero,False,False,False,230000000 | 230212010.77 | 230118275.4,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/Alugueis,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/AquisicaoImoveis,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/HomeEquity,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/IncorporacaoImobiliaria,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/Loteamento,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/Multipropriedade,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VlrCreditosNaturezaEcon/Outros,leaf,26,0,26,1,1,1,decimal_dot | integer | zero,False,False,False,230000000 | 230212010.77 | 230118275.4,mapped,mapping
+/InformeMensalCRI/InfoCreditos/VlrTotalParcelasAtraso,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/OutrasInfoRelevantesDesempenhoEmissao,leaf,26,0,26,1,1,1,text,True,False,True,**** ******* *************** ******* * ****** ***********.*** ** ***** ** ******… | **** ******* *************** ******* * ****** ***********.***.** ** ***** ** ***…,mapped,mapping
+/InformeMensalCRI/Passivo,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/Passivo/@total,attribute,26,0,26,1,1,0,decimal_dot,False,False,False,230505433.56 | 230501421.99 | 230271156.45,mapped,mapping
+/InformeMensalCRI/Passivo/CompanhiaSecuritizadoraEmissora,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Passivo/Derivativos,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/Passivo/Derivativos/@total,attribute,26,0,26,1,1,0,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Passivo/Derivativos/ContratosTermo,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Passivo/Derivativos/Futuros,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Passivo/Derivativos/Opcoes,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Passivo/Derivativos/Swap,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Passivo/Outros,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,505433.56 | 289411.22 | 271156.45,mapped,mapping
+/InformeMensalCRI/Passivo/ReducaoVlrEmissao,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/Passivo/VlrAtualizadoEmissao,leaf,26,0,26,1,1,1,decimal_dot | integer | zero,False,False,False,230000000 | 230212010.77 | 230118275.4,mapped,mapping
+/InformeMensalCRI/VlrPatrimonioLiquidoEmissao,leaf,26,0,26,1,1,1,zero,False,False,False,0,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/@total,attribute,26,0,26,1,1,0,decimal_dot | zero,False,False,False,0 | 266700.02 | 137583.35,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Acima361Dias,leaf,26,0,26,1,1,1,decimal_dot | integer | zero,False,False,False,0 | 241300 | 112183.33,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Ate30Dias,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,0 | 2116.67 | 866.67,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De121a150Dias,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,0 | 2116.67 | 866.67,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De151a180Dias,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,0 | 2116.67 | 866.67,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De181a360Dias,leaf,26,0,26,1,1,1,integer | zero,False,False,False,0 | 12700 | 5200,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De31a60Dias,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,0 | 2116.67 | 866.67,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De61a90Dias,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,0 | 2116.67 | 866.67,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De91a120Dias,leaf,26,0,26,1,1,1,decimal_dot | zero,False,False,False,0 | 2116.67 | 866.67,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr,container,26,0,,1,1,1,,False,False,False,,ignored,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/@total,attribute,26,0,26,1,1,0,decimal_dot | integer,False,False,False,230000000 | 230212010.69 | 229999999.91,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Acima361Dias,leaf,26,0,26,1,1,1,decimal_dot | integer,False,False,False,203537212.85 | 202789246.9 | 201046783.7,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Ate30Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2215837.21 | 2260209.08 | 2247094.15,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De121a150Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2334216.73 | 2089402.07 | 2201699.93,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De151a180Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2023920.28 | 2093386.65 | 2447787.83,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De181a360Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,13353321.1 | 14108672.22 | 14996888.69,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De31a60Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2205609.41 | 2170907.3 | 2371014.28,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De61a90Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2108395.14 | 2290585.24 | 2502457.65,mapped,mapping
+/InformeMensalCRI/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De91a120Dias,leaf,26,0,26,1,1,1,decimal_dot,False,False,False,2221487.28 | 2409601.23 | 2186273.68,mapped,mapping

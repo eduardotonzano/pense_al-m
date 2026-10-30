@@ -1,0 +1,25 @@
+{
+  "version": "0.1.0",
+  "description": "Nomes de fatos reportados que medem o mesmo indicador em demonstrações financeiras de períodos diferentes. Só agrupa nomes para leitura em série; não altera nenhum fato. Ordem = precedência quando o mesmo documento traz mais de um nome.",
+  "unit": "BRL_mil",
+  "indicators": {
+    "total_ativo": ["df_total_ativo"],
+    "direitos_creditorios_total": ["df_direitos_creditorios_total", "direitos_creditorios_total", "df_saldo_direitos_creditorios_total"],
+    "direitos_creditorios_circulante": ["df_direitos_creditorios_circulante"],
+    "direitos_creditorios_nao_circulante": ["df_direitos_creditorios_nao_circulante", "df_direitos_creditorios_longo_prazo"],
+    "saldo_certificados_total": ["df_saldo_cra_total", "df_saldo_cri"],
+    "vencidos_nao_pagos": ["direitos_creditorios_vencidos_nao_pagos"],
+    "caixa_equivalentes": ["df_caixa_equivalentes", "df_caixa_aplicacao_fundo_despesas"],
+    "fundo_despesas": ["df_fundo_despesas"],
+    "fundo_retencao": ["df_fundo_retencao"],
+    "juros_apropriados_direitos_creditorios": ["df_juros_direitos_creditorios_exercicio", "df_juros_direitos_creditorios_periodo", "df_juros_atualizacao_direitos_creditorios_periodo"],
+    "juros_pagos_titulares": ["df_pagamento_juros_cra_exercicio", "df_pagamento_juros_cra_periodo", "df_pagamento_juros_cri_exercicio", "df_pagamento_juros_cri_periodo", "df_pagamento_juros_cra_total_periodo"],
+    "recebimentos_direitos_creditorios": ["df_recebimento_direitos_creditorios_exercicio", "df_recebimento_direitos_creditorios_periodo", "df_recebimento_direitos_creditorios_total_periodo"],
+    "amortizacao_principal": ["df_amortizacao_principal_cra_exercicio"]
+  },
+  "informe_counterparts": {
+    "CRA": {"saldo_certificados_total": "/InformeMensalCRA/Passivo/VlrAtualizadoEmissao", "direitos_creditorios_total": "/InformeMensalCRA/Ativo/DireitosCreditorios/@total", "total_ativo": "/InformeMensalCRA/Ativo/@total", "caixa_equivalentes": "/InformeMensalCRA/Ativo/CaixaEquivalentes/@total", "vencidos_nao_pagos": "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos"},
+    "CRI": {"saldo_certificados_total": "/InformeMensalCRI/Passivo/VlrAtualizadoEmissao", "direitos_creditorios_total": "/InformeMensalCRI/Ativo/CreditosTotais/@total", "total_ativo": "/InformeMensalCRI/Ativo/@total", "caixa_equivalentes": "/InformeMensalCRI/Ativo/CaixaEquivalentes/@total", "vencidos_nao_pagos": "/InformeMensalCRI/Ativo/CreditosTotais/CreditosVencidosNaoPagos"}
+  },
+  "comparison_tolerance_brl_mil": "1"
+}

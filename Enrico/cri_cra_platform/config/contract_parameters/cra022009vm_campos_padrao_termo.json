@@ -1,0 +1,134 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "source_document_id": "355426",
+  "source_kind": "termo",
+  "topic": "campos_padrao_termo",
+  "proposed_by": "Claude (assistente), a partir dos trechos literais do Termo 355426 (catálogo de campos 0.1.0)",
+  "proposed_at": "2026-10-29",
+  "parameters": [
+    {
+      "anchor": "DA 190ª (CENTÉSIMA NONAGÉSIMA) EMISSÃO, EM SÉRIE ÚNICA, DA",
+      "parameter_name": "numero_emissao",
+      "parameter_value": "190",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Capa do Termo (p.1)."
+    },
+    {
+      "anchor": "5.1.1. Será emitida 1 (uma) série única de CRA.",
+      "parameter_name": "numero_series",
+      "parameter_value": "1 (série única)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": null
+    },
+    {
+      "anchor": "5.1.1. Será emitida 1 (uma) série única de CRA.",
+      "parameter_name": "classe_serie_1",
+      "parameter_value": "Série única (o Termo não divide os CRA em classes)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Interpretação: a cláusula só diz 'série única'; a ausência de classes é inferida do silêncio do Termo. Revisar."
+    },
+    {
+      "anchor": "“Devedora”: CAFE BRASIL INDUSTRIA COMERCIO IMPORTACAO E",
+      "parameter_name": "devedora",
+      "parameter_value": "Café Brasil Indústria Comércio Importação e Exportação S.A. (sede em Alfenas/MG)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Definição de 'Devedora' (p.12)."
+    },
+    {
+      "anchor": "5.6.1. Para todos os efeitos e fins legais, a Data de Emissão dos CRA é 21 de setembro de 2022.",
+      "parameter_name": "data_emissao",
+      "parameter_value": "2022-09-21",
+      "unit": "data",
+      "applies_when": "toda a emissão",
+      "note": null
+    },
+    {
+      "anchor": "5.2.1. A Emissão compreende 100.000 (cem mil) CRA.",
+      "parameter_name": "quantidade_total_cra",
+      "parameter_value": "100000",
+      "unit": "CRA",
+      "applies_when": "toda a emissão",
+      "note": null
+    },
+    {
+      "anchor": "5.8.1. Observadas as hipóteses de Resgate Antecipado, previstas neste Termo de Securitização, os",
+      "parameter_name": "data_vencimento_termo_original",
+      "parameter_value": "2027-09-30",
+      "unit": "data",
+      "applies_when": "toda a emissão",
+      "note": "Vencimento do Termo (1.836 dias corridos). Foi alterado para 30/12/2026 pela assembleia de 14/03/2024 (parâmetro data_vencimento_final_cdca_cra).",
+      "valid_to": "2024-03-13"
+    },
+    {
+      "anchor": "5.8.2. Não haverá vencimento antecipado dos CRA, mas tão somente eventual Resgate Antecipado,",
+      "parameter_name": "vencimento_antecipado_cra",
+      "parameter_value": "Não há vencimento antecipado dos CRA; apenas Resgate Antecipado (hipóteses de vencimento antecipado ficam no CDCA)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": null
+    },
+    {
+      "anchor": "5.10.1. O Valor Nominal dos CRA não será atualizado monetariamente.",
+      "parameter_name": "atualizacao_monetaria",
+      "parameter_value": "Não há atualização monetária",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": null
+    },
+    {
+      "anchor": "DATAS DE PAGAMENTO DA REMUNERAÇÃO DOS CRA",
+      "parameter_name": "periodicidade_remuneracao",
+      "parameter_value": "Datas de Pagamento da Remuneração (Anexo II): 30/12/2022, 29/12/2023, 30/12/2024, 30/12/2025, 30/12/2026 e 30/09/2027 (anual, mais o vencimento)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "As datas são literais. 'Anual' é a leitura do intervalo. Os percentuais de amortização da mesma tabela vêm desalinhados na extração e NÃO foram registrados aqui (o fluxo vigente é o da assembleia de 14/03/2024)."
+    },
+    {
+      "anchor": "5.14.1. Na hipótese de atraso no pagamento de qualquer quantia devida aos Titulares de CRA,",
+      "parameter_name": "encargos_moratorios",
+      "parameter_value": "Multa moratória não compensatória de 2% + juros de mora de 1% ao mês, pro rata temporis (juros compostos), sobre o valor devido e não pago",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": null
+    },
+    {
+      "anchor": "5.19.1. Não será atribuída nota de classificação de risco aos CRA.",
+      "parameter_name": "rating_obrigacao",
+      "parameter_value": "Não há rating: não será atribuída nota de classificação de risco aos CRA",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": null
+    },
+    {
+      "anchor": "3.1 Pelo presente Termo de Securitização, a Emissora vincula, em caráter irrevogável e",
+      "parameter_name": "lastro",
+      "parameter_value": "Créditos do Agronegócio vinculados em caráter irrevogável e irretratável aos CRA (cláusula 3.1)",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Natureza dos créditos (CDCA) descrita nas cláusulas seguintes e nos anexos."
+    },
+    {
+      "anchor": "13.1. A partir da Data de Emissão até a liquidação integral dos CRA, a Emissora obriga-se a utilizar",
+      "parameter_name": "ordem_alocacao_itens_i_a_iii",
+      "parameter_value": "(i) despesas dos itens 15.2 e 15.3 e recomposição do Fundo de Despesas; (ii) composição e recomposição do Fundo de Retenção; (iii) multa e juros moratórios dos CRA",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": null
+    },
+    {
+      "anchor": "(iv) pagamento da Remuneração dos CRA;",
+      "parameter_name": "ordem_alocacao_itens_iv_a_vi",
+      "parameter_value": "(iv) Remuneração dos CRA; (v) Valor Nominal Unitário dos CRA; (vi) saldo da Conta Fundo de Despesas à Consultora, observada a cláusula 4.5.5",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": null
+    }
+  ]
+}
