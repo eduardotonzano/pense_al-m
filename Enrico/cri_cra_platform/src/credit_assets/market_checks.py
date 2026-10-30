@@ -16,7 +16,8 @@ MESES = ["janeiro", "fevereiro", "marco", "abril", "maio", "junho", "julho", "ag
 PERIODIC = re.compile(r"semestral|anual|trimestral|bimestral|quadrimestral")
 WEIGHTS = {"em_atraso": 5, "vencido_com_saldo_adimplente": 4, "informe_defasado": 3,
            "vencimento_fora_mes_base": 2, "isin_repetido": 3, "serie_sem_isin": 1,
-           "identificador_duplicado": 1, "isin_invalido": 2, "saldo_incompativel": 3}
+           "identificador_duplicado": 1, "isin_invalido": 2, "saldo_incompativel": 3,
+           "situacao_mista_na_classe": 3}
 SUSPECT_BALANCE_FACTOR = Decimal(20)
 ISIN_PATTERN = re.compile(r"^[A-Z]{2}[A-Z0-9]{9}[0-9]$")
 
@@ -100,8 +101,12 @@ def series_flags(row: dict[str, Any], reference: str) -> list[str]:
 def rank_emissions(
     rows: list[dict[str, Any]], reference: str, last_filing: dict[str, str],
 ) -> list[dict[str, Any]]:
-    """``rows``: última linha de cada série. ``last_filing``: última competência entregue por emissão."""
+    """``rows``: última linha de cada série. ``last_filing``: última competência entregue por emissão.
 
+    ``situacao_mista_na_classe`` (uma vez por emissão): séries com saldo da mesma classe, umas em atraso e
+    outras adimplentes; vencimento antecipado costuma atingir todas, então pede leitura das assembleias."""
+
+    situations: dict[tuple[str, str], set[str]] = defaultdict(set)
     isin_owners: dict[str, set[str]] = defaultdict(set)
     isin_issuers: dict[str, set[str]] = defaultdict(set)
     for row in rows:
@@ -120,6 +125,8 @@ def rank_emissions(
         current = last_filing.get(cert, "") >= reference
         item["saldo"] += balance if current else Decimal(0)
         flags = series_flags(row, reference) if current else []
+        if current and balance > 0:
+            situations[(cert, fold(row.get("Classe")))].add(fold(row.get("Situacao")))
         isin = row.get("Codigo_ISIN")
         if isin and len(isin_owners[isin]) > 1:
             # mesmo ISIN em securitizadoras diferentes é conflito; na mesma securitizadora o certificado
@@ -131,6 +138,8 @@ def rank_emissions(
             flags.append("informe_defasado")
         for flag in flags:
             item["flags"][flag] += 1
+    for cert in {c for (c, _), found in situations.items() if {"em atraso", "adimplente"} <= found}:
+        emissions[cert]["flags"]["situacao_mista_na_classe"] = 1
     ranking = []
     for item in emissions.values():
         item["score"] = sum(WEIGHTS[flag] for flag in item["flags"])

@@ -93,3 +93,18 @@ def test_balance_incompatible_with_paid_in_is_flagged_and_left_out_of_totals():
     normal = row(Valor_Certificados="127906324.22", Total_Integralizado="123599000.00")
     assert not balance_is_suspect(normal) and trusted_balance(normal) == Decimal("127906324.22")
     assert not balance_is_suspect(row())  # sem integralizado informado não se julga
+
+
+def test_mixed_situation_within_same_class_flags_emission_once():
+    def s(cert, isin, situation, klass="Sênior", balance="100"):
+        return row(Codigo_Identificacao_Certificado=cert, Codigo_ISIN=isin, Situacao=situation, Classe=klass,
+                   Valor_Certificados=balance)
+    rows = [
+        s("MISTA", "BRM000000001", "Adimplente"), s("MISTA", "BRM000000002", "Em atraso"), s("MISTA", "BRM000000003", "Em atraso"),
+        s("CLASSES", "BRC000000001", "Adimplente"), s("CLASSES", "BRC000000002", "Em atraso", klass="Subordinada"),
+        s("ZERADA", "BRZ000000001", "Adimplente", balance="0"), s("ZERADA", "BRZ000000002", "Em atraso"),
+    ]
+    by = {i["certificado"]: i for i in rank_emissions(rows, REF, {c: REF for c in ("MISTA", "CLASSES", "ZERADA")})}
+    assert by["MISTA"]["flags"]["situacao_mista_na_classe"] == 1 and by["MISTA"]["score"] == 5 + 3
+    assert "situacao_mista_na_classe" not in by["CLASSES"]["flags"]  # classes diferentes podem ter fluxos diferentes
+    assert "situacao_mista_na_classe" not in by["ZERADA"]["flags"]  # série sem saldo não conta
