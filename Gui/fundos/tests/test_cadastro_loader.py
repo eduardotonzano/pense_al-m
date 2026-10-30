@@ -4,6 +4,8 @@ import pytest
 
 from apoio import FAKE_CPF
 from apoio import FAKE_CPF_MASKED
+from apoio import make_test_cnpj
+from apoio import seed_base
 from apoio_cadastro import DIRECTOR_NAME
 from apoio_cadastro import PF_AUDITOR_NAME
 from apoio_cadastro import PF_MANAGER_NAME
@@ -13,15 +15,20 @@ from apoio_cadastro import class_row
 from apoio_cadastro import fake_cnpj
 from apoio_cadastro import fund_row
 from apoio_cadastro import pf_manager_row
+from conftest import MIGRATION_001
+from conftest import MIGRATIONS_DIR
 from conftest import create_schema
 from fundos.cadastro.loader import LoadError
+from fundos.cadastro.loader import count_cpf_like
 from fundos.cadastro.loader import find_loaded_zip
 from fundos.cadastro.loader import load_cadastro
 from fundos.cadastro.loader import missing_migrations
+from fundos.cadastro.loader import verify
 from fundos.cadastro.reader import read_cadastro_bytes
 from fundos.cadastro.selection import select_fidc_fiagro
 from fundos.personal_data import find_cpf_columns
 from fundos.repositories.observation_repository import ObservationRepository
+from fundos.repositories.party_observation_repository import PartyObservationRepository
 
 
 TWO_MANAGERS = [
@@ -292,3 +299,57 @@ def test_missing_migrations_and_loaded_zip(tmp_path, full_db):
         loaded = find_loaded_zip(connection, cadastro.zip)
 
     assert loaded.reference_dates == (REFERENCE_DATE,)
+
+
+def test_loads_and_verifies_on_a_database_with_only_001_and_002(tmp_path):
+    # O cadastro so exige 001 e 002: o repositorio de papeis funciona sem a
+    # tabela do percentual do cedente (migration 003).
+    db = create_schema(tmp_path / "fundos.db", (MIGRATION_001, MIGRATIONS_DIR / "002_party_observations.sql"))
+    result = load(db, build_zip(TWO_MANAGERS, [class_row()]))
+
+    assert result.status == "success"
+    assert result.counts[("varredura_cpf", "party_observations")] == 0
+    assert rows(
+        db,
+        "SELECT role, COUNT(*) FROM party_observations GROUP BY role ORDER BY role",
+    ) == [("administrador", 1), ("auditor", 1), ("custodiante", 1), ("gestor", 2)]
+
+    with db.connection() as connection:
+        assert missing_migrations(connection) == []
+        assert verify(connection, result.run_id) == []
+        assert connection.execute(
+            "SELECT 1 FROM sqlite_master WHERE name = 'party_observation_shares'"
+        ).fetchone() is None
+
+
+def test_missing_migrations_with_other_requirements(tmp_path):
+    required = {1: "initial_schema", 2: "party_observations", 3: "party_observation_shares"}
+    db = create_schema(tmp_path / "fundos.db", (MIGRATION_001, MIGRATIONS_DIR / "002_party_observations.sql"))
+
+    with db.connection() as connection:
+        assert missing_migrations(connection) == []
+        assert missing_migrations(connection, required) == ["003_party_observation_shares"]
+
+
+def test_cpf_like_share_is_counted_and_fails_the_verification(full_db):
+    with full_db.connection() as connection:
+        base = seed_base(connection)
+        PartyObservationRepository(connection).record(
+            fund_class_id=base["fund_class"],
+            role="cedente",
+            field_name="tab_I.TAB_I2A12_CPF_CNPJ_CEDENTE_1",
+            party_cnpj=make_test_cnpj(2),
+            share_field_name="tab_I.TAB_I2A12_PR_CEDENTE_1",
+            share_value=FAKE_CPF,
+            source_id=base["cvm"],
+            collection_run_id=base["cvm_run"],
+            raw_record_id=base["cvm_raw"],
+            reference_date="2026-09-30",
+        )
+        counted = count_cpf_like(connection, base["cvm_run"])
+        problems = verify(connection, base["cvm_run"])
+
+    assert counted == (0, 1)
+    assert problems == [
+        "Texto com formato de CPF gravado nesta coleta: 0 em observations, 1 em party_observations."
+    ]

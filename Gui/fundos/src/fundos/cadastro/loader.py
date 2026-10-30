@@ -81,14 +81,17 @@ def applied_migrations(connection):
     }
 
 
-def missing_migrations(connection):
-    """Migrations que a carga exige e o banco nao tem, como NNN_nome."""
+def missing_migrations(connection, required=REQUIRED_MIGRATIONS):
+    """Migrations exigidas ({versao: nome}) que o banco nao tem, como NNN_nome.
+
+    O padrao e o que a carga do cadastro exige; o informe passa as suas.
+    """
 
     applied = applied_migrations(connection)
 
     return [
         format(version, "03d") + "_" + name
-        for version, name in sorted(REQUIRED_MIGRATIONS.items())
+        for version, name in sorted(required.items())
         if applied.get(version) != name
     ]
 
@@ -133,7 +136,12 @@ def find_loaded_zip(connection, zip_manifest):
 
 
 def count_cpf_like(connection, run_id):
-    """(observations, party_observations) desta coleta com texto em formato de CPF."""
+    """(observations, party_observations) desta coleta com texto em formato de CPF.
+
+    Em party_observations entram o nome, o CNPJ e, com a migration 003, o
+    percentual do cedente (party_observation_shares): um percentual que seja
+    texto inteiro de 11 digitos nao e percentual e desfaz a carga.
+    """
 
     observations = connection.execute(
         "SELECT COUNT(*) FROM observations WHERE collection_run_id = ?"
@@ -146,6 +154,17 @@ def count_cpf_like(connection, run_id):
         " OR party_cnpj GLOB ? OR party_cnpj GLOB ?)",
         (run_id,) + CPF_GLOBS + CPF_GLOBS,
     ).fetchone()[0]
+    shares_table = connection.execute(
+        "SELECT 1 FROM sqlite_master WHERE type = 'table' AND name = 'party_observation_shares'"
+    ).fetchone()
+
+    if shares_table is not None:
+        parties += connection.execute(
+            "SELECT COUNT(*) FROM party_observation_shares s"
+            " JOIN party_observations p ON p.id = s.party_observation_id"
+            " WHERE p.collection_run_id = ? AND (s.share_value GLOB ? OR s.share_value GLOB ?)",
+            (run_id,) + CPF_GLOBS,
+        ).fetchone()[0]
 
     return int(observations), int(parties)
 

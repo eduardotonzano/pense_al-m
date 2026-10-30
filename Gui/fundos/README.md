@@ -6,6 +6,7 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 
 - Banco SQLite próprio, criado pela migration `migrations/001_initial_schema.sql`, com o mesmo esqueleto de proveniência das debêntures: `sources`, `collection_runs`, `raw_records`, `observations`, `data_conflicts`, `audit_log`, a view `current_observations` e `schema_migrations`. Os assuntos são `funds`, `fund_classes` e `quota_series`.
 - A migration `migrations/002_party_observations.sql` cria `party_observations` (papéis com vários valores: gestor, administrador, custodiante, controlador e auditor) e `party_conflicts`. Veja "Papéis".
+- A migration `migrations/003_party_observation_shares.sql` cria `party_observation_shares`, com o percentual do cedente do informe de FIDC, 1:1 com a linha do cedente em `party_observations`. Veja "Papéis".
 - `src/fundos/`: conexão (`database.py`), utilitário de CNPJ (`cnpj.py`), guarda de dados pessoais (`personal_data.py`), backup (`backup.py`) e repositórios mínimos (`repositories/`).
 - `src/fundos/cvm_csv.py`: leitura comum dos CSV da CVM (cp1252 estrito, cabeçalho exato, largura das linhas, conversão por tipo, situação do identificador), usada pelo cadastro e pelo informe.
 - `src/fundos/cadastro/`: leitor do cadastro de fundos da CVM (`registro_fundo_classe.zip`), sem banco (`reader.py`, com a lista fechada de colunas em `columns.py`); filtro de FIDC e FIAGRO e escolha do registro vigente (`selection.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
@@ -60,7 +61,12 @@ A tabela dos fundos da casa não entra neste módulo (veja "Regras").
 - **Papéis** (`party_observations`, migration 002): uma linha por papel, com assunto (fundo ou classe), papel, campo do identificador (`tabela.coluna` da CVM), CNPJ da parte e, quando houver, o nome e o campo do nome, mais a mesma proveniência de `observations`. Imutável; só CNPJ (CHECK no banco e guarda no repositório).
   - A chave é assunto + papel + campo + CNPJ + competência; o valor é o nome. Nome diferente na mesma chave gera linha nova e conflito aberto em `party_conflicts`.
   - Limitação conhecida: uma parte que some numa reapresentação **da mesma competência** não gera conflito, porque as linhas se somam. Entre competências diferentes, o conjunto de cada data é exato.
-  - Limitação: `cedente` está no CHECK de `role` só para não exigir reconstruir a tabela. A tabela **não guarda o percentual do cedente**, então os cedentes do informe (FU4.3) não cabem nela como está; a FU4.3 acrescenta o que precisar em migration própria.
+  - **Percentual do cedente** (`party_observation_shares`, migration 003): tabela nova, e não coluna nova, porque `apply_migration.py` recusa DDL alterado em objeto existente. Uma linha por cedente com percentual, presa à linha do papel (chave primária = `party_observation_id`), imutável.
+    - Só o papel `cedente` tem percentual, e o cedente não tem nome (triggers no banco e guarda no repositório).
+    - O percentual entra no checksum da linha **só quando existe**: o checksum dos outros papéis é o mesmo de antes da 003. E só entra logo depois da linha do cedente (trigger `trg_party_observation_shares_with_parent`), então uma linha gravada sem percentual não ganha percentual depois.
+    - Percentual diferente (ou um com e outro sem) na mesma chave gera linha nova e conflito aberto em `party_conflicts`, como o nome nos outros papéis.
+    - Limitação conhecida: cedente que muda de posição ou some numa reapresentação da mesma competência não gera conflito (a posição está no campo).
+    - Banco só com 001 e 002 continua servindo ao cadastro: o repositório percebe que a tabela não existe e só recusa gravar percentual.
 - **Fundos da casa ficam fora** deste banco e de qualquer arquivo versionado (`docs/decisoes-em-aberto.md`, decisões 2 e 4 de Fundos). O caminho da pasta interna vai só na variável de ambiente `PENSE_INTERNAL_DIR`; este módulo ainda não a lê.
 - **O banco real fica fora do Git e em disco local**, não no compartilhamento de rede. Não versionar `*.db`, `*.sqlite*`, ZIPs, CSVs da CVM, backups nem `.env` (veja `.gitignore`).
 

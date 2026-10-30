@@ -4,7 +4,7 @@
 
 Proposta, de 28/10/2026. Vale só para o módulo de Fundos (`Gui/fundos`). Nada aqui foi implementado: as mudanças de código, de teste e de migration estão no ponto g como tarefas futuras propostas.
 
-Pontos que exigem confirmação explícita do Gui: b) (a prioridade passa a valer só dentro da mesma competência, o que muda o comportamento da view e inverte um teste existente) e g) (migration 003 que muda a prioridade semeada da CVM_DADOS_ABERTOS de 200 para 450).
+Pontos que exigem confirmação explícita do Gui: b) (a prioridade passa a valer só dentro da mesma competência, o que muda o comportamento da view e inverte um teste existente) e g) (migration 004 que muda a prioridade semeada da CVM_DADOS_ABERTOS de 200 para 450).
 
 ## Contexto
 
@@ -74,7 +74,7 @@ A regra 3 vira faixas de 100 em `sources.priority`. A convenção atual do módu
 | Entrada manual validada (fora da regra 3; ver d) | 1000 | `MANUAL` | 1000 | semeada; não muda |
 | Reservada | 600 a 999 | nenhuma | | sem uso |
 | BACEN | 500 a 599 | nenhuma prevista em Fundos | 550, se vier | reservada |
-| CVM | 400 a 499 | `CVM_DADOS_ABERTOS` | 450 (hoje 200) | semeada; muda na migration 003 (ver g) |
+| CVM | 400 a 499 | `CVM_DADOS_ABERTOS` | 450 (hoje 200) | semeada; muda na migration 004 (ver g) |
 | CVM | 400 a 499 | Fundos.NET, documento estruturado | 440 | futura, não semeada (ver e) |
 | CVM | 400 a 499 | Fundos.NET, extração de texto livre | 430 | futura, só se houver extrator (ver e) |
 | ANBIMA | 300 a 399 | ANBIMA | 350 | futura, nasce inativa (ver e) |
@@ -227,11 +227,11 @@ A recomendação **exige** mudar o que a migration 001 de Fundos semeou e criou:
 
 A `MANUAL` continua em 1000. A migration 001 não é editada.
 
-As duas mudanças vão numa migration 003, numa tarefa futura (a 002 passou a ser a de `party_observations`, do leitor do cadastro), antes da primeira entrada MANUAL real e antes de semear qualquer outra fonte. Ela segue o fluxo de mudança de schema do `CLAUDE.md`: plano aprovado, teste da migration e da idempotência, `--dry-run`, backup e só então `--commit`. Como altera uma linha e uma view que já existem, exige `--allow-existing-changes` no `Gui/fundos/scripts/apply_migration.py`.
+As duas mudanças vão numa migration 004, numa tarefa futura (a 002 passou a ser a de `party_observations`, do leitor do cadastro, e a 003 a do percentual dos cedentes, da FU4.3), antes da primeira entrada MANUAL real e antes de semear qualquer outra fonte. Ela segue o fluxo de mudança de schema do `CLAUDE.md`: plano aprovado, teste da migration e da idempotência, `--dry-run`, backup e só então `--commit`. Como altera uma linha e uma view que já existem, exige `--allow-existing-changes` no `Gui/fundos/scripts/apply_migration.py`.
 
 Tarefas futuras (**propostas; nenhuma foi feita**):
 
-1. **Migration 003:** prioridade da `CVM_DADOS_ABERTOS` e nova view. Hoje o fixture `connection` aplica só a 001, então a tarefa inclui definir como a suíte passa a usar as migrations seguintes. Depois disso:
+1. **Migration 004:** prioridade da `CVM_DADOS_ABERTOS` e nova view. Hoje o fixture `connection` aplica só a 001, então a tarefa inclui definir como a suíte passa a usar as migrations seguintes. Depois disso:
    - atualizar os testes que fixam 200 (`test_seeded_sources_by_code`, `test_view_exposes_provenance`);
    - inverter `test_higher_priority_source_wins_over_newer_reference_date`;
    - acrescentar um teste de prioridade dentro da mesma competência.
@@ -324,7 +324,7 @@ ANBIMA:
 
 | Opção | Prós | Contras |
 |---|---|---|
-| **I1. Migration 003 própria, antes da primeira entrada MANUAL real e de qualquer fonte nova** | corrige a view antes de o caso 1 acontecer com dado real | uma migration a mais |
+| **I1. Migration 004 própria, antes da primeira entrada MANUAL real e de qualquer fonte nova** | corrige a view antes de o caso 1 acontecer com dado real | uma migration a mais |
 | I2. Juntar com a migration que semear a próxima fonte | uma migration a menos | o caso MANUAL × CVM já é possível hoje |
 | I3. Editar a migration 001 | nenhum | proibido pelo `CLAUDE.md`: migration aplicada não se edita |
 
@@ -343,7 +343,7 @@ ANBIMA:
 - Uma fonte menor pode aparecer como valor atual quando tiver competência mais nova. A fonte sempre aparece junto.
 - A regra depende de a competência ser confiável. Sem a checagem da tarefa futura 3, uma data errada, no futuro, dominaria o valor atual.
 - Se a fonte oficial repetir, numa competência seguinte, um erro já corrigido manualmente, nada avisa.
-- A migration 003 muda um valor semeado e inverte um teste existente.
+- A migration 004 muda um valor semeado e inverte um teste existente.
 - Enquanto não houver a rotina de resolução (tarefa futura 5), os conflitos só acumulam.
 - Continua uma limitação já documentada: se a mesma fonte publicar A, depois B e depois A de novo na mesma competência, a terceira publicação não gera linha, e o valor atual fica B (`test_returning_to_an_old_value_creates_no_row_and_keeps_the_conflict`).
 
