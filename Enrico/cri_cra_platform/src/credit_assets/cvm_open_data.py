@@ -177,3 +177,44 @@ def connect(path) -> sqlite3.Connection:
     connection.execute("PRAGMA foreign_keys = ON")
     connection.executescript(SCHEMA)
     return connection
+
+
+DFIN_URL = "https://dados.cvm.gov.br/dados/SECURIT/DOC/DFIN_{kind}/DADOS/dfin_{kind_lower}_{year}.csv"
+
+
+def dfin_url(kind: str, year: int) -> str:
+    return DFIN_URL.format(kind=kind.upper(), kind_lower=kind.lower(), year=year)
+
+
+def load_csv(
+    connection: sqlite3.Connection, kind: str, year: int, url: str, payload: bytes, table: str,
+    now: datetime | None = None,
+) -> dict[str, int | str]:
+    """Carrega um CSV avulso (ex.: índice de DFs dos patrimônios separados) com a mesma proveniência e idempotência
+    de ``load_zip``. Usar num banco próprio por conjunto: ``source_files`` marca o vigente por tipo e ano."""
+
+    sha = hashlib.sha256(payload).hexdigest()
+    if connection.execute("SELECT 1 FROM source_files WHERE sha256 = ?", (sha,)).fetchone():
+        return {"status": "skipped", "sha256": sha}
+    stamp = (now or datetime.now(timezone.utc)).isoformat()
+    columns, rows = _read_csv(payload)
+    connection.execute("BEGIN")
+    try:
+        connection.execute("UPDATE source_files SET is_current = 0 WHERE kind = ? AND year = ?", (kind, year))
+        file_id = connection.execute(
+            """INSERT INTO source_files (kind, year, url, sha256, size_bytes, downloaded_at, tables_loaded, rows_loaded)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+            (kind, year, url, sha, len(payload), stamp, table, len(rows)),
+        ).lastrowid
+        ensure_table(connection, table, columns)
+        placeholders = ",".join("?" * (len(columns) + 2))
+        connection.executemany(
+            f"INSERT INTO {table} (_file_id, _row, {','.join(columns)}) VALUES ({placeholders})",
+            [(file_id, number, *(row + [""] * (len(columns) - len(row)))[: len(columns)])
+             for number, row in enumerate(rows, start=1)],
+        )
+        connection.commit()
+    except Exception:
+        connection.rollback()
+        raise
+    return {"status": "loaded", "file_id": file_id, "rows": len(rows), "sha256": sha}

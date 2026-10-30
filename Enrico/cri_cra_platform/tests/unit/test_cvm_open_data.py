@@ -107,3 +107,16 @@ def test_plan_builds_urls_for_each_kind_and_year():
     files = plan(["CRA", "CRI"], [2025, 2026], lambda url: 123)
     assert [(f.kind, f.year) for f in files] == [("CRA", 2025), ("CRA", 2026), ("CRI", 2025), ("CRI", 2026)]
     assert files[0].url.endswith("INF_MENSAL_CRA/DADOS/inf_mensal_cra_2025.zip")
+
+
+def test_load_csv_dfin_with_provenance_and_idempotency(connection):
+    from credit_assets.cvm_open_data import dfin_url, load_csv
+    payload = ("CNPJ_Emissora;Nome_Emissora;Data_Referencia;Versao;Data_Entrega;Nome_Certificado;Codigo_Identificacao_Certificado;"
+               "Link_Download;Parecer_Auditor\r\n"
+               "1;ECO;2025-06-30;1;2025-09-28;CRA X;BRECOACRALJ8;https://x?id=1;Com ressalva\r\n").encode("latin-1")
+    url = dfin_url("CRA", 2025)
+    assert url.endswith("DFIN_CRA/DADOS/dfin_cra_2025.csv")
+    assert load_csv(connection, "CRA", 2025, url, payload, "dfin_cra")["status"] == "loaded"
+    assert load_csv(connection, "CRA", 2025, url, payload, "dfin_cra")["status"] == "skipped"
+    row = connection.execute("SELECT Parecer_Auditor, _file_id FROM dfin_cra").fetchone()
+    assert row["Parecer_Auditor"] == "Com ressalva" and row["_file_id"] == 1
