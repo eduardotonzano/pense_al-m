@@ -16,8 +16,11 @@ Tipos:
   aparece num assunto e rotulo, chave da serie.
 - cnpj_text: CNPJ_CLASSE da tab_I; vira observacao so com CNPJ valido.
 - party_id e party_name: CNPJ_ADMIN e ADMIN, papel administrador.
-- excluded: os cedentes (CPF ou CNPJ e percentual) ficam para a FU4.3; o
-  valor nunca e guardado (decisao 3 de Fundos).
+- cedente_id e cedente_share: CPF ou CNPJ e percentual dos 9 maiores
+  cedentes de cada grupo (TAB_I2A12, com risco; TAB_I2B12, sem risco),
+  pareados por grupo e posicao. So o cedente com CNPJ valido vira papel
+  cedente, com o percentual da mesma posicao; o CPF nunca e guardado
+  (decisao 3 de Fundos).
 """
 
 from fundos.cvm_csv import BOOLEAN
@@ -32,7 +35,8 @@ SUBCLASS = "subclass"
 CNPJ_TEXT = "cnpj_text"
 PARTY_ID = "party_id"
 PARTY_NAME = "party_name"
-EXCLUDED = "excluded"
+CEDENTE_ID = "cedente_id"
+CEDENTE_SHARE = "cedente_share"
 
 SUBJECT_TYPE_COLUMN = "TP_FUNDO_CLASSE"
 SUBJECT_COLUMN = "CNPJ_FUNDO_CLASSE"
@@ -53,21 +57,34 @@ ADMIN_ROLE = "administrador"
 ADMIN_ID_COLUMN = "CNPJ_ADMIN"
 ADMIN_NAME_COLUMN = "ADMIN"
 
+CEDENTE_ROLE = "cedente"
+
+# Grupos de cedentes da tab_I: (prefixo, rotulo do relatorio).
+CEDENTE_GROUPS = (("TAB_I2A12", "com risco"), ("TAB_I2B12", "sem risco"))
+CEDENTE_POSITIONS = tuple(range(1, 10))
+
 LEADING = (SUBJECT_TYPE_COLUMN, SUBJECT_COLUMN, NAME_COLUMN, COMPETENCE_COLUMN)
 
 _DAYS = ("30", "60", "90", "120", "150", "180", "360", "720", "1080")
 
 
+def cedente_columns(prefix, position):
+    """(coluna do identificador, coluna do percentual) do grupo e da posicao."""
+
+    return (
+        prefix + "_CPF_CNPJ_CEDENTE_" + str(position),
+        prefix + "_PR_CEDENTE_" + str(position),
+    )
+
+
 def _cedentes(prefix):
     """CPF ou CNPJ e percentual dos 9 maiores cedentes, na ordem do arquivo."""
 
-    names = []
-
-    for position in range(1, 10):
-        names.append(prefix + "_CPF_CNPJ_CEDENTE_" + str(position))
-        names.append(prefix + "_PR_CEDENTE_" + str(position))
-
-    return tuple(names)
+    return tuple(
+        column
+        for position in CEDENTE_POSITIONS
+        for column in cedente_columns(prefix, position)
+    )
 
 
 def _deadlines(table):
@@ -244,7 +261,14 @@ _KIND_EXCEPTIONS = {
         "CONDOM": TEXT,
         "TP_PRAZO_CONVERSAO_COTA": TEXT,
         "TP_PRAZO_PAGTO_RESGATE": TEXT,
-        **{column: EXCLUDED for column in CEDENTE_COLUMNS},
+        **{
+            column: kind
+            for prefix, _ in CEDENTE_GROUPS
+            for position in CEDENTE_POSITIONS
+            for column, kind in zip(
+                cedente_columns(prefix, position), (CEDENTE_ID, CEDENTE_SHARE)
+            )
+        },
     },
     "tab_X_1": {SERIES_LABEL_COLUMN: SERIES_LABEL, SUBCLASS_COLUMN: SUBCLASS},
     "tab_X_2": {SERIES_LABEL_COLUMN: SERIES_LABEL},

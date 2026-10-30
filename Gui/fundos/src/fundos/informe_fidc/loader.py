@@ -196,7 +196,10 @@ def match_counts(informe, resolver):
                 if value_type == "numeric" and value == "0":
                     counts[("candidatas_zero",)] += 1
 
-            counts[("papeis_candidatos",)] += len(row.parties)
+            # Os cedentes ainda nao sao gravados (FU4.3, parte 3).
+            counts[("papeis_candidatos",)] += sum(
+                1 for party in row.parties if party.role == spec.ADMIN_ROLE
+            )
 
     count_subjects(subjects, counts)
     counts[("series_candidatas",)] = len(series)
@@ -282,6 +285,10 @@ class _Writer:
             self.counts[("conflitos", "data_conflicts")] += len(result.conflicts)
 
         for party in row.parties:
+            if party.role != spec.ADMIN_ROLE:
+                # Os cedentes ainda nao sao gravados (FU4.3, parte 3).
+                continue
+
             result = self.parties.record(
                 **{column: subject_id},
                 role=party.role,

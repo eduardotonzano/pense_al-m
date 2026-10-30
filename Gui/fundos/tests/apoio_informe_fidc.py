@@ -13,6 +13,7 @@ import zipfile
 from apoio import FAKE_CPF
 from apoio_cadastro import build_zip
 from apoio_cadastro import class_row
+from apoio_cadastro import cnpj_with_dv
 from apoio_cadastro import csv_bytes
 from apoio_cadastro import fake_cnpj
 from apoio_cadastro import fund_row
@@ -36,12 +37,57 @@ SUBORDINATE = "Subclasse Subordinada Subordinada 1 |"
 OPERATIONS = ("Amortiza\u00e7\u00f5es", "Capta\u00e7\u00f5es no M\u00eas")
 
 # Cedentes ficticios: um CPF (DV invalido) e um CNPJ, com percentuais.
+CEDENTE_CNPJ = fake_cnpj(555)
+CEDENTE_SHARE = "10"
 CEDENTES = {
     "TAB_I2A12_CPF_CNPJ_CEDENTE_1": FAKE_CPF,
     "TAB_I2A12_PR_CEDENTE_1": "60.5",
-    "TAB_I2B12_CPF_CNPJ_CEDENTE_1": fake_cnpj(555),
-    "TAB_I2B12_PR_CEDENTE_1": "10",
+    "TAB_I2B12_CPF_CNPJ_CEDENTE_1": CEDENTE_CNPJ,
+    "TAB_I2B12_PR_CEDENTE_1": CEDENTE_SHARE,
 }
+
+
+def cedente_cells(*entries):
+    """As 36 celulas de cedente: vazias, menos (prefixo, posicao, id, percentual)."""
+
+    cells = {column: "" for column in spec.CEDENTE_COLUMNS}
+
+    for prefix, position, identifier, share in entries:
+        id_column, share_column = spec.cedente_columns(prefix, position)
+        cells[id_column] = identifier
+        cells[share_column] = share
+
+    return cells
+
+
+def _cpf_check_digits_ok(digits):
+    numbers = [int(char) for char in digits]
+
+    for size in (9, 10):
+        total = sum(n * w for n, w in zip(numbers[:size], range(size + 1, 1, -1)))
+
+        if total * 10 % 11 % 10 != numbers[size]:
+            return False
+
+    return True
+
+
+def ambiguous_cpf():
+    """11 digitos com DV de CPF invalido que, com 3 zeros a esquerda, sao CNPJ valido."""
+
+    for k in range(10):
+        cnpj = cnpj_with_dv("000" + "99999999" + str(k))
+
+        if not _cpf_check_digits_ok(cnpj[3:]):
+            return cnpj[3:]
+
+    raise AssertionError("Nenhum candidato ficticio.")
+
+
+def cnpj_with_two_leading_zeros():
+    """CNPJ ficticio que comeca com dois zeros (para testar 12 digitos)."""
+
+    return cnpj_with_dv("00" + "979999" + "9999")
 
 _DEFAULTS = {
     "CLASSE_UNICA": "S",
@@ -79,7 +125,7 @@ def row(table, n=1, subject_type="Classe", **changes):
     for column in spec.HEADERS[table][4:]:
         if column in _DEFAULTS:
             values[column] = _DEFAULTS[column]
-        elif spec.KINDS[table][column] == spec.EXCLUDED:
+        elif spec.KINDS[table][column] in (spec.CEDENTE_ID, spec.CEDENTE_SHARE):
             values[column] = ""
         elif column == "CNPJ_CLASSE":
             values[column] = fake_cnpj(n)
