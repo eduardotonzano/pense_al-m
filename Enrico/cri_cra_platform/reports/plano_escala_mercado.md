@@ -93,6 +93,14 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
   com o OCR marcado. Assembleias: 676 documentos lidos desde 2024, 39 deles só por OCR, nenhum pulado. Entre eles há atas da Opea
   (CRA02300JR5 e CRA020001P7, maio e junho de 2026) que tratam o pedido de recuperação extrajudicial da devedora como vencimento
   antecipado automático. Texto de OCR pode ter erro de leitura: confirmar no PDF antes de usar como fato.
+- **Fichas contratuais** (`scripts/build_contract_sheets.py` → `reports/fichas_contratuais/`): para cada ativo com Termo, o trecho
+  literal de cada um dos 36 campos padrão, com documento e página (definição, inclusive em tabela de duas colunas, e cláusula), o
+  parâmetro aprovado e o Termo × CVM. Nos parâmetros aprovados conferíveis, o valor aparece nas páginas mostradas em 46 de 55 (84%).
+- **Decisões das atas** (`credit_assets.assembly_outcomes`, dentro de `run_assembly_topics.py`): 326 atas desde 2024; 143 não
+  instaladas, 104 aprovadas, 26 suspensas, 4 sem quórum, 1 rejeitada, 48 sem decisão identificada. Eventos: vencimento antecipado não
+  declarado (34, contando aprovação em bloco), repactuação (21), waiver (16), troca de prestador (12).
+- **Devedor do Café Brasil na CVM:** ver `reports/divergencias_pesquisa_2026-10-29.md`, item 8 (devedor e cedente do Informe não são os
+  do Termo; o cedente tem CNPJ inválido repetido em outras emissões da mesma securitizadora).
 - **Nova regra de triagem `situacao_mista_na_classe` (peso provisório 3):** na mesma emissão e na mesma classe, séries com saldo
   em atraso e outras adimplentes, uma vez por emissão. Em ago/2026: 5 emissões de CRA e 18 de CRI. Exemplo: a 73ª da Opea
   (BRAPCSCRA1Y9) tem as séries 2 e 3 em atraso e a 1 adimplente, todas Sênior, depois do pedido de recuperação extrajudicial.
