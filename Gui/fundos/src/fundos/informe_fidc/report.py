@@ -12,6 +12,10 @@ from fundos.cvm_csv import CPF
 from fundos.cvm_csv import IDENTIFIER_STATUSES
 from fundos.cvm_csv import INVALID
 from fundos.informe_fidc import columns as spec
+from fundos.informe_fidc.compare import CELL_STATUSES
+from fundos.informe_fidc.compare import PARTY_STATUSES
+from fundos.informe_fidc.compare import VANISHED_EMPTY
+from fundos.informe_fidc.compare import VANISHED_ROW
 from fundos.informe_fidc.loader import CLASS_SUBJECT
 from fundos.informe_fidc.loader import FUND_SUBJECT
 from fundos.informe_fidc.loader import REASONS
@@ -21,6 +25,19 @@ from fundos.informe_fidc.reader import OTHER_SUBJECT
 SUBJECT_KEYS = spec.SUBJECT_TYPES + (OTHER_SUBJECT,)
 VALUE_TYPES = ("text", "numeric", "boolean")
 LOADED_TABLES = tuple(table for table in spec.TABLES if table not in spec.NOT_LOADED)
+
+# Rotulos da comparacao da reapresentacao (compare.py).
+STATUS_LABELS = {
+    "iguais": "iguais",
+    "alteradas": "alteradas",
+    "novas": "novas",
+    "voltam": "voltam a valor anterior",
+    "nome_alterado": "nome alterado",
+    "percentual_alterado": "percentual alterado",
+    "cnpj_trocado": "CNPJ trocado na posicao",
+    "entrou": "entrou",
+    "saiu": "saiu",
+}
 
 
 def _statuses(counts, prefix):
@@ -338,5 +355,78 @@ def format_load_report(result):
         + str(counts[("varredura_cpf", "party_observations")])
         + " (nome, CNPJ e percentual do cedente)"
     )
+
+    return lines
+
+
+def _cells(counts, tables):
+    parts = [
+        STATUS_LABELS[status]
+        + " "
+        + str(sum(counts[("reapresentacao", "celulas", table, status)] for table in tables))
+        for status in CELL_STATUSES
+    ]
+    empty = sum(counts[("reapresentacao", "sumiram", table, VANISHED_EMPTY)] for table in tables)
+    without_row = sum(counts[("reapresentacao", "sumiram", table, VANISHED_ROW)] for table in tables)
+
+    return (
+        ", ".join(parts)
+        + ", sumiram "
+        + str(empty + without_row)
+        + " (vazias no ZIP novo "
+        + str(empty)
+        + ", sem a linha "
+        + str(without_row)
+        + ")"
+    )
+
+
+def format_reapresentation_report(counts):
+    """Linhas da comparacao do ZIP novo com o ultimo valor carregado (so contagens)."""
+
+    lines = [
+        "Reapresentacao: comparacao com o ultimo valor carregado desta fonte na competencia"
+        " (ZIPs ja carregados: "
+        + str(counts[("reapresentacao", "zips")])
+        + "):"
+    ]
+    lines.extend("  celulas " + table + ": " + _cells(counts, (table,)) for table in LOADED_TABLES)
+    lines.append("  celulas total: " + _cells(counts, LOADED_TABLES))
+    lines.append(
+        "  assuntos: nos dois "
+        + str(counts[("reapresentacao", "assuntos", "nos_dois")])
+        + ", novos "
+        + str(counts[("reapresentacao", "assuntos", "novos")])
+        + ", sumiram "
+        + str(counts[("reapresentacao", "assuntos", "sumiram")])
+        + " (com "
+        + str(counts[("reapresentacao", "assuntos", "celulas_dos_que_sumiram")])
+        + " celula(s) no banco; nada e apagado)"
+    )
+    lines.append(
+        "  series (assunto e rotulo): novas "
+        + str(counts[("reapresentacao", "series", "novas")])
+        + ", sumiram "
+        + str(counts[("reapresentacao", "series", "sumiram")])
+        + "; assuntos com serie nova e serie que sumiu (possivel troca de rotulo): "
+        + str(counts[("reapresentacao", "series", "possivel_troca_de_rotulo")])
+    )
+    lines.append(
+        "  ID_SUBCLASSE em serie existente: aparece "
+        + str(counts[("reapresentacao", "id_subclasse", "aparece")])
+        + ", some "
+        + str(counts[("reapresentacao", "id_subclasse", "some")])
+    )
+
+    for role in (spec.ADMIN_ROLE, spec.CEDENTE_ROLE):
+        lines.append(
+            "  party_observations "
+            + role
+            + ": "
+            + ", ".join(
+                STATUS_LABELS[status] + " " + str(counts[("reapresentacao", "papeis", role, status)])
+                for status in PARTY_STATUSES
+            )
+        )
 
     return lines

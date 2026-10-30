@@ -15,14 +15,24 @@ ID_SUBCLASSE so vira chave da serie quando aparece num unico assunto e
 rotulo do arquivo; se o banco o recusar (IdentityConflictError), a serie
 fica so com o rotulo, as linhas sao carregadas e a coleta fica 'partial'.
 
-Uma competencia = um ZIP ate a FU4.2 (reapresentacao): o mesmo ZIP nao e
-carregado de novo, e outro ZIP da mesma competencia e recusado. Competencia
-carregada por outra versao do leitor tambem e recusada (mesmo ZIP ou
+Reapresentacao (FU4.2): o mesmo ZIP (mesmo SHA-256) nao e carregado de novo.
+Outro ZIP de uma competencia ja carregada so entra com o Last-Modified dele
+na CVM, estritamente posterior ao do ZIP mais novo ja carregado (ou, se
+esse nao tiver a data, ao inicio da carga dele): um ZIP antigo depois de
+um novo faria o valor antigo virar o atual. A carga compara o ZIP com o
+ultimo valor carregado (compare.py): a celula igual nao e gravada de novo,
+a alterada e a nova sao gravadas, e a que volta a um valor anterior vira
+linha reapresentada (restatement), para ser o valor atual. Nada e
+apagado: o que sumiu e o assunto que sumiu so sao contados.
+
+Competencia carregada por outra versao do leitor e recusada (mesmo ZIP ou
 outro): esta versao nao atualiza esse carregamento.
 """
 
 import time
 from collections import Counter
+from dataclasses import dataclass
+from email.utils import parsedate_to_datetime
 
 from fundos.cadastro.loader import REQUIRED_MIGRATIONS as CADASTRO_MIGRATIONS
 from fundos.cadastro.loader import SOURCE_CODE
@@ -31,7 +41,12 @@ from fundos.cadastro.loader import LoadResult
 from fundos.cadastro.loader import count_cpf_like
 from fundos.cadastro.loader import missing_migrations
 from fundos.cadastro.loader import verify
+from fundos.database import normalize_timestamp
+from fundos.database import utc_now
 from fundos.informe_fidc import columns as spec
+from fundos.informe_fidc.compare import EQUAL
+from fundos.informe_fidc.compare import RETURNS
+from fundos.informe_fidc.compare import Comparison
 from fundos.repositories import IdentityConflictError
 from fundos.repositories.collection_repository import CollectionRunRepository
 from fundos.repositories.observation_repository import ObservationRepository
@@ -72,6 +87,44 @@ ALREADY_LOADED = "mesmo ZIP"
 SAME_COMPETENCE = "mesma competencia"
 OLDER_VERSION = "versao anterior do leitor"
 
+LAST_MODIFIED_LABEL = "A data do Last-Modified (--last-modified)"
+
+
+def normalize_last_modified(value):
+    """Last-Modified do ZIP na CVM em UTC, no formato do banco.
+
+    Aceita ISO com fuso (2026-10-24T11:46:15Z) ou o texto do cabecalho HTTP
+    (Sat, 24 Oct 2026 11:46:15 GMT). Recusa data sem fuso e data posterior
+    a agora (UTC).
+    """
+
+    if not isinstance(value, str) or not value.strip():
+        raise ValueError(LAST_MODIFIED_LABEL + " e obrigatoria.")
+
+    text = value.strip()
+
+    if "," in text:
+        try:
+            parsed = parsedate_to_datetime(text)
+        except (TypeError, ValueError, IndexError) as error:
+            raise ValueError(LAST_MODIFIED_LABEL + " invalida.") from error
+
+        if parsed is None:
+            raise ValueError(LAST_MODIFIED_LABEL + " invalida.")
+
+        normalized = normalize_timestamp(parsed, LAST_MODIFIED_LABEL)
+    else:
+        normalized = normalize_timestamp(text, LAST_MODIFIED_LABEL)
+
+    now = utc_now()
+
+    if normalized > now:
+        raise ValueError(
+            LAST_MODIFIED_LABEL + " " + normalized + " e posterior a agora (" + now + ", UTC)."
+        )
+
+    return normalized
+
 
 def cadastro_loaded(connection):
     """Indica se o cadastro ja foi carregado (manifesto processado e fundos)."""
@@ -93,28 +146,48 @@ def cadastro_loaded(connection):
     return manifest is not None and funds is not None
 
 
-def _loaded_zips(connection, informe):
-    """(SHA-256, versao do leitor) dos ZIPs processados com o mesmo AAAAMM.
+@dataclass(frozen=True)
+class LoadedZip:
+    """Manifesto de um ZIP ja processado da competencia."""
+
+    id: int
+    sha256: str
+    parser_version: str
+    last_modified: str | None
+    collected_at: str
+
+
+def loaded_zips(connection, informe):
+    """ZIPs processados com o mesmo AAAAMM, de qualquer versao do leitor.
 
     Cada ZIP tem uma so competencia, do mes do AAAAMM dos membros; por isso
-    basta procurar o manifesto da tab_I do mesmo AAAAMM ja processado, de
-    qualquer versao do leitor.
+    basta procurar o manifesto da tab_I do mesmo AAAAMM ja processado.
     """
 
     rows = connection.execute(
         """
-        SELECT z.sha256, z.parser_version
+        SELECT z.id, z.sha256, z.parser_version, z.last_modified, z.collected_at
         FROM raw_records r
         JOIN raw_records z ON z.id = r.parent_raw_record_id
         JOIN sources s ON s.id = r.source_id
         WHERE s.code = ?
           AND r.file_name = ?
           AND z.processing_status = 'processed'
+        ORDER BY z.id
         """,
         (SOURCE_CODE, spec.member_name("tab_I", informe.zip.period)),
     ).fetchall()
 
-    return [(str(row[0]), str(row[1])) for row in rows]
+    return [
+        LoadedZip(
+            id=int(row[0]),
+            sha256=str(row[1]),
+            parser_version=str(row[2]),
+            last_modified=None if row[3] is None else str(row[3]),
+            collected_at=str(row[4]),
+        )
+        for row in rows
+    ]
 
 
 def find_loaded_informe(connection, informe):
@@ -124,12 +197,12 @@ def find_loaded_informe(connection, informe):
     com este ZIP ou com outro; vem antes dos outros casos.
     """
 
-    loaded = _loaded_zips(connection, informe)
+    loaded = loaded_zips(connection, informe)
 
-    if any(version != PARSER_VERSION for _, version in loaded):
+    if any(z.parser_version != PARSER_VERSION for z in loaded):
         return OLDER_VERSION
 
-    hashes = {sha256 for sha256, _ in loaded}
+    hashes = {z.sha256 for z in loaded}
 
     if informe.zip.sha256 in hashes:
         return ALREADY_LOADED
@@ -137,11 +210,61 @@ def find_loaded_informe(connection, informe):
     return SAME_COMPETENCE if hashes else None
 
 
+def reapresentation_problem(connection, informe, last_modified):
+    """Por que outro ZIP da competencia nao pode ser carregado, ou None.
+
+    last_modified ja normalizado (normalize_last_modified) ou None. Tem de
+    ser estritamente posterior ao maior Last-Modified dos ZIPs carregados;
+    ZIP carregado sem a data (antes da FU4.2) entra pelo inicio da carga
+    dele, porque foi baixado antes e o Last-Modified dele e anterior.
+    """
+
+    month = informe.competence[:7]
+
+    if last_modified is None:
+        return (
+            "Ja existe informe de FIDC carregado para a competencia "
+            + month
+            + " (outro ZIP). Para carregar este ZIP como reapresentacao, informe"
+            " --last-modified: o Last-Modified do ZIP na CVM, com fuso (por exemplo"
+            " 2026-10-24T11:46:15Z ou Sat, 24 Oct 2026 11:46:15 GMT)."
+        )
+
+    loaded = loaded_zips(connection, informe)
+    dated = [z.last_modified for z in loaded if z.last_modified is not None]
+    undated = [z.collected_at for z in loaded if z.last_modified is None]
+
+    if dated and last_modified <= max(dated):
+        return (
+            "O Last-Modified deste ZIP ("
+            + last_modified
+            + ") nao e posterior ao do ZIP mais novo ja carregado da competencia "
+            + month
+            + " ("
+            + max(dated)
+            + "): carregar um ZIP mais antigo depois de um mais novo faria o valor"
+            " antigo virar o atual."
+        )
+
+    if undated and last_modified <= max(undated):
+        return (
+            "O ZIP ja carregado da competencia "
+            + month
+            + " nao tem Last-Modified, e o deste ZIP ("
+            + last_modified
+            + ") nao e posterior ao inicio da carga dele ("
+            + max(undated)
+            + "): nao da para provar que este ZIP e mais novo."
+        )
+
+    return None
+
+
 def older_version_message(connection, informe):
     """Mensagem da recusa de competencia carregada por outra versao do leitor."""
 
     versions = sorted(
-        {version for _, version in _loaded_zips(connection, informe) if version != PARSER_VERSION}
+        {z.parser_version for z in loaded_zips(connection, informe) if z.parser_version != PARSER_VERSION}
     )
 
     return (
@@ -249,10 +372,57 @@ def match_counts(informe, resolver):
     return counts
 
 
-class _Writer:
-    """Grava as linhas casadas de uma tabela: observacoes, series e papeis."""
+def reapresentation_counts(connection, informe, resolver):
+    """Contagens do dry-run de outro ZIP da competencia ja carregada, sem escrever.
 
-    def __init__(self, connection, informe, source_id, run_id, counts):
+    Casamento com o cadastro e comparacao com o ultimo valor carregado
+    (compare.py), tabela por tabela.
+    """
+
+    counts = Counter()
+    subjects = {}
+    comparison = Comparison(connection, informe, [z.id for z in loaded_zips(connection, informe)])
+    parties = comparison.parties()
+
+    for table in spec.TABLES:
+        state = None if table in spec.NOT_LOADED else comparison.table(table)
+
+        for row, column, subject_id in iter_matched(informe, table, resolver, counts, subjects):
+            if state is None:
+                continue
+
+            series_id = None
+
+            if table in spec.SERIES_TABLES:
+                if row.series_key is None:
+                    continue
+
+                series_id = comparison.series_id(column, subject_id, row.series_key)
+
+            state.row(row, column, subject_id, series_id)
+
+            for party in row.parties:
+                parties.party(column, subject_id, party)
+
+        if state is not None:
+            state.finish()
+
+    parties.finish()
+    count_subjects(subjects, counts)
+    counts.update(comparison.finish())
+    return counts
+
+
+class _Writer:
+    """Grava as linhas casadas de uma tabela: observacoes, series e papeis.
+
+    Na reapresentacao (comparison), a celula e o papel iguais ao ultimo
+    valor carregado nao passam pelo repositorio: o checksum deles ja existe,
+    entao record() devolveria a linha existente sem gravar nada. O que volta
+    a um valor anterior e gravado como linha reapresentada.
+    """
+
+    def __init__(self, connection, informe, source_id, run_id, counts, comparison=None):
         self.informe = informe
         self.source_id = source_id
         self.run_id = run_id
@@ -262,6 +432,21 @@ class _Writer:
         self.series = QuotaSeriesRepository(connection)
         self.series_ids = {}
         self.refused_ids = set()
+        self.comparison = comparison
+        self.state = None
+        self.party_state = None if comparison is None else comparison.parties()
+
+    def start(self, table):
+        """Le o estado da tabela no banco antes de gravar nela."""
+
+        if self.comparison is not None and table not in spec.NOT_LOADED:
+            self.state = self.comparison.table(table)
+        else:
+            self.state = None
+
+    def finish(self, table):
+        if self.state is not None:
+            self.state.finish()
 
     def series_id(self, column, subject_id, row):
         """Serie pelo rotulo; o ID_SUBCLASSE so como chave quando e seguro."""
@@ -307,12 +492,22 @@ class _Writer:
                 self.counts[("rotulo_vazio_carga", table)] += 1
                 return
 
-            target = {"quota_series_id": self.series_id(column, subject_id, row)}
+            series_id = self.series_id(column, subject_id, row)
+            target = {"quota_series_id": series_id}
         else:
+            series_id = None
             target = {column: subject_id}
+
+        statuses = {} if self.state is None else self.state.row(row, column, subject_id, series_id)
 
         for name, value in row.values.items():
             value_type = spec.VALUE_TYPE[spec.KINDS[table][name]]
+            compared = statuses.get(name)
+
+            if compared == EQUAL:
+                self.counts[("observacoes", table, value_type, "existentes")] += 1
+                continue
+
             result = self.observations.record(
                 **target,
                 source_id=self.source_id,
@@ -322,12 +517,23 @@ class _Writer:
                 value_type=value_type,
                 value=value,
                 reference_date=self.informe.competence,
+                restatement=compared == RETURNS,
             )
             status = "criadas" if result.created else "existentes"
             self.counts[("observacoes", table, value_type, status)] += 1
             self.counts[("conflitos", "data_conflicts")] += len(result.conflicts)
 
         for party in row.parties:
+            compared = None if self.party_state is None else self.party_state.party(column, subject_id, party)
+
+            if compared == EQUAL:
+                self.counts[("papeis", party.role, "existentes")] += 1
+
+                if party.share is not None:
+                    self.counts[("percentuais", "existentes")] += 1
+
+                continue
+
             result = self.parties.record(
                 **{column: subject_id},
                 role=party.role,
@@ -341,6 +547,7 @@ class _Writer:
                 collection_run_id=self.run_id,
                 raw_record_id=raw_record_id,
                 reference_date=self.informe.competence,
+                restatement=compared == RETURNS,
             )
             status = "criados" if result.created else "existentes"
             self.counts[("papeis", party.role, status)] += 1
@@ -351,15 +558,25 @@ class _Writer:
             self.counts[("conflitos", "party_conflicts")] += len(result.conflicts)
 
 
-def load_informe(connection, informe, *, progress=None):
+def load_informe(connection, informe, *, progress=None, last_modified=None):
     """Grava o informe na transacao aberta; devolve LoadResult.
 
-    progress(tabela, observacoes, segundos), se informado, e chamado ao fim
-    de cada tabela. Levanta LoadError se faltar migration, se o cadastro
-    nao estiver carregado, se o ZIP ou a competencia ja estiverem no banco
-    (tambem por outra versao do leitor), ou se a verificacao antes do
-    COMMIT falhar; quem chama desfaz a transacao.
+    last_modified e o Last-Modified do ZIP na CVM (normalize_last_modified),
+    gravado no manifesto do ZIP; e obrigatorio quando a competencia ja tem
+    outro ZIP carregado. progress(tabela, observacoes, segundos), se
+    informado, e chamado ao fim de cada tabela. Levanta LoadError se faltar
+    migration, se o cadastro nao estiver carregado, se o mesmo ZIP ja estiver
+    no banco, se a competencia foi carregada por outra versao do leitor, se o
+    ZIP nao for comprovadamente mais novo que os ja carregados da
+    competencia, ou se a verificacao antes do COMMIT falhar; quem chama
+    desfaz a transacao.
     """
+
+    if last_modified is not None:
+        try:
+            last_modified = normalize_last_modified(last_modified)
+        except ValueError as error:
+            raise LoadError(str(error)) from error
 
     missing = missing_migrations(connection, REQUIRED_MIGRATIONS)
 
@@ -381,14 +598,25 @@ def load_informe(connection, informe, *, progress=None):
     if loaded == OLDER_VERSION:
         raise LoadError(older_version_message(connection, informe))
 
-    if loaded is not None:
+    if loaded == ALREADY_LOADED:
         raise LoadError(
             "Ja existe informe de FIDC carregado para a competencia "
             + informe.competence
             + " ("
             + loaded
-            + "); reapresentacao e a FU4.2."
+            + "); nada a carregar."
         )
+
+    comparison = None
+
+    if loaded == SAME_COMPETENCE:
+        problem = reapresentation_problem(connection, informe, last_modified)
+
+        if problem is not None:
+            raise LoadError(problem)
+
+        # Antes de qualquer gravacao: o estado da competencia no banco.
+        comparison = Comparison(connection, informe, [z.id for z in loaded_zips(connection, informe)])
 
     connection.execute("PRAGMA cache_size = -" + str(CACHE_KIB))
     source = SourceRepository(connection).get_by_code(SOURCE_CODE)
@@ -406,6 +634,7 @@ def load_informe(connection, informe, *, progress=None):
         file_name=informe.zip.file_name,
         size_bytes=informe.zip.size_bytes,
         sha256=informe.zip.sha256,
+        last_modified=last_modified,
         collected_at=run.started_at,
     )
     member_raws = {}
@@ -427,21 +656,28 @@ def load_informe(connection, informe, *, progress=None):
     counts = Counter()
     subjects = {}
     resolver = SubjectResolver(connection)
-    writer = _Writer(connection, informe, source.id, run.id, counts)
+    writer = _Writer(connection, informe, source.id, run.id, counts, comparison)
 
     for table in spec.TABLES:
         started = time.perf_counter()
         before = sum(n for key, n in counts.items() if key[0] == "observacoes")
+        writer.start(table)
 
         for row, column, subject_id in iter_matched(informe, table, resolver, counts, subjects):
             if table not in spec.NOT_LOADED:
                 writer.write(table, row, column, subject_id, member_raws[table].id)
+
+        writer.finish(table)
 
         if progress is not None:
             after = sum(n for key, n in counts.items() if key[0] == "observacoes")
             progress(table, after - before, time.perf_counter() - started)
 
     count_subjects(subjects, counts)
+
+    if comparison is not None:
+        writer.party_state.finish()
+        counts.update(comparison.finish())
     raws.update_processing(zip_raw.id, "processed", parser_version=PARSER_VERSION)
 
     for table, record in member_raws.items():

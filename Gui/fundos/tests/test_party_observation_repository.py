@@ -3,7 +3,10 @@ import pytest
 from apoio import FAKE_CPF
 from apoio import FAKE_CPF_MASKED
 from apoio import T1
+from apoio import T2
 from apoio import fake_sha256
+from apoio import insert_raw
+from apoio import insert_run
 from apoio import make_test_cnpj
 from apoio import seed_base
 from conftest import MIGRATION_001
@@ -312,6 +315,82 @@ def test_invalid_shares_write_nothing(ctx, changes, error):
 
     assert "1e3" not in str(raised.value)
     assert (ctx.count(), ctx.count("party_observation_shares")) == (0, 0)
+
+
+def test_checksum_is_the_same_as_before_fu42_unless_restated():
+    # Hex calculado pelo codigo da main (5a4226f), com os mesmos dados.
+    arguments = ("fund_id", 3, 1, "cedente", CEDENTE_FIELD, make_test_cnpj(2), None, None, "2026-09-30")
+    explicit = PartyObservationRepository.checksum(*arguments, None, None, None)
+    restated = PartyObservationRepository.checksum(*arguments, restated_in_run=4)
+
+    assert explicit == "d2bcc4eedd425ac50bdd6661943ae51951dfeded691a9b5318dc53890cc5cf2e"
+    assert restated != explicit
+
+
+def later(ctx, label, started_at):
+    """Coleta e manifesto novos da CVM (outra semana do mesmo ZIP)."""
+
+    run = insert_run(ctx.connection, ctx.base["cvm"], started_at)
+    return {
+        "collection_run_id": run,
+        "raw_record_id": insert_raw(ctx.connection, ctx.base["cvm"], run, label, started_at),
+    }
+
+
+def test_share_that_returns_is_restated_without_a_second_conflict(ctx):
+    a = cedente(ctx)
+    b = cedente(ctx, share_value="40", **later(ctx, "v2", T1))
+    back = cedente(ctx, restatement=True, **later(ctx, "v3", T2))
+    again = cedente(ctx, share_value="40", restatement=True, **later(ctx, "v4", "2026-10-27T16:00:00+00:00"))
+
+    assert back.created and back.conflicts == ()
+    assert again.created and again.conflicts == ()
+    assert back.party.id not in (a.party.id, b.party.id)
+    assert (back.party.share_value, again.party.share_value) == ("37.125", "40")
+    assert back.party.checksum != a.party.checksum
+    assert (ctx.count(), ctx.count("party_observation_shares")) == (4, 4)
+    assert ctx.count("party_conflicts") == 1
+
+
+def test_administrator_name_that_returns_is_restated(ctx):
+    admin = {
+        "fund_id": None,
+        "fund_class_id": ctx.base["fund_class"],
+        "role": "administrador",
+        "field_name": "tab_I.CNPJ_ADMIN",
+        "name_field_name": "tab_I.ADMIN",
+        "party_name": "Administradora Ficticia SA",
+        "reference_date": "2026-09-30",
+    }
+    ctx.record(**admin)
+    ctx.record(**dict(admin, party_name="Administradora Ficticia Renomeada"), **later(ctx, "v2", T1))
+    back = ctx.record(**admin, restatement=True, **later(ctx, "v3", T2))
+
+    assert back.created and back.conflicts == ()
+    assert ctx.count() == 3
+    assert ctx.count("party_conflicts") == 1
+
+
+def test_restated_cedente_in_the_same_collection_is_idempotent(ctx):
+    cedente(ctx)
+    cedente(ctx, share_value="40", **later(ctx, "v2", T1))
+    third = later(ctx, "v3", T2)
+    first = cedente(ctx, restatement=True, **third)
+    second = cedente(ctx, restatement=True, **third)
+
+    assert not second.created
+    assert second.party == first.party
+    assert ctx.count() == 3
+
+
+def test_party_restatement_needs_the_value_already_recorded(ctx):
+    cedente(ctx)
+
+    with pytest.raises(ValueError, match="Linha reapresentada"):
+        cedente(ctx, share_value="40", restatement=True, **later(ctx, "v2", T1))
+
+    assert (ctx.count(), ctx.count("party_observation_shares")) == (1, 1)
+    assert ctx.count("party_conflicts") == 0
 
 
 def test_database_without_migration_003(tmp_path):

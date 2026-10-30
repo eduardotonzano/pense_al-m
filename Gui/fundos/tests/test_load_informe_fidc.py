@@ -11,12 +11,16 @@ from apoio_cadastro import fake_cnpj
 from apoio_cadastro import masked
 from apoio_cadastro import write_zip
 from apoio_informe_fidc import ADMIN_NAME
+from apoio_informe_fidc import LATER_MEMBER_DATE
 from apoio_informe_fidc import SENIOR
 from apoio_informe_fidc import ZIP_NAME
 from apoio_informe_fidc import ambiguous_cpf
 from apoio_informe_fidc import build_informe_zip
 from apoio_informe_fidc import cedente_cells
+from apoio_informe_fidc import changed
+from apoio_informe_fidc import later_zip
 from apoio_informe_fidc import load_fictitious_cadastro
+from apoio_informe_fidc import merge
 from apoio_informe_fidc import row
 from apoio_informe_fidc import subject_name
 from apoio_informe_fidc import subject_rows
@@ -28,6 +32,12 @@ from conftest import create_schema
 
 PROJECT_DIR = pathlib.Path(__file__).resolve().parent.parent
 SCRIPT_PATH = PROJECT_DIR / "scripts" / "load_informe_fidc.py"
+
+# Last-Modified ficticios de dois ZIPs da mesma competencia (o segundo no
+# texto do cabecalho HTTP).
+LM1 = "2026-10-24T11:46:15Z"
+LM2 = "2026-10-29T11:46:15Z"
+LM2_HTTP = "Thu, 29 Oct 2026 11:46:15 GMT"
 
 
 def load_module():
@@ -192,8 +202,8 @@ def test_second_commit_has_nothing_to_load(script, database, zip_path, tmp_path,
     assert len(backups_in(tmp_path / "bk")) == 1
 
 
-def test_other_zip_of_the_same_competence_is_refused(script, database, zip_path, tmp_path, capsys):
-    run_with(script, database, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"))
+def test_other_zip_of_the_same_competence_needs_last_modified(script, database, zip_path, tmp_path, capsys):
+    run_with(script, database, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"), "--last-modified", LM1)
     capsys.readouterr()
     before = file_hash(database)
     tables = subject_rows()
@@ -201,6 +211,10 @@ def test_other_zip_of_the_same_competence_is_refused(script, database, zip_path,
     other_dir = tmp_path / "outro"
     other_dir.mkdir()
     other = write_zip(other_dir, build_informe_zip(tables), name=ZIP_NAME)
+    message = (
+        "Ja existe informe de FIDC carregado para a competencia 2026-09 (outro ZIP). Para carregar"
+        " este ZIP como reapresentacao, informe --last-modified"
+    )
 
     dry = run_with(script, database, other, "--dry-run")
     dry_output = capsys.readouterr().out
@@ -208,11 +222,152 @@ def test_other_zip_of_the_same_competence_is_refused(script, database, zip_path,
     error = capsys.readouterr().err
 
     assert dry == 0
-    assert "reapresentacao e a FU4.2" in dry_output
+    assert "Banco: o --commit seria recusado: " + message in dry_output
+    assert "Last-Modified do ZIP a gravar (UTC): nao informado" in dry_output
     assert code == 1
-    assert "reapresentacao e a FU4.2" in error
+    assert message in error
     assert file_hash(database) == before
     assert len(backups_in(tmp_path / "bk")) == 1
+
+
+def second_zip(tmp_path, tables=None, folder="semana_seguinte", date_time=LATER_MEMBER_DATE):
+    directory = tmp_path / folder
+    directory.mkdir()
+    return write_zip(directory, later_zip(tables, date_time), name=ZIP_NAME)
+
+
+def test_commit_of_a_reapresentation(script, database, zip_path, tmp_path, capsys):
+    arguments = ("--commit", "--backup-dir", str(tmp_path / "bk"))
+    run_with(script, database, zip_path, *arguments, "--last-modified", LM1)
+    capsys.readouterr()
+    other = second_zip(tmp_path, changed(tab_IV={"TAB_IV_A_VL_PL": "98765.4321"}))
+
+    dry = run_with(script, database, other, "--dry-run", "--last-modified", LM2_HTTP)
+    dry_output = capsys.readouterr().out
+    code = run_with(script, database, other, *arguments, "--last-modified", LM2_HTTP)
+    output = capsys.readouterr().out
+
+    assert (dry, code) == (0, 0)
+    assert "Last-Modified do ZIP a gravar (UTC): 2026-10-29T11:46:15.000000+00:00" in dry_output
+    assert "ZIPs ja carregados desta competencia: 1; maior Last-Modified 2026-10-24T11:46:15.000000+00:00" in dry_output
+    assert "o --commit carregaria este como reapresentacao" in dry_output
+    assert "Last-Modified do ZIP a gravar (UTC): 2026-10-29T11:46:15.000000+00:00" in output
+    assert "  celulas tab_IV: iguais 1, alteradas 1, novas 0, voltam a valor anterior 0, sumiram 0" in output
+    assert "  observations tab_IV: criadas 1, existentes 1" in output
+    assert "Carga concluida." in output
+    assert len(backups_in(tmp_path / "bk")) == 2
+    assert query(database, "SELECT last_modified FROM raw_records WHERE parent_raw_record_id IS NULL AND file_name = '" + ZIP_NAME + "' ORDER BY id") == [
+        ("2026-10-24T11:46:15.000000+00:00",), ("2026-10-29T11:46:15.000000+00:00",)
+    ]
+
+
+def test_older_zip_is_refused_on_dry_run_and_commit(script, database, zip_path, tmp_path, capsys):
+    run_with(script, database, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"), "--last-modified", LM2)
+    capsys.readouterr()
+    before = file_hash(database)
+    other = second_zip(tmp_path, changed(tab_IV={"TAB_IV_A_VL_PL": "1200.00"}))
+    message = (
+        "O Last-Modified deste ZIP (2026-10-24T11:46:15.000000+00:00) nao e posterior ao do ZIP mais"
+        " novo ja carregado da competencia 2026-09 (2026-10-29T11:46:15.000000+00:00)"
+    )
+
+    dry = run_with(script, database, other, "--dry-run", "--last-modified", LM1)
+    dry_output = capsys.readouterr().out
+    code = run_with(script, database, other, "--commit", "--backup-dir", str(tmp_path / "bk"), "--last-modified", LM1)
+    error = capsys.readouterr().err
+
+    assert dry == 0
+    assert "Banco: o --commit seria recusado: " + message in dry_output
+    assert code == 1
+    assert message in error
+    assert file_hash(database) == before
+    assert len(backups_in(tmp_path / "bk")) == 1
+
+
+@pytest.mark.parametrize(
+    "value, message",
+    [
+        ("2026-10-29", "precisa ter fuso horario"),
+        ("2026-10-29T11:46:15", "precisa ter fuso horario"),
+        ("Thu, 29 Oct 2026 11:46:15", "precisa ter fuso horario"),
+        ("29/10/2026 11:46", "invalida"),
+        ("2099-01-01T00:00:00Z", "e posterior a agora"),
+    ],
+)
+def test_invalid_last_modified_is_refused(script, database, zip_path, tmp_path, capsys, value, message):
+    before = file_hash(database)
+
+    for mode in ("--dry-run", "--commit"):
+        code = run_with(script, database, zip_path, mode, "--backup-dir", str(tmp_path / "bk"), "--last-modified", value)
+        error = capsys.readouterr().err
+
+        assert code == 1
+        assert "A data do Last-Modified (--last-modified)" in error
+        assert message in error
+
+    assert file_hash(database) == before
+    assert not (tmp_path / "bk").exists()
+
+
+def test_member_dates_after_last_modified_only_warn(script, database, zip_path, capsys):
+    code = run_with(script, database, zip_path, "--dry-run", "--last-modified", "2026-10-20T00:00:00Z")
+    output = capsys.readouterr()
+
+    assert code == 0
+    assert (
+        "Aviso: a data dos membros do ZIP (2026-10-24) e posterior a do --last-modified (2026-10-20)"
+        in output.err
+    )
+
+    run_with(script, database, zip_path, "--dry-run", "--last-modified", "2026-10-23T22:00:00Z")
+
+    assert "Aviso" not in capsys.readouterr().err
+
+
+def test_reapresentation_output_has_only_aggregates(script, database, zip_path, tmp_path, capsys):
+    run_with(script, database, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"), "--last-modified", LM1)
+    capsys.readouterr()
+    tables = changed(
+        tab_IV={"TAB_IV_A_VL_PL": "98765.4321"},
+        tab_I={"ADMIN": "Administradora Ficticia Renomeada SA", "TAB_I2B12_PR_CEDENTE_1": "12.375"},
+    )
+    other = second_zip(tmp_path, merge(tables, subject_rows(2, subject_type="Fundo")))
+
+    run_with(script, database, other, "--dry-run", "--last-modified", LM2)
+    dry = capsys.readouterr()
+    code = run_with(script, database, other, "--commit", "--backup-dir", str(tmp_path / "bk"), "--last-modified", LM2)
+    committed = capsys.readouterr()
+    text = dry.out + dry.err + committed.out + committed.err
+
+    assert code == 0
+    assert "Reapresentacao: comparacao com o ultimo valor carregado" in committed.out
+
+    for secret in SECRETS + ("98765.4321", "12.375", "Renomeada", fake_cnpj(2), masked(fake_cnpj(2))):
+        assert secret not in text
+
+
+def test_dry_run_of_another_zip_shows_the_comparison_and_writes_nothing(script, database, zip_path, tmp_path, capsys):
+    run_with(script, database, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"))
+    capsys.readouterr()
+    before = file_hash(database)
+    other_dir = tmp_path / "semana_seguinte"
+    other_dir.mkdir()
+    tables = changed(tab_IV={"TAB_IV_A_VL_PL": "98765.4321"}, tab_I={"TAB_I2B12_PR_CEDENTE_1": "12.375"})
+    other = write_zip(other_dir, later_zip(tables), name=ZIP_NAME)
+
+    code = run_with(script, database, other, "--dry-run")
+    output = capsys.readouterr()
+    text = output.out + output.err
+
+    assert code == 0
+    assert "Reapresentacao: comparacao com o ultimo valor carregado desta fonte na competencia" in text
+    assert "  celulas tab_IV: iguais 1, alteradas 1, novas 0, voltam a valor anterior 0, sumiram 0" in text
+    assert "percentual alterado 1" in text
+    assert file_hash(database) == before
+    assert len(backups_in(tmp_path / "bk")) == 1
+
+    for secret in SECRETS + ("98765.4321", "12.375"):
+        assert secret not in text
 
 
 def test_database_without_migration_002_is_refused(script, zip_path, tmp_path, capsys):

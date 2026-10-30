@@ -13,6 +13,10 @@ O percentual do cedente fica em party_observation_shares (migration 003),
 
 Limitacao: uma parte que some numa reapresentacao da mesma competencia nao
 gera conflito, porque as linhas se somam.
+
+Valor que volta: como em observations, restatement=True (so a carga do
+informe de FIDC usa) grava a linha reapresentada, com a coleta no checksum,
+e nao abre de novo o conflito que o par de valores ja tem.
 """
 
 import hashlib
@@ -153,11 +157,13 @@ class PartyObservationRepository:
     @staticmethod
     def checksum(subject_column, subject_id, source_id, role, field_name,
                  party_cnpj, name_field_name, party_name, reference_date,
-                 share_field_name=None, share_value=None):
+                 share_field_name=None, share_value=None, restated_in_run=None):
         """SHA-256 da chave e do valor.
 
         O percentual so entra quando existe: o checksum dos papeis sem
-        percentual e o mesmo de antes da migration 003.
+        percentual e o mesmo de antes da migration 003. A coleta so entra na
+        linha reapresentada: o checksum das outras e o mesmo de antes da
+        FU4.2.
         """
 
         data = {
@@ -175,6 +181,9 @@ class PartyObservationRepository:
         if share_value is not None:
             data["share_field_name"] = share_field_name
             data["share_value"] = share_value
+
+        if restated_in_run is not None:
+            data["restated_in_run"] = int(restated_in_run)
 
         serialized = json.dumps(
             data,
@@ -253,6 +262,7 @@ class PartyObservationRepository:
         raw_record_id,
         reference_date,
         collected_at=None,
+        restatement=False,
     ):
         """Grava o papel; devolve PartyRecordResult.
 
@@ -261,6 +271,10 @@ class PartyObservationRepository:
         percentual diferente para o mesmo assunto, papel, campo, CNPJ e
         competencia: linha nova e conflito. O cedente nao tem nome; o
         percentual so existe no cedente.
+
+        restatement=True: o papel ja foi gravado com este valor, mas o atual
+        e outro (quem chama confere). Grava a linha reapresentada, com a
+        coleta no checksum; exige que o valor ja exista na chave.
         """
 
         if role not in ROLES:
@@ -341,7 +355,7 @@ class PartyObservationRepository:
             if collected_at is None
             else normalize_timestamp(collected_at, "A data de coleta")
         )
-        checksum = self.checksum(
+        key = (
             subject_column,
             subject_id,
             source_id,
@@ -354,10 +368,23 @@ class PartyObservationRepository:
             share_field_name,
             share,
         )
+        checksum = self.checksum(*key)
         existing = self.connection.execute(
             self.select + " WHERE p.checksum = ?",
             (checksum,),
         ).fetchone()
+
+        if restatement:
+            if existing is None:
+                raise ValueError(
+                    "Linha reapresentada so existe para valor ja gravado na chave."
+                )
+
+            checksum = self.checksum(*key, restated_in_run=collection_run_id)
+            existing = self.connection.execute(
+                self.select + " WHERE p.checksum = ?",
+                (checksum,),
+            ).fetchone()
 
         if existing is not None:
             return PartyRecordResult(self.row_to_record(existing), False, ())
@@ -402,7 +429,7 @@ class PartyObservationRepository:
                 )
 
             party = self.get_by_id(cursor.lastrowid)
-            conflicts = self._open_conflicts(party, subject_column)
+            conflicts = self._open_conflicts(party, subject_column, restatement)
             self.connection.execute("RELEASE SAVEPOINT fundos_party_record")
         except BaseException:
             self.connection.execute("ROLLBACK TO SAVEPOINT fundos_party_record")
@@ -411,8 +438,45 @@ class PartyObservationRepository:
 
         return PartyRecordResult(party, True, conflicts)
 
-    def _open_conflicts(self, party, subject_column):
-        """Abre conflito contra cada valor diferente ja gravado para a chave."""
+    @staticmethod
+    def _value(row):
+        return (
+            row["name_field_name"],
+            row["party_name"],
+            row["share_field_name"],
+            row["share_value"],
+        )
+
+    def _conflicting_values(self, party, others):
+        """Pares de valores da chave que ja tem conflito, de qualquer status."""
+
+        values = {int(row["id"]): self._value(row) for row in others}
+        values[party.id] = (
+            party.name_field_name,
+            party.party_name,
+            party.share_field_name,
+            party.share_value,
+        )
+        pairs = self.connection.execute(
+            "SELECT party_observation_a_id, party_observation_b_id"
+            " FROM party_conflicts WHERE party_observation_a_id IN ("
+            + ", ".join("?" * len(values))
+            + ")",
+            tuple(values),
+        ).fetchall()
+
+        return {
+            frozenset((values[a], values[b]))
+            for a, b in pairs
+            if a in values and b in values
+        }
+
+    def _open_conflicts(self, party, subject_column, restated=False):
+        """Abre conflito contra cada valor diferente ja gravado para a chave.
+
+        Na linha reapresentada, o par de valores que ja tem conflito nao
+        ganha outro.
+        """
 
         others = self.connection.execute(
             self.select
@@ -437,15 +501,21 @@ class PartyObservationRepository:
             party.share_field_name,
             party.share_value,
         )
+        known = self._conflicting_values(party, others) if restated else set()
 
         for other in others:
-            if (
-                other["name_field_name"],
-                other["party_name"],
-                other["share_field_name"],
-                other["share_value"],
-            ) == value:
+            other_value = self._value(other)
+
+            if other_value == value:
                 continue
+
+            if restated:
+                pair = frozenset((other_value, value))
+
+                if pair in known:
+                    continue
+
+                known.add(pair)
 
             first, second = sorted((int(other["id"]), party.id))
             cursor = self.connection.execute(

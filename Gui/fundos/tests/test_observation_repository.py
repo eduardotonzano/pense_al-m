@@ -164,6 +164,82 @@ def test_returning_to_an_old_value_creates_no_row_and_keeps_the_conflict(ctx):
     assert ctx.observations.get_current(fund_class_id=ctx.fund_class, field_name=FIELD).id == b.id
 
 
+def collection(ctx, label, started_at):
+    """Coleta e manifesto novos da CVM (outra semana do mesmo ZIP)."""
+
+    run = CollectionRunRepository(ctx.connection).start(ctx.cvm, started_at=started_at).id
+    return {"collection_run_id": run, "raw": ctx.raw(ctx.cvm, run, label, started_at)}
+
+
+def test_checksum_of_existing_rows_is_the_same_as_before_fu42():
+    # Hex calculado pelo codigo da main (5a4226f), com os mesmos dados.
+    pl = ObservationRepository.checksum(
+        "fund_class_id", 7, 1, "tab_IV.TAB_IV_A_VL_PL", "2026-09-30", "numeric", "1000.5", None,
+    )
+    quota = ObservationRepository.checksum(
+        "quota_series_id", 3, 1, "tab_X_2.TAB_X_VL_COTA", "2026-09-30", "numeric", "1.234567", "BRL",
+    )
+    restated = ObservationRepository.checksum(
+        "fund_class_id", 7, 1, "tab_IV.TAB_IV_A_VL_PL", "2026-09-30", "numeric", "1000.5", None,
+        restated_in_run=4,
+    )
+
+    assert pl == "c5cf43842f48ece61892a0f2df5a5e3764afb98093bc7601c87d262fbe389e41"
+    assert quota == "a69fa9c377a63989176a8927d1e9af91218d57ffadccbc8cb5dd7dcce6eefffb"
+    assert restated != pl
+
+
+def test_value_that_returns_is_restated_and_becomes_current(ctx):
+    a = ctx.record("1").observation
+    b = ctx.record("2", **collection(ctx, "v2", T1)).observation
+    back = ctx.record("1", restatement=True, **collection(ctx, "v3", T2))
+
+    assert back.created
+    assert back.conflicts == ()
+    assert back.observation.id not in (a.id, b.id)
+    assert back.observation.value_numeric == "1"
+    assert back.observation.checksum != a.checksum
+    assert back.observation.collected_at == T2
+    assert ctx.observations.get_current(fund_class_id=ctx.fund_class, field_name=FIELD).id == back.observation.id
+    assert ctx.conflicts.count() == 1
+    assert ctx.observations.get_by_id(a.id) == a
+
+
+def test_value_that_returns_again_keeps_a_single_conflict(ctx):
+    ctx.record("1")
+    b = ctx.record("2", **collection(ctx, "v2", T1)).observation
+    ctx.record("1", restatement=True, **collection(ctx, "v3", T2))
+    again = ctx.record("2", restatement=True, **collection(ctx, "v4", "2026-10-27T16:00:00+00:00"))
+
+    assert again.created and again.conflicts == ()
+    assert again.observation.id != b.id
+    assert ctx.count() == 4
+    assert ctx.conflicts.count() == 1
+    assert ctx.observations.get_current(fund_class_id=ctx.fund_class, field_name=FIELD).id == again.observation.id
+
+
+def test_restatement_in_the_same_collection_is_idempotent(ctx):
+    ctx.record("1")
+    ctx.record("2", **collection(ctx, "v2", T1))
+    third = collection(ctx, "v3", T2)
+    first = ctx.record("1", restatement=True, **third)
+    second = ctx.record("1", restatement=True, **third)
+
+    assert not second.created
+    assert second.observation.id == first.observation.id
+    assert ctx.count() == 3
+
+
+def test_restatement_needs_the_value_already_recorded(ctx):
+    ctx.record("1")
+
+    with pytest.raises(ValueError, match="Linha reapresentada"):
+        ctx.record("2", restatement=True, **collection(ctx, "v2", T1))
+
+    assert ctx.count() == 1
+    assert ctx.count("data_conflicts") == 0
+
+
 @pytest.mark.parametrize(
     "value_type, value",
     [("numeric", None), ("text", ""), ("text", "   "), ("text", None), ("date", None)],

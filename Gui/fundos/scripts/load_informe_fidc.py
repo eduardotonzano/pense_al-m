@@ -2,25 +2,30 @@
 
 Uso (a partir de Gui/fundos):
 
-    python scripts/load_informe_fidc.py --database <banco> --zip <inf_mensal_fidc_AAAAMM.zip> --dry-run
-    python scripts/load_informe_fidc.py --database <banco> --zip <inf_mensal_fidc_AAAAMM.zip> --commit
+    python scripts/load_informe_fidc.py --database <banco> --zip <inf_mensal_fidc_AAAAMM.zip> --last-modified <data> --dry-run
+    python scripts/load_informe_fidc.py --database <banco> --zip <inf_mensal_fidc_AAAAMM.zip> --last-modified <data> --commit
 
 A competencia e o DT_COMPTC do arquivo (nao ha --reference-date). A
 identidade vem do cadastro ja carregado (scripts/load_cadastro.py): nenhum
-fundo nem classe e criado aqui.
+fundo nem classe e criado aqui. --last-modified e o Last-Modified do ZIP na
+CVM, com fuso; e gravado no manifesto do ZIP.
 
 --dry-run le e confere o ZIP e imprime so agregados. Nao escreve em banco
 nenhum; se o banco existir, so o le (query_only) para mostrar o casamento
-com o cadastro e dizer se o --commit seria aceito. --commit exige o banco
-com as migrations 001 e 002 e o cadastro carregado, faz o backup antes e
-grava tudo numa unica transacao, que so e confirmada se a verificacao
-passar. Uma competencia = um ZIP ate a FU4.2: o mesmo ZIP nao e carregado
-de novo, e outro ZIP da mesma competencia e recusado.
+com o cadastro (ou, se a competencia ja tiver outro ZIP, a comparacao com o
+que esta no banco) e dizer se o --commit seria aceito. --commit exige o
+banco com as migrations 001 a 003 e o cadastro carregado, faz o backup
+antes e grava tudo numa unica transacao, que so e confirmada se a
+verificacao passar. O mesmo ZIP nao e carregado de novo. Outro ZIP de
+uma competencia ja carregada (reapresentacao) exige --last-modified
+posterior ao do ZIP mais novo ja carregado.
 """
 
 import argparse
 import pathlib
 import sys
+from datetime import date
+from datetime import timedelta
 
 
 PROJECT_DIR = pathlib.Path(__file__).resolve().parent.parent
@@ -41,17 +46,23 @@ from fundos.database import Database  # noqa: E402
 from fundos.informe_fidc.loader import ALREADY_LOADED  # noqa: E402
 from fundos.informe_fidc.loader import OLDER_VERSION  # noqa: E402
 from fundos.informe_fidc.loader import REQUIRED_MIGRATIONS  # noqa: E402
+from fundos.informe_fidc.loader import SAME_COMPETENCE  # noqa: E402
 from fundos.informe_fidc.loader import SubjectResolver  # noqa: E402
 from fundos.informe_fidc.loader import cadastro_loaded  # noqa: E402
 from fundos.informe_fidc.loader import find_loaded_informe  # noqa: E402
 from fundos.informe_fidc.loader import load_informe  # noqa: E402
+from fundos.informe_fidc.loader import loaded_zips  # noqa: E402
 from fundos.informe_fidc.loader import match_counts  # noqa: E402
+from fundos.informe_fidc.loader import normalize_last_modified  # noqa: E402
 from fundos.informe_fidc.loader import older_version_message  # noqa: E402
+from fundos.informe_fidc.loader import reapresentation_counts  # noqa: E402
+from fundos.informe_fidc.loader import reapresentation_problem  # noqa: E402
 from fundos.informe_fidc.reader import read_informe_zip  # noqa: E402
 from fundos.informe_fidc.report import format_candidates_report  # noqa: E402
 from fundos.informe_fidc.report import format_load_report  # noqa: E402
 from fundos.informe_fidc.report import format_match_report  # noqa: E402
 from fundos.informe_fidc.report import format_read_report  # noqa: E402
+from fundos.informe_fidc.report import format_reapresentation_report  # noqa: E402
 
 
 NETWORK_WARNING = (
@@ -71,7 +82,47 @@ def say(line):
     print(line, flush=True)
 
 
-def describe_database(connection, informe):
+def member_date_warning(informe, last_modified):
+    """Aviso se a data dos membros passar da do --last-modified (folga de 1 dia, pelo fuso)."""
+
+    if last_modified is None or not informe.zip.member_dates:
+        return None
+
+    latest = max(informe.zip.member_dates)
+
+    if date.fromisoformat(latest) <= date.fromisoformat(last_modified[:10]) + timedelta(days=1):
+        return None
+
+    return (
+        "Aviso: a data dos membros do ZIP ("
+        + latest
+        + ") e posterior a do --last-modified ("
+        + last_modified[:10]
+        + "); confira o Last-Modified do ZIP na CVM."
+    )
+
+
+def loaded_dates_line(connection, informe):
+    """Datas dos ZIPs ja carregados da competencia (para o operador conferir a ordem)."""
+
+    zips = loaded_zips(connection, informe)
+    dated = [z.last_modified for z in zips if z.last_modified is not None]
+    undated = [z.collected_at for z in zips if z.last_modified is None]
+    parts = ["maior Last-Modified " + (max(dated) if dated else "nenhum")]
+
+    if undated:
+        parts.append(
+            "sem Last-Modified "
+            + str(len(undated))
+            + " (inicio da carga mais recente "
+            + max(undated)
+            + ")"
+        )
+
+    return "ZIPs ja carregados desta competencia: " + str(len(zips)) + "; " + "; ".join(parts)
+
+
+def describe_database(connection, informe, last_modified=None):
     """(problema que faria o --commit recusar ou None, ja carregado)."""
 
     missing = missing_migrations(connection, REQUIRED_MIGRATIONS)
@@ -96,18 +147,14 @@ def describe_database(connection, informe):
     if loaded == OLDER_VERSION:
         return older_version_message(connection, informe).rstrip("."), loaded
 
-    if loaded is not None and loaded != ALREADY_LOADED:
-        return (
-            "ja existe outro ZIP carregado para a competencia "
-            + informe.competence
-            + "; reapresentacao e a FU4.2",
-            loaded,
-        )
+    if loaded == SAME_COMPETENCE:
+        problem = reapresentation_problem(connection, informe, last_modified)
+        return (None if problem is None else problem.rstrip(".")), loaded
 
     return None, loaded
 
 
-def dry_run(database_path, informe):
+def dry_run(database_path, informe, last_modified):
     if not database_path.is_file():
         say(
             "Banco: nao encontrado; o --commit seria recusado (crie com "
@@ -118,17 +165,31 @@ def dry_run(database_path, informe):
         connection = Database(database_path).connect_read_only()
 
         try:
-            problem, loaded = describe_database(connection, informe)
+            problem, loaded = describe_database(connection, informe, last_modified)
 
-            if problem is None and loaded is None:
+            if loaded == SAME_COMPETENCE:
+                counts = reapresentation_counts(connection, informe, SubjectResolver(connection))
+                dates = loaded_dates_line(connection, informe)
+            elif problem is None and loaded is None:
                 counts = match_counts(informe, SubjectResolver(connection))
             else:
                 counts = None
         finally:
             connection.close()
 
+        if loaded == SAME_COMPETENCE:
+            for line in format_match_report(counts) + format_reapresentation_report(counts):
+                say(line)
+
+            say(dates)
+
         if problem is not None:
             say("Banco: o --commit seria recusado: " + problem + ".")
+        elif loaded == SAME_COMPETENCE:
+            say(
+                "Banco: migrations aplicadas e cadastro carregado; esta competencia ja tem "
+                "ZIP carregado: o --commit carregaria este como reapresentacao."
+            )
         elif loaded is not None:
             say("Banco: este ZIP ja foi carregado; o --commit nao faria nada.")
         else:
@@ -141,7 +202,7 @@ def dry_run(database_path, informe):
     return 0
 
 
-def commit(args, database_path, informe):
+def commit(args, database_path, informe, last_modified):
     if not database_path.is_file():
         raise LoadError(
             "Banco nao encontrado: "
@@ -153,7 +214,7 @@ def commit(args, database_path, informe):
     connection = Database(database_path).connect_read_only()
 
     try:
-        problem, loaded = describe_database(connection, informe)
+        problem, loaded = describe_database(connection, informe, last_modified)
     finally:
         connection.close()
 
@@ -193,7 +254,7 @@ def commit(args, database_path, informe):
 
     try:
         with database.transaction() as connection:
-            result = load_informe(connection, informe, progress=progress)
+            result = load_informe(connection, informe, progress=progress, last_modified=last_modified)
     except BaseException:
         print(
             "Falha: o banco foi mantido como estava. Backup: " + str(backup.path),
@@ -203,8 +264,12 @@ def commit(args, database_path, informe):
 
     integrity = database.integrity_check()
     foreign_key_errors = database.foreign_key_check()
+    lines = format_match_report(result.counts)
 
-    for line in format_match_report(result.counts) + format_load_report(result):
+    if result.counts[("reapresentacao", "zips")]:
+        lines += format_reapresentation_report(result.counts)
+
+    for line in lines + format_load_report(result):
         say(line)
 
     say("Verificacao final:")
@@ -236,6 +301,14 @@ def run(args):
     except BackupError as error:
         raise LoadError("Banco com " + str(error)) from error
 
+    last_modified = None
+
+    if args.last_modified is not None:
+        try:
+            last_modified = normalize_last_modified(args.last_modified)
+        except ValueError as error:
+            raise LoadError(str(error)) from error
+
     say("Lendo o ZIP (andamento por tabela):")
     informe = read_informe_zip(
         args.zip,
@@ -245,10 +318,16 @@ def run(args):
     for line in format_read_report(informe):
         say(line)
 
-    if args.dry_run:
-        return dry_run(database_path, informe)
+    say("Last-Modified do ZIP a gravar (UTC): " + (last_modified or "nao informado"))
+    warning = member_date_warning(informe, last_modified)
 
-    return commit(args, database_path, informe)
+    if warning is not None:
+        print(warning, file=sys.stderr)
+
+    if args.dry_run:
+        return dry_run(database_path, informe, last_modified)
+
+    return commit(args, database_path, informe, last_modified)
 
 
 def build_parser():
@@ -287,6 +366,15 @@ def build_parser():
         help=(
             "Pasta do backup (padrao: backups ao lado do banco). Use uma "
             "pasta curta se o caminho passar de 260 caracteres."
+        ),
+    )
+    parser.add_argument(
+        "--last-modified",
+        default=None,
+        help=(
+            "Last-Modified do ZIP na CVM, com fuso (2026-10-24T11:46:15Z ou "
+            "'Sat, 24 Oct 2026 11:46:15 GMT'). Obrigatorio quando a competencia "
+            "ja tem outro ZIP carregado (reapresentacao)."
         ),
     )
 
