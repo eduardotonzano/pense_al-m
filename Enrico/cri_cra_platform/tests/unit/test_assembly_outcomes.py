@@ -64,3 +64,34 @@ def test_block_approval_takes_topics_from_the_agenda_and_closing_boilerplate_is_
     assert events(block) == ["vencimento_antecipado_nao_declarado_em_bloco", "waiver_aprovado_em_bloco"]
     nothing = ata("Os Titulares discutiram as matérias e pediram novas informações à Devedora.")
     assert decide(nothing).status == "sem_decisao_identificada"  # "matéria aqui aprovada" das disposições finais não conta
+
+
+def test_deliberated_for_forms_block_wording_and_boilerplate_authorization():
+    integral = ata("Os Titulares de CRA, representando 100% (cem por cento) dos CRA em Circulação, sem voto em contrário ou "
+                   "abstenção, deliberaram pela aprovação integral dos itens descritos na Ordem do Dia.")
+    assert decide(integral).status == "aprovada"
+    assert events(integral) == ["vencimento_antecipado_nao_declarado_em_bloco", "waiver_aprovado_em_bloco"]
+    authorization = ata("Os Titulares aprovaram a substituição do agente fiduciário e aprovar a autorização para que a "
+                        "Securitizadora pratique todo e qualquer ato necessário para a implementação das matérias constantes da "
+                        "Ordem do Dia.")
+    assert events(authorization) == ["troca_prestador_aprovado"]  # autorização padrão não é aprovação em bloco
+    suspended = ata("Os Titulares dos CRA, representando 30,30% dos CRA em Circulação, deliberaram pela suspensão dos respectivos "
+                    "itens, com reabertura programada para 30 de setembro.")
+    assert decide(suspended).status == "suspensa"
+
+
+def test_contribution_legal_advisor_and_judicial_recovery_topics():
+    text = ata("Com relação ao item (i), os Titulares aprovaram a realização de aporte de recursos pelos Titulares dos CRA, no "
+               "montante de R$ 821.312,81. Com relação ao item (ii), os Titulares aprovaram que os titulares pleiteiem, perante o "
+               "juízo da Recuperação Judicial da Devedora, a individualização de seu crédito.")
+    assert events(text) == ["aporte_titulares_aprovado", "recuperacao_judicial_aprovado"]
+
+
+def test_abstention_and_minority_rejection_tally():
+    abstention = ata("O Titular dos CRA detentor de 100% dos CRA em Circulação manifestou a abstenção ao direito de voto sobre a "
+                     "totalidade das matérias da Ordem do Dia.")
+    assert decide(abstention).status == "abstencao"
+    minority = ata("Os Titulares representando 60% dos CRA em Circulação aprovaram a ratificação da contratação do escritório X "
+                   "Advogados, 3% se abstiveram e 0,57% dos Titulares dos CRA em Circulação presentes rejeitaram a ratificação "
+                   "da contratação do escritório X Advogados.")
+    assert decide(minority).status == "aprovada" and events(minority) == ["assessor_legal_aprovado"]

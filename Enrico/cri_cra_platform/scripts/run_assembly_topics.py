@@ -107,12 +107,25 @@ def main() -> int:
     lines += ["", "### Decisões de crédito por ativo (mais recentes primeiro)", "",
               "| Ativo | Data | Ata | Resultado | Decisões | Trecho |", "|---|---|---|---|---|---|"]
     credit = ("vencimento_antecipado", "waiver", "prorrogacao", "liquidacao", "dacao", "resgate", "garantias", "troca_prestador",
-              "nao_declaracao", "assembleia_suspensa", "sem_quorum", "ordem_do_dia")
+              "nao_declaracao", "assembleia_suspensa", "sem_quorum", "ordem_do_dia", "recuperacao_judicial", "aporte_titulares",
+              "assessor_legal", "uso_fundo_reserva", "titulares_se_abstiveram")
     for asset, items in sorted(decided.items()):
         for r in sorted(items, key=lambda r: r["data"], reverse=True):
             if any(r["decisoes"].startswith(c) or f"; {c}" in r["decisoes"] for c in credit):
                 lines.append(f"| {asset} | {r['data']} | {r['documento']} | {r['resultado'].replace('_', ' ')} | "
                              f"{r['decisoes'].replace('_', ' ')} | {r['trecho_decisao'][:180].replace('|', '/')} |")
+    recovery = [r for r in atas if "recuperacao_judicial" in r["decisoes"]]
+    lines += ["", "## Recuperação judicial ou extrajudicial nas decisões das atas", "",
+              "Atas em que a decisão trata de recuperação judicial ou extrajudicial (plano, habilitação ou individualização de crédito, "
+              "assessor para o processo). Sinal de devedor em recuperação: confirmar na ata e no processo.", "",
+              "| Ativo | Atas | Última | Decisões da última | Trecho |", "|---|---|---|---|---|"]
+    by_asset: dict[str, list] = defaultdict(list)
+    for r in recovery:
+        by_asset[r["ativo"]].append(r)
+    for asset, items in sorted(by_asset.items(), key=lambda kv: max(r["data"] for r in kv[1]), reverse=True):
+        last = max(items, key=lambda r: r["data"])
+        lines.append(f"| {asset} | {len(items)} | {last['data']} | {last['decisoes'].replace('_', ' ')} | "
+                     f"{last['trecho_decisao'][:200].replace('|', '/')} |")
     lines += ["", "## Ativos com mais assuntos relevantes", "", "| Ativo | Documentos relevantes | Assuntos |", "|---|---|---|"]
     for asset, items in sorted(per_asset.items(), key=lambda kv: -len(kv[1])):
         topics = Counter(t for r in items for t in r["assuntos_relevantes"].split("; ") if t)

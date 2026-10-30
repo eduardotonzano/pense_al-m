@@ -34,18 +34,26 @@ NOT_INSTALLED = re.compile(r"nao(?:houve|foiverificad[ao]|atingiu|seatingiu|foia
                            r"nao(?:foi)?instalada|termodenaoinstalacao|deixoudeserinstalada|naoinstalacao")
 SUSPENDED = re.compile(r"suspens(?:ao|os?|as?)(?:dos|da)?(?:trabalhos|votacao)|suspendera?(?:m)?(?:os|a)?(?:trabalhos|votacao)|"
                        r"foisuspensa|ficasuspensa|reaberturadostrabalhos|reaberturamarcada|seraretomada|"
-                       r"suspensaodapresenteassembleia|novasuspensao|deveraserreaberta|serareaberta")
+                       r"suspensaodapresente(?:assembleia|deliberacao|da)|novasuspensao|deveraserreaberta|serareaberta|"
+                       r"(?:pela|por)suspen(?:sao|der)|suspenderaapreciacao|suspendendoapresenteassembleia")
 EDITAL = re.compile(r"editalde(?:primeira|segunda|1a|2a)?convocacao|ficamconvocad|convoca(?:m)?ossenhores|pelopresenteedital")
 ATA_TITLE = re.compile(r"atad[ae]s?(?:\w{0,30})?assembleia|termodenaoinstalacao")
 # sem espaços não há fronteira de palavra: formas da mais longa para a mais curta; "aprovar" e "aprovação" ficam de fora
 # (ecoam a ordem do dia), salvo em "deliberaram ... aprovar"
-APPROVED = re.compile(r"(?:foi|foram|restou|restaram)aprovad|aprovaram|aprovadas|aprovados|aprovada|aprovado|aprovam|"
-                      r"aprova(?![rc])|(?<=[:;)])aprovar|(?:deliberaram|decidiram|resolveram)[^.]{0,60}?aprovar")
-STRONG_APPROVAL = re.compile(r"(?:foi|foram|restou|restaram)aprovad|aprovaram|aprovam|aprovar|(?:deliberaram|decidiram|resolveram)[^.]*aprovar")
+DELIBERATED_FOR = r"(?:deliberaram|deliberou|decidiram|decidiu|resolveram|resolveu)[^.:;]{0,250}?(?:pel[ao]s?|por)(?!unanimidade|maioria|cento)"
+APPROVED = re.compile(r"(?:foi|foram|restou|restaram)aprovad|aprovaram|aprovadas|aprovados|aprovada|aprovado|aprovam|aprovou|"
+                      r"autorizaram|autorizou|ratificaram|ratificou|"
+                      r"aprova(?![rc])|(?<=[:;)])aprovar|(?:deliberaram|decidiram|resolveram)[^.]{0,60}?aprovar|" + DELIBERATED_FOR)
+STRONG_APPROVAL = re.compile(r"(?:foi|foram|restou|restaram)aprovad|aprovaram|aprovam|aprovar|aprovou|autorizaram|autorizou|ratificaram|"
+                             r"ratificou|(?:deliberaram|decidiram|resolveram)[^.]*aprovar|" + DELIBERATED_FOR)
+# todos os titulares presentes se abstiveram: a matéria não é votada (nas DFs sem ressalva, contam como aprovadas pela norma)
+ABSTAINED = re.compile(r"manifest\w{0,6}(?:pela)?abstencao|seabster(?:em)?(?:de|do)?(?:direitode)?votar|abstiveram-?se(?:de|do)?(?:direitode)?vot|"
+                       r"abstencaoaodireitodevoto|abstencaodevotosobreatotalidade")
 CLOSING = re.compile(r"\d{0,2}\.?disposicoesfinais|\d{0,2}\.?encerramento:|nadamaishavendoatratar")
 # aprovação em bloco: o assunto vem da ordem do dia
 ALL_ITEMS = re.compile(r"todasasmaterias|ositens\(?[ivx]+\)?a\(?[ivx]+\)?daordemdodia|asmateriasconstantes(?:da|na)ordemdodia|"
-                       r"integralidadedaordemdodia|todosositens|aordemdodia(?:integralmente|naintegra)")
+                       r"integralidadedaordemdodia|integralidadedasmaterias|todosositens|aordemdodia(?:integralmente|naintegra)|"
+                       r"aprovacaointegral|integraldositens|naintegradositens|itensdescritosnaordemdodia")
 NO_QUORUM = re.compile(r"aus[e]nciadequorum(?:minimo)?(?:para|de)(?:a)?deliberacao|ausenciadoquorum(?:minimo)?(?:para|de)(?:a)?deliberacao|"
                        r"naohouvequorum(?:minimo)?(?:para|de)(?:a)?deliberacao|naofoiatingidooquorum(?:minimo)?(?:para|de)(?:a)?deliberacao|"
                        r"quoruminsuficienteparadeliberacao")
@@ -72,8 +80,17 @@ TOPICS = {
     "dacao_em_pagamento": re.compile(r"dacaoempagamento"),
     "garantias": re.compile(r"(?:substituicao|reforco|liberacao|complementacao)d[ae]s?garantia"),
     "dfs": re.compile(r"demonstracoesfinanceiras|demonstracoescontabeis"),
+    "aporte_titulares": re.compile(r"aportederecursos|aporte(?:,)?pelostitulares|aportedostitulares|aportepelosinvestidores|"
+                                   r"aportedosinvestidores|realizacaodeaporte|aportedevalores"),
+    "assessor_legal": re.compile(r"contratacaod[eoa]s?(?:\w{0,12})?(?:assessor|assessoria|escritorio|advogad)|assessorlegal|"
+                                 r"assessoriajuridica|honorariosadvocaticios"),
+    "recuperacao_judicial": re.compile(r"recuperacaojudicial|recuperacaoextrajudicial|planoderecuperacao|habilitacaod[eo]s?credito|"
+                                       r"individualizacaod[eo]s?(?:seu)?(?:direito|credito)|pedidodefalencia|falenciad"),
+    "uso_fundo_reserva": re.compile(r"(?:utiliza\w{0,4}|uso|recomposicao|liberacao)(?:d[eoa]s?)?(?:recursosd[oa])?(?:fundo(?:s)?dereserva|fundodedespesas)"),
 }
 WINDOW = 260
+# "atos necessários para a implementação das matérias constantes da ordem do dia" é autorização padrão, não aprovação em bloco
+BOILERPLATE_ALL = re.compile(r"(?:implementacao|efetivacao|execucao|formalizacao|cumprimento)(?:e\w{0,14})?d[ao]?s?$")
 
 
 @dataclass(frozen=True)
@@ -85,7 +102,7 @@ class Decision:
 @dataclass(frozen=True)
 class Outcome:
     kind: str       # "ata" | "edital_ou_outro"
-    status: str     # "nao_instalada" | "suspensa" | "aprovada" | "rejeitada" | "mista" | "sem_decisao_identificada"
+    status: str     # "nao_instalada" | "suspensa" | "abstencao" | "aprovada" | "rejeitada" | "mista" | "sem_decisao_identificada"
     decisions: tuple[Decision, ...]
 
 
@@ -172,6 +189,11 @@ def decide(text: str) -> Outcome:
         rejected = bool(REJECTED.fullmatch(verb.group(0))) or bool(NEGATED.search(before[-14:]))
         if rejected and TALLY.search(before):
             continue
+        if rejected and "%" in before[-70:]:
+            # placar de minoria ("... aprovaram ..., 0,57% rejeitaram"): a frase já tem a aprovação da maioria
+            sentence = part[max(0, verb.start() - 600):verb.start()]
+            if APPROVED.search(sentence[sentence.rfind(".") + 1:]):
+                continue
         if not rejected and CONDITIONAL.search(before[-12:]):
             continue
         approved = not rejected
@@ -183,8 +205,12 @@ def decide(text: str) -> Outcome:
             window = window[tally.end():] + part[verb.end() + len(window): min(verb.end() + len(window) + tally.end(), following)]
         if SUSPENDED.search(window[:80]):
             continue  # "aprovaram a suspensão da assembleia" é suspensão, tratada abaixo
-        if approved and ALL_ITEMS.search(window[:120]) and agenda:
-            events = [e + "_em_bloco" for e in _topics(agenda, True)] or ["ordem_do_dia_aprovada_em_bloco"]
+        block = ALL_ITEMS.search(window[:250])
+        if block and BOILERPLATE_ALL.search(window[max(0, block.start() - 30):block.start()]):
+            block = None
+        if approved and block and agenda:
+            own = _topics(window[:block.start()], True)
+            events = own + [e + "_em_bloco" for e in _topics(agenda, True) if e not in own] or ["ordem_do_dia_aprovada_em_bloco"]
         else:
             events = _topics(window, approved, head=WINDOW // 2 + 60)
         if not events:
@@ -206,6 +232,9 @@ def decide(text: str) -> Outcome:
         return Outcome("ata", "sem_quorum_para_deliberar",
                        (Decision("sem_quorum_para_deliberar", excerpt(begin + no_quorum.start() - 80, begin + no_quorum.end() + 120)),))
     suspended = SUSPENDED.search(part)
+    abstained = ABSTAINED.search(part)
+    if abstained and not decisions and not suspended:
+        return Outcome("ata", "abstencao", (Decision("titulares_se_abstiveram", excerpt(begin + abstained.start() - 120, begin + abstained.end() + 200)),))
     if suspended:
         decisions.append(Decision("assembleia_suspensa", excerpt(begin + suspended.start() - 100, begin + suspended.end() + 120)))
     elif generic_approval is not None and not decisions:

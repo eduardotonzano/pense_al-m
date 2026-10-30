@@ -24,7 +24,7 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 - Fichas por ativo (`reports/fichas/`) e fichas contratuais (`reports/fichas_contratuais/`): o trecho literal de cada um dos 36 campos
   padrão, com página; nos parâmetros aprovados conferíveis, o valor aparece nas páginas mostradas em 84%.
 - Atas: assuntos e o que foi decidido (aprovada, não instalada, suspensa, sem quórum; vencimento antecipado declarado ou não, waiver,
-  repactuação, troca de prestador), com o trecho.
+  repactuação, troca de prestador, aporte dos titulares, recuperação judicial ou extrajudicial), com o trecho.
 
 **Lote 2 (38 ativos)**
 - `config/ativos_lote2.csv`: 28 da triagem e as 10 emissões da Leverage separadas; 2.701 documentos catalogados, 1.176 baixados,
@@ -53,7 +53,7 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 ### Como verificar
 ```powershell
 cd Enrico\cri_cra_platform
-$env:PYTHONPATH='..\..\src'; python -m pytest                       # 418 testes
+$env:PYTHONPATH='..\..\src'; python -m pytest                       # 421 testes
 python scripts/apply_migration.py --database data\cri_cra.db --dry-run
 python scripts/ingest_cvm_open_data.py --dry-run                     # lista os 16 arquivos da CVM, não grava
 python scripts/run_monthly_market.py --dry-run                       # rotina mensal sem gravar no banco

@@ -123,3 +123,15 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
 - **Mesma correção do placeholder "00000" na consulta por emissão e nos eventos (30/10/2026):** a consulta à CVM por ativo
   (`cvm_lookup`) e a chave de série dos eventos de crédito juntavam séries de emissões diferentes; corrigido (Termo × CVM da Leverage
   comparava cada Termo com as séries das 10 emissões).
+- **CRA024006N5 (Canal 103ª, Prime Agro) conferido por Enrico (30/10/2026):** o Informe bate com as atas (vencimento antecipado
+  declarado em 20/07/2026; as duas séries em atraso desde 07/2026). Ata de 20/10/2026: aporte de R$ 821.312,81 pelos titulares para
+  despesas e advogados, e pedido de individualização do crédito na recuperação judicial da Prime Agro Produtos Agrícolas S.A.
+  (processo 0011074-25.2026.8.16.0194).
+- **Decisões das atas, segunda versão (30/10/2026):** novos verbos ("deliberaram pela aprovação/declaração/suspensão", "aprovou",
+  "autorizaram", "ratificaram"), aprovação em bloco por "integral dos itens"/"na íntegra"/"integralidade das matérias", autorização
+  padrão ("implementação das matérias da ordem do dia") fora do bloco, placar de minoria ("0,57% rejeitaram") não é rejeição,
+  abstenção de todos os titulares, e os assuntos aporte dos titulares, assessor legal, recuperação judicial/extrajudicial e uso do fundo
+  de reserva. Das 670 atas: sem decisão identificada caiu de 142 para 31; aprovadas 285, não instaladas 262, suspensas 83. Seis atas
+  da Opea que estavam como "não instaladas" aprovaram, na verdade, o plano de recuperação extrajudicial da Raízen. Nova seção
+  "Recuperação judicial ou extrajudicial" em `assembleias_topicos.md`: Prime Agro (CRA024006N5), Raízen (CRA02300JR5, CRA020001P7,
+  CRA022008NB), Grupo Formoso (CRA024003PF), Patense (CRA022009C1F).
