@@ -21,7 +21,7 @@ Coletor, acesso à rede, banco real, dados reais e adaptador para a camada compa
 
 - a migration de prioridade das fontes (ADR-010, proposta);
 - o `registro_subclasse` como dado (hoje só entra no manifesto);
-- a reapresentação do informe (FU4.2): hoje uma competência = um ZIP;
+- na reapresentação do informe: registrar no banco a célula que sumiu, guardar o conjunto exato de cedentes de cada ZIP e unir a série que trocou de rótulo à antiga (hoje só são contados; cada um exigiria uma migration nova, a 005, se o Gui quiser);
 - a `tab_VIII` e a `tab_X_4` do informe, lidas e conferidas mas **não carregadas** (várias linhas para o mesmo assunto e campo). A `tab_X_4` (captações, resgates e amortizações por série) fica **indisponível** até uma tarefa própria, com ADR (uma dimensão a mais em `observations`);
 - o uso dos cedentes: a regra para o percentual (em 09/2026, 385 valores acima de 100), as métricas de concentração e a forma de exibir são do Gui (Fases 6 a 10). Hoje os cedentes só são gravados;
 - a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
@@ -47,7 +47,7 @@ A tabela dos fundos da casa não entra neste módulo (veja "Regras").
   - Fontes semeadas: `CVM_DADOS_ABERTOS` (200) e `MANUAL` (1000). A escala é provisória até o ADR de prioridade das fontes.
   - Com a prioridade em primeiro lugar, um valor manual de competência antiga continua valendo sobre um valor mais novo da CVM.
 - **Nunca sobrescreve.** Mesmo assunto, campo e competência com valor diferente (reapresentação na mesma fonte ou divergência entre fontes) gera uma linha nova e um conflito aberto em `data_conflicts`. Triggers bloqueiam UPDATE e DELETE em `observations`.
-  - Limitação conhecida: se o valor antigo volta depois de um conflito (A, depois B, depois A de novo), não há linha nova; o conflito A×B continua aberto e a view mostra B.
+  - Limitação conhecida: se o valor antigo volta depois de um conflito (A, depois B, depois A de novo), não há linha nova; o conflito A×B continua aberto e a view mostra B. A carga do informe de FIDC trata esse caso (veja "Reapresentação"); o cadastro continua com a limitação.
 - **CPF nunca é gravado** (`docs/decisoes-em-aberto.md`, decisão 3 de Fundos).
   - Nenhuma coluna tem `cpf` no nome.
   - Não são carregados: `Diretor`, `Email_Administrador`, `Site`, `Servico_Atendimento_Cotista` e `Entidade_Administradora`.
@@ -66,6 +66,7 @@ A tabela dos fundos da casa não entra neste módulo (veja "Regras").
     - O percentual entra no checksum da linha **só quando existe**: o checksum dos outros papéis é o mesmo de antes da 003. E só entra logo depois da linha do cedente (trigger `trg_party_observation_shares_with_parent`), então uma linha gravada sem percentual não ganha percentual depois.
     - Percentual diferente (ou um com e outro sem) na mesma chave gera linha nova e conflito aberto em `party_conflicts`, como o nome nos outros papéis.
     - Limitação conhecida: cedente que muda de posição ou some numa reapresentação da mesma competência não gera conflito (a posição está no campo).
+    - **O conjunto de cedentes de uma competência no banco é a soma dos ZIPs carregados dela**, não o do ZIP mais novo: o cedente que saiu continua lá, e a linha igual fica presa ao ZIP que a gravou primeiro, então o conjunto do ZIP mais novo não pode ser reconstruído. Isso importa para as métricas de concentração (Gui).
     - Banco só com 001 e 002 continua servindo ao cadastro: o repositório percebe que a tabela não existe e só recusa gravar percentual.
 - **Fundos da casa ficam fora** deste banco e de qualquer arquivo versionado (`docs/decisoes-em-aberto.md`, decisões 2 e 4 de Fundos). O caminho da pasta interna vai só na variável de ambiente `PENSE_INTERNAL_DIR`; este módulo ainda não a lê.
 - **O banco real fica fora do Git e em disco local**, não no compartilhamento de rede. Não versionar `*.db`, `*.sqlite*`, ZIPs, CSVs da CVM, backups nem `.env` (veja `.gitignore`).
@@ -149,14 +150,14 @@ python scripts\load_cadastro.py --database C:\<pasta-local>\fundos.db --zip C:\<
 
 ## Como carregar o informe de FIDC
 
-O `scripts/load_informe_fidc.py` lê o `inf_mensal_fidc_AAAAMM.zip` da CVM (baixado à mão, fora do Git) e grava as observações do mês, a administradora e os cedentes das classes e fundos que **já estão no banco**: o cadastro tem de ser carregado antes. `--database` e `--zip` são obrigatórios, e `--dry-run` ou `--commit` também. Não há `--reference-date`. Rode sempre o `--dry-run` antes. O `--commit` só com aprovação explícita.
+O `scripts/load_informe_fidc.py` lê o `inf_mensal_fidc_AAAAMM.zip` da CVM (baixado à mão, fora do Git) e grava as observações do mês, a administradora e os cedentes das classes e fundos que **já estão no banco**: o cadastro tem de ser carregado antes. `--database` e `--zip` são obrigatórios, e `--dry-run` ou `--commit` também. Não há `--reference-date`. `--last-modified` é o `Last-Modified` do ZIP na CVM: opcional na primeira carga da competência e obrigatório na reapresentação (veja "Reapresentação"); passe sempre. Rode sempre o `--dry-run` antes. O `--commit` só com aprovação explícita.
 
 ```powershell
 cd Gui\fundos
-# prévia: lê e confere o ZIP; com o banco, mostra o casamento com o cadastro; não escreve nada
-python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\cvm-amostras\cadastro-fidc\inf_mensal_fidc_202609.zip --dry-run
+# prévia: lê e confere o ZIP; com o banco, mostra o casamento com o cadastro (ou a comparação, se a competência já tiver ZIP); não escreve nada
+python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\cvm-amostras\cadastro-fidc\inf_mensal_fidc_202609.zip --last-modified 2026-10-24T11:46:15Z --dry-run
 # carga (banco migrado e com o cadastro carregado)
-python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\cvm-amostras\cadastro-fidc\inf_mensal_fidc_202609.zip --commit
+python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\cvm-amostras\cadastro-fidc\inf_mensal_fidc_202609.zip --last-modified 2026-10-24T11:46:15Z --commit
 ```
 
 - **Banco em disco local**, como no cadastro: caminho de rede só gera aviso no stderr.
@@ -180,7 +181,18 @@ python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip 
   - se o banco o recusar (por exemplo, o mesmo ID já é de outra série), a série fica só com o rótulo, as linhas são carregadas, o relatório conta "recusado pelo banco" e a coleta fica `partial`, com `failed_items` igual ao número de IDs recusados;
   - em todos os casos, `tab_X_1.ID_SUBCLASSE` é gravado como observação.
 - **Não carregadas:** `tab_VIII` e `tab_X_4` são lidas e conferidas, entram no manifesto como `ignored` e ficam fora do banco (veja "O que ainda não existe").
-- **Uma competência = um ZIP até a FU4.2:** o mesmo ZIP (mesmo SHA-256) diz "Nada a carregar"; outro ZIP da mesma competência é recusado; uma competência nova é carga normal (série mensal).
+- **Mesmo ZIP:** o mesmo ZIP (mesmo SHA-256) diz "Nada a carregar" e não faz backup. Uma competência nova é carga normal (série mensal).
+- **Reapresentação (FU4.2; proposta, o Gui precisa confirmar):** a CVM troca o ZIP toda semana no mesmo endereço, e um fundo pode corrigir o informe do mês. Outro ZIP de uma competência já carregada é aceito, assim:
+  - **`--last-modified` obrigatório:** o `Last-Modified` do ZIP na CVM, com fuso, em ISO (`2026-10-29T11:46:15Z`) ou no texto do cabeçalho HTTP (`Thu, 29 Oct 2026 11:46:15 GMT`). Sem fuso, ou posterior a agora, é recusado. O dry-run e o commit mostram a data que será gravada, em UTC, e ela vai para `raw_records.last_modified` do ZIP.
+  - **Ordem:** tem de ser estritamente posterior ao maior `Last-Modified` dos ZIPs já carregados da competência; senão a carga é recusada, com as duas datas na mensagem. Carregar um ZIP mais antigo depois de um mais novo faria o valor antigo virar o atual (a view escolhe a coleta mais recente).
+  - **ZIP carregado antes da FU4.2** (sem `last_modified`): o novo tem de ser posterior ao início da carga dele. Ele foi baixado antes de ser carregado, então o `Last-Modified` dele é anterior a essa hora; se o novo não for posterior, não dá para provar a ordem e a carga é recusada.
+  - **Aviso:** se a data dos membros do ZIP passar da do `--last-modified` em mais de 1 dia, o script avisa no stderr e segue.
+  - **Comparação** (`src/fundos/informe_fidc/compare.py`): cada célula, papel, assunto e série do ZIP novo é comparado com o último valor carregado desta fonte na competência. O banco é lido tabela por tabela, pelos manifestos dos ZIPs já carregados.
+  - **O que é gravado:** a célula igual não é gravada de novo (continua presa ao ZIP que a gravou primeiro); a alterada vira linha nova e conflito aberto em `data_conflicts`; a nova é gravada; a que **volta** a um valor anterior (A, depois B, depois A) vira linha reapresentada, com a coleta no checksum, e passa a ser o valor atual, sem abrir de novo o conflito A×B. O mesmo vale para administradora e cedente, por posição. ZIP igual em valores grava só a coleta, os 19 manifestos e o `last_modified`.
+  - **O que só é contado** (nada é apagado): a célula que tinha valor e vem vazia ou sem a linha (o valor atual continua o último informado), o assunto que some (as observações dele continuam como valor atual da competência), a série nova e a que sumiu no mesmo assunto (possível troca de rótulo: a série nova fica duplicada até alguém tratar), o ID_SUBCLASSE que aparece numa série existente (a chave da série é preenchida) ou que some (a chave fica), e o papel que entrou, saiu, trocou de CNPJ na posição ou mudou de nome ou percentual.
+  - **Relatório:** a seção "Reapresentacao" do dry-run e do commit mostra só contagens, por tabela e no total.
+  - **Volume:** só crescem as células alteradas, novas e que voltam (cerca de 360 bytes por observação, com índices), mais os conflitos e 19 manifestos. O backup continua copiando o banco inteiro a cada `--commit`.
+  - **Medido com dados fictícios, em disco local** (1,54 milhão de células já carregadas; segundo ZIP com 4.312 células alteradas, 17.550 novas e 88 assuntos a menos): o dry-run leu o ZIP em 6,6 s e comparou em 19,2 s, com pico de 203 MiB no processo; a segunda carga levou 54 s (a primeira, 375 s), criou 21.862 observações e o banco cresceu 8,1 MiB, com pico de 412 MiB (inclui o cache de 200 MB da carga).
 - **Versão do leitor:** o manifesto guarda `fundos.informe_fidc.v2`. Competência carregada por versão anterior (a v1, sem cedentes), com o mesmo ZIP ou com outro, é recusada: esta versão não atualiza esse carregamento; use um banco novo e carregue de novo.
 - **Migrations:** o informe exige 001, 002 e 003 (o cadastro continua exigindo só 001 e 002). Banco sem a 003: aplique antes com `scripts/apply_migration.py`.
 - **Antes do COMMIT:** `integrity_check`, `foreign_key_check`, nenhuma coluna com `cpf` e nenhum texto inteiro com formato de CPF no que a coleta gravou (inclusive percentual de cedente de 11 dígitos). Se algo falhar, desfaz tudo e mantém o backup. A mensagem cita só as contagens.
