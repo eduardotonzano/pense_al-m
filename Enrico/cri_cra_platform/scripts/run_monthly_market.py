@@ -22,6 +22,7 @@ ANALYSES = [
     "build_market_universe.py",
     "run_debtor_exposure.py",
     "run_securitizadora_scorecard.py",
+    "run_dfin_checks.py",
     "build_market_dashboard.py",
 ]
 
@@ -46,7 +47,13 @@ def main() -> int:
     code = run("ingest_cvm_open_data.py", "--commit" if args.commit else "--dry-run")
     if code:
         return code
+    code = run("ingest_cvm_dfin.py", "--commit" if args.commit else "--dry-run")
+    if code:
+        return code
     for script in ANALYSES:
+        if script == "run_dfin_checks.py" and not (ROOT / "data" / "cvm_dfin.db").is_file():
+            print("[pulado] run_dfin_checks.py (data/cvm_dfin.db ainda não carregado)")
+            continue
         code = run(script)
         if code:
             return code

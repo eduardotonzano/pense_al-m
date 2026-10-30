@@ -104,6 +104,7 @@ def main() -> int:
     issuers = read_csv("market_securitizadoras.csv")
     termo = read_csv("termo_vs_cvm.csv")
     assemblies = [r for r in read_csv("assembleias_topicos.csv") if r.get("assuntos_relevantes")]
+    dfin = read_csv("market_dfin.csv")
     e = html.escape
 
     kpis = []
@@ -125,7 +126,7 @@ def main() -> int:
         f"Gerado em {datetime.now(timezone.utc).strftime('%d/%m/%Y %H:%M')} UTC. "
         "Sinais para triagem, não conclusões: o dado é o do próprio Informe e erros de preenchimento vêm junto.</p>",
         "<nav><a href='#eventos'>Eventos do mês</a><a href='#ranking'>Ranking</a><a href='#devedores'>Devedores</a>"
-        "<a href='#securitizadoras'>Securitizadoras</a><a href='#termo'>Termo × Informe</a><a href='#assembleias'>Assembleias e fatos</a></nav>",
+        "<a href='#securitizadoras'>Securitizadoras</a><a href='#termo'>Termo × Informe</a><a href='#assembleias'>Assembleias e fatos</a><a href='#dfin'>DFs</a></nav>",
         "<div class='kpis'>" + "".join(f"<div class='kpi'><span class='muted'>{e(label)}</span><b>{e(value)}</b></div>"
                                        for label, value in kpis) + "</div>",
         "<h2 id='eventos'>Eventos de crédito no mês</h2>",
@@ -170,6 +171,15 @@ def main() -> int:
               [[e(r["data"]), e(r["ativo"]), e(f"{r['categoria']} {r['documento']}"), e(r["assuntos_relevantes"]),
                 "sim" if r["nao_instalada"] == "1" else "", e(r["trecho"][:140])]
                for r in sorted(assemblies, key=lambda r: r["data"], reverse=True)]),
+        "<h2 id='dfin'>Demonstrações financeiras dos patrimônios separados</h2>",
+        ("<p class='muted'>Opinião do auditor como informada à CVM; ler o relatório antes de concluir.</p>" if dfin else
+         "<p class='muted'>Ainda sem dados: rode scripts/ingest_cvm_dfin.py --commit e scripts/run_dfin_checks.py.</p>"),
+        table("t-dfin", [("Tipo", False), ("Certificado", False), ("Emissão", False), ("Data-base", False), ("Parecer", False),
+                         ("Sinais", False), ("Em atraso", False), ("Saldo (R$ mi)", True), ("DF", False)],
+              [[e(r["tipo"]), e(r["certificado"]), e(r["emissao"][:50]), e(r["data_base"]), e(r["parecer"]), e(r["sinais"]),
+                "sim" if r["em_atraso"] == "1" else "", brl_mi(r["saldo_brl"]),
+                f"<a href='{e(r['link'])}' target='_blank'>abrir</a>" if r["link"] else ""]
+               for r in sorted(dfin, key=lambda r: -Decimal(r["saldo_brl"] or 0))], limit=500) if dfin else "",
     ]
     page = ("<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'>"
             "<meta name='viewport' content='width=device-width, initial-scale=1'><title>Painel do mercado CRA/CRI</title>"
