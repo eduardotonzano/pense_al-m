@@ -45,7 +45,7 @@ O plano original tem três passos:
 |---|---|---|
 | Securitizados (CRI/CRA) | Enrico | Análise de garantias, covenants e histórico de documentos; agente que leia rapidamente os documentos da empresa |
 | Debêntures / Bonds | Eduardo | Buscar informações por empresa; PU real x PU par |
-| Produtos bancários / Renda fixa | A definir | Acompanhar taxas; calculadora de precificação a mercado; indicadores dos bancos |
+| Produtos bancários / Renda fixa | A definir (em aberto, ver R-01) | Acompanhar taxas; calculadora de precificação a mercado; indicadores dos bancos |
 | Fundos (FIDC / FIAGRO) | Gui | Acompanhar o mercado de FIDCs; FIDCs da casa x mercado |
 | Integração (T.I.) | Fábio | Juntar as frentes na camada compartilhada |
 
@@ -77,6 +77,7 @@ Decisões de arquitetura registradas em `docs/architecture/`:
 | ADR-003 | Repositórios de entidades |
 | ADR-004 | Persistência em SQLite |
 | ADR-005 | Integração gradual de emissores de debêntures |
+| ADR-006 | Contrato de leitura para o site (proposta) |
 
 A integração é gradual: os módulos legados são lidos em modo somente leitura por adaptadores, sem reescrita imediata e sem que a camada compartilhada dependa das classes internas deles.
 
@@ -134,7 +135,7 @@ Plataforma de coleta, histórico e monitoramento de CRIs e CRAs a partir do Fund
 - Acesso automatizado ao Fundos.NET com Playwright.
 - Catálogo de documentos em SQLite (fonte principal), com exportação para CSV.
 - Download de documentos pela ação oficial da grade, com hash SHA-256, versionamento e diagnóstico de tentativas.
-- Classificação de documentos por categoria (Termo de Securitização, Aditamento, Informe Mensal, Ata/Edital, Fato Relevante, Relatório de Agente Fiduciário, Relatório de Rating, Anúncio de Encerramento, Outro).
+- Classificação de documentos por categoria (Termo de Securitização, Aditamento, Informe Mensal, Ata/Edital, Fato Relevante, Relatório Agente Fiduciário, Relatório de Rating, Anúncio de Encerramento, Outro).
 - Ativo piloto: CRA022009VM (Café Brasil).
 - Relatórios de validação e diagnóstico em `Enrico/cri_cra_platform/reports/`.
 
@@ -176,8 +177,8 @@ A importação é idempotente. Arquivos `*.db` e `*.sqlite` estão no `.gitignor
 
 ```powershell
 cd Eduardo\debenture-replica
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
+py -m venv C:\Users\<voce>\debenture-venv
+C:\Users\<voce>\debenture-venv\Scripts\Activate.ps1
 py -m pip install -e ".[dev]"
 python -m pytest -q
 ```
@@ -199,11 +200,10 @@ Códigos de saída oficiais da coleta:
 
 ```powershell
 cd Enrico\cri_cra_platform
-py -m venv .venv
-.\.venv\Scripts\Activate.ps1
+py -m venv C:\Users\<voce>\cricra-venv
+C:\Users\<voce>\cricra-venv\Scripts\Activate.ps1
 py -m pip install -r requirements.txt
 playwright install chromium
-Copy-Item .env.example .env   # ajuste APP_ENV, DATABASE_PATH, LOG_LEVEL, FUNDOSNET_BASE_URL
 py scripts/run_foundation.py
 py -m pytest
 ```
@@ -216,7 +216,7 @@ Scripts úteis em `Enrico/cri_cra_platform/scripts/`: `run_document_catalog.py`,
 |---|---|
 | Shared Entity Layer | na raiz: `python -m pytest tests` com `PYTHONPATH=src` |
 | Debêntures (trabalho) | `cd Eduardo\debenture-replica` e `python -m pytest -q` |
-| Debêntures (congelada) | `cd debenture-replica` e `python -m pytest` (417 testes registrados em `FREEZE.md`) |
+| Debêntures (congelada) | `cd debenture-replica` e `python -m pytest` (105 testes; os 417 de `FREEZE.md` são da suíte completa na época do congelamento) |
 | CRI/CRA | `cd Enrico\cri_cra_platform` e `py -m pytest` |
 
 ## Estado atual
@@ -232,7 +232,7 @@ Mapa por passo do escopo, conforme o repositório em 20/10/2026:
 Pontos em aberto:
 
 - integrar a debênture (o instrumento) e os ativos CRI/CRA à camada compartilhada, com adaptador próprio para CRI/CRA (securitizadora e devedor, ambos com CNPJ);
-- persistir o catálogo completo de documentos CRI/CRA no banco principal e rodar o download em escala;
+- rodar o download em escala dos documentos CRI/CRA e o catálogo completo no banco principal (o código que persiste o catálogo já está na `main`: migration 001 e `run_document_catalog.py`);
 - ligar fontes oficiais adicionais (CVM e ANBIMA) às debêntures;
 - iniciar as frentes de Fundos e Renda fixa;
 - definir os requisitos de interface e destravar a etapa 9;
@@ -241,8 +241,8 @@ Pontos em aberto:
 ## Roadmap
 
 1. Adaptador de debêntures (instrumento) para a camada compartilhada.
-2. Adaptador CRI/CRA para a camada compartilhada (resolvendo o ISIN duplicado entre `asset_id` já identificado no banco do Enrico).
-3. Início da frente de Fundos (FIDC/FIAGRO) e definição do responsável por Renda fixa.
+2. Adaptador CRI/CRA para a camada compartilhada. O ISIN duplicado do Café Brasil, segundo `Enrico/cri_cra_platform/reports/duplicate_assets_diagnostic.md`, foi resolvido no banco local do Enrico em 08/10/2026 (não verificável neste repositório); falta modelar multissérie (S-07 em `docs/regras-de-exibicao-pendentes.md`).
+3. Início da frente de Fundos (FIDC/FIAGRO) e definição do responsável por Renda fixa (em aberto, ver R-01).
 4. Levantamento de requisitos de interface com a equipe e retomada da etapa 9.
 5. Motor de alertas: variações anormais de preço e notícias relevantes.
 6. Plataforma única de acesso para a equipe.
@@ -271,7 +271,7 @@ Pontos em aberto:
 
 | Pessoa | Papel |
 |---|---|
-| Eduardo Tonzano | Debêntures (e agora renda fixa) |
+| Eduardo Tonzano | Debêntures (Renda fixa: em aberto, ver R-01 em `docs/decisoes-em-aberto.md`) |
 | Enrico Suman Marques | Securitizados (CRI/CRA) |
 | Gui | Fundos (FIDC, FIC-FIDC, FIAGRO) |
 | Fábio Junior | T.I. e integração |
