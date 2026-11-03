@@ -3,7 +3,8 @@
 from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
-from sqlite3 import Connection, Row, connect
+from sqlite3 import Connection, Row, connect as sqlite_connect
+from uuid import uuid4
 
 from pense_alm.shared.entities import RepositoryValidationError
 
@@ -23,6 +24,15 @@ class SQLiteConnectionManager:
             )
 
         self._database_path = Path(database_path)
+        self._memory_uri: str | None = None
+        self._memory_anchor: Connection | None = None
+        self._memory_closed = False
+
+        if self._database_path == Path(":memory:"):
+            self._memory_uri = (
+                f"file:pense_alm_{uuid4().hex}?mode=memory&cache=shared"
+            )
+            self._memory_anchor = self._open_connection()
 
     @property
     def database_path(self) -> Path:
@@ -33,16 +43,38 @@ class SQLiteConnectionManager:
     def connect(self) -> Connection:
         """Abre uma conexao SQLite configurada."""
 
-        if self._database_path != Path(":memory:"):
+        if self._memory_uri is None:
             self._database_path.parent.mkdir(
                 parents=True,
                 exist_ok=True,
             )
 
-        connection = connect(
-            str(self._database_path),
-            timeout=30,
-        )
+        return self._open_connection()
+
+    def close(self) -> None:
+        """Fecha a conexao ancora do banco SQLite em memoria."""
+
+        if self._memory_anchor is not None:
+            self._memory_anchor.close()
+            self._memory_anchor = None
+            self._memory_closed = True
+
+    def _open_connection(self) -> Connection:
+        if self._memory_uri is not None:
+            if self._memory_closed:
+                raise RepositoryValidationError(
+                    "O banco SQLite em memoria ja foi fechado."
+                )
+            connection = sqlite_connect(
+                self._memory_uri,
+                timeout=30,
+                uri=True,
+            )
+        else:
+            connection = sqlite_connect(
+                str(self._database_path),
+                timeout=30,
+            )
 
         connection.row_factory = Row
         connection.execute("PRAGMA foreign_keys = ON")

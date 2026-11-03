@@ -432,6 +432,33 @@ def test_repository_lists_active_at_date(
     )
 
 
+def test_repository_compares_active_dates_across_timezones(
+    repositories,
+    provenance,
+):
+    entity_repository, repository = repositories
+    source, target = save_entities(entity_repository, provenance)
+    starts_at = datetime.fromisoformat(
+        "2026-03-01T10:00:00+02:00"
+    )
+    reference = datetime(
+        2026,
+        3,
+        1,
+        9,
+        tzinfo=UTC,
+    )
+    relationship = create_relationship(
+        provenance,
+        source.entity_id,
+        target.entity_id,
+        valid_from=starts_at,
+    )
+    repository.save(relationship)
+
+    assert repository.list_active_at(reference) == (relationship,)
+
+
 def test_repository_filters_active_type(
     repositories,
     provenance,
