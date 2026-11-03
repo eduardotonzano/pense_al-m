@@ -11,9 +11,11 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - `src/fundos/cvm_csv.py`: leitura comum dos CSV da CVM (cp1252 estrito, cabeçalho exato, largura das linhas, conversão por tipo, situação do identificador), usada pelo cadastro e pelo informe.
 - `src/fundos/cadastro/`: leitor do cadastro de fundos da CVM (`registro_fundo_classe.zip`), sem banco (`reader.py`, com a lista fechada de colunas em `columns.py`); filtro de FIDC e FIAGRO e escolha do registro vigente (`selection.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/informe_fidc/`: leitor do informe mensal de FIDC (`inf_mensal_fidc_AAAAMM.zip`, 18 tabelas), sem banco (`reader.py`, com a lista fechada das 461 colunas em `columns.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
+- `src/fundos/informe_fiagro/`: leitor do informe mensal de FIAGRO (`inf_mensal_fiagro_AAAAMM.zip`, 2 arquivos), sem banco (`reader.py`, com a lista fechada das 133 + 6 colunas em `columns.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `scripts/apply_migration.py`: aplica as migrations numeradas, com backup e verificação.
 - `scripts/load_cadastro.py`: carrega os FIDC e FIAGRO do cadastro. Veja "Como carregar o cadastro".
 - `scripts/load_informe_fidc.py`: carrega o informe mensal de FIDC. Veja "Como carregar o informe de FIDC".
+- `scripts/load_informe_fiagro.py`: carrega o informe mensal de FIAGRO. Veja "Como carregar o informe de FIAGRO".
 
 ## O que ainda não existe
 
@@ -22,6 +24,9 @@ Coletor, acesso à rede, banco real, dados reais e adaptador para a camada compa
 - a migration de prioridade das fontes (ADR-010, proposta);
 - o `registro_subclasse` como dado (hoje só entra no manifesto);
 - na reapresentação do informe: registrar no banco a célula que sumiu, guardar o conjunto exato de cedentes de cada ZIP e unir a série que trocou de rótulo à antiga (hoje só são contados; cada um exigiria uma migration nova, a 005, se o Gui quiser);
+- a reapresentação do informe de FIAGRO: hoje uma competência = um ZIP (outro ZIP do mesmo mês é recusado), e `Versao` e `Data_Entrega` só são gravadas, sem ordenar nada;
+- as classes de chave repetida no arquivo de FIAGRO e as subclasses delas (2 classes e 9 linhas de subclasse em 09/2026): só contadas, até o Gui decidir;
+- a conferência do informe de FIAGRO com o de FIDC e com o de FII, e a divergência de gestor e administradora entre o informe e o cadastro (FU5.2);
 - a `tab_VIII` e a `tab_X_4` do informe, lidas e conferidas mas **não carregadas** (várias linhas para o mesmo assunto e campo). A `tab_X_4` (captações, resgates e amortizações por série) fica **indisponível** até uma tarefa própria, com ADR (uma dimensão a mais em `observations`);
 - o uso dos cedentes: a regra para o percentual (em 09/2026, 385 valores acima de 100), as métricas de concentração e a forma de exibir são do Gui (Fases 6 a 10). Hoje os cedentes só são gravados;
 - a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
@@ -199,10 +204,63 @@ python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip 
 - **Andamento:** uma linha por tabela lida (`lido tab_IX: ... linha(s)`) e, no `--commit`, uma por tabela gravada (`gravado tab_IX: ... observacao(oes), ... s`).
 - **Tamanho e tempo:** cerca de 0,6 GB por competência (1,57 milhão de observações em 09/2026). Medido com dados fictícios do volume real (1,56 milhão de observações), em disco local: o banco cresceu 0,56 GB, o `--commit` completo (backup, carga e verificação) levou 7,3 min e o `--dry-run`, 15 s. Sem inserção em lote.
 
+## Como carregar o informe de FIAGRO
+
+O `scripts/load_informe_fiagro.py` lê o `inf_mensal_fiagro_AAAAMM.zip` da CVM (baixado à mão, fora do Git) e grava as observações do mês, as subclasses, a administradora e a gestora das classes que **já estão no banco**: o cadastro tem de ser carregado antes. `--database` e `--zip` são obrigatórios, e `--dry-run` ou `--commit` também. Não há `--reference-date`. `--last-modified` é opcional. Rode sempre o `--dry-run` antes. O `--commit` só com aprovação explícita. As regras abaixo são da FU5.1 e valem como **proposta: o Gui precisa confirmar**.
+
+```powershell
+cd Gui\fundos
+# prévia: lê e confere o ZIP; com o banco, mostra o casamento com o cadastro; não escreve nada
+python scripts\load_informe_fiagro.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\cvm-amostras\fiagro\inf_mensal_fiagro_202609.zip --dry-run
+# carga (banco migrado e com o cadastro carregado)
+python scripts\load_informe_fiagro.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\cvm-amostras\fiagro\inf_mensal_fiagro_202609.zip --commit
+```
+
+- **Banco em disco local**, como no cadastro: caminho de rede só gera aviso no stderr.
+- **Competência:**
+  - é o `AAAAMM` dos dois membros (e do nome do ZIP, quando segue o padrão `inf_mensal_fiagro_AAAAMM.zip`);
+  - `Data_Referencia` tem de ter um só valor nos dois arquivos, **o dia 1 desse mês**; senão o arquivo é recusado e nada é lido;
+  - a competência gravada (`reference_date`) é o **último dia do mês** (`2026-09-30`), a mesma convenção do `DT_COMPTC` do FIDC, para que os dois informes do mesmo mês empatem na data;
+  - **a data gravada não é a literal do arquivo** (`2026-09-01`): a literal é reconstruível, porque o leitor só aceita o dia 1;
+  - não pode ser posterior a hoje (UTC); `collected_at` é o início da coleta.
+- **Formato:** os 2 membros e só eles (`inf_mensal_fiagro_AAAAMM.csv`, 133 colunas, e `inf_mensal_fiagro_subclasse_AAAAMM.csv`, 6 colunas), cp1252 estrito, com o cabeçalho exatamente o da lista fechada (`src/fundos/informe_fiagro/columns.py`, montada do cabeçalho do dado de 09/2026, não do dicionário, que descreve só 13 dos 133 campos). Qualquer diferença aborta sem gravar nada.
+- **Identidade:** o `CNPJ_Classe` tem de estar em `fund_classes`. Nenhum fundo nem classe é criado, e nunca se casa por nome. O resto não carrega e é contado por arquivo e por classe: `CNPJ_Classe` vazio, CPF ou inválido; chave repetida no arquivo; CNPJ só como fundo; CNPJ fora do cadastro carregado; e, na subclasse, sem linha no arquivo de classe, rótulo vazio e par (classe, rótulo) repetido.
+- **Chave repetida:** um `CNPJ_Classe` em mais de uma linha do arquivo de classe não entra (nenhuma das linhas, nem as subclasses dele). Nada é escolhido por `Versao`, `Data_Entrega` ou nome; o relatório conta as chaves, as linhas e as chaves com `Versao` diferente. A coleta fica `success`, com `chaves_repetidas_nao_carregadas` no `error_summary`.
+- **O que vira observação:** `inf_mensal_fiagro.<Coluna>` (da classe) e `inf_mensal_fiagro_subclasse.<Coluna>` (da série), sem renomear: 123 das 133 colunas e 3 das 6.
+  - `CNPJ_Classe` e `Data_Referencia` são chave.
+  - `Nome_Classe` é observação da classe, como vem; o do arquivo de subclasse só é conferido, e a divergência é contada.
+  - Os `field_name` não coincidem com os do FIDC (`tab_*`) nem com os do cadastro (`registro_*`): a classe que está nos dois informes (1 em 09/2026) fica com os dois conjuntos, sem conflito falso.
+- **Não carregadas:** `Email_Administrador`, `Site` e `Servico_Atendimento_Cotista` (contato, decisão 3 de Fundos) e `Entidade_Administradora` (traz telefone em parte das linhas). São exigidas no cabeçalho e descartadas sem serem guardadas nem contadas.
+- **Valores:**
+  - decimal exato, com a notação científica convertida e contada por coluna, como no FIDC; zero é valor informado e vazio não tem linha; número, data e S/N fora do formato abortam;
+  - texto livre (`Regra_Anexo`, `Classificacao_Autorregulada`, `Prazo_Duracao`, `Encerramento_Exercicio_Social`) é gravado como vem, sem interpretar; nenhuma variante é derivada (decisão 7);
+  - `Versao` (numérica) e `Data_Entrega` (data) são observações comuns e não ordenam nada;
+  - `Codigo_ISIN` é texto e não é chave nem identidade (em 09/2026, 3 ISIN aparecem em duas classes cada).
+- **Papéis:** `CNPJ_Administrador` e `Nome_Administrador` (papel `administrador`) e `CNPJ_Gestor` e `Nome_Gestor` (papel `gestor`) vão para `party_observations` da classe, só com CNPJ válido.
+  - CPF (11 dígitos ou máscara), vazio ou inválido é descartado junto com o nome e contado; a máscara do CNPJ é tirada; 12 ou 13 dígitos com DV válido ganham os zeros.
+  - O gestor e a administradora do cadastro ficam no fundo (`registro_fundo.*`), com a data do retrato. Os do informe convivem com eles, cada um com a sua proveniência, sem conflito; a divergência fica para a FU5.2.
+- **Subclasses:** cada linha vira uma série da classe (`quota_series`) pelo rótulo normalizado, com a regra do FIDC e sem ID da CVM (o arquivo não tem); o rótulo original fica como observação da série. Nada diz sênior ou subordinada (FU6.2).
+  - As duas grafias de "Subclasse 1" (`Subclasse 1 (ou classe única)` e `Subclasse 1(ou classe única)`) viram **chaves diferentes**. Em 09/2026 nenhuma classe tem as duas.
+  - O par (classe, rótulo normalizado) repetido não entra (3 em 09/2026, todos nas chaves repetidas).
+- **`--last-modified`:** opcional, só como registro (a reapresentação do FIAGRO ainda não existe).
+  - Se informado: a mesma normalização do FIDC (ISO com fuso, como `2026-10-24T11:46:15Z`, ou o texto do cabeçalho HTTP; sem fuso ou no futuro, recusado), gravado em `raw_records.last_modified` do ZIP e mostrado em UTC, com o aviso quando a data dos membros passa dela em mais de 1 dia.
+  - Se não: `raw_records.last_modified` fica vazio e o relatório diz "Last-Modified do ZIP: nao informado".
+- **Uma competência = um ZIP:** o mesmo ZIP (mesmo SHA-256) diz "Nada a carregar" e não faz backup. Outro ZIP de uma competência já carregada é recusado no dry-run e no commit, sem backup. Carregue o ZIP mais recente do mês. Uma competência nova é carga normal, e as séries que já existem são reaproveitadas.
+- **Riscos conhecidos:**
+  - a CVM atualiza o conjunto toda semana: até a reapresentação existir, a atualização de um mês já carregado não entra;
+  - se uma atualização semanal trouxer `Versao` 1 e `Versao` 2 da mesma classe no mesmo ZIP, as duas linhas caem na regra de chave repetida e a classe fica sem dado até a tarefa de reapresentação;
+  - se a grafia de "Subclasse 1" mudar de um mês para outro, nasce outra série para a mesma subclasse; unir as grafias seria uma regra nova, do Gui;
+  - se o rótulo de uma série do FIDC e o de uma subclasse do FIAGRO da mesma classe normalizarem igual, os dois usam a mesma série (sem conflito, porque os campos são outros).
+- **Migrations:** 001 e 002, como o cadastro (sem cedente, não precisa da 003).
+- **Antes do COMMIT:** `integrity_check`, `foreign_key_check`, nenhuma coluna com `cpf` e nenhum texto inteiro com formato de CPF no que a coleta gravou (texto, nome e CNPJ). Se algo falhar, desfaz tudo e mantém o backup.
+- **Saída:** 0 (sucesso ou nada a fazer), 1 (erro, com "Erro ao carregar o informe de FIAGRO: ..." no stderr), 2 (argumentos).
+- **O relatório tem só agregados**, nunca CNPJ, nome, ISIN ou valor: linhas e colunas por arquivo, CNPJ por situação, chaves repetidas, `Versao` igual ou diferente de 1, datas de entrega distintas, ISIN, notação científica, papéis, subclasses, o casamento por arquivo e por classe e os candidatos (dry-run) ou o que foi gravado (commit).
+- **Esperado em 09/2026** (contagem em memória, só agregados, do arquivo de SHA-256 `a9700ab7...0948` da seção 9.1 de `docs/fundos-descoberta.md`): 312 linhas de classe (310 `CNPJ_Classe`), 308 carregáveis; 697 linhas de subclasse, 688 carregáveis (688 séries); 39.316 observações (37.252 da classe e 2.064 das séries); 616 papéis (308 administradores e 308 gestores). Com o cadastro de 27/10/2026, as 308 classes carregáveis estão em `fund_classes`.
+
 ## Como renomear
 
 - **Só a pasta** (`git mv Gui/fundos Gui/<nome>`): nenhum import muda; atualize os comandos deste README.
-- **O pacote** (`fundos` para `<pacote>`): `git mv src/fundos src/<pacote>`, troque `fundos.` nos imports de `src/`, `scripts/` e `tests/`, e a mensagem "Pacote fundos:" de `scripts/apply_migration.py`, de `scripts/load_cadastro.py` e de `scripts/load_informe_fidc.py` e o teste dela. Rode a suíte.
+- **O pacote** (`fundos` para `<pacote>`): `git mv src/fundos src/<pacote>`, troque `fundos.` nos imports de `src/`, `scripts/` e `tests/`, e a mensagem "Pacote fundos:" de `scripts/apply_migration.py`, de `scripts/load_cadastro.py`, de `scripts/load_informe_fidc.py` e de `scripts/load_informe_fiagro.py` e o teste dela. Rode a suíte.
 
 ## Pontos para o Fábio
 
