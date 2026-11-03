@@ -19,6 +19,8 @@ _STRONG_IDENTIFIER_TYPES = frozenset(
         IdentifierType.CVM_CODE,
         IdentifierType.ANBIMA_CODE,
         IdentifierType.LEI,
+        IdentifierType.ISIN,
+        IdentifierType.ASSET_CODE,
     }
 )
 
