@@ -7,6 +7,10 @@ do codigo.
 
 from fundos.cvm_csv import IDENTIFIER_STATUSES
 from fundos.informe_fiagro import columns as spec
+from fundos.informe_fiagro.loader import LOADED
+from fundos.informe_fiagro.loader import PARSER_VERSION
+from fundos.informe_fiagro.loader import REASONS
+from fundos.informe_fiagro.loader import SUBCLASS_REASONS
 from fundos.informe_fiagro.reader import VERSION_EMPTY
 from fundos.informe_fiagro.reader import VERSION_ONE
 from fundos.informe_fiagro.reader import VERSION_OTHER
@@ -17,6 +21,9 @@ EXCLUDED_COLUMNS = tuple(
     for column, kind in spec.CLASS_COLUMNS
     if kind == spec.EXCLUDED
 )
+VALUE_TYPES = ("text", "numeric", "date", "boolean")
+ROLES = tuple(role for role, _, _ in spec.PARTIES)
+TABLE_REASONS = {spec.CLASS_TABLE: REASONS, spec.SUBCLASS_TABLE: SUBCLASS_REASONS}
 
 
 def _statuses(counts, prefix):
@@ -162,6 +169,129 @@ def format_read_report(informe):
         "Colunas exigidas no cabecalho e descartadas sem guardar (contato e"
         " Entidade_Administradora): "
         + ", ".join(EXCLUDED_COLUMNS)
+    )
+
+    return lines
+
+
+def _outcomes(counts, prefix, reasons):
+    out = "; ".join(reason + " " + str(counts[prefix + (reason,)]) for reason in reasons)
+    total_out = sum(counts[prefix + (reason,)] for reason in reasons)
+
+    return (
+        "entram "
+        + str(counts[prefix + (LOADED,)])
+        + "; fora "
+        + str(total_out)
+        + " ("
+        + out
+        + ")"
+    )
+
+
+def format_match_report(counts):
+    """Linhas do casamento com o cadastro carregado, por arquivo e por classe."""
+
+    lines = ["Casamento com o cadastro carregado (linhas por arquivo):"]
+    lines.extend(
+        "  " + table + ": " + _outcomes(counts, ("casamento", table), TABLE_REASONS[table])
+        for table in spec.TABLES
+    )
+    lines.append(
+        "Classes (CNPJ_Classe distintos do arquivo de classe): "
+        + _outcomes(counts, ("classes",), REASONS)
+    )
+
+    return lines
+
+
+def format_candidates_report(counts):
+    """Linhas dos candidatos a gravar (dry-run com banco)."""
+
+    lines = ["Candidatos a gravar (competencia ainda nao carregada; todos novos):"]
+
+    for table in spec.TABLES:
+        lines.append(
+            "  observations "
+            + table
+            + ": "
+            + ", ".join(
+                value_type + " " + str(counts[("candidatas", table, value_type)])
+                for value_type in VALUE_TYPES
+            )
+        )
+
+    total = sum(n for key, n in counts.items() if key[0] == "candidatas")
+    lines.append(
+        "  observations total: "
+        + str(total)
+        + " (das quais com valor zero: "
+        + str(counts[("candidatas_zero",)])
+        + ")"
+    )
+    lines.append("  series (classe e rotulo da subclasse): " + str(counts[("series_candidatas",)]))
+    lines.append(
+        "  party_observations: "
+        + ", ".join(role + " " + str(counts[("papeis_candidatos", role)]) for role in ROLES)
+    )
+
+    return lines
+
+
+def format_load_report(result):
+    """Linhas do relatorio da carga gravada."""
+
+    counts = result.counts
+    lines = ["Gravado (coleta " + str(result.run_id) + ", status " + result.status + "):"]
+
+    for table in spec.TABLES:
+        created = sum(counts[("observacoes", table, t, "criadas")] for t in VALUE_TYPES)
+        existing = sum(counts[("observacoes", table, t, "existentes")] for t in VALUE_TYPES)
+        lines.append(
+            "  observations "
+            + table
+            + ": criadas "
+            + str(created)
+            + ", existentes "
+            + str(existing)
+        )
+
+    lines.append(
+        "  observations total criadas: "
+        + str(sum(n for key, n in counts.items() if key[0] == "observacoes" and key[3] == "criadas"))
+    )
+    lines.append(
+        "  series: criadas "
+        + str(counts[("series", "criadas")])
+        + ", existentes "
+        + str(counts[("series", "existentes")])
+    )
+
+    for role in ROLES:
+        lines.append(
+            "  party_observations "
+            + role
+            + ": criados "
+            + str(counts[("papeis", role, "criados")])
+            + ", existentes "
+            + str(counts[("papeis", role, "existentes")])
+        )
+
+    lines.append(
+        "  conflitos abertos: data_conflicts "
+        + str(counts[("conflitos", "data_conflicts")])
+        + ", party_conflicts "
+        + str(counts[("conflitos", "party_conflicts")])
+    )
+    lines.append(
+        "  manifesto: o ZIP e os 2 CSV em raw_records (" + PARSER_VERSION + ")"
+    )
+    lines.append(
+        "  varredura de CPF (texto inteiro com 11 digitos ou mascara): observations "
+        + str(counts[("varredura_cpf", "observations")])
+        + ", party_observations "
+        + str(counts[("varredura_cpf", "party_observations")])
+        + " (nome e CNPJ)"
     )
 
     return lines
