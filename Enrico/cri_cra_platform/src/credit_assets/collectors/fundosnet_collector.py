@@ -137,10 +137,14 @@ class FundosNetCollector(BaseCollector):
                     page, context, asset.securitizadora, diagnostics
                 )
                 if administrator is None:
-                    raise RuntimeError("securitizadora não localizada")
-                administrator_id = self._ui_select_administrator(
-                    page, asset, administrator, diagnostics
-                )
+                    # o nome no Fundos.NET às vezes difere do da CVM; com idAdm=0 o certificado é procurado em
+                    # todas as securitizadoras e a escolha continua exigindo o ISIN (ou CETIP) e a emissão
+                    diagnostics["administrator_fallback"] = "idAdm=0"
+                    administrator_id = 0
+                else:
+                    administrator_id = self._ui_select_administrator(
+                        page, asset, administrator, diagnostics
+                    )
                 validated_matches = self._search_fundos(
                     page, context, asset, administrator_id,
                     product_type_id(asset.tipo_ativo), diagnostics
@@ -276,20 +280,28 @@ class FundosNetCollector(BaseCollector):
         self._install_ui_listeners(page, diagnostics)
         started = time.monotonic()
         diagnostics["idFundo_dom_before"] = self._inspect_id_fundo(page)
-        page.locator("#idFundo").evaluate(
-            """el => { $('#idFundo').select2('open'); }"""
-        )
-        search = page.locator(".select2-drop-active input.select2-input")
         # o código pelo qual o Fundos.NET lista o certificado: ISIN, ou CETIP nas emissões antigas
         term = asset.isin if asset.isin.upper() in selected.text.upper() else asset.codigo_cetip
-        search.fill(term, force=True)
-        try:
-            page.locator(".select2-results li").filter(has_text=term).last.wait_for(
-                state="attached", timeout=min(self.timeout_ms, 5000)
+        ajax_option_found = False
+        if diagnostics.get("administrator_fallback"):
+            # sem securitizadora escolhida a tela deixa o campo desabilitado; o certificado já foi validado
+            # pela busca com idAdm=0 e é injetado abaixo
+            page.locator("#idFundo").evaluate(
+                """el => { $(el).prop('disabled', false); try { $(el).select2('enable', true); } catch (e) {} }"""
             )
-            ajax_option_found = True
-        except Exception:
-            ajax_option_found = False
+        else:
+            page.locator("#idFundo").evaluate(
+                """el => { $('#idFundo').select2('open'); }"""
+            )
+            search = page.locator(".select2-drop-active input.select2-input")
+            search.fill(term, force=True)
+            try:
+                page.locator(".select2-results li").filter(has_text=term).last.wait_for(
+                    state="attached", timeout=min(self.timeout_ms, 5000)
+                )
+                ajax_option_found = True
+            except Exception:
+                ajax_option_found = False
         validated_id = str(selected.id_fundo)
         validated_text = selected.text
         expected_debtor = normalize_text(asset.devedor).split()[:2]
