@@ -88,9 +88,18 @@ def parse_follow_up(pages_words: list[list[tuple]], text: str) -> dict[str, str]
     adherence = re.findall(r"(N[ãa]o\s+Aderente|Aderente|Desenquadrad\w*|Enquadrad\w*)", text)
     not_ok = [a for a in adherence if a.lower().startswith(("não", "nao", "desenq"))]
     overdue = _value_below(words, "Total de recebíveis vencidos:")
+    # saldo devedor por classe ("Sênior R$ 78.361.403,62 Mezanino R$ ... Subordinada R$ ..."); o total é a soma
+    classes = re.findall(r"(S[êe]nior|Mezanino|Subordinada(?:\s+J[úu]nior)?)\s*(" + MONEY + ")", text)
+    by_class = {name.split()[0].lower().replace("ê", "e"): re.sub(r"\s+", " ", value) for name, value in classes}
+    total = sum(money(value) or 0 for value in by_class.values())
     return {
         "total_garantias": _value_below(words, "TOTAL DE GARANTIAS:"),
-        "saldo_devedor": _value_below(words, "SALDO DEVEDOR:", MONEY, 60),
+        "saldo_devedor": (f"R$ {total:,.2f}".replace(",", "X").replace(".", ",").replace("X", ".") if by_class
+                          else _value_below(words, "SALDO DEVEDOR:", MONEY, 60)),
+        "saldo_senior": by_class.get("senior", ""),
+        "saldo_mezanino": by_class.get("mezanino", ""),
+        "saldo_subordinada": by_class.get("subordinada", ""),
+        "recebiveis_vinculados": _value_below(words, "Total de recebíveis vinculados na Carteira:", MONEY, 70),
         "alienacao_fiduciaria_imovel": _value_below(words, "Alienação Fiduciária de Imóvel:", MONEY, 15),
         "caixa_fundo_despesas": _value_below(words, "Caixa Fundo de Despesas:"),
         "caixa_fundo_retencao": _value_below(words, "Caixa Fundo de Retenção:"),

@@ -188,7 +188,7 @@ def write_outputs(rows: list[dict], failures: list[str], stats: Counter) -> None
     ]
     for code, items in sorted(failing.items(), key=lambda kv: (kv[1][0]["no_universo"] != "sim", kv[0])):
         for r in items:
-            lines.append(f"| {code} | {r['codigo_cetip']} | {r['devedor']} | {r['status_opea']} | {r['no_universo']} | "
+            lines.append(f"| {code} | {r['codigo_cetip']} | {r['devedor'].replace('|', '/')} | {r['status_opea']} | {r['no_universo']} | "
                          f"{r['competencia']} | {r['grupo_tipo']}: {r['item']} | {r['valor_referencia']} {r['condicao_referencia']} | "
                          f"{r['valor_apurado']} |")
     if failures:
