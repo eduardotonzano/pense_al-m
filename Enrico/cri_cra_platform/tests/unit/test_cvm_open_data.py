@@ -103,6 +103,36 @@ def test_zip_without_expected_csv_is_refused(connection):
         load_zip(connection, "CRI", 2026, "u", _zip({"leiame.txt": "x"}))
 
 
+def test_unclosed_quote_does_not_swallow_following_lines(connection):
+    stray = CLASSE + (
+        '10.753.164/0001-43;CRA1;2026-02-01;1;1;"BRECOACRALJ8;2030-12-18\r\n'
+        "10.753.164/0001-43;CRA1;2026-03-01;1;1;BRECOACRALJ8;2030-12-18\r\n"
+        '10.753.164/0001-43;CRA1;2026-04-01;1;1;"BRECOACRALJ8";2030-12-18\r\n'
+    )
+    load_zip(connection, "CRA", 2026, "u", _payload(**{"inf_mensal_cra_classe_2026.csv": stray}))
+    rows = connection.execute("SELECT Data_Referencia, Codigo_ISIN FROM cra_classe ORDER BY _row").fetchall()
+    assert [tuple(r) for r in rows[2:]] == [
+        ("2026-02-01", '"BRECOACRALJ8'),  # aspa sem fechamento preservada como texto
+        ("2026-03-01", "BRECOACRALJ8"),
+        ("2026-04-01", "BRECOACRALJ8"),  # campo entre aspas continua lido como antes
+    ]
+
+
+def test_reparse_rewrites_only_rows_of_that_file(connection):
+    from credit_assets.cvm_open_data import reparse_zip
+    payload = _payload()
+    load_zip(connection, "CRA", 2026, "u", payload)
+    assert reparse_zip(connection, payload)["status"] == "unchanged"
+    connection.execute("DELETE FROM cra_classe WHERE _row = 2")  # simula linha perdida pelo leitor antigo
+    connection.commit()
+    result = reparse_zip(connection, payload)
+    assert result["status"] == "reparsed" and result["rows"] == 5
+    assert connection.execute("SELECT COUNT(*) FROM cra_classe").fetchone()[0] == 2
+    assert connection.execute("SELECT COUNT(*) FROM source_files").fetchone()[0] == 1
+    assert reparse_zip(connection, payload)["status"] == "unchanged"
+    assert reparse_zip(connection, _payload(**{"inf_mensal_cra_geral_2026.csv": GERAL + GERAL[-40:]}))["status"] == "not_loaded"
+
+
 def test_plan_builds_urls_for_each_kind_and_year():
     files = plan(["CRA", "CRI"], [2025, 2026], lambda url: 123)
     assert [(f.kind, f.year) for f in files] == [("CRA", 2025), ("CRA", 2026), ("CRI", 2025), ("CRI", 2026)]

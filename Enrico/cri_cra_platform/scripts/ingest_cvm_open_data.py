@@ -2,6 +2,8 @@
 
   --dry-run   lista os arquivos e tamanhos que seriam baixados; não grava nada
   --commit    baixa os ZIPs (guardados em data/cvm_open/) e carrega em data/cvm_open.db
+  --reparse   com --commit: relê os ZIPs já carregados com o leitor atual e regrava as linhas que mudaram
+              (correção de carga feita com leitor antigo; proveniência e vigência continuam as mesmas)
 
 Banco separado do catálogo; recarga idempotente por SHA-256. Fonte pública (licença ODbL).
 """
@@ -16,7 +18,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from credit_assets.cvm_open_data import KINDS, connect, create_views, load_zip, plan, zip_url
+from credit_assets.cvm_open_data import KINDS, connect, create_views, load_zip, plan, reparse_zip, zip_url
 
 DEFAULT_DB = ROOT / "data" / "cvm_open.db"
 USER_AGENT = "pense-al-m-cri-cra/0.1 (dados abertos CVM; contato: equipe de dados)"
@@ -44,7 +46,10 @@ def main() -> int:
     mode = parser.add_mutually_exclusive_group(required=True)
     mode.add_argument("--dry-run", action="store_true")
     mode.add_argument("--commit", action="store_true")
+    parser.add_argument("--reparse", action="store_true")
     args = parser.parse_args()
+    if args.reparse and not args.commit:
+        parser.error("--reparse exige --commit")
 
     files = plan(args.kinds, args.years, head_size)
     if args.dry_run:
@@ -70,6 +75,8 @@ def main() -> int:
                 payload = response.read()
             (cache / f"inf_mensal_{item.kind.lower()}_{item.year}.zip").write_bytes(payload)
             result = load_zip(connection, item.kind, item.year, item.url, payload)
+            if args.reparse and result["status"] == "skipped":
+                result = reparse_zip(connection, payload)
             summary.append({"kind": item.kind, "year": item.year, **{k: v for k, v in result.items() if k != "sha256"}})
         views = create_views(connection)
         integrity = connection.execute("PRAGMA integrity_check").fetchone()[0]
