@@ -17,6 +17,10 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
   placar por securitizadora, sinal de séries da mesma classe em atraso e adimplentes, e sinais das DFs dos patrimônios separados
   (ressalva, abstenção, piora, prazo) a partir do índice DFIN da CVM.
 - `run_monthly_market.py --dry-run|--commit`: a rotina mensal inteira num comando, até o painel `reports/painel_mercado.html`.
+  Relatórios na competência de set/2026.
+- Leitor de CSV da CVM robusto a aspa sem fechamento (antes perdia registros sem erro); `ingest_cvm_open_data.py --commit --reparse`
+  relê os ZIPs já carregados e regrava só as linhas do arquivo que mudaram.
+- Acompanhamento de crédito dos 70 ativos do catálogo em 5 níveis de gravidade (`build_credit_watchlist.py`), com a fonte de cada motivo.
 
 **Lote 1 (29 ativos)**
 - Catálogo e download de 1.168 documentos pela fila, texto de 1.148 PDFs e OCR dos 53 em imagem.
@@ -53,7 +57,7 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 ### Como verificar
 ```powershell
 cd Enrico\cri_cra_platform
-$env:PYTHONPATH='..\..\src'; python -m pytest                       # 421 testes
+$env:PYTHONPATH='..\..\src'; python -m pytest                       # 426 testes
 python scripts/apply_migration.py --database data\cri_cra.db --dry-run
 python scripts/ingest_cvm_open_data.py --dry-run                     # lista os 16 arquivos da CVM, não grava
 python scripts/run_monthly_market.py --dry-run                       # rotina mensal sem gravar no banco

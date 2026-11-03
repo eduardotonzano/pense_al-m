@@ -135,3 +135,23 @@ pagamentos em abril e outubro), o mesmo padrão do Alibem.
   da Opea que estavam como "não instaladas" aprovaram, na verdade, o plano de recuperação extrajudicial da Raízen. Nova seção
   "Recuperação judicial ou extrajudicial" em `assembleias_topicos.md`: Prime Agro (CRA024006N5), Raízen (CRA02300JR5, CRA020001P7,
   CRA022008NB), Grupo Formoso (CRA024003PF), Patense (CRA022009C1F).
+- **Acompanhamento de crédito (30/10/2026)** (`scripts/build_credit_watchlist.py` → `reports/acompanhamento_credito.{md,csv}`): os 70
+  ativos do catálogo em 5 níveis de gravidade (evento grave nas atas, atraso no Informe, estresse recente, outros sinais, sem sinal),
+  cada motivo com a fonte; entra na rotina mensal e no painel.
+
+## Andamento (03/11/2026, encerramento)
+- **Merge da `main`** (Fundos: FIDC e FIAGRO, PRs #20 a #24); nada da `main` toca em `Enrico/`. Testes: 426 (CRI/CRA) e 285 (camada
+  compartilhada).
+- **Café Brasil (CRA022009VM):** catálogo atualizado (backup `cri_cra_20261103T161216_386789Z.sqlite3`); único documento novo é o
+  Informe de 09/2026 (entregue em 29/10), baixado e extraído: série **Em atraso**, saldo R$ 45.703.091,93, nenhum pagamento no mês.
+  É anterior ao resgate anunciado para 29/10/2026, então **o resgate e a taxa de waiver de 0,5% (vencimento 31/10) continuam não
+  confirmados**. A confirmação virá do Informe de 10/2026 (evento `saldo_zerou` na rotina mensal) ou de comunicado da Eco.
+- **Correção do leitor de CSV da CVM:** a CVM republicou os ZIPs e o CRI de 2026 trouxe `"Setembro/2026` com aspa sem fechamento, que
+  fazia o leitor juntar ~690 linhas num campo só (estourou o limite de 128 KB). A mesma falha, silenciosa, já tinha perdido 17
+  registros do CRI de 2019 a 2022 (`"AAAsf(bra)`). Leitor corrigido (um registro por linha; aspa sem par lida como texto) e releitura
+  `ingest_cvm_open_data.py --commit --reparse` aplicada com backup (`cvm_open_20261103T162015_826347Z.sqlite3`): CRI 2019 +2, 2020 +6,
+  2021 +6, 2022 +3 registros; segunda execução sem mudança; `integrity_check` ok. Limite: o arquivo do CRI 2022 de 29/10, já não
+  vigente, continua com a leitura antiga (não afeta views nem relatórios).
+- **Rotina mensal com a competência de set/2026:** universo de 1.208 emissões de CRA (630 com informe recente) e 3.845 de CRI (2.421).
+  Em set/2026, **44 séries de CRA entraram em atraso** (12 em ago/2026); as maiores: Opea BRAPCSCRA0M6 (R$ 1,17 bi) e Eco BRECOACRA8A1
+  (R$ 738 mi). Acompanhamento de crédito: 11 ativos no nível 1, 33 no nível 2.
