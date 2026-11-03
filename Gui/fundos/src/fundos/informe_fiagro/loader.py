@@ -100,7 +100,7 @@ def same_competence_message(informe):
         "Ja existe informe de FIAGRO carregado para a competencia "
         + informe.competence[:7]
         + " (outro ZIP). A reapresentacao do informe de FIAGRO ainda nao existe"
-        " (tarefa propria); o banco nao foi alterado."
+        " (tarefa propria)."
     )
 
 
