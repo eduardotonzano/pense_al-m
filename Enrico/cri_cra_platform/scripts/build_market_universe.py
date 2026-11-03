@@ -57,6 +57,13 @@ def main() -> int:
                              "securitizadora), em ordem de triagem, no formato de ativos_piloto.csv com ativo=false")
     args = parser.parse_args()
 
+    # nome da securitizadora como o Fundos.NET encontra (a CVM traz erros de digitação e nomes antigos), por CNPJ + nome
+    search_names = {}
+    names_path = ROOT / "config" / "securitizadoras_fundosnet.csv"
+    if names_path.exists():
+        with names_path.open(encoding="utf-8") as handle:
+            search_names = {(r["cnpj"], r["nome_cvm"]): r["nome_busca"] for r in csv.DictReader(handle)}
+
     cvm = sqlite3.connect(f"file:{args.cvm}?mode=ro", uri=True)
     cvm.row_factory = sqlite3.Row
     catalog = sqlite3.connect(f"file:{args.catalog}?mode=ro", uri=True)
@@ -105,7 +112,9 @@ def main() -> int:
                 # o Fundos.NET lista a emissão pelo código do certificado, que nem sempre é o ISIN da 1ª série
                 "codigo_cetip": first.get("Codigo_CETIP") or cert,
                 "isin": cert if ISIN_PATTERN.match(cert.upper()) else first["Codigo_ISIN"],
-                "securitizadora": info.get("Companhia_Emissora", ""), "cnpj_securitizadora": item["emissora"],
+                "securitizadora": search_names.get((item["emissora"], info.get("Companhia_Emissora", "")),
+                                                   info.get("Companhia_Emissora", "")),
+                "cnpj_securitizadora": item["emissora"],
                 "emissao": info.get("Numero_Emissao", ""), "serie": first.get("Numero_Serie", ""),
                 "tipo_ativo": kind.upper(), "devedor": "", "cnpj_devedor": "", "ativo": "false",
                 "score": item["score"], "sinais": "; ".join(f"{f}x{n}" for f, n in item["flags"].items()),

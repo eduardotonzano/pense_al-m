@@ -17,7 +17,7 @@ from urllib.parse import parse_qs, urljoin, urlsplit
 
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError, sync_playwright
 
-from credit_assets.collectors.fundosnet_collector import FundosNetCollector
+from credit_assets.collectors.fundosnet_collector import FundosNetCollector, describes_asset
 from credit_assets.download_diagnostics import safe_document_filename, safe_filename, sha256_bytes, validate_download
 from credit_assets.models.asset import Asset
 from credit_assets.repositories.document_version_repository import (
@@ -495,9 +495,8 @@ class FundosNetBrowserDownloader:
                         document = pending.get(source_id)
                         if document is None:
                             continue
-                        description_matches = (
-                            asset.isin.upper()
-                            in str(row.get("descricaoFundo") or "").upper()
+                        description_matches = describes_asset(
+                            asset, row.get("descricaoFundo") or ""
                         )
                         row_result = {
                             "document_id": document["document_id"],

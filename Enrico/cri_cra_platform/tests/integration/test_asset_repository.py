@@ -88,6 +88,23 @@ def test_conflicting_isin_and_cetip_are_rejected(tmp_path):
     assert connection.execute("SELECT COUNT(*) FROM assets").fetchone()[0] == 2
 
 
+def test_same_code_from_other_issuer_or_issuance_is_a_conflict_not_an_update(tmp_path):
+    connection = connect(tmp_path / "assets.db")
+    initialize_database(connection)
+    repository = AssetRepository(connection)
+    asset_id = repository.upsert(make_asset("24E3191695", "BRAPCSCRIP54", emissao="330"))
+    other_issuer = Asset("24E3191695", "CRI", "Casa de Pedra", "31.468.139/0001-98", "330", "1", "", "", "BRAPCSCRIP54")
+
+    with pytest.raises(ValueError, match="outra securitizadora"):
+        repository.upsert(other_issuer)
+    with pytest.raises(ValueError, match="outra emissão"):
+        repository.upsert(make_asset("24E3191695", "BRAPCSCRIP54", emissao="29"))
+
+    row = connection.execute("SELECT cnpj_securitizadora, emissao FROM assets WHERE asset_id = ?", (asset_id,)).fetchone()
+    assert tuple(row) == ("10.753.164/0001-43", "330")
+    assert repository.upsert(make_asset("24E3191695", "BRAPCSCRIP54", emissao="0330")) == asset_id
+
+
 def test_empty_identifiers_do_not_match_each_other_or_create_duplicate_assets(tmp_path):
     connection = connect(tmp_path / "assets.db")
     initialize_database(connection)
