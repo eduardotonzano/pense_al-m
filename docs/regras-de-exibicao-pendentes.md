@@ -40,7 +40,7 @@ Base: README da raiz, README do Fábio (contrato de integração), ADRs, exports
 - **S-05** Categoria "Outro": como exibir os documentos ainda não classificados (no inventário inicial do Café Brasil, os 124 documentos estavam nela).
 - **S-06** Leitura rápida dos documentos por agente: formato do resumo, citação da página de origem e aviso de que é resumo automático.
 - **S-07** Operações com várias séries e ativos que tiveram o mesmo ISIN em mais de um cadastro (já aconteceu com o Café Brasil): como mostrar as séries.
-- **S-08** Securitizadora ou devedor sem CNPJ (caso do CRI Almeida Junior): rótulo do dado ausente e se bloqueia a ficha.
+- **S-08** Securitizadora ou devedor sem CNPJ (caso do CRI Almeida Junior): rótulo do dado ausente e se bloqueia a ficha. A obtenção do dado e a fonte já estão resolvidas no módulo do Enrico (ver a Fase 2); falta só decidir o rótulo e o bloqueio.
 - **S-09** Informe mensal: quais indicadores extrair do XML e exibir.
 - **S-10** Rating: o relatório de rating é uma categoria de documento, mas a nota não é extraída. Definir exibição.
 - **S-11** Diferenças entre CRI e CRA na ficha (lastro, devedor, setor).
@@ -122,13 +122,13 @@ Aceite: os 3 ativos atuais com todos os campos ou com "sem dado" explícito, 0 c
 |---|---|---|
 | S-03, S-04 | Catálogo completo de documentos e estado do download | Persistir no banco principal e rodar o download em escala (pendência já listada no README). **Feito na branch `feat/cri-cra-catalogo`:** migration 001 com os campos da grade e a linha original, refresh do catálogo que não volta o estado do download para `pending`, `run_document_catalog.py` sem a whitelist de 2 ISINs e com `--dry-run`. **Pendente (ramo separado):** download em lotes com fila, retomada, limite de taxa e critério de parada |
 | S-05 | Categoria de cada documento | Classificador por nome e campos da grade; hoje quase tudo cai em "Outro". **Feito na branch `feat/cri-cra-catalogo`:** `reclassify_documents.py` com prévia em duas seções. Valem por padrão só as regras com evidência real (Informe Mensal; Ata/Edital pela Espécie; veto de Demonstrações Financeiras); as demais ficam desligadas até `--enable-unverified-rules`. **Pendente:** o número real de documentos que mudariam (depende do banco do Enrico) e ligar o classificador estrito ao catálogo |
-| S-08 | CNPJ da securitizadora (Opea) e do devedor (Almeida Junior) | Buscar na CVM e no Fundos.NET; registrar a fonte; sem preenchimento por inferência |
+| S-08 | CNPJ da securitizadora (Opea) e do devedor (Almeida Junior) | Buscar na CVM e no Fundos.NET; registrar a fonte; sem preenchimento por inferência. **Feito na branch `feat/cri-cra-cnpj`:** `resolve_cnpj.py` liga o ativo ao Informe Mensal de CRI/CRA da CVM só por ISIN e CETIP, nunca por nome, e grava com fonte, período dos informes e data da leitura em `asset_cnpj_observations` (migration 002). Lido nos dados abertos da CVM em 23/10/2026: securitizadora do Almeida Junior 02.773.542/0001-22 (20 informes, 01/2025 a 08/2026), aplicada em campo vazio; devedor 82.120.676/0001-83 (100%, só nos informes de jul e ago/2026) fica como **candidato** e `cnpj_devedor` segue vazio até haver segunda fonte e `--apply-devedor`. O Fundos.NET não mostra chave de CNPJ nas evidências do repositório; a grade ao vivo não foi verificada. **Pendente:** banco real (migration 002 e `--commit`, cada etapa com `--dry-run` antes), confirmação do devedor por segunda fonte (Termo de Securitização da emissão 301 ou cadastro da Receita, lido por uma pessoa), sonda da grade do Fundos.NET (`run_document_catalog.py --dry-run`) e a decisão de exibição (S-08 acima) |
 | S-07 | Séries e ISIN único | Os índices únicos já existem; falta modelar multissérie (ramo separado, ainda não iniciado) |
 | S-09 | Indicadores do informe mensal | Parser do XML para a tabela `informe_indicators`, com referência ao documento |
 | S-10 | Rating | Tabela `ratings` (agência, nota, data, documento de origem) |
 | S-01, S-02 | Garantias e covenants | Tabelas `guarantees` e `covenants`, preenchidas por extração do Termo de Securitização com a página de origem |
 | S-06 | Leitura por agente | Tabela `extractions` com texto citado, página, modelo usado e `status` (`pending_review`, `verified`); nada vai para a ficha sem revisão humana |
-Aceite: ativo piloto com todas as categorias presentes ou marcadas como ausentes; cada garantia e covenant com documento e página; a suíte atual continua passando (91 testes coletados em 22/10/2026; a contagem de 67 estava defasada).
+Aceite: ativo piloto com todas as categorias presentes ou marcadas como ausentes; cada garantia e covenant com documento e página; a suíte atual continua passando (182 testes ao fim de `feat/cri-cra-catalogo` e 324 ao fim de `feat/cri-cra-cnpj`, em 23/10/2026; a contagem de 67 estava defasada).
 
 ### Fase 3. Camada compartilhada · Fábio (M)
 - Adaptador de debêntures (instrumento) e adaptador de CRI/CRA, resolvendo o ISIN duplicado (roadmap itens 1 e 2).

@@ -45,15 +45,23 @@ class AssetRepository:
         stored_isin = isin or (
             self._normalize_identifier(existing["isin"]) if existing else None
         )
+        # CNPJ em branco na entrada (o CSV do piloto) nao apaga o que o banco ja
+        # tem, como o CNPJ resolvido pela CVM; CNPJ preenchido vale como antes.
+        stored_cnpj_securitizadora = asset.cnpj_securitizadora.strip() or (
+            (existing["cnpj_securitizadora"] or "").strip() if existing else ""
+        )
+        stored_cnpj_devedor = asset.cnpj_devedor.strip() or (
+            ((existing["cnpj_devedor"] or "").strip() or None) if existing else None
+        )
         values = (
             stored_cetip,
             asset.tipo_ativo.strip().upper(),
             asset.securitizadora.strip(),
-            asset.cnpj_securitizadora.strip(),
+            stored_cnpj_securitizadora,
             asset.emissao.strip(),
             self._normalize_series(asset.serie),
             asset.devedor.strip() or None,
-            asset.cnpj_devedor.strip() or None,
+            stored_cnpj_devedor,
             stored_isin,
             now,
         )
