@@ -283,6 +283,19 @@ Os nomes batem com os que o documento já citava e com o dicionário. Nas 115 li
 
 Os itens acima que dependiam da FU1.2 estão respondidos na seção 10, menos a sobreposição com o informe de FII e a comparação com o CDA, que, em 27/10/2026, não foram lidos. O CDA foi lido em 29/10/2026 (seção 12), mas só foi cruzado com o informe de FIDC; a comparação com o informe de FIAGRO não foi feita.
 
+### 9.8 O que a carga do informe de FIAGRO grava (FU5.1, 03/11/2026)
+
+A carga do informe de FIAGRO entrou no módulo de Fundos na FU5.1 (PR #24, 03/11/2026). As regras completas estão no README do módulo (`Gui/fundos/README.md`, seção "Como carregar o informe de FIAGRO"); aqui fica só o resumo do que é gravado e do que fica de fora. As regras da carga são propostas da FU5.1 que o Gui ainda precisa confirmar.
+
+- **Identidade:** só entra o `CNPJ_Classe` que já está em `fund_classes`, carregado do cadastro. Nenhum fundo nem classe é criado, e nunca se casa por nome.
+- **Chave repetida:** um `CNPJ_Classe` que aparece em mais de uma linha do arquivo de classe não é carregado (nenhuma das linhas, nem as subclasses dele); só é contado. Nada é escolhido por `Versao`, `Data_Entrega` ou nome.
+- **Uma competência = um ZIP:** outro ZIP do mesmo mês é recusado, porque a reapresentação do informe de FIAGRO ainda não existe.
+- **O que vira observação:** 123 das 133 colunas da classe (`inf_mensal_fiagro.*`) e 3 das 6 da subclasse (`inf_mensal_fiagro_subclasse.*`), sem renomear. A competência gravada é o último dia do mês (`Data_Referencia` vem no dia 1, seção 9.3). A gestora e a administradora viram papéis da classe, só com CNPJ válido.
+- **Séries:** cada linha de subclasse vira uma série da classe pelo rótulo normalizado, com a mesma regra do FIDC (seção 10.6). As duas grafias de "Subclasse 1" (seção 9.3) ficam como chaves diferentes.
+- **Fora da carga:** `Email_Administrador`, `Site` e `Servico_Atendimento_Cotista` (contato, decisão 3 de `docs/decisoes-em-aberto.md`) e `Entidade_Administradora` (proposta da seção 9.5). O CPF nunca é gravado.
+- **A variante não é gravada.** Nenhum domínio confirmado do informe ou do cadastro traz a variante (seções 9.3 e 10.5). `Regra_Anexo` e `Classificacao_Autorregulada` são gravados como texto, como vêm, sem interpretação. "Variante não informada" é regra de exibição (decisão 7 de `docs/decisoes-em-aberto.md`), não dado: nada no banco diz a variante.
+- **Resultado de 09/2026:** resultado da carga real de 09/2026 no banco de teste (FU5.1, 03/11/2026), com o arquivo da seção 9.1: 308 classes (as 310 chaves menos as 2 repetidas), 688 séries, 39.316 observações, 308 papéis de administrador e 308 de gestor, e 0 conflitos. Em 03/11/2026, a contagem de 308 classes e de 0 conflitos foi repetida no mesmo banco por um script de leitura da FU5.2 (seção 10.5). Ficam fora as 2 chaves repetidas e as 9 linhas de subclasse delas (README do módulo, lista "O que ainda não existe").
+
 ## 10. Amostra do cadastro e do informe de FIDC (27/10/2026)
 
 Leitura do cadastro de fundos, classes e subclasses, de um mês do informe mensal de FIDC e dos dois dicionários, para fechar os pontos que as seções 6, 8 e 9 deixavam para a FU1.2. Só agregados: esta seção não traz linhas de fundos, CNPJs, ISINs nem nomes. Os arquivos ficam numa pasta local fora do repositório e foram lidos em memória, sem extrair nada em disco, com a biblioteca padrão do Python.
@@ -387,6 +400,17 @@ Valores e contagens de linhas no arquivo inteiro, inclusive registros cancelados
 - **Conclusão: o cadastro não identifica a variante do FIAGRO (FII, FIDC, FIP).** O que existe é uma pista no histórico de registro: 166 das 310 classes têm o mesmo CNPJ em outro registro de `registro_fundo` (FIDC cancelado 88, FII cancelado 64, FIP cancelado 10, FIDC e FII cancelados 2, FII e FIP cancelados 1, FIDC em funcionamento 1); as outras 144 só têm o registro de FIAGRO. O tipo anterior não é a variante declarada: **não confirmado**.
 - **As duas chaves repetidas da seção 9.4:** cada CNPJ tem um só registro de classe no cadastro (um `ID_Registro_Classe`, em funcionamento normal). As duas linhas do informe não são duas classes no cadastro; a causa segue **não confirmada**.
 - **Sobreposição FIAGRO-FIDC:** 1 das 310 classes do informe de FIAGRO aparece no informe de FIDC de 09/2026, como `CNPJ_FUNDO_CLASSE` e como `CNPJ_CLASSE` da `tab_I`. No cadastro, ela é FIAGRO. No sentido inverso, 2 classes do informe de FIDC são FIAGRO no cadastro (uma é a da sobreposição), e mais 1 tem um registro de fundo FIAGRO. A classe que o cadastro registra como FIDC não está no informe de FIDC.
+
+**Conferência de 03/11/2026 no banco de teste.** Medido em 03/11/2026 no banco de teste, com um script de leitura fora do Git, depois da carga do cadastro de 27/10/2026 e dos informes de FIDC e de FIAGRO de 09/2026. Só agregados. Como o resto desta seção, é proposta: o Gui precisa confirmar.
+
+- **Classes com informe:** 308 no de FIAGRO de 09/2026 (as 310 chaves menos as 2 repetidas, que a carga não grava, seção 9.8) e 4.394 no de FIDC de 09/2026.
+- **Sobreposição:** 1 classe tem os dois informes, pela classe; 0 só pelo CNPJ do fundo. No cadastro, essa classe é FIAGRO. `Tipo_Classe` das 308: 307 FIAGRO e 1 FIDC; a classe FIDC não está no informe de FIDC, como acima.
+- **Os dois informes na classe em comum** (uma classe só; o resultado não se generaliza): o patrimônio líquido (`inf_mensal_fiagro.Patrimonio_Liquido` e `tab_IV.TAB_IV_A_VL_PL`) difere até 1%, e o ativo total (`inf_mensal_fiagro.Valor_Ativo` e `tab_I.TAB_I_VL_ATIVO`) difere de 1% a 10%; a administradora é a mesma. Há 0 linhas em `data_conflicts` e 0 em `party_conflicts` nos campos do informe de FIAGRO, porque os campos têm prefixos diferentes (`tab_*` e `inf_mensal_fiagro.*`) e nada compara os dois informes. Qual valor aparece é pergunta aberta na F-05 de `docs/regras-de-exibicao-pendentes.md`.
+- **Administradora, informe de FIAGRO e cadastro** (`registro_fundo.CNPJ_Administrador`, cadastro de 27/10/2026): 294 classes com o mesmo CNPJ e 14 com CNPJ diferente. Para o mesmo CNPJ, o nome difere (comparado sem acento, caixa e pontuação) em 92 das 294.
+- **Gestora, informe de FIAGRO e cadastro** (`registro_fundo.CPF_CNPJ_Gestor`): 279 com o mesmo conjunto de CNPJ, 13 em que a gestora do informe é uma das várias do cadastro e 16 com CNPJ diferente. O nome difere para o mesmo CNPJ em 84 de 292. Nas 308, os dois lados têm CNPJ válido: nenhuma gestora pessoa física e nenhuma ausente. Qual vale como valor atual do papel é pergunta aberta na F-03 de `docs/regras-de-exibicao-pendentes.md`.
+- **Causa das divergências: não confirmada.** O cadastro é de 27/10/2026 e o informe é da competência 09/2026; uma troca real entre as duas datas é hipótese, não medida.
+
+**Base da contagem de 166 (conferida em 03/11/2026, na FU5.2, com os arquivos das seções 9.1 e 10.1).** Contando pelo CNPJ da própria classe, são 165 classes com outro registro em `registro_fundo` (FII cancelado 63; só FIAGRO 145; as outras categorias como acima). A diferença é 1 classe cujo CNPJ é diferente do CNPJ do fundo pai: o registro de FII cancelado está no CNPJ do fundo pai. Contando pelo fundo pai, dá 166, como acima.
 
 ### 10.6 Séries e subordinação (item e)
 
