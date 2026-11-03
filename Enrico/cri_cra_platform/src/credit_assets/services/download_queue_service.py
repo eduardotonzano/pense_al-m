@@ -16,7 +16,7 @@ import unicodedata
 import uuid
 from collections import deque
 from dataclasses import asdict, dataclass, field
-from datetime import datetime, timedelta, timezone
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Callable, Iterable, Protocol
 
@@ -47,6 +47,8 @@ CATEGORY_PRIORITY = {
     "Anúncio de Encerramento": 80,
 }
 DEFAULT_EXCLUDED_NAME_TERMS = ("prospecto", "suplemento")
+# categorias volumosas em que só os documentos recentes interessam quando há corte por data (``since``)
+DEFAULT_DATED_CATEGORIES = ("Ata/Edital", "Outro", "Relatório Agente Fiduciário")
 GIGABYTE = 1_000_000_000
 
 # Erros do serviço de download que nunca melhoram com nova tentativa.
@@ -86,6 +88,8 @@ class QueueConfig:
     chunk_size: int = 1  # documentos do mesmo ativo por sessão de navegador
     categories: tuple[str, ...] = DEFAULT_CATEGORIES
     excluded_name_terms: tuple[str, ...] = DEFAULT_EXCLUDED_NAME_TERMS
+    since: date | None = None  # publicação (data de entrega no Fundos.NET) mínima nas categorias abaixo
+    dated_categories: tuple[str, ...] = DEFAULT_DATED_CATEGORIES
 
     def __post_init__(self) -> None:
         if self.min_interval_seconds < 0 or self.max_requests_per_minute < 1:
@@ -214,7 +218,7 @@ def candidate_documents(
     params: list[Any] = [*statuses]
     sql = f"""
         SELECT d.document_pk, d.source_document_id, d.category, d.document_name,
-               d.source_url, a.codigo_cetip, a.isin, a.asset_id
+               d.source_url, d.publication_date, a.codigo_cetip, a.isin, a.asset_id
         FROM documents d
         JOIN assets a ON a.asset_id = d.asset_id
         WHERE d.source = 'Fundos.NET'
@@ -239,7 +243,24 @@ def candidate_documents(
         row for row in rows
         if row["category"] in config.categories
         and not any(term in _fold(row["document_name"]) for term in terms)
+        and _recent_enough(row, config)
     ]
+
+
+def _publication(value: str | None) -> date | None:
+    """``publication_date`` do Fundos.NET vem como ``dd/mm/aaaa hh:mm``."""
+
+    try:
+        return datetime.strptime(str(value or "").strip()[:10], "%d/%m/%Y").date()
+    except ValueError:
+        return None
+
+
+def _recent_enough(row: sqlite3.Row, config: QueueConfig) -> bool:
+    if config.since is None or row["category"] not in config.dated_categories:
+        return True
+    published = _publication(row["publication_date"])
+    return published is None or published >= config.since  # sem data: não descarta
 
 
 def enqueue_documents(

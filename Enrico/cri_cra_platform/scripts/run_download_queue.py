@@ -15,6 +15,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from datetime import date
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -52,6 +53,9 @@ def build_parser() -> argparse.ArgumentParser:
                         help="código CETIP (repetível ou separado por vírgula)")
     parser.add_argument("--category", action="append", dest="categories",
                         choices=DEFAULT_CATEGORIES)
+    parser.add_argument("--since", type=date.fromisoformat, metavar="AAAA-MM-DD",
+                        help="atas/editais, comunicados (Outro) e relatórios do AF só publicados a partir da data; "
+                             "as demais categorias não têm corte")
     parser.add_argument("--include-failed", action="store_true")
     parser.add_argument("--max-items", type=int)
     parser.add_argument("--max-duration-minutes", type=float)
@@ -84,6 +88,7 @@ def build_config(args: argparse.Namespace) -> QueueConfig:
         min_free_bytes_floor=int(args.min_free_gb * GIGABYTE),
         abandon_after_seconds=int(args.abandon_minutes * 60),
         chunk_size=args.chunk_size,
+        since=args.since,
         **extra,
     )
 

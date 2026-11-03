@@ -121,6 +121,21 @@ def test_enqueue_dry_run_does_not_write_and_excludes_prospectus(connection):
     assert connection.execute("SELECT COUNT(*) FROM download_queue").fetchone()[0] == 0
 
 
+def test_since_cuts_only_dated_categories(connection):
+    from datetime import date
+    atas = _seed(connection, 3, category="Ata/Edital", cetip="CRA1", isin="BRX1")
+    termos = _seed(connection, 1, category="Termo de Securitização", cetip="CRA2", isin="BRX2")
+    dates = {atas[0]: "15/03/2024 10:00", atas[1]: "02/01/2025 09:00", atas[2]: None, termos[0]: "10/05/2019 12:00"}
+    for pk, value in dates.items():
+        connection.execute("UPDATE documents SET publication_date = ? WHERE document_pk = ?", (value, pk))
+    connection.commit()
+    from dataclasses import replace
+    report = enqueue_documents(connection, replace(_config(), since=date(2025, 1, 1)), dry_run=True)
+    # ata de 2024 fica fora; a de 2025 e a sem data entram; o Termo antigo não tem corte
+    assert report["to_enqueue"] == 3
+    assert report["by_category"] == {"Ata/Edital": 2, "Termo de Securitização": 1}
+
+
 def test_enqueue_is_idempotent_and_can_requeue_after_completion(connection):
     ids = _seed(connection, 2)
     assert enqueue_documents(connection, _config(), dry_run=False)["enqueued"] == 2
