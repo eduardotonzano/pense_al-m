@@ -4,7 +4,8 @@
 
 Fontes (só leitura, nada é gravado no banco):
   - CVM / triagem do mercado: config/ativos_mercado.csv (saldo, score, sinais) e reports/acompanhamento_credito.csv;
-  - Opea: reports/opea_monitoramentos.csv (itens "não atendido" do relatório mensal de gestão);
+  - Opea, Vert, Leverage, Bari e Canal: reports/<securitizadora>_monitoramentos.csv (itens "não atendido" do
+    relatório mensal da securitizadora; arquivo ausente é ignorado);
   - Eco: reports/eco_relatorios_mensais.csv (recebíveis vencidos, cobertura, itens não aderentes);
   - Riza: reports/riza_status_vs_cvm.csv (operação em "Default" no portal);
   - Termo/documentos do Fundos.NET: reports/garantias_covenants.csv (covenants com limite extraído).
@@ -21,6 +22,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 REPORTS = ROOT / "reports"
+MONITORS = {"Opea": "opea", "Vert": "vert", "Leverage": "leverage", "Bari": "bari", "Canal": "canal"}
 FINANCIAL = re.compile(r"[íi]ndice|cobertura|raz[ãa]o de garantia|ltv|d[íi]vida|ebitda|liquidez|alavanc|endivid", re.IGNORECASE)
 
 
@@ -59,19 +61,22 @@ def main() -> int:
         if not market[r["ativo"]].get("saldo_brl"):
             market[r["ativo"]]["saldo_brl"] = r["saldo_brl"]
 
-    opea = defaultdict(list)
-    for r in read(REPORTS / "opea_monitoramentos.csv"):
-        if r["codigo_cetip"]:
-            debtor_hint.setdefault(r["codigo_cetip"], f"{r['devedor']} (Opea)")
-        if r["situacao"] == "nao_atendido" and r["codigo_cetip"]:
-            opea[r["codigo_cetip"]].append(r)
-    for cetip, items in opea.items():
-        financial = [i for i in items if FINANCIAL.search(f"{i['grupo']} {i['item']}")]
-        shown = (financial or items)[:3]
-        detail = "; ".join(f"{i['item'] or i['grupo']} (exigido {i['valor_referencia']} {i['condicao_referencia']}, "
-                           f"apurado {i['valor_apurado']})" for i in shown)
-        label = "covenant/garantia financeira" if financial else "obrigação"
-        signals[cetip].append(("Opea", f"{len(items)} não atendido(s), {label}, {items[0]['competencia']}: {detail}"))
+    # relatórios mensais das securitizadoras com tabela de monitoramento (mesmo formato de colunas)
+    for source, slug in MONITORS.items():
+        failing = defaultdict(list)
+        for r in read(REPORTS / f"{slug}_monitoramentos.csv"):
+            for cetip in re.split(r"[\s,;]+", r.get("codigo_cetip") or ""):  # várias séries no mesmo campo
+                if cetip and r.get("devedor"):
+                    debtor_hint.setdefault(cetip, f"{r['devedor']} ({source})")
+                if cetip and r.get("situacao") == "nao_atendido":
+                    failing[cetip].append(r)
+        for cetip, items in failing.items():
+            financial = [i for i in items if FINANCIAL.search(f"{i['grupo']} {i['item']}")]
+            shown = (financial or items)[:3]
+            detail = "; ".join(f"{i['item'] or i['grupo']} (exigido {i['valor_referencia']} {i['condicao_referencia']}, "
+                               f"apurado {i['valor_apurado']})" for i in shown)
+            label = "covenant/garantia financeira" if financial else "obrigação"
+            signals[cetip].append((source, f"{len(items)} não atendido(s), {label}, {items[0]['competencia']}: {detail}"))
 
     for r in read(REPORTS / "eco_relatorios_mensais.csv"):
         parts = []
@@ -123,7 +128,7 @@ def main() -> int:
     multi = [r for r in rows if r["n_fontes"] >= 2]
     lines = ["# Covenants e alertas por ativo", "",
              "Junta, por código CETIP, os sinais de cada fonte: Informe CVM e atas (acompanhamento de crédito), relatório "
-             "mensal da Opea (itens não atendidos), acompanhamento mensal da Eco (recebíveis vencidos, aderência), portal "
+             "mensal das securitizadoras com tabela de monitoramento (Opea, Vert, Leverage, Bari, Canal: itens não atendidos), acompanhamento mensal da Eco (recebíveis vencidos, aderência), portal "
              "da Riza (Default) e os covenants com limite lidos no Termo. Sites de securitizadora complementam a CVM: "
              "divergência é para leitura, não correção.", "",
              f"Ativos com algum sinal: **{len(rows)}**; em duas ou mais fontes: **{len(multi)}**.", "",
