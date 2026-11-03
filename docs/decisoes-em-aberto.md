@@ -172,9 +172,15 @@ Fechamento da Fase 0 do plano da frente de Fundos. Ao contrário das quatro deci
 
 **Decisão:** o CPF nunca é gravado. O CPF aparece nos cedentes dos FIDCs, no campo do gestor pessoa física e no campo do auditor. Só CNPJ entra, e um teste automático garante isso. Os campos de pessoa natural (por exemplo o diretor) e os de contato (e-mail, site, atendimento) não são carregados.
 
-**Situação:** decidida, aprovada pelo Gui em 27/10/2026, registrada por Eduardo.
+**Situação:** decidida, aprovada pelo Gui em 27/10/2026, registrada por Eduardo. O alcance da regra no arquivo original da CVM foi decidido em 03/11/2026 pelo Gui, por delegação, a partir da proposta de Eduardo (opção A).
 
-**Pendência:** a confirmar com o Gui se a regra também vale para o arquivo original da CVM. Proposta, ainda não aprovada: o banco e o registro de coletas (`raw_records`) guardam só o manifesto do arquivo (nome, tamanho, SHA-256 e número de linhas), nunca o conteúdo; os arquivos originais ficam fora do Git, em pasta de acesso restrito.
+**Alcance da regra no arquivo original (decidido em 03/11/2026):** a regra também vale para o arquivo original da CVM, assim:
+
+1. o banco e o registro de coletas (`raw_records`) guardam só o manifesto do arquivo (nome, tamanho, SHA-256 e número de linhas), nunca o conteúdo;
+2. os arquivos originais ficam fora do Git e fora de pasta de rede, em pasta local de acesso restrito;
+3. não há regra de apagar o original depois da leitura.
+
+A decisão trata só do alcance da regra no arquivo original. As regras de guarda do leitor (seção 12.6 de `docs/fundos-descoberta.md`) continuam como proposta, a aprovar no plano da FU6.1.
 
 **O que depende dela:** o coletor e o adaptador da Fase 5, o teste automático que garante que nenhum CPF é gravado, a ficha (F-03) e os papéis em `party_observations` (seção 5 de `docs/fundos-descoberta.md`), que só recebem CNPJ.
 
@@ -246,7 +252,7 @@ Fechamento da Fase 0 do plano da frente de Fundos. Ao contrário das quatro deci
 |---|---|---|---|---|
 | 1 | Dono da frente | F-01 | decidida | nome da pasta do módulo, na criação do módulo de Fundos |
 | 2 | "Fundo da casa" | F-02 | decidida | |
-| 3 | CPF e dados pessoais | F-03 | decidida | confirmar com o Gui o alcance da regra do CPF (arquivo original) |
+| 3 | CPF e dados pessoais | F-03 | decidida | papel de gestor, auditor ou cedente pessoa física, sem identificador; 7 valores de cedente de 11 dígitos que também são CNPJ válido |
 | 4 | Pasta interna | F-02 | decidida | criação da pasta, pelo Eduardo com a TI |
 | 5 | Licença ODbL | | aprovada | conferir a licença (citar a fonte e manter a mesma licença) só antes de publicar fora da casa; não bloqueia o uso interno |
 | 6 | FIC-FIDC | F-04 | decidida | |
