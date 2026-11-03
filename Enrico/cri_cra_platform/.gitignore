@@ -6,6 +6,8 @@ data/*.db
 data/backups/
 data/_ocr_page.png
 data/lotes_mercado/
+data/arquivos_removidos.csv
+data/*.db-journal
 data/catalogo_documentos.csv
 reports/fundosnet_session_diagnostics.json
 reports/fundosnet_native_ui_diagnostic.json
