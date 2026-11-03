@@ -1,37 +1,37 @@
-﻿cnpj;securitizadora;emissoes_vivas;cra;cri;url_emissoes;observacao
-02.773.542/0001-22;OPEA SECURITIZADORA S.A;1112;181;931;;
-08.769.451/0001-08;RIZA SECURITIZADORA S.A.;472;132;340;;
-10.753.164/0001-43;Eco Securitizdora de Direitos Creditórios do Agronegócio;202;199;3;https://ecoagro.agr.br/emissoes;"03/11/2026 (corrigido): a lista /emissoes tem 439 emissões; cada linha tem data-id e abre /emissoes-integra/<id> (mapa em config/eco_emissoes_site.csv). A página da emissão é PÚBLICA: ISIN, CETIP, rating, PU e todos os documentos (Termo, aditamentos, atas AGT, comunicados, DFs e Relatório de Acompanhamento Mensal/de Gestão), PDFs em /public/storage/Arquivo/<timestamp><nome>. Login serve só para seguir emissões. O relatório mensal traz saldo, PU, fundos de retenção e despesas, não o cálculo dos covenants."
-04.200.649/0001-07;Companhia Província de Securitização;173;9;164;;
-09.304.427/0001-58;HABITASEC SECURITIZADORA S.A.;152;5;147;;
-25.005.683/0001-09;Vert Companhia Securitizadora;150;34;116;;
-41.811.375/0001-19;CANAL COMPANHIA DE SECURITIZAÇÃO;126;23;103;;
-48.415.978/0001-40;Leverage Companhia Securitizadora;98;4;94;;
-10.608.405/0001-60;BARI SECURITIZADORA S.A.;95;0;95;;
-26.609.050/0001-64;Travessia Securitizadora S.A;89;8;81;;
-12.979.898/0001-70;FORTE SECURITIZADORA S.A.;56;1;55;;
-03.767.538/0001-14;B.SEC Companhia de Securitização;52;0;52;;
-19.851.496/0001-35;LOGOS COMPANHIA SECURITIZADORA S.A.;27;2;25;;
-31.468.139/0001-98;CASA DE PEDRA SECURITIZADORA DE CREDITO S/A;26;0;26;;
-02.105.040/0001-23;Riza II Securitizadora S.A;25;0;25;;
-13.349.677/0001-81;REIT SECURITIZADORA S.A.;20;5;15;;
-55.085.811/0001-24;Éxes Securitizadora;13;5;8;;
-11.257.352/0001-43;BSI CAPITAL SECURITIZADORA S/A;11;1;10;;
-35.082.277/0001-95;BASE SECURITIZADORA S.A.;10;0;10;;
-51.319.586/0001-92;ROCK SECURITIZADORA S.A.;9;1;8;;
-12.261.588/0001-16;POLO CAPITAL SECURITIZADORA S.A.;8;0;8;;
-12.320.349/0001-90;Ourinvest Securitizadora S.A.;8;0;8;;
-12.139.922/0001-63;OCTANTE SECURIZADORA S.A.;7;5;2;;
-12.130.744/0001-00;OPEA SECURITIZADORA S.A.;6;2;4;;
-52.890.908/0001-11;Artesanal Securitizadora de Créditos S.A.;5;3;2;;
-09.538.973/0001-53;PDG COMPANHIA SECURITIZADORA;4;0;4;;
-14.876.090/0001-93;Gaia Impacto Securitizadora S.A.;4;3;1;;
-43.312.029/0001-11;LEVER SECURITIZADORA S.A.;4;0;4;;
-40.446.476/0001-75;PLAYSEC SECURITIZADORA SA;3;0;3;;
-48.238.484/0001-38;COMPANHIA SECURITIZADORA KANASTRA;3;0;3;;
-48.116.288/0001-90;CR Securitizadora S.A.;3;0;3;;
-31.907.982/0001-23;Filadelfia Securitizadora S.A;2;2;0;;
-07.587.384/0001-30;OPEA SECURITIZADORA S.A;1;0;1;;
-48.343.871/0001-34;BAMBOO SECURITIZADORA S.A.;1;0;1;;
-02.736.470/0001-43;CONFIANZA SECURITIZADORA S.A.;1;0;1;;
-28.231.010/0001-57;Bold Securitizadora S.A.;1;0;1;;
+﻿cnpj;securitizadora;emissoes_vivas;cra;cri;portal;url_emissoes;relatorio_mensal_padronizado;onde_relatorio_mensal;observacao
+02.773.542/0001-22;OPEA SECURITIZADORA S.A;1112;181;931;portal Opea;;desconhecido;"busca por nome, código IF ou emissão; documentos na operação";URL do portal a enviar (o texto colado não trouxe o link)
+08.769.451/0001-08;RIZA SECURITIZADORA S.A.;472;132;340;portal Riza;;sim;emissão > Documentos > Relatório Informe Mensal CVM;URL do portal a enviar (o texto colado não trouxe o link)
+10.753.164/0001-43;Eco Securitizdora de Direitos Creditórios do Agronegócio;202;199;3;portal Ecoagro;https://ecoagro.agr.br/emissoes;sim;emissão > Relatório Mensal / Relatório de Gestão Mensal (VERIFICADO, público);"03/11/2026 (corrigido): a lista /emissoes tem 439 emissões; cada linha tem data-id e abre /emissoes-integra/<id> (mapa em config/eco_emissoes_site.csv). A página da emissão é PÚBLICA: ISIN, CETIP, rating, PU e todos os documentos (Termo, aditamentos, atas AGT, comunicados, DFs e Relatório de Acompanhamento Mensal/de Gestão), PDFs em /public/storage/Arquivo/<timestamp><nome>. Login serve só para seguir emissões. O relatório mensal traz saldo, PU, fundos de retenção e despesas, não o cálculo dos covenants."
+04.200.649/0001-07;Companhia Província de Securitização;173;9;164;portal Província;;desconhecido;filtrar CRA e abrir a emissão;URL do portal a enviar (o texto colado não trouxe o link)
+09.304.427/0001-58;HABITASEC SECURITIZADORA S.A.;152;5;147;portal Habitasec;;sim;emissão > Informes Mensais CVM, por competência;URL do portal a enviar (o texto colado não trouxe o link)
+25.005.683/0001-09;Vert Companhia Securitizadora;150;34;116;VERT Data;;desconhecido;escolher VERT, filtrar CRA, abrir a emissão;URL do portal a enviar (o texto colado não trouxe o link)
+41.811.375/0001-19;CANAL COMPANHIA DE SECURITIZAÇÃO;126;23;103;portal Canal;;desconhecido;busca por código IF, emissão ou devedor;URL do portal a enviar (o texto colado não trouxe o link)
+48.415.978/0001-40;Leverage Companhia Securitizadora;98;4;94;site Leverage;;sim;Emissões > CRA > Relatórios (acompanhamento mensal);URL do portal a enviar (o texto colado não trouxe o link)
+10.608.405/0001-60;BARI SECURITIZADORA S.A.;95;0;95;portal BariSec;;sim;emissão > Relatórios > Mensais (informe da securitizadora, relatório mensal, relatório de gestão);URL do portal a enviar (o texto colado não trouxe o link)
+26.609.050/0001-64;Travessia Securitizadora S.A;89;8;81;portal Travessia;;parcial;"documentos, planilha histórica e eventos; relatório mensal varia por operação";URL do portal a enviar (o texto colado não trouxe o link)
+12.979.898/0001-70;FORTE SECURITIZADORA S.A.;56;1;55;portal Fortesec;;parcial;"Ver detalhes; parte dos documentos em extranet com login";URL do portal a enviar (o texto colado não trouxe o link)
+03.767.538/0001-14;B.SEC Companhia de Securitização;52;0;52;portal B.SEC;;parcial;"Mais detalhes; emissões antigas sem relatórios";URL do portal a enviar (o texto colado não trouxe o link)
+19.851.496/0001-35;LOGOS COMPANHIA SECURITIZADORA S.A.;27;2;25;portal Logos (CRI e CRA);;nao;"documentos e atas; relatórios anuais; sem biblioteca mensal pública";URL do portal a enviar (o texto colado não trouxe o link)
+31.468.139/0001-98;CASA DE PEDRA SECURITIZADORA DE CREDITO S/A;26;0;26;portal do Grupo Riza;;desconhecido;pesquisar a emissão no portal da Riza;URL do portal a enviar (o texto colado não trouxe o link)
+02.105.040/0001-23;Riza II Securitizadora S.A;25;0;25;portal do Grupo Riza;;sim;emissão > Relatório Informe Mensal CVM;URL do portal a enviar (o texto colado não trouxe o link)
+13.349.677/0001-81;REIT SECURITIZADORA S.A.;20;5;15;lista de emissões REIT;;parcial;"Ver emissão; nem toda página tem informe mensal";URL do portal a enviar (o texto colado não trouxe o link)
+55.085.811/0001-24;Éxes Securitizadora;13;5;8;portal Éxes;;sim;emissão > Relatórios > acompanhamento mensal por competência (inclui CRA);URL do portal a enviar (o texto colado não trouxe o link)
+11.257.352/0001-43;BSI CAPITAL SECURITIZADORA S/A;11;1;10;não localizado;;desconhecido;sem portal público próprio confiável;
+35.082.277/0001-95;BASE SECURITIZADORA S.A.;10;0;10;portal Base;;desconhecido;selecionar a emissão pelo nome;URL do portal a enviar (o texto colado não trouxe o link)
+51.319.586/0001-92;ROCK SECURITIZADORA S.A.;9;1;8;portal Rock;;desconhecido;Emissões > CRI ou CRA > documentos;URL do portal a enviar (o texto colado não trouxe o link)
+12.261.588/0001-16;POLO CAPITAL SECURITIZADORA S.A.;8;0;8;portal Polo Capital;;nao;arquivos por série: termos, atas e relatórios anuais;URL do portal a enviar (o texto colado não trouxe o link)
+12.320.349/0001-90;Ourinvest Securitizadora S.A.;8;0;8;não localizado;;desconhecido;registro das emissões, sem portal público atual;
+12.139.922/0001-63;OCTANTE SECURIZADORA S.A.;7;5;2;portal Octante;;parcial;"clicar na emissão; relatórios em algumas operações";URL do portal a enviar (o texto colado não trouxe o link)
+12.130.744/0001-00;OPEA SECURITIZADORA S.A.;6;2;4;mesmo portal da Opea;;desconhecido;busca por código IF, nome ou emissão;URL do portal a enviar (o texto colado não trouxe o link)
+52.890.908/0001-11;Artesanal Securitizadora de Créditos S.A.;5;3;2;não localizado;;desconhecido;tem informes mensais, mas sem página própria que consolide;
+09.538.973/0001-53;PDG COMPANHIA SECURITIZADORA;4;0;4;não localizado;;desconhecido;sem página pública atual;
+14.876.090/0001-93;Gaia Impacto Securitizadora S.A.;4;3;1;emissoes.grupogaia.com.br;https://emissoes.grupogaia.com.br/;sim;operação > Arquivos da Operação > Informe Mensal, por competência;
+43.312.029/0001-11;LEVER SECURITIZADORA S.A.;4;0;4;portal Lever;;desconhecido;"Ver detalhes; lista emissões e séries";URL do portal a enviar (o texto colado não trouxe o link)
+40.446.476/0001-75;PLAYSEC SECURITIZADORA SA;3;0;3;playsec.com.br;https://playsec.com.br/;parcial;"domínio próprio com documentos e relatórios anuais; navegação menos organizada";
+48.238.484/0001-38;COMPANHIA SECURITIZADORA KANASTRA;3;0;3;não localizado;;desconhecido;sem portal público próprio que consolide as emissões;
+48.116.288/0001-90;CR Securitizadora S.A.;3;0;3;não localizado;;desconhecido;sem site público pelo CNPJ;
+31.907.982/0001-23;Filadelfia Securitizadora S.A;2;2;0;não localizado;;desconhecido;sem portal público atual;
+07.587.384/0001-30;OPEA SECURITIZADORA S.A;1;0;1;mesmo portal da Opea;;desconhecido;conferir a emissora pelo CNPJ na página da operação;URL do portal a enviar (o texto colado não trouxe o link)
+48.343.871/0001-34;BAMBOO SECURITIZADORA S.A.;1;0;1;página Bamboo;;desconhecido;emissões, detalhes de CRI e documentos das ofertas;URL do portal a enviar (o texto colado não trouxe o link)
+02.736.470/0001-43;CONFIANZA SECURITIZADORA S.A.;1;0;1;não localizado;;desconhecido;sem portal público ativo;
+28.231.010/0001-57;Bold Securitizadora S.A.;1;0;1;não localizado;;desconhecido;sem página pública própria;
