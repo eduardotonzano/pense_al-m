@@ -214,7 +214,7 @@ Fechamento da Fase 0 do plano da frente de Fundos. Ao contrário das quatro deci
 
 **O que depende dela:** a classificação de FIC-FIDC na Fase 5 e a fila de revisão manual.
 
-**Continua em aberto:** em F-04, a forma de exibir as cotas de FIDC investidas; a lista dos FIDCs investidos continua dependendo do CDA, não lido.
+**Continua em aberto:** em F-04, a forma de exibir as cotas de FIDC investidas; a lista dos FIDCs investidos continua dependendo do CDA, lido em 29/10/2026 (seção 12 de `docs/fundos-descoberta.md`): a lista existe só para as classes com posição em cotas identificada.
 
 ### 7. Variante do FIAGRO (F-05)
 

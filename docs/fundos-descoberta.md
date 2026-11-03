@@ -2,9 +2,9 @@
 
 Documento de descoberta da frente de Fundos, para responder às regras F-01 a F-06 de [regras-de-exibicao-pendentes.md](regras-de-exibicao-pendentes.md). A "maior dor" do [README](../README.md) para esta frente é acompanhar o mercado de FIDCs e comparar os FIDCs da casa com o mercado.
 
-**Escopo.** Só descoberta. Não há código de coleta, migration, banco ou dado interno neste trabalho, e nenhuma migration recebe número aqui. O Fundos.NET foi consultado só na sonda de 27/10/2026 (seção 11): 10 requisições GET de leitura à página pública e à grade, sem download de documento. Na primeira etapa (26/10/2026), das fontes da CVM foram lidas só páginas públicas de dados abertos e dicionários de dados (cerca de 60 KB no total). Em 27/10/2026 foram baixados seis arquivos da CVM: o informe mensal de FIAGRO de 09/2026 e o dicionário (seção 9); o cadastro de fundos, classes e subclasses, o informe mensal de FIDC de 09/2026 e os dois dicionários (seção 10). Eles ficam numa pasta local fora do repositório, e nenhum arquivo baixado está neste repositório. O CDA foi lido em 29/10/2026 (seção 12); só o informe de FII não foi baixado. As respostas da sonda do Fundos.NET também ficam fora do repositório. As oito decisões da Fase 0 de Fundos, aprovadas pelo Gui em 27/10/2026, estão em `docs/decisoes-em-aberto.md` (parte "Fundos: decisões da Fase 0"); este documento remete a elas pelo número e mantém como pendente o que elas não decidem.
+**Escopo.** Só descoberta. Não há código de coleta, migration, banco ou dado interno neste trabalho, e nenhuma migration recebe número aqui. O Fundos.NET foi consultado só na sonda de 27/10/2026 (seção 11): 10 requisições GET de leitura à página pública e à grade, sem download de documento. Na primeira etapa (26/10/2026), das fontes da CVM foram lidas só páginas públicas de dados abertos e dicionários de dados (cerca de 60 KB no total). Em 27/10/2026 foram baixados seis arquivos da CVM: o informe mensal de FIAGRO de 09/2026 e o dicionário (seção 9); o cadastro de fundos, classes e subclasses, o informe mensal de FIDC de 09/2026 e os dois dicionários (seção 10). Eles ficam numa pasta local fora do repositório, e nenhum arquivo baixado está neste repositório. O CDA foi lido em 29/10/2026 (seção 12); só as medidas e o informe de FII não foram baixados. Em 29/10/2026 foram feitas 7 requisições à CVM, com 4 downloads (o ZIP e o dicionário do CDA, o informe de FIDC de 09/2026 e o cadastro), descritas na seção 12.1. As respostas da sonda do Fundos.NET também ficam fora do repositório. As oito decisões da Fase 0 de Fundos, aprovadas pelo Gui em 27/10/2026, estão em `docs/decisoes-em-aberto.md` (parte "Fundos: decisões da Fase 0"); este documento remete a elas pelo número e mantém como pendente o que elas não decidem.
 
-**Data da conferência:** 26/10/2026 (fontes e código) e 27/10/2026 (amostra de FIAGRO, seção 9; amostra do cadastro e do informe de FIDC, seção 10; sonda da grade do Fundos.NET, seção 11; texto sincronizado com as decisões da Fase 0 de Fundos). Tudo que não foi conferido está marcado como **não confirmado** e reunido na seção 8 e nas seções 9.7, 10.10 e 11.8.
+**Data da conferência:** 26/10/2026 (fontes e código), 27/10/2026 (amostra de FIAGRO, seção 9; amostra do cadastro e do informe de FIDC, seção 10; sonda da grade do Fundos.NET, seção 11; texto sincronizado com as decisões da Fase 0 de Fundos), 29/10/2026 (leitura do CDA, seção 12) e 30/10/2026 (conferência final dos hashes dos 4 arquivos, seção 12.1). Tudo que não foi conferido está marcado como **não confirmado** e reunido na seção 8 e nas seções 9.7, 10.10, 11.8 e 12.8.
 
 ## Resumo
 
@@ -92,7 +92,7 @@ Todas as páginas declaram a licença **ODbL**. Decidido pelo Gui em 27/10/2026:
 | Subordinação | **não existe pronta**; calcular a partir de `tab_X_2` por classe/série | o rótulo `TAB_X_CLASSE_SERIE` não tem domínio, mas segue um molde que classifica todas as séries de 09/2026; quantidade × valor fecha com o PL em 4.154 das 4.444 classes (seção 10.6) |
 | Carteira de recebíveis | `tab_I` (I.2.a e I.2.b), `tab_II` (segmento), `tab_V` e `tab_VI`, `tab_VII`, `tab_IX`, `tab_X`. FIAGRO: `A_Vencer_*`, `Vencidos_*`, `Direitos_Creditorios_Agronegocio` | conferido |
 | Cedentes | `tab_I.TAB_I2A12_*` e `TAB_I2B12_*` (CPF/CNPJ e %), só os 9 maiores; `tab_VII.B` | **o CPF aparece** no dado (120 valores de 11 dígitos em 69 classes, seção 10.8); o CPF nunca é gravado, só o CNPJ, decidido pelo Gui em 27/10/2026 (decisão 3 de `docs/decisoes-em-aberto.md`); em aberto: como aparece o cedente pessoa física, sem identificador, e os 7 valores ambíguos (seção 10.8) |
-| Cotas investidas (FIC-FIDC) | total em `tab_I.TAB_I2H_VL_COTA_FIDC` (`TAB_I2I_VL_COTA_FIDC_NP` vem vazio e `TAB_I2_COTA_FIDC` é provisão); posições no CDA, Bloco 2 | o detalhe de cada FIDC investido só existe no CDA |
+| Cotas investidas (FIC-FIDC) | total em `tab_I.TAB_I2H_VL_COTA_FIDC` (`TAB_I2I_VL_COTA_FIDC_NP` vem vazio e `TAB_I2_COTA_FIDC` é provisão); posições no `cda_fie` (seção 12.4) | o detalhe de cada FIDC investido só existe no CDA |
 | Spread, rating das cotas | não existem no informe | ficam "ausente" (regra de ausente com razão) |
 
 ## 5. Schema proposto
@@ -120,7 +120,7 @@ Mesmo esqueleto de `Eduardo/debenture-replica/migrations/001_initial_schema.sql`
 **FIC-FIDC**
 
 - **Como identificar (conferido em 09/2026, seção 10.4): nenhum campo marca um FIC-FIDC.** No cadastro ele é `Tipo_Fundo` FIDC, e `Classe_Cotas`, `Classificacao` e `Classificacao_Anbima` vêm vazios nas classes de FIDC. No informe, `TP_FUNDO_CLASSE` só separa fundo e classe. O sinal que resta é a parcela do ativo em cotas de FIDC (`TAB_I2H_VL_COTA_FIDC` sobre `TAB_I_VL_ATIVO`): 892 classes com 67% ou mais e 518 com 95% ou mais. Corte decidido pelo Gui em 27/10/2026: 95% ou mais classifica como FIC-FIDC, e de 67% a menos de 95% vai para revisão manual (decisão 6 de `docs/decisoes-em-aberto.md`). É uma regra de corte, não um dado da CVM; a regra da norma não foi verificada. Os cotistas "cotas de FIDC" da `tab_X_1_1` (538 classes) mostram o lado do fundo investido. Nunca identificar por "FIC" no nome.
-- **Posições:** CDA, Bloco 2 (`CNPJ_FUNDO_CLASSE_COTA`, `NM_FUNDO_CLASSE_SUBCLASSE_COTA`). Para FIDC e FIAGRO as posições estão no `cda_fie` desde 08/11/2025, mas o dicionário dele não mostra a coluna do fundo investido (a conferir).
+- **Posições:** CDA: para FIDC e FIAGRO as posições estão no `cda_fie` (FIDC e FIAGRO entraram no CDA em 08/11/2025, no arquivo `cda_fie` desde 15/11/2025), e o fundo investido vem em `CPF_CNPJ_EMISSOR` (seção 12.4). O Bloco 2 (`CNPJ_FUNDO_CLASSE_COTA`) traz só detentores FIF, FIP e FI.
 - **Exibição (F-04), proposta:** lista dos fundos investidos com valor e % do PL. Não somar métricas "por transparência" (dupla contagem), a menos que seja pedido e calculado à parte.
 
 **FIAGRO**
@@ -281,7 +281,7 @@ Os nomes batem com os que o documento já citava e com o dicionário. Nas 115 li
 - Se `Prazo_Duracao` com 0, 99, 999, 1000, 9999 ou 99999 significa prazo indeterminado.
 - O que é `FIIM` (o dicionário não descreve).
 
-Os itens acima que dependiam da FU1.2 estão respondidos na seção 10, menos a sobreposição com o informe de FII e a comparação com o CDA, que não foram lidos. O CDA foi lido em 29/10/2026 (seção 12), mas só foi cruzado com o informe de FIDC; a comparação com o informe de FIAGRO não foi feita.
+Os itens acima que dependiam da FU1.2 estão respondidos na seção 10, menos a sobreposição com o informe de FII e a comparação com o CDA, que, em 27/10/2026, não foram lidos. O CDA foi lido em 29/10/2026 (seção 12), mas só foi cruzado com o informe de FIDC; a comparação com o informe de FIAGRO não foi feita.
 
 ## 10. Amostra do cadastro e do informe de FIDC (27/10/2026)
 
@@ -669,9 +669,9 @@ O nome do ZIP de 09/2026 e o do dicionário saíram da página do conjunto (<htt
 
 Condições das 7 requisições:
 
-- aprovadas uma a uma, antes da execução, com a URL e o tamanho esperado;
+- aprovadas uma a uma pelo Gui, antes da execução, com a URL e o tamanho esperado;
 - HTTPS com TLS verificado, sem redirecionamento seguido e sem retentativa;
-- User-Agent `pense-alm-fundos-sonda/0.1` e teto de bytes por resposta.
+- User-Agent `pense-alm-fundos-sonda/0.1` e teto de bytes por resposta: R1 512.000; R2 e R3 (HEAD) sem corpo; R4 102.400; R5 20.971.520; R6 10.485.760; R7 20.971.520.
 
 Todas as respostas foram 200, sem 403, 429 ou redirecionamento. Todas as horas são de 29/10/2026, em UTC.
 
@@ -706,7 +706,7 @@ Os 4 arquivos analisados foram conferidos de novo em 30/10/2026, depois da anál
 
 ### 12.2 Estrutura
 
-O ZIP de dados traz 12 CSV e o dicionário, 12 TXT (`meta_<arquivo>.txt`). Os campos de cada CSV são exatamente os do dicionário: nenhum a mais, nenhum a menos.
+O ZIP de dados traz 12 CSV; o dicionário (ZIP separado, `meta_cda_fi_txt.zip`) traz 12 TXT (`meta_<arquivo>.txt`). Os campos de cada CSV são exatamente os do dicionário: nenhum a mais, nenhum a menos.
 
 | CSV (`_202609`) | Comprimido | Descomprimido | Linhas de dados | Campos |
 |---|---|---|---|---|
@@ -795,7 +795,7 @@ Nas 6.228 linhas de cotas do `cda_fie`, `TP_FUNDO_CLASSE` do detentor é CLASSES
 - **O detentor (`CNPJ_FUNDO_CLASSE`) vem com máscara** em todos os 12 arquivos, com DV válido em todas as linhas.
 - **Outros emissores nos blocos:** com máscara no `BLC_5` (`CNPJ_EMISSOR`, 28.702), no `BLC_6` (`CPF_CNPJ_EMISSOR`, 1.862, todos PJ) e no `BLC_8` (`CPF_CNPJ_EMISSOR`, 67.903 PJ; 53.260 vazios).
 - **Nenhum CNPJ alfanumérico** em nenhum arquivo.
-- **Consequência:** no mesmo arquivo, o detentor vem com máscara e o investido sem. O adaptador normaliza os dois para 14 caracteres (sem máscara, maiúsculas, zeros à esquerda) e guarda o valor original.
+- **Consequência:** no mesmo arquivo, o detentor vem com máscara e o investido sem. A normalização do CNPJ segue em aberto (F-01, seção 8); esta amostra mostra que o leitor vai precisar tratar o CNPJ com e sem máscara.
 
 ### 12.5 Cruzamento com a `tab_I`
 
@@ -862,12 +862,12 @@ Em todas as 6.228 linhas de cotas, sem filtro de faixa, os tipos são:
 
 **Leitura**
 
-- **Só o investido FIDC pelo cadastro fecha a conta.** Na versão A, 266 de 292 classes (95% ou mais) e 134 de 173 (67% a 95%) ficam a até 1% do informe.
+- **Versão A:** é a versão que mais se aproxima do informe: 266 de 292 e 134 de 173 classes ficam a até 1% (95% ou mais e 67% a 95%, respectivamente).
 - **Com todas as cotas (B)**, ficam a até 1% só 189 e 16, e o resto pende para "CDA maior". O desvio é compatível com a parcela do valor identificado em investidos que não são FIDC no cadastro: 1,5% numa faixa e 12,9% na outra.
 - **O valor confidencial (C)** não permite a mesma separação: 63 de 88 e 7 de 38 ficam a até 1%.
 - **Não explicado:**
   - as classes fora de 1% na versão A, 26 numa faixa e 39 na outra;
-  - as 3 classes com cotas identificadas e nenhuma em FIDC.
+  - entre essas 26, as 3 classes com cotas identificadas e nenhuma em FIDC (já contadas nas 26).
 - **A tolerância da conferência não é escolhida aqui** (FU6.1). As faixas acima só descrevem o que o dado mostra.
 
 ### 12.6 Dados pessoais
@@ -876,12 +876,12 @@ Em todas as 6.228 linhas de cotas, sem filtro de faixa, os tipos são:
   - O valor tem 14 caracteres, só dígitos, e começa com "000".
   - O DV de CNPJ falha, e os 11 dígitos finais passam no DV de CPF.
   - Está entre os 3 DVs inválidos de 12.4. O valor não é reproduzido aqui.
-  - O conteúdo de `EMISSOR` nessa linha não foi verificado. Por precaução, o leitor não carrega `EMISSOR` de linha PF.
+  - O conteúdo de `EMISSOR` nessa linha não foi verificado. Por precaução, o leitor não carrega `EMISSOR` de linha PF. Proposta, pendente de aprovação (alcance da regra do CPF no arquivo original, pendência da decisão 3, e plano da FU6.1).
 - **Nenhuma coluna tem CPF com 11 dígitos ou com máscara de CPF.** Os valores de 11 dígitos encontrados não têm indício de CPF:
   - `QT_ATIVO_EXTERIOR` (`BLC_7`): 2.285 valores, numa coluna de quantidade. Os 25 que passam no DV de CPF são 1,1% de 2.285, proporção compatível com o acaso;
   - `VL_VENDA_NEGOC`, `VL_AQUIS_NEGOC` e `VL_MERC_POS_FINAL` (`cda_fi_CONFID`): 6, 6 e 46 valores, em colunas de valor; nenhum passa no DV de CPF;
   - `DS_ATIVO` (`BLC_8`): 14 valores, numa descrição do ativo; nenhum passa no DV de CPF.
-- **Uma varredura que procure só 11 dígitos não acha o caso acima.** Regra de guarda para o leitor: um valor de 14 caracteres só vale como CNPJ se `PF_PJ_EMISSOR` for PJ e o DV de CNPJ fechar. Fora disso, o identificador não é gravado (decisão 3 de `docs/decisoes-em-aberto.md`). O teste automático do CPF precisa cobrir o CPF completado com zeros.
+- **Uma varredura que procure só 11 dígitos não acha o caso acima.** Regra de guarda para o leitor: um valor de 14 caracteres só vale como CNPJ se `PF_PJ_EMISSOR` for PJ e o DV de CNPJ fechar. Fora disso, o identificador não é gravado (decisão 3 de `docs/decisoes-em-aberto.md`). Proposta, pendente de aprovação (alcance da regra do CPF no arquivo original, pendência da decisão 3, e plano da FU6.1). A guarda também deixaria de fora identificadores PJ com DV inválido, o que precisa ser conciliado com a regra de preservar o valor original da fonte (CLAUDE.md, regra 4). O teste automático do CPF precisa cobrir o CPF completado com zeros.
 - **Nomes:**
   - `DENOM_SOCIAL`, do detentor, vem em todos os arquivos;
   - `EMISSOR`, do emissor ou investido, vem no `cda_fie` e nos blocos 5 a 8;
@@ -902,7 +902,7 @@ Em todas as 6.228 linhas de cotas, sem filtro de faixa, os tipos são:
   - nenhum detentor tem cotas identificadas e confidenciais ao mesmo tempo;
   - 2 detentores têm outras linhas no `cda_fie`, mas nenhuma de cotas;
   - 148 não aparecem no `cda_fie`.
-- **Peso:** a soma de `VL_MERC_POS_FINAL` das cotas é 26055475915 no confidencial e 91749162826.71 nas cotas identificadas do `cda_fie`. O confidencial é cerca de 22% da soma das duas. As duas somas misturam todos os tipos de detentor (FIDC, FIAGRO e FIIM nas identificadas; FIDC e FIIM nas confidenciais) e de investido. São agregados da coluna, e a moeda não é afirmada.
+- **Peso:** a soma de `VL_MERC_POS_FINAL` das cotas é 26.055.475.915 no confidencial e 91.749.162.826,71 nas cotas identificadas do `cda_fie`. O confidencial é cerca de 22% da soma das duas. As duas somas misturam todos os tipos de detentor (FIDC, FIAGRO e FIIM nas identificadas; FIDC e FIIM nas confidenciais) e de investido. São agregados da coluna, e a moeda não é afirmada.
 - **Efeito no cruzamento (12.5):** 88 classes da faixa de 95% ou mais e 38 da de 67% a 95% só têm posição confidencial. Nelas, o informe só pode ser comparado com o total consolidado (versão C), e não se sabe quanto dele é FIDC.
 - **Requisito para o plano da FU6.1:** a tabela `holdings` precisa prever posição sem CNPJ do investido, com o motivo "confidencial até 2026-12", que é o que o dado permite afirmar. Como representar o valor consolidado fica para a FU6.1.
 
