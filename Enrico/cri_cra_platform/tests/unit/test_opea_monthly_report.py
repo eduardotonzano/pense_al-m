@@ -58,3 +58,13 @@ def test_monthly_reports_are_ordered_most_recent_first():
         {"id": 4, "titulo": "Relatório Mensal Gestão Fiduciária - 12/2025"},
     ]
     assert [(month, e["id"]) for month, e in monthly_reports(events)] == [("2026-09", 3), ("2026-08", 1), ("2025-12", 4)]
+
+
+def test_riza_investor_reports_most_recent_first():
+    from credit_assets.riza_portal import investor_reports
+    docs = [
+        {"id": 1, "type": "Relatório do Investidor", "description": "RI 08.2026", "emissionDate": "2026-08-30"},
+        {"id": 2, "type": "Relatório Informe Mensal CVM ", "description": "", "emissionDate": "2026-09-01"},
+        {"id": 3, "type": "Relatório do Investidor", "description": "RI 09.2026", "emissionDate": "2026-09-30"},
+    ]
+    assert [d["id"] for d in investor_reports(docs)] == [3, 1]

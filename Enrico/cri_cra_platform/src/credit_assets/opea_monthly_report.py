@@ -76,9 +76,12 @@ def _header_bounds(lines: list[tuple[float, list[tuple[float, str]]]], index: in
                     for x, t in other if t in ("Valor", "Condição", "Data", "Próxima"))
     if len(starts) < 6:
         return None
-    starts = starts[:6]
-    # o texto da coluna de valor de referência começa à esquerda do título ("R$" antes de "Valor")
-    return [starts[0] - 30] + [x - 20 for x in starts[1:]]
+    valor_ref, cond_ref, valor_apu, cond_apu, data, proxima = starts[:6]
+    # valor de referência começa à esquerda do título ("R$" antes de "Valor"); condição de referência quase alinhada;
+    # nas demais colunas o texto de uma célula longa ("Recebido 16.12.25") pode começar antes do título, então o
+    # limite fica no meio do caminho entre os títulos vizinhos
+    return [valor_ref - 30, cond_ref - 10, (cond_ref + valor_apu) / 2, (valor_apu + cond_apu) / 2,
+            (cond_apu + data) / 2, (data + proxima) / 2]
 
 
 def _column(x: float, bounds: list[float]) -> int:
@@ -120,21 +123,29 @@ def parse_monitoring(pages_words: list[list[tuple]]) -> list[Monitoring]:
                 continue  # resto do cabeçalho ("Descrição", "Referência", "Valor Apurado")
             if bounds is None or text.startswith(("Descrição", "Referência")):
                 continue
-            first_word = line[0][1]
-            # título de grupo ("Obrigaçao: Demonstrações Financeiras") pode passar da coluna de descrição,
-            # mas nunca tem conteúdo nas colunas de condição apurada ou de datas
-            if line[0][0] < 45 and GROUP.match(first_word) and all(x < bounds[3] for x, _ in line):
+            # título de grupo ("Obrigaçao: Demonstrações Financeiras", "Garantia Acessória: Seguro Patrimonial",
+            # "Rating: Rating Primário"): começa na margem, tem dois-pontos numa das três primeiras palavras e nunca
+            # tem conteúdo nas colunas de condição apurada ou de datas
+            head_words = [t for _, t in line[:3]]
+            if (line[0][0] < 45 and any(t.endswith(":") for t in head_words)
+                    and all(x < bounds[3] for x, _ in line)):
                 rows.append((y, "grupo", text))
                 continue
             cells = [[] for _ in COLUMNS]
             for x, t in line:
                 cells[_column(x, bounds)].append(t)
-            anchor = bool(cells[4] or cells[5] or cells[6])
+            # o item é a linha com data de verificação ou com uma situação reconhecível; texto longo do valor apurado
+            # que quebra de linha pode cair na área da condição apurada e não é item
+            has_date = any(DATE.match(t) for t in cells[5] + cells[6])
+            has_status = _status(" ".join(cells[4])) not in ("", "outro") or " ".join(cells[4]).strip() == "-"
+            anchor = has_date or has_status
+            if not anchor and cells[4]:
+                cells[3], cells[4] = cells[3] + cells[4], []
             rows.append((y, "item" if anchor else "resto", cells))
         if not started:
             continue
         anchors = [i for i, r in enumerate(rows) if r[1] == "item"]
-        merged = {i: [list(c) for c in rows[i][2]] for i in anchors}
+        pieces = {i: [[(rows[i][0], c)] for c in rows[i][2]] for i in anchors}  # por coluna: (altura, palavras)
         for i, (y, kind, cells) in enumerate(rows):
             if kind != "resto":
                 continue
@@ -143,13 +154,13 @@ def parse_monitoring(pages_words: list[list[tuple]]) -> list[Monitoring]:
             if not candidates:
                 continue
             target = min(candidates, key=lambda a: abs(rows[a][0] - y))
+            if cells[1] and cells[1][0] == "-" and cells[0]:
+                cells = [cells[0] + ["-"], cells[1][1:], *cells[2:]]  # hífen de fim de linha da descrição
             for col, words_in_cell in enumerate(cells):
                 if words_in_cell:
-                    place = merged[target][col]
-                    if y < rows[target][0]:
-                        merged[target][col] = words_in_cell + place
-                    else:
-                        merged[target][col] = place + words_in_cell
+                    pieces[target][col].append((y, words_in_cell))
+        # as linhas de uma célula ficam na ordem de leitura (de cima para baixo)
+        merged = {i: [[t for _, part in sorted(col, key=lambda p: p[0]) for t in part] for col in pieces[i]] for i in anchors}
         for i, (y, kind, content) in enumerate(rows):
             if kind == "grupo":
                 head, _, rest = content.partition(":")
