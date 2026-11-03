@@ -1,7 +1,7 @@
 ﻿cnpj;securitizadora;emissoes_vivas;cra;cri;url_emissoes;observacao
 02.773.542/0001-22;OPEA SECURITIZADORA S.A;1112;181;931;;
 08.769.451/0001-08;RIZA SECURITIZADORA S.A.;472;132;340;;
-10.753.164/0001-43;Eco Securitizdora de Direitos Creditórios do Agronegócio;202;199;3;https://ecoagro.agr.br/emissoes;"03/11/2026: lista pública de 439 emissões (30 páginas, ?page=N) com ano, operação, emissão, série, CETIP e valor; sem busca por ISIN e sem link por emissão. Relatório por CRA só na área restrita (login/cadastro). Radar Ecoagro e Regulatório trazem só relatórios de fundo (EGAF11)."
+10.753.164/0001-43;Eco Securitizdora de Direitos Creditórios do Agronegócio;202;199;3;https://ecoagro.agr.br/emissoes;"03/11/2026 (corrigido): a lista /emissoes tem 439 emissões; cada linha tem data-id e abre /emissoes-integra/<id> (mapa em config/eco_emissoes_site.csv). A página da emissão é PÚBLICA: ISIN, CETIP, rating, PU e todos os documentos (Termo, aditamentos, atas AGT, comunicados, DFs e Relatório de Acompanhamento Mensal/de Gestão), PDFs em /public/storage/Arquivo/<timestamp><nome>. Login serve só para seguir emissões. O relatório mensal traz saldo, PU, fundos de retenção e despesas, não o cálculo dos covenants."
 04.200.649/0001-07;Companhia Província de Securitização;173;9;164;;
 09.304.427/0001-58;HABITASEC SECURITIZADORA S.A.;152;5;147;;
 25.005.683/0001-09;Vert Companhia Securitizadora;150;34;116;;
