@@ -17,12 +17,12 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | Campo | Concorda | Diverge | Informe usa data do lastro | Sem valor no Termo |
 |---|---|---|---|---|
 | data_emissao | 61 | 3 | 0 | 3 |
-| vencimento | 123 | 61 | 3 | 3 |
-| remuneracao | 158 | 16 | 0 | 2 |
-| devedor | 19 | 10 | 0 | 2 |
-| valor_total | 48 | 13 | 0 | 0 |
-| quantidade | 42 | 19 | 0 | 0 |
-| valor_nominal_unitario | 53 | 9 | 0 | 0 |
+| vencimento | 123 | 63 | 3 | 3 |
+| remuneracao | 161 | 15 | 0 | 2 |
+| devedor | 24 | 10 | 0 | 2 |
+| valor_total | 50 | 11 | 0 | 0 |
+| quantidade | 40 | 21 | 0 | 0 |
+| valor_nominal_unitario | 52 | 10 | 0 | 0 |
 
 ## Resumo por ativo
 
@@ -32,23 +32,24 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | 23F1829746 | 11 | 9 | 0 | 0 | 0 |
 | 13D0358495 | 2 | 6 | 0 | 0 | 0 |
 | 23C1835265 | 23 | 6 | 0 | 0 | 0 |
+| 23F2472075 | 5 | 6 | 0 | 1 | 0 |
 | 24E2495042 | 2 | 6 | 0 | 0 | 0 |
-| 23F2472075 | 5 | 5 | 0 | 1 | 0 |
 | 23H1753231 | 4 | 5 | 0 | 0 | 0 |
-| 26F3681477 | 2 | 5 | 0 | 0 | 0 |
 | CRA019000XD | 1 | 5 | 0 | 0 | 0 |
 | CRA02500C1D | 10 | 5 | 0 | 0 | 0 |
-| 23F2454937 | 7 | 3 | 0 | 0 | 0 |
-| 23H1487992 | 6 | 3 | 0 | 0 | 0 |
+| 26F3681477 | 5 | 4 | 0 | 0 | 0 |
+| 21H1002745 | 9 | 3 | 0 | 0 | 0 |
+| 23H1487992 | 7 | 3 | 0 | 0 | 0 |
 | CRA020001P8 | 4 | 3 | 0 | 0 | 0 |
 | CRA023000040H | 3 | 3 | 0 | 0 | 0 |
+| CRA024000GP | 8 | 3 | 0 | 0 | 0 |
 | CRA02400E1M | 8 | 3 | 0 | 0 | 0 |
 | 20L0504499 | 19 | 2 | 0 | 0 | 0 |
 | 21H0769214 | 19 | 2 | 0 | 0 | 0 |
-| 21H1002745 | 10 | 2 | 0 | 0 | 0 |
 | 21L0967403 | 27 | 2 | 0 | 0 | 0 |
 | 22D0836679 | 5 | 2 | 0 | 0 | 0 |
-| 23H1186528 | 8 | 2 | 0 | 0 | 0 |
+| 23E2052239 | 7 | 2 | 0 | 0 | 0 |
+| 23F2454937 | 9 | 2 | 0 | 0 | 0 |
 | 23I1698089 | 6 | 2 | 0 | 0 | 0 |
 | 23K2122788 | 6 | 2 | 0 | 0 | 0 |
 | 24E2535171 | 7 | 2 | 0 | 0 | 0 |
@@ -65,8 +66,8 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | CRA022009C1F | 4 | 2 | 0 | 0 | 0 |
 | CRA02300VY3 | 6 | 2 | 0 | 0 | 0 |
 | 21K0660418 | 8 | 1 | 0 | 0 | 0 |
-| 23E2052239 | 8 | 1 | 0 | 0 | 0 |
 | 23H1097588 | 11 | 1 | 0 | 0 | 0 |
+| 23H1186528 | 10 | 1 | 0 | 0 | 0 |
 | 23I0096173 | 8 | 1 | 0 | 0 | 0 |
 | 24D3466320 | 14 | 1 | 0 | 0 | 0 |
 | 25C3273266 | 6 | 1 | 0 | 0 | 0 |
@@ -74,7 +75,6 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | 25L3279335 | 6 | 1 | 0 | 0 | 0 |
 | CRA022009VM | 5 | 1 | 0 | 0 | 0 |
 | CRA02300TBL | 8 | 1 | 0 | 0 | 0 |
-| CRA024000GP | 7 | 1 | 0 | 0 | 0 |
 | CRA024006N5 | 7 | 1 | 0 | 0 | 0 |
 | CRA024007PW | 7 | 1 | 0 | 0 | 0 |
 | 21A0870788 | 8 | 0 | 0 | 0 | 0 |
@@ -119,8 +119,9 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | 20L0504499 | valor_nominal_unitario | 1000.00; 1000.00 | 1010.77 |  |  |
 | 21H0769214 | data_emissao | 2021-08-09 | 2021-08-19 | 206861 p.9 |  |
 | 21H0769214 | quantidade | 14800; 22200; 32800; 37200; 49200; 82800 | 230571 |  |  |
-| 21H1002745 | valor_total | 119903483.82 | 3001000000.00 |  |  |
-| 21H1002745 | remuneracao BRAPCSCRIAW4 | taxa=0; taxa=0.7; taxa=0.91; taxa=0.99; taxa=1.17; taxa=1.21; taxa=1.2 | IGPM + 6.0000% a.a. |  |  |
+| 21H1002745 | vencimento BRAPCSCRIAV6 | 2031-08-25; 2053-07-24 | 2053-07-09 |  |  |
+| 21H1002745 | remuneracao BRAPCSCRIAW4 | taxa=0; taxa=0.7; taxa=0.91; taxa=0.99; taxa=1.17; taxa=1.21; taxa=1.2 | IGPM + 6,0000% a.a. |  |  |
+| 21H1002745 | valor_nominal_unitario | 119903483.82; 0.01; 0.01; 84.48; 1.00 | 0.00 |  |  |
 | 21K0660418 | valor_nominal_unitario | 12932000.00 | 1000.00 |  |  |
 | 21L0967403 | vencimento BRHBSCCRIB59 | 2024-12-24; lastro 2021-12-20; lastro 2024-03-14; lastro 2024-12-23; l | 2027-04-26 |  |  |
 | 21L0967403 | vencimento BRHBSCCRIB67 | 2024-12-24; lastro 2021-12-20; lastro 2024-03-14; lastro 2024-12-23; l | 2027-04-26 |  |  |
@@ -132,6 +133,7 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | 23C1835265 | vencimento BRFSECCRIJQ0 | 2026-03-20; lastro 2026-03-18 | 2036-03-20 |  |  |
 | 23C1835265 | vencimento BRFSECCRIJS6 | 2026-03-20; lastro 2026-03-18 | 2036-03-20 |  |  |
 | 23C1835265 | vencimento BRFSECCRIJU2 | 2026-03-20; lastro 2026-03-18 | 2036-03-20 |  |  |
+| 23E2052239 | quantidade | 100000; 120000 | 65000 |  |  |
 | 23E2052239 | devedor | 04.403.408/0001-65; 26.502.794/0001-85; 30.433.252/0001-75; 31.986.976 | 20.456.189/0001-39 |  |  |
 | 23F1829746 | vencimento BRPVSCCRI2E6 | 2025-08-05; 2026-12-16; 2027-07-08; 2028-05-30 | 2043-01-20 |  |  |
 | 23F1829746 | vencimento BRPVSCCRI2F3 | 2025-08-05; 2026-12-16; 2027-07-08; 2028-05-30 | 2043-01-20 |  |  |
@@ -143,17 +145,16 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | 23F1829746 | vencimento BRPVSCCRI3C8 | 2025-08-05; 2026-12-16; 2027-07-08; 2028-05-30 | 2043-01-20 |  |  |
 | 23F1829746 | quantidade | 450; 461; 993; 1094; 4058; 4149; 8937; 9849; 20000 | 29930 |  |  |
 | 23F2454937 | vencimento BRAPCSCRIIT3 | 2026-07-15; 2027-07-15; 2028-07-17; lastro 2026-07-13; lastro 2027-07- | 2028-07-15 |  |  |
-| 23F2454937 | valor_total | 1000000000.00; 1070846000.00; 1250000000.00 | 925125000.00 |  |  |
 | 23F2454937 | quantidade | 1000000; 1070846 | 925125 |  |  |
-| 23F2472075 | vencimento BRAPCSCRIIZ0 | 2027-12-07; 2032-05-17; 2034-10-15 | 2026-10-15 |  |  |
-| 23F2472075 | vencimento BRAPCSCRIJ03 | 2027-12-07; 2032-05-17; 2034-10-15 | 2026-10-15 |  |  |
-| 23F2472075 | vencimento BRAPCSCRIJ11 | 2027-12-07; 2032-05-17; 2034-10-15 | 2026-10-15 |  |  |
 | 23F2472075 | vencimento BRAPCSCRIJ29 | 2027-12-07; 2032-05-17; 2034-10-15 | 2026-10-15 |  |  |
-| 23F2472075 | valor_total | 809.16; 1490.00 | 27800000.00 |  |  |
+| 23F2472075 | vencimento BRAPCSCRIJ11 | 2027-12-07; 2032-05-17; 2034-10-15 | 2026-10-15 |  |  |
+| 23F2472075 | vencimento BRAPCSCRIJ03 | 2027-12-07; 2032-05-17; 2034-10-15 | 2026-10-15 |  |  |
+| 23F2472075 | vencimento BRAPCSCRIIZ0 | 2027-12-07; 2032-05-17; 2034-10-15 | 2026-10-15 |  |  |
+| 23F2472075 | valor_total | 809.16; 1490.00 | 27886036.16 |  |  |
+| 23F2472075 | valor_nominal_unitario | 1000.00 | 295.29 |  |  |
 | 23H1097588 | vencimento BRBASECRI0X9 | 2040-04-18; 2040-04-20; lastro 2040-04-18 | 2028-08-20 |  |  |
-| 23H1186528 | valor_total | 3385372.41; 8559611.00; 13369702.84; 45019662.20; 60000000.00; 7842102 | 350000000.00 |  |  |
 | 23H1186528 | quantidade | 700000 | 350000 |  |  |
-| 23H1487992 | vencimento série 3 | 2027-01-25 | 2026-04-27 |  |  |
+| 23H1487992 | vencimento série 2 | 2027-01-25 | 2026-04-27 |  |  |
 | 23H1487992 | quantidade | 29100 | 40100 |  |  |
 | 23H1487992 | remuneracao BRRBRACRIVC2 | taxa=13 | IPCA + 16,0000% a.a. |  |  |
 | 23H1753231 | vencimento BRHBSCCRIAB3 | 2026-08-21; 2026-08-24 | 2030-11-21 |  |  |
@@ -180,8 +181,8 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | 25C3273266 | vencimento BRLSECCRI2L6 | 2025-03-07 | 2029-02-24 |  |  |
 | 25F8582172 | vencimento BRCASCCRI5V3 | 2028-02-14; 2034-07-20 | 2030-07-25 |  |  |
 | 25F8582172 | vencimento BRCASCCRI5W1 | 2028-02-14; 2034-07-20 | 2030-07-26 |  |  |
-| 25K3156592 | valor_total | 40000000.00 | 15000000.00 |  |  |
-| 25K3156592 | valor_nominal_unitario | 1000.00; 40000000.00 | 375.00 |  |  |
+| 25K3156592 | valor_total | 40000000.00 | 19944000.00 |  |  |
+| 25K3156592 | valor_nominal_unitario | 1000.00; 40000000.00 | 498.60 |  |  |
 | 25L2378911 | devedor | 03.997.580/0001-21; 11.863.002/0001-20; 17.409.378/0001-46; 29.507.878 | 04.800.830/0001-54 |  |  |
 | 25L3279335 | devedor | 12.164.139/0001-50; 49.076.534/0001-90; 51.618.470/0001-54 | 04.800.830/0001-54 |  |  |
 | 26D4402695 | vencimento BRLSECCRI4P3 | 2026-04-14 | 2034-04-26 |  |  |
@@ -189,8 +190,7 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | 26F3681477 | vencimento BRLSECCRI5H7 | 2031-06-20 | 2031-06-24 |  |  |
 | 26F3681477 | vencimento série 2 | 2031-06-20 | 2031-06-24 |  |  |
 | 26F3681477 | vencimento série 3 | 2031-06-20 | 2031-06-24 |  |  |
-| 26F3681477 | remuneracao série 2 | mult=100; taxa=1; taxa=100; taxa=4 | CDI + 0.000 % a.a. |  |  |
-| 26F3681477 | remuneracao série 3 | mult=100; taxa=1; taxa=100; taxa=4 | CDI + 0.000 % a.a. |  |  |
+| 26F3681477 | vencimento série 4 | 2031-06-20 | 2031-06-24 |  |  |
 | 26G2446032 | vencimento série 2 | 2026-07-07; 2030-06-26 | 2030-07-26 |  |  |
 | 26G2446032 | valor_nominal_unitario | 46035000.00; 46035000.00 | 1000.00 |  |  |
 | CRA019000XD | data_emissao | 2026-02-18 | 2019-03-18 | 128215 p.32 |  |
@@ -220,12 +220,14 @@ Valores do Termo extraídos por regex (candidatos, não parâmetros aprovados) c
 | CRA02300TBL | devedor | 00.405.805/0001-15; 02.392.738/0001-77; 06.116.723/0001-37; 33.866.324 | 27.490.581/0001-43 |  |  |
 | CRA02300VY3 | valor_total | 200000000.00 | 71294000.00 |  |  |
 | CRA02300VY3 | quantidade | 63000; 137000; 200000 | 71294 |  |  |
-| CRA024000GP | valor_nominal_unitario | 1000.00 | 347.77 |  |  |
+| CRA024000GP | valor_total | 809.16; 150000000.00; 200000000.00 | 217000000.00 |  |  |
+| CRA024000GP | quantidade | 50000; 150000; 200000 | 261295 |  |  |
+| CRA024000GP | remuneracao BRAPCSCRA2R1 | mult=100; taxa=1; taxa=14; taxa=14.53; taxa=3.7; taxa=3.8; taxa=4.5 | 0,0000% CDI |  |  |
 | CRA024006N5 | quantidade | 120000 | 76301 |  |  |
 | CRA024007PW | quantidade | 113293; 114222 | 112232 |  |  |
-| CRA02400E1M | quantidade | 120000 | 60000 |  |  |
-| CRA02400E1M | remuneracao BRECOACRAIF2 | mult=70; taxa=0; taxa=25; taxa=33.33; taxa=5.2; taxa=50; taxa=6.4; tax | CDI + 5,0000% a.a. |  |  |
-| CRA02400E1M | valor_nominal_unitario | 1000.00 | 1200.00 |  |  |
+| CRA02400E1M | quantidade | 120000 | 60000 |  | sim |
+| CRA02400E1M | remuneracao BRECOACRAIF2 | mult=70; taxa=0; taxa=25; taxa=33.33; taxa=5.2; taxa=50; taxa=6.4; tax | CDI + 5,0000% a.a. |  | sim |
+| CRA02400E1M | valor_nominal_unitario | 1000.00 | 1200.00 |  | sim |
 | CRA02500C1D | vencimento BRECOACRALJ8 | 2030-12-18; 2032-12-17; 2035-12-19; lastro 2030-12-16; lastro 2032-12- | 2029-07-16 |  |  |
 | CRA02500C1D | vencimento BRECOACRALK6 | 2030-12-18; 2032-12-17; 2035-12-19; lastro 2030-12-16; lastro 2032-12- | 2032-07-15 |  |  |
 | CRA02500C1D | vencimento BRECOACRALL4 | 2030-12-18; 2032-12-17; 2035-12-19; lastro 2030-12-16; lastro 2032-12- | 2035-07-16 |  |  |

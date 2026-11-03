@@ -73,5 +73,5 @@ Pela página: em 96 de 195 (49%) a página da evidência aprovada está dentro d
 | [CRA024004XT](cra024004xt.md) | CRA | 3 | 542 |  | 34/36 | 22/23 |  | isin |
 | [CRA024006N5](cra024006n5.md) | CRA | 2 | 294 |  | 31/36 | 20/23 |  | isin, classe_serie, razao_minima |
 | [CRA024007PW](cra024007pw.md) | CRA | 2 | 428 |  | 34/36 | 22/23 |  | classe_serie |
-| [CRA02400E1M](cra02400e1m.md) | CRA | 1 | 139 |  | 28/36 | 19/23 |  | isin, devedor, indices_financeiros, rating |
+| [CRA02400E1M](cra02400e1m.md) | CRA | 2 | 231 | 31 | 28/36 | 19/23 |  | isin, devedor, indices_financeiros, rating |
 | [CRA02500C1D](cra02500c1d.md) | CRA | 2 | 337 |  | 33/36 | 22/23 | 91 | razao_minima |

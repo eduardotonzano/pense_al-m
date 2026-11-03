@@ -4,14 +4,14 @@
 - Parâmetros contratuais aprovados no catálogo: 0.
 - Ficha contratual (trecho de cada campo do Termo): [../fichas_contratuais/cra02300tbl.md](../fichas_contratuais/cra02300tbl.md).
 
-## Informe Mensal na CVM (competência 2026-08)
+## Informe Mensal na CVM (competência 2026-09)
 
 Eco Securitizadora de Direitos Creditórios do Agronegócio | Série 1 e 2 - 223ª Emissão - Lavoro Agro | emissão de 2023-12-22 | códigos do certificado: BRECOACRAF93
 
 | Série | ISIN | Classe | Situação | Saldo (R$ mi) | Vencimento | Taxa | Rating |
 |---|---|---|---|---|---|---|---|
 | 1 | BRECOACRAF93 | Sênior | Em atraso | 68.3 | 2027-12-22 | CDI + 3,0000% a.a. | - |
-| 2 | BRECOACRAFA9 | Sênior | Em atraso | 352.8 | 2027-12-22 | 14,2000% a.a. | - |
+| 2 | BRECOACRAFA9 | Sênior | Em atraso | 353.0 | 2027-12-22 | 14,2000% a.a. | - |
 
 ## Eventos de crédito nos últimos 12 meses
 
@@ -24,7 +24,7 @@ Eco Securitizadora de Direitos Creditórios do Agronegócio | Série 1 e 2 - 223
 
 ## Devedores (CNPJ, do Informe)
 
-- 27.490.581/0001-43: 1 emissões no mercado, 1 em atraso, exposição estimada R$ 421.1 mi
+- 27.490.581/0001-43: 1 emissões no mercado, 1 em atraso, exposição estimada R$ 421.4 mi
 
 ## Termo × Informe da CVM
 
