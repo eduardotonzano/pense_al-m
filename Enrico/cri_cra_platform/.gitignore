@@ -27,3 +27,4 @@ reports/fundosnet_capturas.txt
 # Dados abertos da CVM (ingestão em massa): ZIPs baixados
 data/cvm_open/
 data/opea/
+data/eco/
