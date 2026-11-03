@@ -52,6 +52,9 @@ def main() -> int:
     parser.add_argument("--per-kind", type=int, default=15)
     parser.add_argument("--per-issuer", type=int, default=4)
     parser.add_argument("--min-balance", type=int, default=10_000_000)
+    parser.add_argument("--market-list", type=Path,
+                        help="grava também todas as emissões vivas fora do catálogo (sem limite de pontos, saldo ou "
+                             "securitizadora), em ordem de triagem, no formato de ativos_piloto.csv com ativo=false")
     args = parser.parse_args()
 
     cvm = sqlite3.connect(f"file:{args.cvm}?mode=ro", uri=True)
@@ -64,6 +67,7 @@ def main() -> int:
     lines = ["# Universo de CRA e CRI (chave: ISIN da série)", "",
              "Fonte: dados abertos da CVM (`data/cvm_open.db`). Só leitura; nada entra no catálogo sem aprovação.", ""]
     picks: list[dict] = []
+    market: list[dict] = []
     for kind in ("cra", "cri"):
         counts = {r[0]: r[1] for r in cvm.execute(
             f"SELECT Data_Referencia, COUNT(DISTINCT Codigo_Identificacao_Certificado) FROM {kind}_geral_vigente GROUP BY 1")}
@@ -90,19 +94,14 @@ def main() -> int:
         per_issuer: Counter = Counter()
         chosen = 0
         for item in ranking:
-            if chosen >= args.per_kind:
-                break
             cert = item["certificado"]
             series = sorted(by_series[cert], key=lambda r: series_number(r.get("Numero_Serie")))
             first = series[0]
-            if (item["score"] <= 0 or item["ultima_competencia"] < reference or item["saldo"] < args.min_balance
-                    or not ISIN_PATTERN.match((first["Codigo_ISIN"] or "").upper()) or any(r["Codigo_ISIN"].upper() in known for r in series if r["Codigo_ISIN"])
-                    or per_issuer[item["emissora"]] >= args.per_issuer):
+            if (item["ultima_competencia"] < reference or not ISIN_PATTERN.match((first["Codigo_ISIN"] or "").upper())
+                    or any(r["Codigo_ISIN"].upper() in known for r in series if r["Codigo_ISIN"])):
                 continue
             info = geral.get(cert) or next((geral[a] for a in aliases[cert] if a in geral), {})
-            per_issuer[item["emissora"]] += 1
-            chosen += 1
-            picks.append({
+            row = {
                 # o Fundos.NET lista a emissão pelo código do certificado, que nem sempre é o ISIN da 1ª série
                 "codigo_cetip": first.get("Codigo_CETIP") or cert,
                 "isin": cert if ISIN_PATTERN.match(cert.upper()) else first["Codigo_ISIN"],
@@ -112,7 +111,14 @@ def main() -> int:
                 "score": item["score"], "sinais": "; ".join(f"{f}x{n}" for f, n in item["flags"].items()),
                 "saldo_brl": f"{item['saldo']:.2f}", "series": item["series"],
                 "codigos_certificado": "|".join(aliases[cert]),
-            })
+            }
+            market.append(row)
+            if (chosen >= args.per_kind or item["score"] <= 0 or item["saldo"] < args.min_balance
+                    or per_issuer[item["emissora"]] >= args.per_issuer):
+                continue
+            per_issuer[item["emissora"]] += 1
+            chosen += 1
+            picks.append(row)
         lines.append(f"Candidatos ao lote-piloto ({chosen}): ver `config/lote_piloto_candidatos.csv`.")
         lines.append("")
     cvm.close()
@@ -122,6 +128,13 @@ def main() -> int:
         writer = csv.DictWriter(handle, fieldnames=FIELDS)
         writer.writeheader()
         writer.writerows(picks)
+    if args.market_list:
+        market.sort(key=lambda r: (-int(r["score"]), -Decimal(r["saldo_brl"])))
+        with args.market_list.open("w", newline="", encoding="utf-8-sig") as handle:
+            writer = csv.DictWriter(handle, fieldnames=FIELDS)
+            writer.writeheader()
+            writer.writerows(market)
+        print(f"Mercado: {len(market)} emissões vivas fora do catálogo em {args.market_list}")
     lines += ["## Candidatos ao lote-piloto", "",
               f"Critério: pontuação de triagem > 0, informe recente, saldo ≥ R$ {args.min_balance / 1e6:.0f} mi, ISIN presente, fora do catálogo, "
               f"até {args.per_issuer} por securitizadora e {args.per_kind} por tipo. **Pesos:** "
