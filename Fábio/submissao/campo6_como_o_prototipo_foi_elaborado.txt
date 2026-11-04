@@ -1,0 +1,25 @@
+O protótipo foi elaborado pela equipe de Research da Multiplica entre setembro e novembro de 2026, em cinco etapas.
+
+1. Entendimento da dor e divisão do trabalho
+Partimos de uma dor validada com o padrinho, Gustavo Vilela: o time não consegue acompanhar os ativos de crédito como gostaria por falta de uma base de dados consolidada. Listamos os ativos acompanhados e dividimos o projeto por classe, cada uma com um responsável: debêntures e renda fixa (Eduardo Tonzano), CRI/CRA (Enrico Suman Marques), fundos FIDC e FIAGRO (Gui) e integração (Fábio Junior).
+
+2. Descoberta das fontes oficiais
+Antes de escrever código, cada frente mapeou sua fonte oficial: SND para debêntures, Fundos.NET para os documentos de CRI/CRA e Dados Abertos da CVM para fundos. Usamos amostras reais, como o informe de FIAGRO de 09/2026, para entender formato, volume e falhas de cada fonte. As decisões foram registradas em documentos de arquitetura e aprovadas com o time.
+
+3. Princípios de dados definidos antes da construção
+Combinamos regras válidas para todas as frentes: nunca inventar dado, guardar fonte e data de cada valor, preservar o histórico, registrar conflitos entre fontes em vez de sobrescrever e nunca gravar CPF.
+
+4. Construção com IA e testes
+Cada frente construiu seu robô de coleta e seu banco de dados em Python e SQLite, com Playwright para navegar no Fundos.NET. O desenvolvimento foi feito com o Claude Code como copiloto: ele lê o repositório, propõe um plano antes de alterar o código e escreve testes e documentação, seguindo as regras do projeto registradas em um arquivo lido a cada sessão. Todo código entra por pull request no GitHub e passa por testes automatizados, que hoje somam mais de 700. O layout navegável da plataforma também foi gerado com o Claude, em HTML.
+
+5. Integração
+Uma camada compartilhada, que chamamos de "galpão", reconhece a mesma empresa pelo CNPJ em todas as frentes e cria um cadastro único. Hoje ela já integra os emissores de debêntures.
+
+Resultado até agora
+- Debêntures: robô em operação, com dados reais de Petrobras, Sabesp e Celpe, histórico e auditoria.
+- CRI/CRA: 168 documentos catalogados do Fundos.NET em 2 ativos piloto, com download verificado por hash.
+- Fundos: informe de FIAGRO de 09/2026 carregado (308 classes e 39.316 observações, sem conflitos) e 3.605 cedentes lidos do informe de FIDC, o que já revelou 385 percentuais inconsistentes na fonte oficial.
+- Layout navegável da plataforma, com menu por classe de ativo.
+
+Próximos passos
+Ligar todas as frentes ao galpão, conectar a interface aos bancos, criar os alertas de preço e notícias e construir um agente de IA que lê os documentos de CRI/CRA e extrai garantias e covenants, sempre com revisão humana.
