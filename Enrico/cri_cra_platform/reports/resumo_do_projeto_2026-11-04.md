@@ -49,8 +49,11 @@ roda sozinho (`scripts/collect_<securitizadora>_reports.py --dry-run|--commit|--
 - **Riza** passou a responder 403 (acesso recusado) em 04/11/2026; os coletores param na hora e não tentam contornar.
 - **Bari** (2,3% do saldo): leitor por regras de posição sobre vários modelos de relatório; 58 dos 91 relatórios com item lido (os
   outros 33 não trazem quadro com situação); quadro ambíguo não vira item. Província, Forte, Habitasec e Travessia não publicam covenant apurado (só Informe da CVM ou relatório anual do agente fiduciário).
-- Vert: leitor heurístico sobre layouts variados (conferido pelo construtor em 14 PDFs e corrigido em dois casos de razão de
-  garantia); a conferência independente não rodou (limite de uso). Leverage conferida de forma independente (79 itens iguais ao PDF).
+- Vert: leitor heurístico sobre layouts variados, corrigido em dois casos de razão de garantia. Conferência em 14 relatórios
+  sorteados (39 valores): todos existem no PDF, na coluna e no item certos, com a mesma situação; feita pelo mesmo autor do
+  leitor, não por terceiro. Limite: em 59 dos 177 itens de covenant (12 relatórios) a data da apuração não foi lida, e índices
+  anuais ou trimestrais podem ser de data bem anterior ao mês do relatório (ex.: 31/12/2023 num relatório de 09/2026).
+  Leverage conferida de forma independente (79 itens iguais ao PDF).
 - A cadeia do Fundos.NET segue em segundo plano: texto e OCR dos prioritários; depois download dos demais, texto e remoção do PDF
   (só com hash conferido e todas as páginas com texto). Disco com 25 GB livres.
 

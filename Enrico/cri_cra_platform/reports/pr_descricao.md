@@ -18,7 +18,7 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 - Opea (API pública): relatório mensal de gestão de 1.926 emissões, 23 mil itens com exigido × apurado × situação × data;
   2.297 itens "não atendido" em 864 emissões. Leitor conferido em 42 relatórios reais.
 - Vert (VERT Data), Leverage (portal de emissões), Canal (páginas públicas) e Bari (portal de emissões): 153, 106, 176 e 91 relatórios; a Leverage conferida em
-  20 relatórios (79 itens iguais ao PDF). A Canal publica com meses de atraso (competência de cada item no relatório).
+  20 relatórios (79 itens iguais ao PDF) e a Vert em 14 (39 valores iguais ao PDF; data da apuração dos índices nem sempre lida). A Canal publica com meses de atraso (competência de cada item no relatório).
 - Eco (páginas públicas): relatório de gestão de 164 emissões e de acompanhamento de 34 (garantias × saldo devedor por classe,
   recebíveis vencidos, aderência ao Termo); marca saldo idêntico entre emissões diferentes (provável cópia de modelo).
 - Riza: situação "Default" do portal × Informe da CVM (73 operações em Default, 40 "Adimplente" na CVM).
