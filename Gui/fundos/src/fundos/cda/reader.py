@@ -16,6 +16,10 @@ entregam as posicoes, lendo de novo os bytes guardados.
 Detentor: CNPJ_FUNDO_CLASSE com normalize_cnpj, sem completar zeros; fora
 disso a linha nao vira posicao e e contada.
 
+Linhas com a mesma (detentor, investido, DT_COMPTC) sao posicoes proprias
+(decisao 2 da FU6.1), cada uma com a sua ordem na chave (1, 2, 3...), pela
+ordem do arquivo. A repeticao e so contada; nenhuma soma e feita aqui.
+
 Dados pessoais (decisao 3 de Fundos; guardas aprovadas na FU6.1):
 - guarda (a): CPF_CNPJ_EMISSOR so vale como CNPJ do investido se
   PF_PJ_EMISSOR for PJ, se tiver 14 caracteres ou a mascara completa (sem
@@ -97,8 +101,11 @@ class CdaHolding:
     """Posicao identificada em cotas de fundos (uma linha do cda_fie).
 
     holder_type e o TP_FUNDO_CLASSE como veio; holder_cnpj e o
-    CNPJ_FUNDO_CLASSE sem mascara. investee_name so existe com o CNPJ do
-    investido aceito. CNPJ, nome e valores nunca aparecem no repr.
+    CNPJ_FUNDO_CLASSE sem mascara. line_order e a ordem da linha (1, 2,
+    3...) entre as linhas da mesma (detentor, investido, competencia) no
+    arquivo: cada linha e uma posicao propria (decisao 2 da FU6.1).
+    investee_name so existe com o CNPJ do investido aceito. CNPJ, nome e
+    valores nunca aparecem no repr.
     """
 
     line: int
@@ -106,6 +113,7 @@ class CdaHolding:
     holder_cnpj: str = field(repr=False)
     competence: str
     investee_cnpj: str = field(repr=False)
+    line_order: int
     investee_name: str | None = field(repr=False)
     quantity: str | None = field(repr=False)
     market_value: str = field(repr=False)
@@ -229,8 +237,14 @@ def check_investee(person_type, identifier):
         return None, REFUSED_DV
 
 
-def parse_holding(member, line, record, counts=None):
-    """Normaliza uma linha de cotas do cda_fie: (competencia, posicao ou None)."""
+def parse_holding(member, line, record, orders, counts=None):
+    """Normaliza uma linha de cotas do cda_fie: (competencia, posicao ou None).
+
+    orders (Counter) guarda, por (detentor, investido, competencia), quantas
+    linhas com detentor e investido aceitos ja passaram no arquivo; a ordem
+    da linha (1, 2, 3...) sai dele, mesmo que ela nao vire posicao por falta
+    de valor de mercado.
+    """
 
     holder_type = record[spec.HOLDER_TYPE_COLUMN].strip()
     competence = _date(member, line, record, spec.COMPETENCE_COLUMN)
@@ -261,6 +275,9 @@ def parse_holding(member, line, record, counts=None):
     if reason is not None or holder is None:
         return competence, None
 
+    key = (holder, investee, competence)
+    orders[key] += 1
+
     if market_value is None:
         if counts is not None:
             counts[(IDENTIFIED, "sem_valor_de_mercado")] += 1
@@ -273,6 +290,7 @@ def parse_holding(member, line, record, counts=None):
         holder_cnpj=holder,
         competence=competence,
         investee_cnpj=investee,
+        line_order=orders[key],
         investee_name=name,
         quantity=quantity,
         market_value=market_value,
@@ -323,17 +341,16 @@ def parse_confidential(member, line, record, counts=None):
     )
 
 
-PARSERS = {spec.FIE: parse_holding, spec.FIE_CONFID: parse_confidential}
-
-
 def _rows(table, period, data, counts=None):
     """Para cada linha de dados: None (outro TP_APLIC) ou (competencia, posicao ou None).
 
-    Com counts, conta toda linha por TP_APLIC.
+    Com counts, conta toda linha por TP_APLIC. A ordem da linha na chave
+    recomeca a cada leitura do membro.
     """
 
     member = spec.member_name(table, period)
     header = spec.HEADERS[table]
+    orders = Counter()
 
     for line, fields in iter_csv(member, decode(member, data), header):
         record = dict(zip(header, fields))
@@ -344,9 +361,10 @@ def _rows(table, period, data, counts=None):
 
         if application != spec.FUND_QUOTAS:
             yield None
-            continue
-
-        yield PARSERS[table](member, line, record, counts)
+        elif table == spec.FIE:
+            yield parse_holding(member, line, record, orders, counts)
+        else:
+            yield parse_confidential(member, line, record, counts)
 
 
 def _positions(cda, table):

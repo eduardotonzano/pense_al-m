@@ -14,9 +14,11 @@ CSV (os 10 cda_fi_* como 'ignored', sem numero de linhas), as posicoes
 identificadas (holdings) e as confidenciais (confidential_holdings), com a
 competencia = DT_COMPTC.
 
-Chave natural (detentor, investido, DT_COMPTC) ainda nao decidida (FU6.1,
-decisao 2): o arquivo com chave repetida, nas identificadas, ou com mais de
-uma linha confidencial de cotas do mesmo detentor e recusado.
+Chave natural das identificadas (FU6.1, decisao 2): detentor, investido,
+DT_COMPTC e a ordem da linha na chave. Linhas repetidas no mesmo arquivo
+sao posicoes proprias, sem conflito; a repeticao so e contada no relatorio.
+Nenhuma soma e gravada: a soma por classe e feita na leitura. O arquivo com
+mais de uma linha confidencial de cotas do mesmo detentor continua recusado.
 
 Reapresentacao: o mesmo ZIP (mesmo SHA-256) nao e carregado de novo. Outro
 ZIP da mesma competencia so entra com o Last-Modified dele na CVM,
@@ -188,21 +190,22 @@ def reapresentation_problem(connection, cda, last_modified):
 
 
 def repeated_key_problem(cda):
-    """Mensagem da recusa por chave repetida no arquivo (decisao 2), ou None."""
+    """Mensagem da recusa por detentor com mais de uma linha confidencial, ou None.
 
-    keys = cda.counts[(IDENTIFIED, "chave_repetida", "chaves")]
+    As identificadas repetidas na chave nao recusam: cada linha e uma
+    posicao, com a ordem na chave (decisao 2).
+    """
+
     confidential = cda.counts[(CONFIDENTIAL, "detentor_repetido")]
 
-    if not keys and not confidential:
+    if not confidential:
         return None
 
     return (
-        "O arquivo tem chave repetida: "
-        + str(keys)
-        + " chave(s) (detentor, investido, DT_COMPTC) nas cotas identificadas e "
+        "O arquivo tem chave repetida nas confidenciais: "
         + str(confidential)
-        + " detentor(es) com mais de uma linha confidencial de cotas. A chave"
-        " natural das posicoes ainda nao foi decidida; nada foi gravado."
+        + " detentor(es) com mais de uma linha confidencial de cotas na"
+        " competencia; nada foi gravado."
     )
 
 
@@ -291,6 +294,7 @@ def _holding_values(position):
         "value_field_name": spec.VALUE_FIELD,
         "market_value": position.market_value,
         "reference_date": position.competence,
+        "line_order": position.line_order,
     }
 
 
@@ -308,10 +312,11 @@ VALUES = {IDENTIFIED: _holding_values, CONFIDENTIAL: _confidential_values}
 
 
 def _keys_in_file(cda, kind, resolver):
-    """Chaves (assunto, id[, investido]) das posicoes do arquivo que casam."""
+    """Chaves (assunto, id[, investido, ordem]) das posicoes do arquivo que casam."""
 
     return {
-        (column, subject_id) + ((position.investee_cnpj,) if kind == IDENTIFIED else ())
+        (column, subject_id)
+        + ((position.investee_cnpj, position.line_order) if kind == IDENTIFIED else ())
         for position, column, subject_id in iter_matched(cda, kind, resolver, Counter())
     }
 
@@ -324,7 +329,7 @@ def vanished_counts(connection, cda, resolver, source_id):
     for kind in KINDS:
         table = TABLES[kind]
         in_file = _keys_in_file(cda, kind, resolver)
-        extra = ", investee_cnpj" if kind == IDENTIFIED else ""
+        extra = ", investee_cnpj, line_order" if kind == IDENTIFIED else ""
         rows = connection.execute(
             "SELECT DISTINCT fund_id, fund_class_id" + extra + " FROM " + table
             + " WHERE reference_date = ? AND source_id = ?",
@@ -333,7 +338,7 @@ def vanished_counts(connection, cda, resolver, source_id):
 
         for row in rows:
             column, subject_id = ("fund_id", row[0]) if row[0] is not None else ("fund_class_id", row[1])
-            key = (column, int(subject_id)) + ((row[2],) if kind == IDENTIFIED else ())
+            key = (column, int(subject_id)) + ((row[2], int(row[3])) if kind == IDENTIFIED else ())
 
             if key not in in_file:
                 counts[("reapresentacao", kind, "sumiram")] += 1
@@ -450,7 +455,8 @@ def load_cda(connection, cda, *, last_modified=None):
     last_modified e o Last-Modified do ZIP na CVM (normalize_last_modified),
     gravado no manifesto do ZIP; e obrigatorio quando a competencia ja tem
     outro ZIP carregado. Levanta LoadError se faltar migration, se o
-    cadastro nao estiver carregado, se o arquivo tiver chave repetida, se o
+    cadastro nao estiver carregado, se um detentor tiver mais de uma linha
+    confidencial de cotas, se o
     mesmo ZIP ja estiver no banco, se o ZIP nao for comprovadamente mais
     novo que os ja carregados da competencia ou se a verificacao antes do
     COMMIT falhar; quem chama desfaz a transacao.

@@ -14,8 +14,10 @@ fuso; e gravado no manifesto do ZIP.
 nenhum; se o banco existir, so o le (query_only) para mostrar o casamento
 do detentor, o tipo do investido no cadastro, a comparacao com o que ja
 esta no banco e dizer se o --commit seria aceito. --commit exige o banco
-com as migrations 001 a 004 e o cadastro carregado, recusa arquivo com
-chave repetida, faz o backup antes e grava tudo numa unica transacao, que
+com as migrations 001 a 004 e o cadastro carregado, recusa arquivo com mais
+de uma linha confidencial de cotas do mesmo detentor (as identificadas
+repetidas na chave sao posicoes proprias, com a ordem na chave), faz o
+backup antes e grava tudo numa unica transacao, que
 so e confirmada se a verificacao passar. O mesmo ZIP nao e carregado de
 novo. Outro ZIP de uma competencia ja carregada (reapresentacao) exige
 --last-modified posterior ao do ZIP mais novo ja carregado.

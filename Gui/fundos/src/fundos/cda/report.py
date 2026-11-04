@@ -113,7 +113,8 @@ def format_read_report(cda):
         + str(counts[(IDENTIFIED, "investidos")])
     )
     lines.append(
-        "  chave (detentor, investido, DT_COMPTC) repetida: "
+        "  (detentor, investido, DT_COMPTC) repetida, so informativo (cada linha e uma posicao,"
+        " com a ordem na chave): "
         + str(counts[(IDENTIFIED, "chave_repetida", "linhas")])
         + " linha(s) em "
         + str(counts[(IDENTIFIED, "chave_repetida", "chaves")])

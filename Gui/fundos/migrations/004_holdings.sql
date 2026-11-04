@@ -13,10 +13,13 @@
 -- fundos, sem investido e sem quantidade; confidential_until e o
 -- DT_CONFID_APLIC (confidencial ate essa data).
 -- Valores em TEXT com o decimal exato, como value_numeric de observations.
--- A chave natural (detentor, investido, competencia) ainda nao e UNIQUE: sera
--- decidida depois do dry-run do CDA real (FU6.1, decisao 2). Ate la a carga
--- recusa um arquivo com chave repetida. Mesma chave com valor diferente numa
--- reapresentacao gera linha nova e conflito aberto; nenhuma linha e
+-- Chave natural das identificadas (FU6.1, decisao 2, depois do dry-run do
+-- CDA real): detentor, investido, competencia e line_order, a ordem da linha
+-- (1, 2, 3...) entre as linhas da mesma (detentor, investido, competencia)
+-- no arquivo. Cada linha de cotas e uma posicao propria, com os valores como
+-- vieram; nenhuma soma e gravada. A chave nao e UNIQUE: mesma chave com
+-- valor diferente numa reapresentacao gera linha nova e conflito aberto;
+-- nenhuma linha e
 -- sobrescrita. Limitacao: a posicao que some numa reapresentacao da mesma
 -- competencia nao gera conflito (as linhas se somam), como na 002.
 PRAGMA foreign_keys = ON;
@@ -60,6 +63,7 @@ CREATE TABLE IF NOT EXISTS holdings (
  collection_run_id INTEGER NOT NULL REFERENCES collection_runs(id) ON UPDATE CASCADE ON DELETE RESTRICT,
  raw_record_id INTEGER NOT NULL REFERENCES raw_records(id) ON UPDATE CASCADE ON DELETE RESTRICT,
  reference_date TEXT NOT NULL CHECK(date(reference_date) IS NOT NULL AND date(reference_date)=reference_date),
+ line_order INTEGER NOT NULL CHECK(typeof(line_order)='integer' AND line_order>=1),
  collected_at TEXT NOT NULL CHECK(datetime(collected_at) IS NOT NULL),
  checksum TEXT NOT NULL UNIQUE CHECK(length(checksum)=64 AND checksum NOT GLOB '*[^0-9a-f]*'),
  CHECK((fund_id IS NOT NULL)+(fund_class_id IS NOT NULL)=1),
@@ -124,8 +128,8 @@ CREATE TABLE IF NOT EXISTS confidential_holding_conflicts (
  UNIQUE(confidential_holding_a_id, confidential_holding_b_id)
 );
 
-CREATE INDEX IF NOT EXISTS idx_holdings_fund ON holdings(fund_id, investee_cnpj, reference_date) WHERE fund_id IS NOT NULL;
-CREATE INDEX IF NOT EXISTS idx_holdings_class ON holdings(fund_class_id, investee_cnpj, reference_date) WHERE fund_class_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_holdings_fund ON holdings(fund_id, investee_cnpj, reference_date, line_order) WHERE fund_id IS NOT NULL;
+CREATE INDEX IF NOT EXISTS idx_holdings_class ON holdings(fund_class_id, investee_cnpj, reference_date, line_order) WHERE fund_class_id IS NOT NULL;
 CREATE INDEX IF NOT EXISTS idx_holdings_investee ON holdings(investee_cnpj, reference_date);
 CREATE INDEX IF NOT EXISTS idx_holdings_raw_record ON holdings(raw_record_id);
 CREATE INDEX IF NOT EXISTS idx_holdings_run ON holdings(collection_run_id);

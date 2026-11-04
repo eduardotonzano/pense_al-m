@@ -1,3 +1,5 @@
+from decimal import Decimal
+
 import pytest
 
 from apoio import FAKE_CPF_MASKED
@@ -316,21 +318,103 @@ def test_reapresentation_over_a_zip_without_last_modified_uses_the_load_start(lo
         load(loaded_db, other, last_modified="2026-10-30T08:00:00Z")
 
 
-@pytest.mark.parametrize(
-    "fie, confid",
-    [
-        ([fie_row(), fie_row()], []),
-        ([fie_row(), fie_row(VL_MERC_POS_FINAL="1")], []),
-        (fic_fidc_rows(), [confid_row(), confid_row(VL_MERC_POS_FINAL="1")]),
-    ],
-)
-def test_repeated_key_refuses_the_commit(loaded_db, fie, confid):
+def test_confidential_holder_with_two_lines_refuses_the_commit(loaded_db):
     before = snapshot(loaded_db)
 
-    with pytest.raises(LoadError, match="chave repetida"):
-        load(loaded_db, read_rows(fie, confid))
+    with pytest.raises(LoadError, match="chave repetida nas confidenciais: 1 detentor"):
+        load(loaded_db, read_rows(fic_fidc_rows(), [confid_row(), confid_row(VL_MERC_POS_FINAL="1")]))
 
     assert snapshot(loaded_db) == before
+
+
+def repeated_rows(sizes=(2, 3, 4), changes=None):
+    """Para cada tamanho n, n linhas ficticias da mesma chave do detentor 1 (investidos 4, 5, 6).
+
+    changes: {(indice do investido, ordem): {coluna: valor}}.
+    """
+
+    rows = []
+
+    for index, size in enumerate(sizes):
+        for order in range(1, size + 1):
+            values = {"VL_MERC_POS_FINAL": str(10 * index + order) + ".5", "QT_POS_FINAL": str(order)}
+            values.update((changes or {}).get((index, order), {}))
+            rows.append(fie_row(investee=INVESTEES[index], **values))
+
+    return rows
+
+
+def orders(db):
+    return rows(db, "SELECT investee_cnpj, line_order, market_value FROM holdings ORDER BY id")
+
+
+def test_repeated_lines_in_the_same_file_are_positions_without_conflict(loaded_db):
+    # Como no CDA real de 09/2026: chaves com 2, 3 e 4 linhas.
+    result = load(loaded_db, read_rows(repeated_rows(), []))
+    found = orders(loaded_db)
+
+    assert result.counts[("gravadas", IDENTIFIED, "criadas")] == 9
+    assert result.counts[("conflitos", IDENTIFIED)] == 0
+    assert count(loaded_db, "holding_conflicts") == 0
+    assert [(cnpj, order) for cnpj, order, _ in found] == (
+        [(INVESTEES[0], k) for k in (1, 2)]
+        + [(INVESTEES[1], k) for k in (1, 2, 3)]
+        + [(INVESTEES[2], k) for k in (1, 2, 3, 4)]
+    )
+
+
+def test_reapresentation_with_the_same_order_and_another_value_opens_a_conflict(loaded_db):
+    load(loaded_db, read_rows(repeated_rows(), []), last_modified=LAST_MODIFIED)
+    changed = repeated_rows(changes={(1, 2): {"VL_MERC_POS_FINAL": "77.5"}})
+    result = load(loaded_db, read_rows(changed, [], LATER_DATE), last_modified=LATER_LAST_MODIFIED)
+    conflict = rows(
+        loaded_db,
+        "SELECT a.investee_cnpj, a.line_order, a.market_value, b.line_order, b.market_value"
+        " FROM holding_conflicts c JOIN holdings a ON a.id = c.holding_a_id JOIN holdings b ON b.id = c.holding_b_id",
+    )
+
+    assert result.counts[("gravadas", IDENTIFIED, "criadas")] == 1
+    assert result.counts[("gravadas", IDENTIFIED, "existentes")] == 8
+    assert result.counts[("conflitos", IDENTIFIED)] == 1
+    assert conflict == [(INVESTEES[1], 2, "12.5", 2, "77.5")]
+    assert count(loaded_db, "holdings") == 10
+
+
+def test_reapresentation_with_the_same_order_and_value_records_nothing(loaded_db):
+    load(loaded_db, read_rows(repeated_rows(), []), last_modified=LAST_MODIFIED)
+    before = orders(loaded_db)
+    result = load(loaded_db, read_rows(repeated_rows(), [], LATER_DATE), last_modified=LATER_LAST_MODIFIED)
+
+    assert result.counts[("gravadas", IDENTIFIED, "criadas")] == 0
+    assert result.counts[("gravadas", IDENTIFIED, "existentes")] == 9
+    assert result.counts[("reapresentacao", IDENTIFIED, "sumiram")] == 0
+    assert orders(loaded_db) == before
+    assert count(loaded_db, "holding_conflicts") == 0
+
+
+def test_line_that_vanishes_from_a_repeated_key_is_counted(loaded_db):
+    load(loaded_db, read_rows(repeated_rows(), []), last_modified=LAST_MODIFIED)
+    result = load(loaded_db, read_rows(repeated_rows((2, 3, 3)), [], LATER_DATE), last_modified=LATER_LAST_MODIFIED)
+
+    assert result.counts[("reapresentacao", IDENTIFIED, "sumiram")] == 1
+    assert result.counts[("gravadas", IDENTIFIED, "criadas")] == 0
+    assert count(loaded_db, "holdings") == 9
+
+
+def test_sum_per_class_is_only_done_on_read(loaded_db):
+    lines = repeated_rows()
+    load(loaded_db, read_rows(lines, []))
+    stored = rows(loaded_db, "SELECT market_value FROM holdings WHERE fund_class_id = ?", (class_id(loaded_db, HOLDER),))
+    total = sum(Decimal(value) for (value,) in stored)
+
+    # Uma linha por linha do arquivo, com o valor como veio; a soma so existe na leitura.
+    assert sorted(value for (value,) in stored) == sorted(row["VL_MERC_POS_FINAL"] for row in lines)
+    assert total == sum(Decimal(row["VL_MERC_POS_FINAL"]) for row in lines)
+    assert str(total) not in {value for (value,) in stored}
+    assert rows(
+        loaded_db,
+        "SELECT COUNT(*) FROM sqlite_master WHERE type IN ('table', 'view') AND (name LIKE '%total%' OR name LIKE '%sum%')",
+    ) == [(0,)]
 
 
 def test_name_with_cpf_format_is_refused_and_rolled_back(loaded_db):
@@ -446,6 +530,7 @@ def test_repository_refuses_invalid_investee_before_sql(loaded_db):
             "collection_run_id": base[1],
             "raw_record_id": base[2],
             "reference_date": COMPETENCE,
+            "line_order": 1,
         }
 
         for investee in (FAKE_CPF_MASKED, wrong_dv(INVESTEES[0]), INVESTEES[0][1:]):
@@ -458,8 +543,16 @@ def test_repository_refuses_invalid_investee_before_sql(loaded_db):
         with pytest.raises(ValueError, match="juntos"):
             repository.record(investee_cnpj=INVESTEES[0], quantity="1", **common)
 
+        for order in (0, -1, 1.0, True, "1"):
+            with pytest.raises(ValueError, match="ordem da linha"):
+                repository.record(investee_cnpj=INVESTEES[0], **dict(common, line_order=order))
+
         same = repository.record(investee_cnpj=INVESTEES[0], **common)
         again = repository.record(investee_cnpj=INVESTEES[0], **common)
+        second_line = repository.record(investee_cnpj=INVESTEES[0], **dict(common, line_order=2))
 
         assert same.created and not again.created
         assert again.holding.id == same.holding.id
+        # Mesmo valor em outra ordem: outra posicao, sem conflito entre elas.
+        assert second_line.created and second_line.conflicts == ()
+        assert second_line.holding.line_order == 2

@@ -51,6 +51,7 @@ HOLDING_COLUMNS = [
     "collection_run_id",
     "raw_record_id",
     "reference_date",
+    "line_order",
     "collected_at",
     "checksum",
 ]
@@ -98,6 +99,7 @@ def insert_holding(connection, base, **changes):
         "collection_run_id": base["cvm_run"],
         "raw_record_id": base["cvm_raw"],
         "reference_date": "2026-09-30",
+        "line_order": 1,
         "collected_at": T0,
         "checksum": fake_sha256("holding" + repr(sorted(changes.items()))),
     }
@@ -162,19 +164,26 @@ def test_creates_tables_indexes_triggers_and_version(full_connection):
     assert find_cpf_columns(full_connection) == []
 
 
-def test_natural_key_is_not_unique_yet(full_connection, base):
-    # Decisao 2 da FU6.1: a chave natural sera decidida depois do dry-run.
+def test_natural_key_has_the_line_order_and_is_not_unique(full_connection, base):
+    # Decisao 2 da FU6.1: (detentor, investido, competencia, line_order). A
+    # mesma chave com outro valor (reapresentacao) e linha nova, nao erro.
     for name in ("idx_holdings_fund", "idx_holdings_class"):
         unique = full_connection.execute(
             "SELECT \"unique\" FROM pragma_index_list('holdings') WHERE name = ?",
             (name,),
         ).fetchone()[0]
+        columns_of_index = [
+            row[0]
+            for row in full_connection.execute("SELECT name FROM pragma_index_info(?) ORDER BY seqno", (name,))
+        ]
         assert unique == 0
+        assert columns_of_index[1:] == ["investee_cnpj", "reference_date", "line_order"]
 
     insert_holding(full_connection, base)
     insert_holding(full_connection, base, market_value="1")
+    insert_holding(full_connection, base, line_order=2)
 
-    assert count(full_connection, "holdings") == 2
+    assert count(full_connection, "holdings") == 3
 
 
 def test_applying_twice_changes_nothing(tmp_path):
@@ -256,6 +265,11 @@ def test_investee_cnpj_refuses_cpf_and_other_formats(full_connection, base, valu
         {"market_value": " 1"},
         {"reference_date": "2026-09-31"},
         {"reference_date": "30/09/2026"},
+        {"line_order": None},
+        {"line_order": 0},
+        {"line_order": -1},
+        {"line_order": 1.5},
+        {"line_order": "a"},
         {"collected_at": "ontem"},
         {"checksum": "abc"},
         {"source_id": 999},

@@ -333,6 +333,54 @@ def test_repeated_key_is_counted():
     assert cda.counts[(IDENTIFIED, "chave_repetida", "valores_diferentes")] == 1
 
 
+def keys_with(sizes):
+    """Linhas ficticias: para cada tamanho n, n linhas da mesma chave (investidos 4, 5, 6...)."""
+
+    rows = []
+
+    for investee, size in zip((make_test_cnpj(4), make_test_cnpj(5), make_test_cnpj(6)), sizes):
+        rows.extend(fie_row(investee=investee, VL_MERC_POS_FINAL=str(k) + ".25") for k in range(1, size + 1))
+
+    return rows
+
+
+def test_each_repeated_line_is_a_position_with_its_order():
+    # Como no CDA real de 09/2026: chaves com 2, 3 e 4 linhas.
+    rows = keys_with((2, 3, 4))
+    rows.insert(3, fie_row(OTHER_HOLDER))
+    cda = read_rows(rows)
+    holdings = list(cda.holdings())
+    orders = {}
+
+    for holding in holdings:
+        orders.setdefault((holding.holder_cnpj, holding.investee_cnpj), []).append(
+            (holding.line_order, holding.market_value)
+        )
+
+    assert len(holdings) == 10
+    assert orders[(HOLDER, INVESTEES[0])] == [(1, "1.25"), (2, "2.25")]
+    assert orders[(HOLDER, INVESTEES[1])] == [(1, "1.25"), (2, "2.25"), (3, "3.25")]
+    assert orders[(HOLDER, INVESTEES[2])] == [(k, str(k) + ".25") for k in range(1, 5)]
+    assert orders[(OTHER_HOLDER, INVESTEES[0])] == [(1, "1234.56")]
+    assert cda.counts[(IDENTIFIED, "chave_repetida", "chaves")] == 3
+    assert cda.counts[(IDENTIFIED, "chave_repetida", "linhas")] == 9
+    # Ler de novo da a mesma ordem.
+    assert [h.line_order for h in cda.holdings()] == [h.line_order for h in holdings]
+
+
+def test_line_order_skips_refused_lines_but_counts_lines_without_value():
+    rows = [
+        fie_row(VL_MERC_POS_FINAL="1"),
+        fie_row(PF_PJ_EMISSOR="PF", CPF_CNPJ_EMISSOR=FAKE_CPF),
+        fie_row(VL_MERC_POS_FINAL=""),
+        fie_row(VL_MERC_POS_FINAL="3"),
+    ]
+    cda = read_rows(rows)
+
+    assert [(h.line_order, h.market_value) for h in cda.holdings()] == [(1, "1"), (3, "3")]
+    assert "line_order=1" in repr(next(cda.holdings()))
+
+
 def test_values_are_exact_decimals():
     cda = read_rows([fie_row(QT_POS_FINAL="0001.500", VL_MERC_POS_FINAL="-12.30")])
     holding = next(cda.holdings())
@@ -484,7 +532,10 @@ def test_report_has_the_aggregates():
     assert "EMISSOR descartado (linha com identificador recusado): 1" in report
     assert "posicoes: 4" in report
     # fie_row() repete a chave do primeiro investido, com outro valor.
-    assert "repetida: 2 linha(s) em 1 chave(s); com quantidade ou valor diferentes: 1" in report
+    assert (
+        "repetida, so informativo (cada linha e uma posicao, com a ordem na chave):"
+        " 2 linha(s) em 1 chave(s); com quantidade ou valor diferentes: 1"
+    ) in report
     assert "mes de DT_CONFID_APLIC: 2026-12 1" in report
     assert "identificadas e confidenciais ao mesmo tempo: 0" in report
 

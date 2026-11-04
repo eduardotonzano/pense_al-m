@@ -13,6 +13,7 @@ from apoio_cda import HOLDER_NAME
 from apoio_cda import INVESTEES
 from apoio_cda import ZIP_NAME
 from apoio_cda import build_cda_zip
+from apoio_cda import confid_row
 from apoio_cda import fic_fidc_rows
 from apoio_cda import fie_row
 from apoio_cda import investee_name
@@ -145,7 +146,7 @@ def test_dry_run_reports_a_database_without_cadastro(script, zip_path, tmp_path,
     assert "Comparacao com o banco" not in output
 
 
-def test_dry_run_shows_the_repeated_key(script, database, tmp_path, capsys):
+def test_dry_run_shows_the_repeated_key_only_as_information(script, database, tmp_path, capsys):
     path = write_zip(tmp_path, build_cda_zip([fie_row(), fie_row(VL_MERC_POS_FINAL="1")]), name=ZIP_NAME)
     before = file_hash(database)
 
@@ -154,8 +155,21 @@ def test_dry_run_shows_the_repeated_key(script, database, tmp_path, capsys):
 
     assert code == 0
     assert file_hash(database) == before
-    assert "repetida: 2 linha(s) em 1 chave(s); com quantidade ou valor diferentes: 1" in output
-    assert "o --commit seria recusado: O arquivo tem chave repetida: 1 chave(s)" in output
+    assert "so informativo (cada linha e uma posicao, com a ordem na chave): 2 linha(s) em 1 chave(s)" in output
+    assert "  identificadas: novas 2, iguais 0, valor diferente 0" in output
+    assert "seria recusado" not in output
+    assert "o --commit seria aceito" in output
+
+
+def test_repeated_identified_lines_are_committed(script, database, tmp_path, capsys):
+    path = write_zip(tmp_path, build_cda_zip([fie_row(), fie_row(VL_MERC_POS_FINAL="1")]), name=ZIP_NAME)
+
+    code = run_with(script, database, path, "--commit", "--backup-dir", str(tmp_path / "bk"))
+    output = capsys.readouterr().out
+
+    assert code == 0
+    assert "  holdings: criadas 2, existentes 0, conflitos abertos 0" in output
+    assert query(database, "SELECT line_order FROM holdings ORDER BY line_order") == [(1,), (2,)]
 
 
 def test_commit_makes_the_backup_before_loading(script, database, zip_path, tmp_path, capsys):
@@ -234,15 +248,15 @@ def test_reapresentation_needs_last_modified(script, database, zip_path, tmp_pat
     assert len(backups_in(tmp_path / "bk")) == 2
 
 
-def test_repeated_key_refuses_the_commit_before_the_backup(script, database, tmp_path, capsys):
-    path = write_zip(tmp_path, build_cda_zip([fie_row(), fie_row()]), name=ZIP_NAME)
+def test_repeated_confidential_holder_refuses_the_commit_before_the_backup(script, database, tmp_path, capsys):
+    path = write_zip(tmp_path, build_cda_zip(None, [confid_row(), confid_row()]), name=ZIP_NAME)
     before = file_hash(database)
 
     code = run_with(script, database, path, "--commit", "--backup-dir", str(tmp_path / "bk"))
     error = capsys.readouterr().err
 
     assert code == 1
-    assert "Arquivo recusado: O arquivo tem chave repetida" in error
+    assert "Arquivo recusado: O arquivo tem chave repetida nas confidenciais: 1 detentor(es)" in error
     assert file_hash(database) == before
     assert backups_in(tmp_path / "bk") == []
 

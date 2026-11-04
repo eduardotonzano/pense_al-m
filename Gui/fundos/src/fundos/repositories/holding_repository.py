@@ -5,8 +5,11 @@ ou uma classe ja cadastrados; o investido e so o CNPJ, sem FK. A guarda de
 dados pessoais roda antes de qualquer SQL: o investido so aceita CNPJ
 valido e normalizado, e o nome (EMISSOR) nunca tem formato de CPF.
 
-holdings: chave assunto + investido + competencia; o valor e a quantidade,
-o valor de mercado e o nome. confidential_holdings: chave assunto +
+holdings: chave assunto + investido + competencia + line_order (a ordem da
+linha na chave, decisao 2 da FU6.1); o valor e a quantidade, o valor de
+mercado e o nome. Linhas da mesma (assunto, investido, competencia) com
+ordens diferentes sao posicoes distintas, sem conflito entre si; nenhuma
+soma e gravada. confidential_holdings: chave assunto +
 competencia; o valor e o valor de mercado e a data do fim da
 confidencialidade. O checksum cobre a chave, a fonte e o valor: gravar de
 novo o mesmo valor devolve a linha existente. Valor diferente para a mesma
@@ -59,6 +62,7 @@ class HoldingRecord:
     collection_run_id: int
     raw_record_id: int
     reference_date: str
+    line_order: int
     collected_at: str
     checksum: str
 
@@ -98,7 +102,7 @@ _TABLES = {
         HoldingRecord,
         "holding_conflicts",
         ("holding_a_id", "holding_b_id"),
-        ("investee_cnpj", "reference_date"),
+        ("investee_cnpj", "reference_date", "line_order"),
         ("quantity", "market_value", "investee_name"),
     ),
     "confidential_holdings": (
@@ -239,14 +243,20 @@ class HoldingRepository:
         collection_run_id,
         raw_record_id,
         reference_date,
+        line_order,
         collected_at=None,
     ):
         """Grava a posicao identificada; devolve HoldingRecordResult.
 
-        O nome so entra com o campo do nome, e a quantidade so com o campo da
-        quantidade. Mesmo assunto, fonte, investido, competencia e valor:
-        devolve a linha existente (idempotente).
+        line_order e a ordem da linha (1, 2, 3...) entre as linhas da mesma
+        (assunto, investido, competencia) no arquivo. O nome so entra com o
+        campo do nome, e a quantidade so com o campo da quantidade. Mesmo
+        assunto, fonte, investido, competencia, ordem e valor: devolve a
+        linha existente (idempotente).
         """
+
+        if isinstance(line_order, bool) or not isinstance(line_order, int) or line_order < 1:
+            raise ValueError("A ordem da linha na chave deve ser inteiro a partir de 1.")
 
         _field_name(investee_field_name, "do investido")
 
@@ -299,6 +309,7 @@ class HoldingRepository:
                 "value_field_name": value_field_name,
                 "market_value": market_value,
                 "reference_date": reference,
+                "line_order": line_order,
             },
             source_id,
             collection_run_id,
