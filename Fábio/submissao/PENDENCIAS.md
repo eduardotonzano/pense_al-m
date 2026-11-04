@@ -35,6 +35,29 @@ Prazo: **sexta 06/11/2026, 23h59**, pelo formulário Microsoft Forms.
 
 417 testes (debêntures, 312 + 105) · 285 testes (galpão) · 3 emissores, 3 debêntures, 38 observações · 168 documentos de CRI/CRA (126 Café Brasil + 42 Almeida Junior) · FIAGRO 09/2026: 308 classes, 688 séries, 39.316 observações, 0 conflitos · FIDC 09/2026: 3.605 cedentes com CNPJ válido de 7.452 células, 385 percentuais acima de 100% · teste de volume: 1,57 mi observações, carga em 7,3 min.
 
+## Decisões já tomadas (não rediscutir)
+
+- **Git:** trabalhar e dar push só na branch `fabio`. Nunca dar push para `main`.
+- **Formato:** ficha em Word, convertida em PDF para anexar. Sem modelo da Multiplica, a estrutura foi montada do zero.
+- **Métricas de impacto:** enquanto o Research não responder, usar estimativas marcadas como [ESTIMATIVA]; números do repositório vão como [MEDIDO]. Não inventar número sem marcar.
+- **IA, com honestidade:** hoje a IA está no desenvolvimento (Claude Code, a confirmar com o time) e no layout HTML (feito com o Claude). O agente de leitura de documentos e os alertas são **próxima fase** e não podem ser apresentados como prontos.
+- **Produto em destaque:** debêntures é a frente mais madura e serve de exemplo principal (consulta da PETR27).
+- **Descritivo:** o formulário pede texto no campo 6 sobre *como* o protótipo foi elaborado (processo), não um anexo.
+
+## Panorama do projeto (em 04/11/2026)
+
+| Frente | Dono | Fonte | Status |
+|---|---|---|---|
+| Debêntures | Eduardo | SND | Em operação, 8 de 9 etapas; falta a interface |
+| CRI/CRA | Enrico | Fundos.NET | Catálogo e download em 2 ativos piloto |
+| Fundos (FIDC/FIAGRO) | Gui | CVM | Carga real em banco de teste |
+| Galpão (integração) | Fábio | — | Só emissores de debêntures |
+| Renda fixa | Eduardo | A definir | Não iniciado |
+
+Dor (padrinho Gustavo Vilela, área de Research): o time não consegue acompanhar os ativos por falta de uma base consolidada.
+
+Para mais contexto técnico, leia `README.md` e `CLAUDE.md` na raiz, `Fábio/README.md` e `Gui/fundos/README.md`.
+
 ## Próximo passo
 
 Montar o PPT final (campo 3) a partir do organograma + métricas.
