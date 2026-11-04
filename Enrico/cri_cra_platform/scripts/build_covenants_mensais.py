@@ -72,12 +72,15 @@ def main() -> int:
         for r in read(REPORTS / f"{slug}_monitoramentos.csv"):
             if not r.get("grupo_tipo") and r.get("item", "").startswith("("):
                 continue  # relatório lido sem item monitorado
+            if not (r.get("valor_referencia") or r.get("situacao") or r.get("condicao_apurada")):
+                continue  # saldo de conta sem exigido nem situação (Canal): não é item monitorado
+            group = "" if (r.get("grupo") or "").isupper() else r.get("grupo", "")  # título de quadro em caixa alta
             isins = codes(r.get("isin", ""))
             for index, cetip in enumerate(codes(r.get("codigo_cetip", ""))):
                 add(cetip, isin=isins[index] if index < len(isins) else "", devedor_fonte=r.get("devedor", ""),
                     fonte=f"{source} (relatório mensal)", competencia=r.get("competencia", ""),
                     grupo=group_of(r.get("grupo_tipo", ""), f"{r.get('grupo', '')} {r.get('item', '')}"),
-                    item=" · ".join(part for part in (r.get("grupo", ""), r.get("item", "")) if part),
+                    item=" · ".join(part for part in (group, r.get("item", "")) if part),
                     exigido=f"{r.get('valor_referencia', '')} {r.get('condicao_referencia', '')}".strip(),
                     apurado=r.get("valor_apurado", ""), situacao=r.get("situacao", ""),
                     data_verificacao=r.get("data_verificacao", ""), proxima_verificacao=r.get("proxima_verificacao", ""),
@@ -140,7 +143,7 @@ def main() -> int:
              f"Ativos (CETIP) com apuração mensal: **{len(with_measure)}**; só com o exigido do Termo: **{len(only_term)}**; "
              f"linhas: **{len(unique)}**.", "",
              f"Saldo dos ativos com apuração mensal: **R$ {covered / 1e9:.1f} bi** de R$ {total / 1e9:.1f} bi da lista do "
-             f"mercado ({covered / total:.0%}); a lista do mercado não inclui os ativos do catálogo.".replace(".", ",", 2), "",
+             f"mercado ({covered / total:.0%}); a lista do mercado não inclui os 70 ativos dos pilotos e dos lotes 1 e 2.".replace(".", ",", 2), "",
              "| Fonte | Ativos com valor apurado |", "|---|---|",
              *[f"| {k} | {len(v)} |" for k, v in sorted(measured.items())], "",
              "| Situação informada (itens apurados) | Itens |", "|---|---|", *[f"| {k} | {v} |" for k, v in status.most_common()], ""]
