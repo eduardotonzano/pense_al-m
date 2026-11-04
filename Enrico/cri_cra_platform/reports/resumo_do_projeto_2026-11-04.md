@@ -4,7 +4,7 @@ Branch `enricosuman27-e1-auditoria-informes`, PR #21 → `main`. Continua `resum
 
 ## Em uma frase
 Além do Informe da CVM para o mercado inteiro, agora há **documentos do Fundos.NET catalogados para quase todas as emissões vivas**
-e **covenants apurados todo mês** (exigido × apurado × situação) para as emissões de cinco securitizadoras, num formato único que
+e **covenants apurados todo mês** (exigido × apurado × situação) para as emissões de seis securitizadoras, num formato único que
 alimenta o módulo Covenants do MVP.
 
 ## Entregas
@@ -13,11 +13,11 @@ alimenta o módulo Covenants do MVP.
 | Fundos.NET, mercado inteiro | 2.959 ativos e 206 mil documentos catalogados; 2.887 de 2.905 emissões vivas (99,4%); 12.605 documentos baixados dos 663 ativos com sinal de triagem | `data/cri_cra.db`, `logs/mercado_*.log` |
 | Garantias e covenants do Termo | 14 tipos de garantia e 6 covenants com limite, com trecho e página | `reports/garantias_covenants.md` |
 | Covenants apurados (Opea) | 1.926 relatórios mensais, 23 mil itens; 2.297 não atendidos em 864 emissões | `reports/opea_monitoramentos.md` |
-| Covenants apurados (Vert, Leverage, Canal) | 153, 106 e 176 relatórios | `reports/{vert,leverage,canal}_monitoramentos.md` |
+| Covenants apurados (Vert, Leverage, Canal, Bari) | 153, 106, 176 e 91 relatórios | `reports/{vert,leverage,canal,bari}_monitoramentos.md` |
 | Acompanhamento da Eco | 164 relatórios de gestão, 34 de acompanhamento (garantias × saldo, carteira vencida, aderência ao Termo) | `reports/eco_relatorios_mensais.md` |
 | Riza | "Default" no portal × Informe da CVM (40 operações divergentes) | `reports/riza_status_vs_cvm.md` |
-| Base única de covenants | 2.702 CETIPs com valor apurado, 33% do saldo da lista do mercado | `reports/covenants_mensais.{md,csv}` |
-| Alertas por ativo | 1.356 ativos com sinal; 18 em duas ou mais fontes | `reports/alertas_por_ativo.md` |
+| Base única de covenants | 2.768 CETIPs com valor apurado, 34% do saldo da lista do mercado | `reports/covenants_mensais.{md,csv}` |
+| Alertas por ativo | 1.365 ativos com sinal; 18 em duas ou mais fontes | `reports/alertas_por_ativo.md` |
 | Atas pelos portais | atas, editais e comunicados desde 01/08/2026 (Opea, Eco, Vert) com assunto e decisão | `reports/atas_portais.md` |
 
 ## Como operar todo mês
@@ -36,6 +36,7 @@ roda sozinho (`scripts/collect_<securitizadora>_reports.py --dry-run|--commit|--
   Lifestyle Barigui com fundo de reserva abaixo do mínimo.
 - **Canal:** HBX ED 4 com razão de garantia de 0,33 (mínimo de 1,24), em reestruturação; Tocantins Energias com ICSD de 0,36
   (mínimo de 1,15).
+- **Bari:** 13 itens não atendidos em 9 relatórios: fundo de reserva abaixo do mínimo (1ª emissão 84ª série GPA, 63ª, 64ª e 67ª emissões), ICM de 1,29 contra 1,30 (52ª, Mitre), Índice de Término de Obras de 81,67% e 85,9% contra 105% (60ª; 64ª com waiver até 24/12/2026). O relatório da 42ª traz o Código IF da 64ª (cópia de modelo).
 - **Eco:** em vários CRAs de revenda de insumos a própria Eco informa a carteira de recebíveis 100% vencida (Agrícola Panorama,
   Nativa, Tecplante, Coopernorte). Três pares de emissões trazem o bloco de saldo devedor idêntico (169 × 252, 229 × 271,
   413 × 439), provável cópia de modelo no relatório.
@@ -46,8 +47,8 @@ roda sozinho (`scripts/collect_<securitizadora>_reports.py --dry-run|--commit|--
 - Sites de securitizadora são a fonte de menor prioridade: complementam a CVM, nunca a corrigem, e nada disso é gravado no banco.
   A situação é a que a securitizadora informa, sem dedução; waiver citado em nota de rodapé não muda o "Desenquadrado".
 - **Riza** passou a responder 403 (acesso recusado) em 04/11/2026; os coletores param na hora e não tentam contornar.
-- **Bari** (2,3% do saldo): cliente do portal pronto, mas o relatório tem pelo menos oito layouts e o leitor não foi terminado.
-  Província, Forte, Habitasec e Travessia não publicam covenant apurado (só Informe da CVM ou relatório anual do agente fiduciário).
+- **Bari** (2,3% do saldo): leitor por regras de posição sobre vários modelos de relatório; 58 dos 91 relatórios com item lido (os
+  outros 33 não trazem quadro com situação); quadro ambíguo não vira item. Província, Forte, Habitasec e Travessia não publicam covenant apurado (só Informe da CVM ou relatório anual do agente fiduciário).
 - Vert: leitor heurístico sobre layouts variados (conferido pelo construtor em 14 PDFs e corrigido em dois casos de razão de
   garantia); a conferência independente não rodou (limite de uso). Leverage conferida de forma independente (79 itens iguais ao PDF).
 - A cadeia do Fundos.NET segue em segundo plano: texto e OCR dos prioritários; depois download dos demais, texto e remoção do PDF

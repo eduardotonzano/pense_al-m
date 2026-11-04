@@ -2,10 +2,11 @@
 
 Junta, por código CETIP, os sinais de cada fonte: Informe CVM e atas (acompanhamento de crédito), relatório mensal das securitizadoras com tabela de monitoramento (Opea, Vert, Leverage, Bari, Canal: itens não atendidos), acompanhamento mensal da Eco (recebíveis vencidos, aderência), portal da Riza (Default) e os covenants com limite lidos no Termo. Sites de securitizadora complementam a CVM: divergência é para leitura, não correção.
 
-Ativos com algum sinal: **1356**; em duas ou mais fontes: **18**.
+Ativos com algum sinal: **1365**; em duas ou mais fontes: **18**.
 
 | Fonte | Ativos com sinal |
 |---|---|
+| Bari | 9 |
 | CVM/atas | 70 |
 | Canal | 71 |
 | Eco | 29 |
@@ -129,7 +130,7 @@ Devedor: Almeida Junior · saldo CVM R$ 0,0 mi · fontes: CVM/atas + Opea
 - [Opea] 2 não atendido(s), obrigação, Setembro/2026: Fundo de Despesas (exigido R$ 210.000,00 Mínimo, apurado R$ 207.658,19); Relatório de Destinação de Recursos (exigido n/a Nao se Aplica, apurado Não recebido)
 - [Termo] covenants com limite: LTV (saldo / valor da garantia) <= 60%; Dívida líquida / EBITDA <= 4.95x
 
-## Covenant ou garantia financeira não atendida, ou carteira vencida (por saldo; 328 ativos)
+## Covenant ou garantia financeira não atendida, ou carteira vencida (por saldo; 331 ativos)
 
 | CETIP | Tipo | Securitizadora | Devedor | Saldo CVM | Fontes | Sinal |
 |---|---|---|---|---|---|---|
@@ -171,6 +172,7 @@ Devedor: Almeida Junior · saldo CVM R$ 0,0 mi · fontes: CVM/atas + Opea
 | CRA026001UQ | CRA | ECO SECURITIZADORA |  | R$ 64,5 mi | Eco | [Eco] 2026-10-16: recebíveis vencidos R$ 37,4 mi (35% da carteira) |
 | CRA024004XT | CRA | OPEA SECURITIZADORA S.A | Diana (Opea) | R$ 63,3 mi | CVM/atas + Opea | [CVM/atas] nível 2: atraso no Informe / [Opea] 3 não atendido(s), covenant/garantia financeira, Setembro/2026: Fluxo Mínimo (exigido 100% Mínimo, apurado 0,00%) |
 | 25I2039269 | CRI | OPEA SECURITIZADORA S.A. | Shopping Itapê (Opea) | R$ 62,7 mi | Opea | [Opea] 7 não atendido(s), covenant/garantia financeira, Setembro/2026: LTV (exigido 60% Mínimo, apurado 0%); LTV (exigido 50% Mínimo, apurado 10%) |
+| 25J4157736 | CRI | BARI SECURITIZADORA S.A. | Nota Comercial (Bari) | R$ 62,7 mi | Bari | [Bari] 2 não atendido(s), covenant/garantia financeira, Agosto/2026: Fundo de liquidez (exigido 1.697.920,98 mínimo, apurado -) |
 | CRA025004MR | CRA | ECO SECURITIZADORA |  | R$ 62,3 mi | Eco | [Eco] 2026-10-16: recebíveis vencidos R$ 30,8 mi (27% da carteira) |
 | CRA02500BF5 | CRA | Eco Securitizdora de Direitos Creditórios do Agronegócio |  | R$ 62,2 mi | Eco | [Eco] 2026-10-16: recebíveis vencidos R$ 24,2 mi (78% da carteira) |
 | CRA02300UV7 | CRA | Eco Securitizdora de Direitos Creditórios do Agronegócio |  | R$ 61,9 mi | Eco | [Eco] 2026-10-16: recebíveis vencidos R$ 12,2 mi (94% da carteira) |
@@ -192,6 +194,5 @@ Devedor: Almeida Junior · saldo CVM R$ 0,0 mi · fontes: CVM/atas + Opea
 | 24L2093500 | CRI | OPEA SECURITIZADORA S.A | Urba (Opea) | R$ 48,0 mi | Opea | [Opea] 1 não atendido(s), covenant/garantia financeira, Setembro/2026: Indice de Cobertura (exigido 110% Mínimo, apurado 102%) |
 | 23F2354249 | CRI | OPEA SECURITIZADORA S.A | Hedge II (Opea) | R$ 47,5 mi | Opea | [Opea] 2 não atendido(s), covenant/garantia financeira, Setembro/2026: LTV (exigido 65% Máximo, apurado 0,93); Razao Mínima de Garantia (LTV) (exigido 0,65 Máximo, apurado -) |
 | 25L2639155 | CRI | OPEA SECURITIZADORA S.A. | Verde Urbanismo (Opea) | R$ 47,5 mi | Opea | [Opea] 6 não atendido(s), covenant/garantia financeira, Setembro/2026: LTV (exigido 50% Máximo, apurado 54%); Razao de Garantia Durante o Período de Reenquadramento (exigido - Nao se Aplica, apurado 125%); Razão de Garantia (exigido 125% Mínimo, apurado 121%) |
-| 25H5085635 | CRI | CANAL COMPANHIA DE SECURITIZAÇÃO | CONDOMÍNIO RANCHO LMI SPE LTDA., AZI PARTICIPAÇÕES SPE LTDA., INNOVAR PARTICIPAÇÕES E INCORPORAÇÕES LTDA., FAMÍLIA SASSI PARTICIPAÇÕES SPE LTDA., MELNICK EVEN AZALEIA EMPREENDIMENTO IMOBILIÁRIO SPE LTDA. E ITABEN EMPREENDIMENTOS IMOBILIÁRIOS LTDA. (Canal) | R$ 45,1 mi | Canal | [Canal] 2 não atendido(s), covenant/garantia financeira, Setembro/2026: Razão de Garantia (exigido 120,0% Limite Mínimo, apurado 76,4%) |
 
-Lista completa (1356 ativos) em reports/alertas_por_ativo.csv.
+Lista completa (1365 ativos) em reports/alertas_por_ativo.csv.

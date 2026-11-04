@@ -17,13 +17,13 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 **Covenants apurados nos relatórios mensais das securitizadoras**
 - Opea (API pública): relatório mensal de gestão de 1.926 emissões, 23 mil itens com exigido × apurado × situação × data;
   2.297 itens "não atendido" em 864 emissões. Leitor conferido em 42 relatórios reais.
-- Vert (VERT Data), Leverage (portal de emissões) e Canal (páginas públicas): 153, 106 e 176 relatórios; a Leverage conferida em
+- Vert (VERT Data), Leverage (portal de emissões), Canal (páginas públicas) e Bari (portal de emissões): 153, 106, 176 e 91 relatórios; a Leverage conferida em
   20 relatórios (79 itens iguais ao PDF). A Canal publica com meses de atraso (competência de cada item no relatório).
 - Eco (páginas públicas): relatório de gestão de 164 emissões e de acompanhamento de 34 (garantias × saldo devedor por classe,
   recebíveis vencidos, aderência ao Termo); marca saldo idêntico entre emissões diferentes (provável cópia de modelo).
 - Riza: situação "Default" do portal × Informe da CVM (73 operações em Default, 40 "Adimplente" na CVM).
 - `build_covenants_mensais.py`: base única no formato do módulo Covenants (um item por linha, com fonte, documento e SHA-256):
-  2.702 CETIPs com valor apurado, 33% do saldo da lista do mercado (Riza e Eco, que somam 46% do saldo, não publicam covenant apurado);
+  2.768 CETIPs com valor apurado, 34% do saldo da lista do mercado (Riza e Eco, que somam 46% do saldo, não publicam covenant apurado);
   `build_alertas_por_ativo.py`: sinais por ativo de todas as fontes. Garantias e covenants exigidos no Termo
   (`build_guarantees_covenants.py`, 14 tipos de garantia e 6 covenants com limite).
 - `run_monthly_market.py --portais` coleta os portais; sem a opção a rotina só relê os relatórios já gerados.
@@ -80,7 +80,7 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 ### Como verificar
 ```powershell
 cd Enrico\cri_cra_platform
-$env:PYTHONPATH='..\..\src'; python -m pytest                       # 481 testes
+$env:PYTHONPATH='..\..\src'; python -m pytest                       # 486 testes
 python scripts/apply_migration.py --database data\cri_cra.db --dry-run
 python scripts/ingest_cvm_open_data.py --dry-run                     # lista os 16 arquivos da CVM, não grava
 python scripts/run_monthly_market.py --dry-run                       # rotina mensal sem gravar no banco
