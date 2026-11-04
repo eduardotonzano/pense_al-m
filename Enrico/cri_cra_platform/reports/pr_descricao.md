@@ -5,6 +5,29 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 
 ### O que entra
 
+**Mercado inteiro no Fundos.NET (04/11/2026)**
+- Catálogo de documentos do Fundos.NET para todas as emissões vivas: 2.959 ativos e 206 mil documentos catalogados; 2.887 das
+  2.905 emissões da lista do mercado estão no catálogo (99,4%). Busca pelo ISIN/CETIP mesmo quando o nome da securitizadora no
+  Fundos.NET é outro (`idAdm=0`), certificado listado só pelo código CETIP, e trava de identidade (mesmo CETIP/ISIN com outro CNPJ
+  ou emissão bloqueia em vez de sobrescrever).
+- Download dos 663 ativos com sinal de triagem (Termo, aditamentos, fatos relevantes; atas e comunicados desde 2025): 12.605
+  documentos. Nos demais, o PDF é apagado depois de extraído o texto (só com hash conferido e todas as páginas com texto; lista em
+  `data/arquivos_removidos.csv`).
+
+**Covenants apurados nos relatórios mensais das securitizadoras**
+- Opea (API pública): relatório mensal de gestão de 1.926 emissões, 23 mil itens com exigido × apurado × situação × data;
+  2.297 itens "não atendido" em 864 emissões. Leitor conferido em 42 relatórios reais.
+- Vert (VERT Data), Leverage (portal de emissões) e Canal (páginas públicas): 153, 106 e 176 relatórios; a Leverage conferida em
+  20 relatórios (79 itens iguais ao PDF). A Canal publica com meses de atraso (competência de cada item no relatório).
+- Eco (páginas públicas): relatório de gestão de 164 emissões e de acompanhamento de 34 (garantias × saldo devedor por classe,
+  recebíveis vencidos, aderência ao Termo); marca saldo idêntico entre emissões diferentes (provável cópia de modelo).
+- Riza: situação "Default" do portal × Informe da CVM (73 operações em Default, 40 "Adimplente" na CVM).
+- `build_covenants_mensais.py`: base única no formato do módulo Covenants (um item por linha, com fonte, documento e SHA-256):
+  2.702 CETIPs com valor apurado, 33% do saldo da lista do mercado (Riza e Eco, que somam 46% do saldo, não publicam covenant apurado);
+  `build_alertas_por_ativo.py`: sinais por ativo de todas as fontes. Garantias e covenants exigidos no Termo
+  (`build_guarantees_covenants.py`, 14 tipos de garantia e 6 covenants com limite).
+- `run_monthly_market.py --portais` coleta os portais; sem a opção a rotina só relê os relatórios já gerados.
+
 **Mercado inteiro (dados abertos da CVM)**
 - `ingest_cvm_open_data.py`: Informe Mensal de todos os CRA e CRI (2019 a 2026) num banco separado `data/cvm_open.db`, com valor
   original preservado, SHA-256 por arquivo, recarga idempotente e todas as versões guardadas. Universo: 1.209 emissões de CRA e 3.813 de CRI.
@@ -57,10 +80,11 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 ### Como verificar
 ```powershell
 cd Enrico\cri_cra_platform
-$env:PYTHONPATH='..\..\src'; python -m pytest                       # 426 testes
+$env:PYTHONPATH='..\..\src'; python -m pytest                       # 481 testes
 python scripts/apply_migration.py --database data\cri_cra.db --dry-run
 python scripts/ingest_cvm_open_data.py --dry-run                     # lista os 16 arquivos da CVM, não grava
 python scripts/run_monthly_market.py --dry-run                       # rotina mensal sem gravar no banco
+python scripts/collect_vert_reports.py --dry-run                     # portais: contam emissões sem baixar
 ```
 
 ### Riscos e pontos de atenção
@@ -70,6 +94,8 @@ python scripts/run_monthly_market.py --dry-run                       # rotina me
 - **Regras pendentes** (contratuais do Alibem e do CRI, cadastro do Informe × Termo) só rodam com `--preview`.
 - **Regras de texto** (Termo × CVM, fichas contratuais, decisões de atas) são triagem com trecho e página; nada vira parâmetro aprovado
   sem revisão humana. Pesos do ranking ainda provisórios.
+- **Sites das securitizadoras** são a fonte de menor prioridade: complementam a CVM e nunca a corrigem; nada disso é gravado no banco.
+  A situação (atendido/não atendido) é a que a securitizadora informa, sem dedução. Os portais podem mudar de formato sem aviso.
 
 ### Fora do escopo
 Interface e layout, até o levantamento de requisitos da equipe (ADR-001).
