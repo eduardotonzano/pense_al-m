@@ -29,6 +29,9 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 - Atas, editais e comunicados dos portais (Opea, Eco, Vert, Riza) desde 01/08/2026: 2.107 documentos, 281 por OCR; assunto e decisão por
   regras de texto. Ata de reunião futura é minuta e não conta como decisão; "sustação dos efeitos" não é declaração de vencimento
   antecipado. Triagem para leitura, conferida por amostra de 6 atas.
+- `build_cnpj_devedor_cvm.py`: CNPJ do devedor de cada ativo pelo Informe da CVM (1.298 ativos com um único CNPJ; só leitura,
+  candidato para a camada compartilhada; CPF não sai). Proposta das regras de exibição S-01..S-11 em
+  `reports/proposta_regras_exibicao_securitizados.md`.
 - `run_monthly_market.py --portais` coleta os portais; sem a opção a rotina só relê os relatórios já gerados.
 
 **Mercado inteiro (dados abertos da CVM)**
@@ -83,7 +86,7 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 ### Como verificar
 ```powershell
 cd Enrico\cri_cra_platform
-$env:PYTHONPATH='..\..\src'; python -m pytest                       # 486 testes
+$env:PYTHONPATH='..\..\src'; python -m pytest                       # 490 testes
 python scripts/apply_migration.py --database data\cri_cra.db --dry-run
 python scripts/ingest_cvm_open_data.py --dry-run                     # lista os 16 arquivos da CVM, não grava
 python scripts/run_monthly_market.py --dry-run                       # rotina mensal sem gravar no banco

@@ -26,6 +26,7 @@ ANALYSES = [
     "run_market_events.py",
     "build_market_universe.py",
     "run_debtor_exposure.py",
+    "build_cnpj_devedor_cvm.py",
     "run_securitizadora_scorecard.py",
     "run_dfin_checks.py",
     "run_termo_vs_cvm.py",

@@ -54,8 +54,9 @@ caso do Café Brasil já foi unificado. Item de covenant e relatório da securit
 e aparecem em todas as séries, com essa nota.
 
 **S-08 CNPJ ausente.** Rótulo "CNPJ não informado pela fonte", sem bloquear a ficha. Hoje só 1 securitizadora sem CNPJ,
-mas **2.958 dos 2.959 ativos não têm o CNPJ do devedor** no cadastro do catálogo. O CNPJ existe no Informe Mensal da CVM
-(usado na exposição por devedor) e deveria preencher a ficha com a fonte. Pela regra 6, sem CNPJ não há junção
+mas **2.958 dos 2.959 ativos não têm o CNPJ do devedor** no cadastro do catálogo. O CNPJ existe no Informe Mensal da CVM:
+`cnpj_devedor_cvm.md` liga 1.298 ativos a um único CNPJ de devedor (79 são pulverizados, sem "o" devedor), com a fonte, para a
+camada compartilhada preencher a ficha. Pela regra 6, sem CNPJ não há junção
 automática de devedor entre ativos.
 
 **S-09 Informe Mensal.** Mostrar o que está no XML e na base aberta da CVM: saldo devedor, PU, situação de pagamento

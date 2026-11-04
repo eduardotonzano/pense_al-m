@@ -17,6 +17,7 @@ alimenta o módulo Covenants do MVP.
 | Acompanhamento da Eco | 164 relatórios de gestão, 34 de acompanhamento (garantias × saldo, carteira vencida, aderência ao Termo) | `reports/eco_relatorios_mensais.md` |
 | Riza | "Default" no portal × Informe da CVM (40 operações divergentes) | `reports/riza_status_vs_cvm.md` |
 | Base única de covenants | 2.768 CETIPs com valor apurado, 34% do saldo da lista do mercado | `reports/covenants_mensais.{md,csv}` |
+| CNPJ do devedor (CVM) | 1.298 ativos com um único CNPJ de devedor no Informe Mensal (o catálogo tinha 1); 79 pulverizados; CPF nunca sai | `reports/cnpj_devedor_cvm.{md,csv}` |
 | Alertas por ativo | 1.365 ativos com sinal; 18 em duas ou mais fontes | `reports/alertas_por_ativo.md` |
 | Atas pelos portais | 2.107 documentos desde 01/08/2026 (Opea 1.794, Eco 248, Vert 40, Riza 25) com assunto e decisão; 97 eventos graves decididos em ata, 409 só no texto; 281 lidos por OCR | `reports/atas_portais.{md,csv}` |
 
