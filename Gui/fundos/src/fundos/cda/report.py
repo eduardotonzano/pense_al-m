@@ -1,4 +1,4 @@
-"""Relatorio da leitura do CDA so com agregados.
+"""Relatorio da leitura e da carga do CDA so com agregados.
 
 Nunca imprime CNPJ, nome nem valor de campo: so contagens, nomes de arquivo
 e de coluna, o SHA-256 do arquivo, a competencia, os meses de
@@ -6,6 +6,12 @@ DT_CONFID_APLIC e os rotulos de dominio da CVM (TP_APLIC, TP_FUNDO_CLASSE).
 """
 
 from fundos.cda import columns as spec
+from fundos.cda.loader import CLASS_SUBJECT
+from fundos.cda.loader import COMPARISON
+from fundos.cda.loader import FUND_SUBJECT
+from fundos.cda.loader import INVESTEE_TYPES
+from fundos.cda.loader import KINDS
+from fundos.cda.loader import REASONS
 from fundos.cda.reader import CONFIDENTIAL
 from fundos.cda.reader import IDENTIFIED
 from fundos.cda.reader import REFUSAL_REASONS
@@ -142,6 +148,99 @@ def format_read_report(cda):
     lines.append(
         "Detentores com cotas identificadas e confidenciais ao mesmo tempo: "
         + str(counts[("detentores_nas_duas",)])
+    )
+
+    return lines
+
+
+def _outcomes(counts, prefix):
+    loaded = (
+        CLASS_SUBJECT
+        + " "
+        + str(counts[prefix + (CLASS_SUBJECT,)])
+        + ", "
+        + FUND_SUBJECT
+        + " "
+        + str(counts[prefix + (FUND_SUBJECT,)])
+    )
+    out = "; ".join(reason + " " + str(counts[prefix + (reason,)]) for reason in REASONS)
+    total_out = sum(counts[prefix + (reason,)] for reason in REASONS)
+
+    return loaded + "; fora " + str(total_out) + " (" + out + ")"
+
+
+def format_match_report(counts):
+    """Linhas do casamento do detentor com o cadastro carregado (nada e criado)."""
+
+    lines = ["Detentor no cadastro carregado (nenhum fundo nem classe e criado):"]
+
+    for kind in KINDS:
+        lines.append("  posicoes " + kind + ": " + _outcomes(counts, ("casamento", kind)))
+        lines.append("  detentores " + kind + ": " + _outcomes(counts, ("detentores", kind)))
+
+    return lines
+
+
+def format_investee_type_report(counts):
+    """Linhas do tipo do investido no cadastro carregado (linhas e investidos)."""
+
+    return [
+        "Tipo do investido no cadastro carregado (Tipo_Classe ou, sem classe, Tipo_Fundo):",
+        "  linhas: "
+        + ", ".join(t + " " + str(counts[("tipo_investido", "linhas", t)]) for t in INVESTEE_TYPES),
+        "  investidos distintos: "
+        + ", ".join(t + " " + str(counts[("tipo_investido", "investidos", t)]) for t in INVESTEE_TYPES),
+    ]
+
+
+def format_comparison_report(counts):
+    """Linhas da comparacao com o que ja esta no banco (dry-run)."""
+
+    lines = ["Comparacao com o banco (posicoes cujo detentor casa):"]
+
+    for kind in KINDS:
+        lines.append(
+            "  "
+            + kind
+            + ": "
+            + ", ".join(status + " " + str(counts[("comparacao", kind, status)]) for status in COMPARISON)
+            + "; sumiram (no banco, fora deste ZIP; so contadas) "
+            + str(counts[("reapresentacao", kind, "sumiram")])
+        )
+
+    return lines
+
+
+def format_load_report(result):
+    """Linhas do relatorio da carga gravada."""
+
+    counts = result.counts
+    lines = ["Gravado (coleta " + str(result.run_id) + ", status " + result.status + "):"]
+
+    for kind, table in zip(KINDS, ("holdings", "confidential_holdings")):
+        lines.append(
+            "  "
+            + table
+            + ": criadas "
+            + str(counts[("gravadas", kind, "criadas")])
+            + ", existentes "
+            + str(counts[("gravadas", kind, "existentes")])
+            + ", conflitos abertos "
+            + str(counts[("conflitos", kind)])
+            + ", sumiram (so contadas) "
+            + str(counts[("reapresentacao", kind, "sumiram")])
+        )
+
+    lines.append(
+        "  manifesto: o ZIP e os 12 CSV em raw_records ("
+        + str(len(spec.IGNORED_TABLES))
+        + " cda_fi_* como ignored)"
+    )
+    lines.append(
+        "  varredura das posicoes desta coleta: investee_cnpj invalido "
+        + str(counts[("varredura", "cnpj_invalido")])
+        + ", nome ou CNPJ com formato de CPF "
+        + str(counts[("varredura", "formato_cpf")])
     )
 
     return lines

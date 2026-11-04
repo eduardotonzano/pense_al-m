@@ -1,4 +1,4 @@
-"""ZIP ficticio do CDA (cda_fi_AAAAMM.zip, 12 membros), montado em memoria.
+"""ZIP ficticio do CDA (cda_fi_AAAAMM.zip, 12 membros), montado em memoria, e cadastro ficticio.
 
 Nada aqui e dado real: CNPJs ficticios de apoio.make_test_cnpj (o detentor
 com mascara e o investido sem, como no CDA), nomes marcados como ficticios,
@@ -11,8 +11,15 @@ import io
 import zipfile
 
 from apoio import make_test_cnpj
+from apoio_cadastro import FIAGRO_CLASS
+from apoio_cadastro import build_zip
+from apoio_cadastro import class_row
 from apoio_cadastro import csv_bytes
+from apoio_cadastro import fund_row
 from apoio_cadastro import masked
+from fundos.cadastro.loader import load_cadastro
+from fundos.cadastro.reader import read_cadastro_bytes
+from fundos.cadastro.selection import select_fidc_fiagro
 from fundos.cda import columns as spec
 
 
@@ -34,6 +41,39 @@ PERSON_NAME = "Pessoa Natural (ficticia)"
 # Conteudo dos membros que o leitor so manifesta. O byte 0x81 nao existe em
 # cp1252: se o leitor decodificasse, a leitura falharia.
 IGNORED_CONTENT = b"CAMPO_FICTICIO\r\n\x81\r\n"
+
+
+FUND_ONLY = make_test_cnpj(7)
+UNKNOWN_HOLDER = make_test_cnpj(8)
+MIXED = make_test_cnpj(9)
+
+
+def load_fictitious_cadastro(db, fidc=(1, 2, 3, 4), fiagro=(5,), funds_without_class=(7,), mixed=(9,)):
+    """Carrega um cadastro ficticio (CNPJ make_test_cnpj(n)) pelo carregador do cadastro.
+
+    fidc e fiagro: fundo e classe do tipo, com o mesmo CNPJ n.
+    funds_without_class: fundo FIDC sem classe. mixed: fundo FIAGRO com
+    classe FIDC de mesmo CNPJ (tipo misto). Padrao: o detentor 1, o outro
+    detentor 2, o confidencial 3 e os investidos 4 (FIDC) e 5 (FIAGRO); o
+    investido 6 e o detentor 8 ficam fora do cadastro.
+    """
+
+    def fund(n, tipo):
+        return fund_row(ID_Registro_Fundo=str(n), CNPJ_Fundo=make_test_cnpj(n), Tipo_Fundo=tipo)
+
+    def klass(n, **changes):
+        return class_row(
+            ID_Registro_Fundo=str(n), ID_Registro_Classe=str(n), CNPJ_Classe=make_test_cnpj(n), **changes
+        )
+
+    fund_rows = [fund(n, "FIDC") for n in tuple(fidc) + tuple(funds_without_class)]
+    fund_rows += [fund(n, "FIAGRO") for n in tuple(fiagro) + tuple(mixed)]
+    class_rows = [klass(n) for n in tuple(fidc) + tuple(mixed)]
+    class_rows += [klass(n, Tipo_Classe=FIAGRO_CLASS) for n in fiagro]
+    cadastro = read_cadastro_bytes(build_zip(fund_rows, class_rows), "registro_fundo_classe.zip")
+
+    with db.transaction() as connection:
+        load_cadastro(connection, cadastro, select_fidc_fiagro(cadastro), "2026-10-27")
 
 
 def investee_name(n):
