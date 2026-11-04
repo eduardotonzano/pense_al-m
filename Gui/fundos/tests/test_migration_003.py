@@ -1,4 +1,5 @@
 import importlib.util
+import shutil
 import sqlite3
 
 import pytest
@@ -115,7 +116,7 @@ def test_applying_twice_changes_nothing(tmp_path):
         connection.close()
 
     assert before == after
-    assert [row[0] for row in versions] == [1, 2, 3]
+    assert [row[0] for row in versions] == [1, 2, 3, 4]
 
 
 def test_share_right_after_its_cedente_is_accepted(full_connection, base):
@@ -297,11 +298,19 @@ def test_apply_migration_applies_003_over_001_and_002_with_data(tmp_path, capsys
             ("tab_I.CNPJ_ADMIN", "2026-09-30", first, second),
         )
 
+    # So 001 a 003: a 004 tem teste proprio e mudaria a lista de objetos novos.
+    migrations = tmp_path / "migrations"
+    migrations.mkdir()
+
+    for migration in (MIGRATION_001, MIGRATION_002, MIGRATION_003):
+        shutil.copy(migration, migrations)
+
     before = dump(path)
     script = load_script()
-    dry = script.main(["--database", str(path), "--dry-run"])
+    selected = ["--database", str(path), "--migrations-dir", str(migrations)]
+    dry = script.main([*selected, "--dry-run"])
     dry_output = capsys.readouterr().out
-    committed = script.main(["--database", str(path), "--commit", "--backup-dir", str(tmp_path / "bk")])
+    committed = script.main([*selected, "--commit", "--backup-dir", str(tmp_path / "bk")])
     output = capsys.readouterr().out
     expected_new = ", ".join(kind + " " + name for kind, name in NEW_OBJECTS)
 
