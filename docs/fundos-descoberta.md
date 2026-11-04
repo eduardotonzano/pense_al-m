@@ -1061,10 +1061,10 @@ Nenhuma coluna diz FIAGRO ou a variante: `Tipo_Fundo_Classe` só separa fundo e 
 - **`CNPJ_Administrador`:**
   - vem sem máscara;
   - em 09/2026: 1.334 linhas com CNPJ válido, 39 com 14 dígitos e dígito verificador que falha (35 valores distintos) e 1 vazia;
-  - no ano: 11.419, 306 e 10;
+  - no ano, pela regra do módulo (`fundos.cnpj`, que também rejeita sequência de caracteres iguais): 11.416 válidos, 303 com 14 dígitos e dígito verificador que falha, 3 com 14 dígitos todos iguais, 3 com texto sem dígito no lugar do CNPJ (1 valor, 1 classe, de 01 a 03/2026) e 10 vazios, que somam as 11.735 linhas;
   - nenhum dos inválidos tem forma de CPF completado com zeros.
 - **Gestora:** o informe de FII não tem coluna de gestor.
-- **CPF:** nenhuma coluna tem valor com máscara de CPF nem CPF completado com zeros até 14 caracteres (o caso da seção 12.6). Os únicos valores de 11 dígitos estão em `Telefone1` (13), com forma de telefone, e nenhum passa no dígito verificador de CPF.
+- **CPF:** nenhuma coluna tem valor com máscara de CPF nem CPF completado com zeros até 14 caracteres (o caso da seção 12.6). Os únicos valores de 11 dígitos estão em `Telefone1` (13 no ano inteiro, 1 em 09/2026), com forma de telefone, e nenhum passa no dígito verificador de CPF.
 - **Endereço e contato:**
   - as colunas são `Logradouro`, `Numero`, `Complemento`, `Bairro`, `Cidade`, `Estado`, `CEP`, `Telefone1` a `Telefone3`, `Site` e `Email`;
   - em 09/2026 quase todas vêm preenchidas, e `Telefone2` e `Telefone3` só em 216 e 154 linhas;
@@ -1073,7 +1073,7 @@ Nenhuma coluna diz FIAGRO ou a variante: `Tipo_Fundo_Classe` só separa fundo e 
 
   Se um dia forem lidas, vale a decisão 3 de `docs/decisoes-em-aberto.md` (campos de contato não são carregados).
 - **Nomes:** `Nome_Fundo_Classe` (1.372 distintos em 09/2026) e `Nome_Administrador` (77 distintos, para 92 valores distintos de `CNPJ_Administrador`) são texto livre. A chave é o CNPJ.
-- **`Codigo_ISIN`:** preenchido em 1.159 das 1.374 linhas de 09/2026.
+- **`Codigo_ISIN`:** preenchido em 1.159 das 1.374 linhas de 09/2026. Nem todo valor preenchido tem a forma de ISIN (12 caracteres, 2 letras no início e dígito no fim): no ano, 662 dos 9.984 valores preenchidos não a têm, 563 deles com 1 dígito; em 09/2026, 41 dos 1.159, 32 deles com 1 dígito.
 
 ### 13.4 Cruzamento com o informe de FIAGRO (item c)
 
@@ -1135,7 +1135,7 @@ No ZIP de 2026 inteiro (01 a 09/2026, 1.428 CNPJ distintos), **7 chaves do infor
 - Por que as 7 classes saíram do informe de FII. A conversão para FIAGRO é hipótese.
 - Se o arquivo guarda sempre a última versão de cada chave: há um só instantâneo, e em 09/2026 36 linhas têm `Versao` 2 sem a versão 1.
 - De quem são o endereço e o contato do `geral`. Os poucos valores distintos sugerem o administrador, mas isso não foi verificado.
-- Por que 39 linhas de 09/2026 (35 valores) de `CNPJ_Administrador` falham no dígito verificador.
+- Por que 39 linhas de 09/2026 (35 valores) de `CNPJ_Administrador` falham no dígito verificador e por que 3 linhas de 01 a 03/2026 trazem um texto sem dígito no lugar do CNPJ.
 - O que `Tipo_Fundo_Classe` "Fundo" (13 linhas em 09/2026) significa e se corresponde aos 9 CNPJ que só têm registro de fundo no cadastro: não foi cruzado.
 - Os ZIPs de 2021 a 2025 e o histórico desde 2016 não foram lidos. Um FIAGRO que deixou o informe de FII antes de 2026 não aparece aqui.
 - O mês de 10/2026, que não estava no ZIP de 31/10/2026.
