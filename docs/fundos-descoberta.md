@@ -295,7 +295,7 @@ A carga do informe de FIAGRO entrou no módulo de Fundos na FU5.1 (PR #24, 03/11
 - **Séries:** cada linha de subclasse vira uma série da classe pelo rótulo normalizado, com a mesma regra do FIDC (seção 10.6). As duas grafias de "Subclasse 1" (seção 9.3) ficam como chaves diferentes.
 - **Fora da carga:** `Email_Administrador`, `Site` e `Servico_Atendimento_Cotista` (contato, decisão 3 de `docs/decisoes-em-aberto.md`) e `Entidade_Administradora` (proposta da seção 9.5). O CPF nunca é gravado.
 - **A variante não é gravada.** Nenhum domínio confirmado do informe ou do cadastro traz a variante (seções 9.3 e 10.5). `Regra_Anexo` e `Classificacao_Autorregulada` são gravados como texto, como vêm, sem interpretação. "Variante não informada" é regra de exibição (decisão 7 de `docs/decisoes-em-aberto.md`), não dado: nada no banco diz a variante.
-- **Resultado de 09/2026:** resultado da carga real de 09/2026 no banco de teste (FU5.1, 03/11/2026), com o arquivo da seção 9.1: 308 classes (as 310 chaves menos as 2 repetidas), 688 séries, 39.316 observações, 308 papéis de administrador e 308 de gestor, e 0 conflitos. Em 03/11/2026, a contagem de 308 classes e de 0 conflitos foi repetida no mesmo banco por um script de leitura da FU5.2 (seção 10.5). Ficam fora as 2 chaves repetidas e as 9 linhas de subclasse delas (README do módulo, lista "O que ainda não existe").
+- **Resultado de 09/2026:** carga real no banco de teste (FU5.1, 03/11/2026), com o arquivo da seção 9.1: 308 classes (as 310 chaves menos as 2 repetidas), 688 séries, 39.316 observações, 308 papéis de administrador e 308 de gestor, e 0 conflitos. Em 03/11/2026, a contagem de 308 classes e de 0 conflitos foi repetida no mesmo banco por um script de leitura da FU5.2 (seção 10.5). Ficam fora as 2 chaves repetidas e as 9 linhas de subclasse delas (README do módulo, lista "O que ainda não existe").
 
 ## 10. Amostra do cadastro e do informe de FIDC (27/10/2026)
 
@@ -404,14 +404,14 @@ Valores e contagens de linhas no arquivo inteiro, inclusive registros cancelados
 
 **Conferência de 03/11/2026 no banco de teste.** Medido em 03/11/2026 no banco de teste, com um script de leitura fora do Git, depois da carga do cadastro de 27/10/2026 e dos informes de FIDC e de FIAGRO de 09/2026. Só agregados. Como o resto desta seção, é proposta: o Gui precisa confirmar.
 
-- **Classes com informe:** 308 no de FIAGRO de 09/2026 (as 310 chaves menos as 2 repetidas, que a carga não grava, seção 9.8) e 4.394 no de FIDC de 09/2026.
+- **Classes com informe:** 308 no de FIAGRO de 09/2026 (as 310 chaves menos as 2 repetidas, que a carga não grava, seção 9.8) e 4.394 classes carregadas do informe de FIDC de 09/2026 (o arquivo tem 4.413 assuntos do tipo Classe e 31 do tipo Fundo, seção 10.3; a carga da FU4.1 grava 4.394 classes e os 31 fundos, e 19 assuntos de classe ficam fora: 16 com CNPJ que só existe como fundo no cadastro e 3 fora do cadastro carregado, conforme o resumo da carga da FU4.1).
 - **Sobreposição:** 1 classe tem os dois informes, pela classe; 0 só pelo CNPJ do fundo. No cadastro, essa classe é FIAGRO. `Tipo_Classe` das 308: 307 FIAGRO e 1 FIDC; a classe FIDC não está no informe de FIDC, como acima.
 - **Os dois informes na classe em comum** (uma classe só; o resultado não se generaliza): o patrimônio líquido (`inf_mensal_fiagro.Patrimonio_Liquido` e `tab_IV.TAB_IV_A_VL_PL`) difere até 1%, e o ativo total (`inf_mensal_fiagro.Valor_Ativo` e `tab_I.TAB_I_VL_ATIVO`) difere de 1% a 10%; a administradora é a mesma. Há 0 linhas em `data_conflicts` e 0 em `party_conflicts` nos campos do informe de FIAGRO, porque os campos têm prefixos diferentes (`tab_*` e `inf_mensal_fiagro.*`) e nada compara os dois informes. Qual valor aparece é pergunta aberta na F-05 de `docs/regras-de-exibicao-pendentes.md`.
 - **Administradora, informe de FIAGRO e cadastro** (`registro_fundo.CNPJ_Administrador`, cadastro de 27/10/2026): 294 classes com o mesmo CNPJ e 14 com CNPJ diferente. Para o mesmo CNPJ, o nome difere (comparado sem acento, caixa e pontuação) em 92 das 294.
 - **Gestora, informe de FIAGRO e cadastro** (`registro_fundo.CPF_CNPJ_Gestor`): 279 com o mesmo conjunto de CNPJ, 13 em que a gestora do informe é uma das várias do cadastro e 16 com CNPJ diferente. O nome difere para o mesmo CNPJ em 84 de 292. Nas 308, os dois lados têm CNPJ válido: nenhuma gestora pessoa física e nenhuma ausente. Qual vale como valor atual do papel é pergunta aberta na F-03 de `docs/regras-de-exibicao-pendentes.md`.
 - **Causa das divergências: não confirmada.** O cadastro é de 27/10/2026 e o informe é da competência 09/2026; uma troca real entre as duas datas é hipótese, não medida.
 
-**Base da contagem de 166 (conferida em 03/11/2026, na FU5.2, com os arquivos das seções 9.1 e 10.1).** Contando pelo CNPJ da própria classe, são 165 classes com outro registro em `registro_fundo` (FII cancelado 63; só FIAGRO 145; as outras categorias como acima). A diferença é 1 classe cujo CNPJ é diferente do CNPJ do fundo pai: o registro de FII cancelado está no CNPJ do fundo pai. Contando pelo fundo pai, dá 166, como acima.
+**Base da contagem de 166 (conferida em 03/11/2026, na FU5.2, com os arquivos das seções 9.1 e 10.1).** Contando pelo CNPJ da própria classe, são 165 classes com outro registro em `registro_fundo` (FII cancelado 63; as outras categorias como acima); as outras 145 só têm o registro de FIAGRO. A diferença é 1 classe cujo CNPJ é diferente do CNPJ do fundo pai: o registro de FII cancelado está no CNPJ do fundo pai. Contando pelo fundo pai, dá 166, como acima.
 
 ### 10.6 Séries e subordinação (item e)
 
@@ -1116,9 +1116,9 @@ No ZIP de 2026 inteiro (01 a 09/2026, 1.428 CNPJ distintos), **7 chaves do infor
 | Linhas | 7 | 6 | 4 | 3 | 1 | 0 |
 
 - **Meses no FII:**
-  - as 7 estão presentes em 01/2026;
+  - cada uma das 7 chaves aparece sem interrupção de 01/2026 até o seu último mês, e nenhuma aparece de 06 a 09/2026;
   - o último mês no FII é 01 (1 chave), 02 (2), 03 (1), 04 (2) e 05 (1);
-  - nenhuma volta depois do último mês: as linhas de cada mês são iguais ao número de chaves cujo último mês é aquele ou posterior.
+  - conferido chave a chave por um segundo script de leitura, fora do Git, e também pela conta: as linhas de cada mês (7, 6, 4, 3 e 1) são iguais ao número de chaves cujo último mês é aquele ou posterior; como cada chave tem no máximo uma linha por mês, e só até o seu último mês, a soma das linhas (21) só fecha se ela estiver em todos esses meses, sem buraco.
 - **No FII:** as 21 linhas são de classe (`Tipo_Fundo_Classe`), com `Segmento_Atuacao` Multicategoria (13 linhas), Outros (7) e Logística (1).
 - **No informe de FIAGRO de 09/2026:** as 7 são carregáveis (nenhuma é chave repetida), e nenhuma está no informe de FIDC.
 - **No cadastro de 27/10/2026:**
