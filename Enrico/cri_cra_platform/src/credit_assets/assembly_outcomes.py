@@ -68,6 +68,10 @@ REJECTED = re.compile(r"naoaprova|naoforamaprovad|naofoiaprovad|reprova(?:m|ram|
 
 VA_NEGATIVE = re.compile(r"nao(?:a)?(?:declaracao|decretacao|declarar|decretar)(?:d[eo]s?)?(?:efeitos)?(?:d[eo]s?)?(?:evento(?:s)?de)?"
                          r"vencimentoantecipado")
+# "sustação dos efeitos do vencimento antecipado": o evento já ocorreu e os titulares suspenderam os efeitos (em geral sob
+# condição resolutiva); não é declaração de vencimento antecipado, embora o texto descreva a "decretação" que o causou
+VA_SUSPENDED = re.compile(r"(?:sustacao|suspensao|sustar|suspender)(?:d[eo]s?)?(?:efeitos)?(?:d[eo]s?)?(?:evento(?:s)?de)?"
+                          r"vencimentoantecipado")
 VA_POSITIVE = re.compile(r"(?:declaracao|decretacao|declarar|decretar)(?:d[eo]s?)?(?:efeitos)?(?:d[eo]s?)?(?:evento(?:s)?de)?vencimentoantecipado")
 TOPICS = {
     "waiver": re.compile(r"waiver|anuenciapravia|anuenciaprevia|perdaotemporario|renunciaadireitos|renunciadedireitos"),
@@ -144,7 +148,10 @@ def _topics(text: str, approved: bool, head: int | None = None) -> list[str]:
 
     events = []
     negative, positive = VA_NEGATIVE.search(text), VA_POSITIVE.search(text)
-    if negative and (not positive or negative.start() <= positive.start()):
+    suspended = VA_SUSPENDED.search(text)
+    if suspended and not _negated(text, suspended.start()):
+        events.append("vencimento_antecipado_efeitos_sustados" if approved else "sustacao_dos_efeitos_do_vencimento_antecipado_rejeitada")
+    elif negative and (not positive or negative.start() <= positive.start()):
         events.append("vencimento_antecipado_nao_declarado" if approved else "nao_declaracao_do_vencimento_antecipado_rejeitada")
     elif positive and not _negated(text, positive.start()):
         events.append("vencimento_antecipado_declarado" if approved else "vencimento_antecipado_nao_declarado")

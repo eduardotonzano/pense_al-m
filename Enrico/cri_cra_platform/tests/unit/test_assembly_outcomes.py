@@ -95,3 +95,13 @@ def test_abstention_and_minority_rejection_tally():
                    "Advogados, 3% se abstiveram e 0,57% dos Titulares dos CRA em Circulação presentes rejeitaram a ratificação "
                    "da contratação do escritório X Advogados.")
     assert decide(minority).status == "aprovada" and events(minority) == ["assessor_legal_aprovado"]
+
+
+def test_suspension_of_effects_is_not_declared_acceleration():
+    # Axis II (Opea, 20/10/2026): o evento já ocorreu ("decretação de vencimento antecipado" de outra dívida); os titulares
+    # aprovaram a sustação dos efeitos sob condição resolutiva. Não é declaração de vencimento antecipado.
+    text = ata("O(s) Titular(es) dos CRI, representando 100% dos CRI em circulação, aprovaram a sustação dos efeitos do "
+               "vencimento antecipado, em razão da verificação do Evento de Vencimento Antecipado Automático, caracterizado "
+               "pela decretação de vencimento antecipado em valor igual ou superior a R$ 5.000.000,00, ficando a sustação "
+               "sujeita à condição resolutiva.")
+    assert events(text) == ["vencimento_antecipado_efeitos_sustados"]

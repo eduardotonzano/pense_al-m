@@ -18,7 +18,7 @@ alimenta o módulo Covenants do MVP.
 | Riza | "Default" no portal × Informe da CVM (40 operações divergentes) | `reports/riza_status_vs_cvm.md` |
 | Base única de covenants | 2.768 CETIPs com valor apurado, 34% do saldo da lista do mercado | `reports/covenants_mensais.{md,csv}` |
 | Alertas por ativo | 1.365 ativos com sinal; 18 em duas ou mais fontes | `reports/alertas_por_ativo.md` |
-| Atas pelos portais | atas, editais e comunicados desde 01/08/2026 (Opea, Eco, Vert) com assunto e decisão | `reports/atas_portais.md` |
+| Atas pelos portais | 2.107 documentos desde 01/08/2026 (Opea 1.794, Eco 248, Vert 40, Riza 25) com assunto e decisão; 97 eventos graves decididos em ata, 409 só no texto; 281 lidos por OCR | `reports/atas_portais.{md,csv}` |
 
 ## Como operar todo mês
 ```powershell
@@ -41,11 +41,19 @@ roda sozinho (`scripts/collect_<securitizadora>_reports.py --dry-run|--commit|--
   Nativa, Tecplante, Coopernorte). Três pares de emissões trazem o bloco de saldo devedor idêntico (169 × 252, 229 × 271,
   413 × 439), provável cópia de modelo no relatório.
 - **Riza:** 40 operações em "Default" no portal aparecem "Adimplente" no Informe da CVM (GPA, Uniggel, Lermen, Rovaris...).
+- **Atas (Opea):** liquidação do patrimônio separado aprovada pelo único titular na CRA 71ª (ALG, 16/10/2026, saldo da CPR-F de
+  R$ 42,99 mi; conferida na imagem do PDF); CRI 257ª (Axis II, 20/10/2026) teve os efeitos de um vencimento antecipado automático
+  **sustados** sob condição resolutiva até 31/12/2026 (não é declaração de vencimento antecipado). Waivers e não declarações de
+  vencimento antecipado em Eco (Bem Brasil, Nativa, Solubio, Coplana) e Opea (General Shopping, Aikon, Bevap III, Caeté...).
 - **Almeida Junior (24G2100031):** as AGTs de 19/10 e 28/10/2026 não foram instaladas (pauta de rotina).
 
 ## Limites e pendências
 - Sites de securitizadora são a fonte de menor prioridade: complementam a CVM, nunca a corrigem, e nada disso é gravado no banco.
   A situação é a que a securitizadora informa, sem dedução; waiver citado em nota de rodapé não muda o "Desenquadrado".
+- **Atas, conferência:** ata cuja reunião é posterior à data da coleta é minuta (texto de modelo "aprovou(aram)") e sai como
+  `minuta_reuniao_futura`, sem decisão (3 casos, entre eles MZ Log e JFL Lorena); o classificador distingue "sustação dos efeitos" de
+  declaração de vencimento antecipado. Amostra de 6 atas conferida contra o PDF (4 pelo texto, 2 pela imagem); não é revisão completa.
+  Riza só rendeu 25 documentos antes do 403.
 - **Riza** passou a responder 403 (acesso recusado) em 04/11/2026; os coletores param na hora e não tentam contornar.
 - **Bari** (2,3% do saldo): leitor por regras de posição sobre vários modelos de relatório; 58 dos 91 relatórios com item lido (os
   outros 33 não trazem quadro com situação); quadro ambíguo não vira item. Província, Forte, Habitasec e Travessia não publicam covenant apurado (só Informe da CVM ou relatório anual do agente fiduciário).

@@ -1,5 +1,5 @@
 from credit_assets.portal_atas import (document_kind, eco_documents, grave_events, in_window, opea_family, opea_published,
-                                       opea_selected)
+                                       opea_selected, is_future_meeting)
 
 
 def test_kind_by_title_with_category_as_tiebreaker():
@@ -89,3 +89,12 @@ def test_grave_events_prefer_the_decision_over_the_text():
                                             ("inadimplencia_devedor", "ajuizou pedido de recuperação judicial")]) == (
         ["recuperação judicial", "repactuação/prorrogação"], "texto")
     assert grave_events([], [("inadimplencia_devedor", "atraso no pagamento da parcela")]) == ([], "")
+
+
+def test_ata_de_reuniao_futura_e_minuta():
+    # "Ata da Assembleia - Reunião de 19/11/2026" publicada em 30/10/2026 (texto de modelo "aprovou(aram)")
+    assert is_future_meeting("ata", "2026-11-19", "2026-10-30", "2026-11-04")
+    assert is_future_meeting("ata", "", "2026-12-04", "2026-11-04")
+    assert not is_future_meeting("ata", "2026-10-28", "2026-10-29", "2026-11-04")
+    # edital de convocação com data futura é normal: é a data da reunião marcada
+    assert not is_future_meeting("edital", "2026-11-19", "2026-10-30", "2026-11-04")

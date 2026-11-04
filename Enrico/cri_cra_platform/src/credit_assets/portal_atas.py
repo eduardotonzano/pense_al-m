@@ -161,6 +161,8 @@ def opea_family(codigo_opea: str) -> str:
 GRAVE_DECISIONS = (
     ("vencimento_antecipado_declarado", "vencimento antecipado declarado"),
     ("vencimento_antecipado_nao_declarado", "vencimento antecipado não declarado"),
+    ("vencimento_antecipado_efeitos_sustados", "vencimento antecipado ocorrido, efeitos sustados"),
+    ("sustacao_dos_efeitos_do_vencimento_antecipado_rejeitada", "sustação dos efeitos do vencimento antecipado rejeitada"),
     ("nao_declaracao_do_vencimento_antecipado_rejeitada", "não declaração do vencimento antecipado rejeitada"),
     ("recuperacao_judicial", "recuperação judicial"),
     ("liquidacao_patrimonio", "liquidação do patrimônio separado"),
@@ -173,6 +175,12 @@ RECOVERY = re.compile(r"recupera[cç][aã]o (?:judicial|extrajudicial)|fal[eê]n
 # decisões sem assunto identificado: com elas, o que o texto discute ainda conta
 GENERIC_DECISIONS = {"outras_materias_aprovadas", "ordem_do_dia_aprovada_em_bloco", "assembleia_suspensa", "nao_instalada",
                      "sem_quorum_para_deliberar", "titulares_se_abstiveram"}
+def is_future_meeting(kind: str, meeting_date: str, published: str, today: str) -> bool:
+    """Ata ou assembleia de reunião que ainda não aconteceu (data da reunião ou de publicação depois de ``today``,
+    AAAA-MM-DD): é minuta ("aprovou(aram)", ordem do dia) e não registra decisão nenhuma."""
+    return kind in ("ata", "assembleia") and max(meeting_date or "", published or "") > today
+
+
 GRAVE_ORDER = ("vencimento antecipado", "recuperação judicial", "liquidação do patrimônio separado", "waiver",
                "repactuação/prorrogação")
 

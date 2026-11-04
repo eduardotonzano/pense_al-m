@@ -41,7 +41,8 @@ sys.path.insert(0, str(ROOT / "src"))
 from credit_assets.assembly_outcomes import decide
 from credit_assets.assembly_topics import classify, relevant
 from credit_assets.opea_portal import OpeaPortal
-from credit_assets.portal_atas import (document_kind, eco_documents, grave_events, in_window, opea_family, opea_published,
+from credit_assets.portal_atas import (document_kind, eco_documents, grave_events, in_window, is_future_meeting, opea_family,
+                                       opea_published,
                                        opea_selected)
 from credit_assets.riza_portal import RizaPortal
 
@@ -476,12 +477,14 @@ def analyse(row: dict, reader: Reader) -> dict:
     if not text.strip():
         return {**out, "resultado": "sem_texto"}
     hits, marks = classify(text)
-    outcome = decide(text) if row["tipo"] in ("ata", "assembleia") else None
+    future = is_future_meeting(row["tipo"], row.get("data_evento", ""), row.get("publicado_em", ""),
+                               datetime.now(timezone.utc).date().isoformat())
+    outcome = decide(text) if row["tipo"] in ("ata", "assembleia") and not future else None
     decisions = [d.event for d in outcome.decisions] if outcome else []
     graves, origin = grave_events(decisions, [(h.topic, h.excerpt) for h in hits if h.level == "relevante"])
     out.update({
         "assuntos_relevantes": "; ".join(relevant(hits)), "rotina": "; ".join(h.topic for h in hits if h.level == "rotina"),
-        "resultado": (outcome.status if outcome.kind == "ata" else "edital_ou_outro") if outcome else "",
+        "resultado": "minuta_reuniao_futura" if future else (outcome.status if outcome.kind == "ata" else "edital_ou_outro") if outcome else "",
         "decisoes": "; ".join(decisions), "eventos_graves": "; ".join(graves), "origem_eventos": origin,
         "nao_instalada": int(marks["nao_instalada"]), "segunda_convocacao": int(marks["segunda_convocacao"]),
         "trecho": next((h.excerpt for h in hits if h.level == "relevante"), "")[:300],

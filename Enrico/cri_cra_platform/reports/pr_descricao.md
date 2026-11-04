@@ -26,6 +26,9 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
   2.768 CETIPs com valor apurado, 34% do saldo da lista do mercado (Riza e Eco, que somam 46% do saldo, não publicam covenant apurado);
   `build_alertas_por_ativo.py`: sinais por ativo de todas as fontes. Garantias e covenants exigidos no Termo
   (`build_guarantees_covenants.py`, 14 tipos de garantia e 6 covenants com limite).
+- Atas, editais e comunicados dos portais (Opea, Eco, Vert, Riza) desde 01/08/2026: 2.107 documentos, 281 por OCR; assunto e decisão por
+  regras de texto. Ata de reunião futura é minuta e não conta como decisão; "sustação dos efeitos" não é declaração de vencimento
+  antecipado. Triagem para leitura, conferida por amostra de 6 atas.
 - `run_monthly_market.py --portais` coleta os portais; sem a opção a rotina só relê os relatórios já gerados.
 
 **Mercado inteiro (dados abertos da CVM)**
