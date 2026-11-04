@@ -2,6 +2,8 @@
 
 Prazo: **sexta 06/11/2026, 23h59**, pelo formulário Microsoft Forms.
 
+Histórico completo da conversa (explicações, mensagens prontas para o time, decisões): `HISTORICO_CONVERSA.md`.
+
 ## Campos do formulário
 
 | Campo | O que vai | Situação |
