@@ -7,7 +7,7 @@ import unicodedata
 def normalize_text(value: str | None) -> str:
     if not value:
         return ""
-    value = re.sub(r"\bS\s*\.?\s*A\s*\.?\b", "SA", value, flags=re.IGNORECASE)
+    value = re.sub(r"\bS\s*[./]?\s*A\s*\.?\b", "SA", value, flags=re.IGNORECASE)
     decomposed = unicodedata.normalize("NFKD", value)
     without_accents = "".join(
         char for char in decomposed if not unicodedata.combining(char)

@@ -1,0 +1,281 @@
+# Monitoramentos da Canal (Relatório Mensal / Relatório investidor)
+
+Fonte: páginas públicas de emissões da Canal Securitizadora (sem login), relatório mensal mais recente (até 365 dias) de cada série viva (vencimento a partir de hoje); leitor `canal_relatorio_mensal 0.1`. Site da securitizadora é a fonte de menor prioridade: complementa, não substitui CVM nem Termo. Os valores são copiados do relatório; a situação (Enquadrado = atendido, Desenquadrado = não atendido) é a que a Canal informa, e a nota de rodapé do item ("*AGT convocada", "*Fundo reenquadrado") vai junto na condição apurada. O relatório não traz covenants financeiros do devedor (DL/EBITDA): cobre fundos (limite mínimo × status) e índices de garantia (ILG, LTV, razão). Os saldos das contas vinculadas saem como itens "Saldo de conta", sem situação: o relatório não diz qual saldo atende qual limite. O CSV tem uma linha por item e por série; as contagens abaixo são por item da emissão.
+
+Gerado em 2026-11-04. Emissões com relatório lido: **163** (modelos: garantias 174, agente_monitoramento 1, sem_modelo 1); itens de garantia: **491**; saldos de conta: 852.
+
+| Situação informada | Itens |
+|---|---|
+| atendido | 375 |
+| nao_atendido | 58 |
+| sem_apuracao | 31 |
+| outro | 18 |
+| nao_se_aplica | 9 |
+
+## Emissões com item não atendido (44)
+
+| Emissão | CETIP | Devedor | Universo | Competência | Item não atendido | Exigido | Apurado | Condição informada | Data |
+|---|---|---|---|---|---|---|---|---|---|
+| 6 | 22G1162067 | HBX ED 4 URBANISMO SPE LTDA | sim | Março/2026 | Fundo: Fundo de Reserva | R$ 1.219.894,56 Limite Mínimo | N/A | Desenquadrado | 31/03/2026 |
+| 6 | 22G1162067 | HBX ED 4 URBANISMO SPE LTDA | sim | Março/2026 | Índice: Razão de Garantia | 1,24 Limite Mínimo | 0,33 | Desenquadrado | 31/03/2026 |
+| 6 | 22G1162067 | HBX ED 4 URBANISMO SPE LTDA | sim | Março/2026 | Índice: Razão de Garantia da Parcela Corrente | 1,24 Limite Mínimo | 0,00 | Desenquadrado | 31/03/2026 |
+| 6 | 22G1162067 | HBX ED 4 URBANISMO SPE LTDA | sim | Março/2026 | Índice: Índice Mínimo de Créditos Imobiliários | 1,24 Limite Mínimo | 0,74 | Desenquadrado | 31/03/2026 |
+| 10 | 22I1049939 22I1050562 | PEJUAR PARTICIPAÇÕES, EMPREENDIMENTOS, INVESTIMENTOS E CONSULTORIA MÉDICO HOSPITALAR LTDA. | sim | Setembro/2026 | Fundo: Fundo de Liquidez | Waiver Limite Mínimo | N/A | Desenquadrado | 30/09/2026 |
+| 12 | 22J1019802 22J1020128 | RTDR PARTICIPAÇÕES S.A. | sim | Setembro/2026 | Índice: Índice de Liquidez¹ | 135,00% Limite Mínimo | 129,61% | Desenquadrado | 30/09/2026 |
+| 21 | 22L1379490 | TOCANTINS ENERGIAS RENOVÁVEIS S.A. | sim | Julho/2026 | Índice: ICSD (trimestral) | 1,15 Limite Mínimo | 0,36 | Desenquadrado | 31/07/2026 |
+| 28 | 23B0790147 | SPE OLÍMPIA | sim | Agosto/2026 | Índice: Razão mínima de cobertura | 1,30 Limite Mínimo | 0,80 | Desenquadrado | 31/08/2026 |
+| 28 | 23B0790147 | SPE OLÍMPIA | sim | Agosto/2026 | Índice: Índice de cobertura | 1,15 Limite Mínimo | 1,06 | Desenquadrado | 31/08/2026 |
+| 33 | 23B0493519 23B0494120 23J1338137 | SPE GREEN USFV | sim | Maio/2026 | Fundo: Fundo de Reserva | R$ 904.048,23 Limite Mínimo | N/A | Desenquadrado (*AGT em convocação) | 29/05/2026 |
+| 35 | 23H1637802 | HCC PROJETOS ELÉTRICOS S.A. | sim | Setembro/2026 | Fundo: Fundo de Reserva | R$ 620.000,00 Limite Mínimo | 97,9% | Desenquadrado (*Solicitado recomposição) | 30/09/2026 |
+| 41 | CRA0230060P CRA0230060Q | Agronorte | sim | Agosto/2026 | Fundo: Fundo de Despesa | R$ 45.000,00 Limite Mínimo | N/A | Desenquadrado | 31/08/2026 |
+| 48 | 23F2430066 23J1801379 | GALAPAGOS CAPITAL | sim | Setembro/2026 | Fundo: Fundo de Despesa¹ | 60.000,00 Limite Mínimo | N/A | Desenquadrado | 30/09/2026 |
+| 51 | 23F1525319 23F1577420 | Habibs | sim | Setembro/2026 | Índice: Índice Mínimo de Locação | 1,20 Limite Mínimo | 1,12 | Desenquadrado (*Reenquadrado via aporte GENNIUS) | 30/09/2026 |
+| 65 | 23K2202885 23K2203899 23K2203980 23K2204018 23K2204324 23K2204376 23K2204391 23K2204411 | Residencial Villa Di Trento Incorporações e Empreendimentos Imobiliários SPE Ltda | sim | Setembro/2026 | Fundo: Fundo de Reserva | R$ 1.893.073,31 Limite Mínimo | 0,3% | Desenquadrado (*Waiver) | 30/09/2026 |
+| 76 | CRA02300VY3 CRA02300VY4 | SEMPRE AGTECH LTDA | sim | Julho/2026 | Fundo: Fundo de Despesa | R$ 160.000,00 Limite Mínimo | N/A | Desenquadrado | 31/07/2026 |
+| 76 | CRA02300VY3 CRA02300VY4 | SEMPRE AGTECH LTDA | sim | Julho/2026 | Índice: Razão de Garantia | 1,40 Limite Mínimo | 1,22 | Desenquadrado (**Razão de Garantia de Março/26) | 31/07/2026 |
+| 78 | 24A1777605 24A1777655 24A1777749 24A1777868 25G0707498 25G0707525 | SAVOIE S.A. EMPREENDIMENTO IMOBILIÁRIO | sim | Abril/2026 | Índice: Razao de Garantia | 1,50 Limite Mínimo | 1,47 | Desenquadrado (*Dentro do prazo de reenquadramento) | 30/04/2026 |
+| 79 | 24C1528390 24C1528956 24C1529129 24C1530964 24C1534067 25G5231341 | REAL PARK INVESTIMENTOS LTDA | sim | Abril/2026 | Fundo: Fundo de Despesa | R$ 80.822,12 Limite Mínimo | N/A | Desenquadrado (*Fundo reenquadrado) | 30/04/2026 |
+| 79 | 24C1528390 24C1528956 24C1529129 24C1530964 24C1534067 25G5231341 | REAL PARK INVESTIMENTOS LTDA | sim | Abril/2026 | Índice: Razão de Garantia | 1,50 Limite Mínimo | 1,44 | Desenquadrado (**Dentro do prazo para reenquadramento) | 30/04/2026 |
+| 80 | 24A2518977 | VCA CONSTRUTORA LTDA. | sim | Setembro/2026 | Índice: Razão de Garantia de Arrecadação | 1,40 Limite Mínimo | 1,24 | Desenquadrado (*Amortização Extraordinária realizada) | 30/09/2026 |
+| 83 | 24A2532710 | BROOKLIN EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. | sim | Setembro/2026 | Índice: Razão de Garantia¹ | 150,00% Limite Mínimo | 143,15% | Desenquadrado | 30/09/2026 |
+| 86 | CRA024002GX | PV Bandeirantes e Posto Monte Carlo Guarujá | sim | Agosto/2026 | Fundo: Fluxo Mínimo de passagem (300% x PMT) | R$ 7.970.712,48 R$ 25.259,04 Limite Mínimo | 0,32% | Desenquadrado (*A ser deliberado em Assembleia) | 30/09/2026 |
+| 87 | CRA024002GY | Posto Monte Carlo Marília | sim | Setembro/2026 | Fundo: Fluxo Mínimo | R$ 7.970.712,48 Limite Mínimo | 0,32 | Desenquadrado | 30/09/2026 |
+| 92 | 24D3311806 24D3311867 | Torres de Icaraí Incorporação Imobiliária SPE Ltda. | sim | Setembro/2026 | Fundo: Fundo de Reserva | R$ 1.911.874,55 Limite Mínimo | N/A | Desenquadrado | 30/09/2026 |
+| 92 | 24D3311806 24D3311867 | Torres de Icaraí Incorporação Imobiliária SPE Ltda. | sim | Setembro/2026 | Índice: Razão de Garantia | 1,15 Limite Mínimo | 1,1498 | Desenquadrado | 30/09/2026 |
+| 93 | 24D3314338 24D3314465 | SPE Terraz Condomínio Clube Ltda. | sim | Setembro/2026 | Índice: Razão de Garantia | 1,40 Limite Mínimo | 1,20 | Desenquadrado | 30/09/2026 |
+| 102 | CRA024009VM | POSTO MONTE CARLO DUQUE DE BAURU LTDA., POSTO MONTE CARLO PALESTRA LTDA., POSTO MONTE CARLO RODOVIA ANHANGUERA LTDA. | sim | Setembro/2026 | Fundo: Fluxo Mínimo de Passagem (300% x PMT) | R$ 7.970.712,48 R$ 25.259,04 Limite Mínimo | 0,32% | Desenquadrado (*A ser deliberado em Assembleia) | 30/09/2026 |
+| 116 | 24I1963438 24J0003801 24J0003802 | Praia Bela Empreendimento Imobiliário SPE LTDA. | sim | Setembro/2026 | Fundo: Fundo de Reserva | waiver Limite Mínimo | 0,00% | Desenquadrado | 30/09/2026 |
+| 116 | 24I1963438 24J0003801 24J0003802 | Praia Bela Empreendimento Imobiliário SPE LTDA. | sim | Setembro/2026 | Fundo: Fundo de Despesa | R$ 70.000,00 Limite Mínimo | 0,00% | Desenquadrado | 30/09/2026 |
+| 119 | 24J2484109 | PORTO5 INVESTIMENTOS IMOBILIÁRIOS S.A. | sim | Setembro/2026 | Fundo: Fundo de Reserva | R$ 1.250.000,00 Limite Mínimo | waiver | Desenquadrado | 30/09/2026 |
+| 119 | 24J2484109 | PORTO5 INVESTIMENTOS IMOBILIÁRIOS S.A. | sim | Setembro/2026 | Índice: Razão de Garantia Fundo de Juros | 0,50 Limite Mínimo | waiver | Desenquadrado | 30/09/2026 |
+| 121 | 24J2139130 | SPE USFV GREEN LARANJAL S.A.,SPE USFV GREEN MATIPO II S.A.,SPE USFV GREEN SÃO JOÃO DEL REY IV S.A.,SPE USFV GREEN MURIAE II S.A., SPE USFV GREEN AIMORES S.A.,SPE USFV GREEN REGO III S.A.,SPE USFV GREEN CURVELO II S.A., SPE USFV GREEN SÃO JOÃO NEPOMUCEN | sim | Maio/2026 | Fundo: Fundo de Despesa | R$ 130.000,00 Limite Mínimo | N/A | Desenquadrado (*Fundo reenquadrado) | 29/05/2026 |
+| 121 | 24J2139130 | SPE USFV GREEN LARANJAL S.A.,SPE USFV GREEN MATIPO II S.A.,SPE USFV GREEN SÃO JOÃO DEL REY IV S.A.,SPE USFV GREEN MURIAE II S.A., SPE USFV GREEN AIMORES S.A.,SPE USFV GREEN REGO III S.A.,SPE USFV GREEN CURVELO II S.A., SPE USFV GREEN SÃO JOÃO NEPOMUCEN | sim | Maio/2026 | Fundo: Fundo de Reserva | R$ 2.235.223,61 Limite Mínimo | N/A | Desenquadrado (**Assunto sendo deliberado em AGT) | 29/05/2026 |
+| 122 | 24L1596266 | LOTISA INVESTIMENTOS E PARTICIPAÇÕES LTDA. | sim | Setembro/2026 | Fundo: Fundo de Despesa | R$ 60.000,00 Limite Mínimo | 94,6% | Desenquadrado (*Solicitado aplicação) | 30/09/2026 |
+| 129 | 24I1424510 24I1425363 24I1425552 24I1425608 24I1425687 | FLORENÇA INCORPORADORA IMOBILIÁRIA LTDA | sim | Outubro/2025 | Fundo: Fundo de Reserva | Waiver Limite Mínimo | 0,00 | Desenquadrado | 31/10/2025 |
+| 131 | 25D4147695 | INFRAVIX ENGENHARIA / URUGUAIANA | sim | Setembro/2026 | Fundo: Fundo de Despesas¹ | R$ 200.000,00 Limite Mínimo | N/A | Desenquadrado | 30/09/2026 |
+| 136 | 25F7028333 25F7062967 25F7064609 25F7066676 25G0017404 25H0015202 | AIKON 12 EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | sim | Julho/2026 | Fundo: Fundo de Despesas | R$ 75.000,00 Limite Mínimo | 0,22 | Desenquadrado (*Recomposição solicitada) | 31/07/2026 |
+| 143 | 25H2528864 25H2531712 25H2536188 | REALIZA EMPREENDIMENTO GOIÂNIA I – SPE LTDA | sim | Setembro/2026 | Fundo: Fundo de Reserva | R$ 1.027.471,86 Limite Mínimo | 80% | Desenquadrado | 30/09/2026 |
+| 145 | 25E3904178 | BRGD II | sim | Maio/2026 | Fundo: Fundo de Despesa | R$ 130.000,00 Limite Mínimo | N/A | Desenquadrado (*Realizando tratativa em AGT) | 29/05/2026 |
+| 145 | 25E3904178 | BRGD II | sim | Maio/2026 | Fundo: Fundo de Juros | R$ 1.838.702,04 Limite Mínimo | N/A | Desenquadrado | 29/05/2026 |
+| 151 | 25E9078756 | BRGD II | sim | Maio/2026 | Fundo: Fundo de Despesas | R$ 130.000,00 Limite Mínimo |  | Desenquadrado (*Tratativa sendo realizada em AGT) | 29/05/2026 |
+| 151 | 25E9078756 | BRGD II | sim | Maio/2026 | Fundo: Fundo de Reserva | R$ 954.356,09 Limite Mínimo |  | Desenquadrado (*Tratativa sendo realizada em AGT) | 29/05/2026 |
+| 154 | CRA0250058X | IMPACTO BIOENERGIA ALAGOAS S.A. | sim | Setembro/2026 | Fundo: Fundo de Despesa¹ | R$ 30.000,00 Limite Mínimo | N/A | Desenquadrado | 30/09/2026 |
+| 160 | 25H5085635 25H5085654 | CONDOMÍNIO RANCHO LMI SPE LTDA., AZI PARTICIPAÇÕES SPE LTDA., INNOVAR PARTICIPAÇÕES E INCORPORAÇÕES LTDA., FAMÍLIA SASSI PARTICIPAÇÕES SPE LTDA., MELNICK EVEN AZALEIA EMPREENDIMENTO IMOBILIÁRIO SPE LTDA. E ITABEN EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | sim | Setembro/2026 | Fundo: Fundo de Reserva | R$ 1.507.451,11 Limite Mínimo | 0,72 | Desenquadrado (*Fundo está sendo constituido com excedente da) | 30/09/2026 |
+| 160 | 25H5085635 25H5085654 | CONDOMÍNIO RANCHO LMI SPE LTDA., AZI PARTICIPAÇÕES SPE LTDA., INNOVAR PARTICIPAÇÕES E INCORPORAÇÕES LTDA., FAMÍLIA SASSI PARTICIPAÇÕES SPE LTDA., MELNICK EVEN AZALEIA EMPREENDIMENTO IMOBILIÁRIO SPE LTDA. E ITABEN EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | sim | Setembro/2026 | Índice: Razão de Garantia | 120,0% Limite Mínimo | 76,4% | Desenquadrado | 30/09/2026 |
+| 167 | 25K3017244 | ABECKER EMPREENDIMENTOS IMOBILIÁRIOS LTDA. E ARATINGA EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | sim | Setembro/2026 | Índice: Razão de Garantia | 1,30 Limite Mínimo | 1,20 | Desenquadrado (*A ser deliberado em AGT) | 30/09/2026 |
+| 40 | CRA023005K1 | SAMMOUR | nao | Janeiro/2026 | Fundo: Fundo de Reserva | R$ 5.037.000,00 Limite Mínimo | N/A | Desenquadrado | 31/01/2026 |
+| 45 | 23D1557666 | PORTE AMALGAH | nao | Setembro/2026 | Fundo: Fundo de Despesa¹ | R$ 120.000,00 Limite Mínimo | N/A | Desenquadrado | 30/09/2026 |
+| 53 | CRA02300F4I | Agrosepac Serrados | nao | Julho/2026 | Fundo: Fundo de Despesa | R$ 33.600,00 Limite Mínimo | N/A | Desenquadrado (*Reenquadrado em 05/08/2026) | 31/07/2026 |
+| 111 | 24H1753535 24H1753681 25D2069638 25F2384526 | THL PARTICIPAÇÕES LTDA | nao | Maio/2026 | Fundo: Fundo de Reserva | R$ 677.057,85 Limite Mínimo | N/A | Desenquadrado | 29/05/2026 |
+| 171 | 26F5135710 | EURO PARTICIPAÇÕES E URBANISMO LTDA. | nao | Setembro/2026 | Fundo: Fundo de Reserva | R$ 238.860,08 Limite Mínimo | N/A | Desenquadrado | 30/09/2026 |
+| 176 | 26G3151108 26G3157084 | HALSTEN INCORPORADORA LTDA. | nao | Agosto/2026 | Fundo: Fundo de Despesa¹ | R$ 107.511,91 Limite Mínimo | N/A | Desenquadrado | 31/08/2026 |
+| 177 | 26C3680954 26C3681265 | REGRA BTS VAREJO FUNDO DE INVESTIMENTO IMOBILIÁRIO RESPONSABILIDADE LIMITADA | nao | Agosto/2026 | Fundo: Fundo de Despesa | R$ 30.000,00 Limite Mínimo | N/A | Desenquadrado (*Reenquadrado em out/26) | 30/09/2026 |
+| 184 | 26B4702355 | SPE TERRAZ CONDOMÍNIO CLUBE LTDA. | nao | Setembro/2026 | Fundo: Fundo de Reserva | R$ 354.900,24 Limite Mínimo | N/A | Desenquadrado (*Em AGT) | 30/09/2026 |
+| 184 | 26B4702355 | SPE TERRAZ CONDOMÍNIO CLUBE LTDA. | nao | Setembro/2026 | Índice: Razão de Garantia | 1,20 Limite Mínimo | 1,04 | Desenquadrado (*Em AGT) | 30/09/2026 |
+| 187 | 26D6665611 26D6665612 | CBA – EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | nao | Agosto/2026 | Fundo: Fundo de Reserva* Razão de Garantia | R$ 1.911.334,86 Limite Mínimo | N/A | Desenquadrado | 31/08/2026 |
+| 210 | 26G4844500 | VCA VERSO RESIDENCE EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA | nao | Setembro/2026 | Fundo: Fundo de Reserva | R$ 1.784.775,06 Limite Mínimo | N/A | Desenquadrado (*Reenquadrado em Out/26) | 30/09/2026 |
+
+## Defasagem da publicação
+
+Competência mais recente publicada na aba de relatórios de cada emissão viva, contra 11/2026 (emissões verificadas: 184; sem nenhum relatório mensal publicado: 5). Mediana: **2 meses**.
+
+| Meses de atraso | Emissões |
+|---|---|
+| 0-2 | 126 |
+| 3-4 | 22 |
+| 5-7 | 8 |
+| 8-12 | 7 |
+| 13+ | 16 |
+
+| Emissão | Devedor | Séries | Competência mais recente | Meses de atraso |
+|---|---|---|---|---|
+| 23 | INDIGO BRAZIL AGRICULTURA LTDA | CRA023005PL CRA023005PM CRA023004MP CRA023004H5 CRA02200EO1 | Novembro/2023 | 36 |
+| 26 | PETRAS DE LIMA TELLES | CRA023000B5 | Maio/2024 | 30 |
+| 1 | AR22 Incorporação e Construção | 22C1024589 | Setembro/2024 | 26 |
+| 5 | PONTO RURAL COMÉRCIO E DISTRIBUIÇÃO DE INSUMOS AGRÍCOLAS LTDA | CRA0220073N CRA0220073M CRA0220073L | Setembro/2024 | 26 |
+| 64 | PROJETO IMOBILIÁRIO LIV DIADEMA SPE LTDA. | 23K1776716 23K1776691 23K1776588 23K1775994 23K1776366 | Outubro/2024 | 25 |
+| 54 | LOTE 5 | 23F2428279 | Novembro/2024 | 24 |
+| 91 | AF DI Casemiro da Rocha Empreendimentos Imobiliários Ltda. | 24C2029365 | Novembro/2024 | 24 |
+| 29 | Coop Power Green | 23A1772203 | Dezembro/2024 | 23 |
+| 32 | FRANCISCO CAMACHO | CRA0230018I | Março/2025 | 20 |
+| 18 | SVB PARTICIPAÇÕES E EMPREENDIMENTOS LTDA. | 22K1321023 | Abril/2025 | 19 |
+| 56 | CONSTRUTORA L.G. LTDA. | 23G1914926 23G1914738 23G1914682 23G1914605 | Abril/2025 | 19 |
+| 89 | JOÃO BATISTA CONSENTINI FILHO | CRA0240058Z CRA024002S4 | Julho/2025 | 16 |
+| 3 | ADAIR VENDRUSCOLO JÚNIOR | CRA022006BX CRA022006BW CRA022006BV | Agosto/2025 | 15 |
+| 4 | FII OURINVEST LOGÍSTICA | 22F0930417 | Agosto/2025 | 15 |
+| 37 | RTDR PARTICIPAÇÕES S.A. | 23C0113876 | Agosto/2025 | 15 |
+| 81 | SPE Green USFV Iturama Ltda. e Paineiras Energia Renovável SPE Ltda. | 24A1485443 | Setembro/2025 | 14 |
+| 73 | PROJETO 11 EMPREENDIMENTOS IMOBILIÁRIO SPE LTDA. | 23L1807861 | Novembro/2025 | 12 |
+| 31 | DRY CONSTRUCTION / DRY HOME | 23A1668708 | Dezembro/2025 | 11 |
+| 40 | SAMMOUR | CRA023005K1 | Janeiro/2026 | 10 |
+| 135 | A! BODYTECH PARTICIPAÇÕES S.A. | 25B2176484 | Janeiro/2026 | 10 |
+| 6 | HBX ED 4 URBANISMO SPE LTDA | 22G1162067 | Março/2026 | 8 |
+| 132 | LOTUS TOWER EMPREENDIMENTOS IMOBILIÁRIOS E PARTICIPAÇÕES LTDA. | 25C3605718 25C3605714 | Março/2026 | 8 |
+| 141 | HIGH FUNDO DE INVESTIMENTO EM DIREITOS CREDITÓRIOS | 25C4061000 25C4060228 | Março/2026 | 8 |
+| 63 | JUMASA AGRÍCOLA E COMERCIAL LTDA | CRA02300T62 CRA02300T61 | Abril/2026 | 7 |
+| 33 | SPE GREEN USFV | 23J1338137 23B0494120 23B0493519 | Maio/2026 | 6 |
+| 88 | SPE Barbacena II, a SPE Barbacena III, a SPE Barbacena V, a SPE Itajubá, a SPE Piumhí I, a SPE Nova Serrana, a SPE São João Del Rei I, a SPE São João Del Rei II e a SPE São João Del Rei III. | 24D0781914 24D0781832 | Maio/2026 | 6 |
+| 103 | PRIME AGRO PRODUTOS AGRÍCOLAS LTDA. | CRA024006N6 CRA024006N5 | Maio/2026 | 6 |
+| 111 | THL PARTICIPAÇÕES LTDA | 25F2384526 25D2069638 24H1753681 24H1753535 | Maio/2026 | 6 |
+| 121 | SPE USFV GREEN LARANJAL S.A.,SPE USFV GREEN MATIPO II S.A.,SPE USFV GREEN SÃO JOÃO DEL REY IV S.A.,SPE USFV GREEN MURIAE II S.A., SPE USFV GREEN AIMORES S.A.,SPE USFV GREEN REGO III S.A.,SPE USFV GREEN CURVELO II S.A., SPE USFV GREEN SÃO JOÃO NEPOMUCEN | 24J2139130 | Maio/2026 | 6 |
+| 145 | BRGD II | 25E3904178 | Maio/2026 | 6 |
+| 151 | BRGD II | 25E9078756 | Maio/2026 | 6 |
+| 21 | TOCANTINS ENERGIAS RENOVÁVEIS S.A. | 22L1379490 | Julho/2026 | 4 |
+| 53 | Agrosepac Serrados | CRA02300F4I | Julho/2026 | 4 |
+| 76 | SEMPRE AGTECH LTDA | CRA02300VY4 CRA02300VY3 | Julho/2026 | 4 |
+| 20 | MIRÍADE LITORAL CONSTRUTORA LTDA. | 22K1448235 | Agosto/2026 | 3 |
+| 28 | SPE OLÍMPIA | 23B0790147 | Agosto/2026 | 3 |
+| 41 | Agronorte | CRA0230060Q CRA0230060P | Agosto/2026 | 3 |
+| 50 | BRASOL SISTEMAS DE ENERGIA SOLAR 7 | 23H1104694 23H1104566 | Agosto/2026 | 3 |
+| 70 | BRASOL SISTEMAS DE ENERGIA SOLAR 10 LTDA | 23K2617098 23K2617033 | Agosto/2026 | 3 |
+| 74 | AGROSEPAC SERRADOS LTDA. | CRA02300VY2 | Agosto/2026 | 3 |
+| 85 | BRASOL SISTEMAS DE ENERGIA SOLAR 9 LTDA | 24B1908016 24B1905156 | Agosto/2026 | 3 |
+| 96 | COOPERATIVA MISTA SÃO LUIZ LTDA | CRA024006N4 | Agosto/2026 | 3 |
+| 104 | COMPANHIA IMOBILIARIA DE BRASILIA TERRACAP | 24G4060990 24F0002001 24E2205602 | Agosto/2026 | 3 |
+| 124 | TOTUS AD SOCIEDADE DE PROPÓSITO ESPECÍFICO LTDA. | 24I2114236 | Agosto/2026 | 3 |
+| 139 | ZAVIT SPECIAL OPPORTUNITIES FII | 25D0262185 | Agosto/2026 | 3 |
+| 140 | CIA. AGROPECUÁRIA MONTE ALEGRE | CRA025004S9 | Agosto/2026 | 3 |
+| 170 | BRASOL GOIÁS SISTEMAS DE ENERGIA SOLAR S.A., PELA BRASOL OITI SISTEMAS DE ENERGIA SOLAR LTDA. E PELA BRASOL PAINEIRA SISTEMAS DE ENERGIA SOLAR LTDA. | 25L2499549 25L2499304 25L2499111 | Agosto/2026 | 3 |
+| 186 | SPE CITY 29 EMPREENDIMENTOS LTDA. | 26E0016803 26D6263110 | Agosto/2026 | 3 |
+| 187 | CBA – EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | 26D6665612 26D6665611 | Agosto/2026 | 3 |
+| 197 | IONE MARIA GABRIEL TAQUES | CRA02600461 | Agosto/2026 | 3 |
+| 198 | KALLAS INCORPORAÇÕES E CONSTRUÇÕES S.A. | 26F4009122 | Agosto/2026 | 3 |
+| 200 | LUCIANO MARCIO CURIONI | 26G00014017 | Agosto/2026 | 3 |
+| 201 | São Benedito S.A | 26F4007639 | Agosto/2026 | 3 |
+| 2 | Flor do Cais Empreendimentos Imobiliários LTDA. | 23E3611801 23E0884935 22E1273339 | Setembro/2026 | 2 |
+| 10 | PEJUAR PARTICIPAÇÕES, EMPREENDIMENTOS, INVESTIMENTOS E CONSULTORIA MÉDICO HOSPITALAR LTDA. | 22I1050562 22I1049939 | Setembro/2026 | 2 |
+| 11 | GUIOMAR DE SOUZA | CRA022009VO | Setembro/2026 | 2 |
+| 12 | RTDR PARTICIPAÇÕES S.A. | 22J1020128 22J1019802 | Setembro/2026 | 2 |
+| 22 | HBC Irmãos de Santi LTDA. | 22L1414297 | Setembro/2026 | 2 |
+| 25 | VITÓRIA TOWER | 22L1668403 | Setembro/2026 | 2 |
+| 27 | FDR INDEPENDÊNIA DESENVOLVIMENTO IMOBILIÁRIO LTDA. | 23A0297064 | Setembro/2026 | 2 |
+| 35 | HCC PROJETOS ELÉTRICOS S.A. | 23H1637802 | Setembro/2026 | 2 |
+| 36 | SOCICAM | 23C0003601 23B1476702 | Setembro/2026 | 2 |
+| 38 | COMTÉRMICA ENGENHARIA LTDA | 23C0316012 23C0315384 | Setembro/2026 | 2 |
+| 39 | MARCOS AUGUSTO PEREIRA VALLE | CRA02300461 CRA0230040I | Setembro/2026 | 2 |
+| 42 | Binatural | CRA023005V5 | Setembro/2026 | 2 |
+| 43 | RTDR PARTICIPAÇÕES S.A. | 23E1295288 | Setembro/2026 | 2 |
+| 44 | MS AVIVAH RESIDENCE CUB EMPREENDIMENTOS LTDA. E MS SMART PORTO BELO EMPREENDIMENTOS LTDA. | 25D1678098 23D1293668 | Setembro/2026 | 2 |
+| 45 | PORTE AMALGAH | 23D1557666 | Setembro/2026 | 2 |
+| 46 | GRU ELEMENTOS | 23E1226516 | Setembro/2026 | 2 |
+| 48 | GALAPAGOS CAPITAL | 23J1801379 23F2430066 | Setembro/2026 | 2 |
+| 49 | LEGIÃO DA BOA VONTADE | 23G0990171 23G0990636 | Setembro/2026 | 2 |
+| 51 | Habibs | 23F1577420 23F1525319 | Setembro/2026 | 2 |
+| 52 | Real Supermercados | 23F1523286 | Setembro/2026 | 2 |
+| 58 | Vitivinícola Tropical Ltda. | CRA02300IZD CRA02300ITT | Setembro/2026 | 2 |
+| 59 | IME – INSTITUTO METROPOLITANO DE ENSINO LTDA | 24L2959379 24H2096743 23J0108650 | Setembro/2026 | 2 |
+| 60 | VECTRA CONSTRUTORA LTDA. | 23J1382317 | Setembro/2026 | 2 |
+| 61 | COLMEIA PRIME MANAUS EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. | 23I2111373 23I2111365 | Setembro/2026 | 2 |
+| 62 | VILA MADALENA EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. | 23J1226990 23J1226561 23J1216116 23J1215952 23J1215653 | Setembro/2026 | 2 |
+| 65 | Residencial Villa Di Trento Incorporações e Empreendimentos Imobiliários SPE Ltda | 23K2204411 23K2204391 23K2204376 23K2204324 23K2204018 23K2203980 23K2203899 23K2202885 | Setembro/2026 | 2 |
+| 66 | BR PARTNERS BANCO DE INVESTIMENTO S.A. | 23L0016209 23L0016208 23L0016207 23L0016206 | Setembro/2026 | 2 |
+| 67 | RTDR PARTICIPAÇÕES S.A. | 23K2257431 23K2257577 | Setembro/2026 | 2 |
+| 69 | TZI CITRINO EMPREENDIMENTOS | 25A1296532 23L1538459 | Setembro/2026 | 2 |
+| 71 | SANTO ANDRÉ EMPREENDIMENTO IMOBILIÁRIO LTDA. | 25F1869744 23L1603403 23L1603110 23L1599076 | Setembro/2026 | 2 |
+| 72 | VOKKAN PARTICIPAÇÕES S.A. | 23L1955395 | Setembro/2026 | 2 |
+| 75 | GRAN COFFEE COMÉRCIO, LOCAÇÃO E SERVIÇOS S.A. | CRA02300VY1 | Setembro/2026 | 2 |
+| 77 | CONSTROEN CONSTRUÇÕES E ENGENHARIA LTDA. | 23L2482085 | Setembro/2026 | 2 |
+| 78 | SAVOIE S.A. EMPREENDIMENTO IMOBILIÁRIO | 25G0707525 25G0707498 24A1777868 24A1777749 24A1777655 24A1777605 | Setembro/2026 | 2 |
+| 79 | REAL PARK INVESTIMENTOS LTDA | 25G5231341 25G5231291 24C1534067 24C1530964 24C1529129 24C1528956 24C1528390 | Setembro/2026 | 2 |
+| 80 | VCA CONSTRUTORA LTDA. | 24A2518977 | Setembro/2026 | 2 |
+| 82 | ASSOCIAÇÃO AUTOPRODUTORES DE ENERGIA ALEGRIA e ASSOCIAÇÃO AUTOPRODUTORES DE ENERGIA SABIÁ | 24H0000801 24B2011344 | Setembro/2026 | 2 |
+| 83 | BROOKLIN EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. | 24A2532710 | Setembro/2026 | 2 |
+| 84 | ITAPARICA RESORT EMPREENDIMENTO IMOBILIÁRIO S.A. | 24B1465719 24B1465697 24B1465631 24B1465589 | Setembro/2026 | 2 |
+| 86 | PV Bandeirantes e Posto Monte Carlo Guarujá | CRA024002GX | Setembro/2026 | 2 |
+| 87 | Posto Monte Carlo Marília | CRA024002GY | Setembro/2026 | 2 |
+| 90 | Porto5 Investimentos Imobiliários S.A. | 24D2686894 24D2686747 | Setembro/2026 | 2 |
+| 92 | Torres de Icaraí Incorporação Imobiliária SPE Ltda. | 24D3311867 24D3311806 | Setembro/2026 | 2 |
+| 93 | SPE Terraz Condomínio Clube Ltda. | 24D3314465 24D3314338 | Setembro/2026 | 2 |
+| 94 | Epson Incorporação | 24D3427701 | Setembro/2026 | 2 |
+| 98 | MS ITAJUBÁ EMPREENDIMENTOS LTDA. | 24D3313185 24D3313118 24D3313034 | Setembro/2026 | 2 |
+| 99 | SPE GARDEN INCORPORAÇÃO 002 LTDA. | 24E5096426 24E5004418 24E4671425 24C2617029 | Setembro/2026 | 2 |
+| 100 | FGR INCORPORAÇÕES S.A. | 24E2453531 | Setembro/2026 | 2 |
+| 102 | POSTO MONTE CARLO DUQUE DE BAURU LTDA., POSTO MONTE CARLO PALESTRA LTDA., POSTO MONTE CARLO RODOVIA ANHANGUERA LTDA. | CRA024009VM | Setembro/2026 | 2 |
+| 105 | VCA BARON CONNECT GUANAMBI EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA., PELA VCA BARON CONNECT BARREIRAS EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA., PELA VCA DUQUE DU L'EST EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. E PELA VCA DONA MIRAI EMPREENDIMENTOS IMOBILIÁRI | 24F2420816 24F2420812 | Setembro/2026 | 2 |
+| 106 | VALE EUROPEU EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. | 25A0003211 24J0003401 24G1971732 | Setembro/2026 | 2 |
+| 107 | BELA VISTA RESIDENCIAL INCORPORAÇÕES SPE LTDA., PARQUE DOS IPÊS RESIDENCIAL INCORPORAÇÕES SPE LTDA., PORTO HORIZONTE SPE EMPREENDIMENTOS IMOBILIÁRIOS LTDA., PORTO JACARANDÁ SPE EMPREENDIMENTOS IMOBILIÁRIOS LTDA., PORTO MARANATA INCORPORAÇÕES SPE 1 LTDA. E | 24F2416149 24E2276393 | Setembro/2026 | 2 |
+| 108 | RTDR PARTICIPAÇÕES S.A. | 24G2317121 24G2317198 | Setembro/2026 | 2 |
+| 109 | FERTSAN SOLUÇÕES INTELIGENTES EM AGRONEGÓCIO S.A. | CRA0240073N | Setembro/2026 | 2 |
+| 110 | AG7 Partners Participações Societárias S.A. | 24H2096846 | Setembro/2026 | 2 |
+| 113 | ABECKER EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | 24J2091347 | Setembro/2026 | 2 |
+| 114 | Abecker Empreendimentos Imobiliários Ltda. | 24K1806410 | Setembro/2026 | 2 |
+| 115 | FGR INCORPORAÇÕES JARDINS BERLIM SPE LTDA. | 24I2268708 | Setembro/2026 | 2 |
+| 116 | Praia Bela Empreendimento Imobiliário SPE LTDA. | 24J0003802 24J0003801 24I1963438 | Setembro/2026 | 2 |
+| 118 | GENCAU AMAZÔNIA – INDÚSTRIA E COMÉRCIO DE INGREDIENTES ALIMENTÍCIOS LTDA. | CRA02400CI4 CRA02400CI3 | Setembro/2026 | 2 |
+| 119 | PORTO5 INVESTIMENTOS IMOBILIÁRIOS S.A. | 24J2484109 | Setembro/2026 | 2 |
+| 120 | MS Incorporadora S/A | 24J5247662 24J5247661 24J5142607 | Setembro/2026 | 2 |
+| 122 | LOTISA INVESTIMENTOS E PARTICIPAÇÕES LTDA. | 24L1596266 | Setembro/2026 | 2 |
+| 123 | INCORPORADORA IRMÃOS LEITE LTDA. | 26F0000002 26F0000001 24L0003002 24K1255993 | Setembro/2026 | 2 |
+| 125 | HOSPITAL CARE CALEDÔNIA S.A., | 24L2609853 | Setembro/2026 | 2 |
+| 127 | COMPANHIA BRASILEIRA DE DISTRIBUIÇÃO | 24L2327536 24L2318359 | Setembro/2026 | 2 |
+| 128 | RTDR PARTICIPAÇÕES S.A. | 25B2178970 | Setembro/2026 | 2 |
+| 130 | A.LIFE ENTERTAINMENT GROUP S.A. | 25A3992922 | Setembro/2026 | 2 |
+| 131 | INFRAVIX ENGENHARIA / URUGUAIANA | 25D4147695 | Setembro/2026 | 2 |
+| 133 | SPE CARNEIROS RESIDENCE DESENVOLVIMENTO IMOBILIÁRIO LTDA. | 24L1567363 | Setembro/2026 | 2 |
+| 134 | FLORESTA AG7 EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. | 24K2327902 | Setembro/2026 | 2 |
+| 136 | AIKON 12 EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | 25F7062967 25H0015202 25G0017404 25F7028333 25F7066676 25F7064609 | Setembro/2026 | 2 |
+| 137 | Alphaville Desenvolvimento Imobiliário Ltda | 25C6061108 | Setembro/2026 | 2 |
+| 138 | Diversificado | 25C2992007 | Setembro/2026 | 2 |
+| 142 | RKM Engenharia Ltda. | 25D1979066 25D1975275 | Setembro/2026 | 2 |
+| 143 | REALIZA EMPREENDIMENTO GOIÂNIA I – SPE LTDA | 25H2536188 25H2531712 25H2528864 | Setembro/2026 | 2 |
+| 144 | RTDR PARTICIPAÇÕES S.A. | 25E2048045 25E2047530 | Setembro/2026 | 2 |
+| 146 | DUE EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | 26B2595719 | Setembro/2026 | 2 |
+| 147 | DUE EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | 25F8639787 25F8582172 | Setembro/2026 | 2 |
+| 148 | GENCAU SÃO PAULO – INDÚSTRIA E COMÉRCIO DE INGREDIENTES ALIMENTÍCIOS S.A. | CRA025005K1 | Setembro/2026 | 2 |
+| 149 | CAMPINA GRANDE INCORPORAÇÕES SPE LTDA. E CHÃ GRANDE INCORPORAÇÕES IMOBILIÁRIAS SPE LTDA. | 25H5030806 | Setembro/2026 | 2 |
+| 150 | NTRS - SINART | 25E3766887 | Setembro/2026 | 2 |
+| 152 | COLMEIA LIKE EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. | 26B0018601 25L0649931 25L0636680 | Setembro/2026 | 2 |
+| 153 | ANTÔNIO CAVALCANTI CORREA DE ARAÚJO | CRA02500795 | Setembro/2026 | 2 |
+| 154 | IMPACTO BIOENERGIA ALAGOAS S.A. | CRA0250058X | Setembro/2026 | 2 |
+| 155 | MS VIVENDAS DO ATLÂNTICO EMPREENDIMENTOS LTDA | 28A0000001 27H0000001 27C0000401 26J0000401 26C0006001 25G3886810 | Setembro/2026 | 2 |
+| 156 | Incorporadora Inside SPE Ltda. | 25J4303842 | Setembro/2026 | 2 |
+| 157 | RTDR PARTICIPAÇÕES S.A. | 25H2108710 | Setembro/2026 | 2 |
+| 158 | CARATINGA EMPREENDIMENTO IMOBILIÁRIO SPE LTDA. | 25G4178865 25G4177439 | Setembro/2026 | 2 |
+| 159 | ATRIUM PARTICIPAÇÕES LTDA. | 25I4350923 25I4350572 | Setembro/2026 | 2 |
+| 160 | CONDOMÍNIO RANCHO LMI SPE LTDA., AZI PARTICIPAÇÕES SPE LTDA., INNOVAR PARTICIPAÇÕES E INCORPORAÇÕES LTDA., FAMÍLIA SASSI PARTICIPAÇÕES SPE LTDA., MELNICK EVEN AZALEIA EMPREENDIMENTO IMOBILIÁRIO SPE LTDA. E ITABEN EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | 25H5085654 25H5085635 | Setembro/2026 | 2 |
+| 161 | ETERNITY BARUERI EMPREENDIMENTOS SPE LTDA. | 25H4787985 25H4787872 | Setembro/2026 | 2 |
+| 162 | GM SCHWANCK EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | 25H4806070 | Setembro/2026 | 2 |
+| 163 | Mar Turquesa Desenvolvimento Imobiliário SPE LTDA.; Vitacon Participações S.A. | 26E4306108 | Setembro/2026 | 2 |
+| 164 | DUE EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | 25K0012801 | Setembro/2026 | 2 |
+| 165 | Tallin Residence SPE Ltda. | 25L3395833 25L3395044 | Setembro/2026 | 2 |
+| 167 | ABECKER EMPREENDIMENTOS IMOBILIÁRIOS LTDA. E ARATINGA EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | 25K3017244 | Setembro/2026 | 2 |
+| 168 | BOSQUE DA MATINHA QUERÊNCIA SPE LTDA E PELA MGU EMPREENDIMENTOS SPE LTDA. | 26G4232866 25J4332794 | Setembro/2026 | 2 |
+| 169 | D1 LITORAL EMPREENDIMENTOS E INCORPORAÇÃO LTDA. | 26D0013201 26C5166713 | Setembro/2026 | 2 |
+| 171 | EURO PARTICIPAÇÕES E URBANISMO LTDA. | 26F5135710 | Setembro/2026 | 2 |
+| 172 | STAN G LARA EMPREENDIMENTO SPE LTDA. | 25K3783097 25K2476340 | Setembro/2026 | 2 |
+| 173 | Incorporadora Blend SPE Ltda. | 25L3394161 | Setembro/2026 | 2 |
+| 174 | GOIÁS VERDE ALIMENTOS LTDA. | CRA02500BVY | Setembro/2026 | 2 |
+| 175 | MAXXIMA SALVADOR EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | 26A3745888 26A3745791 | Setembro/2026 | 2 |
+| 176 | HALSTEN INCORPORADORA LTDA. | 26G3157084 26G3151108 | Setembro/2026 | 2 |
+| 177 | REGRA BTS VAREJO FUNDO DE INVESTIMENTO IMOBILIÁRIO RESPONSABILIDADE LIMITADA | 26C3681265 26C3680954 | Setembro/2026 | 2 |
+| 179 | VITACON PARTICIPAÇÕES S.A. | 25L4042931 25L4042871 25L4042919 | Setembro/2026 | 2 |
+| 180 | ITAUEIRA AGROPECUÁRIA S.A. | CRA026001P5 | Setembro/2026 | 2 |
+| 181 | VCA CONDE TERCEIRO EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA., VCA DONA OLÍVIA UNIVERSIDADE EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. E VCA VILA DO MARQUÊS EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. | 26A2508677 26A2508177 | Setembro/2026 | 2 |
+| 183 | SMART HOME SR EMPREENDIMENTOS IMOBILIÁRIOS 20 SPE LTDA. | 26C3346110 26C3344789 26C3343888 26C3343235 | Setembro/2026 | 2 |
+| 184 | SPE TERRAZ CONDOMÍNIO CLUBE LTDA. | 26B4702355 | Setembro/2026 | 2 |
+| 185 | COLMEIA LE JARDIN EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. | 26C2753533 26C2746166 26C2722245 26C2673646 | Setembro/2026 | 2 |
+| 188 | Guerini Planejamentos Ltda. | 26D6450955 | Setembro/2026 | 2 |
+| 190 | SPARTACUS CAMBUI SPE LTDA. | 26E3886906 | Setembro/2026 | 2 |
+| 192 | EMPREENDIMENTO IMOBILIÁRIO MIVITA 005 SPE LTDA. | 26E4148627 26E4103185 26E4093812 26E4086200 | Setembro/2026 | 2 |
+| 193 | ATIVOS INDUSTRIAIS NORDESTE FUNDO DE INVESTIMENTO IMOBILIÁRIO RESPONSABILIDADE LIMITADA | 26F3022895 | Setembro/2026 | 2 |
+| 194 | FLORESTA AG7 EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA. | 26H5593099 | Setembro/2026 | 2 |
+| 195 | FGR INCORPORAÇÕES S.A. | 26G2811003 | Setembro/2026 | 2 |
+| 199 | ARAÚNA INCORPORAÇÕES LTDA. | 26F4008788 | Setembro/2026 | 2 |
+| 203 | VERSI PARTICIPAÇÕES LTDA | 26G4584996 26G4584385 26G4582130 | Setembro/2026 | 2 |
+| 204 | ARROBA 22 LAGO AZUL EMPREENDIMENTOS IMOBILIÁRIOS LTDA. | 26G3360819 26G3341515 | Setembro/2026 | 2 |
+| 205 | ALPHAVILLE DESENVOLVIMENTO IMOBILIÁRIO LTDA. | 26G3333762 | Setembro/2026 | 2 |
+| 206 | CONSAG ENGENHARIA S.A. | 26G4614294 | Setembro/2026 | 2 |
+| 207 | PROJETO 14 EMPREENDIMENTO IMOBILIÁRIO SPE LTDA. | 26G4852071 26G4851835 | Setembro/2026 | 2 |
+| 210 | VCA VERSO RESIDENCE EMPREENDIMENTOS IMOBILIÁRIOS SPE LTDA | 26G4844500 | Setembro/2026 | 2 |
+| 129 | FLORENÇA INCORPORADORA IMOBILIÁRIA LTDA | 24I1425687 24I1425608 24I1425552 24I1425363 24I1424510 | Outubro/2026 | 1 |
+
+Sem relatório mensal publicado (5): 97, 126, 209, 214, 215.
+
+## Relatórios sem item lido (2)
+
+Relatório baixado e lido sem nenhum item de garantia reconhecido (modelo não tratado, quadro vazio ou só texto em imagem).
+
+- 148: data/documents/canal/148/2026-09_17152.pdf (Setembro/2026)
+- 161: data/documents/canal/161/2026-09_17240.pdf (Setembro/2026)
+
+Com saldos de conta, mas sem fundo ou índice com status (1): 103.

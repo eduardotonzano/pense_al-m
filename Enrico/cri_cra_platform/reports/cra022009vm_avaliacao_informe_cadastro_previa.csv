@@ -1,0 +1,2 @@
+﻿rule_id;competencia_mes;resultado;message;evidence_json
+informe_cadastro_vs_termo;2026-08;ALERTA;"Vencimento (série 1): Informe 2026-08 traz '2027-09-30'; data_vencimento_final_cdca_cra aprovado traz '2026-12-30'.";"{""campo"": ""Vencimento"", ""serie"": ""1"", ""valor_informe"": ""2027-09-30"", ""valor_termo"": ""2026-12-30"", ""parametro"": ""data_vencimento_final_cdca_cra"", ""fonte_parametro"": ""Ata 619771, p.3, linhas 19-32"", ""informe"": ""2026-08-31 (doc 1328844)""}"

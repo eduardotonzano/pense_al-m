@@ -1,0 +1,903 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA02500C1D",
+    "isin": "BRECOACRALJ8"
+  },
+  "source_note": "Relatório Anual do Agente Fiduciário (Vórtx), exercício 2025, doc. 1175590; Demonstrações financeiras auditadas (BDO) do Patrimônio Separado da 426ª emissão (séries 1ª a 5ª), período 15/12/2025 a 30/06/2026, doc. 1328400 (valores em milhares de reais, como publicados); Comunicado ao Mercado de resultado do Bookbuilding datado de 16/12/2025, doc. 1064843. Tabelas com colunas desalinhadas na extração de texto: valores atribuídos às séries pela ordem das colunas (1ª a 5ª).",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-27",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "1175590",
+      "page_number": 3,
+      "fact_name": "af_serie_1_codigo_if",
+      "reference_date": "2025-12-31",
+      "value": "CRA02500C1D",
+      "unit": "texto",
+      "excerpt": "Série 1 IF CRA02500C1D"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 3,
+      "fact_name": "af_serie_1_quantidade_emitida",
+      "reference_date": "2025-12-31",
+      "value": "0",
+      "unit": "CRA",
+      "excerpt": "IF CRA02500C1D ISIN - PU de emissão R$1.000,00 Quantidade emitida 0 Volume emitido R$ 0,00"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 3,
+      "fact_name": "af_serie_1_remuneracao",
+      "reference_date": "2025-12-31",
+      "value": "CDI",
+      "unit": "texto",
+      "excerpt": "Volume emitido R$ 0,00 Remuneração CDI Amortização Semestral"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 3,
+      "fact_name": "af_serie_1_data_vencimento",
+      "reference_date": "2025-12-31",
+      "value": "2030-12-18",
+      "unit": "data",
+      "excerpt": "Data vencimento 18/12/2030"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 3,
+      "fact_name": "af_serie_1_rating",
+      "reference_date": "2025-12-31",
+      "value": "Moody’s Local BR - A.br",
+      "unit": "texto",
+      "excerpt": "Rating Moody’s Local BR - A.br"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 3,
+      "fact_name": "af_serie_1_data_primeira_integralizacao",
+      "reference_date": "2025-12-31",
+      "value": "2025-12-19",
+      "unit": "data",
+      "excerpt": "Data da primeira 19/12/2025 integralização"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 3,
+      "fact_name": "af_serie_1_data_primeiro_pagamento_previsto",
+      "reference_date": "2025-12-31",
+      "value": "2026-06-17",
+      "unit": "data",
+      "excerpt": "Data do primeiro 17/06/2026 pagamento previsto em contrato"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 4,
+      "fact_name": "af_serie_1_inadimplemento_no_periodo",
+      "reference_date": "2025-12-31",
+      "value": "Adimplente",
+      "unit": "texto",
+      "excerpt": "rentabilidade Adimplente Corporativo Inadimplemento no - período"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 4,
+      "fact_name": "af_serie_2_codigo_if",
+      "reference_date": "2025-12-31",
+      "value": "CRA02500C1E",
+      "unit": "texto",
+      "excerpt": "Série 2 IF CRA02500C1E"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 4,
+      "fact_name": "af_serie_2_quantidade_emitida",
+      "reference_date": "2025-12-31",
+      "value": "0",
+      "unit": "CRA",
+      "excerpt": "IF CRA02500C1E ISIN - PU de emissão R$1.000,00 Quantidade emitida 0"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 4,
+      "fact_name": "af_serie_2_remuneracao",
+      "reference_date": "2025-12-31",
+      "value": "108% CDI",
+      "unit": "texto",
+      "excerpt": "Remuneração 108% CDI"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 5,
+      "fact_name": "af_serie_3_codigo_if",
+      "reference_date": "2025-12-31",
+      "value": "CRA02500C1F",
+      "unit": "texto",
+      "excerpt": "Série 3 IF CRA02500C1F"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 5,
+      "fact_name": "af_serie_3_quantidade_emitida",
+      "reference_date": "2025-12-31",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "Quantidade emitida 250.000 Volume emitido R$250.000.000,00"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 5,
+      "fact_name": "af_serie_3_volume_emitido",
+      "reference_date": "2025-12-31",
+      "value": "250000000.00",
+      "unit": "BRL",
+      "excerpt": "Quantidade emitida 250.000 Volume emitido R$250.000.000,00"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 5,
+      "fact_name": "af_serie_3_remuneracao",
+      "reference_date": "2025-12-31",
+      "value": "CDI + 1,5%",
+      "unit": "texto",
+      "excerpt": "Remuneração CDI + 1,5%"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 6,
+      "fact_name": "af_serie_4_codigo_if",
+      "reference_date": "2025-12-31",
+      "value": "CRA02500C1G",
+      "unit": "texto",
+      "excerpt": "IF CRA02500C1G ISIN - PU de emissão R$1.000,00 Quantidade emitida 0"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 6,
+      "fact_name": "af_serie_4_quantidade_emitida",
+      "reference_date": "2025-12-31",
+      "value": "0",
+      "unit": "CRA",
+      "excerpt": "IF CRA02500C1G ISIN - PU de emissão R$1.000,00 Quantidade emitida 0"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 6,
+      "fact_name": "af_serie_4_remuneracao",
+      "reference_date": "2025-12-31",
+      "value": "CDI + 2,5%",
+      "unit": "texto",
+      "excerpt": "Remuneração CDI + 2,5%"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 6,
+      "fact_name": "af_serie_4_data_vencimento",
+      "reference_date": "2025-12-31",
+      "value": "2032-12-17",
+      "unit": "data",
+      "excerpt": "Data vencimento 17/12/2032"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 6,
+      "fact_name": "af_serie_4_data_primeiro_pagamento_previsto",
+      "reference_date": "2025-12-31",
+      "value": "2027-12-17",
+      "unit": "data",
+      "excerpt": "Data do primeiro 17/12/2027 pagamento previsto"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 6,
+      "fact_name": "af_serie_5_codigo_if",
+      "reference_date": "2025-12-31",
+      "value": "CRA02500C1H",
+      "unit": "texto",
+      "excerpt": "Série 5 CRA02500C1H"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 7,
+      "fact_name": "af_serie_5_quantidade_emitida",
+      "reference_date": "2025-12-31",
+      "value": "0",
+      "unit": "CRA",
+      "excerpt": "Quantidade emitida 0 R$ 0,00 Volume emitido IPCA + 8,88%"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 7,
+      "fact_name": "af_serie_5_remuneracao",
+      "reference_date": "2025-12-31",
+      "value": "IPCA + 8,88%",
+      "unit": "texto",
+      "excerpt": "Quantidade emitida 0 R$ 0,00 Volume emitido IPCA + 8,88%"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 7,
+      "fact_name": "af_serie_5_data_vencimento",
+      "reference_date": "2025-12-31",
+      "value": "2035-12-19",
+      "unit": "data",
+      "excerpt": "Remuneração 15/12/2025 19/12/2035 Amortização"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 8,
+      "fact_name": "af_serie_1_em_circulacao",
+      "reference_date": "2025-12-31",
+      "value": "233142",
+      "unit": "CRA",
+      "excerpt": "IF CRA02500C1D Emitida 0 Em circulação 233.142"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 8,
+      "fact_name": "af_serie_1_saldo",
+      "reference_date": "2025-12-31",
+      "value": "895564.63",
+      "unit": "BRL",
+      "excerpt": "Resgatadas 0 Saldo 0 R$895.564,63 Série 3"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 8,
+      "fact_name": "af_serie_3_em_circulacao",
+      "reference_date": "2025-12-31",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "IF CRA02500C1F Emitida 250.000 Em circulação 250.000"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 8,
+      "fact_name": "af_serie_3_saldo",
+      "reference_date": "2025-12-31",
+      "value": "251070204.30",
+      "unit": "BRL",
+      "excerpt": "Saldo 0 R$251.070.204,30"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 9,
+      "fact_name": "af_serie_4_em_circulacao",
+      "reference_date": "2025-12-31",
+      "value": "100000",
+      "unit": "CRA",
+      "excerpt": "IF CRA02500C1G Emitida 0 Em circulação 100.000"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 9,
+      "fact_name": "af_serie_4_saldo",
+      "reference_date": "2025-12-31",
+      "value": "100455435.30",
+      "unit": "BRL",
+      "excerpt": "Saldo 0 R$100.455.435,30"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 9,
+      "fact_name": "af_serie_5_em_circulacao",
+      "reference_date": "2025-12-31",
+      "value": "150000",
+      "unit": "CRA",
+      "excerpt": "IF CRA02500C1H Emitida 0 Em circulação 150.000"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 9,
+      "fact_name": "af_serie_5_saldo",
+      "reference_date": "2025-12-31",
+      "value": "150525112.60",
+      "unit": "BRL",
+      "excerpt": "Saldo 0 R$150.525.112,60"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 9,
+      "fact_name": "af_eventos_financeiros_2025",
+      "reference_date": "2025-12-31",
+      "value": "sem fluxos de pagamento",
+      "unit": "texto",
+      "excerpt": "Operação sem fluxos de pagamento no período analisado."
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 10,
+      "fact_name": "af_relatorio_gestao_patrimonio_separado",
+      "reference_date": "2025-12-31",
+      "value": "não disponibilizado ao Agente Fiduciário",
+      "unit": "texto",
+      "excerpt": "Não foi disponibilizado ao Agente Fiduciário relatório de gestão do patrimônio separado"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 10,
+      "fact_name": "af_assembleias_2025",
+      "reference_date": "2025-12-31",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "Não foram realizadas assembleias no período analisado."
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 10,
+      "fact_name": "af_obrigacoes_notificacoes",
+      "reference_date": "2025-12-31",
+      "value": "obrigações não adimplidas no prazo foram objeto de notificação (sem detalhamento no relatório)",
+      "unit": "texto",
+      "excerpt": "Eventuais obrigações não adimplidas no prazo, durante o período de análise deste Relatório, foram objeto de notificação"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 11,
+      "fact_name": "af_destinacao_recursos_verificada",
+      "reference_date": "2025-12-31",
+      "value": "não analisada em 2025 (primeira comprovação após 6 meses da emissão)",
+      "unit": "texto",
+      "excerpt": "a verificação da destinação dos recursos pelo Agente Fiduciário não é objeto de análise do relatório anual referente ao exercício de 2025"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 11,
+      "fact_name": "af_garantia_aval_constituida",
+      "reference_date": "2025-12-31",
+      "value": "SIM",
+      "unit": "texto",
+      "excerpt": "Nome do Contrato Constituição Aval SIM"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 12,
+      "fact_name": "af_suficiencia_garantias_e_covenants",
+      "reference_date": "2025-12-31",
+      "value": "não analisados no relatório; remete à aba 'Relatórios de Garantias' do site da Vórtx",
+      "unit": "texto",
+      "excerpt": "As análises de Covenants Financeiros, quando aplicáveis, se encontram na aba “Relatórios de Garantias” ao acessar a operação no site da Vórtx"
+    },
+    {
+      "source_document_id": "1175590",
+      "page_number": 12,
+      "fact_name": "af_parecer_omissao_inverdade",
+      "reference_date": "2025-12-31",
+      "value": "AF não tem conhecimento de omissão ou inverdade",
+      "unit": "texto",
+      "excerpt": "não tem conhecimento de eventual omissão ou inverdade contida nas informações divulgadas pela companhia"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 1,
+      "fact_name": "df_entidade",
+      "reference_date": "2026-06-30",
+      "value": "Patrimônio Separado da 426ª emissão (séries 1ª a 5ª)",
+      "unit": "texto",
+      "excerpt": "PATRIMÔNIO SEPARADO DA 426ª EMISSÃO DAS SÉRIES 1ª, 2ª, 3ª, 4ª E 5ª - IFS NºS CRA02500C1D, CRA02500C1E, CRA02500C1F, CRA02500C1G E CRA02500C1H"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 3,
+      "fact_name": "df_periodo_inicio",
+      "reference_date": "2026-06-30",
+      "value": "2025-12-15",
+      "unit": "data",
+      "excerpt": "para o período de 15 de dezembro de 2025 (data de início da operação) a 30 de junho de 2026"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 3,
+      "fact_name": "df_opiniao_auditor",
+      "reference_date": "2026-06-30",
+      "value": "sem ressalva, com parágrafo de ênfase sobre a base de elaboração (BDO)",
+      "unit": "texto",
+      "excerpt": "Nossa opinião não contém ressalva relacionada a esse assunto."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 7,
+      "fact_name": "df_total_ativo",
+      "reference_date": "2026-06-30",
+      "value": "759167",
+      "unit": "BRL_mil",
+      "excerpt": "Total do ativo 759.167"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 7,
+      "fact_name": "df_direitos_creditorios_longo_prazo",
+      "reference_date": "2026-06-30",
+      "value": "687500",
+      "unit": "BRL_mil",
+      "excerpt": "Direitos creditórios do agronegócio_LP 5 687.500"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 8,
+      "fact_name": "df_juros_atualizacao_direitos_creditorios_periodo",
+      "reference_date": "2026-06-30",
+      "value": "59371",
+      "unit": "BRL_mil",
+      "excerpt": "Juros e atualização sobre os direitos creditórios 5 59.371"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 8,
+      "fact_name": "df_outras_despesas_operacionais_periodo",
+      "reference_date": "2026-06-30",
+      "value": "-222",
+      "unit": "BRL_mil",
+      "excerpt": "OUTRAS RECEITAS E (DESPESAS) OPERACIONAIS 8 (222)"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 9,
+      "fact_name": "df_pagamento_juros_cra_total_periodo",
+      "reference_date": "2026-06-30",
+      "value": "50299",
+      "unit": "BRL_mil",
+      "excerpt": "(-) Pagamento de juros de certificados de recebíveis - CRA 6 (50.299)"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 9,
+      "fact_name": "df_recebimento_direitos_creditorios_total_periodo",
+      "reference_date": "2026-06-30",
+      "value": "50299",
+      "unit": "BRL_mil",
+      "excerpt": "(+) Recebimento de direitos creditórios 5 50.299"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 9,
+      "fact_name": "df_fundo_despesas_constituicao",
+      "reference_date": "2026-06-30",
+      "value": "295",
+      "unit": "BRL_mil",
+      "excerpt": "(+) Constituição do fundo de despesas 8 295"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 9,
+      "fact_name": "df_fundo_despesas_recomposicao",
+      "reference_date": "2026-06-30",
+      "value": "17",
+      "unit": "BRL_mil",
+      "excerpt": "(+) Recomposição do fundo de despesas 8 17"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 9,
+      "fact_name": "df_pagamento_despesas_periodo",
+      "reference_date": "2026-06-30",
+      "value": "-222",
+      "unit": "BRL_mil",
+      "excerpt": "(-) Pagamento de despesas diversas 8 (222)"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 11,
+      "fact_name": "df_classes_por_serie",
+      "reference_date": "2026-06-30",
+      "value": "1ª e 2ª: Classe Sênior; 3ª: Classe Subordinada Mezanino; 4ª e 5ª: Classe Subordinada Júnior",
+      "unit": "texto",
+      "excerpt": "sendo a 1ª e a 2ª séries integrantes da Classe Sênior, a 3ª série integrante da Classe Subordinada Mezanino e a 4ª e a 5ª séries integrantes da Classe Subordinada Júnior."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 11,
+      "fact_name": "df_garantias",
+      "reference_date": "2026-06-30",
+      "value": "Aval apenas sobre NCs 1ª, 2ª e 3ª Séries; 4ª e 5ª sem garantias; nenhuma garantia sobre os CRA",
+      "unit": "texto",
+      "excerpt": "as notas comerciais contam com a garantia concedida pelo Avalista exclusivamente às Notas Comerciais Escriturais 1ª, 2ª e 3ª Séries. As Notas Comerciais Escriturais 4ª e 5ª Séries, bem como os Direitos Creditórios do Agronegócio delas decorrentes, não possuem garantias."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 10,
+      "fact_name": "df_data_termino_serie_5",
+      "reference_date": "2026-06-30",
+      "value": "2035-12-17",
+      "unit": "data",
+      "excerpt": "5ª Série de 15 de dezembro de 2025 a 17 de dezembro de 2035."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_caixa_aplicacao_fundo_despesas",
+      "reference_date": "2026-06-30",
+      "value": "95",
+      "unit": "BRL_mil",
+      "excerpt": "Aplicação financeira (*) 95 Total 95"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_recebimento_direitos_creditorios_serie_1",
+      "reference_date": "2026-06-30",
+      "value": "15838",
+      "unit": "BRL_mil",
+      "excerpt": "Recebimento de direitos (15.838) (1.233) (18.790) (8.019) (6.419)"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_recebimento_direitos_creditorios_serie_2",
+      "reference_date": "2026-06-30",
+      "value": "1233",
+      "unit": "BRL_mil",
+      "excerpt": "Recebimento de direitos (15.838) (1.233) (18.790) (8.019) (6.419)"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_recebimento_direitos_creditorios_serie_3",
+      "reference_date": "2026-06-30",
+      "value": "18790",
+      "unit": "BRL_mil",
+      "excerpt": "Recebimento de direitos (15.838) (1.233) (18.790) (8.019) (6.419)"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_recebimento_direitos_creditorios_serie_4",
+      "reference_date": "2026-06-30",
+      "value": "8019",
+      "unit": "BRL_mil",
+      "excerpt": "Recebimento de direitos (15.838) (1.233) (18.790) (8.019) (6.419)"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_recebimento_direitos_creditorios_serie_5",
+      "reference_date": "2026-06-30",
+      "value": "6419",
+      "unit": "BRL_mil",
+      "excerpt": "Recebimento de direitos (15.838) (1.233) (18.790) (8.019) (6.419)"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_saldo_direitos_creditorios_serie_1",
+      "reference_date": "2026-06-30",
+      "value": "234294",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 30/06/2026 234.294 16.945 251.324 100.565 155.944 759.072"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_saldo_direitos_creditorios_serie_2",
+      "reference_date": "2026-06-30",
+      "value": "16945",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 30/06/2026 234.294 16.945 251.324 100.565 155.944 759.072"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_saldo_direitos_creditorios_serie_3",
+      "reference_date": "2026-06-30",
+      "value": "251324",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 30/06/2026 234.294 16.945 251.324 100.565 155.944 759.072"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_saldo_direitos_creditorios_serie_4",
+      "reference_date": "2026-06-30",
+      "value": "100565",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 30/06/2026 234.294 16.945 251.324 100.565 155.944 759.072"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_saldo_direitos_creditorios_serie_5",
+      "reference_date": "2026-06-30",
+      "value": "155944",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 30/06/2026 234.294 16.945 251.324 100.565 155.944 759.072"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 17,
+      "fact_name": "df_saldo_direitos_creditorios_total",
+      "reference_date": "2026-06-30",
+      "value": "759072",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 30/06/2026 234.294 16.945 251.324 100.565 155.944 759.072"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 18,
+      "fact_name": "df_provisao_perdas",
+      "reference_date": "2026-06-30",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "Na análise da Securitizadora, não há perdas estimadas em função da não ocorrência de créditos vencidos no lastro"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 19,
+      "fact_name": "df_inadimplencia_periodo",
+      "reference_date": "2026-06-30",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "não houve inadimplência no recebimento dos direitos creditórios."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 19,
+      "fact_name": "df_pre_pagamento_periodo",
+      "reference_date": "2026-06-30",
+      "value": "nenhum",
+      "unit": "texto",
+      "excerpt": "não houve eventos de pré- pagamento."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_pagamento_juros_cra_serie_1",
+      "reference_date": "2026-06-30",
+      "value": "15838",
+      "unit": "BRL_mil",
+      "excerpt": "investidores (15.838) (1.233) (18.790) (8.019) (6.419) (50.299) Pagamento de juros"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_pagamento_juros_cra_serie_2",
+      "reference_date": "2026-06-30",
+      "value": "1233",
+      "unit": "BRL_mil",
+      "excerpt": "investidores (15.838) (1.233) (18.790) (8.019) (6.419) (50.299) Pagamento de juros"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_pagamento_juros_cra_serie_3",
+      "reference_date": "2026-06-30",
+      "value": "18790",
+      "unit": "BRL_mil",
+      "excerpt": "investidores (15.838) (1.233) (18.790) (8.019) (6.419) (50.299) Pagamento de juros"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_pagamento_juros_cra_serie_4",
+      "reference_date": "2026-06-30",
+      "value": "8019",
+      "unit": "BRL_mil",
+      "excerpt": "investidores (15.838) (1.233) (18.790) (8.019) (6.419) (50.299) Pagamento de juros"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_pagamento_juros_cra_serie_5",
+      "reference_date": "2026-06-30",
+      "value": "6419",
+      "unit": "BRL_mil",
+      "excerpt": "investidores (15.838) (1.233) (18.790) (8.019) (6.419) (50.299) Pagamento de juros"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_saldo_cra_serie_1",
+      "reference_date": "2026-06-30",
+      "value": "234294",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 234.294 16.945 251.324 100.565 155.944 759.072 30/06/2026"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_saldo_cra_serie_2",
+      "reference_date": "2026-06-30",
+      "value": "16945",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 234.294 16.945 251.324 100.565 155.944 759.072 30/06/2026"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_saldo_cra_serie_3",
+      "reference_date": "2026-06-30",
+      "value": "251324",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 234.294 16.945 251.324 100.565 155.944 759.072 30/06/2026"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_saldo_cra_serie_4",
+      "reference_date": "2026-06-30",
+      "value": "100565",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 234.294 16.945 251.324 100.565 155.944 759.072 30/06/2026"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_saldo_cra_serie_5",
+      "reference_date": "2026-06-30",
+      "value": "155944",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 234.294 16.945 251.324 100.565 155.944 759.072 30/06/2026"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_saldo_cra_total",
+      "reference_date": "2026-06-30",
+      "value": "759072",
+      "unit": "BRL_mil",
+      "excerpt": "Saldo final em 234.294 16.945 251.324 100.565 155.944 759.072 30/06/2026"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_integralizacao_por_serie",
+      "reference_date": "2026-06-30",
+      "value": "233142; 16858; 250000; 100000; 150000 (total 750000)",
+      "unit": "BRL_mil",
+      "excerpt": "Integralização dos 233.142 16.858 250.000 100.000 150.000 750.000"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_cronograma_juros",
+      "reference_date": "2026-06-30",
+      "value": "Semestral, a partir de 17 de junho de 2026",
+      "unit": "texto",
+      "excerpt": "Semestral, a partir de 17 de junho de 2026."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 21,
+      "fact_name": "df_classes_por_serie_nota_6",
+      "reference_date": "2026-06-30",
+      "value": "1ª e 2ª: Classe Sênior; 3ª: Classe Mezanino; 4ª e 5ª: Classe Subordinada",
+      "unit": "texto",
+      "excerpt": "sendo a 1ª e a 2ª séries integrantes da Classe Sênior, a 3ª série integrante da Classe Mezanino e a 4ª e a 5ª séries integrantes da Classe Subordinada."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 21,
+      "fact_name": "df_assembleias_periodo",
+      "reference_date": "2026-06-30",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "não foram realizadas assembleias relacionadas à essa emissão."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 21,
+      "fact_name": "df_rating",
+      "reference_date": "2026-06-30",
+      "value": "A.br (sf) — Moody’s Local, atribuída em 2025-12-17",
+      "unit": "texto",
+      "excerpt": "A emissão teve a classificação de risco A.br (sf) atribuída pela Moody’s Local em 17 de dezembro de 2025."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 23,
+      "fact_name": "df_eventos_subsequentes",
+      "reference_date": "2026-06-30",
+      "value": "nenhum",
+      "unit": "texto",
+      "excerpt": "Não houve eventos subsequentes após o encerramento do período apresentado"
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 3,
+      "fact_name": "comunicado_data",
+      "reference_date": "2025-12-16",
+      "value": "2025-12-16",
+      "unit": "data",
+      "excerpt": "A data deste Comunicado ao Mercado é 16 de dezembro de 2025."
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 1,
+      "fact_name": "comunicado_bookbuilding_concluido",
+      "reference_date": "2025-12-16",
+      "value": "2025-12-16",
+      "unit": "data",
+      "excerpt": "em 16 de dezembro de 2025, que o Coordenador Líder, por meio da coleta das intenções de investimento, concluiu o Procedimento de Bookbuilding"
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 1,
+      "fact_name": "comunicado_valor_total_emissao",
+      "reference_date": "2025-12-16",
+      "value": "750000000.00",
+      "unit": "BRL",
+      "excerpt": "o montante total de R$ 750.000.000,00 (setecentos e cinquenta milhões de reais)"
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 1,
+      "fact_name": "comunicado_isin_serie_1",
+      "reference_date": "2025-12-16",
+      "value": "BRECOACRALJ8",
+      "unit": "texto",
+      "excerpt": "CÓDIGO ISIN DOS CRA DA 1ª SÉRIE: BRECOACRALJ8"
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 1,
+      "fact_name": "comunicado_rating",
+      "reference_date": "2025-12-16",
+      "value": "A.br (Moody’s Local BR), realizada em 2025-11-14",
+      "unit": "texto",
+      "excerpt": "EM ESCALA NACIONAL: “A.br” *Esta Classificação de Risco foi realizada em 14 de novembro de 2025"
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 2,
+      "fact_name": "comunicado_quantidade_serie_1",
+      "reference_date": "2025-12-16",
+      "value": "233142",
+      "unit": "CRA",
+      "excerpt": "(a) 233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série"
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 2,
+      "fact_name": "comunicado_quantidade_serie_2",
+      "reference_date": "2025-12-16",
+      "value": "16858",
+      "unit": "CRA",
+      "excerpt": "(a) 233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série"
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 2,
+      "fact_name": "comunicado_quantidade_serie_3",
+      "reference_date": "2025-12-16",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "(a) 233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série"
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 2,
+      "fact_name": "comunicado_quantidade_serie_4",
+      "reference_date": "2025-12-16",
+      "value": "100000",
+      "unit": "CRA",
+      "excerpt": "(a) 233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série"
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 2,
+      "fact_name": "comunicado_quantidade_serie_5",
+      "reference_date": "2025-12-16",
+      "value": "150000",
+      "unit": "CRA",
+      "excerpt": "(a) 233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série; (b) 16.858 (dezesseis mil, oitocentos e cinquenta e oito) CRA da 2ª Série; (c) 250.000 (duzentos e cinquenta mil) CRA da 3ª Série; (d) 100.000 (cem mil) CRA da 4ª Série; e (e) 150.000 (cento e cinquenta mil) CRA da 5ª Série"
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 2,
+      "fact_name": "comunicado_remuneracao_serie_1",
+      "reference_date": "2025-12-16",
+      "value": "0.1480",
+      "unit": "fração a.a. (base 252)",
+      "excerpt": "incidirão juros remuneratórios prefixados correspondentes a 14,80% (quatorze inteiros e oitenta centésimos por cento) ao ano"
+    },
+    {
+      "source_document_id": "1064843",
+      "page_number": 2,
+      "fact_name": "comunicado_pessoas_vinculadas",
+      "reference_date": "2025-12-16",
+      "value": "sem excesso de demanda > 1/3; participação de Pessoas Vinculadas aceita sem limitação",
+      "unit": "texto",
+      "excerpt": "Assim, não haverá limitação para participação de Pessoas Vinculadas na Oferta."
+    }
+  ]
+}

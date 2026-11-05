@@ -1,0 +1,185 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "source_kind": "assembleia",
+  "topic": "assembleia_condicionantes",
+  "proposed_by": "Claude (assistente), a partir dos trechos literais das atas",
+  "proposed_at": "2026-10-26",
+  "parameters": [
+    {
+      "source_document_id": "927400",
+      "anchor": "(a) a Razão de Garantia 1º Semestre será o valor dos Direitos",
+      "parameter_name": "razao_garantia_minima_jan_ago",
+      "parameter_value": "0.70",
+      "unit": "fração do Saldo Devedor dos CRA",
+      "applies_when": "1º semestre",
+      "valid_from": "2025-06-17",
+      "note": "AGT 17/06/2025: base passa a ser o Saldo Devedor dos CRA.",
+      "supersedes": [
+        "razao_garantia_minima_jan_ago"
+      ]
+    },
+    {
+      "source_document_id": "927400",
+      "anchor": "(b) nas datas de medição da Razão de Garantia 2º Semestre",
+      "parameter_name": "razao_garantia_minima_set_dez",
+      "parameter_value": "1.20",
+      "unit": "fração do Saldo Devedor dos CRA",
+      "applies_when": "2º semestre; verificação em 30/12",
+      "valid_from": "2025-06-17",
+      "note": null,
+      "supersedes": [
+        "razao_garantia_minima_set_dez"
+      ]
+    },
+    {
+      "source_document_id": "927400",
+      "anchor": "(b) nas datas de medição da Razão de Garantia 2º Semestre",
+      "parameter_name": "cessao_fiduciaria_mais_conta_minima_2sem",
+      "parameter_value": "10000000.00",
+      "unit": "BRL",
+      "applies_when": "2º semestre; Direitos Creditórios em Garantia + Conta Garantia",
+      "valid_from": "2025-06-17",
+      "note": "Substitui o mínimo de R$ 65 mi só de Cessão Fiduciária.",
+      "supersedes": [
+        "cessao_fiduciaria_minima_na_verificacao"
+      ]
+    },
+    {
+      "source_document_id": "927400",
+      "anchor": "(c) a Data de Verificação da Razão de Garantia para o período",
+      "parameter_name": "datas_verificacao_razao_garantia",
+      "parameter_value": "set–dez: 30/12 (jan–ago: sem alteração na ata)",
+      "unit": "texto",
+      "applies_when": "anual",
+      "valid_from": "2025-06-17",
+      "note": null,
+      "supersedes": [
+        "datas_verificacao_razao_garantia"
+      ]
+    },
+    {
+      "source_document_id": "927400",
+      "anchor": "(e) Vedação da distribuição de dividendos acima do mínimo legal",
+      "parameter_name": "vedacao_dividendos_2025",
+      "parameter_value": "Dividendos limitados ao mínimo legal",
+      "unit": "texto",
+      "applies_when": "exercício 2025",
+      "valid_from": "2025-06-17",
+      "note": null,
+      "supersedes": []
+    },
+    {
+      "source_document_id": "927400",
+      "anchor": "(f) Limitação de CAPEX no exercício de 2025",
+      "parameter_name": "limite_capex_2025",
+      "parameter_value": "12000000.00",
+      "unit": "BRL",
+      "applies_when": "exercício 2025",
+      "valid_from": "2025-06-17",
+      "note": null,
+      "supersedes": []
+    },
+    {
+      "source_document_id": "1110477",
+      "anchor": "(i) a limitação de novos mútuos a partir de julho de 2026",
+      "parameter_name": "limite_novos_mutuos_2026",
+      "parameter_value": "39000000.00",
+      "unit": "BRL",
+      "applies_when": "a partir de jul/2026, exercício 2026",
+      "valid_from": "2026-02-12",
+      "note": null,
+      "supersedes": []
+    },
+    {
+      "source_document_id": "1110477",
+      "anchor": "(ii) o envio dos balancetes mensais não auditados",
+      "parameter_name": "balancetes_mensais_2026",
+      "parameter_value": "Envio mensal, 30 dias após o fechamento, com valores de mútuos",
+      "unit": "texto",
+      "applies_when": "exercício 2026",
+      "valid_from": "2026-02-12",
+      "note": null,
+      "supersedes": []
+    },
+    {
+      "source_document_id": "1110477",
+      "anchor": "(iii) a realização de amortização extraordinária, em valor equivalente a 10%",
+      "parameter_name": "amortizacao_extraordinaria_out_2026",
+      "parameter_value": "0.10",
+      "unit": "fração do Saldo Devedor",
+      "applies_when": "em 31/10/2026",
+      "valid_from": "2026-02-12",
+      "note": null,
+      "supersedes": []
+    },
+    {
+      "source_document_id": "1110477",
+      "anchor": "(iv) a realização de amortização extraordinária do saldo do Valor Nominal",
+      "parameter_name": "cash_sweep",
+      "parameter_value": "Totalidade dos recursos da liquidação dos Direitos Creditórios em Garantia e demais recursos recebidos pela Devedora",
+      "unit": "texto",
+      "applies_when": "a qualquer tempo",
+      "valid_from": "2026-02-12",
+      "note": null,
+      "supersedes": []
+    },
+    {
+      "source_document_id": "1189040",
+      "anchor": "que deveria ter sido paga até 31 de março de 2026",
+      "parameter_name": "parcela_vencida_prazo_quitacao",
+      "parameter_value": "2026-03-31",
+      "unit": "data",
+      "applies_when": "repactuação aprovada em 12/02/2026",
+      "valid_from": "2026-02-12",
+      "note": "Ata 13/05/2026 registra quitação em 28/04/2026.",
+      "supersedes": []
+    },
+    {
+      "source_document_id": "1189040",
+      "anchor": "deve ser considerado correto",
+      "parameter_name": "covenant_divida_liquida_ebitda_max",
+      "parameter_value": "3.0",
+      "unit": "x",
+      "applies_when": "item (xv) da Cláusula 4.3 do CDCA",
+      "valid_from": "2026-05-13",
+      "note": "Covenant do CDCA conhecido pela ata; waiver aprovado em 15/05/2026.",
+      "supersedes": []
+    },
+    {
+      "source_document_id": "1189040",
+      "anchor": "deve ser considerado correto",
+      "parameter_name": "covenant_liquidez_corrente_min",
+      "parameter_value": "1.0",
+      "unit": "x",
+      "applies_when": "item (xv) da Cláusula 4.3 do CDCA",
+      "valid_from": "2026-05-13",
+      "note": "Redação corrigida para 'igual ou superior a 1x'.",
+      "supersedes": []
+    },
+    {
+      "source_document_id": "1194480",
+      "anchor": "(i) A apresentação, pela Devedora, das demonstrações financeiras auditadas",
+      "parameter_name": "dfs_auditadas_prazo",
+      "parameter_value": "2026-05-30",
+      "unit": "data",
+      "applies_when": "condição do waiver de 15/05/2026",
+      "valid_from": "2026-05-15",
+      "note": null,
+      "supersedes": []
+    },
+    {
+      "source_document_id": "1194480",
+      "anchor": "(ii) Pagamento de “waiver fee” equivalente a 0,5%",
+      "parameter_name": "waiver_fee",
+      "parameter_value": "0.005",
+      "unit": "fração do Saldo Devedor",
+      "applies_when": "até 31/10/2026, salvo resgate antecipado total do CDCA até out/2026",
+      "valid_from": "2026-05-15",
+      "note": null,
+      "supersedes": []
+    }
+  ]
+}
