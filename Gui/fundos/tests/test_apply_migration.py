@@ -126,7 +126,7 @@ def test_create_commit_builds_a_new_database(script, tmp_path, capsys):
     output = capsys.readouterr().out
 
     assert code == 0
-    assert versions(path) == [1, 2, 3]
+    assert versions(path) == [1, 2, 3, 4]
     assert "Banco novo" in output
     assert "Migrations aplicadas com sucesso." in output
     assert not (path.parent / "backups").exists()
@@ -451,6 +451,7 @@ def test_real_migrations_are_numbered_and_named_like_the_registry(script):
         (1, "initial_schema"),
         (2, "party_observations"),
         (3, "party_observation_shares"),
+        (4, "holdings"),
     ]
 
 
