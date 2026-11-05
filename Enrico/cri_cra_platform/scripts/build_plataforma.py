@@ -108,7 +108,18 @@ def main() -> int:
     for r in read_csv("atas_portais.csv"):
         for code in re.split(r"[|,; ]+", r.get("cetips") or ""):
             if code:
-                atas[code.upper()].append(r)
+                atas[code.upper()].append({**r, "fonte": f"portal da {r['securitizadora']}" if r["securitizadora"] else "portal"})
+    # atas e fatos relevantes do Fundos.NET lidos pela rotina mensal (run_assembly_topics.py)
+    for r in read_csv("assembleias_topicos.csv"):
+        if not r.get("ativo"):
+            continue
+        atas[r["ativo"].upper()].append({
+            "data_evento": r["data"], "publicado_em": r["data"], "tipo": r["categoria"], "titulo": r["nome"] or r["categoria"],
+            "resultado": r["resultado"], "decisoes": r["decisoes"], "eventos_graves": "",
+            "assuntos": (r["assuntos_relevantes"] or "").replace(";", ", "), "origem_eventos": "",
+            "trecho_decisao": r["trecho_decisao"], "trecho": r["trecho"], "ocr": "sim" if r["ocr"] == "1" else "nao",
+            "url": f"https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id={r['documento']}",
+            "sha256": "", "securitizadora": "", "fonte": "Fundos.NET"})
 
     index, fichas = [], defaultdict(dict)
     totals = Counter()
@@ -178,9 +189,9 @@ def main() -> int:
                     for r in guarantees.get(cetip, [])]
         ata_rows = [{"data": r["data_evento"] or r["publicado_em"], "publicado": r["publicado_em"], "tipo": r["tipo"],
                      "titulo": r["titulo"], "resultado": r["resultado"], "decisoes": r["decisoes"],
-                     "eventos": r["eventos_graves"], "origem": r["origem_eventos"],
+                     "eventos": r["eventos_graves"], "origem": r["origem_eventos"], "assuntos": r.get("assuntos", ""),
                      "trecho": (r["trecho_decisao"] or r["trecho"] or "")[:500], "ocr": r["ocr"], "url": r["url"],
-                     "sha": short_sha(r["sha256"]), "securitizadora": r["securitizadora"]}
+                     "sha": short_sha(r["sha256"]), "securitizadora": r["securitizadora"], "fonte": r["fonte"]}
                     for r in sorted(atas.get(cetip, []), key=lambda r: r["publicado_em"] or "", reverse=True)]
 
         names = " ".join(x for x in (a["devedor"], a["securitizadora"], informe["emissora"] if informe else "",

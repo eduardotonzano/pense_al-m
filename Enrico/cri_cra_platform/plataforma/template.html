@@ -813,13 +813,13 @@ button,input{font:inherit;color:inherit}
   }
   function modAtas(f){
     var a=f.atas, h=modHead(4,'Leitura rápida dos documentos por agente',a.length?['wip','Resumo automático']:['idle','Sem leitura']);
-    if(!a.length)return h+'<p class="empty">Nenhuma ata lida para este ativo. Hoje são lidas as atas publicadas nos portais da Opea, Eco, Vert e Riza desde 01/08/2026.</p></section>';
-    return h+'<p class="note" style="margin:0 0 12px">Resumo automático, confira no documento. Cada decisão traz o trecho literal da ata.</p><div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Data</th><th>Documento</th><th>Resultado</th><th>Eventos graves</th><th>Trecho</th></tr></thead><tbody>'+
-      a.map(function(x){return '<tr><td>'+(x.data?fd(x.data):none())+'</td><td>'+(x.url?'<a class="ext" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.titulo||x.tipo||'Ata')+'</a>':dv(x.titulo||x.tipo))+'<br><small>'+dv(x.securitizadora)+(x.ocr==='sim'?' · lido por OCR':'')+'</small></td>'+
+    if(!a.length)return h+'<p class="empty">Nenhuma ata ou fato relevante lido para este ativo. A leitura depende do documento baixado com texto (Fundos.NET) ou publicado no portal da securitizadora.</p></section>';
+    return h+'<p class="note" style="margin:0 0 12px">Resumo automático, confira no documento. Cada decisão traz o trecho literal da ata.</p><div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Data</th><th>Documento</th><th>Resultado</th><th>Eventos graves · assuntos</th><th>Trecho</th></tr></thead><tbody>'+
+      a.map(function(x){return '<tr><td>'+(x.data?fd(x.data):none())+'</td><td>'+(x.url?'<a class="ext" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.titulo||x.tipo||'Ata')+'</a>':dv(x.titulo||x.tipo))+'<br><small>'+dv(x.fonte||x.securitizadora)+(x.ocr==='sim'?' · lido por OCR':'')+'</small></td>'+
         '<td>'+(x.resultado==='minuta_reuniao_futura'?'<span class="flag flag-n">minuta de reunião futura</span>':(x.resultado?esc(ARES[x.resultado]||x.resultado):'<span class="nodata">sem decisão lida</span>'))+(x.decisoes?'<br><small>'+esc(x.decisoes)+'</small>':'')+'</td>'+
-        '<td>'+(x.eventos?'<span class="flag flag-bad">'+esc(x.eventos)+'</span>'+(x.origem?'<br><small>'+esc(x.origem)+'</small>':''):'—')+'</td>'+
+        '<td>'+(x.eventos?'<span class="flag flag-bad">'+esc(x.eventos)+'</span>'+(x.origem?'<br><small>'+esc(x.origem)+'</small>':''):x.assuntos?'<span class="flag flag-n">'+esc(x.assuntos)+'</span>':'—')+'</td>'+
         '<td>'+(x.trecho?'<details><summary>ver trecho</summary><p class="trecho">'+esc(x.trecho)+'</p></details>':none())+'</td></tr>'}).join('')+
-      '</tbody></table></div><p class="note">Fonte: atas publicadas no portal da securitizadora'+(a[0].sha?', com SHA-256 do arquivo':'')+'.</p></section>';
+      '</tbody></table></div><p class="note">Fonte: atas e fatos relevantes do Fundos.NET e atas publicadas nos portais das securitizadoras (indicada em cada linha).</p></section>';
   }
   function pageSec(tok){
     var p=D.PAGES[tok], tipo=tok.toUpperCase();
