@@ -85,6 +85,15 @@ def main() -> int:
 
     cvm = sqlite3.connect(f"file:{ROOT / 'data' / 'cvm_open.db'}?mode=ro", uri=True, timeout=120)
     cvm.row_factory = sqlite3.Row
+    # as views *_vigente recalculam a tabela inteira a cada consulta (3 s por ativo): uma cópia temporária com índice,
+    # só nesta conexão e com o mesmo nome (o esquema temp é lido primeiro), dá o mesmo resultado em ~10 ms
+    for kind in ("cra", "cri"):
+        for view in ("classe_vigente", "geral_vigente"):
+            cvm.execute(f"CREATE TEMP TABLE {kind}_{view} AS SELECT * FROM main.{kind}_{view}")
+        cvm.execute(f"CREATE INDEX temp.ix_{kind}_cv_isin ON {kind}_classe_vigente(Codigo_ISIN)")
+        cvm.execute(f"CREATE INDEX temp.ix_{kind}_cv_cert ON {kind}_classe_vigente(Codigo_Identificacao_Certificado)")
+        cvm.execute(f"CREATE INDEX temp.ix_{kind}_cv_cnpj ON {kind}_classe_vigente(CNPJ_Emissora, Codigo_ISIN)")
+        cvm.execute(f"CREATE INDEX temp.ix_{kind}_gv_cert ON {kind}_geral_vigente(Codigo_Identificacao_Certificado)")
 
     debtor_cvm: dict[str, list[dict]] = defaultdict(list)
     for r in read_csv("cnpj_devedor_cvm.csv"):
@@ -116,6 +125,13 @@ def main() -> int:
             devedor_fonte = f"Informe Mensal da CVM, competência {r['competencia']} (versão {r['versao']})"
         elif not devedor_cnpj and len(debtor_cnpjs) > 1:
             devedor_fonte = f"Informe Mensal da CVM: {len(debtor_cnpjs)} devedores (carteira pulverizada)"
+        # catálogo e Informe divergem: os dois aparecem, com a fonte, sem escolha automática (regra G-04)
+        cnpj_cvm, cnpj_cvm_fonte = "", ""
+        if devedor_cnpj and len(debtor_cnpjs) == 1 and debtor_cnpjs[0] != devedor_cnpj:
+            cnpj_cvm = debtor_cnpjs[0]
+            cnpj_cvm_fonte = (f"Informe Mensal da CVM, competência {debtor_rows[0]['competencia']} "
+                              f"(versão {debtor_rows[0]['versao']})")
+            totals["conflito_cnpj_devedor"] += 1
 
         em = None
         if a["isin"] and kind in ("CRI", "CRA"):
@@ -184,6 +200,7 @@ def main() -> int:
                    "cnpj_securitizadora": cnpj_or_blank(a["cnpj_securitizadora"]), "emissao": a["emissao"] or "",
                    "serie": a["serie"] or "", "devedor": a["devedor"] or "", "cnpj_devedor": devedor_cnpj,
                    "cnpj_devedor_fonte": devedor_fonte if (devedor_cnpj or debtor_cnpjs) else "",
+                   "cnpj_devedor_cvm": cnpj_cvm, "cnpj_devedor_cvm_fonte": cnpj_cvm_fonte,
                    "devedores_cvm": debtor_cnpjs if len(debtor_cnpjs) > 1 else [], "ativo": bool(a["active"])},
             "informe": informe, "docs_por_categoria": dict(by_cat), "docs": doc_rows,
             "docs_informe_total": by_cat.get("Informe Mensal", 0), "covenants": cov_rows, "garantias": gar_rows,

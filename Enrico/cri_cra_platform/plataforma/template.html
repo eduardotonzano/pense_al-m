@@ -756,10 +756,11 @@ button,input{font:inherit;color:inherit}
   function secFicha(f){
     var a=f.id, inf=f.informe;
     var idr=[['Código CETIP',a.codigo],['ISIN',a.isin||none()],['Tipo',a.tipo],['Securitizadora',dv(a.securitizadora)],['CNPJ da securitizadora',a.cnpj_securitizadora||none()],
-      ['Emissão · série',dv(a.emissao)+' · '+dv(a.serie)],['Devedor',dv(a.devedor)],['CNPJ do devedor',a.cnpj_devedor||(a.devedores_cvm.length?a.devedores_cvm.length+' devedores no Informe':none())],
-      ['No catálogo',a.ativo?'Ativo':'Inativo']];
+      ['Emissão · série',dv(a.emissao)+' · '+dv(a.serie)],['Devedor',dv(a.devedor)],['CNPJ do devedor',(a.cnpj_devedor||(a.devedores_cvm.length?a.devedores_cvm.length+' devedores no Informe':none()))+(a.cnpj_devedor_cvm?' <span class="flag flag-bad">diverge do Informe da CVM</span>':'')]]
+      .concat(a.cnpj_devedor_cvm?[['CNPJ do devedor no Informe',a.cnpj_devedor_cvm+' <span class="flag flag-bad">conflito</span>']]:[]).concat([
+      ['No catálogo',a.ativo?'Ativo':'Inativo']]);
     var h='<div class="ficha"><div class="ficha-id"><h3>Identificação</h3><dl>'+idr.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>'}).join('')+'</dl>'+
-      '<p class="note">Fonte: cadastro do Fundos.NET.'+(a.cnpj_devedor_fonte?' CNPJ do devedor: '+esc(a.cnpj_devedor_fonte)+'.':'')+' CNPJ ausente aparece como falta, sem preenchimento (regra S-08).</p></div>'+
+      '<p class="note">Fonte: cadastro do Fundos.NET.'+(a.cnpj_devedor_fonte?' CNPJ do devedor: '+esc(a.cnpj_devedor_fonte)+'.':'')+(a.cnpj_devedor_cvm_fonte?' No Informe: '+esc(a.cnpj_devedor_cvm_fonte)+'. As duas fontes ficam visíveis até a revisão (regra G-04).':'')+' CNPJ ausente aparece como falta, sem preenchimento (regra S-08).</p></div>'+
       '<div class="ficha-obs"><h3>Informe Mensal na CVM'+(inf?' · competência '+inf.competencia:'')+'</h3>';
     if(!inf)h+='<p class="note">Sem dado na base aberta da CVM para este ISIN.</p>';
     else{
