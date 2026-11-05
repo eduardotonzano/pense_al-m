@@ -75,6 +75,21 @@ def test_name_limit_situation_table_and_title_inline_with_header():
     ]
 
 
+def test_block_date_in_header_and_year_in_measured_label():
+    # 98ª CRI (página 3): a data do bloco fica no cabeçalho, sem coluna embaixo; e "Covenants  Realizado 2025  Status"
+    page = (
+        words_line(251, (36, 53, "Índice"), (55, 62, "de"), (63, 92, "Cobertura"))
+        + words_line(261, (91, 120, "15/06/2026"), (186, 200, "Valor"), (202, 215, "Atual"), (247, 260, "Valor"),
+                     (262, 282, "Mínimo"), (336, 351, "Status"))
+        + words_line(270, (205, 215, "1,46"), (272, 282, "1,20"), (319, 351, "Enquadrado"))
+        + words_line(400, (36, 80, "Covenants"), (186, 220, "Realizado"), (222, 240, "2025"), (336, 351, "Status"))
+        + words_line(410, (36, 60, "Caixa"), (62, 90, "superior"), (186, 230, "2,67"), (319, 351, "Enquadrado"))
+    )
+    items = parse_monitoring([page], [595])
+    assert [(i.item, i.valor_apurado, i.data_verificacao) for i in items] == [
+        ("Índice de Cobertura", "1,46", "15/06/2026"), ("Caixa superior", "2,67", "2025")]
+
+
 def test_vertical_block_with_two_years_keeps_latest():
     # "Índices Financeiros" da 79ª CRA: rótulos à esquerda, um ano por coluna, "Situação" na última linha
     page = (

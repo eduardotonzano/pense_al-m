@@ -1,0 +1,175 @@
+<title>Regras de Securitizados</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: uma coluna de leitura; cada regra é um bloco com o código à margem, decisões pendentes em destaque no topo */
+:root {
+  --bg: #f6f7f5; --surface: #ffffff; --fg: #1c2321; --muted: #5b6662; --line: #d9dfdc;
+  --accent: #1f5f5b; --accent-soft: #e2efed; --warn: #8a5a00; --warn-soft: #fbf1dc;
+  --display: "IBM Plex Serif", Georgia, serif; --body: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #141a19; --surface: #1b2322; --fg: #e3e9e6; --muted: #9aa8a3; --line: #2e3a38;
+  --accent: #7cc4bc; --accent-soft: #1f3331; --warn: #e6b45c; --warn-soft: #33290f; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #141a19; --surface: #1b2322; --fg: #e3e9e6; --muted: #9aa8a3; --line: #2e3a38;
+  --accent: #7cc4bc; --accent-soft: #1f3331; --warn: #e6b45c; --warn-soft: #33290f; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font: 16px/1.6 var(--body); }
+.wrap { max-width: 760px; margin: 0 auto; padding-block: 40px 64px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2 { font-family: var(--display); text-wrap: balance; line-height: 1.25; }
+h1 { font-size: 2rem; margin: 0 0 8px; }
+h2 { font-size: 1.3rem; margin: 48px 0 16px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+.lede { color: var(--muted); margin: 0; }
+.meta { font: 0.8rem var(--mono); color: var(--muted); letter-spacing: 0.02em; margin-top: 12px; }
+.decide { background: var(--warn-soft); border: 1px solid color-mix(in srgb, var(--warn) 35%, transparent); border-radius: 6px;
+  padding: 16px 20px; margin-top: 28px; }
+.decide h3 { margin: 0 0 8px; font: 600 0.8rem var(--body); text-transform: uppercase; letter-spacing: 0.08em; color: var(--warn); }
+.decide ol { margin: 0; padding-left: 20px; display: grid; gap: 4px; }
+.code { font: 500 0.78rem var(--mono); color: var(--accent); background: var(--accent-soft); padding: 1px 6px; border-radius: 3px; white-space: nowrap; }
+.table-box { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+td.num { font-variant-numeric: tabular-nums; }
+.rule { display: grid; grid-template-columns: 64px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.rule > div { min-width: 0; }
+.rule .id { font: 500 0.85rem var(--mono); color: var(--accent); padding-top: 2px; }
+.rule h4 { margin: 0 0 4px; font: 600 1rem var(--body); }
+.rule p { margin: 0 0 6px; }
+.rule ul { margin: 4px 0 6px; padding-left: 18px; }
+.ask { font-size: 0.9rem; color: var(--warn); }
+.ask strong { font-weight: 600; }
+.chain { font: 0.85rem var(--mono); }
+code { font: 0.85em var(--mono); }
+footer { margin-top: 48px; font-size: 0.85rem; color: var(--muted); }
+@media (max-width: 480px) { .rule { grid-template-columns: 1fr; gap: 4px; } h1 { font-size: 1.6rem; } }
+</style>
+
+<div class="wrap">
+  <h1>Regras de exibição de Securitizados</h1>
+  <p class="lede">Proposta para as regras S-01 a S-11 do MVP e as gerais ligadas a elas, escrita a partir do dado que a plataforma de CRI/CRA já tem. É um rascunho para a equipe decidir; nada aqui está aprovado.</p>
+  <p class="meta">Números de 04/11/2026 · layout fora do escopo (ADR-001): diz o que mostrar e com que dado, não como desenhar</p>
+
+  <div class="decide">
+    <h3>O que precisa de decisão da equipe</h3>
+    <ol>
+      <li>Garantias ainda não revisadas aparecem para todos ou só para quem revisa? <span class="code">S-01</span></li>
+      <li>Covenants: a ficha mostra só a última apuração ou o histórico mês a mês? <span class="code">S-02</span></li>
+      <li>Qual é a 9ª categoria do histórico de documentos? <span class="code">S-03</span></li>
+      <li>Prazos para marcar um dado como desatualizado, por fonte. <span class="code">G-05</span></li>
+      <li>Quem revisa as garantias e os covenants lidos no Termo e registra a revisão. <span class="code">G-12</span></li>
+    </ol>
+  </div>
+
+  <h2>Onde o dado está hoje</h2>
+  <div class="table-box">
+    <table>
+      <thead><tr><th>Módulo do MVP</th><th>Dado pronto</th></tr></thead>
+      <tbody>
+        <tr><td>Análise de garantias</td><td class="num">417 garantias do Termo em 66 ativos (14 tipos), com trecho e página; revisão humana pendente</td></tr>
+        <tr><td>Covenants</td><td class="num">24.160 itens (exigido, apurado, situação, data) de 6 securitizadoras: 2.768 ativos, 34% do saldo; mais 28 limites lidos no Termo</td></tr>
+        <tr><td>Histórico de documentos</td><td class="num">206.119 documentos de 2.959 ativos em 8 categorias; 13.112 baixados</td></tr>
+        <tr><td>Leitura rápida por agente</td><td>Fichas contratuais com trecho literal e página (36 campos); atas com decisão e trecho</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Securitizados</h2>
+
+  <div class="rule"><span class="id">S-01</span><div>
+    <h4>Garantias</h4>
+    <p>Uma linha por garantia: tipo (14 tipos padronizados), descrição curta, valor quando o documento traz, documento de origem com página e o trecho literal ao abrir. A situação de revisão fica visível ("lida no Termo, não revisada" ou "revisada"), porque nenhuma das 417 foi revisada ainda. Ordem: garantias reais, fidejussórias, fundos.</p>
+    <p class="ask"><strong>Decidir:</strong> mostrar garantia não revisada para todos ou só para quem revisa.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">S-02</span><div>
+    <h4>Covenants</h4>
+    <p>Uma linha por item: o que o contrato exige, o valor apurado, a situação como a fonte informa (atendido, não atendido, não verificado, não se aplica) e a data da verificação. Quando houver as duas fontes, o limite do Termo aparece ao lado do exigido informado pela securitizadora, sem recalcular a situação. Destaque para "não atendido" (2.549 itens hoje) e para waiver citado pela fonte.</p>
+    <ul>
+      <li>Item sem data de apuração: mostrar a competência do relatório com o rótulo "data da apuração não informada". Na Vert, um índice anual pode ser de 31/12/2023 num relatório de 09/2026.</li>
+      <li>Mínimo que a própria securitizadora marca como gerencial (Bari): rótulo "não contratual".</li>
+    </ul>
+    <p class="ask"><strong>Decidir:</strong> só a última apuração ou o histórico mês a mês. O histórico depende de coletar todo mês.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">S-03</span><div>
+    <h4>Histórico de documentos</h4>
+    <p>Agrupar pelas categorias do Fundos.NET (8 no banco: Informe Mensal, Ata/Edital, Outro, Relatório do Agente Fiduciário, Termo de Securitização, Relatório de Rating, Anúncio de Encerramento, Fato Relevante), o mais recente primeiro dentro do grupo, com data de referência e de publicação. Versões do mesmo documento ficam recolhidas sob a mais nova. O Informe Mensal (62% dos documentos) fica recolhido por padrão.</p>
+    <p class="ask"><strong>Decidir:</strong> as 9 categorias do MVP contra as 8 do banco.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">S-04</span><div>
+    <h4>Documento sem arquivo</h4>
+    <p>Três estados com rótulo: "catalogado, não baixado" (192.998 hoje; a política é baixar só o que tem sinal de triagem), "falhou no download" (9) e "baixado". O link para o Fundos.NET aparece em todos; o SHA-256, só no baixado.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">S-05</span><div>
+    <h4>Categoria "Outro"</h4>
+    <p>16.525 documentos (8%). Grupo próprio, no fim da lista, com a descrição original do Fundos.NET (tipo e espécie), que costuma dizer o que o documento é. Reclassificação manual fica registrada.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">S-06</span><div>
+    <h4>Leitura rápida por agente</h4>
+    <p>Todo resumo traz a frase "resumo automático, confira no documento", o trecho literal e a página de cada afirmação, e o documento com SHA-256. Sem trecho, a afirmação não aparece. Atas: assunto, resultado (aprovada, não instalada, suspensa) e eventos graves com a origem ("decidido em ata" ou "só no texto"). Ata de reunião futura é minuta e não mostra decisão.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">S-07</span><div>
+    <h4>Várias séries e ISIN repetido</h4>
+    <p>Uma ficha por série (código CETIP), com as demais séries da mesma emissão listadas e a classe (sênior, mezanino, subordinada) quando houver. Hoje nenhum ISIN aparece em dois ativos no banco. Covenants e relatório da securitizadora são da emissão (patrimônio separado) e aparecem em todas as séries, com essa nota.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">S-08</span><div>
+    <h4>CNPJ ausente</h4>
+    <p>Rótulo "CNPJ não informado pela fonte", sem bloquear a ficha. No cadastro do catálogo, 2.958 dos 2.959 ativos estão sem o CNPJ do devedor, mas ele existe no Informe Mensal da CVM: 1.298 ativos se ligam a um único CNPJ de devedor (79 são pulverizados, sem um devedor único), com a fonte, para a camada compartilhada preencher. Sem CNPJ não há junção automática de devedor entre ativos.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">S-09</span><div>
+    <h4>Informe Mensal</h4>
+    <p>Mostrar o que está no XML e na base aberta da CVM: saldo devedor, PU, situação de pagamento (adimplente ou em atraso), vencimento, classe e quantidade de séries, rentabilidade, e as mudanças contra o mês anterior (entrou em atraso, saldo caiu sem amortização, vencimento mudou). O dado é o que a securitizadora informou, com eventuais erros de preenchimento; por isso cada valor mostra a fonte e a competência.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">S-10</span><div>
+    <h4>Rating</h4>
+    <p>2.335 relatórios de rating catalogados, sem a nota extraída. Para o MVP: mostrar o documento mais recente (agência, data) sem a nota; extrair a nota é uma etapa à parte. Quando a securitizadora publica a nota no relatório mensal (a Vert publica, por exemplo "brAA-"), ela entra com a fonte.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">S-11</span><div>
+    <h4>CRI e CRA</h4>
+    <p>Mesma ficha. Mudam os rótulos do lastro (crédito imobiliário ou direitos creditórios do agronegócio) e o campo específico: imóvel ou empreendimento no CRI, produto ou safra no CRA. Devedor e cedente têm os mesmos campos.</p>
+  </div></div>
+
+  <h2>Regras gerais ligadas a estas</h2>
+
+  <div class="rule"><span class="id">G-02</span><div>
+    <h4>Proveniência</h4>
+    <p>Detalhe em cada valor: fonte, documento, página e data da coleta. A coluna da fonte fica sempre visível só em Covenants e Garantias, onde a fonte muda a leitura (Termo, securitizadora ou CVM).</p>
+  </div></div>
+
+  <div class="rule"><span class="id">G-04</span><div>
+    <h4>Conflitos</h4>
+    <p>Os dois valores lado a lado, com a hierarquia de fontes:</p>
+    <p class="chain">BACEN › CVM › ANBIMA › plataformas › sites</p>
+    <p>O site da securitizadora nunca substitui a CVM. Caso real: 40 operações em "Default" no portal da Riza aparecem como adimplentes no Informe da CVM.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">G-05</span><div>
+    <h4>Dado desatualizado</h4>
+    <p>Informe com mais de 45 dias da competência; relatório mensal da securitizadora com mais de 60 dias. A Canal publica com 5 a 7 meses de atraso e ficaria sempre marcada.</p>
+    <p class="ask"><strong>Decidir:</strong> os prazos por fonte.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">G-06</span><div>
+    <h4>Ativo inativo</h4>
+    <p>Ativo vencido ou com saldo zerado vai para uma aba própria, com documentos e histórico preservados.</p>
+  </div></div>
+
+  <div class="rule"><span class="id">G-08</span><div>
+    <h4>Busca</h4>
+    <p>Por código CETIP, ISIN, código do portal da securitizadora, nome do devedor e CNPJ (quando houver).</p>
+  </div></div>
+
+  <footer>Base: <code>Enrico/cri_cra_platform</code>, arquivos <code>garantias_covenants.csv</code>, <code>covenants_mensais.csv</code>, <code>cnpj_devedor_cvm.md</code> e a tabela <code>documents</code> do catálogo.</footer>
+</div>

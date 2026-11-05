@@ -294,6 +294,11 @@ def _horizontal(lines: list[Line], index: int, page_of: list[int], width: float,
         measured_i = left_of[-1] if left_of else None
     if measured_i is None and numeric:
         measured_i = numeric[0]
+    # data do bloco no próprio cabeçalho, sem coluna embaixo ("15/06/2026   Valor Atual  Valor Mínimo  Status"), ou o
+    # ano no rótulo da coluna do apurado ("Realizado 2025")
+    head_date = next((names[i] for i in order if DATE.fullmatch(names[i].strip()) and not cells_of(i)), "")
+    year = re.search(r"\b20\d{2}\b", names[measured_i]) if measured_i is not None and measured_i != period_i else None
+    head_date = head_date or (year.group(0) if year and not DATE.search(names[measured_i]) else "")
     out = []
     for d in data:
         row = d["row"]
@@ -323,7 +328,8 @@ def _horizontal(lines: list[Line], index: int, page_of: list[int], width: float,
             "grupo": title or name, "item": name, "valor_referencia": reference,
             "condicao_referencia": _condition(ref_label, reference),
             "valor_apurado": measured, "condicao_apurada": status_text, "situacao": situation(status_text),
-            "data_verificacao": get(date_i) or row_date or title_date or (names[period_i] if period_i is not None else ""),
+            "data_verificacao": (get(date_i) or row_date or title_date or (names[period_i] if period_i is not None else "")
+                                 or head_date),
             "proxima_verificacao": get(next_i), "pagina": page_of[d["line"]],
             "line": d["line"]})
         used.add(d["line"])

@@ -60,9 +60,9 @@ roda sozinho (`scripts/collect_<securitizadora>_reports.py --dry-run|--commit|--
   outros 33 não trazem quadro com situação); quadro ambíguo não vira item. Província, Forte, Habitasec e Travessia não publicam covenant apurado (só Informe da CVM ou relatório anual do agente fiduciário).
 - Vert: leitor heurístico sobre layouts variados, corrigido em dois casos de razão de garantia. Conferência em 14 relatórios
   sorteados (39 valores): todos existem no PDF, na coluna e no item certos, com a mesma situação; feita pelo mesmo autor do
-  leitor, não por terceiro. Limite: 59 dos 177 itens de covenant (13 relatórios) ficam sem data de apuração; em 11 desses
-  relatórios o PDF (painel Power BI) não informa a data, e em 2 ela está no cabeçalho e não foi lida ("Realizado 2025",
-  "31/03/2026"). Índices anuais ou trimestrais podem ser bem anteriores ao mês do relatório (ex.: 31/12/2023 em 09/2026).
+  leitor, não por terceiro. Limite: 51 dos 177 itens de covenant (10 relatórios) ficam sem data de apuração porque o PDF
+  (painel Power BI) não a informa; os 2 relatórios em que a data estava no cabeçalho ("Realizado 2025", "31/03/2026") passaram
+  a ser lidos. Índices anuais ou trimestrais podem ser bem anteriores ao mês do relatório (ex.: 31/12/2023 em 09/2026).
   Leverage conferida de forma independente (79 itens iguais ao PDF).
 - A cadeia do Fundos.NET segue em segundo plano: texto e OCR dos prioritários; depois download dos demais, texto e remoção do PDF
   (só com hash conferido e todas as páginas com texto). Disco com 25 GB livres.

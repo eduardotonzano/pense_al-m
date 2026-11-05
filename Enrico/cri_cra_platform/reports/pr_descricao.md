@@ -86,7 +86,7 @@ Branch `enricosuman27-e1-auditoria-informes` → `main`. Escopo restrito a `Enri
 ### Como verificar
 ```powershell
 cd Enrico\cri_cra_platform
-$env:PYTHONPATH='..\..\src'; python -m pytest                       # 490 testes
+$env:PYTHONPATH='..\..\src'; python -m pytest                       # 491 testes
 python scripts/apply_migration.py --database data\cri_cra.db --dry-run
 python scripts/ingest_cvm_open_data.py --dry-run                     # lista os 16 arquivos da CVM, não grava
 python scripts/run_monthly_market.py --dry-run                       # rotina mensal sem gravar no banco
