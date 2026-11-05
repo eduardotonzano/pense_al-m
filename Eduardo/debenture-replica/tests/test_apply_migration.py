@@ -130,7 +130,7 @@ def test_commit_creates_backup_before_applying(script, tmp_path, capsys):
 
     assert code == 0
     assert len(backups) == 1
-    assert versions(path) == [1, 2]
+    assert versions(path) == [1, 2, 3]
     assert "debenture_events" in table_names(path)
     # O backup e o banco como estava antes da migration.
     assert versions(backups[0]) == [1]
@@ -204,7 +204,7 @@ def test_second_commit_has_nothing_to_apply(script, tmp_path, capsys):
     assert second == 0
     assert "Nada a aplicar" in output
     assert len(backups_in(backup_dir)) == 1
-    assert versions(path) == [1, 2]
+    assert versions(path) == [1, 2, 3]
 
 
 def test_missing_database_is_refused(script, tmp_path, capsys):
@@ -226,7 +226,7 @@ def test_create_builds_a_new_database(script, tmp_path, capsys):
     output = capsys.readouterr().out
 
     assert code == 0
-    assert versions(path) == [1, 2]
+    assert versions(path) == [1, 2, 3]
     assert "Banco novo" in output
     assert not (path.parent / "backups").exists()
     assert Database(path).integrity_check() == "ok"
