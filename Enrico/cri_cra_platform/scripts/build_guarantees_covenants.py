@@ -31,7 +31,7 @@ def main() -> int:
     parser.add_argument("--database", type=Path, default=ROOT / "data" / "cri_cra.db")
     parser.add_argument("--only", action="append")
     args = parser.parse_args()
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     docs = defaultdict(list)
     for row in connection.execute(

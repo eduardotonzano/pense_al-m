@@ -45,7 +45,7 @@ def brl(value: float) -> str:
 def main() -> int:
     market = {r["codigo_cetip"]: r for r in read(ROOT / "config" / "ativos_mercado.csv", ",")}
     # ativos do catálogo não estão na lista do mercado: cadastro do banco (só leitura)
-    connection = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True, timeout=120)
     for cetip, kind, issuer, emission, debtor in connection.execute(
             "SELECT codigo_cetip, tipo_ativo, securitizadora, emissao, devedor FROM assets WHERE codigo_cetip IS NOT NULL"):
         market.setdefault(cetip, {"tipo_ativo": kind or "", "securitizadora": issuer or "", "emissao": emission or "",

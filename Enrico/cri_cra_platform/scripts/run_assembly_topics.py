@@ -32,7 +32,7 @@ def main() -> int:
     parser.add_argument("--database", default=str(ROOT / "data" / "cri_cra.db"))
     parser.add_argument("--since", default="2024-01-01", help="só documentos publicados a partir desta data (AAAA-MM-DD)")
     args = parser.parse_args()
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=30)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     docs = connection.execute(
         f"""SELECT a.codigo_cetip, a.tipo_ativo, d.source_document_id, d.category, d.document_name, d.publication_date,

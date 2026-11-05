@@ -34,7 +34,7 @@ def main() -> int:
     parser.add_argument("--database", default=str(ROOT / "data" / "cvm_open.db"))
     parser.add_argument("--top", type=int, default=30)
     args = parser.parse_args()
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     links, balances, delinquent, refs, names = [], {}, set(), {}, {}
     for kind in ("cra", "cri"):

@@ -28,7 +28,7 @@ def main() -> int:
     catalog = load_catalog(ROOT / "config" / "contract_terms" / "standard_fields.json")
     topics = load_topics(ROOT / "config" / "contract_terms" / "field_topics.json")
     missing_topics = [f["id"] for f in catalog["fields"] if f["id"] not in topics]
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     try:
         rows = connection.execute(

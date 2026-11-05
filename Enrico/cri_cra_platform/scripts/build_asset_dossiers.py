@@ -43,7 +43,7 @@ def main() -> int:
     parser.add_argument("--cvm", default=str(ROOT / "data" / "cvm_open.db"))
     parser.add_argument("--cetip", help="só um ativo")
     args = parser.parse_args()
-    catalog = sqlite3.connect(f"file:{args.catalog}?mode=ro", uri=True, timeout=30)
+    catalog = sqlite3.connect(f"file:{args.catalog}?mode=ro", uri=True, timeout=120)
     catalog.row_factory = sqlite3.Row
     cvm = sqlite3.connect(f"file:{args.cvm}?mode=ro", uri=True)
     cvm.row_factory = sqlite3.Row

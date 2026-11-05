@@ -52,7 +52,7 @@ def group_of(kind: str, text: str) -> str:
 
 def main() -> int:
     registry = {r["codigo_cetip"]: r for r in read(ROOT / "config" / "ativos_mercado.csv", ",")}
-    connection = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True, timeout=120)
     for cetip, isin, kind, issuer, emission, debtor in connection.execute(
             "SELECT codigo_cetip, isin, tipo_ativo, securitizadora, emissao, devedor FROM assets WHERE codigo_cetip IS NOT NULL"):
         registry.setdefault(cetip, {"isin": isin or "", "tipo_ativo": kind or "", "securitizadora": issuer or "",

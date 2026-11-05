@@ -37,7 +37,7 @@ def main() -> int:
     parser.add_argument("--months", type=int, default=12)
     parser.add_argument("--top", type=int, default=25)
     args = parser.parse_args()
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     all_events, monthly, reference = [], {}, {}
     for kind in ("cra", "cri"):

@@ -66,7 +66,7 @@ def main() -> int:
 
     cvm = sqlite3.connect(f"file:{args.cvm}?mode=ro", uri=True)
     cvm.row_factory = sqlite3.Row
-    catalog = sqlite3.connect(f"file:{args.catalog}?mode=ro", uri=True)
+    catalog = sqlite3.connect(f"file:{args.catalog}?mode=ro", uri=True, timeout=120)
     known = {r[0].upper() for r in catalog.execute("SELECT isin FROM assets WHERE isin IS NOT NULL")}
     known |= {r[0].upper() for r in catalog.execute("SELECT isin FROM asset_series WHERE isin IS NOT NULL")}
     catalog.close()

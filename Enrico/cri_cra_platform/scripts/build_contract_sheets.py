@@ -51,7 +51,7 @@ def main() -> int:
     catalog = load_catalog(ROOT / "config" / "contract_terms" / "standard_fields.json")
     topics = load_topics(ROOT / "config" / "contract_terms" / "field_topics.json")
     fields = catalog["fields"]
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=30)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     docs = defaultdict(list)
     for row in connection.execute(

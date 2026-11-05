@@ -50,7 +50,7 @@ def universe() -> set[str]:
         for row in csv.DictReader(handle):
             codes |= {row["codigo_cetip"].upper(), row["isin"].upper()}
     try:
-        connection = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True)
+        connection = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True, timeout=120)
         for cetip, isin in connection.execute("SELECT codigo_cetip, isin FROM assets"):
             codes |= {str(cetip or "").upper(), str(isin or "").upper()}
         connection.close()
