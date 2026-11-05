@@ -12,7 +12,9 @@ from credit_assets.database.migrations import (
 def connect(database_path: str | Path) -> sqlite3.Connection:
     path = Path(database_path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    connection = sqlite3.connect(path)
+    # espera até 120 s pelo bloqueio (padrão 5 s): download, texto e OCR gravam em paralelo e uma leitura longa
+    # de outro processo segura a gravação por alguns segundos
+    connection = sqlite3.connect(path, timeout=120)
     connection.row_factory = sqlite3.Row
     connection.execute("PRAGMA foreign_keys = ON")
     return connection
