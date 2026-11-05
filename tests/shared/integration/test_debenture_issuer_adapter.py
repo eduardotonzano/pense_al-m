@@ -8,11 +8,19 @@ from pense_alm.shared.entities import (
     EntityStatus,
     EntityType,
     IdentifierType,
+    IdentifierValidationError,
     SourceType,
 )
 from pense_alm.shared.integration import (
     DebentureIssuerAdapter,
     DebentureIssuerRecord,
+)
+
+from ..cnpj_amostras import (
+    CNPJ_3,
+    CNPJ_ALFA_1,
+    com_mascara,
+    dv_errado,
 )
 
 
@@ -21,7 +29,7 @@ def create_record(**overrides):
         "legacy_id": 42,
         "legal_name": "Empresa Brasileira S.A.",
         "trade_name": "Empresa Brasileira",
-        "cnpj": "12.345.678/0001-99",
+        "cnpj": com_mascara(CNPJ_3),
         "created_at": "2026-09-20 10:00:00",
         "updated_at": "2026-09-21 12:30:00",
     }
@@ -37,7 +45,7 @@ def test_record_normalizes_fields():
 
     assert record.legal_name == "Empresa Brasileira S.A."
     assert record.trade_name == "Empresa Brasileira"
-    assert record.cnpj == "12345678000199"
+    assert record.cnpj == CNPJ_3
 
 
 def test_record_accepts_missing_cnpj():
@@ -45,8 +53,53 @@ def test_record_accepts_missing_cnpj():
 
 
 def test_record_rejects_invalid_cnpj():
-    with pytest.raises(ValueError, match="14 digitos"):
+    with pytest.raises(
+        IdentifierValidationError,
+        match="14 caracteres",
+    ):
         create_record(cnpj="123")
+
+
+def test_record_accepts_alphanumeric_cnpj():
+    record = create_record(
+        cnpj=com_mascara(CNPJ_ALFA_1).lower()
+    )
+
+    assert record.cnpj == CNPJ_ALFA_1
+
+
+@pytest.mark.parametrize(
+    "value",
+    [dv_errado(CNPJ_3), dv_errado(CNPJ_ALFA_1)],
+    ids=["numerico", "alfanumerico"],
+)
+def test_record_rejects_invalid_check_digit(value):
+    with pytest.raises(
+        IdentifierValidationError,
+        match="digito verificador",
+    ):
+        create_record(cnpj=value)
+
+
+def test_record_rejects_all_equal_characters():
+    with pytest.raises(
+        IdentifierValidationError,
+        match="iguais",
+    ):
+        create_record(cnpj="11.111.111/1111-11")
+
+
+def test_record_rejects_cnpj_that_is_not_text():
+    with pytest.raises(TypeError, match="texto"):
+        create_record(cnpj=99999993999995)
+
+
+def test_adapter_converts_alphanumeric_cnpj():
+    entity = DebentureIssuerAdapter().convert(
+        create_record(cnpj=com_mascara(CNPJ_ALFA_1))
+    )
+
+    assert entity.cnpj == CNPJ_ALFA_1
 
 
 def test_record_rejects_invalid_legacy_id():
@@ -69,7 +122,7 @@ def test_adapter_converts_complete_issuer():
     identifier = entity.identifiers[0]
 
     assert identifier.identifier_type is IdentifierType.CNPJ
-    assert identifier.value == "12345678000199"
+    assert identifier.value == CNPJ_3
     assert identifier.is_primary is True
 
 

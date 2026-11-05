@@ -38,7 +38,7 @@ Não existe README na raiz nem `Fábio/README.md`; os contratos estão nos ADRs 
 
 ## Testes
 Python 3.14, venv `C:\Users\eduardo.tonzano\debenture-venv`. Rode sempre no diretório indicado.
-- Camada compartilhada (raiz do repo): `$env:PYTHONPATH='src'; python -m pytest tests` (285 testes; sem o PYTHONPATH a coleta falha)
+- Camada compartilhada (raiz do repo): `$env:PYTHONPATH='src'; python -m pytest tests` (347 testes; sem o PYTHONPATH a coleta falha)
 - Debêntures, versão de trabalho: `cd Eduardo\debenture-replica; python -m pytest -q` (312; o `pyproject.toml` já define `pythonpath=src`)
 - Debêntures, automação congelada: `cd debenture-replica; python -m pytest -q` (105)
 - CRI/CRA: `cd Enrico\cri_cra_platform; python -m pytest` (`pytest.ini` define `pythonpath=src`; `tests/integration/test_fundosnet_collector.py` importa `pense_alm` e falha na coleta sem `PYTHONPATH=..\..\src`)
