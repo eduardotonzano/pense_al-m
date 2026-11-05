@@ -77,6 +77,7 @@ Decisões de arquitetura registradas em `docs/architecture/`:
 | ADR-003 | Repositórios de entidades |
 | ADR-004 | Persistência em SQLite |
 | ADR-005 | Integração gradual de emissores de debêntures |
+| ADR-011 | CNPJ alfanumérico (proposta) |
 
 A integração é gradual: os módulos legados são lidos em modo somente leitura por adaptadores, sem reescrita imediata e sem que a camada compartilhada dependa das classes internas deles.
 

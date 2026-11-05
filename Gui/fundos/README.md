@@ -263,6 +263,6 @@ python scripts\load_informe_fiagro.py --database C:\<pasta-local>\fundos.db --zi
 
 ## Pontos para o Fábio
 
-- A camada compartilhada não aceita CNPJ alfanumérico: `normalize_cnpj` em `src/pense_alm/shared/entities/identifiers.py` remove tudo que não é dígito, então um CNPJ com letras perde as letras e é recusado. Isso bloqueia o futuro adaptador de Fundos até a camada compartilhada ser ajustada.
+- A camada compartilhada aceita CNPJ alfanumérico (ADR-011, `docs/architecture/ADR-011-cnpj-alfanumerico.md`): `normalize_cnpj` em `src/pense_alm/shared/entities/identifiers.py` valida o formato e o dígito verificador com a mesma regra de `src/fundos/cnpj.py`. A única diferença é a máscara parcial (por exemplo, `12.ABC.34501DE-35`), que a camada aceita e este módulo recusa. O futuro adaptador de Fundos deixa de estar bloqueado por isso.
 - O CHECK de `issuers.cnpj` nas debêntures (`Eduardo/debenture-replica/migrations/001_initial_schema.sql`) só aceita dígitos e também recusaria CNPJ alfanumérico.
 - Este módulo tem utilitário próprio de CNPJ (`src/fundos/cnpj.py`), com dígito verificador numérico e alfanumérico. Unificar com a camada compartilhada fica a seu critério.
