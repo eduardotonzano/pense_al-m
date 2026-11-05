@@ -9,6 +9,15 @@ from pense_alm.shared.integration import (
     LegacyDebentureIssuerReader,
 )
 
+from ..cnpj_amostras import (
+    CNPJ_3,
+    CNPJ_4,
+    CNPJ_5,
+    CNPJ_6,
+    CNPJ_ALFA_1,
+    com_mascara,
+)
+
 
 @pytest.fixture
 def legacy_database_path(tmp_path):
@@ -45,7 +54,7 @@ def legacy_database_path(tmp_path):
             (
                 (
                     1,
-                    "12345678000199",
+                    CNPJ_3,
                     "Empresa Alfa S.A.",
                     "Empresa Alfa",
                     "2026-09-20 10:00:00",
@@ -53,7 +62,7 @@ def legacy_database_path(tmp_path):
                 ),
                 (
                     2,
-                    "22345678000198",
+                    CNPJ_4,
                     "Empresa Beta S.A.",
                     None,
                     "2026-09-20 11:00:00",
@@ -61,7 +70,7 @@ def legacy_database_path(tmp_path):
                 ),
                 (
                     3,
-                    "32345678000197",
+                    CNPJ_5,
                     "Empresa Gama S.A.",
                     "Empresa Gama",
                     "2026-09-20 12:00:00",
@@ -132,6 +141,36 @@ def test_reader_maps_optional_trade_name(
     assert records[1].trade_name is None
 
 
+def test_reader_normalizes_alphanumeric_cnpj(
+    legacy_database_path,
+):
+    connection = sqlite3.connect(legacy_database_path)
+
+    try:
+        connection.execute(
+            "UPDATE issuers SET cnpj = ? WHERE id = ?",
+            (
+                com_mascara(CNPJ_ALFA_1).lower(),
+                2,
+            ),
+        )
+        connection.commit()
+    finally:
+        connection.close()
+
+    reader = LegacyDebentureIssuerReader(
+        legacy_database_path
+    )
+
+    records = tuple(reader.iter_records())
+
+    assert [record.cnpj for record in records] == [
+        CNPJ_3,
+        CNPJ_ALFA_1,
+        CNPJ_5,
+    ]
+
+
 def test_reader_rejects_invalid_batch_size(
     legacy_database_path,
 ):
@@ -180,7 +219,7 @@ def test_reader_connection_is_query_only(
                 VALUES (?, ?, ?, ?)
                 """,
                 (
-                    "42345678000196",
+                    CNPJ_6,
                     "Empresa Bloqueada S.A.",
                     "2026-09-20 13:00:00",
                     "2026-09-21 15:00:00",

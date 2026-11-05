@@ -31,6 +31,11 @@ from pense_alm.shared.persistence.serialization import (
     relationship_to_record,
 )
 
+from ..cnpj_amostras import (
+    CNPJ_1,
+    com_mascara,
+)
+
 
 def create_row(values):
     connection = connect(":memory:")
@@ -119,7 +124,7 @@ def test_identifier_round_trip():
 
     original = EntityIdentifier(
         identifier_type=IdentifierType.CNPJ,
-        value="12.345.678/0001-90",
+        value=com_mascara(CNPJ_1),
         provenance=provenance,
         is_primary=True,
     )
@@ -143,7 +148,7 @@ def test_entity_round_trip():
 
     identifier = EntityIdentifier(
         identifier_type=IdentifierType.CNPJ,
-        value="12.345.678/0001-90",
+        value=com_mascara(CNPJ_1),
         provenance=provenance,
         is_primary=True,
     )

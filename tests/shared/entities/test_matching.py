@@ -15,6 +15,12 @@ from pense_alm.shared.entities import (
     normalize_matching_name,
 )
 
+from ..cnpj_amostras import (
+    CNPJ_1,
+    CNPJ_2,
+    com_mascara,
+)
+
 
 @pytest.fixture
 def bacen_provenance():
@@ -67,12 +73,12 @@ def test_same_cnpj_allows_automatic_match(
     left_identifier = create_identifier(
         bacen_provenance,
         IdentifierType.CNPJ,
-        "12.345.678/0001-90",
+        com_mascara(CNPJ_1),
     )
     right_identifier = create_identifier(
         bacen_provenance,
         IdentifierType.CNPJ,
-        "12345678000190",
+        CNPJ_1,
     )
 
     left = create_entity(
@@ -108,7 +114,7 @@ def test_conflicting_cnpj_blocks_match(
             create_identifier(
                 bacen_provenance,
                 IdentifierType.CNPJ,
-                "12.345.678/0001-90",
+                com_mascara(CNPJ_1),
             ),
         ),
     )
@@ -119,7 +125,7 @@ def test_conflicting_cnpj_blocks_match(
             create_identifier(
                 bacen_provenance,
                 IdentifierType.CNPJ,
-                "98.765.432/0001-10",
+                com_mascara(CNPJ_2),
             ),
         ),
     )

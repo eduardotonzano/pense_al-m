@@ -1,29 +1,84 @@
 ﻿"""Identificadores da Shared Entity Layer."""
 
+import re
 from dataclasses import dataclass
-from re import sub
 
 from .enums import IdentifierType
 from .exceptions import IdentifierValidationError
 from .provenance import DataProvenance
 
 
+_CNPJ_SEPARATORS = str.maketrans("", "", "./-")
+_CNPJ_FORMAT = re.compile(r"[0-9A-Z]{12}[0-9]{2}")
+_CNPJ_FIRST_WEIGHTS = (5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2)
+_CNPJ_SECOND_WEIGHTS = (6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2)
+
+
+def _cnpj_check_digit(
+    values: list[int],
+    weights: tuple[int, ...],
+) -> int:
+    remainder = sum(
+        value * weight
+        for value, weight in zip(values, weights)
+    ) % 11
+
+    return 0 if remainder < 2 else 11 - remainder
+
+
 def normalize_cnpj(value: str) -> str:
-    """Remove formatacao e valida a estrutura basica do CNPJ."""
+    """Normaliza e valida o CNPJ numerico ou alfanumerico.
 
-    normalized = sub(r"\D", "", value)
+    Regra da IN RFB 2.229/2024 (ADR-011): remove so ponto, barra e
+    hifen e poe em maiusculas; exige 14 caracteres ASCII, os 12
+    primeiros em [0-9A-Z] e os 2 ultimos numericos; recusa sequencia
+    de caracteres iguais e valida os dois digitos verificadores, com
+    cada caractere valendo ord(c) - 48. Para CNPJ so numerico o
+    resultado e o do calculo classico. Nunca completa zeros a
+    esquerda (11 digitos pode ser CPF). As mensagens de erro nunca
+    repetem o valor recebido.
+    """
 
-    if len(normalized) != 14:
+    if not isinstance(value, str):
         raise IdentifierValidationError(
-            "CNPJ deve possuir 14 digitos."
+            "CNPJ deve ser texto."
         )
 
-    if len(set(normalized)) == 1:
+    format_message = (
+        "CNPJ deve ter 14 caracteres: os 12 primeiros em "
+        "[0-9A-Z] e os 2 ultimos numericos."
+    )
+
+    candidate = value.strip()
+
+    # isascii antes de upper: o i sem ponto (U+0131) vira "I" em
+    # maiusculas e passaria por uma letra ASCII.
+    if not candidate.isascii():
+        raise IdentifierValidationError(format_message)
+
+    candidate = candidate.translate(_CNPJ_SEPARATORS).upper()
+
+    if _CNPJ_FORMAT.fullmatch(candidate) is None:
+        raise IdentifierValidationError(format_message)
+
+    if len(set(candidate)) == 1:
         raise IdentifierValidationError(
-            "CNPJ nao pode possuir todos os digitos iguais."
+            "CNPJ nao pode possuir todos os caracteres iguais."
         )
 
-    return normalized
+    values = [ord(character) - 48 for character in candidate[:12]]
+    first = _cnpj_check_digit(values, _CNPJ_FIRST_WEIGHTS)
+    second = _cnpj_check_digit(
+        values + [first],
+        _CNPJ_SECOND_WEIGHTS,
+    )
+
+    if candidate[12:] != f"{first}{second}":
+        raise IdentifierValidationError(
+            "CNPJ com digito verificador invalido."
+        )
+
+    return candidate
 
 
 def normalize_identifier(

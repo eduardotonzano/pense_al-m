@@ -17,6 +17,11 @@ from pense_alm.shared.entities import (
     SourceType,
 )
 
+from ..cnpj_amostras import (
+    CNPJ_1,
+    com_mascara,
+)
+
 
 @pytest.fixture
 def bacen_provenance():
@@ -30,7 +35,7 @@ def bacen_provenance():
 def cnpj_identifier(bacen_provenance):
     return EntityIdentifier(
         identifier_type=IdentifierType.CNPJ,
-        value="12.345.678/0001-90",
+        value=com_mascara(CNPJ_1),
         provenance=bacen_provenance,
         is_primary=True,
     )
@@ -96,7 +101,7 @@ def test_entity_returns_normalized_cnpj(
         identifiers=(cnpj_identifier,),
     )
 
-    assert entity.cnpj == "12345678000190"
+    assert entity.cnpj == CNPJ_1
 
 
 def test_entity_without_cnpj_returns_none(

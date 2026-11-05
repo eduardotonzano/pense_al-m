@@ -5,12 +5,44 @@ import sqlite3
 import pytest
 
 from pense_alm.shared.entities import (
+    IdentifierType,
     InMemoryEntityRepository,
 )
 from pense_alm.shared.integration import (
     DebentureIssuerBatchImportService,
     LegacyDebentureIssuerReader,
 )
+
+from ..cnpj_amostras import (
+    CNPJ_3,
+    CNPJ_4,
+    CNPJ_5,
+    CNPJ_7,
+    CNPJ_ALFA_1,
+    com_mascara,
+)
+
+
+def set_legacy_cnpj(
+    legacy_database_path,
+    legacy_id,
+    cnpj,
+):
+    connection = sqlite3.connect(
+        legacy_database_path
+    )
+
+    try:
+        connection.execute(
+            "UPDATE issuers SET cnpj = ? WHERE id = ?",
+            (
+                cnpj,
+                legacy_id,
+            ),
+        )
+        connection.commit()
+    finally:
+        connection.close()
 
 
 @pytest.fixture
@@ -48,7 +80,7 @@ def legacy_database_path(tmp_path):
             (
                 (
                     1,
-                    "12345678000199",
+                    CNPJ_3,
                     "Empresa Alfa S.A.",
                     "Empresa Alfa",
                     "2026-09-20 10:00:00",
@@ -56,7 +88,7 @@ def legacy_database_path(tmp_path):
                 ),
                 (
                     2,
-                    "22345678000198",
+                    CNPJ_4,
                     "Empresa Beta S.A.",
                     None,
                     "2026-09-20 11:00:00",
@@ -64,7 +96,7 @@ def legacy_database_path(tmp_path):
                 ),
                 (
                     3,
-                    "32345678000197",
+                    CNPJ_5,
                     "Empresa Gama S.A.",
                     "Empresa Gama",
                     "2026-09-20 12:00:00",
@@ -135,6 +167,37 @@ def test_batch_reexecution_matches_entities(
     assert second_report.matched == 3
     assert second_report.errors == 0
     assert repository.count() == 3
+
+
+def test_batch_imports_and_matches_alphanumeric_cnpj(
+    legacy_database_path,
+):
+    set_legacy_cnpj(
+        legacy_database_path,
+        2,
+        com_mascara(CNPJ_ALFA_1).lower(),
+    )
+
+    service, repository = create_service(
+        legacy_database_path
+    )
+
+    first_report = service.run(batch_size=2)
+    second_report = service.run(batch_size=2)
+
+    assert first_report.created == 3
+    assert first_report.errors == 0
+    assert second_report.matched == 3
+    assert second_report.errors == 0
+    assert repository.count() == 3
+
+    entity = repository.get_by_identifier(
+        IdentifierType.CNPJ,
+        CNPJ_ALFA_1,
+    )
+
+    assert entity is not None
+    assert entity.legal_name == "Empresa Beta S.A."
 
 
 def test_dry_run_does_not_modify_repository(
@@ -257,7 +320,7 @@ def test_batch_blocks_same_name_with_conflicting_cnpj(
             legacy_id=99,
             legal_name="Empresa Alfa S.A.",
             trade_name="Empresa Alfa",
-            cnpj="99999999000199",
+            cnpj=CNPJ_7,
             created_at="2026-09-19 10:00:00",
             updated_at="2026-09-19 12:00:00",
         )

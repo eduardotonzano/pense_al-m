@@ -6,6 +6,11 @@ from pense_alm.shared.integration.cli import (
     build_parser,
 )
 
+from ..cnpj_amostras import (
+    CNPJ_3,
+    CNPJ_7,
+)
+
 
 def test_parser_accepts_required_paths():
     parser = build_parser()
@@ -184,7 +189,7 @@ def test_run_import_dry_run_does_not_persist(
             """,
             (
                 1,
-                "12345678000199",
+                CNPJ_3,
                 "Empresa Teste S.A.",
                 "Empresa Teste",
                 "2026-09-20 10:00:00",
@@ -263,7 +268,7 @@ def test_run_import_dry_run_does_not_persist(
             """,
             (
                 1,
-                "12345678000199",
+                CNPJ_3,
                 "Empresa Teste S.A.",
                 "Empresa Teste",
                 "2026-09-20 10:00:00",
@@ -342,7 +347,7 @@ def test_run_import_persists_and_is_idempotent(
             """,
             (
                 1,
-                "12345678000199",
+                CNPJ_3,
                 "Empresa Persistida S.A.",
                 "Empresa Persistida",
                 "2026-09-20 10:00:00",
@@ -430,7 +435,7 @@ def test_run_import_returns_two_when_record_fails(
             """,
             (
                 1,
-                "12345678000199",
+                CNPJ_3,
                 "Empresa com Erro S.A.",
                 None,
                 "data-invalida",
@@ -509,7 +514,7 @@ def test_run_import_returns_three_when_record_is_blocked(
             """,
             (
                 1,
-                "12345678000199",
+                CNPJ_3,
                 "Empresa Conflitante S.A.",
                 "Empresa Conflitante",
                 "2026-09-20 10:00:00",
@@ -530,7 +535,7 @@ def test_run_import_returns_three_when_record_is_blocked(
             legacy_id=99,
             legal_name="Empresa Conflitante S.A.",
             trade_name="Empresa Conflitante",
-            cnpj="99999999000199",
+            cnpj=CNPJ_7,
             created_at="2026-09-19 10:00:00",
             updated_at="2026-09-19 12:00:00",
         )

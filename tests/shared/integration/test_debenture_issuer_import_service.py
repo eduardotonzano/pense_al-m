@@ -12,13 +12,18 @@ from pense_alm.shared.integration import (
     EntityImportAction,
 )
 
+from ..cnpj_amostras import (
+    CNPJ_3,
+    com_mascara,
+)
+
 
 def create_record(**overrides):
     values = {
         "legacy_id": 42,
         "legal_name": "Empresa Brasileira S.A.",
         "trade_name": "Empresa Brasileira",
-        "cnpj": "12.345.678/0001-99",
+        "cnpj": com_mascara(CNPJ_3),
         "created_at": "2026-09-20 10:00:00",
         "updated_at": "2026-09-21 12:30:00",
     }
