@@ -642,3 +642,340 @@ def test_check_state_detects_foreign_key_errors(script, tmp_path):
         connection.close()
 
     assert any("foreign_key_check encontrou" in p for p in problems)
+
+
+# Marcas para recriar tabela (o SQLite nao altera CHECK).
+
+FOREIGN_KEYS_OFF = "-- apply_migration: foreign_keys=off\n"
+RECRIA_ISSUERS = "-- apply_migration: recria=issuers\n"
+
+
+def rebuild_issuers(copy_filter="", index=True):
+    """Recria issuers como no roteiro do SQLite (cria, copia, apaga, renomeia)."""
+
+    return (
+        "CREATE TABLE issuers_new (\n"
+        " id INTEGER PRIMARY KEY AUTOINCREMENT, cnpj TEXT UNIQUE,\n"
+        " legal_name TEXT NOT NULL, trade_name TEXT,\n"
+        " created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,\n"
+        " updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP\n"
+        ");\n"
+        "INSERT INTO issuers_new SELECT * FROM issuers" + copy_filter + ";\n"
+        "DROP TABLE issuers;\n"
+        "ALTER TABLE issuers_new RENAME TO issuers;\n"
+        + (
+            "CREATE INDEX idx_issuers_legal_name ON issuers(legal_name);\n"
+            if index
+            else ""
+        )
+    )
+
+
+def register(name):
+    return (
+        "INSERT INTO schema_migrations(version,name) "
+        "VALUES(2,'" + name + "');\n"
+    )
+
+
+def create_database_with_issuers(directory):
+    """Banco na versao 1 com duas emissoras ficticias; so a 1 tem filha."""
+
+    path = create_database(directory)
+
+    with Database(path).connection() as connection:
+        connection.execute(
+            "INSERT INTO issuers (cnpj, legal_name) "
+            "VALUES ('99999991999904', 'Emissora Ficticia Um')"
+        )
+        connection.execute(
+            "INSERT INTO issuers (cnpj, legal_name) "
+            "VALUES ('99999992999940', 'Emissora Ficticia Dois')"
+        )
+        connection.execute(
+            "INSERT INTO debentures (issuer_id, asset_code) "
+            "VALUES (1, 'FILHA12')"
+        )
+        connection.commit()
+
+    return path
+
+
+def issuers_ddl(path):
+    return query(
+        path,
+        "SELECT sql FROM sqlite_master WHERE name = 'issuers'",
+    )
+
+
+def commit_with(script, path, migrations, *extra):
+    return script.main(
+        [
+            "--database",
+            str(path),
+            "--commit",
+            "--migrations-dir",
+            str(migrations),
+            *extra,
+        ]
+    )
+
+
+def test_read_marks(script):
+    sql = (
+        FOREIGN_KEYS_OFF
+        + RECRIA_ISSUERS
+        + "  -- apply_migration: recria=debentures  \n"
+        + "-- comentario comum\n"
+        + "SELECT 1;\n"
+    )
+
+    assert script.read_marks("SELECT 1;\n") == (False, frozenset())
+    assert script.read_marks(sql) == (
+        True,
+        frozenset({"issuers", "debentures"}),
+    )
+
+
+@pytest.mark.parametrize(
+    "value",
+    [
+        "foreign_keys=on",
+        "foreign_keys = off",
+        "foreign_key=off",
+        "recria=",
+        "recria=Issuers",
+        "recria=issuers; DROP TABLE debentures",
+        "",
+    ],
+)
+def test_read_marks_rejects_unknown_mark(script, value):
+    with pytest.raises(script.MigrationError, match="Marca desconhecida"):
+        script.read_marks("-- apply_migration: " + value + "\nSELECT 1;\n")
+
+
+def test_unknown_mark_stops_before_any_change(script, tmp_path, capsys):
+    path = create_database(tmp_path)
+    before = file_hash(path)
+    migrations = copy_migrations(
+        tmp_path,
+        "typo",
+        "-- apply_migration: foreign_key=off\n" + register("typo"),
+    )
+    backup_dir = tmp_path / "saved"
+
+    for mode in ("--dry-run", "--commit"):
+        code = script.main(
+            [
+                "--database",
+                str(path),
+                mode,
+                "--migrations-dir",
+                str(migrations),
+                "--backup-dir",
+                str(backup_dir),
+            ]
+        )
+        error = capsys.readouterr().err
+
+        assert code == 1
+        assert "002_typo: Marca desconhecida: foreign_key=off" in error
+
+    assert file_hash(path) == before
+    assert not backup_dir.exists()
+    assert versions(path) == [1]
+
+
+def test_marked_rebuild_keeps_rows_and_children(script, tmp_path, capsys):
+    path = create_database_with_issuers(tmp_path)
+    issuers_before = query(path, "SELECT * FROM issuers ORDER BY id")
+    debentures_before = query(path, "SELECT * FROM debentures ORDER BY id")
+    migrations = copy_migrations(
+        tmp_path,
+        "rebuild",
+        FOREIGN_KEYS_OFF + RECRIA_ISSUERS + rebuild_issuers()
+        + register("rebuild"),
+    )
+
+    code = commit_with(script, path, migrations)
+    output = capsys.readouterr().out
+
+    assert code == 0
+    assert "Chaves estrangeiras desligadas durante a transacao" in output
+    assert "Tabelas recriadas: issuers" in output
+    assert versions(path) == [1, 2]
+    assert query(path, "SELECT * FROM issuers ORDER BY id") == (
+        issuers_before
+    )
+    assert query(path, "SELECT * FROM debentures ORDER BY id") == (
+        debentures_before
+    )
+
+    db = Database(path)
+    assert db.integrity_check() == "ok"
+    assert db.foreign_key_check() == []
+
+
+def test_rebuild_without_foreign_keys_mark_is_rolled_back(
+    script,
+    tmp_path,
+    capsys,
+):
+    # Sem a marca nada muda: as chaves ficam ligadas, como na 001 e na 002.
+    path = create_database_with_issuers(tmp_path)
+    ddl_before = issuers_ddl(path)
+    migrations = copy_migrations(
+        tmp_path,
+        "rebuild",
+        RECRIA_ISSUERS + rebuild_issuers() + register("rebuild"),
+    )
+
+    code = commit_with(script, path, migrations)
+    error = capsys.readouterr().err
+
+    assert code == 1
+    assert "FOREIGN KEY constraint failed" in error
+    assert issuers_ddl(path) == ddl_before
+    assert "issuers_new" not in table_names(path)
+    assert versions(path) == [1]
+
+
+@pytest.mark.parametrize("allow", [False, True])
+def test_orphan_left_by_marked_migration_is_rolled_back(
+    script,
+    tmp_path,
+    capsys,
+    allow,
+):
+    path = create_database_with_issuers(tmp_path)
+    migrations = copy_migrations(
+        tmp_path,
+        "orphan",
+        FOREIGN_KEYS_OFF
+        + "DELETE FROM issuers WHERE id = 1;\n"
+        + register("orphan"),
+    )
+    extra = ["--allow-existing-changes"] if allow else []
+
+    code = commit_with(script, path, migrations, *extra)
+    error = capsys.readouterr().err
+
+    assert code == 1
+    assert "foreign_key_check encontrou 1 problema(s)" in error
+    assert query(path, "SELECT id FROM issuers ORDER BY id") == [(1,), (2,)]
+    assert versions(path) == [1]
+
+
+@pytest.mark.parametrize("broken", [False, True])
+def test_foreign_keys_are_back_on_after_marked_migration(
+    script,
+    tmp_path,
+    broken,
+):
+    path = create_database(tmp_path)
+    body = (
+        "CREATE TABLE half_done (id INTEGER);\n"
+        "INSERT INTO missing_table VALUES (1);\n"
+        if broken
+        else "CREATE TABLE done (id INTEGER);\n" + register("marked")
+    )
+    migrations = copy_migrations(tmp_path, "marked", FOREIGN_KEYS_OFF + body)
+    pending = script.discover_migrations(migrations)[1:]
+    connection = script.open_connection(path)
+
+    try:
+        before = script.snapshot(connection)
+
+        if broken:
+            with pytest.raises(sqlite3.OperationalError, match="missing"):
+                script.apply_in_transaction(
+                    connection, before, pending, False
+                )
+        else:
+            script.apply_in_transaction(connection, before, pending, False)
+
+        foreign_keys = connection.execute(
+            "PRAGMA foreign_keys"
+        ).fetchone()[0]
+        in_transaction = connection.in_transaction
+    finally:
+        connection.close()
+
+    assert foreign_keys == 1
+    assert not in_transaction
+    assert "half_done" not in table_names(path)
+    assert versions(path) == ([1] if broken else [1, 2])
+
+
+@pytest.mark.parametrize(
+    ("body", "problem"),
+    [
+        (
+            rebuild_issuers()
+            + "ALTER TABLE debentures ADD COLUMN note TEXT;\n",
+            "DDL alterado: table debentures.",
+        ),
+        (
+            rebuild_issuers(index=False),
+            "Objeto removido: index idx_issuers_legal_name.",
+        ),
+        (
+            rebuild_issuers(copy_filter=" WHERE id <> 2"),
+            "Contagem alterada em issuers: 2 para 1.",
+        ),
+    ],
+    ids=["outra-tabela", "indice-esquecido", "linha-perdida"],
+)
+def test_recria_mark_only_frees_the_ddl_of_that_table(
+    script,
+    tmp_path,
+    capsys,
+    body,
+    problem,
+):
+    path = create_database_with_issuers(tmp_path)
+    ddl_before = issuers_ddl(path)
+    migrations = copy_migrations(
+        tmp_path,
+        "rebuild",
+        FOREIGN_KEYS_OFF + RECRIA_ISSUERS + body + register("rebuild"),
+    )
+
+    code = commit_with(script, path, migrations)
+    error = capsys.readouterr().err
+
+    assert code == 1
+    assert problem in error
+    assert "DDL alterado: table issuers" not in error
+    assert issuers_ddl(path) == ddl_before
+    assert query(path, "SELECT COUNT(*) FROM issuers") == [(2,)]
+    assert versions(path) == [1]
+
+
+def test_foreign_keys_mark_without_recria_needs_the_allow_flag(
+    script,
+    tmp_path,
+    capsys,
+):
+    refused_path = create_database_with_issuers(tmp_path / "refused")
+    allowed_path = create_database_with_issuers(tmp_path / "allowed")
+    migrations = copy_migrations(
+        tmp_path,
+        "rebuild",
+        FOREIGN_KEYS_OFF + rebuild_issuers() + register("rebuild"),
+    )
+
+    refused = commit_with(script, refused_path, migrations)
+    error = capsys.readouterr().err
+    allowed = commit_with(
+        script,
+        allowed_path,
+        migrations,
+        "--allow-existing-changes",
+    )
+
+    assert refused == 1
+    assert "DDL alterado: table issuers." in error
+    assert versions(refused_path) == [1]
+    assert allowed == 0
+    assert versions(allowed_path) == [1, 2]
