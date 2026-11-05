@@ -1,8 +1,9 @@
 ﻿"""Leitura controlada de emissores do banco legado."""
 
 import sqlite3
-from collections.abc import Iterator
+from collections.abc import Iterator, Mapping
 from pathlib import Path
+from typing import Any
 
 from .records import DebentureIssuerRecord
 
@@ -55,7 +56,21 @@ class LegacyDebentureIssuerReader:
         self,
         batch_size: int = 100,
     ) -> Iterator[DebentureIssuerRecord]:
-        """Percorre emissores em lotes determinísticos."""
+        """Percorre emissores em lotes determinísticos.
+
+        Uma linha invalida (por exemplo, CNPJ recusado) levanta o erro
+        e encerra a iteracao. Para tratar cada linha a parte, use
+        iter_rows e to_record.
+        """
+
+        for row in self.iter_rows(batch_size=batch_size):
+            yield self.to_record(row)
+
+    def iter_rows(
+        self,
+        batch_size: int = 100,
+    ) -> Iterator[dict[str, Any]]:
+        """Percorre as linhas cruas de issuers, sem validar."""
 
         if not isinstance(batch_size, int):
             raise TypeError(
@@ -95,16 +110,24 @@ class LegacyDebentureIssuerReader:
                 return
 
             for row in rows:
-                yield DebentureIssuerRecord(
-                    legacy_id=int(row["id"]),
-                    cnpj=row["cnpj"],
-                    legal_name=str(row["legal_name"]),
-                    trade_name=row["trade_name"],
-                    created_at=str(row["created_at"]),
-                    updated_at=str(row["updated_at"]),
-                )
+                yield dict(row)
 
             offset += len(rows)
+
+    @staticmethod
+    def to_record(
+        row: Mapping[str, Any],
+    ) -> DebentureIssuerRecord:
+        """Converte uma linha de issuers em DebentureIssuerRecord."""
+
+        return DebentureIssuerRecord(
+            legacy_id=int(row["id"]),
+            cnpj=row["cnpj"],
+            legal_name=str(row["legal_name"]),
+            trade_name=row["trade_name"],
+            created_at=str(row["created_at"]),
+            updated_at=str(row["updated_at"]),
+        )
 
     def _connect(self) -> sqlite3.Connection:
         """Abre conexao protegida contra gravacoes."""

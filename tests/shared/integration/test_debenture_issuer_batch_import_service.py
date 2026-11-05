@@ -20,6 +20,7 @@ from ..cnpj_amostras import (
     CNPJ_7,
     CNPJ_ALFA_1,
     com_mascara,
+    dv_errado,
 )
 
 
@@ -263,6 +264,102 @@ def test_batch_records_error_and_continues(
     assert detail.error_type == "ValueError"
     assert detail.message == (
         "Timestamp legado invalido."
+    )
+
+
+INVALID_CNPJS = (
+    dv_errado(CNPJ_4),
+    dv_errado(CNPJ_ALFA_1),
+    "123",
+    "11.111.111/1111-11",
+)
+INVALID_CNPJ_IDS = (
+    "dv-numerico",
+    "dv-alfanumerico",
+    "tamanho",
+    "caracteres-iguais",
+)
+
+
+@pytest.mark.parametrize(
+    "invalid_cnpj",
+    INVALID_CNPJS,
+    ids=INVALID_CNPJ_IDS,
+)
+def test_batch_records_invalid_cnpj_as_record_error_and_continues(
+    legacy_database_path,
+    invalid_cnpj,
+):
+    set_legacy_cnpj(
+        legacy_database_path,
+        2,
+        invalid_cnpj,
+    )
+
+    service, repository = create_service(
+        legacy_database_path
+    )
+
+    report = service.run(batch_size=1)
+
+    assert report.total_read == 3
+    assert report.created == 2
+    assert report.matched == 0
+    assert report.review == 0
+    assert report.blocked == 0
+    assert report.errors == 1
+    assert repository.count() == 2
+
+    for valid_cnpj in (CNPJ_3, CNPJ_5):
+        assert repository.get_by_identifier(
+            IdentifierType.CNPJ,
+            valid_cnpj,
+        ) is not None
+
+    assert len(report.error_details) == 1
+
+    detail = report.error_details[0]
+
+    assert detail.legacy_id == 2
+    assert detail.error_type == "IdentifierValidationError"
+    assert invalid_cnpj not in detail.message
+
+
+def test_batch_dry_run_reports_invalid_cnpj_like_the_real_run(
+    legacy_database_path,
+):
+    set_legacy_cnpj(
+        legacy_database_path,
+        2,
+        dv_errado(CNPJ_4),
+    )
+
+    service, repository = create_service(
+        legacy_database_path
+    )
+
+    simulated = service.run(
+        batch_size=1,
+        dry_run=True,
+    )
+
+    assert repository.count() == 0
+
+    real = service.run(batch_size=1)
+
+    assert repository.count() == 2
+
+    for report in (simulated, real):
+        assert report.total_read == 3
+        assert report.created == 2
+        assert report.errors == 1
+
+    assert simulated.dry_run is True
+    assert real.dry_run is False
+    assert simulated.error_details == real.error_details
+    assert simulated.error_details[0].legacy_id == 2
+    assert simulated.error_details[0].message == (
+        "CNPJ com digito verificador invalido."
     )
 
 
