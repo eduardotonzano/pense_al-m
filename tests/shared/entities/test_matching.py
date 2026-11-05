@@ -149,12 +149,12 @@ def test_matching_uses_all_identifiers_of_the_same_type(
             create_identifier(
                 bacen_provenance,
                 IdentifierType.CNPJ,
-                "12.345.678/0001-90",
+                "12.345.678/0001-95",
             ),
             create_identifier(
                 bacen_provenance,
                 IdentifierType.CNPJ,
-                "12.345.678/0002-70",
+                "12.345.678/0002-76",
                 is_primary=False,
             ),
         ),
@@ -166,7 +166,7 @@ def test_matching_uses_all_identifiers_of_the_same_type(
             create_identifier(
                 bacen_provenance,
                 IdentifierType.CNPJ,
-                "12.345.678/0001-90",
+                "12.345.678/0001-95",
             ),
         ),
     )
@@ -187,12 +187,12 @@ def test_conflicting_primary_identifier_still_blocks_match(
             create_identifier(
                 bacen_provenance,
                 IdentifierType.CNPJ,
-                "12.345.678/0001-90",
+                "12.345.678/0001-95",
             ),
             create_identifier(
                 bacen_provenance,
                 IdentifierType.CNPJ,
-                "12.345.678/0002-70",
+                "12.345.678/0002-76",
                 is_primary=False,
             ),
         ),
@@ -204,7 +204,7 @@ def test_conflicting_primary_identifier_still_blocks_match(
             create_identifier(
                 bacen_provenance,
                 IdentifierType.CNPJ,
-                "98.765.432/0001-10",
+                "98.765.432/0001-98",
             ),
         ),
     )
