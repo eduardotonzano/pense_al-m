@@ -4,6 +4,8 @@ import unicodedata
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 
+from debenture_search.cnpj import clean_cnpj
+
 
 @dataclass(frozen=True)
 class ParsedObservation:
@@ -81,10 +83,16 @@ class SndParser:
 
     @staticmethod
     def normalize_cnpj(value):
+        """CNPJ no formato canonico, sem conferir o DV (ADR-011, opcao B).
+
+        Formato 12 em [0-9A-Z] + 2 digitos: devolve sem mascara e em
+        maiusculas, mesmo com DV errado. Quem confere o DV e o
+        IssuerRepository, e o documento falha de forma visivel. Fora do
+        formato: None ("sem CNPJ"), como antes.
+        """
         if value is None:
             return None
-        digits = "".join(c for c in str(value) if c.isdigit())
-        return digits if len(digits) == 14 else None
+        return clean_cnpj(SndParser.normalize_space(value))
 
     @staticmethod
     def normalize_date(value):

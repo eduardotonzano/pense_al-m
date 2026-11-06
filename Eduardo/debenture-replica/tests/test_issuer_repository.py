@@ -87,7 +87,7 @@ def test_create_without_cnpj(repository):
 def test_rejects_invalid_cnpj(repository):
     with pytest.raises(
         ValueError,
-        match="14 digitos",
+        match="14 caracteres",
     ):
         repository.create(
             legal_name="Empresa Invalida",
