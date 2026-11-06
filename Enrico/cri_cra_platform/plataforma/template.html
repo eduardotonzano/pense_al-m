@@ -775,7 +775,7 @@ button,input{font:inherit;color:inherit}
   function modHead(n,t,status){return '<section class="sec"><div class="sec-h"><h2><span class="mod-n">0'+n+'</span> '+t+'</h2>'+st(status)+'</div>'}
   function modGarantias(f){
     var g=f.garantias, h=modHead(1,'Análise de garantias',g.length?['wip','Lida no Termo, a revisar']:['idle','Sem leitura']);
-    if(!g.length)return h+'<p class="empty">Nenhuma garantia lida no Termo deste ativo. A leitura do Termo cobre 66 ativos hoje.</p></section>';
+    if(!g.length)return h+'<p class="empty">Nenhuma garantia lida no Termo deste ativo: o Termo ainda não foi baixado ou ainda não tem texto (a coleta segue).</p></section>';
     return h+'<div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Grupo</th><th>Item</th><th>Limite</th><th>Situação</th><th>Documento</th><th>Trecho</th></tr></thead><tbody>'+
       g.map(function(x){return '<tr><td>'+dv(x.grupo)+'</td><td>'+dv(x.rotulo||x.item)+'</td><td>'+dv(x.limite)+(x.periodicidade?'<br><small>'+esc(x.periodicidade)+'</small>':'')+'</td><td>'+dv(GSIT[x.situacao]||x.situacao)+
         (x.revisao&&x.revisao!=='aprovado'?' <span class="flag">não revisada</span>':'')+'</td><td>'+dv(x.documento)+(x.pagina?' · p. '+esc(x.pagina):'')+(x.ocr==='True'?' <span class="flag flag-n">OCR</span>':'')+'</td>'+
