@@ -77,10 +77,13 @@ def main() -> int:
                       v.validation_status
                FROM documents d LEFT JOIN document_versions v ON v.document_id = d.document_pk AND v.is_current = 1"""):
         documents[r["asset_id"]].append(dict(r))
+    # documento com texto: para na primeira página não vazia de cada versão (ler o texto de todas as páginas, alguns GB,
+    # deixava a exportação com mais de 2 h)
     text_docs = {r[0] for r in catalog.execute(
-        """SELECT DISTINCT d.source_document_id FROM document_text_pages t
-           JOIN document_versions v ON v.version_id = t.document_version_id JOIN documents d ON d.document_pk = v.document_id
-           WHERE length(trim(t.text)) > 0""")}
+        """SELECT d.source_document_id FROM (SELECT DISTINCT document_version_id AS vid FROM document_text_pages) x
+           JOIN document_versions v ON v.version_id = x.vid JOIN documents d ON d.document_pk = v.document_id
+           WHERE EXISTS (SELECT 1 FROM document_text_pages t WHERE t.document_version_id = x.vid
+                         AND length(trim(t.text)) > 0)""")}
     catalog.close()
 
     cvm = sqlite3.connect(f"file:{ROOT / 'data' / 'cvm_open.db'}?mode=ro", uri=True, timeout=120)
