@@ -52,7 +52,7 @@ def value_shape(value: str) -> str:
         return "date_iso"
     if re.fullmatch(r"\d{2}/\d{2}/\d{4}", value):
         return "date_br"
-    if re.fullmatch(r"\d{2}\.\d{3}\.\d{3}/\d{4}-\d{2}", value):
+    if re.fullmatch(r"[\dA-Z]{2}\.[\dA-Z]{3}\.[\dA-Z]{3}/[\dA-Z]{4}-\d{2}", value):  # numérico ou alfanumérico
         return "cnpj_formatted"
     return "text"
 

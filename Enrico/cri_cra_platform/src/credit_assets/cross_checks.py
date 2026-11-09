@@ -15,6 +15,8 @@ from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
 
+from credit_assets.cnpj import normalize_cnpj as canonical_cnpj
+
 KINDS = ("number", "date", "code", "text")
 TOKENIZERS = ("remuneracao", "nome")
 REVIEW_RANK = {"approved": 0, "pending": 1}
@@ -68,6 +70,10 @@ def _is_multiplier(after: str) -> bool:
 
 
 PERCENT = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
+# CNPJ alfanumérico (IN RFB 2.229/2024): só maiúsculas, bordas que não deixam pegar pedaço de palavra.
+CNPJ_ALNUM_NAME = re.compile(
+    r"(?<![0-9A-Za-z])[0-9A-Z]{2}\.?[0-9A-Z]{3}\.?[0-9A-Z]{3}/?[0-9A-Z]{4}-?[0-9]{2}(?![0-9A-Za-z])"
+)
 NAME_STOPWORDS = {
     "s.a.", "sa", "s/a", "ltda", "e", "de", "do", "da", "dos", "das", "cnpj", "nire",
     "sede", "cidade", "estado", "sociedade", "por", "acoes", "em", "no", "na",
@@ -96,6 +102,14 @@ def tokenize(text: str, tokenizer: str) -> frozenset[str]:
     elif tokenizer == "nome":
         for cnpj in re.findall(r"\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2}", folded):
             tokens.add("cnpj=" + re.sub(r"\D", "", cnpj))
+        # CNPJ alfanumérico: no texto original, porque folded está em minúsculas e o NFKD de _fold transforma letra
+        # larga em ASCII; só com letra e com dígito verificador válido
+        for candidate in CNPJ_ALNUM_NAME.findall(text or ""):
+            if re.search(r"[A-Z]", candidate):
+                try:
+                    tokens.add("cnpj=" + canonical_cnpj(candidate))
+                except ValueError:
+                    pass
         head = re.split(r"[(,;]|\bsociedade\b|\bcnpj\b", folded)[0]
         for word in re.findall(r"[a-z0-9]{3,}", head):
             if word not in NAME_STOPWORDS:

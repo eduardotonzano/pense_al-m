@@ -160,11 +160,18 @@ def remuneration_numbers(pages: list[tuple[int, str]], window: int = 360) -> set
 
 
 CNPJ_TEXT = re.compile(r"\d{2}\.?\d{3}\.?\d{3}\s*/\s*\d{4}\s*-?\s*\d{2}")
+# CNPJ alfanumérico (IN RFB 2.229/2024) no texto livre: só maiúsculas, como no formato da Receita; barra obrigatória,
+# como no numérico; bordas que não deixam pegar pedaço de palavra (maiúscula ou minúscula). Só vale o que tem letra
+# (o numérico fica com CNPJ_TEXT) e passa no dígito verificador.
+CNPJ_ALNUM_TEXT = re.compile(
+    r"(?<![0-9A-Za-z])[0-9A-Z]{2}\.?[0-9A-Z]{3}\.?[0-9A-Z]{3}\s*/\s*[0-9A-Z]{4}\s*-?\s*[0-9]{2}(?![0-9A-Za-z])"
+)
 DEBTOR_ANCHOR = re.compile(r"devedor[ae]?s?\b|cedentes?\b|emitente\b|avalistas?\b|fiador[ae]?s?\b")
 
 
 def debtor_cnpjs(pages: list[tuple[int, str]], window: int = 600) -> set[str]:
-    """CNPJs válidos citados logo depois de uma menção a devedor, cedente, emitente, avalista ou fiador."""
+    """CNPJs válidos (numéricos ou alfanuméricos em maiúsculas) citados logo depois de uma menção a devedor,
+    cedente, emitente, avalista ou fiador."""
 
     from credit_assets.debtor_exposure import normalize_cnpj
 
@@ -179,4 +186,9 @@ def debtor_cnpjs(pages: list[tuple[int, str]], window: int = 600) -> set[str]:
                 cnpj = normalize_cnpj(raw)
                 if cnpj:
                     found.add(cnpj)
+            for raw in CNPJ_ALNUM_TEXT.findall(chunk):
+                if re.search(r"[A-Z]", raw):
+                    cnpj = normalize_cnpj(re.sub(r"\s+", "", raw))
+                    if cnpj:
+                        found.add(cnpj)
     return found

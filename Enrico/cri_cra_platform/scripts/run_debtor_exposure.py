@@ -82,6 +82,7 @@ def main() -> int:
              f"- Vínculos de devedor no mês: {stats['vinculos']}; devedor não informado (vazio, \"0\", \"NA\", só zeros ou só noves): {stats['nao_informado']}; "
              f"CPF de pessoa física (contado, não exibido): {stats['cpf']}; CNPJ inválido: {stats['cnpj_invalido']}; "
              f"CNPJ que perdeu os zeros à esquerda, recuperado pelos dígitos verificadores: {stats['cnpj_sem_zeros']}; "
+             f"CNPJ alfanumérico (já contado entre os válidos): {stats['cnpj_alfanumerico']}; "
              f"percentual inválido (ex.: -1): {stats['percentual_invalido']}.",
              f"- Devedores distintos: **{len(ranking)}**; com mais de uma emissão: **{len(multi)}**; "
              f"**com contágio** (uma emissão em atraso e outra ainda adimplente): **{len(contagion)}**.", "",
