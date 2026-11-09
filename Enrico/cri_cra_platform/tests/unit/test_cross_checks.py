@@ -134,6 +134,14 @@ def test_tokenize_names_with_alphanumeric_cnpj_uppercase_only():
     assert cnpj_tokens(wide) == set()
 
 
+@pytest.mark.parametrize("text", ["Devedora: 12.ABC.345/01de-35", "Devedora: 12.abc.345/01DE-35"],
+                         ids=["minuscula-no-fim", "minuscula-no-inicio"])
+def test_tokenize_names_alphanumeric_mixed_case_gives_no_cnpj_token(text):
+    # Texto livre: todos os caracteres do CNPJ em maiúsculas; ter alguma maiúscula não basta.
+    from credit_assets.cross_checks import tokenize
+    assert not [token for token in tokenize(text, "nome") if token.startswith("cnpj=")]
+
+
 def _text_database(entries):
     c = _database()
     for kind, name, value in entries:

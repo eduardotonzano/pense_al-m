@@ -244,3 +244,18 @@ def test_aggregate_counts_alphanumeric_cnpj_among_valid():
     assert numeric["certificados"] == {"B"} and numeric["exposicao"] == Decimal(10)
     # por vínculo, como vinculos e cnpj_sem_zeros: as 3 variantes contam; o rótulo com CNPJ numérico não
     assert stats["vinculos"] == 4 and stats["cnpj_alfanumerico"] == 3
+
+
+# Um vínculo por chamada: o contador olha o CNPJ canônico devolvido, não o valor de entrada.
+
+
+def test_alphanumeric_counter_ignores_letters_only_in_the_label():
+    ranking, stats = aggregate([link("A", cnpj="CNPJ 01.486.546/0001-67")], {"A": Decimal(10)}, delinquent=set())
+    assert [i["cnpj"] for i in ranking] == [CAFE]
+    assert stats["vinculos"] == 1 and stats["cnpj_alfanumerico"] == 0
+
+
+def test_alphanumeric_counter_counts_lowercase_input_by_its_canonical_form():
+    ranking, stats = aggregate([link("A", cnpj=CNPJ_RECEITA_MASCARA.lower())], {"A": Decimal(10)}, delinquent=set())
+    assert [i["cnpj"] for i in ranking] == [CNPJ_RECEITA]
+    assert stats["vinculos"] == 1 and stats["cnpj_alfanumerico"] == 1

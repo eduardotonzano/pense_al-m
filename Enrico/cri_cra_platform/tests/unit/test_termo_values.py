@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 from credit_assets.termo_values import best, extract, is_lastro_context
 
 
@@ -70,3 +72,11 @@ def test_debtor_cnpj_alphanumeric_uppercase_only():
     assert found("x" + CNPJ_RECEITA_MASCARA) == set()
     assert debtor_cnpjs(pages("“Devedora”: EMPRESA FICTÍCIA S.A., com sede na Rua Fictícia",
                               "inscrita no CNPJ sob o nº " + com_mascara(CNPJ_ALFA_1) + ".")) == {CNPJ_ALFA_1}
+
+
+@pytest.mark.parametrize("text", ["Devedora: 12.ABC.345/01de-35", "Devedora: 12.abc.345/01DE-35"],
+                         ids=["minuscula-no-fim", "minuscula-no-inicio"])
+def test_debtor_cnpj_alphanumeric_mixed_case_is_not_found(text):
+    # Texto livre: todos os caracteres do CNPJ em maiúsculas; ter alguma maiúscula não basta.
+    from credit_assets.termo_values import debtor_cnpjs
+    assert debtor_cnpjs(pages(text)) == set()
