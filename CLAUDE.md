@@ -14,7 +14,7 @@
 | `src/pense_alm/shared/{entities,collection,persistence,integration}` | camada compartilhada |
 | `src/pense_alm/shared/persistence/migrations/` | migrations da camada compartilhada (`vNNN_*.py`, registradas em `MIGRATIONS` de `migration_runner.py`) |
 | `tests/shared/{entities,collection,persistence,integration}` | testes da camada compartilhada |
-| `docs/architecture/ADR-00x-*.md` | decisões de arquitetura |
+| `docs/architecture/ADR-0NN-*.md` | decisões de arquitetura |
 | `Eduardo/debenture-replica/` | **versão de trabalho** de debêntures: `src/debenture_search`, `migrations/`, `scripts/`, `tests/`, `data/` |
 | `debenture-replica/` (raiz) | **congelada** (`docs/FREEZE.md`): só automação (config, coleta, retenção, lock, retry, agendamento, monitoramento) |
 | `Enrico/cri_cra_platform/` | CRI/CRA (linha de base em `src/credit_assets/database/schema.sql`; migrations numeradas em `migrations/`) |
@@ -38,11 +38,11 @@ Há `README.md` na raiz e `Fábio/README.md` (contrato de integração); os cont
 
 ## Testes
 Python 3.14. Venvs: `C:\Users\eduardo.tonzano\debenture-venv` (camada compartilhada e debêntures) e `C:\Users\eduardo.tonzano\cricra-venv` (CRI/CRA; tem `playwright` e `requests`, que o outro não tem). Rode sempre no diretório indicado.
-- Camada compartilhada (raiz do repo): `$env:PYTHONPATH='src'; python -m pytest tests` (347 testes; sem o PYTHONPATH a coleta falha)
-- Debêntures, versão de trabalho: `cd Eduardo\debenture-replica; python -m pytest -q` (416; o `pyproject.toml` já define `pythonpath=src`)
+- Camada compartilhada (raiz do repo): `$env:PYTHONPATH='src'; python -m pytest tests` (353 testes; sem o PYTHONPATH a coleta falha)
+- Debêntures, versão de trabalho: `cd Eduardo\debenture-replica; python -m pytest -q` (543; o `pyproject.toml` já define `pythonpath=src`)
 - Debêntures, automação congelada: `cd debenture-replica; python -m pytest -q` (105)
-- CRI/CRA (venv `cricra-venv`): `cd Enrico\cri_cra_platform; python -m pytest` (182; `pytest.ini` define `pythonpath=src`; no `debenture-venv`, 5 arquivos de teste falham na coleta por falta do `playwright`)
-- Baseline histórico de 417 testes (ADR-001; `FREEZE.md`: "suite completa"). Soma atual: 416 + 105 = 521. Não deve cair. Contagens por `pytest --collect-only` em 26/10/2026.
+- CRI/CRA (venv `cricra-venv`): `cd Enrico\cri_cra_platform; python -m pytest` (491; `pytest.ini` define `pythonpath=src`; no `debenture-venv`, 7 arquivos de teste falham na coleta por falta do `playwright`)
+- Baseline histórico de 417 testes (ADR-001; `FREEZE.md`: "suite completa"). Soma atual: 543 + 105 = 648. Não deve cair. Contagens por `pytest --collect-only` em 09/11/2026.
 
 ## Regras operacionais
 - **Nunca** rodar coleta, importação ou CLI com `--commit` sem minha aprovação explícita na conversa. Sempre `--dry-run` antes.
