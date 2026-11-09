@@ -51,7 +51,7 @@ Python 3.14. Venvs: `C:\Users\eduardo.tonzano\debenture-venv` (camada compartilh
   - `Eduardo/debenture-replica/scripts/snd_import_one.py` e `snd_import_batch.py` fazem só a prévia sem `--commit`.
   - `python -m pense_alm.shared.integration.cli --legacy-db ... --target-db ... --dry-run` só tem `--dry-run`: **sem a flag ele grava**. Sempre passá-la primeiro.
 - Backup antes de qualquer migration (debêntures: `BackupService.create_backup()` em `Eduardo/debenture-replica/src/debenture_search/services/backup_service.py`; CRI/CRA: `create_backup` em `Enrico/cri_cra_platform/src/credit_assets/database/backup.py`).
-- Não versionar bancos (`*.db`, `*.sqlite*`), `.env`, ambientes virtuais, documentos baixados (`data/documents/`), backups, exports gerados, `*.bak`, `.vscode/`. Há arquivos assim já versionados (ex.: `Eduardo/debenture-replica/data/backups/`, `debenture_db_base64.txt`, `*.tar.gz`); não remover sem pedido, pois a limpeza é um `chore:` à parte.
+- Não versionar bancos (`*.db`, `*.sqlite*`), `.env`, ambientes virtuais, documentos baixados (`data/documents/`), backups, exports gerados, `*.bak`, `.vscode/`. Há arquivos assim já versionados (ex.: `debenture_db_base64.txt`, `*.tar.gz`); não remover sem pedido, pois a limpeza é um `chore:` à parte.
 - Commits: `feat:`, `fix:`, `test:`, `chore:`, em português, no estilo do histórico. Trabalhar em branch de feature e abrir pull request para `main`; nunca commitar direto na `main`.
 - Códigos de saída: coleta de debêntures 0/1/2/3 (lock)/4 (qualidade)/130; CLI compartilhada 0/2/3 (bloqueados)/4 (revisão). Não reutilizar um significado no outro.
 
