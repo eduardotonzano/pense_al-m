@@ -78,6 +78,7 @@ Decisões de arquitetura registradas em `docs/architecture/`:
 | ADR-004 | Persistência em SQLite |
 | ADR-005 | Integração gradual de emissores de debêntures |
 | ADR-006 | Contrato de leitura para o site (proposta) |
+| ADR-010 | Prioridade de fontes em Fundos (proposta) |
 | ADR-011 | CNPJ alfanumérico (proposta) |
 
 A integração é gradual: os módulos legados são lidos em modo somente leitura por adaptadores, sem reescrita imediata e sem que a camada compartilhada dependa das classes internas deles.
@@ -125,7 +126,7 @@ Motor de busca e agregação de dados de debêntures brasileiras, por código do
 
 - Banco SQLite com histórico completo de observações por campo, controle de conflitos entre fontes, log de auditoria e visão `current_observations` com o valor consolidado respeitando a prioridade da fonte.
 - Fonte principal: SND (Sistema Nacional de Debêntures). Fontes previstas: CVM e ANBIMA.
-- A versão em `debenture-replica/` (raiz) é a versão **congelada** após as etapas 1 a 8: logs estruturados, lock operacional, retry seguro, retenção automática, qualidade integrada, agendamento no Windows, alertas e monitoramento, e documentação. A suite da versão congelada tem 417 testes aprovados.
+- A versão em `debenture-replica/` (raiz) é a versão **congelada** após as etapas 1 a 8: logs estruturados, lock operacional, retry seguro, retenção automática, qualidade integrada, agendamento no Windows, alertas e monitoramento, e documentação. No congelamento, a suite completa tinha 417 testes aprovados (`FREEZE.md`); a da versão congelada tem hoje 105.
 - Documentação operacional em `debenture-replica/docs/`: `ARCHITECTURE.md`, `RUNBOOK.md`, `CHECKLIST.md`, `LOGS.md`, `EXIT_CODES.md` e `FREEZE.md`.
 - A etapa 9 (layout/interface) está **pausada** até o levantamento de requisitos com a equipe.
 
@@ -242,7 +243,7 @@ Pontos em aberto:
 ## Roadmap
 
 1. Adaptador de debêntures (instrumento) para a camada compartilhada.
-2. Adaptador CRI/CRA para a camada compartilhada. O ISIN duplicado do Café Brasil, segundo `Enrico/cri_cra_platform/reports/duplicate_assets_diagnostic.md`, foi resolvido no banco local do Enrico em 08/10/2026 (não verificável neste repositório); falta modelar multissérie (S-07 em `docs/regras-de-exibicao-pendentes.md`).
+2. Adaptador CRI/CRA para a camada compartilhada. O ISIN duplicado do Café Brasil, segundo `Enrico/cri_cra_platform/reports/duplicate_assets_diagnostic.md`, foi resolvido no banco local do Enrico em 08/10/2026 (não verificável neste repositório). As séries por ativo têm tabela própria desde a migration `002_asset_series.sql` do CRI/CRA (PR #21); como exibi-las segue em aberto (S-07 em `docs/regras-de-exibicao-pendentes.md`).
 3. Início da frente de Fundos (FIDC/FIAGRO) e definição do responsável por Renda fixa (em aberto, ver R-01).
 4. Levantamento de requisitos de interface com a equipe e retomada da etapa 9.
 5. Motor de alertas: variações anormais de preço e notícias relevantes.
