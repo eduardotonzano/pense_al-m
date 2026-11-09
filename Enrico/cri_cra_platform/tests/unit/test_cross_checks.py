@@ -118,6 +118,22 @@ def test_tokenize_names_and_cnpj():
     assert "w=NIRE" not in tokens
 
 
+def test_tokenize_names_with_alphanumeric_cnpj_uppercase_only():
+    from credit_assets.cross_checks import tokenize
+    from tests.cnpj_amostras import CNPJ_RECEITA, CNPJ_RECEITA_MASCARA, com_mascara, dv_errado
+
+    def cnpj_tokens(cnpj_text):
+        tokens = tokenize("Securitizadora Fictícia S.A.; CNPJ " + cnpj_text + "; NIRE 43", "nome")
+        return {token for token in tokens if token.startswith("cnpj=")}
+
+    assert cnpj_tokens(CNPJ_RECEITA_MASCARA) == {"cnpj=" + CNPJ_RECEITA}
+    assert cnpj_tokens(CNPJ_RECEITA) == {"cnpj=" + CNPJ_RECEITA}
+    assert cnpj_tokens(CNPJ_RECEITA_MASCARA.lower()) == set()  # texto livre: só maiúsculas
+    assert cnpj_tokens(com_mascara(dv_errado(CNPJ_RECEITA))) == set()
+    wide = CNPJ_RECEITA.translate({ord(c): ord(c) + 0xFEE0 for c in CNPJ_RECEITA})  # dígitos e letras largos
+    assert cnpj_tokens(wide) == set()
+
+
 def _text_database(entries):
     c = _database()
     for kind, name, value in entries:

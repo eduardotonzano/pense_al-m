@@ -96,6 +96,7 @@ def test_union_counts_absence_and_defaults_to_pending_decision():
     ("", "empty"), ("0", "zero"), ("-0.01", "decimal_dot"), ("100000", "integer"),
     ("4,5", "decimal_comma"), ("2022-10-30", "date_iso"),
     ("31.943.818/0001-71", "cnpj_formatted"), ("CDI + 4,5000 a.a.", "text"),
+    ("12.ABC.345/01DE-35", "cnpj_formatted"), ("12.abc.345/01de-35", "text"), ("12ABC34501DE35", "text"),
 ])
 def test_value_shape_describes_without_converting(value, shape):
     assert value_shape(value) == shape

@@ -51,3 +51,22 @@ def test_debtor_cnpj_found_across_pages():
     found = debtor_cnpjs(pages("“Devedora”: CAFE BRASIL INDUSTRIA, com sede na Avenida Alberto Vieira",
                                "Romão nº 365, inscrita no CNPJ/ME sob o nº 01.486.546/0001-67. “Dia Útil”"))
     assert found == {"01486546000167"}
+
+
+def test_debtor_cnpj_alphanumeric_uppercase_only():
+    from credit_assets.termo_values import debtor_cnpjs
+    from tests.cnpj_amostras import CNPJ_ALFA_1, CNPJ_RECEITA, CNPJ_RECEITA_MASCARA, com_mascara, dv_errado
+
+    def found(cnpj_text):
+        return debtor_cnpjs(pages("“Devedora”: EMPRESA FICTÍCIA S.A., inscrita no CNPJ sob o nº " + cnpj_text
+                                  + ". “Dia Útil”"))
+
+    assert found(CNPJ_RECEITA_MASCARA) == {CNPJ_RECEITA}
+    assert found("12.ABC.345 / 01DE - 35") == {CNPJ_RECEITA}
+    assert found(CNPJ_RECEITA_MASCARA.lower()) == set()  # texto livre: só maiúsculas
+    assert found(com_mascara(dv_errado(CNPJ_RECEITA))) == set()
+    assert found(CNPJ_RECEITA) == set()  # sem barra, como no numérico
+    assert found("X" + CNPJ_RECEITA_MASCARA) == set()
+    assert found("x" + CNPJ_RECEITA_MASCARA) == set()
+    assert debtor_cnpjs(pages("“Devedora”: EMPRESA FICTÍCIA S.A., com sede na Rua Fictícia",
+                              "inscrita no CNPJ sob o nº " + com_mascara(CNPJ_ALFA_1) + ".")) == {CNPJ_ALFA_1}
