@@ -1,8 +1,8 @@
 # PENSE_AL-M
 
 ## Visão
-- Plataforma de dados de crédito privado brasileiro (debêntures, CRI/CRA e, depois, FIDC/FIAGRO).
-- Frentes: **Debêntures** (Eduardo), **CRI/CRA** (Enrico; coletor Fundos.NET), **automação/coletor piloto** (Fábio, branch `fabio`).
+- Plataforma de dados de crédito privado brasileiro (debêntures, CRI/CRA e FIDC/FIAGRO).
+- Frentes: **Debêntures** (Eduardo), **CRI/CRA** (Enrico; coletor Fundos.NET), **Fundos** (Gui; `Gui/fundos`, nomes provisórios), **automação/coletor piloto** (Fábio, branch `fabio`).
 - **Shared Entity Layer** em `src/pense_alm/shared/`: fonte única de identidade (entidades, relacionamentos, proveniência, coleta, persistência SQLite, integração com legados).
 - Nenhum domínio cria cadastro paralelo de entidades; os legados são integrados por adaptadores (ADR-001 a 005).
 - Layout/interface está fora do escopo até o levantamento de requisitos da equipe (ADR-001, `debenture-replica/docs/FREEZE.md`).
@@ -18,6 +18,7 @@
 | `Eduardo/debenture-replica/` | **versão de trabalho** de debêntures: `src/debenture_search`, `migrations/`, `scripts/`, `tests/`, `data/` |
 | `debenture-replica/` (raiz) | **congelada** (`docs/FREEZE.md`): só automação (config, coleta, retenção, lock, retry, agendamento, monitoramento) |
 | `Enrico/cri_cra_platform/` | CRI/CRA (linha de base em `src/credit_assets/database/schema.sql`; migrations numeradas em `migrations/`) |
+| `Gui/fundos/` | Fundos (FIDC, FIC-FIDC, FIAGRO); nomes de pasta e pacote provisórios; ver `Gui/fundos/README.md` |
 | `coletor_cri_cra/` | coletor piloto Fundos.NET |
 | `Eduardo/*.py`, `Eduardo/*.tar.gz`, `Eduardo/correcao-banco/` | rascunhos/legado: não editar nem usar como referência |
 

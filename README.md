@@ -56,7 +56,7 @@ O documento original de escopo está em `Escopo - Projeto Pense Além.docx`.
 Cada frente constrói seu próprio banco SQLite e seus coletores de forma independente. Uma **Shared Entity Layer** (o "galpão") é a fonte única de identificação dos participantes do mercado, para que nenhuma frente crie cadastros paralelos da mesma empresa, banco, gestora ou fundo.
 
 ```
- Debêntures (SND)      CRI/CRA (Fundos.NET)      Fundos (a iniciar)     Renda fixa (a iniciar)
+ Debêntures (SND)      CRI/CRA (Fundos.NET)      Fundos (CVM)           Renda fixa (a iniciar)
         |                       |                        |                       |
    SQLite próprio          SQLite próprio           SQLite próprio          SQLite próprio
         \                       |                        |                       /
@@ -143,9 +143,13 @@ Plataforma de coleta, histórico e monitoramento de CRIs e CRAs a partir do Fund
 
 `coletor_cri_cra/` é o coletor inicial que deu origem à plataforma.
 
-### Fundos e Renda fixa
+### Fundos (`Gui/fundos`)
 
-Ainda não iniciados no repositório.
+Base do módulo de FIDC, FIC-FIDC e FIAGRO, no repositório desde 27/10/2026, com banco SQLite próprio e leitores do cadastro e dos informes mensais da CVM. O dono da frente é o Gui; o nome da pasta e o do pacote (`fundos`) são provisórios. Ainda não existem, nas palavras do `Gui/fundos/README.md`: "coletor, acesso à rede, banco real, dados reais e adaptador para a camada compartilhada". O que existe e o que falta está em `Gui/fundos/README.md`.
+
+### Renda fixa
+
+Ainda não iniciada no repositório (responsável em aberto, ver R-01 em `docs/decisoes-em-aberto.md`).
 
 ## Como rodar
 
@@ -228,7 +232,7 @@ Mapa por passo do escopo, conforme o repositório em 20/10/2026:
 | Passo | Situação |
 |---|---|
 | 1. Listagem dos ativos | Concluído |
-| 2. Coletores/APIs | Em andamento: debêntures madura; CRI/CRA avançando com ativo piloto; fundos e renda fixa não iniciados |
+| 2. Coletores/APIs | Em andamento: debêntures madura; CRI/CRA avançando com ativo piloto; fundos com a base do módulo em `Gui/fundos`, ainda sem coletor, acesso à rede, banco real, dados reais e adaptador para a camada compartilhada (correção de 09/11/2026); renda fixa não iniciada |
 | 3. Junção dos códigos | Iniciado: a camada compartilhada existe e integra apenas emissores de debêntures (3 emissores reais importados) |
 
 Pontos em aberto:
@@ -236,7 +240,7 @@ Pontos em aberto:
 - integrar a debênture (o instrumento) e os ativos CRI/CRA à camada compartilhada, com adaptador próprio para CRI/CRA (securitizadora e devedor, ambos com CNPJ);
 - rodar o download em escala dos documentos CRI/CRA e o catálogo completo no banco principal (o código que persiste o catálogo já está na `main`: migration 001 e `run_document_catalog.py`);
 - ligar fontes oficiais adicionais (CVM e ANBIMA) às debêntures;
-- iniciar as frentes de Fundos e Renda fixa;
+- iniciar a frente de Renda fixa (a de Fundos começou em `Gui/fundos`);
 - definir os requisitos de interface e destravar a etapa 9;
 - alertas de preço e de notícias, que ainda não têm código.
 
@@ -244,7 +248,7 @@ Pontos em aberto:
 
 1. Adaptador de debêntures (instrumento) para a camada compartilhada.
 2. Adaptador CRI/CRA para a camada compartilhada. O ISIN duplicado do Café Brasil, segundo `Enrico/cri_cra_platform/reports/duplicate_assets_diagnostic.md`, foi resolvido no banco local do Enrico em 08/10/2026 (não verificável neste repositório). As séries por ativo têm tabela própria desde a migration `002_asset_series.sql` do CRI/CRA (PR #21); como exibi-las segue em aberto (S-07 em `docs/regras-de-exibicao-pendentes.md`).
-3. Início da frente de Fundos (FIDC/FIAGRO) e definição do responsável por Renda fixa (em aberto, ver R-01).
+3. Frente de Fundos (FIDC/FIAGRO), iniciada em `Gui/fundos`, e definição do responsável por Renda fixa (em aberto, ver R-01).
 4. Levantamento de requisitos de interface com a equipe e retomada da etapa 9.
 5. Motor de alertas: variações anormais de preço e notícias relevantes.
 6. Plataforma única de acesso para a equipe.
