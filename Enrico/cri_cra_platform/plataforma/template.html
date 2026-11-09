@@ -869,7 +869,7 @@ button,input{font:inherit;color:inherit}
   /* ---- famílias ---- */
   function pageFam(tok){
     var f=D.FAMS[tok];
-    var h=head('Classe de ativo',f.name,esc(f.pain),f.status,f.owner,[stat(f.products.length,'produtos')],[[f.name]]);
+    var h=head('Classe de ativo',f.name,esc(f.pain),f.status,f.owner,(tok==='securitizados'&&SXmeta?[stat(SXmeta.totais.ativos.toLocaleString('pt-BR'),'ativos (CRI e CRA)'),stat(SXmeta.totais.documentos.toLocaleString('pt-BR'),'documentos catalogados')]:[stat(f.products.length,'produtos')]),[[f.name]]);
     h+='<section class="sec"><div class="wrap"><div class="sec-h"><h2>Produtos</h2></div><div class="prod-grid">'+f.products.map(function(t){
       var p=D.PAGES[t];
       return '<a class="prod" href="#" data-page="'+t+'"><div>'+st(p.status)+'</div><h3 class="disp">'+p.name+'</h3><p>'+esc(p.full)+'</p><span class="pill pill-soft">Abrir '+ARROW+'</span></a>';
@@ -903,6 +903,7 @@ button,input{font:inherit;color:inherit}
       var p=D.PAGES[tok];
       vPage.innerHTML=tok==='regras'?pageRules():D.FAMS[tok]?pageFam(tok):tok==='debentures'?pageDebentures():p.kind==='sec'?pageSec(tok):pageEmpty(tok);
       if(p&&p.kind==='sec')secInit(tok);
+      if(tok==='securitizados')loadIndex(function(){if(curTok===tok&&SXmeta){var b=document.querySelectorAll('.stats .stat b'),l=document.querySelectorAll('.stats .stat span, .stats .stat small');if(b.length===1){vPage.innerHTML=pageFam(tok)}}});
       document.title=(tok==='regras'?'Regras a definir':D.FAMS[tok]?D.FAMS[tok].name:p.name)+' · Pense Além';
     }
     window.scrollTo(0,0);
