@@ -5,6 +5,7 @@ import sqlite3
 import unicodedata
 import re
 
+from credit_assets.cnpj import clean_cnpj
 from credit_assets.models.asset import Asset
 
 
@@ -98,12 +99,14 @@ class AssetRepository:
 
         A CVM publica às vezes o mesmo código em emissões diferentes (ex.: 24E3191695 na Opea 330 e na Casa de
         Pedra 29); atualizar trocaria a identidade do ativo já cadastrado. Só compara campos preenchidos dos dois lados.
+        O CNPJ da securitizadora é comparado inteiro, com as letras (ver _cnpj_key).
         """
 
         def digits(value) -> str:
             return "".join(character for character in str(value or "") if character.isdigit())
 
-        stored_cnpj, new_cnpj = digits(existing["cnpj_securitizadora"]), digits(asset.cnpj_securitizadora)
+        stored_cnpj = AssetRepository._cnpj_key(existing["cnpj_securitizadora"])
+        new_cnpj = AssetRepository._cnpj_key(asset.cnpj_securitizadora)
         stored_issue = digits(existing["emissao"]).lstrip("0")
         new_issue = digits(asset.emissao).lstrip("0")
         if stored_cnpj and new_cnpj and stored_cnpj != new_cnpj:
@@ -116,6 +119,29 @@ class AssetRepository:
                 f"Conflito de identidade: asset_id={existing['asset_id']} é de outra emissão "
                 f"({existing['emissao']} × {asset.emissao})"
             )
+
+    @staticmethod
+    def _cnpj_key(value) -> str:
+        """Chave de comparação do CNPJ da securitizadora; vazia = não compara.
+
+        Não confere dígito verificador: o repositório não valida CNPJ e não recusa gravação por DV.
+        1. No formato (credit_assets.cnpj.clean_cnpj): os 14 caracteres em maiúsculas, com o DV.
+        2. Senão, exatamente 14 dígitos ASCII (ex.: "CNPJ 10.753.164/0001-43"): esses dígitos, como antes.
+        3. Senão, com letra e algum dígito: o texto sem espaços, ponto, barra e hífen, em maiúsculas (letra nunca
+           é descartada: CNPJs alfanuméricos com os mesmos dígitos são de empresas diferentes).
+        4. Senão: só os dígitos, como antes (vazio se não houver; "N/A" não compara).
+        """
+
+        text = str(value or "")
+        cleaned = clean_cnpj(text)
+        if cleaned:
+            return cleaned
+        ascii_digits = re.sub(r"[^0-9]", "", text)
+        if len(ascii_digits) == 14:
+            return ascii_digits
+        if any(character.isalpha() for character in text) and any(character.isdigit() for character in text):
+            return "".join(character for character in text if not character.isspace() and character not in "./-").upper()
+        return "".join(character for character in text if character.isdigit())
 
     @staticmethod
     def _normalize_identifier(value: str | None) -> str | None:
