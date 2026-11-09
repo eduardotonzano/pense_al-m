@@ -1,0 +1,44 @@
+{
+  "rules_version": "0.1.0-draft",
+  "asset": {"codigo_cetip": "24G2100031", "isin": "BRRBRACRIP13"},
+  "approval_status": "pending",
+  "proposed_by": "Claude (assistente)",
+  "proposed_at": "2026-10-28",
+  "interpretations": {
+    "garantias_constituidas": "o Termo prevê alienação fiduciária de imóvel e cessão fiduciária de recebíveis; o relatório do AF marca a constituição de cada uma ('NÃO' = alerta). O traço ('-') do relatório de 2024 não é tratado como 'NÃO'.",
+    "rating": "o Termo exige rating anual da Fitch sem interrupção; DF ou AF que declaram rating não contratado/inexistente geram alerta",
+    "prazo_dfs": "exercício do Patrimônio Separado encerra em 30/06 e as DFs vencem em 90 dias (28/09); cumprimento comprovado pela existência de fato aprovado da DF da data-base"
+  },
+  "not_covered": "LTV (máx. 60%) e ICSD (mín. 1,20x) dependem de laudo do imóvel e de recebimentos de locação que não estão nos documentos do Fundos.NET; limite de endividamento depende das DFs da Devedora.",
+  "rules": {
+    "garantias_nao_constituidas": {
+      "type": "fact_flag",
+      "severity": "warning",
+      "label": "Garantia prevista no Termo marcada como não constituída pelo Agente Fiduciário",
+      "parameter": "garantias",
+      "facts": ["af_garantia_alienacao_fiduciaria_imovel_constituida", "af_garantia_cessao_fiduciaria_constituida"],
+      "alert_values": ["NÃO"]
+    },
+    "rating_nao_contratado": {
+      "type": "fact_flag",
+      "severity": "warning",
+      "label": "Rating anual exigido pelo Termo declarado como não contratado/inexistente",
+      "parameter": "rating_obrigacao",
+      "facts": ["df_rating", "af_rating", "af2024_rating"],
+      "alert_values": ["não contratada", "não existe rating no período", "não existe rating para a operação no período analisado"]
+    },
+    "obligation_deadlines": {
+      "type": "obligation_deadlines",
+      "severity": "info",
+      "warn_days": 30,
+      "obligations": [
+        {"parameter": "obrigacao_dfs_emissora_e_ps_ao_af", "due": "2025-09-28",
+         "label": "DFs do Patrimônio Separado do exercício encerrado em 30/06/2025",
+         "fulfilled_by_fact": {"fact": "df_saldo_cri", "reference_date": "2025-06-30"}},
+        {"parameter": "obrigacao_dfs_emissora_e_ps_ao_af", "due": "2026-09-28",
+         "label": "DFs do Patrimônio Separado do exercício encerrado em 30/06/2026",
+         "fulfilled_by_fact": {"fact": "df_total_ativo", "reference_date": "2026-06-30"}}
+      ]
+    }
+  }
+}

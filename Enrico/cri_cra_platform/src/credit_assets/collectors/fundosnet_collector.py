@@ -14,10 +14,38 @@ from playwright.sync_api import sync_playwright
 from credit_assets.collectors.base_collector import BaseCollector
 from credit_assets.models.asset import Asset
 from credit_assets.models.document import Document
-from credit_assets.utils.document_classifier import classify_document
+from credit_assets.utils.document_classifier import (
+    classify_document,
+    has_financial_statements_evidence,
+)
 from credit_assets.utils.fundosnet_normalization import normalize_text, product_type_id
 
 logger = logging.getLogger(__name__)
+
+ISIN_IN_TEXT = re.compile(r"(?<![A-Z0-9])BR[A-Z0-9]{9}[0-9](?![A-Z0-9])")
+
+
+def describes_asset(asset: Asset, text: str) -> bool:
+    """O texto do Fundos.NET (nome do certificado ou ``descricaoFundo``) é deste ativo?
+
+    Pelo ISIN; ou, quando o Fundos.NET lista o certificado pelo código CETIP (emissões antigas, ex.:
+    "POLO CAP SEC CRI Emissão:1 Série:13 ... 13C0017641"), pelo CETIP exato, desde que o texto não traga ISIN
+    nenhum: um ISIN no texto que não é o do ativo indica outro certificado.
+    """
+
+    upper = str(text or "").upper()
+    isin = (asset.isin or "").upper()
+    if isin and isin in upper:
+        return True
+    cetip = (asset.codigo_cetip or "").upper()
+    if not cetip or cetip == isin or ISIN_IN_TEXT.search(upper):
+        return False
+    return re.search(rf"(?<![A-Z0-9]){re.escape(cetip)}(?![A-Z0-9])", upper) is not None
+
+
+def _same_emission(asset: Asset, text: str) -> bool:
+    found = re.search(r"EMISS[AÃ]O:\s*0*(\d+)", str(text or "").upper())
+    return bool(found and str(asset.emissao or "").strip().lstrip("0") == found.group(1))
 
 
 @dataclass
@@ -109,10 +137,14 @@ class FundosNetCollector(BaseCollector):
                     page, context, asset.securitizadora, diagnostics
                 )
                 if administrator is None:
-                    raise RuntimeError("securitizadora não localizada")
-                administrator_id = self._ui_select_administrator(
-                    page, asset, administrator, diagnostics
-                )
+                    # o nome no Fundos.NET às vezes difere do da CVM; com idAdm=0 o certificado é procurado em
+                    # todas as securitizadoras e a escolha continua exigindo o ISIN (ou CETIP) e a emissão
+                    diagnostics["administrator_fallback"] = "idAdm=0"
+                    administrator_id = 0
+                else:
+                    administrator_id = self._ui_select_administrator(
+                        page, asset, administrator, diagnostics
+                    )
                 validated_matches = self._search_fundos(
                     page, context, asset, administrator_id,
                     product_type_id(asset.tipo_ativo), diagnostics
@@ -128,7 +160,7 @@ class FundosNetCollector(BaseCollector):
                 total = int(response_data.get("recordsFiltered") or 0)
                 if total <= 0:
                     raise RuntimeError("resposta documental sem recordsFiltered positivo")
-                if any(asset.isin.upper() not in str(row.get("descricaoFundo", "")).upper() for row in rows):
+                if any(not describes_asset(asset, row.get("descricaoFundo", "")) for row in rows):
                     raise RuntimeError("documento de certificado incompatível")
                 documents = [
                     self._to_document(asset, row, run_id) for row in rows
@@ -157,7 +189,7 @@ class FundosNetCollector(BaseCollector):
                         row_id = str(row.get("id") or row.get("idDocumento") or row.get("id_documento"))
                         if row_id and row_id in seen_ids:
                             continue
-                        if asset.isin.upper() not in str(row.get("descricaoFundo", "")).upper():
+                        if not describes_asset(asset, row.get("descricaoFundo", "")):
                             raise RuntimeError("documento de certificado incompatível")
                         if row_id:
                             seen_ids.add(row_id)
@@ -248,18 +280,28 @@ class FundosNetCollector(BaseCollector):
         self._install_ui_listeners(page, diagnostics)
         started = time.monotonic()
         diagnostics["idFundo_dom_before"] = self._inspect_id_fundo(page)
-        page.locator("#idFundo").evaluate(
-            """el => { $('#idFundo').select2('open'); }"""
-        )
-        search = page.locator(".select2-drop-active input.select2-input")
-        search.fill(asset.isin, force=True)
-        try:
-            page.locator(".select2-results li").filter(has_text=asset.isin).last.wait_for(
-                state="attached", timeout=min(self.timeout_ms, 5000)
+        # o código pelo qual o Fundos.NET lista o certificado: ISIN, ou CETIP nas emissões antigas
+        term = asset.isin if asset.isin.upper() in selected.text.upper() else asset.codigo_cetip
+        ajax_option_found = False
+        if diagnostics.get("administrator_fallback"):
+            # sem securitizadora escolhida a tela deixa o campo desabilitado; o certificado já foi validado
+            # pela busca com idAdm=0 e é injetado abaixo
+            page.locator("#idFundo").evaluate(
+                """el => { $(el).prop('disabled', false); try { $(el).select2('enable', true); } catch (e) {} }"""
             )
-            ajax_option_found = True
-        except Exception:
-            ajax_option_found = False
+        else:
+            page.locator("#idFundo").evaluate(
+                """el => { $('#idFundo').select2('open'); }"""
+            )
+            search = page.locator(".select2-drop-active input.select2-input")
+            search.fill(term, force=True)
+            try:
+                page.locator(".select2-results li").filter(has_text=term).last.wait_for(
+                    state="attached", timeout=min(self.timeout_ms, 5000)
+                )
+                ajax_option_found = True
+            except Exception:
+                ajax_option_found = False
         validated_id = str(selected.id_fundo)
         validated_text = selected.text
         expected_debtor = normalize_text(asset.devedor).split()[:2]
@@ -275,7 +317,7 @@ class FundosNetCollector(BaseCollector):
             "isin": selected.isin,
         }
         diagnostics["select2"] = {
-            "term": asset.isin,
+            "term": term,
             "ajax_option_found": ajax_option_found,
             "error": None if ajax_option_found else "select2_timeout",
             "duration_ms": round((time.monotonic() - started) * 1000),
@@ -305,7 +347,7 @@ class FundosNetCollector(BaseCollector):
         if selected_value != validated_id:
             raise RuntimeError(f"certificado selecionado inesperado: {selected_value}")
         displayed = page.locator("#s2id_idFundo").inner_text()
-        if asset.isin.upper() not in f"{displayed} {validated_text}".upper():
+        if not describes_asset(asset, f"{displayed} {validated_text}"):
             raise RuntimeError("Select2 não exibiu o certificado validado")
         diagnostics["selectors"]["idFundo"] = "#idFundo + Select2"
         diagnostics["certificate_text"] = validated_text
@@ -382,7 +424,7 @@ class FundosNetCollector(BaseCollector):
         if int(payload.get("recordsFiltered") or 0) <= 0:
             raise RuntimeError("resposta documental sem recordsFiltered positivo")
         rows = payload.get("data", [])
-        if any(asset.isin.upper() not in str(row.get("descricaoFundo", "")).upper() for row in rows):
+        if any(not describes_asset(asset, row.get("descricaoFundo", "")) for row in rows):
             raise RuntimeError("documento de certificado incompatível")
         diagnostics["native_xhr"].append(
             {
@@ -545,10 +587,15 @@ class FundosNetCollector(BaseCollector):
                     matches.append({"id": identifier, "nome": text})
             if len(matches) == 1:
                 return matches[0]
+            # Vários nomes contêm o buscado ("Vert Companhia Securitizadora" e "... de Créditos Financeiros"):
+            # só um nome igual ao buscado resolve o empate; sem igualdade exata, continua não localizada.
+            exact = [match for match in matches if normalize_text(match["nome"]) == expected]
+            if len(exact) == 1:
+                return exact[0]
         return None
 
     def _search_fundos(self, page, context, asset: Asset, administrator_id: int, type_id: int, diagnostics) -> list[FundosNetMatch]:
-        terms = [term for term in (asset.isin, asset.emissao, asset.devedor) if term]
+        terms = [term for term in (asset.isin, asset.codigo_cetip, asset.emissao, asset.devedor) if term]
         seen: set[str] = set()
         matches: list[FundosNetMatch] = []
         diagnostics.setdefault("listar_fundos_payloads", [])
@@ -586,7 +633,14 @@ class FundosNetCollector(BaseCollector):
                 match for match in unique.values()
                 if asset.isin.upper() in (match.isin or match.text).upper()
             ]
-            return isin_matches[0] if len(isin_matches) == 1 else None
+            if isin_matches:
+                return isin_matches[0] if len(isin_matches) == 1 else None
+            # nenhum certificado com o ISIN: o Fundos.NET pode listar pelo CETIP; exige também a mesma emissão
+            cetip_matches = [
+                match for match in unique.values()
+                if describes_asset(asset, match.isin or match.text) and _same_emission(asset, match.text)
+            ]
+            return cetip_matches[0] if len(cetip_matches) == 1 else None
         compatible = [
             match for match in unique.values()
             if str(asset.emissao) in match.text
@@ -778,6 +832,7 @@ class FundosNetCollector(BaseCollector):
             file_hash=item.get("hash_arquivo") or item.get("file_hash") or item.get("sha256"),
             download_status="pending",
             collected_at=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+            financial_statements_evidence=has_financial_statements_evidence(item),
             source_category=FundosNetCollector._grid_text(item, "categoriaDocumento"),
             source_type=FundosNetCollector._grid_text(item, "tipoDocumento"),
             source_species=FundosNetCollector._grid_text(item, "especieDocumento"),

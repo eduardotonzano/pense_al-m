@@ -1,0 +1,875 @@
+﻿id_eco;url;ano;operacao;emissao;serie;codigo_cetip;valor
+713;https://ecoagro.agr.br/emissoes-integra/713;2026;Café Brasil;469;1;CRA026007EP;R$ 48.000.000,00
+712;https://ecoagro.agr.br/emissoes-integra/712;2026;Ecoagro Insumos;475;1-2-3-4;CRA026007K9;R$ 100.000.000,00
+712;https://ecoagro.agr.br/emissoes-integra/712;2026;Ecoagro Insumos;475;1-2-3-4;CRA026007KA;R$ 100.000.000,00
+712;https://ecoagro.agr.br/emissoes-integra/712;2026;Ecoagro Insumos;475;1-2-3-4;CRA026007KB;R$ 100.000.000,00
+712;https://ecoagro.agr.br/emissoes-integra/712;2026;Ecoagro Insumos;475;1-2-3-4;CRA026007KC;R$ 100.000.000,00
+711;https://ecoagro.agr.br/emissoes-integra/711;2026;São Salvador Alimentos S.A.;470;1;CRA026006SK;R$ 200.000.000,00
+710;https://ecoagro.agr.br/emissoes-integra/710;2026;Boa Safra;433;1-2-3;CRA026006SH;R$ 70.000.000,00
+710;https://ecoagro.agr.br/emissoes-integra/710;2026;Boa Safra;433;1-2-3;CRA026006SI;R$ 70.000.000,00
+710;https://ecoagro.agr.br/emissoes-integra/710;2026;Boa Safra;433;1-2-3;CRA026006SJ;R$ 70.000.000,00
+707;https://ecoagro.agr.br/emissoes-integra/707;2026;Grupo Rumo Agro;448;1-2;CRA026006MX;R$ 20.000.000,00
+707;https://ecoagro.agr.br/emissoes-integra/707;2026;Grupo Rumo Agro;448;1-2;CRA026006MY;R$ 20.000.000,00
+706;https://ecoagro.agr.br/emissoes-integra/706;2026;BRF S.A.;466;1-2-3-4;CRA026006BT;R$ 825.000.000,00
+706;https://ecoagro.agr.br/emissoes-integra/706;2026;BRF S.A.;466;1-2-3-4;CRA026006BU;R$ 825.000.000,00
+706;https://ecoagro.agr.br/emissoes-integra/706;2026;BRF S.A.;466;1-2-3-4;CRA026006BV;R$ 825.000.000,00
+706;https://ecoagro.agr.br/emissoes-integra/706;2026;BRF S.A.;466;1-2-3-4;CRA026006BW;R$ 825.000.000,00
+705;https://ecoagro.agr.br/emissoes-integra/705;2026;Agropecuária Maggi Ltda;458;1-2;CRA0260060P;R$ 500.000.000,00
+705;https://ecoagro.agr.br/emissoes-integra/705;2026;Agropecuária Maggi Ltda;458;1-2;CRA0260060Q;R$ 500.000.000,00
+704;https://ecoagro.agr.br/emissoes-integra/704;2026;Toagro Agronegócios Ltda;451;1-2;CRA0260053D;R$ 71.000.000,00
+704;https://ecoagro.agr.br/emissoes-integra/704;2026;Toagro Agronegócios Ltda;451;1-2;CRA0260053E;R$ 71.000.000,00
+703;https://ecoagro.agr.br/emissoes-integra/703;2026;Agrícola Panorama Comércio e Representações LTDA;455;1-2-3;CRA026004XT;R$ 60.000.000,00
+703;https://ecoagro.agr.br/emissoes-integra/703;2026;Agrícola Panorama Comércio e Representações LTDA;455;1-2-3;CRA026004XU;R$ 60.000.000,00
+703;https://ecoagro.agr.br/emissoes-integra/703;2026;Agrícola Panorama Comércio e Representações LTDA;455;1-2-3;CRA026004XV;R$ 60.000.000,00
+702;https://ecoagro.agr.br/emissoes-integra/702;2026;Mantiqueira Brasil;462;1;CRA0260053F;R$ 150.000.000,00
+700;https://ecoagro.agr.br/emissoes-integra/700;2026;Opção Agro Ltda.;449;1;CRA026004BL;R$ 25.000.000,00
+699;https://ecoagro.agr.br/emissoes-integra/699;2026;Vale do Tijuco Açúcar e Álcool S.A.;453;1-2-3;CRA0000000;R$ 400.000.000,00
+699;https://ecoagro.agr.br/emissoes-integra/699;2026;Vale do Tijuco Açúcar e Álcool S.A.;453;1-2-3;CRA0000000;R$ 400.000.000,00
+699;https://ecoagro.agr.br/emissoes-integra/699;2026;Vale do Tijuco Açúcar e Álcool S.A.;453;1-2-3;CRA0000000;R$ 400.000.000,00
+698;https://ecoagro.agr.br/emissoes-integra/698;2026;Araguaia S.A.;457;1-2;CRA0000000;R$ 200.000.000,00
+698;https://ecoagro.agr.br/emissoes-integra/698;2026;Araguaia S.A.;457;1-2;CRA0000000;R$ 200.000.000,00
+697;https://ecoagro.agr.br/emissoes-integra/697;2026;Futura Agronegócios Ltda.;438;1-2-3;CRA026003JT;R$ 160.000.000,00
+697;https://ecoagro.agr.br/emissoes-integra/697;2026;Futura Agronegócios Ltda.;438;1-2-3;CRA026003JU;R$ 160.000.000,00
+697;https://ecoagro.agr.br/emissoes-integra/697;2026;Futura Agronegócios Ltda.;438;1-2-3;CRA026003JV;R$ 160.000.000,00
+695;https://ecoagro.agr.br/emissoes-integra/695;2026;Ourofertil Nordeste Ltda;452;1-2-3-4;CRA026003JT;R$ 160.000.000,00
+695;https://ecoagro.agr.br/emissoes-integra/695;2026;Ourofertil Nordeste Ltda;452;1-2-3-4;CRA026003JU;R$ 160.000.000,00
+695;https://ecoagro.agr.br/emissoes-integra/695;2026;Ourofertil Nordeste Ltda;452;1-2-3-4;CRA026003JV;R$ 160.000.000,00
+693;https://ecoagro.agr.br/emissoes-integra/693;2026;Seara Alimentos Ltda;454;1-2-3-4;CRA02600335;R$ 530.495.000,00
+693;https://ecoagro.agr.br/emissoes-integra/693;2026;Seara Alimentos Ltda;454;1-2-3-4;CRA02600336;R$ 530.495.000,00
+693;https://ecoagro.agr.br/emissoes-integra/693;2026;Seara Alimentos Ltda;454;1-2-3-4;CRA02600337;R$ 530.495.000,00
+693;https://ecoagro.agr.br/emissoes-integra/693;2026;Seara Alimentos Ltda;454;1-2-3-4;CRA02600338;R$ 530.495.000,00
+690;https://ecoagro.agr.br/emissoes-integra/690;2026;Belmiro Catelan;446;1;CRA026002XN;R$ 112.000.000,00
+689;https://ecoagro.agr.br/emissoes-integra/689;2026;BRF S.A.;447;1-2-3-4;CRA026002BD;R$ 1.200.000.000,00
+689;https://ecoagro.agr.br/emissoes-integra/689;2026;BRF S.A.;447;1-2-3-4;CRA026002BE;R$ 1.200.000.000,00
+689;https://ecoagro.agr.br/emissoes-integra/689;2026;BRF S.A.;447;1-2-3-4;CRA026002BF;R$ 1.200.000.000,00
+689;https://ecoagro.agr.br/emissoes-integra/689;2026;BRF S.A.;447;1-2-3-4;CRA026002BG;R$ 1.200.000.000,00
+688;https://ecoagro.agr.br/emissoes-integra/688;2026;Ecoagro Insumos (DC's Diversificados);445;1-2-3;CRA026001UQ;R$ 100.000.000,00
+688;https://ecoagro.agr.br/emissoes-integra/688;2026;Ecoagro Insumos (DC's Diversificados);445;1-2-3;CRA026001UR;R$ 100.000.000,00
+688;https://ecoagro.agr.br/emissoes-integra/688;2026;Ecoagro Insumos (DC's Diversificados);445;1-2-3;CRA026001US;R$ 100.000.000,00
+687;https://ecoagro.agr.br/emissoes-integra/687;2026;Lar Cooperativa Agroindustrial;442;1-2-3-4;CRA026001JL;R$ 700.000.000,00
+687;https://ecoagro.agr.br/emissoes-integra/687;2026;Lar Cooperativa Agroindustrial;442;1-2-3-4;CRA026001JM;R$ 700.000.000,00
+687;https://ecoagro.agr.br/emissoes-integra/687;2026;Lar Cooperativa Agroindustrial;442;1-2-3-4;CRA026001JN;R$ 700.000.000,00
+687;https://ecoagro.agr.br/emissoes-integra/687;2026;Lar Cooperativa Agroindustrial;442;1-2-3-4;CRA026001JO;R$ 700.000.000,00
+686;https://ecoagro.agr.br/emissoes-integra/686;2026;Caramuru Alimentos S.A;441;1-2-3;CRA026000MD;R$ 600.000.000,00
+686;https://ecoagro.agr.br/emissoes-integra/686;2026;Caramuru Alimentos S.A;441;1-2-3;CRA026000ME;R$ 600.000.000,00
+686;https://ecoagro.agr.br/emissoes-integra/686;2026;Caramuru Alimentos S.A;441;1-2-3;CRA026000MG;R$ 600.000.000,00
+685;https://ecoagro.agr.br/emissoes-integra/685;2026;Adubos Araguaia;436;1-2-3-4-5;CRA000000000;R$ 200.000.000,00
+685;https://ecoagro.agr.br/emissoes-integra/685;2026;Adubos Araguaia;436;1-2-3-4-5;CRA000000000;R$ 200.000.000,00
+685;https://ecoagro.agr.br/emissoes-integra/685;2026;Adubos Araguaia;436;1-2-3-4-5;CRA000000000;R$ 200.000.000,00
+685;https://ecoagro.agr.br/emissoes-integra/685;2026;Adubos Araguaia;436;1-2-3-4-5;CRA000000000;R$ 200.000.000,00
+685;https://ecoagro.agr.br/emissoes-integra/685;2026;Adubos Araguaia;436;1-2-3-4-5;CRA000000000;R$ 200.000.000,00
+682;https://ecoagro.agr.br/emissoes-integra/682;2026;Vera Cruz Agropecuária LTDA;422;1;CRA02600001;R$ 150.000.000,00
+681;https://ecoagro.agr.br/emissoes-integra/681;2025;Casa do Café Comércio e Representações de Produtos Agrícolas Ltda;439;1-2-3;CRA02500CT5;R$ 38.516.500,00
+681;https://ecoagro.agr.br/emissoes-integra/681;2025;Casa do Café Comércio e Representações de Produtos Agrícolas Ltda;439;1-2-3;CRA02500CT6;R$ 38.516.500,00
+681;https://ecoagro.agr.br/emissoes-integra/681;2025;Casa do Café Comércio e Representações de Produtos Agrícolas Ltda;439;1-2-3;CRA02500CT7;R$ 38.516.500,00
+680;https://ecoagro.agr.br/emissoes-integra/680;2025;Syagri Agronegócios Comércio & Representações LTDA;431;1-2-3;CRA02500C6X;R$ 25.000.000,00
+680;https://ecoagro.agr.br/emissoes-integra/680;2025;Syagri Agronegócios Comércio & Representações LTDA;431;1-2-3;CRA02500C6Y;R$ 25.000.000,00
+680;https://ecoagro.agr.br/emissoes-integra/680;2025;Syagri Agronegócios Comércio & Representações LTDA;431;1-2-3;CRA02500C6Z;R$ 25.000.000,00
+679;https://ecoagro.agr.br/emissoes-integra/679;2025;JS RURAL SOCIEDADE UNIPESSOAL LIMITADA;440;1;CRA02500BW5;R$ 300.000.000,00
+678;https://ecoagro.agr.br/emissoes-integra/678;2025;Conceito Agrícola Representações e Comércio de Produtos Agropecuários LTDA;428;1-2-3;CRA02500BF5;R$ 60.000.000,00
+678;https://ecoagro.agr.br/emissoes-integra/678;2025;Conceito Agrícola Representações e Comércio de Produtos Agropecuários LTDA;428;1-2-3;CRA02500BF6;R$ 60.000.000,00
+678;https://ecoagro.agr.br/emissoes-integra/678;2025;Conceito Agrícola Representações e Comércio de Produtos Agropecuários LTDA;428;1-2-3;CRA02500BF7;R$ 60.000.000,00
+677;https://ecoagro.agr.br/emissoes-integra/677;2025;Scheffer & Cia Ltda;430;1;CRA02500ASX;R$ 120.000.000,00
+676;https://ecoagro.agr.br/emissoes-integra/676;2025;BRF S.A.;434;1-2-3-5;CRA02500BVT;R$ 2.375.000.000,00
+676;https://ecoagro.agr.br/emissoes-integra/676;2025;BRF S.A.;434;1-2-3-5;CRA02500BVU;R$ 2.375.000.000,00
+676;https://ecoagro.agr.br/emissoes-integra/676;2025;BRF S.A.;434;1-2-3-5;CRA02500BVV;R$ 2.375.000.000,00
+676;https://ecoagro.agr.br/emissoes-integra/676;2025;BRF S.A.;434;1-2-3-5;CRA02500BVX;R$ 2.375.000.000,00
+675;https://ecoagro.agr.br/emissoes-integra/675;2025;Alibem Alimentos S.A.;426;1-2-3-4-5;CRA02500C1D;R$ 750.000.000,00
+675;https://ecoagro.agr.br/emissoes-integra/675;2025;Alibem Alimentos S.A.;426;1-2-3-4-5;CRA02500C1E;R$ 750.000.000,00
+675;https://ecoagro.agr.br/emissoes-integra/675;2025;Alibem Alimentos S.A.;426;1-2-3-4-5;CRA02500C1F;R$ 750.000.000,00
+675;https://ecoagro.agr.br/emissoes-integra/675;2025;Alibem Alimentos S.A.;426;1-2-3-4-5;CRA02500C1G;R$ 750.000.000,00
+675;https://ecoagro.agr.br/emissoes-integra/675;2025;Alibem Alimentos S.A.;426;1-2-3-4-5;CRA02500C1H;R$ 750.000.000,00
+674;https://ecoagro.agr.br/emissoes-integra/674;2025;Darci Antônio Camera;393;1-2;CRA025009VL;R$ 60.000.000,00
+674;https://ecoagro.agr.br/emissoes-integra/674;2025;Darci Antônio Camera;393;1-2;CRA025009VM;R$ 60.000.000,00
+669;https://ecoagro.agr.br/emissoes-integra/669;2025;Coopernorte;413;1-2-3;CRA025009KK;R$ 60.000.000,00
+669;https://ecoagro.agr.br/emissoes-integra/669;2025;Coopernorte;413;1-2-3;CRA025009KL;R$ 60.000.000,00
+669;https://ecoagro.agr.br/emissoes-integra/669;2025;Coopernorte;413;1-2-3;CRA025009KM;R$ 60.000.000,00
+668;https://ecoagro.agr.br/emissoes-integra/668;2025;Açucareira Quatá S.A.;416;1-2-3;CRA02500A15;R$ 300.000.000,00
+668;https://ecoagro.agr.br/emissoes-integra/668;2025;Açucareira Quatá S.A.;416;1-2-3;CRA02500A16;R$ 300.000.000,00
+668;https://ecoagro.agr.br/emissoes-integra/668;2025;Açucareira Quatá S.A.;416;1-2-3;CRA02500A17;R$ 300.000.000,00
+667;https://ecoagro.agr.br/emissoes-integra/667;2025;C. Vale - Cooperativa Agroindustrial;417;1-2-3;CRA02500AHT;R$ 601.405.000,00
+667;https://ecoagro.agr.br/emissoes-integra/667;2025;C. Vale - Cooperativa Agroindustrial;417;1-2-3;CRA02500AHU;R$ 601.405.000,00
+667;https://ecoagro.agr.br/emissoes-integra/667;2025;C. Vale - Cooperativa Agroindustrial;417;1-2-3;CRA02500AHV;R$ 601.405.000,00
+666;https://ecoagro.agr.br/emissoes-integra/666;2025;Jalles Machado S.A.;420;1-2;CRA025009Q2;R$ 400.000,00
+666;https://ecoagro.agr.br/emissoes-integra/666;2025;Jalles Machado S.A.;420;1-2;CRA025009Q3;R$ 400.000,00
+665;https://ecoagro.agr.br/emissoes-integra/665;2025;Camil Alimentos S.A.;389;1-2-3-4;CRA02500AC9;R$ 1.250.000.000,00
+665;https://ecoagro.agr.br/emissoes-integra/665;2025;Camil Alimentos S.A.;389;1-2-3-4;CRA02500ACA;R$ 1.250.000.000,00
+665;https://ecoagro.agr.br/emissoes-integra/665;2025;Camil Alimentos S.A.;389;1-2-3-4;CRA02500ACB;R$ 1.250.000.000,00
+665;https://ecoagro.agr.br/emissoes-integra/665;2025;Camil Alimentos S.A.;389;1-2-3-4;CRA02500ACC;R$ 1.250.000.000,00
+664;https://ecoagro.agr.br/emissoes-integra/664;2025;Seara Alimentos Ltda.;419;1-2-3-4-5;CRA0250099D;R$ 3.026.166.000,00
+664;https://ecoagro.agr.br/emissoes-integra/664;2025;Seara Alimentos Ltda.;419;1-2-3-4-5;CRA025009EX;R$ 3.026.166.000,00
+664;https://ecoagro.agr.br/emissoes-integra/664;2025;Seara Alimentos Ltda.;419;1-2-3-4-5;CRA025009EY;R$ 3.026.166.000,00
+664;https://ecoagro.agr.br/emissoes-integra/664;2025;Seara Alimentos Ltda.;419;1-2-3-4-5;CRA025009EZ;R$ 3.026.166.000,00
+664;https://ecoagro.agr.br/emissoes-integra/664;2025;Seara Alimentos Ltda.;419;1-2-3-4-5;0;R$ 3.026.166.000,00
+662;https://ecoagro.agr.br/emissoes-integra/662;2025;JF Citrus Agropecuária S.A.;415;1-2;CRA025008SY;R$ 400.000.000,00
+662;https://ecoagro.agr.br/emissoes-integra/662;2025;JF Citrus Agropecuária S.A.;415;1-2;CRA0250093T;R$ 400.000.000,00
+661;https://ecoagro.agr.br/emissoes-integra/661;2025;Usina Batatais S.A. Açúcar e Álcool;414;1-2;CRA025008Y9;R$ 400.000.000,00
+661;https://ecoagro.agr.br/emissoes-integra/661;2025;Usina Batatais S.A. Açúcar e Álcool;414;1-2;CRA025008YA;R$ 400.000.000,00
+660;https://ecoagro.agr.br/emissoes-integra/660;2025;Bem Brasil Alimentos S.A.;418;1;CRA025008NB;R$ 150.000.000,00
+658;https://ecoagro.agr.br/emissoes-integra/658;2025;Bem Brasil Alimentos S.A.;413;1;CRA025009KK;R$ 150000000.00
+657;https://ecoagro.agr.br/emissoes-integra/657;2025;São Salvador Alimentos S.A.;412;1-2-3-4;CRA025008NC;R$ 500.000.000,00
+657;https://ecoagro.agr.br/emissoes-integra/657;2025;São Salvador Alimentos S.A.;412;1-2-3-4;CRA025008ND;R$ 500.000.000,00
+657;https://ecoagro.agr.br/emissoes-integra/657;2025;São Salvador Alimentos S.A.;412;1-2-3-4;CRA025008NE;R$ 500.000.000,00
+657;https://ecoagro.agr.br/emissoes-integra/657;2025;São Salvador Alimentos S.A.;412;1-2-3-4;CRA025008NF;R$ 500.000.000,00
+656;https://ecoagro.agr.br/emissoes-integra/656;2025;Neomille S.A.;411;1-2-3;CRA025008C1;R$ 500.000.000,00
+656;https://ecoagro.agr.br/emissoes-integra/656;2025;Neomille S.A.;411;1-2-3;CRA025008C2;R$ 500.000.000,00
+656;https://ecoagro.agr.br/emissoes-integra/656;2025;Neomille S.A.;411;1-2-3;CRA025008C3;R$ 500.000.000,00
+655;https://ecoagro.agr.br/emissoes-integra/655;2025;Toagro Agronegócios Ltda;358;1-2-3;CRA025007KA;R$ 20.000.000,00
+655;https://ecoagro.agr.br/emissoes-integra/655;2025;Toagro Agronegócios Ltda;358;1-2-3;CRA025007KB;R$ 20.000.000,00
+655;https://ecoagro.agr.br/emissoes-integra/655;2025;Toagro Agronegócios Ltda;358;1-2-3;CRA025007KC;R$ 20.000.000,00
+654;https://ecoagro.agr.br/emissoes-integra/654;2025;Expocacer Cooperativa dos Cafeicultores do Cerrado Ltda;410;1;CRA025007K9;R$ 250.000.000,00
+653;https://ecoagro.agr.br/emissoes-integra/653;2025;Agrofarm;408;1-2-3;CRA025007EP;R$ 45.000.000,00
+653;https://ecoagro.agr.br/emissoes-integra/653;2025;Agrofarm;408;1-2-3;CRA025007EQ;R$ 45.000.000,00
+653;https://ecoagro.agr.br/emissoes-integra/653;2025;Agrofarm;408;1-2-3;CRA025007ER;R$ 45.000.000,00
+652;https://ecoagro.agr.br/emissoes-integra/652;2025;Cereal Comércio Exportação e Representação Agropecuária S.A.;406;1-2-3;CRA025007KD;R$ 500.000.000,00
+652;https://ecoagro.agr.br/emissoes-integra/652;2025;Cereal Comércio Exportação e Representação Agropecuária S.A.;406;1-2-3;CRA025007KE;R$ 500.000.000,00
+652;https://ecoagro.agr.br/emissoes-integra/652;2025;Cereal Comércio Exportação e Representação Agropecuária S.A.;406;1-2-3;CRA025007KF;R$ 500.000.000,00
+649;https://ecoagro.agr.br/emissoes-integra/649;2025;Cereal Ouro Sementes Ltda;397;1;CRA025006SH;R$ 60.000.000,00
+648;https://ecoagro.agr.br/emissoes-integra/648;2025;Mantiqueira Brasil;404;1-2-3;CRA0250073L;R$ 500.000.000,00
+648;https://ecoagro.agr.br/emissoes-integra/648;2025;Mantiqueira Brasil;404;1-2-3;CRA0250073M;R$ 500.000.000,00
+648;https://ecoagro.agr.br/emissoes-integra/648;2025;Mantiqueira Brasil;404;1-2-3;CRA0250073N;R$ 500.000.000,00
+647;https://ecoagro.agr.br/emissoes-integra/647;2025;Alair Ribeiro Fernandes;290;1;CRA0250066E;R$ 100.000.000,00
+646;https://ecoagro.agr.br/emissoes-integra/646;2025;Pirapitinga LTDA;401;1-2;CRA0250066F;R$ 250.000.000,00
+646;https://ecoagro.agr.br/emissoes-integra/646;2025;Pirapitinga LTDA;401;1-2;CRA0250066G;R$ 250.000.000,00
+645;https://ecoagro.agr.br/emissoes-integra/645;2025;Lar Cooperativa Agroindustrial;405;1-2-3-4;CRA025006NA;R$ 700.000.000,00
+645;https://ecoagro.agr.br/emissoes-integra/645;2025;Lar Cooperativa Agroindustrial;405;1-2-3-4;CRA025006NB;R$ 700.000.000,00
+645;https://ecoagro.agr.br/emissoes-integra/645;2025;Lar Cooperativa Agroindustrial;405;1-2-3-4;CRA025006NC;R$ 700.000.000,00
+645;https://ecoagro.agr.br/emissoes-integra/645;2025;Lar Cooperativa Agroindustrial;405;1-2-3-4;CRA025006ND;R$ 700.000.000,00
+644;https://ecoagro.agr.br/emissoes-integra/644;2025;Agrícola Panorama Comércio e Representações LTDA;400;1-2-3;CRA025004XT;R$ 50.000.000,00
+644;https://ecoagro.agr.br/emissoes-integra/644;2025;Agrícola Panorama Comércio e Representações LTDA;400;1-2-3;CRA025004XU;R$ 50.000.000,00
+644;https://ecoagro.agr.br/emissoes-integra/644;2025;Agrícola Panorama Comércio e Representações LTDA;400;1-2-3;CRA025004XV;R$ 50.000.000,00
+643;https://ecoagro.agr.br/emissoes-integra/643;2025;U.S.J. - Açúcar e Álcool S.A;402;1-2;CRA025005PL;R$ 140.000.000,00
+643;https://ecoagro.agr.br/emissoes-integra/643;2025;U.S.J. - Açúcar e Álcool S.A;402;1-2;CRA025005PM;R$ 140.000.000,00
+642;https://ecoagro.agr.br/emissoes-integra/642;2025;BRF S.A;403;1-2-3-4-5;CRA02500669;R$ 2.000.000.000,00
+642;https://ecoagro.agr.br/emissoes-integra/642;2025;BRF S.A;403;1-2-3-4-5;CRA0250066A;R$ 2.000.000.000,00
+642;https://ecoagro.agr.br/emissoes-integra/642;2025;BRF S.A;403;1-2-3-4-5;CRA0250066B;R$ 2.000.000.000,00
+642;https://ecoagro.agr.br/emissoes-integra/642;2025;BRF S.A;403;1-2-3-4-5;CRA0250066C;R$ 2.000.000.000,00
+642;https://ecoagro.agr.br/emissoes-integra/642;2025;BRF S.A;403;1-2-3-4-5;CRA0250066D;R$ 2.000.000.000,00
+641;https://ecoagro.agr.br/emissoes-integra/641;2025;Ferti Solo Insumos Agrícolas Ltda;385;1-2-3;CRA025004H6;R$ 55.000.000,00
+641;https://ecoagro.agr.br/emissoes-integra/641;2025;Ferti Solo Insumos Agrícolas Ltda;385;1-2-3;CRA025004H7;R$ 55.000.000,00
+641;https://ecoagro.agr.br/emissoes-integra/641;2025;Ferti Solo Insumos Agrícolas Ltda;385;1-2-3;CRA025004H8;R$ 55.000.000,00
+640;https://ecoagro.agr.br/emissoes-integra/640;2025;Ecoagro Insumos;370;1-2-3;CRA025004MR;R$ 100.000.000,00
+640;https://ecoagro.agr.br/emissoes-integra/640;2025;Ecoagro Insumos;370;1-2-3;CRA025004MS;R$ 100.000.000,00
+640;https://ecoagro.agr.br/emissoes-integra/640;2025;Ecoagro Insumos;370;1-2-3;CRA025004MT;R$ 100.000.000,00
+637;https://ecoagro.agr.br/emissoes-integra/637;2025;GDM Genética do Brasil S.A.;398;1-2-3-4;CRA025005EH;R$ 700.000.000,00
+637;https://ecoagro.agr.br/emissoes-integra/637;2025;GDM Genética do Brasil S.A.;398;1-2-3-4;CRA025005EI;R$ 700.000.000,00
+637;https://ecoagro.agr.br/emissoes-integra/637;2025;GDM Genética do Brasil S.A.;398;1-2-3-4;CRA025005EJ;R$ 700.000.000,00
+637;https://ecoagro.agr.br/emissoes-integra/637;2025;GDM Genética do Brasil S.A.;398;1-2-3-4;CRA025005EK;R$ 700.000.000,00
+633;https://ecoagro.agr.br/emissoes-integra/633;2025;S C Comercio e Representacao de Produtos Ltda;399;1-2-3;CRA025004BL;R$ 40.000.000,00
+633;https://ecoagro.agr.br/emissoes-integra/633;2025;S C Comercio e Representacao de Produtos Ltda;399;1-2-3;CRA025004BM;R$ 40.000.000,00
+633;https://ecoagro.agr.br/emissoes-integra/633;2025;S C Comercio e Representacao de Produtos Ltda;399;1-2-3;CRA025004BN;R$ 40.000.000,00
+632;https://ecoagro.agr.br/emissoes-integra/632;2025;Pantanal Agrícola S.A;386;1;CRA025004BO;R$ 170.000.000,00
+631;https://ecoagro.agr.br/emissoes-integra/631;2025;Natural One S.A;396;1-2;CRA0250040I;R$ 495.000.000,00
+631;https://ecoagro.agr.br/emissoes-integra/631;2025;Natural One S.A;396;1-2;CRA0250040J;R$ 495.000.000,00
+627;https://ecoagro.agr.br/emissoes-integra/627;2025;Spaço Agrícola S.A;363;1-2-3;CRA025003E9;R$ 65.000.000,00
+627;https://ecoagro.agr.br/emissoes-integra/627;2025;Spaço Agrícola S.A;363;1-2-3;CRA025003EA;R$ 65.000.000,00
+627;https://ecoagro.agr.br/emissoes-integra/627;2025;Spaço Agrícola S.A;363;1-2-3;CRA025003EB;R$ 65.000.000,00
+626;https://ecoagro.agr.br/emissoes-integra/626;2025;Tobasa Bioindustrial de Babaçu S.A;383;1;CRA02500335;R$ 36.000.000,00
+625;https://ecoagro.agr.br/emissoes-integra/625;2025;INTERGRAN COMÉRCIO DE GRÃOS LTDA.;335;1;CRA025002XL;R$ 50.000.000,00
+618;https://ecoagro.agr.br/emissoes-integra/618;2025;Uby Agroquímica S.A;353;1-2-3;CRA02500336;R$ 350.000.000,00
+618;https://ecoagro.agr.br/emissoes-integra/618;2025;Uby Agroquímica S.A;353;1-2-3;CRA02500337;R$ 350.000.000,00
+618;https://ecoagro.agr.br/emissoes-integra/618;2025;Uby Agroquímica S.A;353;1-2-3;CRA02500338;R$ 350.000.000,00
+617;https://ecoagro.agr.br/emissoes-integra/617;2025;Enebra Brasil Energia LTDA;394;1;CRA025002MH;R$ 100.000.000,00
+616;https://ecoagro.agr.br/emissoes-integra/616;2025;Agrícola Panorama;388;1-2-3;CRA025001US;R$ 50.000.000,00
+616;https://ecoagro.agr.br/emissoes-integra/616;2025;Agrícola Panorama;388;1-2-3;CRA025001UU;R$ 50.000.000,00
+616;https://ecoagro.agr.br/emissoes-integra/616;2025;Agrícola Panorama;388;1-2-3;CRA025001UV;R$ 50.000.000,00
+612;https://ecoagro.agr.br/emissoes-integra/612;2025;Grupo AP Agrícola - 2025;375;1-2-3;CRA025001UP;R$ 90.000.000,00
+612;https://ecoagro.agr.br/emissoes-integra/612;2025;Grupo AP Agrícola - 2025;375;1-2-3;CRA025001UQ;R$ 90.000.000,00
+612;https://ecoagro.agr.br/emissoes-integra/612;2025;Grupo AP Agrícola - 2025;375;1-2-3;CRA025001UR;R$ 90.000.000,00
+607;https://ecoagro.agr.br/emissoes-integra/607;2025;BRF S.A;390;1-2-3-4;CRA0250020B;R$ 1.250.000.000,00
+607;https://ecoagro.agr.br/emissoes-integra/607;2025;BRF S.A;390;1-2-3-4;CRA0250020C;R$ 1.250.000.000,00
+607;https://ecoagro.agr.br/emissoes-integra/607;2025;BRF S.A;390;1-2-3-4;CRA0250020D;R$ 1.250.000.000,00
+607;https://ecoagro.agr.br/emissoes-integra/607;2025;BRF S.A;390;1-2-3-4;CRA0250020E;R$ 1.250.000.000,00
+606;https://ecoagro.agr.br/emissoes-integra/606;2025;Marfrig Global Foods S.A;387;1-2-3-4-5;CRA0250018H;R$ 1.500.000.000,00
+606;https://ecoagro.agr.br/emissoes-integra/606;2025;Marfrig Global Foods S.A;387;1-2-3-4-5;CRA0250018I;R$ 1.500.000.000,00
+606;https://ecoagro.agr.br/emissoes-integra/606;2025;Marfrig Global Foods S.A;387;1-2-3-4-5;CRA0250018J;R$ 1.500.000.000,00
+606;https://ecoagro.agr.br/emissoes-integra/606;2025;Marfrig Global Foods S.A;387;1-2-3-4-5;CRA0250018K;R$ 1.500.000.000,00
+606;https://ecoagro.agr.br/emissoes-integra/606;2025;Marfrig Global Foods S.A;387;1-2-3-4-5;CRA0250018L;R$ 1.500.000.000,00
+605;https://ecoagro.agr.br/emissoes-integra/605;2025;FS FLORESTAL S.A;384;1-2-3;CRA0250012X;R$ 500.000.000,00
+605;https://ecoagro.agr.br/emissoes-integra/605;2025;FS FLORESTAL S.A;384;1-2-3;CRA0250012Y;R$ 500.000.000,00
+605;https://ecoagro.agr.br/emissoes-integra/605;2025;FS FLORESTAL S.A;384;1-2-3;CRA0250012Z;R$ 500.000.000,00
+708;https://ecoagro.agr.br/emissoes-integra/708;2025;TESTE;0;1-2;CRA0000000;R$ 2,00
+708;https://ecoagro.agr.br/emissoes-integra/708;2025;TESTE;0;1-2;CRA0000000;R$ 2,00
+603;https://ecoagro.agr.br/emissoes-integra/603;2025;Integrada Cooperativa Agroindustrial;378;1-2;CRA025000MI;R$ 450.000.000,00
+603;https://ecoagro.agr.br/emissoes-integra/603;2025;Integrada Cooperativa Agroindustrial;378;1-2;CRA025000MJ;R$ 450.000.000,00
+597;https://ecoagro.agr.br/emissoes-integra/597;2024;Armando Bianchessi;362;1-2;CRA02400DW4;R$ 60.000.000,00
+597;https://ecoagro.agr.br/emissoes-integra/597;2024;Armando Bianchessi;362;1-2;CRA02400DW5;R$ 60.000.000,00
+596;https://ecoagro.agr.br/emissoes-integra/596;2024;Usina Coruripe Açúcar e Álcool S.A;373;1-2-3-4-5;CRA02400ECQ;R$ 604.400.000,00
+596;https://ecoagro.agr.br/emissoes-integra/596;2024;Usina Coruripe Açúcar e Álcool S.A;373;1-2-3-4-5;CRA02400ECR;R$ 604.400.000,00
+596;https://ecoagro.agr.br/emissoes-integra/596;2024;Usina Coruripe Açúcar e Álcool S.A;373;1-2-3-4-5;CRA02400ECS;R$ 604.400.000,00
+596;https://ecoagro.agr.br/emissoes-integra/596;2024;Usina Coruripe Açúcar e Álcool S.A;373;1-2-3-4-5;BRECOACRAIB1;R$ 604.400.000,00
+596;https://ecoagro.agr.br/emissoes-integra/596;2024;Usina Coruripe Açúcar e Álcool S.A;373;1-2-3-4-5;CRA02400ECU;R$ 604.400.000,00
+595;https://ecoagro.agr.br/emissoes-integra/595;2024;Cooperativa Agrícola Mista General Osório (Cotribá);376;1-2-3;CRA02400E1M;R$ 120.000.000,00
+595;https://ecoagro.agr.br/emissoes-integra/595;2024;Cooperativa Agrícola Mista General Osório (Cotribá);376;1-2-3;CRA02400E1N;R$ 120.000.000,00
+595;https://ecoagro.agr.br/emissoes-integra/595;2024;Cooperativa Agrícola Mista General Osório (Cotribá);376;1-2-3;CRA02400E1O;R$ 120.000.000,00
+601;https://ecoagro.agr.br/emissoes-integra/601;2024;Agrícola Panorama Comércio e Representações LTDA;379;1-2-3;CRA02400DL8;R$ 51.680.000,00
+601;https://ecoagro.agr.br/emissoes-integra/601;2024;Agrícola Panorama Comércio e Representações LTDA;379;1-2-3;CRA02400DL9;R$ 51.680.000,00
+601;https://ecoagro.agr.br/emissoes-integra/601;2024;Agrícola Panorama Comércio e Representações LTDA;379;1-2-3;CRA02400DLA;R$ 51.680.000,00
+590;https://ecoagro.agr.br/emissoes-integra/590;2024;Primato Cooperativa Agroinsdustrial;372;1;CRA02400BQD;R$ 195.000.000,00
+589;https://ecoagro.agr.br/emissoes-integra/589;2024;Natural One Gestão Patrimonial S.A;3;1;24K1742203;R$ 120.000.000,00
+588;https://ecoagro.agr.br/emissoes-integra/588;2024;Bem Brasil Alimentos S.A;371;1;CRA02400AYK;R$ 350.000.000,00
+586;https://ecoagro.agr.br/emissoes-integra/586;2024;Tanac S.A;360;1-2;CRA02400AYI;R$ 250.000.000,00
+586;https://ecoagro.agr.br/emissoes-integra/586;2024;Tanac S.A;360;1-2;CRA02400AYJ;R$ 250.000.000,00
+585;https://ecoagro.agr.br/emissoes-integra/585;2024;Conceito Agrícola Representações e Comércio de Produtos Agropecuários LTDA;345;1-2;CRA02400ANF;R$ 34.000.000,00
+585;https://ecoagro.agr.br/emissoes-integra/585;2024;Conceito Agrícola Representações e Comércio de Produtos Agropecuários LTDA;345;1-2;CRA02400BF6;R$ 34.000.000,00
+584;https://ecoagro.agr.br/emissoes-integra/584;2024;Nativa Agrícola LTDA;366;1-2;CRA02400ANG;R$ 40.000.000,00
+584;https://ecoagro.agr.br/emissoes-integra/584;2024;Nativa Agrícola LTDA;366;1-2;CRA02400ANH;R$ 40.000.000,00
+583;https://ecoagro.agr.br/emissoes-integra/583;2024;Rumo Agronegócios LTDA & Rumo Agrocomércio de Insumos;314;1-2;CRA02400A16;R$ 20.000.000,00
+583;https://ecoagro.agr.br/emissoes-integra/583;2024;Rumo Agronegócios LTDA & Rumo Agrocomércio de Insumos;314;1-2;CRA02400A17;R$ 20.000.000,00
+582;https://ecoagro.agr.br/emissoes-integra/582;2024;Syagri Agronegócios Comércio & Representações LTDA;344;1-2-3;CRA024009VO;R$ 65.000.000,00
+582;https://ecoagro.agr.br/emissoes-integra/582;2024;Syagri Agronegócios Comércio & Representações LTDA;344;1-2-3;CRA024009VP;R$ 65.000.000,00
+582;https://ecoagro.agr.br/emissoes-integra/582;2024;Syagri Agronegócios Comércio & Representações LTDA;344;1-2-3;CRA024009VQ;R$ 65.000.000,00
+581;https://ecoagro.agr.br/emissoes-integra/581;2024;Vera Cruz Agropecuária LTDA;361;1;CRA024009VN;R$ 150.000.000,00
+580;https://ecoagro.agr.br/emissoes-integra/580;2024;Marfrig Global Foods S.A;369;1-2-3-4;CRA024009Q2;R$ 2.000.000.000,00
+580;https://ecoagro.agr.br/emissoes-integra/580;2024;Marfrig Global Foods S.A;369;1-2-3-4;CRA024009Q3;R$ 2.000.000.000,00
+580;https://ecoagro.agr.br/emissoes-integra/580;2024;Marfrig Global Foods S.A;369;1-2-3-4;CRA024009Q4;R$ 2.000.000.000,00
+580;https://ecoagro.agr.br/emissoes-integra/580;2024;Marfrig Global Foods S.A;369;1-2-3-4;CRA024009Q5;R$ 2.000.000.000,00
+579;https://ecoagro.agr.br/emissoes-integra/579;2024;FS Infraestrutura S.A.;2;1;24I2431440;R$ 100.000.000,00
+578;https://ecoagro.agr.br/emissoes-integra/578;2024;Futura Agronegócios Ltda;348;1-2-3;CRA0240093V;R$ 160.000.000,00
+578;https://ecoagro.agr.br/emissoes-integra/578;2024;Futura Agronegócios Ltda;348;1-2-3;CRA0240093X;R$ 160.000.000,00
+578;https://ecoagro.agr.br/emissoes-integra/578;2024;Futura Agronegócios Ltda;348;1-2-3;CRA0240093Y;R$ 160.000.000,00
+577;https://ecoagro.agr.br/emissoes-integra/577;2024;Vale do Tijuco Açúcar e Álcool S.A.;354;1-2;CRA0240099E;R$ 800.000.000,00
+577;https://ecoagro.agr.br/emissoes-integra/577;2024;Vale do Tijuco Açúcar e Álcool S.A.;354;1-2;CRA0240099F;R$ 800.000.000,00
+576;https://ecoagro.agr.br/emissoes-integra/576;2024;Supply Seeds Ltda & Supply Chain Armazéns Gerais Ltda;334;1-2;CRA024008N7;R$ 89.280.000,00
+576;https://ecoagro.agr.br/emissoes-integra/576;2024;Supply Seeds Ltda & Supply Chain Armazéns Gerais Ltda;334;1-2;CRA024008N8;R$ 89.280.000,00
+575;https://ecoagro.agr.br/emissoes-integra/575;2024;Flademir;328;1;CRA024008C1;R$ 13.870.000,00
+573;https://ecoagro.agr.br/emissoes-integra/573;2024;Solubio Tecnologias Agrícolas S.A;352;1;CRA024008C2;R$ 200.000.000,00
+571;https://ecoagro.agr.br/emissoes-integra/571;2024;Be8 S.A;295;1-2;CRA024008C4;R$ 200.000.000,00
+571;https://ecoagro.agr.br/emissoes-integra/571;2024;Be8 S.A;295;1-2;CRA024008C5;R$ 200.000.000,00
+570;https://ecoagro.agr.br/emissoes-integra/570;2024;Alcoeste Bioenergia Fernandópolis S.A;337;1;CRA024008C3;R$ 100.000.000,00
+569;https://ecoagro.agr.br/emissoes-integra/569;2024;Agropecuária Maggi LTDA.;349;1;CRA024007VD;R$ 500.000.000,00
+568;https://ecoagro.agr.br/emissoes-integra/568;2024;Sorocaba Refrescos S.A.;342;1-2;CRA024007PT;R$ 285.000.000,00
+568;https://ecoagro.agr.br/emissoes-integra/568;2024;Sorocaba Refrescos S.A.;342;1-2;CRA024007PU;R$ 285.000.000,00
+567;https://ecoagro.agr.br/emissoes-integra/567;2024;Marfrig Global Foods S.A.;343;1;CRA024006Y4;R$ 500.000.000,00
+566;https://ecoagro.agr.br/emissoes-integra/566;2024;Adecoagro Vale do Ivinhema S.A;333;1-2-3;CRA024006Y1;R$ 400.000.000,00
+566;https://ecoagro.agr.br/emissoes-integra/566;2024;Adecoagro Vale do Ivinhema S.A;333;1-2-3;CRA024006Y2;R$ 400.000.000,00
+566;https://ecoagro.agr.br/emissoes-integra/566;2024;Adecoagro Vale do Ivinhema S.A;333;1-2-3;CRA024006Y3;R$ 400.000.000,00
+565;https://ecoagro.agr.br/emissoes-integra/565;2024;Belmiro Catelan;323;1;CRA024006N7;R$ 102.423.000,00
+564;https://ecoagro.agr.br/emissoes-integra/564;2024;Crialt - Comércio de Representações de Insumos Agrícolas LTDA;330;1-2-3;CRA024006N1;R$ 30.000.000,00
+564;https://ecoagro.agr.br/emissoes-integra/564;2024;Crialt - Comércio de Representações de Insumos Agrícolas LTDA;330;1-2-3;CRA024006N2;R$ 30.000.000,00
+564;https://ecoagro.agr.br/emissoes-integra/564;2024;Crialt - Comércio de Representações de Insumos Agrícolas LTDA;330;1-2-3;CRA024006N3;R$ 30.000.000,00
+559;https://ecoagro.agr.br/emissoes-integra/559;2024;FS Florestal S.A.;331;1-2;CRA0240066D;R$ 600.000.000,00
+559;https://ecoagro.agr.br/emissoes-integra/559;2024;FS Florestal S.A.;331;1-2;CRA0240066E;R$ 600.000.000,00
+558;https://ecoagro.agr.br/emissoes-integra/558;2024;Camil Alimentos S.A.;329;1-2-3;CRA0240066A;R$ 650.000.000,00
+558;https://ecoagro.agr.br/emissoes-integra/558;2024;Camil Alimentos S.A.;329;1-2-3;CRA0240066B;R$ 650.000.000,00
+558;https://ecoagro.agr.br/emissoes-integra/558;2024;Camil Alimentos S.A.;329;1-2-3;CRA0240066C;R$ 650.000.000,00
+557;https://ecoagro.agr.br/emissoes-integra/557;2024;BRF S.A.;332;1-2-3;CRA0240066F;R$ 2.000.000.000,00
+557;https://ecoagro.agr.br/emissoes-integra/557;2024;BRF S.A.;332;1-2-3;CRA0240066G;R$ 2.000.000.000,00
+557;https://ecoagro.agr.br/emissoes-integra/557;2024;BRF S.A.;332;1-2-3;CRA0240066K;R$ 2.000.000.000,00
+556;https://ecoagro.agr.br/emissoes-integra/556;2024;Casa do Café Comércio e Representações de Produtos Agrícolas Ltda;322;1;CRA024005K3;R$ 13.000.000,00
+555;https://ecoagro.agr.br/emissoes-integra/555;2024;Natural One S.A.;321;1-2;CRA024005K1;R$ 200.000.000,00
+555;https://ecoagro.agr.br/emissoes-integra/555;2024;Natural One S.A.;321;1-2;CRA024005K2;R$ 200.000.000,00
+554;https://ecoagro.agr.br/emissoes-integra/554;2024;Elza Junqueira de Carvalho Dias;326;1;CRA0240053E;R$ 40.000.000,00
+551;https://ecoagro.agr.br/emissoes-integra/551;2024;Agrofito - Insumos Agrícolas LTDA;327;1-2-3-4;CRA024004MS;R$ 30.544.000,00
+551;https://ecoagro.agr.br/emissoes-integra/551;2024;Agrofito - Insumos Agrícolas LTDA;327;1-2-3-4;CRA024004MT;R$ 30.544.000,00
+551;https://ecoagro.agr.br/emissoes-integra/551;2024;Agrofito - Insumos Agrícolas LTDA;327;1-2-3-4;CRA024004MU;R$ 30.544.000,00
+551;https://ecoagro.agr.br/emissoes-integra/551;2024;Agrofito - Insumos Agrícolas LTDA;327;1-2-3-4;CRA024004MV;R$ 30.544.000,00
+544;https://ecoagro.agr.br/emissoes-integra/544;2024;São Salvador Alimentos S.A.;325;1-2-3;CRA024004MP;R$ 330.000.000,00
+544;https://ecoagro.agr.br/emissoes-integra/544;2024;São Salvador Alimentos S.A.;325;1-2-3;CRA024004MQ;R$ 330.000.000,00
+544;https://ecoagro.agr.br/emissoes-integra/544;2024;São Salvador Alimentos S.A.;325;1-2-3;CRA024004MR;R$ 330.000.000,00
+541;https://ecoagro.agr.br/emissoes-integra/541;2024;Coplana Cooperativa Agroindustrial;320;1;CRA0240040H;R$ 100.000.000,00
+540;https://ecoagro.agr.br/emissoes-integra/540;2024;Lar Cooperativa Agroindustrial;319;1-2-3;CRA024003UX;R$ 701.121.000,00
+540;https://ecoagro.agr.br/emissoes-integra/540;2024;Lar Cooperativa Agroindustrial;319;1-2-3;CRA024003UY;R$ 701.121.000,00
+540;https://ecoagro.agr.br/emissoes-integra/540;2024;Lar Cooperativa Agroindustrial;319;1-2-3;CRA024003UZ;R$ 701.121.000,00
+539;https://ecoagro.agr.br/emissoes-integra/539;2024;Sinagro Produtos Agropecuários S.A;305;1-2;CRA024003PD;R$ 150.000.000,00
+539;https://ecoagro.agr.br/emissoes-integra/539;2024;Sinagro Produtos Agropecuários S.A;305;1-2;CRA024003PE;R$ 150.000.000,00
+538;https://ecoagro.agr.br/emissoes-integra/538;2024;Terra Forte Empreendimentos e Participações S.A.;312;1-2;CRA024003E9;R$ 370.000.000,00
+538;https://ecoagro.agr.br/emissoes-integra/538;2024;Terra Forte Empreendimentos e Participações S.A.;312;1-2;CRA024003EA;R$ 370.000.000,00
+534;https://ecoagro.agr.br/emissoes-integra/534;2024;Usina Santa Fé S.A.;313;1;CRA024002MM;R$ 170.000.000,00
+535;https://ecoagro.agr.br/emissoes-integra/535;2024;Marfrig Global Foods S.A.;318;1-2-3;CRA024002MJ;R$ 1.500.000.000,00
+535;https://ecoagro.agr.br/emissoes-integra/535;2024;Marfrig Global Foods S.A.;318;1-2-3;CRA024002MK;R$ 1.500.000.000,00
+535;https://ecoagro.agr.br/emissoes-integra/535;2024;Marfrig Global Foods S.A.;318;1-2-3;CRA024002ML;R$ 1.500.000.000,00
+532;https://ecoagro.agr.br/emissoes-integra/532;2024;JF Citrus Agropecuária S.A.;315;1-2;CRA024002MH;R$ 250.000.000,00
+532;https://ecoagro.agr.br/emissoes-integra/532;2024;JF Citrus Agropecuária S.A.;315;1-2;CRA024002MI;R$ 250.000.000,00
+530;https://ecoagro.agr.br/emissoes-integra/530;2024;Primo Tedesco S.A.;301;1-2;CRA024001UP;R$ 80.000.000,00
+530;https://ecoagro.agr.br/emissoes-integra/530;2024;Primo Tedesco S.A.;301;1-2;CRA024001UQ;R$ 80.000.000,00
+529;https://ecoagro.agr.br/emissoes-integra/529;2024;Enebra Brasil Energia LTDA.;311;1;CRA0240018H;R$ 55.000.000,00
+528;https://ecoagro.agr.br/emissoes-integra/528;2024;JSL S.A.;309;1-2-3;CRA024001P5;R$ 1.750.000.000,00
+528;https://ecoagro.agr.br/emissoes-integra/528;2024;JSL S.A.;309;1-2-3;CRA024001P6;R$ 1.750.000.000,00
+528;https://ecoagro.agr.br/emissoes-integra/528;2024;JSL S.A.;309;1-2-3;CRA024001P7;R$ 1.750.000.000,00
+527;https://ecoagro.agr.br/emissoes-integra/527;2024;FS Indústria De Biocombustíveis Ltda;310;1-2-3-4;CRA024000B6;R$ 868.000.000,00
+527;https://ecoagro.agr.br/emissoes-integra/527;2024;FS Indústria De Biocombustíveis Ltda;310;1-2-3-4;CRA024000B7;R$ 868.000.000,00
+527;https://ecoagro.agr.br/emissoes-integra/527;2024;FS Indústria De Biocombustíveis Ltda;310;1-2-3-4;CRA024000B8;R$ 868.000.000,00
+527;https://ecoagro.agr.br/emissoes-integra/527;2024;FS Indústria De Biocombustíveis Ltda;310;1-2-3-4;CRA024000B9;R$ 868.000.000,00
+526;https://ecoagro.agr.br/emissoes-integra/526;2023;Dexco S.A;308;1;CRA02300W3L;R$ 375.000.000,00
+524;https://ecoagro.agr.br/emissoes-integra/524;2023;TBA Participações Ltda;268;1-2;CRA02300V6A;R$ 350.000.000,00
+524;https://ecoagro.agr.br/emissoes-integra/524;2023;TBA Participações Ltda;268;1-2;CRA02300V6B;R$ 350.000.000,00
+523;https://ecoagro.agr.br/emissoes-integra/523;2023;Yara Brasil Fertilizantes S.A.;272;1-2-3;CRA02300UK1;R$ 59.493.906,00
+523;https://ecoagro.agr.br/emissoes-integra/523;2023;Yara Brasil Fertilizantes S.A.;272;1-2-3;CRA02300UK2;R$ 59.493.906,00
+523;https://ecoagro.agr.br/emissoes-integra/523;2023;Yara Brasil Fertilizantes S.A.;272;1-2-3;CRA02300UK3;R$ 59.493.906,00
+522;https://ecoagro.agr.br/emissoes-integra/522;2023;Indústria de Rações Patense Ltda;298;1;CRA02300UEH;R$ 315.000.000,00
+521;https://ecoagro.agr.br/emissoes-integra/521;2023;Posto Monte Carlo Cedral KM 426 Ltda;284;1;CRA02300TXU;R$ 40.000.000,00
+515;https://ecoagro.agr.br/emissoes-integra/515;2023;Banco Votorantim;304;1-2-3-4-5;CRA02300UEJ;R$ 460.000.000,00
+515;https://ecoagro.agr.br/emissoes-integra/515;2023;Banco Votorantim;304;1-2-3-4-5;CRA02300UEK;R$ 460.000.000,00
+515;https://ecoagro.agr.br/emissoes-integra/515;2023;Banco Votorantim;304;1-2-3-4-5;CRA02300UEL;R$ 460.000.000,00
+515;https://ecoagro.agr.br/emissoes-integra/515;2023;Banco Votorantim;304;1-2-3-4-5;CRA02300UEM;R$ 460.000.000,00
+515;https://ecoagro.agr.br/emissoes-integra/515;2023;Banco Votorantim;304;1-2-3-4-5;CRA02300UEN;R$ 460.000.000,00
+508;https://ecoagro.agr.br/emissoes-integra/508;2023;Usina São João;302;1-2;CRA02300SUX;R$ 120.000.000,00
+508;https://ecoagro.agr.br/emissoes-integra/508;2023;Usina São João;302;1-2;CRA02300SUY;R$ 120.000.000,00
+507;https://ecoagro.agr.br/emissoes-integra/507;2023;Pantanal Agrícola S.A III;306;1-2;CRA02300UV7;R$ 60.000.000,00
+507;https://ecoagro.agr.br/emissoes-integra/507;2023;Pantanal Agrícola S.A III;306;1-2;CRA02300UV8;R$ 60.000.000,00
+506;https://ecoagro.agr.br/emissoes-integra/506;2023;Superfrio Armazéns Gerais S.A.;300;1-2;CRA02300RMJ;R$ 95.911.155,00
+506;https://ecoagro.agr.br/emissoes-integra/506;2023;Superfrio Armazéns Gerais S.A.;300;1-2;CRA02300RMK;R$ 95.911.155,00
+502;https://ecoagro.agr.br/emissoes-integra/502;2023;Ferrari Agroindustria S.A.;299;1-2-3;CRA02300SV3;R$ 235.161.000,00
+502;https://ecoagro.agr.br/emissoes-integra/502;2023;Ferrari Agroindustria S.A.;299;1-2-3;CRA02300SV4;R$ 235.161.000,00
+502;https://ecoagro.agr.br/emissoes-integra/502;2023;Ferrari Agroindustria S.A.;299;1-2-3;CRA02300SV6;R$ 235.161.000,00
+501;https://ecoagro.agr.br/emissoes-integra/501;2023;Videplast Ind. de Embalagens Ltda;279;1-2;CRA02300RS1;R$ 200.000.000,00
+501;https://ecoagro.agr.br/emissoes-integra/501;2023;Videplast Ind. de Embalagens Ltda;279;1-2;CRA02300RS2;R$ 200.000.000,00
+500;https://ecoagro.agr.br/emissoes-integra/500;2023;Vamos Locação de Caminhões, Máquinas e Equipamentos S.A.;296;1-2-3;CRA02300SUZ;R$ 700.000.000,00
+500;https://ecoagro.agr.br/emissoes-integra/500;2023;Vamos Locação de Caminhões, Máquinas e Equipamentos S.A.;296;1-2-3;CRA02300SV0;R$ 700.000.000,00
+500;https://ecoagro.agr.br/emissoes-integra/500;2023;Vamos Locação de Caminhões, Máquinas e Equipamentos S.A.;296;1-2-3;CRA02300SV1;R$ 700.000.000,00
+499;https://ecoagro.agr.br/emissoes-integra/499;2023;Camil Alimentos S.A;292;1-2-3;CRA02300RS5;R$ 650.000.000,00
+499;https://ecoagro.agr.br/emissoes-integra/499;2023;Camil Alimentos S.A;292;1-2-3;CRA02300S35;R$ 650.000.000,00
+499;https://ecoagro.agr.br/emissoes-integra/499;2023;Camil Alimentos S.A;292;1-2-3;CRA02300S36;R$ 650.000.000,00
+498;https://ecoagro.agr.br/emissoes-integra/498;2023;FS Agrisolutions Indústria de Biocombustíveis LTDA;297;1-2-3-4;CRA02300S37;R$ 1.000.000.000,00
+498;https://ecoagro.agr.br/emissoes-integra/498;2023;FS Agrisolutions Indústria de Biocombustíveis LTDA;297;1-2-3-4;CRA02300S8P;R$ 1.000.000.000,00
+498;https://ecoagro.agr.br/emissoes-integra/498;2023;FS Agrisolutions Indústria de Biocombustíveis LTDA;297;1-2-3-4;CRA02300SPD;R$ 1.000.000.000,00
+498;https://ecoagro.agr.br/emissoes-integra/498;2023;FS Agrisolutions Indústria de Biocombustíveis LTDA;297;1-2-3-4;CRA02300SPE;R$ 1.000.000.000,00
+496;https://ecoagro.agr.br/emissoes-integra/496;2023;Scheffer & Cia Ltda;263;1;CRA02300O8J;R$ 120.000.000,00
+495;https://ecoagro.agr.br/emissoes-integra/495;2023;Sansão & Florindo Ltda;281;1-2;CRA02300P01;R$ 32.000.000,00
+495;https://ecoagro.agr.br/emissoes-integra/495;2023;Sansão & Florindo Ltda;281;1-2;CRA02300P02;R$ 32.000.000,00
+494;https://ecoagro.agr.br/emissoes-integra/494;2023;Fazendão Indústria e Comércio de Produtos Agropecuários Ltda;283;1;CRA02300RGX;R$ 129.000.000,00
+492;https://ecoagro.agr.br/emissoes-integra/492;2023;Alfama Foods Brasil S.A.;274;1;CRA02300NGH;R$ 12.000.000,00
+491;https://ecoagro.agr.br/emissoes-integra/491;2023;Ectare Pay Serviços de Gestão de Pagamentos S.A;270;1-2;CRA02300NM1;R$ 54.520.000,00
+491;https://ecoagro.agr.br/emissoes-integra/491;2023;Ectare Pay Serviços de Gestão de Pagamentos S.A;270;1-2;CRA02300NM3;R$ 54.520.000,00
+490;https://ecoagro.agr.br/emissoes-integra/490;2023;Conservas Oderich S.A.;286;1-2;CRA02300LRD;R$ 99.000.000,00
+490;https://ecoagro.agr.br/emissoes-integra/490;2023;Conservas Oderich S.A.;286;1-2;CRA02300LRE;R$ 99.000.000,00
+484;https://ecoagro.agr.br/emissoes-integra/484;2023;Plantar e Colher Representações e Comércio de Produtos Agrícolas Ltda;276;1-2;CRA02300LWX;R$ 30.000.000,00
+484;https://ecoagro.agr.br/emissoes-integra/484;2023;Plantar e Colher Representações e Comércio de Produtos Agrícolas Ltda;276;1-2;CRA02300LWY;R$ 30.000.000,00
+483;https://ecoagro.agr.br/emissoes-integra/483;2023;Madero Indústria e Comércio S.A.;287;1-2;CRA02300MZT;R$ 150.000.000,00
+483;https://ecoagro.agr.br/emissoes-integra/483;2023;Madero Indústria e Comércio S.A.;287;1-2;CRA02300MZU;R$ 150.000.000,00
+482;https://ecoagro.agr.br/emissoes-integra/482;2023;Dexco S.A e Duratex Florestal Ltda;285;1;CRA02300NAX;R$ 1.500.000.000,00
+479;https://ecoagro.agr.br/emissoes-integra/479;2023;Regional Agro Insumos Ltda;169;1-2;CRA02300K7T;R$ 23.000.000,00
+479;https://ecoagro.agr.br/emissoes-integra/479;2023;Regional Agro Insumos Ltda;169;1-2;CRA02300KDD;R$ 23.000.000,00
+478;https://ecoagro.agr.br/emissoes-integra/478;2023;Zanchetta Alimentos Ltda.;275;1-2;CRA02300JWP;R$ 200.000.000,00
+478;https://ecoagro.agr.br/emissoes-integra/478;2023;Zanchetta Alimentos Ltda.;275;1-2;CRA02300JWQ;R$ 200.000.000,00
+477;https://ecoagro.agr.br/emissoes-integra/477;2023;Indústria de Rações Patense Ltda;218;1;CRA022009VP;R$ 100.000.000,00
+471;https://ecoagro.agr.br/emissoes-integra/471;2023;Belmiro Catelan;267;1;CRA02300HQX;R$ 122.000.000,00
+470;https://ecoagro.agr.br/emissoes-integra/470;2023;Alcoeste Bioenergia Fernandópolis S.A.;269;1;CRA02300JAH;R$ 80.000.000,00
+463;https://ecoagro.agr.br/emissoes-integra/463;2023;Casafértil Ltda;250;1-2;CRA02300J4X;R$ 20.000.000,00
+463;https://ecoagro.agr.br/emissoes-integra/463;2023;Casafértil Ltda;250;1-2;CRA02300J4Y;R$ 20.000.000,00
+462;https://ecoagro.agr.br/emissoes-integra/462;2023;Pantanal Agrícola S.A.;271;1-2-3;CRA02300HLD;R$ 100.000.000,00
+462;https://ecoagro.agr.br/emissoes-integra/462;2023;Pantanal Agrícola S.A.;271;1-2-3;CRA02300HLE;R$ 100.000.000,00
+462;https://ecoagro.agr.br/emissoes-integra/462;2023;Pantanal Agrícola S.A.;271;1-2-3;CRA02300HLF;R$ 100.000.000,00
+445;https://ecoagro.agr.br/emissoes-integra/445;2023;Avantiagro Comercial Agrícola Ltda;266;1-2;CRA02300HA9;R$ 49.816.000,00
+445;https://ecoagro.agr.br/emissoes-integra/445;2023;Avantiagro Comercial Agrícola Ltda;266;1-2;CRA02300HAA;R$ 49.816.000,00
+444;https://ecoagro.agr.br/emissoes-integra/444;2023;Grupo AP Agrícola;249;1-2;CRA02300H4P;R$ 80.000.000,00
+444;https://ecoagro.agr.br/emissoes-integra/444;2023;Grupo AP Agrícola;249;1-2;CRA02300H4Q;R$ 80.000.000,00
+441;https://ecoagro.agr.br/emissoes-integra/441;2023;Indústria de Rações Patense Ltda;265;1;CRA02300GO1;R$ 130.000.000,00
+439;https://ecoagro.agr.br/emissoes-integra/439;2023;Marfrig Global Foods S.A.;273;1-2-3;CRA02300G7D;R$ 1.125.000.000,00
+439;https://ecoagro.agr.br/emissoes-integra/439;2023;Marfrig Global Foods S.A.;273;1-2-3;CRA02300G7E;R$ 1.125.000.000,00
+439;https://ecoagro.agr.br/emissoes-integra/439;2023;Marfrig Global Foods S.A.;273;1-2-3;CRA02300G7F;R$ 1.125.000.000,00
+437;https://ecoagro.agr.br/emissoes-integra/437;2023;Yara Brasil Fertilizantes S.A.;256;1-2-3;CRA02300EZ3;R$ 253.338.000,00
+437;https://ecoagro.agr.br/emissoes-integra/437;2023;Yara Brasil Fertilizantes S.A.;256;1-2-3;CRA02300F4H;R$ 253.338.000,00
+437;https://ecoagro.agr.br/emissoes-integra/437;2023;Yara Brasil Fertilizantes S.A.;256;1-2-3;CRA02300F4J;R$ 253.338.000,00
+436;https://ecoagro.agr.br/emissoes-integra/436;2023;Belmiro Catelan;247;1;CRA02300ASX;R$ 178.000.000,00
+438;https://ecoagro.agr.br/emissoes-integra/438;2023;Supply Chain Armazéns Gerais Ltda.;242;1;CRA02300ECP;R$ 40.000.000,00
+433;https://ecoagro.agr.br/emissoes-integra/433;2023;Agrodinâmica Comércio e Representação Ltda.;255;1-2-3;CRA02300EI9;R$ 50.000.000,00
+433;https://ecoagro.agr.br/emissoes-integra/433;2023;Agrodinâmica Comércio e Representação Ltda.;255;1-2-3;CRA02300EIA;R$ 50.000.000,00
+433;https://ecoagro.agr.br/emissoes-integra/433;2023;Agrodinâmica Comércio e Representação Ltda.;255;1-2-3;CRA02300EIB;R$ 50.000.000,00
+432;https://ecoagro.agr.br/emissoes-integra/432;2023;Neves e Cabral Comércio e Representação de Produtos Agrícolas Ltda;262;1-2;CRA02300DFD;R$ 20.000.000,00
+432;https://ecoagro.agr.br/emissoes-integra/432;2023;Neves e Cabral Comércio e Representação de Produtos Agrícolas Ltda;262;1-2;CRA02300DFE;R$ 20.000.000,00
+431;https://ecoagro.agr.br/emissoes-integra/431;2023;Casa do Café Comércio e Representações de Produtos Agrícolas Ltda;260;1-2;CRA02300D49;R$ 23.000.000,00
+431;https://ecoagro.agr.br/emissoes-integra/431;2023;Casa do Café Comércio e Representações de Produtos Agrícolas Ltda;260;1-2;CRA02300D9T;R$ 23.000.000,00
+430;https://ecoagro.agr.br/emissoes-integra/430;2023;Aliança Agrícola do Cerrado S.A;259;1-2;CRA02300CI1;R$ 200.000.000,00
+430;https://ecoagro.agr.br/emissoes-integra/430;2023;Aliança Agrícola do Cerrado S.A;259;1-2;CRA02300CI2;R$ 200.000.000,00
+429;https://ecoagro.agr.br/emissoes-integra/429;2023;FS Indústria De Biocombustíveis Ltda;264;1-2;CRA02300CCH;R$ 400.000.000,00
+429;https://ecoagro.agr.br/emissoes-integra/429;2023;FS Indústria De Biocombustíveis Ltda;264;1-2;CRA02300CCI;R$ 400.000.000,00
+428;https://ecoagro.agr.br/emissoes-integra/428;2023;Pantanal Agrícola;229;1-2-3;CRA02300BVT;R$ 100.000.000,00
+428;https://ecoagro.agr.br/emissoes-integra/428;2023;Pantanal Agrícola;229;1-2-3;CRA02300C1D;R$ 100.000.000,00
+428;https://ecoagro.agr.br/emissoes-integra/428;2023;Pantanal Agrícola;229;1-2-3;CRA02300C6X;R$ 100.000.000,00
+427;https://ecoagro.agr.br/emissoes-integra/427;2023;Camil Alimentos S.A;257;1;CRA02300B9L;R$ 625.000.000,00
+426;https://ecoagro.agr.br/emissoes-integra/426;2023;Agroconfiança Comércio e Representação Ltda;252;1-2;CRA023009VL;R$ 23.000.000,00
+426;https://ecoagro.agr.br/emissoes-integra/426;2023;Agroconfiança Comércio e Representação Ltda;252;1-2;CRA023009VM;R$ 23.000.000,00
+424;https://ecoagro.agr.br/emissoes-integra/424;2023;Hinove Agrociência S.A;254;1;CRA023008HL;R$ 100.000.000,00
+421;https://ecoagro.agr.br/emissoes-integra/421;2023;Toagro Agronegócios Ltda;251;1-2-3;CRA023007K9;R$ 42.000.000,00
+421;https://ecoagro.agr.br/emissoes-integra/421;2023;Toagro Agronegócios Ltda;251;1-2-3;CRA023007PT;R$ 42.000.000,00
+421;https://ecoagro.agr.br/emissoes-integra/421;2023;Toagro Agronegócios Ltda;251;1-2-3;CRA023007PU;R$ 42.000.000,00
+417;https://ecoagro.agr.br/emissoes-integra/417;2023;Cooperativa Agrícola de Unaí Ltda;225;1;CRA023006SH;R$ 208.900.000,00
+394;https://ecoagro.agr.br/emissoes-integra/394;2023;Usina Coruripe Açúcar e Álcool;207;1;CRA023000M9;R$ 106.665.000,00
+416;https://ecoagro.agr.br/emissoes-integra/416;2023;FS Indústria De Biocombustíveis Ltda;243;1-2;CRA02300795;R$ 750.000.000,00
+416;https://ecoagro.agr.br/emissoes-integra/416;2023;FS Indústria De Biocombustíveis Ltda;243;1-2;CRA02300796;R$ 750.000.000,00
+415;https://ecoagro.agr.br/emissoes-integra/415;2023;STOPPE LTDA;237;1;CRA0230040H;R$ 60.000.000,00
+414;https://ecoagro.agr.br/emissoes-integra/414;2023;Integrada Cooperativa Agroindustrial;224;1;CRA023002GX;R$ 300.000.000,00
+411;https://ecoagro.agr.br/emissoes-integra/411;2023;Agrofarm Produtos Agroquímicos Ltda;227;1-2;CRA02300335;R$ 23.000.000,00
+411;https://ecoagro.agr.br/emissoes-integra/411;2023;Agrofarm Produtos Agroquímicos Ltda;227;1-2;CRA0230038P;R$ 23.000.000,00
+408;https://ecoagro.agr.br/emissoes-integra/408;2023;Lavoro Agro Holding S.A;223;1-2;CRA02300TBL;R$ 420.000.000,00
+408;https://ecoagro.agr.br/emissoes-integra/408;2023;Lavoro Agro Holding S.A;223;1-2;CRA02300TBM;R$ 420.000.000,00
+407;https://ecoagro.agr.br/emissoes-integra/407;2023;Natural One;235;1;CRA023001UP;R$ 116.000.000,00
+406;https://ecoagro.agr.br/emissoes-integra/406;2023;PISANI PLÁSTICOS S.A.;228;1;CRA023001JL;R$ 100.000.000,00
+396;https://ecoagro.agr.br/emissoes-integra/396;2023;Vale do Pontal Açucar e Etanol S.A.;234;1;CRA0230012X;R$ 200.000.000,00
+395;https://ecoagro.agr.br/emissoes-integra/395;2023;FS Florestal S.A.;239;1;CRA023000XD;R$ 100.000.000,00
+392;https://ecoagro.agr.br/emissoes-integra/392;2023;Vamos;233;1-2-3;CRA023000GP;R$ 650.000.000,00
+392;https://ecoagro.agr.br/emissoes-integra/392;2023;Vamos;233;1-2-3;CRA023000MC;R$ 650.000.000,00
+392;https://ecoagro.agr.br/emissoes-integra/392;2023;Vamos;233;1-2-3;CRA023000RT;R$ 650.000.000,00
+391;https://ecoagro.agr.br/emissoes-integra/391;2022;Zootec;231;1-2;CRA0230005N;R$ 150.000.000,00
+391;https://ecoagro.agr.br/emissoes-integra/391;2022;Zootec;231;1-2;CRA0230005O;R$ 150.000.000,00
+390;https://ecoagro.agr.br/emissoes-integra/390;2022;VB Alimentos;183;1;CRA02200EZ0;R$ 50.000.000,00
+388;https://ecoagro.agr.br/emissoes-integra/388;2022;FS FLORESTAL S.A;1;1;22L1173045;R$ 80.000.000,00
+389;https://ecoagro.agr.br/emissoes-integra/389;2022;Coopertradição;213;1;CRA02200D4E;R$ 90.000.000,00
+387;https://ecoagro.agr.br/emissoes-integra/387;2022;FS FLORESTAL S.A;221;1;CRA02200CI1;R$ 112.600.000,00
+386;https://ecoagro.agr.br/emissoes-integra/386;2022;FS FLORESTAL S.A;222;1;CRA02200CI2;R$ 110.000.000,00
+385;https://ecoagro.agr.br/emissoes-integra/385;2022;Agrofito Produtores;216;1-2-3;CRA02200CCK;R$ 35.000.000,00
+385;https://ecoagro.agr.br/emissoes-integra/385;2022;Agrofito Produtores;216;1-2-3;CRA02200CCL;R$ 35.000.000,00
+385;https://ecoagro.agr.br/emissoes-integra/385;2022;Agrofito Produtores;216;1-2-3;CRA02200CCM;R$ 35.000.000,00
+383;https://ecoagro.agr.br/emissoes-integra/383;2022;Cotribá Produtores;196;1-2-3;CRA0220093U;R$ 68.847.000,00
+383;https://ecoagro.agr.br/emissoes-integra/383;2022;Cotribá Produtores;196;1-2-3;CRA0220093V;R$ 68.847.000,00
+383;https://ecoagro.agr.br/emissoes-integra/383;2022;Cotribá Produtores;196;1-2-3;CRA0220093W;R$ 68.847.000,00
+384;https://ecoagro.agr.br/emissoes-integra/384;2022;Yara;220;1-2-3;CRA02200C70;R$ 152.200.000,00
+384;https://ecoagro.agr.br/emissoes-integra/384;2022;Yara;220;1-2-3;CRA02200C71;R$ 152.200.000,00
+384;https://ecoagro.agr.br/emissoes-integra/384;2022;Yara;220;1-2-3;CRA02200C73;R$ 152.200.000,00
+368;https://ecoagro.agr.br/emissoes-integra/368;2022;Marfrig;219;1-2;CRA02200C6Y;R$ 1.000.000.000,00
+368;https://ecoagro.agr.br/emissoes-integra/368;2022;Marfrig;219;1-2;CRA02200C6Z;R$ 1.000.000.000,00
+366;https://ecoagro.agr.br/emissoes-integra/366;2022;AGRIVALE;208;1;CRA02200BKP;R$ 35.000.000,00
+364;https://ecoagro.agr.br/emissoes-integra/364;2022;Indústria de Rações Patense Ltda;186;1-2;CRA02200C1F;R$ 244.996.000,00
+364;https://ecoagro.agr.br/emissoes-integra/364;2022;Indústria de Rações Patense Ltda;186;1-2;CRA02200C1I;R$ 244.996.000,00
+363;https://ecoagro.agr.br/emissoes-integra/363;2022;TINDIANA;205;1;CRA00000000;R$ 50.000.000,00
+362;https://ecoagro.agr.br/emissoes-integra/362;2022;TECPLANTE;204;1-2-3;CRA02200AYI;R$ 25.000.000,00
+362;https://ecoagro.agr.br/emissoes-integra/362;2022;TECPLANTE;204;1-2-3;CRA02200AYK;R$ 25.000.000,00
+362;https://ecoagro.agr.br/emissoes-integra/362;2022;TECPLANTE;204;1-2-3;CRA02200AYL;R$ 25.000.000,00
+361;https://ecoagro.agr.br/emissoes-integra/361;2022;AGROMANO;191;1-2-3;CRA00000000;R$ 30.000.000,00
+361;https://ecoagro.agr.br/emissoes-integra/361;2022;AGROMANO;191;1-2-3;CRA00000000;R$ 30.000.000,00
+361;https://ecoagro.agr.br/emissoes-integra/361;2022;AGROMANO;191;1-2-3;CRA00000000;R$ 30.000.000,00
+359;https://ecoagro.agr.br/emissoes-integra/359;2022;AGRO QUARTZO LTDA.;209;1;CRA02200AC9;R$ 150.000.000,00
+360;https://ecoagro.agr.br/emissoes-integra/360;2022;FAZENDÃO IND. E COM. LTDA.;199;1-2;CRA022009Q7;R$ 120.000.000,00
+360;https://ecoagro.agr.br/emissoes-integra/360;2022;FAZENDÃO IND. E COM. LTDA.;199;1-2;CRA022009VL;R$ 120.000.000,00
+358;https://ecoagro.agr.br/emissoes-integra/358;2022;Café Brasil;190;1;CRA022009VM;R$ 100.000.000,00
+356;https://ecoagro.agr.br/emissoes-integra/356;2022;FS Infraestrutura S.A.;212;1;CRA02200A6P;R$ 110.000.000,00
+355;https://ecoagro.agr.br/emissoes-integra/355;2022;AGROBRASIL;197;1-2-3;CRA022009EX;R$ 30.000.000,00
+355;https://ecoagro.agr.br/emissoes-integra/355;2022;AGROBRASIL;197;1-2-3;CRA022009EY;R$ 30.000.000,00
+355;https://ecoagro.agr.br/emissoes-integra/355;2022;AGROBRASIL;197;1-2-3;CRA022009EZ;R$ 30.000.000,00
+365;https://ecoagro.agr.br/emissoes-integra/365;2022;Cresol;174;1;CRA0220099D;R$ 250.000.000,00
+353;https://ecoagro.agr.br/emissoes-integra/353;2022;Solubio Tecnologias Agrícolas S.A.;203;1;CRA022008YH;R$ 150.000.000,00
+349;https://ecoagro.agr.br/emissoes-integra/349;2022;ALCOESTE BIOENERGIA S.A.;201;1-2;CRA022008YD;R$ 50.000.000,00
+349;https://ecoagro.agr.br/emissoes-integra/349;2022;ALCOESTE BIOENERGIA S.A.;201;1-2;CRA022008YE;R$ 50.000.000,00
+352;https://ecoagro.agr.br/emissoes-integra/352;2022;Coopernorte;192;1-2-3;CRA022008YA;R$ 60.000.000,00
+352;https://ecoagro.agr.br/emissoes-integra/352;2022;Coopernorte;192;1-2-3;CRA022008YB;R$ 60.000.000,00
+352;https://ecoagro.agr.br/emissoes-integra/352;2022;Coopernorte;192;1-2-3;CRA022008YC;R$ 60.000.000,00
+350;https://ecoagro.agr.br/emissoes-integra/350;2022;INDÚSTRIA TÊXTIL APUCARANA LTDA.;176;1;CRA022008T1;R$ 65.799.000,00
+357;https://ecoagro.agr.br/emissoes-integra/357;2022;Usina Santa Fé S.A.;210;1;CRA022008Y9;R$ 150.000.000,00
+348;https://ecoagro.agr.br/emissoes-integra/348;2022;AGRÍCOLA PANORAMA LTDA;202;1-2-3;CRA022008SP;R$ 35.000.000,00
+348;https://ecoagro.agr.br/emissoes-integra/348;2022;AGRÍCOLA PANORAMA LTDA;202;1-2-3;CRA022008SQ;R$ 35.000.000,00
+348;https://ecoagro.agr.br/emissoes-integra/348;2022;AGRÍCOLA PANORAMA LTDA;202;1-2-3;CRA022008SR;R$ 35.000.000,00
+347;https://ecoagro.agr.br/emissoes-integra/347;2022;Sorocaba Refrescos S.A.;193;1-2;CRA022008NC;R$ 90.000.000,00
+347;https://ecoagro.agr.br/emissoes-integra/347;2022;Sorocaba Refrescos S.A.;193;1-2;CRA022008NE;R$ 90.000.000,00
+345;https://ecoagro.agr.br/emissoes-integra/345;2022;ECTARE S.A.;156;1-2;CRA0220081B;R$ 50.000.000,00
+345;https://ecoagro.agr.br/emissoes-integra/345;2022;ECTARE S.A.;156;1-2;CRA0220081C;R$ 50.000.000,00
+346;https://ecoagro.agr.br/emissoes-integra/346;2022;Pantanal Agrícola;163;1-2-3;CRA022008N8;R$ 80.000.000,00
+346;https://ecoagro.agr.br/emissoes-integra/346;2022;Pantanal Agrícola;163;1-2-3;CRA022008N9;R$ 80.000.000,00
+346;https://ecoagro.agr.br/emissoes-integra/346;2022;Pantanal Agrícola;163;1-2-3;CRA022008NA;R$ 80.000.000,00
+342;https://ecoagro.agr.br/emissoes-integra/342;2022;Jalles Machado S.A.;200;1;CRA022008CB;R$ 71.955.000,00
+340;https://ecoagro.agr.br/emissoes-integra/340;2022;Irani Papel e Embalagem S.A.;194;1-2;CRA022008NF;R$ 720.000.000,00
+340;https://ecoagro.agr.br/emissoes-integra/340;2022;Irani Papel e Embalagem S.A.;194;1-2;CRA022008NH;R$ 720.000.000,00
+341;https://ecoagro.agr.br/emissoes-integra/341;2022;SUPPLY SEEDS LTDA;181;1-2;CRA022008C8;R$ 35.000.000,00
+341;https://ecoagro.agr.br/emissoes-integra/341;2022;SUPPLY SEEDS LTDA;181;1-2;CRA022008CA;R$ 35.000.000,00
+354;https://ecoagro.agr.br/emissoes-integra/354;2022;NATIVA AGRÍCOLA LTDA;185;1-2-3;CRA022008C4;R$ 120.000.000,00
+354;https://ecoagro.agr.br/emissoes-integra/354;2022;NATIVA AGRÍCOLA LTDA;185;1-2-3;CRA022008C5;R$ 120.000.000,00
+354;https://ecoagro.agr.br/emissoes-integra/354;2022;NATIVA AGRÍCOLA LTDA;185;1-2-3;CRA022008C6;R$ 120.000.000,00
+338;https://ecoagro.agr.br/emissoes-integra/338;2022;Unidas-Companhia de Locação das Américas;157;1-2;CRA022008C7;R$ 700.000.000,00
+338;https://ecoagro.agr.br/emissoes-integra/338;2022;Unidas-Companhia de Locação das Américas;157;1-2;CRA022008C9;R$ 700.000.000,00
+336;https://ecoagro.agr.br/emissoes-integra/336;2022;Uby Agroquímica S.A.;179;1-2;CRA02200816;R$ 253.177.000,00
+336;https://ecoagro.agr.br/emissoes-integra/336;2022;Uby Agroquímica S.A.;179;1-2;CRA02200817;R$ 253.177.000,00
+335;https://ecoagro.agr.br/emissoes-integra/335;2022;Neomille S.A.;206;1;CRA0220080Y;R$ 300.000.000,00
+334;https://ecoagro.agr.br/emissoes-integra/334;2022;COPLANA - COOPERATIVA AGROINDUSTRIAL;195;1;CRA022007VG;R$ 100.000.000,00
+333;https://ecoagro.agr.br/emissoes-integra/333;2022;Caramuru Alimentos S.A;172;1;CRA022006BU;R$ 600.000.000,00
+326;https://ecoagro.agr.br/emissoes-integra/326;2022;Adubos Araguaia;175;1-2;CRA02200795;R$ 700.000.000,00
+326;https://ecoagro.agr.br/emissoes-integra/326;2022;Adubos Araguaia;175;1-2;CRA02200796;R$ 700.000.000,00
+321;https://ecoagro.agr.br/emissoes-integra/321;2022;Tobasa Bioindustrial de Babaçu S.A.;133;1;CRA022008YG;R$ 32.000.000,00
+320;https://ecoagro.agr.br/emissoes-integra/320;2022;Expocaccer – Cooperativa dos Cafeicultores do Cerrado Ltda;159;1;CRA02200798;R$ 100.000.000,00
+319;https://ecoagro.agr.br/emissoes-integra/319;2022;São José Agrícola Operacional Ltda;170;1;CRA02200797;R$ 40.000.000,00
+317;https://ecoagro.agr.br/emissoes-integra/317;2022;Yara Brasil Fertilizantes S.A.;178;1-2-3;CRA022006SH;R$ 520.280.000,00
+317;https://ecoagro.agr.br/emissoes-integra/317;2022;Yara Brasil Fertilizantes S.A.;178;1-2-3;CRA022006SI;R$ 520.280.000,00
+317;https://ecoagro.agr.br/emissoes-integra/317;2022;Yara Brasil Fertilizantes S.A.;178;1-2-3;CRA022006SK;R$ 520.280.000,00
+315;https://ecoagro.agr.br/emissoes-integra/315;2022;Dexco S.A.;187;1-2;CRA022006MX;R$ 600.000.000,00
+315;https://ecoagro.agr.br/emissoes-integra/315;2022;Dexco S.A.;187;1-2;CRA022006MY;R$ 600.000.000,00
+314;https://ecoagro.agr.br/emissoes-integra/314;2022;Gencau Pará;184;1-2;CRA022006HH;R$ 70.000.000,00
+314;https://ecoagro.agr.br/emissoes-integra/314;2022;Gencau Pará;184;1-2;CRA022006HI;R$ 70.000.000,00
+311;https://ecoagro.agr.br/emissoes-integra/311;2022;São Salvador Alimentos S.A.;173;1-2;CRA022006HJ;R$ 250.000.000,00
+311;https://ecoagro.agr.br/emissoes-integra/311;2022;São Salvador Alimentos S.A.;173;1-2;CRA022006HK;R$ 250.000.000,00
+328;https://ecoagro.agr.br/emissoes-integra/328;2022;ARMAC LOCAÇÃO, LOGÍSTICA E SERVIÇOS S.A.;188;1-2;CRA022007KG;R$ 500.000.000,00
+328;https://ecoagro.agr.br/emissoes-integra/328;2022;ARMAC LOCAÇÃO, LOGÍSTICA E SERVIÇOS S.A.;188;1-2;CRA022007KH;R$ 500.000.000,00
+329;https://ecoagro.agr.br/emissoes-integra/329;2022;Agrocerrado;180;1-2-3;CRA022007KC;R$ 20.000.000,00
+329;https://ecoagro.agr.br/emissoes-integra/329;2022;Agrocerrado;180;1-2-3;CRA022007KD;R$ 20.000.000,00
+329;https://ecoagro.agr.br/emissoes-integra/329;2022;Agrocerrado;180;1-2-3;CRA022007KE;R$ 20.000.000,00
+308;https://ecoagro.agr.br/emissoes-integra/308;2022;Agropecuária Schio;177;1;CRA022006BT;R$ 100.000.000,00
+298;https://ecoagro.agr.br/emissoes-integra/298;2022;Casa do Café;164;1-2-3;CRA0220053D;R$ 15.000.000,00
+298;https://ecoagro.agr.br/emissoes-integra/298;2022;Casa do Café;164;1-2-3;CRA0220053E;R$ 15.000.000,00
+298;https://ecoagro.agr.br/emissoes-integra/298;2022;Casa do Café;164;1-2-3;CRA0220053F;R$ 15.000.000,00
+297;https://ecoagro.agr.br/emissoes-integra/297;2022;Cerradão;162;1;CRA022004XY;R$ 200.000.000,00
+289;https://ecoagro.agr.br/emissoes-integra/289;2022;Vamos;93;1-2;CRA022004MS;R$ 600.000.000,00
+289;https://ecoagro.agr.br/emissoes-integra/289;2022;Vamos;93;1-2;CRA022004S9;R$ 600.000.000,00
+283;https://ecoagro.agr.br/emissoes-integra/283;2022;Bem Brasil;154;1;CRA022003JT;R$ 270.651.000,00
+295;https://ecoagro.agr.br/emissoes-integra/295;2022;Neves & Cabral (Agrotech);168;1-2-3;CRA022004XT;R$ 15.000.000,00
+295;https://ecoagro.agr.br/emissoes-integra/295;2022;Neves & Cabral (Agrotech);168;1-2-3;CRA022004XU;R$ 15.000.000,00
+295;https://ecoagro.agr.br/emissoes-integra/295;2022;Neves & Cabral (Agrotech);168;1-2-3;CRA022004XV;R$ 15.000.000,00
+296;https://ecoagro.agr.br/emissoes-integra/296;2022;FS Bio;167;1-2;CRA022004SC;R$ 750.000.000,00
+296;https://ecoagro.agr.br/emissoes-integra/296;2022;FS Bio;167;1-2;CRA022004SD;R$ 750.000.000,00
+288;https://ecoagro.agr.br/emissoes-integra/288;2022;Palmital;155;1-2;CRA022004BN;R$ 85.000.000,00
+288;https://ecoagro.agr.br/emissoes-integra/288;2022;Palmital;155;1-2;CRA022004BO;R$ 85.000.000,00
+273;https://ecoagro.agr.br/emissoes-integra/273;2022;Neomille;150;1;CRA021005W1;R$ 600.000.000,00
+287;https://ecoagro.agr.br/emissoes-integra/287;2022;St. Marche;161;1-2;CRA022002XV;R$ 200.000.000,00
+287;https://ecoagro.agr.br/emissoes-integra/287;2022;St. Marche;161;1-2;CRA022002XX;R$ 200.000.000,00
+284;https://ecoagro.agr.br/emissoes-integra/284;2022;Faber-Castell;160;1;CRA022002XT;R$ 150.000.000,00
+278;https://ecoagro.agr.br/emissoes-integra/278;2022;Daroit Produtores;166;1;CRA0220033H;R$ 41.500.000,00
+282;https://ecoagro.agr.br/emissoes-integra/282;2022;Toagro;135;1-2-3;CRA022002XW;R$ 20.000.000,00
+282;https://ecoagro.agr.br/emissoes-integra/282;2022;Toagro;135;1-2-3;CRA022002XY;R$ 20.000.000,00
+282;https://ecoagro.agr.br/emissoes-integra/282;2022;Toagro;135;1-2-3;CRA022002XZ;R$ 20.000.000,00
+277;https://ecoagro.agr.br/emissoes-integra/277;2022;Produtores;106;1-2;CRA022002S1;USD 16.000.000,00
+277;https://ecoagro.agr.br/emissoes-integra/277;2022;Produtores;106;1-2;CRA00000000;USD 16.000.000,00
+264;https://ecoagro.agr.br/emissoes-integra/264;2022;Madero;141;1-2;CRA022000RT;R$ 500.000.000,00
+264;https://ecoagro.agr.br/emissoes-integra/264;2022;Madero;141;1-2;CRA022000RU;R$ 500.000.000,00
+285;https://ecoagro.agr.br/emissoes-integra/285;2022;Primato;147;1;CRA022001UP;R$ 75.000.000,00
+271;https://ecoagro.agr.br/emissoes-integra/271;2022;Cresol;138;1;CRA02200209;R$ 60.000.000,00
+270;https://ecoagro.agr.br/emissoes-integra/270;2022;Cotribá;137;1-2;CRA022001JL;R$ 150.000.000,00
+270;https://ecoagro.agr.br/emissoes-integra/270;2022;Cotribá;137;1-2;CRA022001P5;R$ 150.000.000,00
+268;https://ecoagro.agr.br/emissoes-integra/268;2022;FS Bio;140;1-2;CRA022001E1;R$ 1.015.953.000,00
+268;https://ecoagro.agr.br/emissoes-integra/268;2022;FS Bio;140;1-2;CRA022001E2;R$ 1.015.953.000,00
+269;https://ecoagro.agr.br/emissoes-integra/269;2022;Marfrig;153;1-2-3;CRA022000XD;R$ 1.500.000.000,00
+269;https://ecoagro.agr.br/emissoes-integra/269;2022;Marfrig;153;1-2-3;CRA022000XE;R$ 1.500.000.000,00
+269;https://ecoagro.agr.br/emissoes-integra/269;2022;Marfrig;153;1-2-3;CRA022000XF;R$ 1.500.000.000,00
+267;https://ecoagro.agr.br/emissoes-integra/267;2022;Agrofito;131;1-2-3;CRA022000GS;R$ 50.000.000,00
+267;https://ecoagro.agr.br/emissoes-integra/267;2022;Agrofito;131;1-2-3;CRA022000GT;R$ 50.000.000,00
+267;https://ecoagro.agr.br/emissoes-integra/267;2022;Agrofito;131;1-2-3;CRA022000GU;R$ 50.000.000,00
+265;https://ecoagro.agr.br/emissoes-integra/265;2022;Cultura;125;1-2-3;CRA022000GP;R$ 30.000.000,00
+265;https://ecoagro.agr.br/emissoes-integra/265;2022;Cultura;125;1-2-3;CRA022000GQ;R$ 30.000.000,00
+265;https://ecoagro.agr.br/emissoes-integra/265;2022;Cultura;125;1-2-3;CRA022000GR;R$ 30.000.000,00
+254;https://ecoagro.agr.br/emissoes-integra/254;2022;Vale do Tijuco;128;1;CRA0220012X;R$ 600.000.000,00
+263;https://ecoagro.agr.br/emissoes-integra/263;2021;Katayama;148;1-2;CRA021005M1;R$ 45.000.000,00
+263;https://ecoagro.agr.br/emissoes-integra/263;2021;Katayama;148;1-2;CRA021005M2;R$ 45.000.000,00
+259;https://ecoagro.agr.br/emissoes-integra/259;2021;Goplan;145;1-2-3;CRA021005QH;R$ 47.500.000,00
+259;https://ecoagro.agr.br/emissoes-integra/259;2021;Goplan;145;1-2-3;CRA021005QI;R$ 47.500.000,00
+259;https://ecoagro.agr.br/emissoes-integra/259;2021;Goplan;145;1-2-3;CRA021005QJ;R$ 47.500.000,00
+260;https://ecoagro.agr.br/emissoes-integra/260;2021;Nutrimaq;134;1-2-3;CRA021005QL;R$ 30.000.000,00
+260;https://ecoagro.agr.br/emissoes-integra/260;2021;Nutrimaq;134;1-2-3;CRA021005QM;R$ 30.000.000,00
+260;https://ecoagro.agr.br/emissoes-integra/260;2021;Nutrimaq;134;1-2-3;CRA021005QN;R$ 30.000.000,00
+258;https://ecoagro.agr.br/emissoes-integra/258;2021;Spaço;136;1-2;CRA021005LT;R$ 30.000.000,00
+258;https://ecoagro.agr.br/emissoes-integra/258;2021;Spaço;136;1-2;CRA021005LU;R$ 30.000.000,00
+257;https://ecoagro.agr.br/emissoes-integra/257;2021;OBA;142;1;CRA021005LK;R$ 100.000.000,00
+266;https://ecoagro.agr.br/emissoes-integra/266;2021;Catelan;123;1;CRA021005FD;R$ 55.000.000,00
+256;https://ecoagro.agr.br/emissoes-integra/256;2021;Florindo;129;1-2-3;CRA021005FE;R$ 25.000.000,00
+256;https://ecoagro.agr.br/emissoes-integra/256;2021;Florindo;129;1-2-3;CRA021005FF;R$ 25.000.000,00
+256;https://ecoagro.agr.br/emissoes-integra/256;2021;Florindo;129;1-2-3;CRA021005FG;R$ 25.000.000,00
+255;https://ecoagro.agr.br/emissoes-integra/255;2021;CRIALT;113;1-2-3;CRA021005FH;R$ 15.000.000,00
+255;https://ecoagro.agr.br/emissoes-integra/255;2021;CRIALT;113;1-2-3;CRA021005FJ;R$ 15.000.000,00
+255;https://ecoagro.agr.br/emissoes-integra/255;2021;CRIALT;113;1-2-3;CRA021005FK;R$ 15.000.000,00
+253;https://ecoagro.agr.br/emissoes-integra/253;2021;Braskem;124;1-2;CRA0210059T;R$ 144.950.020,00
+253;https://ecoagro.agr.br/emissoes-integra/253;2021;Braskem;124;1-2;CRA0210059U;R$ 144.950.020,00
+250;https://ecoagro.agr.br/emissoes-integra/250;2021;Grupo Raça Agro;118;1;CRA021004T6;R$ 40.000.000,00
+247;https://ecoagro.agr.br/emissoes-integra/247;2021;Yara;139;1-2-3;CRA021004NM;R$ 31.500.000,00
+247;https://ecoagro.agr.br/emissoes-integra/247;2021;Yara;139;1-2-3;CRA021004NN;R$ 31.500.000,00
+247;https://ecoagro.agr.br/emissoes-integra/247;2021;Yara;139;1-2-3;CRA021004NP;R$ 31.500.000,00
+248;https://ecoagro.agr.br/emissoes-integra/248;2021;Supply;76;1;CRA021004I2;R$ 22.000.000,00
+249;https://ecoagro.agr.br/emissoes-integra/249;2021;Lar;120;1-2;CRA021004NV;R$ 400.000.000,00
+249;https://ecoagro.agr.br/emissoes-integra/249;2021;Lar;120;1-2;CRA021004NW;R$ 400.000.000,00
+244;https://ecoagro.agr.br/emissoes-integra/244;2021;Agrícola Panorama;127;1-2-3;CRA0210041D;R$ 45.000.000,00
+244;https://ecoagro.agr.br/emissoes-integra/244;2021;Agrícola Panorama;127;1-2-3;CRA0210041E;R$ 45.000.000,00
+244;https://ecoagro.agr.br/emissoes-integra/244;2021;Agrícola Panorama;127;1-2-3;CRA0210041F;R$ 45.000.000,00
+239;https://ecoagro.agr.br/emissoes-integra/239;2021;Yara;130;1-2-3;CRA021003QD;R$ 51.500.000,00
+239;https://ecoagro.agr.br/emissoes-integra/239;2021;Yara;130;1-2-3;CRA021003QE;R$ 51.500.000,00
+239;https://ecoagro.agr.br/emissoes-integra/239;2021;Yara;130;1-2-3;CRA021003QF;R$ 51.500.000,00
+237;https://ecoagro.agr.br/emissoes-integra/237;2021;Integrada;119;1-2-3;CRA021003Q9;R$ 70.000.000,00
+237;https://ecoagro.agr.br/emissoes-integra/237;2021;Integrada;119;1-2-3;CRA021003QA;R$ 70.000.000,00
+237;https://ecoagro.agr.br/emissoes-integra/237;2021;Integrada;119;1-2-3;CRA021003QC;R$ 70.000.000,00
+240;https://ecoagro.agr.br/emissoes-integra/240;2021;Grupo JB;122;1;CRA02100479;R$ 130.000.000,00
+245;https://ecoagro.agr.br/emissoes-integra/245;2021;Cotribá Produtores;105;1-2;CRA0210039M;R$ 97.523.000,00
+245;https://ecoagro.agr.br/emissoes-integra/245;2021;Cotribá Produtores;105;1-2;CRA0210039N;R$ 97.523.000,00
+251;https://ecoagro.agr.br/emissoes-integra/251;2021;JF Citrus;121;1;CRA021003F5;R$ 240.000.000,00
+246;https://ecoagro.agr.br/emissoes-integra/246;2021;J. Macedo;111;1;CRA021002YF;R$ 271.500.000,00
+246;https://ecoagro.agr.br/emissoes-integra/246;2021;J. Macedo;111;1;CRA00000;R$ 271.500.000,00
+234;https://ecoagro.agr.br/emissoes-integra/234;2021;Adubos Araguaia;117;1;CRA021002SS;R$ 100.000.000,00
+236;https://ecoagro.agr.br/emissoes-integra/236;2021;Caramuru;115;1;CRA021002YA;R$ 354.973.000,00
+232;https://ecoagro.agr.br/emissoes-integra/232;2021;FS Bio;114;1;CRA021002NA;R$ 300.000.000,00
+233;https://ecoagro.agr.br/emissoes-integra/233;2021;Elo;110;1-2-3;CRA021002NC;R$ 20.000.000,00
+233;https://ecoagro.agr.br/emissoes-integra/233;2021;Elo;110;1-2-3;CRA021002ND;R$ 20.000.000,00
+233;https://ecoagro.agr.br/emissoes-integra/233;2021;Elo;110;1-2-3;CRA021002NE;R$ 20.000.000,00
+231;https://ecoagro.agr.br/emissoes-integra/231;2021;Umgrauemeio;103;1;CRA021002N4;R$ 8.000.000,00
+230;https://ecoagro.agr.br/emissoes-integra/230;2021;Café Brasil;108;1;CRA021002HJ;R$ 30.000.000,00
+229;https://ecoagro.agr.br/emissoes-integra/229;2021;Adami;101;1;CRA0210020V;R$ 150.000.000,00
+228;https://ecoagro.agr.br/emissoes-integra/228;2021;Pantanal Agrícola;107;1-2-3;CRA021001KE;R$ 60.000.000,00
+228;https://ecoagro.agr.br/emissoes-integra/228;2021;Pantanal Agrícola;107;1-2-3;CRA021001KF;R$ 60.000.000,00
+228;https://ecoagro.agr.br/emissoes-integra/228;2021;Pantanal Agrícola;107;1-2-3;CRA021001KG;R$ 60.000.000,00
+227;https://ecoagro.agr.br/emissoes-integra/227;2021;Unidas - LCAM;104;1;CRA021001KB;R$ 200.000.000,00
+235;https://ecoagro.agr.br/emissoes-integra/235;2021;Tanac;116;1;CRA021002ST;R$ 195.000.000,00
+226;https://ecoagro.agr.br/emissoes-integra/226;2021;Iberê;102;1;CRA021001K8;R$ 41.000.000,00
+221;https://ecoagro.agr.br/emissoes-integra/221;2021;Super ABC;100;1;CRA0210019A;R$ 150.000.000,00
+219;https://ecoagro.agr.br/emissoes-integra/219;2021;Planagri & Vera Cruz;98;1;CRA02100195;R$ 100.000.000,00
+218;https://ecoagro.agr.br/emissoes-integra/218;2021;Nortox;89;1;CRA02100132;R$ 120.000.000,00
+216;https://ecoagro.agr.br/emissoes-integra/216;2021;AvantiAgro;95;1-2-3;CRA0210013I;R$ 27.000.000,00
+216;https://ecoagro.agr.br/emissoes-integra/216;2021;AvantiAgro;95;1-2-3;CRA0210013J;R$ 27.000.000,00
+216;https://ecoagro.agr.br/emissoes-integra/216;2021;AvantiAgro;95;1-2-3;CRA0210013K;R$ 27.000.000,00
+225;https://ecoagro.agr.br/emissoes-integra/225;2021;Libra;94;1-2;CRA0210013C;R$ 35.000.000,00
+225;https://ecoagro.agr.br/emissoes-integra/225;2021;Libra;94;1-2;CRA0210013F;R$ 35.000.000,00
+217;https://ecoagro.agr.br/emissoes-integra/217;2021;Cotribá Produtores;86;1-2-3;CRA02100136;R$ 65.442.000,00
+217;https://ecoagro.agr.br/emissoes-integra/217;2021;Cotribá Produtores;86;1-2-3;CRA02100137;R$ 65.442.000,00
+217;https://ecoagro.agr.br/emissoes-integra/217;2021;Cotribá Produtores;86;1-2-3;CRA02100139;R$ 65.442.000,00
+214;https://ecoagro.agr.br/emissoes-integra/214;2021;Yara;88;1-2-3;CRA02100133;R$ 326.808.000,00
+214;https://ecoagro.agr.br/emissoes-integra/214;2021;Yara;88;1-2-3;CRA02100134;R$ 326.808.000,00
+214;https://ecoagro.agr.br/emissoes-integra/214;2021;Yara;88;1-2-3;CRA02100135;R$ 326.808.000,00
+211;https://ecoagro.agr.br/emissoes-integra/211;2021;Olfar;84;1;CRA021000XD;R$ 150.000.000,00
+210;https://ecoagro.agr.br/emissoes-integra/210;2021;JSL S.A.;92;1;CRA0210012Y;R$ 500.000.000,00
+212;https://ecoagro.agr.br/emissoes-integra/212;2021;Vix;90;1;CRA0210012X;R$ 150.000.000,00
+202;https://ecoagro.agr.br/emissoes-integra/202;2021;Ferrari;91;1;CRA021000RW;R$ 80.000.000,00
+208;https://ecoagro.agr.br/emissoes-integra/208;2021;Pantanal Agrícola;87;1-2-3;CRA021000S4;R$ 30.000.000,00
+208;https://ecoagro.agr.br/emissoes-integra/208;2021;Pantanal Agrícola;87;1-2-3;CRA021000S5;R$ 30.000.000,00
+208;https://ecoagro.agr.br/emissoes-integra/208;2021;Pantanal Agrícola;87;1-2-3;CRA021000S6;R$ 30.000.000,00
+201;https://ecoagro.agr.br/emissoes-integra/201;2021;Cotrijal;59;1-2-3;CRA021000RT;R$ 29.008.000,00
+201;https://ecoagro.agr.br/emissoes-integra/201;2021;Cotrijal;59;1-2-3;CRA021000RU;R$ 29.008.000,00
+201;https://ecoagro.agr.br/emissoes-integra/201;2021;Cotrijal;59;1-2-3;CRA021000RV;R$ 29.008.000,00
+200;https://ecoagro.agr.br/emissoes-integra/200;2021;Fazenda da Toca;85;1;CRA021000MI;R$ 25.000.000,00
+199;https://ecoagro.agr.br/emissoes-integra/199;2021;Colombo;82;1;CRA021000MB;R$ 358.425.000,00
+197;https://ecoagro.agr.br/emissoes-integra/197;2021;Rio Amambai;74;1-2;CRA021000GP;R$ 60.000.000,00
+197;https://ecoagro.agr.br/emissoes-integra/197;2021;Rio Amambai;74;1-2;CRA021000GQ;R$ 60.000.000,00
+184;https://ecoagro.agr.br/emissoes-integra/184;2020;Nativa II;78;1-2-3;CRA020003VR;R$ 40.000.000,00
+184;https://ecoagro.agr.br/emissoes-integra/184;2020;Nativa II;78;1-2-3;CRA020003VS;R$ 40.000.000,00
+184;https://ecoagro.agr.br/emissoes-integra/184;2020;Nativa II;78;1-2-3;CRA020003VT;R$ 40.000.000,00
+185;https://ecoagro.agr.br/emissoes-integra/185;2020;Caramuru;36;1-2;CRA020003VW;R$ 200.000.000,00
+185;https://ecoagro.agr.br/emissoes-integra/185;2020;Caramuru;36;1-2;CRA020003VX;R$ 200.000.000,00
+183;https://ecoagro.agr.br/emissoes-integra/183;2020;Cotribá Produtores;45;1-2-3;CRA020003VO;R$ 53.314.000,00
+183;https://ecoagro.agr.br/emissoes-integra/183;2020;Cotribá Produtores;45;1-2-3;CRA020003VP;R$ 53.314.000,00
+183;https://ecoagro.agr.br/emissoes-integra/183;2020;Cotribá Produtores;45;1-2-3;CRA020003VQ;R$ 53.314.000,00
+167;https://ecoagro.agr.br/emissoes-integra/167;2020;Predilecta;60;1;CRA020003VV;R$ 105,000,000.00
+166;https://ecoagro.agr.br/emissoes-integra/166;2020;Syngenta II;71;1;CRA020003VM;R$ 1,055,637,000.00
+165;https://ecoagro.agr.br/emissoes-integra/165;2020;Vale do Tijuco IV;69;1;CRA020003PQ;R$ 180,000,000.00
+162;https://ecoagro.agr.br/emissoes-integra/162;2020;Castilhos;72;1;CRA020003PR;R$ 16000000.00
+160;https://ecoagro.agr.br/emissoes-integra/160;2020;O Telhar;70;1;CRA020003PS;R$ 76490000.00
+159;https://ecoagro.agr.br/emissoes-integra/159;2020;Zanchetta;75;1-2;CRA020003KG;R$ 200000000.00
+159;https://ecoagro.agr.br/emissoes-integra/159;2020;Zanchetta;75;1-2;CRA020003KH;R$ 200000000.00
+158;https://ecoagro.agr.br/emissoes-integra/158;2020;Vamos;81;1;CRA020003PY;R$ 400000000.00
+157;https://ecoagro.agr.br/emissoes-integra/157;2020;Coopernorte;73;1-2-3-4;CRA020003KC;R$ 40000000.00
+157;https://ecoagro.agr.br/emissoes-integra/157;2020;Coopernorte;73;1-2-3-4;CRA020003KD;R$ 40000000.00
+157;https://ecoagro.agr.br/emissoes-integra/157;2020;Coopernorte;73;1-2-3-4;CRA020003KE;R$ 40000000.00
+157;https://ecoagro.agr.br/emissoes-integra/157;2020;Coopernorte;73;1-2-3-4;CRA020003KF;R$ 40000000.00
+156;https://ecoagro.agr.br/emissoes-integra/156;2020;Avanti Agro;65;1-2-3;CRA020003JV;R$ 23000000.00
+156;https://ecoagro.agr.br/emissoes-integra/156;2020;Avanti Agro;65;1-2-3;CRA020003JW;R$ 23000000.00
+156;https://ecoagro.agr.br/emissoes-integra/156;2020;Avanti Agro;65;1-2-3;CRA020003JX;R$ 23000000.00
+155;https://ecoagro.agr.br/emissoes-integra/155;2020;Agrogalaxy/Yara;68;1-2;CRA020003EK;R$ 58419000.00
+155;https://ecoagro.agr.br/emissoes-integra/155;2020;Agrogalaxy/Yara;68;1-2;CRA020003EL;R$ 58419000.00
+154;https://ecoagro.agr.br/emissoes-integra/154;2020;Cultura;61;1-2-3;CRA020003EC;R$ 15000000.00
+154;https://ecoagro.agr.br/emissoes-integra/154;2020;Cultura;61;1-2-3;CRA020003ED;R$ 15000000.00
+154;https://ecoagro.agr.br/emissoes-integra/154;2020;Cultura;61;1-2-3;CRA020003EE;R$ 15000000.00
+153;https://ecoagro.agr.br/emissoes-integra/153;2020;UPL;64;1;CRA0200038S;R$ 173831000.00
+152;https://ecoagro.agr.br/emissoes-integra/152;2020;Rizoma;58;1-2;CRA02000337;R$ 25000000.00
+152;https://ecoagro.agr.br/emissoes-integra/152;2020;Rizoma;58;1-2;CRA02000338;R$ 25000000.00
+151;https://ecoagro.agr.br/emissoes-integra/151;2020;Spaço;51;1-2-3;CRA020002XN;R$ 18000000.00
+151;https://ecoagro.agr.br/emissoes-integra/151;2020;Spaço;51;1-2-3;CRA020002XO;R$ 18000000.00
+151;https://ecoagro.agr.br/emissoes-integra/151;2020;Spaço;51;1-2-3;CRA020002XP;R$ 18000000.00
+150;https://ecoagro.agr.br/emissoes-integra/150;2020;Ubyfol;52;1;CRA020002MJ;R$ 80000000.00
+149;https://ecoagro.agr.br/emissoes-integra/149;2020;Vamos;54;1;CRA020001US;R$ 500000000.00
+148;https://ecoagro.agr.br/emissoes-integra/148;2020;Bem Brasil;48;1;CRA020002BF;R$ 213142000.00
+147;https://ecoagro.agr.br/emissoes-integra/147;2020;JSL;53;1;CRA020001E3;R$ 400000000.00
+146;https://ecoagro.agr.br/emissoes-integra/146;2020;Nutrimaq;49;1-2-3;CRA020001JN;R$ 18000000.00
+146;https://ecoagro.agr.br/emissoes-integra/146;2020;Nutrimaq;49;1-2-3;CRA020001JP;R$ 18000000.00
+146;https://ecoagro.agr.br/emissoes-integra/146;2020;Nutrimaq;49;1-2-3;CRA020001JQ;R$ 18000000.00
+145;https://ecoagro.agr.br/emissoes-integra/145;2020;Libra;43;1;CRA0200012Z;R$ 30000000.00
+144;https://ecoagro.agr.br/emissoes-integra/144;2020;Referência Agroinsumos Ltda.;40;1-2-3;CRA019007KO;R$ 14000000.00
+144;https://ecoagro.agr.br/emissoes-integra/144;2020;Referência Agroinsumos Ltda.;40;1-2-3;CRA019007KP;R$ 14000000.00
+144;https://ecoagro.agr.br/emissoes-integra/144;2020;Referência Agroinsumos Ltda.;40;1-2-3;CRA019007KQ;R$ 14000000.00
+143;https://ecoagro.agr.br/emissoes-integra/143;2020;Jalles Machado;21;1;CRA02000005;R$ 240000000.00
+142;https://ecoagro.agr.br/emissoes-integra/142;2020;Araunah;28;1-2-3;CRA020000XF;R$ 18000000.00
+142;https://ecoagro.agr.br/emissoes-integra/142;2020;Araunah;28;1-2-3;CRA020000XG;R$ 18000000.00
+142;https://ecoagro.agr.br/emissoes-integra/142;2020;Araunah;28;1-2-3;CRA020000XH;R$ 18000000.00
+141;https://ecoagro.agr.br/emissoes-integra/141;2020;JF Citrus;37;1;CRA020000B7;R$ 204000000.00
+140;https://ecoagro.agr.br/emissoes-integra/140;2019;Agrofito - Produtor;42;1-2-3;CRA019007QA;R$ 14191000.00
+140;https://ecoagro.agr.br/emissoes-integra/140;2019;Agrofito - Produtor;42;1-2-3;CRA019007QB;R$ 14191000.00
+140;https://ecoagro.agr.br/emissoes-integra/140;2019;Agrofito - Produtor;42;1-2-3;CRA019007QC;R$ 14191000.00
+139;https://ecoagro.agr.br/emissoes-integra/139;2019;Syngenta;41;1;CRA0190079K;R$ 462855000.00
+138;https://ecoagro.agr.br/emissoes-integra/138;2019;Marca;39;1-2-3;CRA01900746;R$ 18100000.00
+138;https://ecoagro.agr.br/emissoes-integra/138;2019;Marca;39;1-2-3;CRA01900747;R$ 18100000.00
+138;https://ecoagro.agr.br/emissoes-integra/138;2019;Marca;39;1-2-3;CRA01900748;R$ 18100000.00
+137;https://ecoagro.agr.br/emissoes-integra/137;2019;Santa Adélia;38;1-2;CRA0190079L;R$ 109500000.00
+137;https://ecoagro.agr.br/emissoes-integra/137;2019;Santa Adélia;38;1-2;CRA0190079M;R$ 109500000.00
+136;https://ecoagro.agr.br/emissoes-integra/136;2019;Agrofito - Revenda;35;1-2-3;CRA019007KR;R$ 14000000.00
+136;https://ecoagro.agr.br/emissoes-integra/136;2019;Agrofito - Revenda;35;1-2-3;CRA019007KS;R$ 14000000.00
+136;https://ecoagro.agr.br/emissoes-integra/136;2019;Agrofito - Revenda;35;1-2-3;CRA019007KT;R$ 14000000.00
+135;https://ecoagro.agr.br/emissoes-integra/135;2019;Santa Colomba;31;1-2;CRA019007F4;R$ 100000000.00
+135;https://ecoagro.agr.br/emissoes-integra/135;2019;Santa Colomba;31;1-2;CRA019007F5;R$ 100000000.00
+134;https://ecoagro.agr.br/emissoes-integra/134;2019;Florindo;30;1-2-3;CRA01900743;R$ 11000000.00
+134;https://ecoagro.agr.br/emissoes-integra/134;2019;Florindo;30;1-2-3;CRA01900744;R$ 11000000.00
+134;https://ecoagro.agr.br/emissoes-integra/134;2019;Florindo;30;1-2-3;CRA01900745;R$ 11000000.00
+133;https://ecoagro.agr.br/emissoes-integra/133;2019;Vale do Tijuco;26;1;CRA019006HS;R$ 300000000.00
+132;https://ecoagro.agr.br/emissoes-integra/132;2019;Vamos;23;1-2;CRA01900742;R$ 220000000.00
+132;https://ecoagro.agr.br/emissoes-integra/132;2019;Vamos;23;1-2;CRA01900749;R$ 220000000.00
+131;https://ecoagro.agr.br/emissoes-integra/131;2019;Unidas Agro;17;1;CRA019006SW;R$ 125000000.00
+130;https://ecoagro.agr.br/emissoes-integra/130;2019;Nativa;29;1-2-3;CRA019005VK;R$ 18000000.00
+130;https://ecoagro.agr.br/emissoes-integra/130;2019;Nativa;29;1-2-3;CRA019005VL;R$ 18000000.00
+130;https://ecoagro.agr.br/emissoes-integra/130;2019;Nativa;29;1-2-3;CRA019005VM;R$ 18000000.00
+129;https://ecoagro.agr.br/emissoes-integra/129;2019;Adecoagro;18;1;CRA0190066O;R$ 400000000.00
+128;https://ecoagro.agr.br/emissoes-integra/128;2019;Agrovale;22;1;CRA019005KH;R$ 84000000.00
+127;https://ecoagro.agr.br/emissoes-integra/127;2019;Agrícola Panorama;25;1-2-3;CRA019005KD;R$ 35000000.00
+127;https://ecoagro.agr.br/emissoes-integra/127;2019;Agrícola Panorama;25;1-2-3;CRA019005KE;R$ 35000000.00
+127;https://ecoagro.agr.br/emissoes-integra/127;2019;Agrícola Panorama;25;1-2-3;CRA019005KF;R$ 35000000.00
+126;https://ecoagro.agr.br/emissoes-integra/126;2019;Agropantanal;24;1-2-3;CRA0190053K;R$ 55000000.00
+126;https://ecoagro.agr.br/emissoes-integra/126;2019;Agropantanal;24;1-2-3;CRA0190053L;R$ 55000000.00
+126;https://ecoagro.agr.br/emissoes-integra/126;2019;Agropantanal;24;1-2-3;CRA0190053M;R$ 55000000.00
+125;https://ecoagro.agr.br/emissoes-integra/125;2019;Tirolez;15;1;CRA019004HC;R$ 100000000.00
+123;https://ecoagro.agr.br/emissoes-integra/123;2019;JSL;12;1-2;CRA01900466;R$ 1020000000.00
+123;https://ecoagro.agr.br/emissoes-integra/123;2019;JSL;12;1-2;CRA01900467;R$ 1020000000.00
+122;https://ecoagro.agr.br/emissoes-integra/122;2019;Libra;19;1;CRA019003PJ;R$ 15000000.00
+121;https://ecoagro.agr.br/emissoes-integra/121;2019;Produtores de Soja;14;1;CRA019002XQ;R$ 40000000.00
+120;https://ecoagro.agr.br/emissoes-integra/120;2019;Fortaleza;11;1-2-3;CRA019002S6;R$ 17600000.00
+120;https://ecoagro.agr.br/emissoes-integra/120;2019;Fortaleza;11;1-2-3;CRA019002S7;R$ 17600000.00
+120;https://ecoagro.agr.br/emissoes-integra/120;2019;Fortaleza;11;1-2-3;CRA019002S8;R$ 17600000.00
+119;https://ecoagro.agr.br/emissoes-integra/119;2019;Usina Coruripe;7;1-2;CRA0190020E;R$ 710188000.00
+119;https://ecoagro.agr.br/emissoes-integra/119;2019;Usina Coruripe;7;1-2;CRA0190020F;R$ 710188000.00
+118;https://ecoagro.agr.br/emissoes-integra/118;2019;Pitangueiras;13;1-2;CRA019002H2;R$ 30000000.00
+118;https://ecoagro.agr.br/emissoes-integra/118;2019;Pitangueiras;13;1-2;CRA019002H3;R$ 30000000.00
+117;https://ecoagro.agr.br/emissoes-integra/117;2019;Produtécnica;10;1-2-3;CRA019001PA;R$ 24000000.00
+117;https://ecoagro.agr.br/emissoes-integra/117;2019;Produtécnica;10;1-2-3;CRA019001PB;R$ 24000000.00
+117;https://ecoagro.agr.br/emissoes-integra/117;2019;Produtécnica;10;1-2-3;CRA019001PC;R$ 24000000.00
+115;https://ecoagro.agr.br/emissoes-integra/115;2019;Camil III;5;1-2;CRA01900132;R$ 600000000.00
+115;https://ecoagro.agr.br/emissoes-integra/115;2019;Camil III;5;1-2;CRA01900133;R$ 600000000.00
+114;https://ecoagro.agr.br/emissoes-integra/114;2019;Dipagro;9;1-2-3;CRA01900131;R$ 22000000.00
+114;https://ecoagro.agr.br/emissoes-integra/114;2019;Dipagro;9;1-2-3;CRA0190012Y;R$ 22000000.00
+114;https://ecoagro.agr.br/emissoes-integra/114;2019;Dipagro;9;1-2-3;CRA0190012Z;R$ 22000000.00
+113;https://ecoagro.agr.br/emissoes-integra/113;2019;Vale do Tijuco;6;1;CRA0190005L;R$ 75000000.00
+110;https://ecoagro.agr.br/emissoes-integra/110;2018;Produtores de Soja;4;1;CRA018005EM;R$ 10000000.00
+109;https://ecoagro.agr.br/emissoes-integra/109;2018;UMOE;3;1;24K1742203;R$ 8595244.54
+108;https://ecoagro.agr.br/emissoes-integra/108;2018;Agrirede;2;1-2-3;24I2431440;R$ 64100000.00
+107;https://ecoagro.agr.br/emissoes-integra/107;2018;Ubyfol;1;187-188-189;CRA018004H8;R$ 55000000.00
+107;https://ecoagro.agr.br/emissoes-integra/107;2018;Ubyfol;1;187-188-189;CRA018004H9;R$ 55000000.00
+107;https://ecoagro.agr.br/emissoes-integra/107;2018;Ubyfol;1;187-188-189;CRA018004HA;R$ 55000000.00
+106;https://ecoagro.agr.br/emissoes-integra/106;2018;Boa Safra;1;177-178-179;CRA018004H5;R$ 32000000.00
+106;https://ecoagro.agr.br/emissoes-integra/106;2018;Boa Safra;1;177-178-179;CRA018004H6;R$ 32000000.00
+106;https://ecoagro.agr.br/emissoes-integra/106;2018;Boa Safra;1;177-178-179;CRA018004H7;R$ 32000000.00
+105;https://ecoagro.agr.br/emissoes-integra/105;2018;Vale do Tijuco;1;176;CRA018004SC;R$ 150000000.00
+104;https://ecoagro.agr.br/emissoes-integra/104;2018;Agrícola Panorama;1;183-184-185;CRA018003JT;R$ 22380000.00
+104;https://ecoagro.agr.br/emissoes-integra/104;2018;Agrícola Panorama;1;183-184-185;CRA018003JU;R$ 22380000.00
+104;https://ecoagro.agr.br/emissoes-integra/104;2018;Agrícola Panorama;1;183-184-185;CRA018003JV;R$ 22380000.00
+103;https://ecoagro.agr.br/emissoes-integra/103;2018;Libra;1;181-182;CRA018003PF;R$ 15000000.00
+103;https://ecoagro.agr.br/emissoes-integra/103;2018;Libra;1;181-182;CRA018003PG;R$ 15000000.00
+99;https://ecoagro.agr.br/emissoes-integra/99;2018;Agropantanal;1;173-174-175;CRA018002BD;R$ 114764000.00
+99;https://ecoagro.agr.br/emissoes-integra/99;2018;Agropantanal;1;173-174-175;CRA018002BE;R$ 114764000.00
+99;https://ecoagro.agr.br/emissoes-integra/99;2018;Agropantanal;1;173-174-175;CRA018002BF;R$ 114764000.00
+98;https://ecoagro.agr.br/emissoes-integra/98;2018;SPE Predilecta;1;154;CRA018003E9;R$ 18390000.00
+97;https://ecoagro.agr.br/emissoes-integra/97;2018;Caramuru;1;171-172;CRA018002GY;R$ 100000000.00
+97;https://ecoagro.agr.br/emissoes-integra/97;2018;Caramuru;1;171-172;CRA018002S2;R$ 100000000.00
+93;https://ecoagro.agr.br/emissoes-integra/93;2018;Ubyfol II;1;147-148-149;CRA0180005M;R$ 27115000.00
+93;https://ecoagro.agr.br/emissoes-integra/93;2018;Ubyfol II;1;147-148-149;CRA0180005N;R$ 27115000.00
+93;https://ecoagro.agr.br/emissoes-integra/93;2018;Ubyfol II;1;147-148-149;CRA0180005O;R$ 27115000.00
+89;https://ecoagro.agr.br/emissoes-integra/89;2018;Usina Batatais;1;169;CRA018002MH;R$ 200000000.00
+88;https://ecoagro.agr.br/emissoes-integra/88;2018;Refrescos Bandeirantes;1;168;CRA018001P5;R$ 120000000.00
+87;https://ecoagro.agr.br/emissoes-integra/87;2018;Coruripe III;1;161;CRA0180020B;R$ 254913000.00
+86;https://ecoagro.agr.br/emissoes-integra/86;2018;Produtores de Soja;1;180;CRA018002GX;R$ 13682672.56
+81;https://ecoagro.agr.br/emissoes-integra/81;2018;UMOE;1;165-166-167;CRA0180012Y;R$ 300000000
+81;https://ecoagro.agr.br/emissoes-integra/81;2018;UMOE;1;165-166-167;CRA0180012Z;R$ 300000000
+81;https://ecoagro.agr.br/emissoes-integra/81;2018;UMOE;1;165-166-167;CRA01800130;R$ 300000000
+80;https://ecoagro.agr.br/emissoes-integra/80;2018;Produtores de Soja;1;162;CRA018000XE;R$ 12500000.00
+77;https://ecoagro.agr.br/emissoes-integra/77;2018;O Telhar;1;160;CRA018000XD;R$ 3000000.00
+77;https://ecoagro.agr.br/emissoes-integra/77;2018;O Telhar;1;160;CRA018000XD;R$ 3000000.00
+77;https://ecoagro.agr.br/emissoes-integra/77;2018;O Telhar;1;160;CRA018000XD;R$ 3000000.00
+73;https://ecoagro.agr.br/emissoes-integra/73;2018;Santa Helena;1;163-164;CRA018001JL;R$ 100000000.00
+73;https://ecoagro.agr.br/emissoes-integra/73;2018;Santa Helena;1;163-164;CRA018001JM;R$ 100000000.00
+96;https://ecoagro.agr.br/emissoes-integra/96;2017;Vinícola;1;112;CRA017000XE;R$ 2100000.00
+90;https://ecoagro.agr.br/emissoes-integra/90;2017;BASF II;1;95-96-97;CRA01700001;R$ 66881000.00
+90;https://ecoagro.agr.br/emissoes-integra/90;2017;BASF II;1;95-96-97;CRA01700003;R$ 66881000.00
+90;https://ecoagro.agr.br/emissoes-integra/90;2017;BASF II;1;95-96-97;CRA01700004;R$ 66881000.00
+72;https://ecoagro.agr.br/emissoes-integra/72;2017;Produtores de Soja;1;150-151;CRA0170099G;R$ 10000000.00
+72;https://ecoagro.agr.br/emissoes-integra/72;2017;Produtores de Soja;1;150-151;CRA0170099H;R$ 10000000.00
+71;https://ecoagro.agr.br/emissoes-integra/71;2017;Produtores de Soja;1;146;CRA017007PV;R$ 13000000.00
+70;https://ecoagro.agr.br/emissoes-integra/70;2017;Produtores de Soja;1;145;CRA017007KG;R$ 550000000.00
+69;https://ecoagro.agr.br/emissoes-integra/69;2017;Produtores de Soja;1;144;CRA017007KF;R$ 100000000.00
+66;https://ecoagro.agr.br/emissoes-integra/66;2017;BASF II;1;139-140-141;CRA017008ST;R$ 83070000.00
+66;https://ecoagro.agr.br/emissoes-integra/66;2017;BASF II;1;139-140-141;CRA017008SU;R$ 83070000.00
+66;https://ecoagro.agr.br/emissoes-integra/66;2017;BASF II;1;139-140-141;CRA017008SV;R$ 83070000.00
+65;https://ecoagro.agr.br/emissoes-integra/65;2017;Camil III;1;137;CRA0170099F;R$ 200000000.00
+64;https://ecoagro.agr.br/emissoes-integra/64;2017;Klabin II;1;135;CRA017009KJ;R$ 600000000.00
+63;https://ecoagro.agr.br/emissoes-integra/63;2017;Libra;1;138;CRA01700797;R$ 12350000.00
+62;https://ecoagro.agr.br/emissoes-integra/62;2017;Faber Castell;1;136;CRA017006MZ;R$ 65000000.00
+61;https://ecoagro.agr.br/emissoes-integra/61;2017;Ubyfol;1;126-127-128;CRA017003JT;R$ 26814335.26
+61;https://ecoagro.agr.br/emissoes-integra/61;2017;Ubyfol;1;126-127-128;CRA017003JU;R$ 26814335.26
+61;https://ecoagro.agr.br/emissoes-integra/61;2017;Ubyfol;1;126-127-128;CRA017003JV;R$ 26814335.26
+60;https://ecoagro.agr.br/emissoes-integra/60;2017;Agrodinamica;1;119-120-121;CRA017002MH;R$ 10077009.58
+60;https://ecoagro.agr.br/emissoes-integra/60;2017;Agrodinamica;1;119-120-121;CRA017002MI;R$ 10077009.58
+60;https://ecoagro.agr.br/emissoes-integra/60;2017;Agrodinamica;1;119-120-121;CRA017002MJ;R$ 10077009.58
+59;https://ecoagro.agr.br/emissoes-integra/59;2017;Grupo Colorado;1;124-125;CRA017004MS;R$ 90000000.00
+59;https://ecoagro.agr.br/emissoes-integra/59;2017;Grupo Colorado;1;124-125;CRA017004MS;R$ 90000000.00
+59;https://ecoagro.agr.br/emissoes-integra/59;2017;Grupo Colorado;1;124-125;CRA017004MT;R$ 90000000.00
+59;https://ecoagro.agr.br/emissoes-integra/59;2017;Grupo Colorado;1;124-125;CRA017004MT;R$ 90000000.00
+58;https://ecoagro.agr.br/emissoes-integra/58;2017;Camil;1;117-118;CRA0170040J;R$ 405000000.00
+58;https://ecoagro.agr.br/emissoes-integra/58;2017;Camil;1;117-118;CRA0170040K;R$ 405000000.00
+57;https://ecoagro.agr.br/emissoes-integra/57;2017;JSL;1;116;CRA017003PD;R$ 270000000.00
+56;https://ecoagro.agr.br/emissoes-integra/56;2017;Agrícola Panorama;1;132-133-134;CRA0170058Z;R$ 22244488.38
+56;https://ecoagro.agr.br/emissoes-integra/56;2017;Agrícola Panorama;1;132-133-134;CRA017005EJ;R$ 22244488.38
+56;https://ecoagro.agr.br/emissoes-integra/56;2017;Agrícola Panorama;1;132-133-134;CRA017005EK;R$ 22244488.38
+55;https://ecoagro.agr.br/emissoes-integra/55;2017;Posto Ipiranga;1;114-115;CRA017002BD;R$ 1012500000.00
+55;https://ecoagro.agr.br/emissoes-integra/55;2017;Posto Ipiranga;1;114-115;CRA017002BE;R$ 1012500000.00
+54;https://ecoagro.agr.br/emissoes-integra/54;2017;Usina Coruripe;1;122;CRA017002XL;R$ 67000000.00
+53;https://ecoagro.agr.br/emissoes-integra/53;2017;Usina Coruripe;1;99;CRA017000M9;R$ 135000000.00
+52;https://ecoagro.agr.br/emissoes-integra/52;2017;Klabin;1;105;CRA017000RT;R$ 845916000.00
+51;https://ecoagro.agr.br/emissoes-integra/51;2017;VLI;1;104;CRA017000B5;R$ 260000000.00
+49;https://ecoagro.agr.br/emissoes-integra/49;2016;Produtores de Soja;1;111;CRA0160002R;R$ 25000000.00
+48;https://ecoagro.agr.br/emissoes-integra/48;2016;Alcoeste;1;109-110;CRA0160002S;R$ 30000000.00
+48;https://ecoagro.agr.br/emissoes-integra/48;2016;Alcoeste;1;109-110;CRA0160002U;R$ 30000000.00
+47;https://ecoagro.agr.br/emissoes-integra/47;2016;Produtores de Soja;1;106-107-108;CRA0160002N;R$ 19189000.00
+47;https://ecoagro.agr.br/emissoes-integra/47;2016;Produtores de Soja;1;106-107-108;CRA0160002O;R$ 19189000.00
+47;https://ecoagro.agr.br/emissoes-integra/47;2016;Produtores de Soja;1;106-107-108;CRA0160002P;R$ 19189000.00
+46;https://ecoagro.agr.br/emissoes-integra/46;2016;Agroseed's;1;102-103;CRA01600023;R$ 10000000.00
+46;https://ecoagro.agr.br/emissoes-integra/46;2016;Agroseed's;1;102-103;CRA01600024;R$ 10000000.00
+45;https://ecoagro.agr.br/emissoes-integra/45;2016;Produtores de Soja;1;101;CRA01600022;R$ 22000000.00
+44;https://ecoagro.agr.br/emissoes-integra/44;2016;Produtores de Soja;1;100;CRA0160001Z;R$ 12000000.00
+43;https://ecoagro.agr.br/emissoes-integra/43;2016;Camil;1;91-92;CRA0160001S;R$ 402255000.00
+43;https://ecoagro.agr.br/emissoes-integra/43;2016;Camil;1;91-92;CRA0160001T;R$ 402255000.00
+42;https://ecoagro.agr.br/emissoes-integra/42;2016;Fibria MS;1;93-94;CRA01600028;R$ 1250000000.00
+42;https://ecoagro.agr.br/emissoes-integra/42;2016;Fibria MS;1;93-94;CRA01600029;R$ 1250000000.00
+10;https://ecoagro.agr.br/emissoes-integra/10;2016;Produtores de Soja;1;77;CRA01600002;R$ 3802292.10
+9;https://ecoagro.agr.br/emissoes-integra/9;2016;Faber Castell;1;78;CRA01600005;R$ 100000000.00
+8;https://ecoagro.agr.br/emissoes-integra/8;2016;Burguer King;1;79;CRA0160000I;R$ 202500000.00
+7;https://ecoagro.agr.br/emissoes-integra/7;2016;Fibria MS;1;80-81;CRA0160000W;R$ 1350000000.00
+7;https://ecoagro.agr.br/emissoes-integra/7;2016;Fibria MS;1;80-81;CRA0160000X;R$ 1350000000.00
+6;https://ecoagro.agr.br/emissoes-integra/6;2016;JSL;1;83;CRA0160000Z;R$ 200000000.00
+5;https://ecoagro.agr.br/emissoes-integra/5;2016;Suzano;1;84-85;CRA01600011;R$ 300000000.00
+5;https://ecoagro.agr.br/emissoes-integra/5;2016;Suzano;1;84-85;CRA01600012;R$ 300000000.00
+4;https://ecoagro.agr.br/emissoes-integra/4;2016;Agroseed's;1;86-87;CRA01600013;R$ 11770000.00
+4;https://ecoagro.agr.br/emissoes-integra/4;2016;Agroseed's;1;86-87;CRA01600014;R$ 11770000.00
+3;https://ecoagro.agr.br/emissoes-integra/3;2016;Produtores de Soja;1;88;CRA0160001F;R$ 50000000.00
+2;https://ecoagro.agr.br/emissoes-integra/2;2016;Fibria Celulose S.A.;1;89-90;CRA0160001G;R$ 700000000.00
+2;https://ecoagro.agr.br/emissoes-integra/2;2016;Fibria Celulose S.A.;1;89-90;CRA0160001H;R$ 700000000.00
+1;https://ecoagro.agr.br/emissoes-integra/1;2016;Suzano;1;98;CRA0160001X;R$ 1000000000.00
+18;https://ecoagro.agr.br/emissoes-integra/18;2015;Produtores de Soja;1;66-67;CRA01500002;R$ 40000000.00
+18;https://ecoagro.agr.br/emissoes-integra/18;2015;Produtores de Soja;1;66-67;CRA01500005;R$ 40000000.00
+17;https://ecoagro.agr.br/emissoes-integra/17;2015;Suzano;1;68;CRA0150000C;R$ 675000000.00
+16;https://ecoagro.agr.br/emissoes-integra/16;2015;Cocred;1;69-70;CRA0150000E;R$ 100000000.00
+16;https://ecoagro.agr.br/emissoes-integra/16;2015;Cocred;1;69-70;CRA0150000F;R$ 100000000.00
+15;https://ecoagro.agr.br/emissoes-integra/15;2015;Produtores de Soja;1;71;CRA01500009;R$ 4565183.46
+14;https://ecoagro.agr.br/emissoes-integra/14;2015;JSL;1;72;CRA0150000I;R$ 150000000.00
+13;https://ecoagro.agr.br/emissoes-integra/13;2015;Fibria MS;1;73;CRA0150000L;R$ 675000000.00
+12;https://ecoagro.agr.br/emissoes-integra/12;2015;Alcoeste;1;74;CRA0150000N;R$ 35000000.00
+11;https://ecoagro.agr.br/emissoes-integra/11;2015;Syngenta Proteção de Cultivos Ltda.;1;75-76;CRA0150000T;R$ 372633000.00
+11;https://ecoagro.agr.br/emissoes-integra/11;2015;Syngenta Proteção de Cultivos Ltda.;1;75-76;CRA0150000U;R$ 372633000.00
+24;https://ecoagro.agr.br/emissoes-integra/24;2014;Produtores de Soja;1;56-57;CRA01400017;R$ 3673000.00
+24;https://ecoagro.agr.br/emissoes-integra/24;2014;Produtores de Soja;1;56-57;CRA01400018;R$ 3673000.00
+23;https://ecoagro.agr.br/emissoes-integra/23;2014;Cocred;1;58-59;CRA0140000G;R$ 11506000.00
+23;https://ecoagro.agr.br/emissoes-integra/23;2014;Cocred;1;58-59;CRA0140000H;R$ 11506000.00
+22;https://ecoagro.agr.br/emissoes-integra/22;2014;Cocred;1;60-61;CRA0140000O;R$ 18900000.00
+22;https://ecoagro.agr.br/emissoes-integra/22;2014;Cocred;1;60-61;CRA0140000P;R$ 18900000.00
+21;https://ecoagro.agr.br/emissoes-integra/21;2014;Produtores de Soja;1;62-63;CRA0140000S;R$ 150000000.00
+21;https://ecoagro.agr.br/emissoes-integra/21;2014;Produtores de Soja;1;62-63;CRA0140000T;R$ 150000000.00
+20;https://ecoagro.agr.br/emissoes-integra/20;2014;Usina Rio Verde;1;64;CRA0140000U;R$ 4000000.00
+19;https://ecoagro.agr.br/emissoes-integra/19;2014;Produtores de Soja;1;65;CRA01400016;R$ 4640000.00
+29;https://ecoagro.agr.br/emissoes-integra/29;2013;Produtores de Soja;1;54-55;CRA0130000C;R$ 150000000.00
+29;https://ecoagro.agr.br/emissoes-integra/29;2013;Produtores de Soja;1;54-55;CRA0130000D;R$ 150000000.00
+28;https://ecoagro.agr.br/emissoes-integra/28;2013;ETH Bio Participações S.A. / Odebrecht;1;53;CRA01300003;R$ 399900000.00
+27;https://ecoagro.agr.br/emissoes-integra/27;2013;Produtores de Soja;1;52;CRA01300001;R$ 3577679.63
+26;https://ecoagro.agr.br/emissoes-integra/26;2013;Produtores de Soja;1;50-51;13A00023666;R$ 17000000.00
+26;https://ecoagro.agr.br/emissoes-integra/26;2013;Produtores de Soja;1;50-51;13A00023897;R$ 17000000.00
+25;https://ecoagro.agr.br/emissoes-integra/25;2013;Produtores de Soja;1;48-49;13A00017068;R$ 150000000.00
+25;https://ecoagro.agr.br/emissoes-integra/25;2013;Produtores de Soja;1;48-49;13A00017167;R$ 150000000.00
+38;https://ecoagro.agr.br/emissoes-integra/38;2012;Usina São Francisco S.A. / Usina Uberaba S.A.;1;42-43;12J00037856;R$ 50000000.12
+38;https://ecoagro.agr.br/emissoes-integra/38;2012;Usina São Francisco S.A. / Usina Uberaba S.A.;1;42-43;12J00037857;R$ 50000000.12
+37;https://ecoagro.agr.br/emissoes-integra/37;2012;Usina Monte Alegre Ltda. / Grupo Adecoagro;1;40-41;12G00012124;R$ 25802210.59
+37;https://ecoagro.agr.br/emissoes-integra/37;2012;Usina Monte Alegre Ltda. / Grupo Adecoagro;1;40-41;12G00011991;R$ 25802210.59
+36;https://ecoagro.agr.br/emissoes-integra/36;2011;Produtores de Soja;1;38-39;11F00048343;R$ 23595836.00
+36;https://ecoagro.agr.br/emissoes-integra/36;2011;Produtores de Soja;1;38-39;11F00048344;R$ 23595836.00
+35;https://ecoagro.agr.br/emissoes-integra/35;2011;Rice Company - Comércio de Cereais S.A.;1;37;ECOSCRA0037;R$ 100000000.00
+34;https://ecoagro.agr.br/emissoes-integra/34;2010;Produtores de Soja;1;36;10L00061571;R$ 12000000.00
+33;https://ecoagro.agr.br/emissoes-integra/33;2010;ETH Bio Participações S.A.;1;35;ECOSCRA0035;R$ 110000000.00
+32;https://ecoagro.agr.br/emissoes-integra/32;2010;Agro industrial Espírito Santo do Turvo - Agrest;1;34;ECOSCRA0011;R$ 12774715.10
+32;https://ecoagro.agr.br/emissoes-integra/32;2010;Agro industrial Espírito Santo do Turvo - Agrest;1;34;ECOSCRA0012;R$ 12774715.10
+32;https://ecoagro.agr.br/emissoes-integra/32;2010;Agro industrial Espírito Santo do Turvo - Agrest;1;34;ECOSCRA0013;R$ 12774715.10
+32;https://ecoagro.agr.br/emissoes-integra/32;2010;Agro industrial Espírito Santo do Turvo - Agrest;1;34;ECOSCRA0014;R$ 12774715.10
+32;https://ecoagro.agr.br/emissoes-integra/32;2010;Agro industrial Espírito Santo do Turvo - Agrest;1;34;ECOSCRA0015;R$ 12774715.10
+31;https://ecoagro.agr.br/emissoes-integra/31;2010;Produtores de Soja;1;31-32-33;ECOSCRA0031;R$ 17300000.00
+31;https://ecoagro.agr.br/emissoes-integra/31;2010;Produtores de Soja;1;31-32-33;ECOSCRA0032;R$ 17300000.00
+31;https://ecoagro.agr.br/emissoes-integra/31;2010;Produtores de Soja;1;31-32-33;ECOSCRA0033;R$ 17300000.00
+39;https://ecoagro.agr.br/emissoes-integra/39;2009;Agro industrial Espírito Santo do Turvo - Agrest;1;21-30;ECOSCRA0001;R$ 22320195.00
+39;https://ecoagro.agr.br/emissoes-integra/39;2009;Agro industrial Espírito Santo do Turvo - Agrest;1;21-30;ECOSCRA0010;R$ 22320195.00

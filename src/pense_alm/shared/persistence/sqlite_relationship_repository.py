@@ -1,6 +1,6 @@
 ﻿"""Repositorio SQLite de relacionamentos."""
 
-from datetime import datetime
+from datetime import UTC, datetime
 from sqlite3 import Connection, IntegrityError, Row
 from uuid import UUID
 
@@ -15,6 +15,7 @@ from pense_alm.shared.entities import (
 from .connection import SQLiteConnectionManager
 from .migration_runner import MigrationRunner
 from .serialization import (
+    datetime_from_text,
     provenance_from_row,
     provenance_to_record,
     relationship_from_row,
@@ -261,7 +262,10 @@ class SQLiteRelationshipRepository:
                 "reference_datetime deve ser datetime."
             )
 
-        if reference_datetime.tzinfo is None:
+        if (
+            reference_datetime.tzinfo is None
+            or reference_datetime.utcoffset() is None
+        ):
             raise RepositoryValidationError(
                 "reference_datetime deve possuir timezone."
             )
@@ -277,24 +281,12 @@ class SQLiteRelationshipRepository:
                 "relationship_type invalido."
             )
 
-        parameters = [
-            reference_datetime.isoformat(),
-            reference_datetime.isoformat(),
-        ]
-
         query = """
             SELECT *
             FROM entity_relationships
             WHERE status = 'active'
-              AND (
-                    valid_from IS NULL
-                    OR valid_from <= ?
-              )
-              AND (
-                    valid_to IS NULL
-                    OR valid_to >= ?
-              )
         """
+        parameters = []
 
         if relationship_type is not None:
             query += """
@@ -311,10 +303,37 @@ class SQLiteRelationshipRepository:
                 target_entity_id
         """
 
-        return self._list_by_query(
-            query,
-            tuple(parameters),
-        )
+        reference_utc = reference_datetime.astimezone(UTC)
+
+        with self._connection_manager.read_connection() as connection:
+            rows = connection.execute(
+                query,
+                tuple(parameters),
+            ).fetchall()
+
+            active_rows = []
+            for row in rows:
+                valid_from = datetime_from_text(
+                    row["valid_from"]
+                )
+                valid_to = datetime_from_text(
+                    row["valid_to"]
+                )
+                if (
+                    (
+                        valid_from is None
+                        or valid_from.astimezone(UTC) <= reference_utc
+                    )
+                    and (
+                        valid_to is None
+                        or valid_to.astimezone(UTC) >= reference_utc
+                    )
+                ):
+                    active_rows.append(
+                        self._load_relationship(connection, row)
+                    )
+
+        return tuple(active_rows)
 
     def count(
         self,

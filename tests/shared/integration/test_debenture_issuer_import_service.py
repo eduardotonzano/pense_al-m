@@ -1,15 +1,22 @@
 ﻿"""Testes do servico de importacao de emissores."""
 
 from pense_alm.shared.entities import (
+    DataProvenance,
     Entity,
     EntityType,
     InMemoryEntityRepository,
     MatchDecision,
+    SourceType,
 )
 from pense_alm.shared.integration import (
     DebentureIssuerImportService,
     DebentureIssuerRecord,
     EntityImportAction,
+)
+
+from ..cnpj_amostras import (
+    CNPJ_3,
+    com_mascara,
 )
 
 
@@ -18,7 +25,7 @@ def create_record(**overrides):
         "legacy_id": 42,
         "legal_name": "Empresa Brasileira S.A.",
         "trade_name": "Empresa Brasileira",
-        "cnpj": "12.345.678/0001-99",
+        "cnpj": com_mascara(CNPJ_3),
         "created_at": "2026-09-20 10:00:00",
         "updated_at": "2026-09-21 12:30:00",
     }
@@ -85,6 +92,34 @@ def test_same_name_without_cnpj_requires_review():
     assert second.action is EntityImportAction.REVIEW
     assert second.match_result is not None
     assert second.match_result.decision is MatchDecision.REVIEW
+    assert repository.count() == 1
+
+
+def test_cross_legal_and_trade_name_match_requires_review():
+    repository = InMemoryEntityRepository()
+    existing = Entity(
+        legal_name="Razao Social Original S.A.",
+        trade_name="Empresa Brasileira S.A.",
+        entity_type=EntityType.COMPANY,
+        provenance=DataProvenance(
+            source_type=SourceType.MANUAL,
+            source_name="Teste",
+        ),
+    )
+    repository.save(existing)
+    service = DebentureIssuerImportService(repository)
+
+    result = service.import_record(
+        create_record(
+            legacy_id=43,
+            legal_name="Empresa Brasileira S.A.",
+            trade_name="Nova Marca",
+            cnpj=None,
+        )
+    )
+
+    assert result.action is EntityImportAction.REVIEW
+    assert result.resolved_entity == existing
     assert repository.count() == 1
 
 

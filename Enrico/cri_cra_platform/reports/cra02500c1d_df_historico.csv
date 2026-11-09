@@ -1,0 +1,9 @@
+﻿data_base;indicador;valor_df_mil;revisao;fato;fact_id;fonte;informe_competencia;valor_informe_reais;diferenca_mil;confronto
+2026-06-30;total_ativo;759167;approved;df_total_ativo;73;doc 1328400 p.7;2026-06-30;759919460.42;752.460;diverge
+2026-06-30;direitos_creditorios_total;759072;approved;df_saldo_direitos_creditorios_total;96;doc 1328400 p.17;2026-06-30;759919460.42;847.460;diverge
+2026-06-30;direitos_creditorios_nao_circulante;687500;approved;df_direitos_creditorios_longo_prazo;74;doc 1328400 p.7;;;;
+2026-06-30;saldo_certificados_total;759072;approved;df_saldo_cra_total;110;doc 1328400 p.20;2026-06-30;759072111.53;0.112;confere
+2026-06-30;caixa_equivalentes;95;approved;df_caixa_aplicacao_fundo_despesas;85;doc 1328400 p.17;2026-06-30;0;-95.000;diverge
+2026-06-30;juros_apropriados_direitos_creditorios;59371;approved;df_juros_atualizacao_direitos_creditorios_periodo;75;doc 1328400 p.8;;;;
+2026-06-30;juros_pagos_titulares;50299;approved;df_pagamento_juros_cra_total_periodo;77;doc 1328400 p.9;;;;
+2026-06-30;recebimentos_direitos_creditorios;50299;approved;df_recebimento_direitos_creditorios_total_periodo;78;doc 1328400 p.9;;;;

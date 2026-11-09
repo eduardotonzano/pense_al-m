@@ -1,0 +1,111 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "source_kind": "assembleia",
+  "topic": "assembleia_condicionantes_2024",
+  "proposed_by": "Claude (assistente), a partir dos trechos literais da ata 619771",
+  "proposed_at": "2026-10-28",
+  "parameters": [
+    {
+      "source_document_id": "619771",
+      "anchor": "Valor Nominal 30/12/2022 SIM Amortizado 29/12/2023 SIM 0,0000%",
+      "parameter_name": "cronograma_amortizacao_cdca_cra",
+      "parameter_value": "30/12/2024: R$ 30.000.000,00 (30% do Valor Nominal); 30/12/2025: R$ 30.002.000,00 (42,86% do saldo); 30/12/2026: R$ 39.998.000,00 (100% do saldo); sem amortização em 30/12/2022 e 29/12/2023",
+      "unit": "texto",
+      "applies_when": "toda a emissão, a partir de 14/03/2024",
+      "valid_from": "2024-03-14",
+      "note": "AGT 14/03/2024, item (iii): substitui o fluxo original (amortização anual parcial a partir de 30/12/2025, vencimento 30/09/2027). Datas e valores atribuídos pela ordem das colunas da tabela (extração desalinhada); reconciliado com o saldo do AF em 31/12/2024 (R$ 70,04 mi) e o PU 399,98 do resgate de out/2026. Confirmar no PDF. Nenhum parâmetro aprovado anterior trata do cronograma.",
+      "supersedes": []
+    },
+    {
+      "source_document_id": "619771",
+      "anchor": "Valor Nominal 30/12/2022 SIM Amortizado 29/12/2023 SIM 0,0000%",
+      "parameter_name": "data_vencimento_final_cdca_cra",
+      "parameter_value": "2026-12-30",
+      "unit": "data",
+      "applies_when": "CDCA e CRA, a partir de 14/03/2024",
+      "valid_from": "2024-03-14",
+      "note": "AGT 14/03/2024, item (iii): a ata altera a Data de Vencimento do CDCA e dos CRA sem citá-la por extenso; 30/12/2026 é a última data da tabela. Coerente com os AF de 2023–2025 e com as DFs de 31/03/2026. Diverge do Termo 355426, das DFs de 31/03/2024 e do Informe Mensal (30/09/2027).",
+      "supersedes": []
+    },
+    {
+      "source_document_id": "619771",
+      "anchor": "Em razão da aprovação do item acima, os Titulares de CRA presentes",
+      "parameter_name": "premio_resgate_antecipado_facultativo_ate",
+      "parameter_value": "2026-01-01",
+      "unit": "data",
+      "applies_when": "Resgate Antecipado Facultativo (cláusula 6.3.1 do CDCA)",
+      "valid_from": "2024-03-14",
+      "note": "AGT 14/03/2024, item (iv). A ata não define o percentual do Prêmio (consta do CDCA, fora do catálogo) nem o que ocorre após 01/01/2026.",
+      "supersedes": []
+    },
+    {
+      "source_document_id": "619771",
+      "anchor": "O pagamento de waiver fee correspondente à 0,75%",
+      "parameter_name": "waiver_fee_2024",
+      "parameter_value": "0.0075",
+      "unit": "fração do saldo devedor dos CRA em 14/03/2024",
+      "applies_when": "parcela única, em até 5 dias úteis da data da assembleia",
+      "valid_from": "2024-03-14",
+      "note": "Condição (a) da AGT de 14/03/2024. A proposta do edital previa 0,5% do Saldo Devedor do CDCA na próxima Data de Pagamento.",
+      "supersedes": []
+    },
+    {
+      "source_document_id": "619771",
+      "anchor": "A partir de 01 de setembro de 2024 e até 30 de dezembro de 2024",
+      "parameter_name": "retencao_conta_garantia_set_dez_2024",
+      "parameter_value": "Todos os recursos dos Direitos Creditórios em Garantia retidos na Conta Garantia, para pagar a parcela de principal e/ou juros de dez/2024",
+      "unit": "texto",
+      "applies_when": "de 01/09/2024 a 30/12/2024",
+      "valid_from": "2024-03-14",
+      "note": "Condição (b) da AGT de 14/03/2024.",
+      "supersedes": []
+    },
+    {
+      "source_document_id": "619771",
+      "anchor": "A Devedora não poderá distribuir dividendos acima do mínimo legal",
+      "parameter_name": "vedacao_dividendos_2024",
+      "parameter_value": "Dividendos limitados ao mínimo legal",
+      "unit": "texto",
+      "applies_when": "exercício 2024",
+      "valid_from": "2024-03-14",
+      "note": "Condição (c) da AGT de 14/03/2024.",
+      "supersedes": []
+    },
+    {
+      "source_document_id": "619771",
+      "anchor": "A limitação do CAPEX que poderá ser realizado pela Devedora no ano de 2024",
+      "parameter_name": "limite_capex_2024",
+      "parameter_value": "15000000.00",
+      "unit": "BRL",
+      "applies_when": "exercício 2024; calculado pela saída de caixa (Demonstrativo de Fluxo de Caixa da Devedora)",
+      "valid_from": "2024-03-14",
+      "note": "Condição (d) da AGT de 14/03/2024; não conta recursos de clientes inadimplentes que não usem o caixa da Devedora. Em 2025 o limite caiu para R$ 12 mi (ata 927400).",
+      "supersedes": []
+    },
+    {
+      "source_document_id": "619771",
+      "anchor": "Inclusão de obrigação de entrega pela Devedora à Securitizadora dos balancetes",
+      "parameter_name": "balancetes_trimestrais_nao_auditados",
+      "parameter_value": "Balancetes trimestrais não auditados dos três primeiros trimestres de cada ano, em até 45 dias do encerramento do trimestre",
+      "unit": "texto",
+      "applies_when": "durante toda a vigência restante da Emissão",
+      "valid_from": "2024-03-14",
+      "note": "Condição (e) da AGT de 14/03/2024. A ata de 12/02/2026 (1110477) exige balancetes mensais em 2026, sem declarar substituição desta obrigação; por isso não foi usado 'supersedes'.",
+      "supersedes": []
+    },
+    {
+      "source_document_id": "619771",
+      "anchor": "Durante o ano de 2024, a obrigatoriedade de realização de reuniões virtuais",
+      "parameter_name": "reunioes_virtuais_trimestrais_2024",
+      "parameter_value": "Reuniões virtuais trimestrais entre Securitizadora, Devedora e Titulares, em até 15 dias do fim do prazo dos balancetes",
+      "unit": "texto",
+      "applies_when": "exercício 2024",
+      "valid_from": "2024-03-14",
+      "note": "Condição (f) da AGT de 14/03/2024; data a ser divulgada por Comunicado ao Mercado.",
+      "supersedes": []
+    }
+  ]
+}

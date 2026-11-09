@@ -1,0 +1,236 @@
+﻿xml_path,node_kind,occurrences,filled,max_repeated_within_parent,value_shapes,long_text_flag,base64_suspected,personal_data_suspected,example_values
+/InformeMensalCRA,container,1,,1,,False,False,False,
+/InformeMensalCRA/Ativo,container,1,,1,,False,False,False,
+/InformeMensalCRA/Ativo/@total,attribute,1,1,0,decimal_dot,False,False,False,753870915.63
+/InformeMensalCRA/Ativo/CaixaEquivalentes,container,1,,1,,False,False,False,
+/InformeMensalCRA/Ativo/CaixaEquivalentes/@total,attribute,1,1,0,zero,False,False,False,0
+/InformeMensalCRA/Ativo/CaixaEquivalentes/CotasFILiquidezDiaria,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Ativo/CaixaEquivalentes/OperacoesCompromissadas,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Ativo/CaixaEquivalentes/Outros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Ativo/CaixaEquivalentes/TitulosPublicosFederais,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Ativo/Derivativos,container,1,,1,,False,False,False,
+/InformeMensalCRA/Ativo/Derivativos/@total,attribute,1,1,0,zero,False,False,False,0
+/InformeMensalCRA/Ativo/Derivativos/ContratosTermo,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Ativo/Derivativos/Futuros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Ativo/Derivativos/Opcoes,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Ativo/Derivativos/Swap,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Ativo/DireitosCreditorios,container,1,,1,,False,False,False,
+/InformeMensalCRA/Ativo/DireitosCreditorios/@total,attribute,1,1,0,decimal_dot,False,False,False,753870915.63
+/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerComParcelasAtraso,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerSemParcelasAtraso,leaf,1,1,1,decimal_dot,False,False,False,753870915.63
+/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Ativo/OutrosAtivos,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Ativo/ProvisaoRecuperacaoDireitosCreditorios,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/ContingenciaPatrimonioSeparado,container,1,,1,,False,False,False,
+/InformeMensalCRA/ContingenciaPatrimonioSeparado/OutrasContigenciasRelevantes,leaf,1,1,1,text,False,False,False,Nada a destacar
+/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes,container,1,,1,,False,False,False,
+/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes/PrincipaisFatos,leaf,1,1,1,text,False,False,False,Nada a destacar.
+/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes/ValoresBensDireitosEnvolvidos,leaf,1,1,1,text,False,False,False,Nada a destacar.
+/InformeMensalCRA/DadosGerais,container,1,,1,,False,False,False,
+/InformeMensalCRA/DadosGerais/AgenteFiduciario,leaf,1,1,1,text,False,False,False,Vortx DTVM LTDA.
+/InformeMensalCRA/DadosGerais/CNPJCompanhia,leaf,1,1,1,integer,False,False,False,10753164000143
+/InformeMensalCRA/DadosGerais/CompanhiaEmissora,leaf,1,1,1,text,False,False,False,Eco Securitizdora de Direitos Creditórios do Agronegócio
+/InformeMensalCRA/DadosGerais/Competencia,leaf,1,1,1,date_iso,False,False,False,2025-12-31
+/InformeMensalCRA/DadosGerais/CustodianteRegistradora,leaf,1,1,1,text,False,False,False,Vortx DTVM LTDA.
+/InformeMensalCRA/DadosGerais/DetalhamentoLastro,leaf,1,1,1,text,False,False,False,Direitos Creditórios
+/InformeMensalCRA/DadosGerais/Emissao,container,1,,1,,False,False,False,
+/InformeMensalCRA/DadosGerais/Emissao/CodigoIdentificacao,leaf,1,1,1,text,False,False,False,BRECOACRALJ8
+/InformeMensalCRA/DadosGerais/Emissao/DataEmissao,leaf,1,1,1,date_iso,False,False,False,2025-12-15
+/InformeMensalCRA/DadosGerais/Emissao/NomeEmissao,leaf,1,1,1,text,False,False,False,"Série 1,2, 3, 4 e 5 - 426ª Emissão - Alibem"
+/InformeMensalCRA/DadosGerais/Emissao/NumeroEmissao,leaf,1,1,1,integer,False,False,False,426
+/InformeMensalCRA/DadosGerais/Emissao/QuantidadeSeries,leaf,1,1,1,integer,False,False,False,5
+/InformeMensalCRA/DadosGerais/InstituicaoRegimeFiduciario,leaf,1,1,1,text,False,False,False,Sim
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas,container,1,,1,,False,False,False,
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/CadeiaProducao,leaf,1,1,1,text,False,False,False,Produtor rural
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/OutrasCaracteristicasEmissao,leaf,1,1,1,text,False,False,False,Nada a destacar.
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/RetentorRisco,leaf,1,1,1,zero,False,False,False,00000000000000
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/TipoRetencaoRisco,leaf,1,0,1,empty,False,False,False,
+/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/TipoSegmento,leaf,1,1,1,text,False,False,False,Pecuária
+/InformeMensalCRA/DadosGerais/Revolvencia,leaf,1,1,1,text,False,False,False,Não
+/InformeMensalCRA/DadosGerais/Series,container,1,,1,,False,False,False,
+/InformeMensalCRA/DadosGerais/Series/Serie,container,5,,5,,False,False,False,
+/InformeMensalCRA/DadosGerais/Series/Serie/Classe,leaf,5,5,1,text,False,False,False,Sênior | Mezanino | Subordinada
+/InformeMensalCRA/DadosGerais/Series/Serie/CodigoISIN,leaf,5,5,1,text,False,False,False,BRECOACRALJ8 | BRECOACRALK6 | BRECOACRALL4
+/InformeMensalCRA/DadosGerais/Series/Serie/CodigoNegociacaoMercadoSec,leaf,5,5,1,text,False,False,False,CRA02500C1D | CRA02500C1E | CRA02500C1F
+/InformeMensalCRA/DadosGerais/Series/Serie/DataVencimento,leaf,5,5,1,date_iso,False,False,False,2029-07-16 | 2032-07-15 | 2035-07-16
+/InformeMensalCRA/DadosGerais/Series/Serie/MesBaseApuracaoPagtoRemunAmort,leaf,5,5,1,text,False,False,False,Junho e Dezembro
+/InformeMensalCRA/DadosGerais/Series/Serie/NumeroSerie,leaf,5,5,1,integer,False,False,False,1 | 2 | 3
+/InformeMensalCRA/DadosGerais/Series/Serie/PeriodicidadePagtoRemunAmort,leaf,5,5,1,text,False,False,False,Semestral
+/InformeMensalCRA/DadosGerais/Series/Serie/Situacao,leaf,5,5,1,text,False,False,False,Adimplente
+/InformeMensalCRA/DadosGerais/Series/Serie/TaxaJuros,leaf,5,5,1,text,False,False,False,"PRÉ 14,8000 % a.a | 108% do CDI | CDI + 1,5000% a.a"
+/InformeMensalCRA/DadosGerais/Series/Serie/TipoOferta,leaf,5,5,1,text,False,False,False,Público em geral
+/InformeMensalCRA/DadosGerais/Series/Serie/VlrTotalIntegralizado,leaf,5,5,1,integer,False,False,False,233142000 | 16858000 | 250000000
+/InformeMensalCRA/DadosGerais/Sobrecolateralizacao,leaf,1,1,1,text,False,False,False,Não aplicável. Não há sobrecolaterização.
+/InformeMensalCRA/DadosGerais/TipoLastro,leaf,1,1,1,text,False,False,False,Créditos
+/InformeMensalCRA/DerivativosExposicaoLiquida,container,1,,1,,False,False,False,
+/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros,container,1,,1,,False,False,False,
+/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Cambio,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/CommoditiesAgricolas,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Juros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Outros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo,container,1,,1,,False,False,False,
+/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Cambio,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/CommoditiesAgricolas,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Juros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Outros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes,container,1,,1,,False,False,False,
+/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Cambio,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/CommoditiesAgricolas,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Juros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Outros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/Swap,container,1,,1,,False,False,False,
+/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Cambio,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/CommoditiesAgricolas,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Juros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Outros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DetalhesSeries,container,1,,1,,False,False,False,
+/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco,container,1,,1,,False,False,False,
+/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/AgenciaClassificadora,leaf,1,1,1,text,False,False,False,Moody´s Local
+/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao,leaf,1,0,1,xsi_nil,False,False,False,
+/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,1,1,0,text,False,False,False,true
+/InformeMensalCRA/DetalhesSeries/Series,container,1,,1,,False,False,False,
+/InformeMensalCRA/DetalhesSeries/Series/Serie,container,5,,5,,False,False,False,
+/InformeMensalCRA/DetalhesSeries/Series/Serie/AmortizacoesRealizadasPeriodo,leaf,5,5,1,zero,False,False,False,0
+/InformeMensalCRA/DetalhesSeries/Series/Serie/Classe,leaf,5,5,1,text,False,False,False,Sênior | Mezanino | Subordinada
+/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual,leaf,5,0,1,xsi_nil,False,False,False,
+/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,5,5,0,text,False,False,False,true
+/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase,leaf,5,0,1,xsi_nil,False,False,False,
+/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,5,5,0,text,False,False,False,true
+/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo,leaf,5,0,1,xsi_nil,False,False,False,
+/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,5,5,0,text,False,False,False,true
+/InformeMensalCRA/DetalhesSeries/Series/Serie/NumeroSerie,leaf,5,5,1,integer,False,False,False,1 | 2 | 3
+/InformeMensalCRA/DetalhesSeries/Series/Serie/QtdCertificadosPorClasse,leaf,5,5,1,integer,False,False,False,233142 | 16858 | 250000
+/InformeMensalCRA/DetalhesSeries/Series/Serie/RendimentosDistribuidosPeriodo,leaf,5,5,1,zero,False,False,False,0
+/InformeMensalCRA/DetalhesSeries/Series/Serie/RentabilidadePeriodo,leaf,5,5,1,zero,False,False,False,0
+/InformeMensalCRA/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse,leaf,5,5,1,decimal_dot,False,False,False,234037564.63 | 16928388.21 | 251070204.24
+/InformeMensalCRA/DetalhesSeries/Subordinacao,container,1,,1,,False,False,False,
+/InformeMensalCRA/DetalhesSeries/Subordinacao/RecomposicaoIndice,leaf,1,1,1,text,False,False,False,Não aplicável. Não houve recomposição de índices.
+/InformeMensalCRA/DetalhesSeries/totalAmortizacoesRealizadas,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DetalhesSeries/totalQtdCertificados,leaf,1,1,1,integer,False,False,False,750000
+/InformeMensalCRA/DetalhesSeries/totalRendimentosDistribuidos,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/DetalhesSeries/totalVlrCertificados,leaf,1,1,1,decimal_dot,False,False,False,753008973.69
+/InformeMensalCRA/FluxoCaixaLiquidoMes,container,1,,1,,False,False,False,
+/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoCaixaEquivalentes,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoNovosDireitosCreditorios,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosPagamentos,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosRecebimentos,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PagamentosDespesas,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior,container,1,,1,,False,False,False,
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total,attribute,1,1,0,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/AmortizacaoPrincipal,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/Juros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior,container,1,,1,,False,False,False,
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/@total,attribute,1,1,0,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/AmortizacaoPrincipal,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/Juros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino,container,1,,1,,False,False,False,
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/@total,attribute,1,1,0,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/AmortizacaoPrincipal,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/Juros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/RecebimentosAlienacaoCaixaEquivalentes,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/RecebimentosDireitosCreditorios,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/FluxoCaixaLiquidoMes/VariacaoLiquidaCaixaPatrimonioSeparado,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/@total,attribute,1,1,0,decimal_dot,False,False,False,753870915.63
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Acima361Dias,leaf,1,1,1,decimal_dot,False,False,False,753870915.63
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Ate30Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De121a150Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De151a180Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De181a360Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De31a60Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De61a90Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De91a120Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/CNPJ,leaf,1,1,1,cnpj_formatted,False,False,False,03.941.052/0001-50
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/Percentual,leaf,1,1,1,integer,False,False,False,1
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/Concentracao,leaf,1,1,1,text,False,False,False,Concentrado - mais de 20%
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoCedente,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoCedente/MaiorCedente,leaf,1,1,1,integer,False,False,False,1
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores,leaf,1,0,1,xsi_nil,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,1,1,0,text,False,False,False,true
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores,leaf,1,0,1,xsi_nil,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,1,1,0,text,False,False,False,true
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/MaiorDevedor,leaf,1,1,1,integer,False,False,False,1
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores,leaf,1,0,1,xsi_nil,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,1,1,0,text,False,False,False,true
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/CNPJ,leaf,1,1,1,cnpj_formatted,False,False,False,03.941.052/0001-50
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/Percentual,leaf,1,1,1,integer,False,False,False,1
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/DurationCarteira,leaf,1,1,1,text,False,False,False,Dez anos
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/OutrasConsideracoesRelevantes,leaf,1,1,1,text,False,False,False,Nada a destacar.
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PercentualDireitosCreditoriosCedentesTerceiros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PercentualDireitosCreditoriosOutrasGarantias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PeriodicidadeAvaliacaoGarantias,leaf,1,1,1,text,False,False,False,Não aplicável. A operação não conta com garantias reais.
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrDividasAdquiridasEmissorSecuritizadora,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalDirCredRelacaoVlrTotalEmissao,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalGarantias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/@total,attribute,1,1,0,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/InfoImpactoPrePgtoInvestidores,leaf,1,1,1,text,False,False,False,Não há. Não houve pré-pagamento para os investidores.
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro,leaf,1,0,1,xsi_nil,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro/@{http://www.w3.org/2001/XMLSchema-instance}nil,attribute,1,1,0,text,False,False,False,true
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/@total,attribute,1,1,0,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Acima361Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre121e150Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre151e180Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre181e360Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre1e30Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre31e60Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre61e90Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre91e120Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao,container,1,,1,,False,False,False,
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/@total,attribute,1,1,0,decimal_dot,False,False,False,753870915.63
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoInsumosAgropecuarios,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoMaquinasImplementos,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoProdutosAgropecuarios,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoInsumosAgropecuarios,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoMaquinasImplementos,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoProdutosAgropecuarios,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoInsumosAgropecuarios,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoMaquinasImplementos,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoProdutosAgropecuarios,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoInsumosAgropecuarios,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoMaquinasImplementos,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoProdutosAgropecuarios,leaf,1,1,1,decimal_dot,False,False,False,753870915.63
+/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrTotalParcelasAtraso,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/OutrasInfoRelevantesDesempenhoEmissao,leaf,1,1,1,text,False,False,False,Nada a destacar.
+/InformeMensalCRA/Passivo,container,1,,1,,False,False,False,
+/InformeMensalCRA/Passivo/@total,attribute,1,1,0,decimal_dot,False,False,False,753870915.63
+/InformeMensalCRA/Passivo/CompanhiaSecuritizadoraEmissora,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Passivo/Derivativos,container,1,,1,,False,False,False,
+/InformeMensalCRA/Passivo/Derivativos/@total,attribute,1,1,0,zero,False,False,False,0
+/InformeMensalCRA/Passivo/Derivativos/ContratosTermo,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Passivo/Derivativos/Futuros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Passivo/Derivativos/Opcoes,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Passivo/Derivativos/Swap,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Passivo/Outros,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/Passivo/ReducaoVlrEmissao,leaf,1,1,1,decimal_dot,False,False,False,-861941.94
+/InformeMensalCRA/Passivo/VlrAtualizadoEmissao,leaf,1,1,1,decimal_dot,False,False,False,753008973.69
+/InformeMensalCRA/VlrPatrimonioLiquidoEmissao,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado,container,1,,1,,False,False,False,
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas,container,1,,1,,False,False,False,
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/@total,attribute,1,1,0,decimal_dot,False,False,False,753870915.63
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Acima361Dias,leaf,1,1,1,decimal_dot,False,False,False,753870915.63
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Ate30Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De121a150Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De151a180Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De181a360Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De31a60Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De61a90Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De91a120Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr,container,1,,1,,False,False,False,
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/@total,attribute,1,1,0,decimal_dot,False,False,False,250965952.84
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Acima361Dias,leaf,1,1,1,decimal_dot,False,False,False,250965952.84
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Ate30Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De121a150Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De151a180Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De181a360Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De31a60Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De61a90Dias,leaf,1,1,1,zero,False,False,False,0
+/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De91a120Dias,leaf,1,1,1,zero,False,False,False,0

@@ -38,6 +38,8 @@ class AssetRepository:
                 f"asset_id={by_cetip['asset_id']})"
             )
         existing = by_isin or by_cetip
+        if existing:
+            self._refuse_other_issuance(existing, asset)
         now = datetime.now(timezone.utc).isoformat()
         stored_cetip = codigo_cetip or (
             self._normalize_identifier(existing["codigo_cetip"]) if existing else None
@@ -89,6 +91,31 @@ class AssetRepository:
                 f"Identificador duplicado após normalização: {column}={identifier}"
             )
         return matches[0] if matches else None
+
+    @staticmethod
+    def _refuse_other_issuance(existing, asset: Asset) -> None:
+        """Mesmo CETIP ou ISIN, mas outra securitizadora (CNPJ) ou outra emissão: conflito, não atualização.
+
+        A CVM publica às vezes o mesmo código em emissões diferentes (ex.: 24E3191695 na Opea 330 e na Casa de
+        Pedra 29); atualizar trocaria a identidade do ativo já cadastrado. Só compara campos preenchidos dos dois lados.
+        """
+
+        def digits(value) -> str:
+            return "".join(character for character in str(value or "") if character.isdigit())
+
+        stored_cnpj, new_cnpj = digits(existing["cnpj_securitizadora"]), digits(asset.cnpj_securitizadora)
+        stored_issue = digits(existing["emissao"]).lstrip("0")
+        new_issue = digits(asset.emissao).lstrip("0")
+        if stored_cnpj and new_cnpj and stored_cnpj != new_cnpj:
+            raise ValueError(
+                f"Conflito de identidade: asset_id={existing['asset_id']} é de outra securitizadora "
+                f"({existing['cnpj_securitizadora']} × {asset.cnpj_securitizadora})"
+            )
+        if stored_issue and new_issue and stored_issue != new_issue:
+            raise ValueError(
+                f"Conflito de identidade: asset_id={existing['asset_id']} é de outra emissão "
+                f"({existing['emissao']} × {asset.emissao})"
+            )
 
     @staticmethod
     def _normalize_identifier(value: str | None) -> str | None:

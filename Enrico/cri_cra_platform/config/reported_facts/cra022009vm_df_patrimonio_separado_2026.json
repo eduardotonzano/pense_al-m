@@ -1,0 +1,66 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "source_note": "Demonstrações financeiras auditadas (Grant Thornton) do Patrimônio Separado, exercício findo em 31/03/2026; documento Fundos.NET 1232148. Valores em milhares de reais, como publicados (sem conversão).",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-27",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "1232148",
+      "page_number": 4,
+      "fact_name": "encerramento_patrimonio_separado_previsto",
+      "reference_date": "2026-03-31",
+      "value": "2026-12-30",
+      "unit": "data",
+      "excerpt": "do encerramento do patrimônio separado em 30 de dezembro de 2026, conforme previsto no termo de securitização"
+    },
+    {
+      "source_document_id": "1232148",
+      "page_number": 17,
+      "fact_name": "direitos_creditorios_vencidos_nao_pagos",
+      "reference_date": "2026-03-31",
+      "value": "7089",
+      "unit": "BRL_mil",
+      "excerpt": "i. vencidos e não pagos 7.089"
+    },
+    {
+      "source_document_id": "1232148",
+      "page_number": 17,
+      "fact_name": "direitos_creditorios_total",
+      "reference_date": "2026-03-31",
+      "value": "48925",
+      "unit": "BRL_mil",
+      "excerpt": "Total 48.925 72.907"
+    },
+    {
+      "source_document_id": "1232148",
+      "page_number": 17,
+      "fact_name": "provisao_perdas_constituida",
+      "reference_date": "2026-03-31",
+      "value": "nenhuma",
+      "unit": "texto",
+      "excerpt": "Na análise da Securitizadora não há provisão a ser constituída para os ativos vinculados ao patrimônio separado."
+    },
+    {
+      "source_document_id": "1232148",
+      "page_number": 17,
+      "fact_name": "garantias_cdca",
+      "reference_date": "2026-03-31",
+      "value": "Aval; Cessão Fiduciária; Alienação Fiduciária de Imóvel; Alienação Fiduciária de Estoque",
+      "unit": "texto",
+      "excerpt": "O CDCA conta com o Aval, a Cessão Fiduciária, a Alienação Fiduciária de Imóvel e a Alienação Fiduciária de Estoque como garantias."
+    },
+    {
+      "source_document_id": "1232148",
+      "page_number": 20,
+      "fact_name": "prazo_vencimento_meses",
+      "reference_date": "2026-03-31",
+      "value": "60",
+      "unit": "meses",
+      "excerpt": "Prazo de vencimento: 60 meses"
+    }
+  ]
+}

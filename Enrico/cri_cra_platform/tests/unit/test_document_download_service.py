@@ -19,6 +19,7 @@ from credit_assets.repositories.document_version_repository import (
     DocumentVersionRepository,
 )
 from credit_assets.services.document_download_service import (
+    CATEGORY_DIRECTORIES,
     DocumentDownloadService,
     FundosNetBrowserDownloader,
     SAMPLE_CATEGORIES,
@@ -143,6 +144,96 @@ def test_sample_prefers_most_recent_and_never_invents_missing_category(tmp_path)
     )
     assert selection["selected"][0]["source_document_id"] == "novo"
     assert selection["missing_categories"] == []
+
+
+def test_explicit_ids_select_multiple_documents_of_same_category(tmp_path):
+    connection, document_ids = create_catalog(
+        tmp_path, ("Informe Mensal de CRA", "Informe Mensal de CRA", "AGO/E")
+    )
+    selection = select_sample_documents(
+        connection, "CRA022009VM", "BRECOACRABX0",
+        source_document_ids=["981502", "981501", "981501"],
+    )
+    assert [item["document_id"] for item in selection["selected"]] == [
+        document_ids[1], document_ids[0]
+    ]
+    assert {item["category"] for item in selection["selected"]} == {"Informe Mensal"}
+    assert selection["requested_source_document_ids"] == ["981502", "981501"]
+
+
+@pytest.mark.parametrize("source_id, message", [
+    ("999999", "não catalogado"),
+    ("981502", "fora da amostra"),
+])
+def test_explicit_ids_reject_unknown_or_unapproved_documents(tmp_path, source_id, message):
+    connection, _ = create_catalog(tmp_path, ("Informe Mensal de CRA", "Demonstrações Financeiras"))
+    with pytest.raises(ValueError, match=message):
+        select_sample_documents(
+            connection, "CRA022009VM", "BRECOACRABX0",
+            source_document_ids=[source_id],
+        )
+
+
+def test_explicit_ids_accept_trustee_report_and_material_fact_but_default_sample_does_not(tmp_path):
+    connection, _ = create_catalog(
+        tmp_path, ("Relatório de Agente Fiduciário", "Fato Relevante", "Informe Mensal de CRA")
+    )
+    explicit = select_sample_documents(
+        connection, "CRA022009VM", "BRECOACRABX0", source_document_ids=["981501", "981502"],
+    )
+    assert [item["category"] for item in explicit["selected"]] == [
+        "Relatório Agente Fiduciário", "Fato Relevante"
+    ]
+    default = select_sample_documents(connection, "CRA022009VM", "BRECOACRABX0")
+    assert {item["category"] for item in default["selected"]} == {"Informe Mensal"}
+
+
+def test_closing_announcement_is_explicit_only(tmp_path):
+    connection, _ = create_catalog(
+        tmp_path, ("Anúncio de Encerramento de Distribuição Pública", "Informe Mensal de CRA")
+    )
+    explicit = select_sample_documents(
+        connection, "CRA022009VM", "BRECOACRABX0", source_document_ids=["981501"],
+    )
+    assert explicit["selected"][0]["category"] == "Anúncio de Encerramento"
+    assert CATEGORY_DIRECTORIES["Anúncio de Encerramento"] == "anuncios_encerramento"
+    default = select_sample_documents(connection, "CRA022009VM", "BRECOACRABX0")
+    assert {item["category"] for item in default["selected"]} == {"Informe Mensal"}
+
+
+def test_other_category_requires_explicit_opt_in(tmp_path):
+    connection, _ = create_catalog(tmp_path, ("Outros Comunicados Não Considerados Fatos Relevantes",))
+    with pytest.raises(ValueError, match="fora da amostra"):
+        select_sample_documents(connection, "CRA022009VM", "BRECOACRABX0", source_document_ids=["981501"])
+    selected = select_sample_documents(
+        connection, "CRA022009VM", "BRECOACRABX0", source_document_ids=["981501"], allow_other=True,
+    )
+    assert selected["selected"][0]["category"] == "Outro"
+
+
+def test_explicit_ids_reject_document_of_another_asset(tmp_path):
+    connection, _ = create_catalog(tmp_path)
+    other_asset_id = AssetRepository(connection).upsert(
+        Asset(
+            "24G2100031", "CRI", "Opea Securitizadora",
+            "02773542000122", "301", "1", isin="BRRBRACRIP13",
+        )
+    )
+    connection.execute(
+        """INSERT INTO documents (
+            source_document_id, asset_id, category, document_name,
+            source, source_url, run_id
+        ) VALUES ('outro-ativo', ?, 'Informe Mensal', 'Informe Mensal de CRI',
+                  'Fundos.NET', 'https://fnet.test/visualizar?id=outro-ativo',
+                  'download-service-catalog-run')""",
+        (other_asset_id,),
+    )
+    connection.commit()
+    with pytest.raises(ValueError, match="outro ativo"):
+        select_sample_documents(
+            connection, "CRA022009VM", "BRECOACRABX0",
+            source_document_ids=["outro-ativo"],
+        )
 
 
 def test_sample_prefers_previously_verified_version_over_newer_unverified_document(

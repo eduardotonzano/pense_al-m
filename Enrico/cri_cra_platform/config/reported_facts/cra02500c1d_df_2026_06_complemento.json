@@ -1,0 +1,248 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA02500C1D",
+    "isin": "BRECOACRALJ8"
+  },
+  "source_note": "DFs do Patrimônio Separado da 426ª emissão em 30/06/2026 (doc. 1328400, BDO, 24/09/2026). Complemento dos fatos já registrados: vencimento, remuneração, prazo, indexador, cronograma de amortização e classe por série. Pedido de Enrico em 29/10/2026: basear a resolução das divergências nas DFs. Numeração de página = página do PDF.",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-29",
+  "extraction_method": "leitura_manual_com_conferencia_visual",
+  "facts": [
+    {
+      "source_document_id": "1328400",
+      "page_number": 10,
+      "fact_name": "df_data_termino_serie_1",
+      "reference_date": "2026-06-30",
+      "value": "2030-12-18",
+      "unit": "data",
+      "excerpt": "Datas de início e término da emissão: 1ª, 2ª e 3ª Séries de 15 de dezembro de 2025 a 18 de dezembro de 2030"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 10,
+      "fact_name": "df_data_termino_serie_2",
+      "reference_date": "2026-06-30",
+      "value": "2030-12-18",
+      "unit": "data",
+      "excerpt": "Datas de início e término da emissão: 1ª, 2ª e 3ª Séries de 15 de dezembro de 2025 a 18 de dezembro de 2030"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 10,
+      "fact_name": "df_data_termino_serie_3",
+      "reference_date": "2026-06-30",
+      "value": "2030-12-18",
+      "unit": "data",
+      "excerpt": "Datas de início e término da emissão: 1ª, 2ª e 3ª Séries de 15 de dezembro de 2025 a 18 de dezembro de 2030"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 10,
+      "fact_name": "df_data_termino_serie_4",
+      "reference_date": "2026-06-30",
+      "value": "2032-12-17",
+      "unit": "data",
+      "excerpt": "4ª Série de 15 de dezembro de 2025 a 17 de dezembro de 2032"
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_remuneracao_serie_1",
+      "reference_date": "2026-06-30",
+      "value": "Taxa prefixada 14,8% a.a.",
+      "unit": "texto",
+      "excerpt": "1ª Série: Taxa prefixada 14,8% a.a.",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_remuneracao_serie_2",
+      "reference_date": "2026-06-30",
+      "value": "108% da variação do indexador (DI)",
+      "unit": "texto",
+      "excerpt": "2ª Série: 108% da variação do indexador",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF. O indexador da série vem da linha 'Indexador'."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_remuneracao_serie_3",
+      "reference_date": "2026-06-30",
+      "value": "100% da variação do indexador (DI) + taxa prefixada 1,5% a.a.",
+      "unit": "texto",
+      "excerpt": "3ª Série: 100% da variação do indexador + Taxa prefixada 1,5% a.a.",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF. O indexador da série vem da linha 'Indexador'."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_remuneracao_serie_4",
+      "reference_date": "2026-06-30",
+      "value": "100% da variação do indexador (DI) + taxa prefixada 2,5% a.a.",
+      "unit": "texto",
+      "excerpt": "4ª Série: 100% da variação do indexador + Taxa prefixada 2,5% a.a.",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF. O indexador da série vem da linha 'Indexador'."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_remuneracao_serie_5",
+      "reference_date": "2026-06-30",
+      "value": "Taxa prefixada 8,88% a.a. (indexador IPCA)",
+      "unit": "texto",
+      "excerpt": "5ª Série: Taxa prefixada 8,88% a.a.",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF. O indexador da série vem da linha 'Indexador'."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_prazo_meses_serie_1",
+      "reference_date": "2026-06-30",
+      "value": "59",
+      "unit": "meses",
+      "excerpt": "1ª, 2ª e 3ª Séries: 59 meses",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF. Pelas datas seriam cerca de 60 meses."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_prazo_meses_serie_2",
+      "reference_date": "2026-06-30",
+      "value": "59",
+      "unit": "meses",
+      "excerpt": "1ª, 2ª e 3ª Séries: 59 meses",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF. Pelas datas seriam cerca de 60 meses."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_prazo_meses_serie_3",
+      "reference_date": "2026-06-30",
+      "value": "59",
+      "unit": "meses",
+      "excerpt": "1ª, 2ª e 3ª Séries: 59 meses",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF. Pelas datas seriam cerca de 60 meses."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_prazo_meses_serie_4",
+      "reference_date": "2026-06-30",
+      "value": "77",
+      "unit": "meses",
+      "excerpt": "4ª Série: 77 meses",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF. Os 77 meses não fecham com a data de término de 17/12/2032 da própria DF (cerca de 84 meses): inconsistência interna."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_prazo_meses_serie_5",
+      "reference_date": "2026-06-30",
+      "value": "120",
+      "unit": "meses",
+      "excerpt": "5ª Série: 120 meses",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_indexador_serie_1",
+      "reference_date": "2026-06-30",
+      "value": "Prefixada",
+      "unit": "texto",
+      "excerpt": "1ª Série: Prefixada",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_indexador_series_2_3_4",
+      "reference_date": "2026-06-30",
+      "value": "DI",
+      "unit": "texto",
+      "excerpt": "2ª, 3ª e 4ª Séries: DI",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_indexador_serie_5",
+      "reference_date": "2026-06-30",
+      "value": "IPCA",
+      "unit": "texto",
+      "excerpt": "5ª Série: IPCA",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_cronograma_amortizacao_series_1_2_3",
+      "reference_date": "2026-06-30",
+      "value": "Semestral, a partir de 2027-06-17",
+      "unit": "texto",
+      "excerpt": "1ª, 2ª e 3ª Séries: Semestral, a partir de 17 de junho de 2027.",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 20,
+      "fact_name": "df_cronograma_amortizacao_series_4_5",
+      "reference_date": "2026-06-30",
+      "value": "Semestral, a partir de 2027-12-17",
+      "unit": "texto",
+      "excerpt": "4ª e 5ª Séries: Semestral, a partir de 17 de dezembro de 2027.",
+      "note": "Atribuição ao rótulo da tabela (nota 6a) pela ordem das linhas; confirmada na imagem da p.20 do PDF."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 21,
+      "fact_name": "df_classe_serie_1",
+      "reference_date": "2026-06-30",
+      "value": "Sênior",
+      "unit": "texto",
+      "excerpt": "a 1ª e a 2ª séries integrantes da Classe Sênior",
+      "note": "Nota 6b. A nota 1 (p.11) usa outros rótulos: 3ª 'Classe Subordinada Mezanino' e 4ª e 5ª 'Classe Subordinada Júnior'."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 21,
+      "fact_name": "df_classe_serie_2",
+      "reference_date": "2026-06-30",
+      "value": "Sênior",
+      "unit": "texto",
+      "excerpt": "a 1ª e a 2ª séries integrantes da Classe Sênior",
+      "note": "Nota 6b. A nota 1 (p.11) usa outros rótulos: 3ª 'Classe Subordinada Mezanino' e 4ª e 5ª 'Classe Subordinada Júnior'."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 21,
+      "fact_name": "df_classe_serie_3",
+      "reference_date": "2026-06-30",
+      "value": "Mezanino",
+      "unit": "texto",
+      "excerpt": "a 3ª série integrante da Classe Mezanino",
+      "note": "Nota 6b. A nota 1 (p.11) usa outros rótulos: 3ª 'Classe Subordinada Mezanino' e 4ª e 5ª 'Classe Subordinada Júnior'."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 21,
+      "fact_name": "df_classe_serie_4",
+      "reference_date": "2026-06-30",
+      "value": "Subordinada",
+      "unit": "texto",
+      "excerpt": "a 4ª e a 5ª séries integrantes da Classe Subordinada",
+      "note": "Nota 6b. A nota 1 (p.11) usa outros rótulos: 3ª 'Classe Subordinada Mezanino' e 4ª e 5ª 'Classe Subordinada Júnior'."
+    },
+    {
+      "source_document_id": "1328400",
+      "page_number": 21,
+      "fact_name": "df_classe_serie_5",
+      "reference_date": "2026-06-30",
+      "value": "Subordinada",
+      "unit": "texto",
+      "excerpt": "a 4ª e a 5ª séries integrantes da Classe Subordinada",
+      "note": "Nota 6b. A nota 1 (p.11) usa outros rótulos: 3ª 'Classe Subordinada Mezanino' e 4ª e 5ª 'Classe Subordinada Júnior'."
+    }
+  ]
+}
