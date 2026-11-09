@@ -2,6 +2,7 @@ import pathlib
 
 import pytest
 
+from cnpj_amostras import CNPJ_1, CNPJ_2, CNPJ_3, com_mascara
 from debenture_search.database import Database
 from debenture_search.repositories.issuer_repository import (
     IssuerRecord,
@@ -36,13 +37,13 @@ def repository(tmp_path):
 def test_create_issuer(repository):
     issuer = repository.create(
         legal_name="Empresa Brasileira de Teste S.A.",
-        cnpj="12345678000199",
+        cnpj=CNPJ_1,
         trade_name="Empresa Teste",
     )
 
     assert isinstance(issuer, IssuerRecord)
     assert issuer.id > 0
-    assert issuer.cnpj == "12345678000199"
+    assert issuer.cnpj == CNPJ_1
     assert issuer.legal_name == (
         "Empresa Brasileira de Teste S.A."
     )
@@ -52,10 +53,10 @@ def test_create_issuer(repository):
 def test_create_normalizes_cnpj(repository):
     issuer = repository.create(
         legal_name="Empresa Normalizada S.A.",
-        cnpj="12.345.678/0001-99",
+        cnpj=com_mascara(CNPJ_1),
     )
 
-    assert issuer.cnpj == "12345678000199"
+    assert issuer.cnpj == CNPJ_1
 
 
 def test_create_normalizes_names(repository):
@@ -63,7 +64,7 @@ def test_create_normalizes_names(repository):
         legal_name=(
             "  Empresa   com   Espacos   S.A.  "
         ),
-        cnpj="22345678000198",
+        cnpj=CNPJ_1,
         trade_name="  Nome   Fantasia  ",
     )
 
@@ -86,7 +87,7 @@ def test_create_without_cnpj(repository):
 def test_rejects_invalid_cnpj(repository):
     with pytest.raises(
         ValueError,
-        match="14 digitos",
+        match="14 caracteres",
     ):
         repository.create(
             legal_name="Empresa Invalida",
@@ -101,14 +102,14 @@ def test_rejects_empty_legal_name(repository):
     ):
         repository.create(
             legal_name="   ",
-            cnpj="32345678000197",
+            cnpj=CNPJ_1,
         )
 
 
 def test_rejects_duplicate_cnpj(repository):
     repository.create(
         legal_name="Empresa Original",
-        cnpj="42345678000196",
+        cnpj=CNPJ_1,
     )
 
     with pytest.raises(
@@ -117,7 +118,7 @@ def test_rejects_duplicate_cnpj(repository):
     ):
         repository.create(
             legal_name="Empresa Duplicada",
-            cnpj="42.345.678/0001-96",
+            cnpj=com_mascara(CNPJ_1),
         )
 
     assert repository.count() == 1
@@ -126,14 +127,14 @@ def test_rejects_duplicate_cnpj(repository):
 def test_get_by_id(repository):
     created = repository.create(
         legal_name="Empresa Localizada por ID",
-        cnpj="52345678000195",
+        cnpj=CNPJ_1,
     )
 
     found = repository.get_by_id(created.id)
 
     assert found is not None
     assert found.id == created.id
-    assert found.cnpj == "52345678000195"
+    assert found.cnpj == CNPJ_1
     assert found.legal_name == (
         "Empresa Localizada por ID"
     )
@@ -148,21 +149,21 @@ def test_get_by_id_returns_none(repository):
 def test_get_by_cnpj(repository):
     created = repository.create(
         legal_name="Empresa Localizada por CNPJ",
-        cnpj="62345678000194",
+        cnpj=CNPJ_1,
     )
 
     found = repository.get_by_cnpj(
-        "62.345.678/0001-94"
+        com_mascara(CNPJ_1)
     )
 
     assert found is not None
     assert found.id == created.id
-    assert found.cnpj == "62345678000194"
+    assert found.cnpj == CNPJ_1
 
 
 def test_get_by_cnpj_returns_none(repository):
     found = repository.get_by_cnpj(
-        "72345678000193"
+        CNPJ_1
     )
 
     assert found is None
@@ -171,11 +172,11 @@ def test_get_by_cnpj_returns_none(repository):
 def test_get_or_create_creates_new_issuer(repository):
     issuer, was_created = repository.get_or_create(
         legal_name="Empresa Nova",
-        cnpj="82345678000192",
+        cnpj=CNPJ_1,
     )
 
     assert was_created is True
-    assert issuer.cnpj == "82345678000192"
+    assert issuer.cnpj == CNPJ_1
     assert repository.count() == 1
 
 
@@ -184,12 +185,12 @@ def test_get_or_create_returns_existing_issuer(
 ):
     original = repository.create(
         legal_name="Empresa Existente",
-        cnpj="92345678000191",
+        cnpj=CNPJ_1,
     )
 
     found, was_created = repository.get_or_create(
         legal_name="Nome que nao deve substituir",
-        cnpj="92.345.678/0001-91",
+        cnpj=com_mascara(CNPJ_1),
     )
 
     assert was_created is False
@@ -201,12 +202,12 @@ def test_get_or_create_returns_existing_issuer(
 def test_search_by_legal_name(repository):
     repository.create(
         legal_name="Companhia Alfa de Energia",
-        cnpj="10345678000190",
+        cnpj=CNPJ_1,
     )
 
     repository.create(
         legal_name="Companhia Beta de Logistica",
-        cnpj="11345678000189",
+        cnpj=CNPJ_2,
     )
 
     results = repository.search_by_name("Alfa")
@@ -220,7 +221,7 @@ def test_search_by_legal_name(repository):
 def test_search_by_trade_name(repository):
     repository.create(
         legal_name="Companhia Brasileira de Academias",
-        cnpj="12345678000188",
+        cnpj=CNPJ_1,
         trade_name="Academia Teste",
     )
 
@@ -237,7 +238,7 @@ def test_search_by_trade_name(repository):
 def test_search_is_case_insensitive(repository):
     repository.create(
         legal_name="Companhia Gama S.A.",
-        cnpj="13345678000187",
+        cnpj=CNPJ_1,
     )
 
     results = repository.search_by_name(
@@ -261,17 +262,17 @@ def test_search_empty_query_returns_empty_list(
 def test_list_all_orders_by_legal_name(repository):
     repository.create(
         legal_name="Empresa Zeta",
-        cnpj="14345678000186",
+        cnpj=CNPJ_1,
     )
 
     repository.create(
         legal_name="Empresa Alfa",
-        cnpj="15345678000185",
+        cnpj=CNPJ_2,
     )
 
     repository.create(
         legal_name="Empresa Delta",
-        cnpj="16345678000184",
+        cnpj=CNPJ_3,
     )
 
     results = repository.list_all()
@@ -291,17 +292,17 @@ def test_list_all_orders_by_legal_name(repository):
 def test_list_all_supports_pagination(repository):
     repository.create(
         legal_name="Empresa A",
-        cnpj="17345678000183",
+        cnpj=CNPJ_1,
     )
 
     repository.create(
         legal_name="Empresa B",
-        cnpj="18345678000182",
+        cnpj=CNPJ_2,
     )
 
     repository.create(
         legal_name="Empresa C",
-        cnpj="19345678000181",
+        cnpj=CNPJ_3,
     )
 
     first_page = repository.list_all(
@@ -327,12 +328,12 @@ def test_count_returns_total(repository):
 
     repository.create(
         legal_name="Empresa Um",
-        cnpj="20345678000180",
+        cnpj=CNPJ_1,
     )
 
     repository.create(
         legal_name="Empresa Dois",
-        cnpj="21345678000179",
+        cnpj=CNPJ_2,
     )
 
     assert repository.count() == 2
@@ -341,7 +342,7 @@ def test_count_returns_total(repository):
 def test_update_issuer(repository):
     created = repository.create(
         legal_name="Nome Antigo",
-        cnpj="22345678000178",
+        cnpj=CNPJ_1,
         trade_name="Marca Antiga",
     )
 
@@ -377,7 +378,7 @@ def test_update_rejects_unknown_issuer(repository):
 def test_update_rejects_empty_name(repository):
     created = repository.create(
         legal_name="Empresa Valida",
-        cnpj="23345678000177",
+        cnpj=CNPJ_1,
     )
 
     with pytest.raises(
@@ -400,7 +401,7 @@ def test_repository_keeps_database_integrity(
 ):
     repository.create(
         legal_name="Empresa de Integridade",
-        cnpj="24345678000176",
+        cnpj=CNPJ_1,
     )
 
     assert repository.db.integrity_check() == "ok"

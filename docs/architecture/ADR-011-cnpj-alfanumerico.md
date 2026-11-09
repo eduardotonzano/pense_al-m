@@ -32,10 +32,12 @@ Proposta, até o Fábio aprovar no pull request. A decisão de aceitar o CNPJ al
 - **Correção do import em lote,** consequência direta da validação do DV. O `DebentureIssuerRecord` era montado dentro de `LegacyDebentureIssuerReader.iter_records`, fora do `try` do `DebentureIssuerBatchImportService`, então um CNPJ recusado abortava o lote inteiro.
   - Agora o lote lê as linhas com `iter_rows` e monta o registro com `to_record` dentro do `try`. O CNPJ inválido vira `BatchImportError` daquele `legacy_id`, o relatório o conta e os demais registros seguem. O dry-run se comporta igual.
   - `iter_records` mantém a assinatura e o comportamento.
-- **Debêntures precisam adotar a regra**, em pull request à parte:
-  - o CHECK de `issuers.cnpj` (`length(cnpj)=14 AND cnpj NOT GLOB '*[^0-9]*'`), em `Eduardo/debenture-replica/migrations/001_initial_schema.sql`;
-  - `IssuerRepository.normalize_cnpj`, em `Eduardo/debenture-replica/src/debenture_search/repositories/issuer_repository.py`;
-  - `SndParser.normalize_cnpj`, em `Eduardo/debenture-replica/src/debenture_search/parsers/snd_parser.py`, que hoje devolve "sem CNPJ" (`None`) quando não há 14 dígitos.
+- **Debêntures adotaram a regra**, em dois pull requests à parte:
+  - feito (PR #36): o CHECK de `issuers.cnpj` (`length(cnpj)=14 AND cnpj NOT GLOB '*[^0-9]*'`, em `Eduardo/debenture-replica/migrations/001_initial_schema.sql`) foi aberto pela migration `003_issuers_cnpj_alfanumerico.sql`: 12 caracteres em [0-9A-Z] e 2 dígitos. O DV não é conferido no banco;
+  - feito (pull request do código): `IssuerRepository.normalize_cnpj`, em `Eduardo/debenture-replica/src/debenture_search/repositories/issuer_repository.py`, valida formato e DV e levanta `ValueError`;
+  - feito (pull request do código): `SndParser.normalize_cnpj`, em `Eduardo/debenture-replica/src/debenture_search/parsers/snd_parser.py`, devolvia "sem CNPJ" (`None`) quando não havia 14 dígitos. Agora devolve o CNPJ no formato 12 + 2 sem conferir o DV; com DV inválido, o repositório recusa e aquele documento falha no lote, sem parar os outros;
+  - como o Fundos, as debêntures têm utilitário próprio (`Eduardo/debenture-replica/src/debenture_search/cnpj.py`), porque o pacote não depende da camada. A regra e os vetores de teste são os mesmos;
+  - a migration 003 precisa estar aplicada no banco antes do código.
 - **CRI/CRA precisa adotar a regra** quando integrar com a camada.
 
 ## Fora do escopo

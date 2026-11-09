@@ -2,6 +2,7 @@ import pathlib
 
 import pytest
 
+from cnpj_amostras import CNPJ_1
 from debenture_search.database import Database
 from debenture_search.services.ingestion_service import (
     IngestionResult,
@@ -35,7 +36,7 @@ def base_ingestion(service, source="SND", rating="AA-"):
         asset_code="TEST12",
         isin="BRTESTDBS001",
         issuer_legal_name="Companhia Teste S.A.",
-        issuer_cnpj="12345678000199",
+        issuer_cnpj=CNPJ_1,
         observations=[
             {
                 "field_name": "rating",

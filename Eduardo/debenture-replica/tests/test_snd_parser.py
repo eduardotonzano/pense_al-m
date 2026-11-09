@@ -3,6 +3,7 @@ from pathlib import Path
 
 import pytest
 
+from cnpj_amostras import CNPJ_1
 from debenture_search.parsers.snd_parser import ParsedDebenture
 from debenture_search.parsers.snd_parser import SndParser
 
@@ -34,7 +35,7 @@ def test_parse_identity_fields():
     assert parsed.issuer_legal_name == (
         "Companhia Exemplo de Energia S.A."
     )
-    assert parsed.issuer_cnpj == "12345678000199"
+    assert parsed.issuer_cnpj == CNPJ_1
     assert parsed.issue_number == "1"
     assert parsed.series == "2"
     assert parsed.status == "active"
