@@ -6,6 +6,10 @@ Quando a CVM nao traz um valor unico e valido, o campo continua ausente e o
 relatorio diz o motivo. O CNPJ so e gravado em ``assets`` quando o campo esta
 vazio; o que ja esta la nunca e sobrescrito. Cada decisao fica em
 ``asset_cnpj_observations`` com fonte, periodo e data da leitura.
+
+O CNPJ, numerico ou alfanumerico (ADR-011), passa pela regra de
+``credit_assets/cnpj.py`` via ``utils/validators.py``: as comparacoes usam o CNPJ
+canonico inteiro, com as letras, e nunca so os digitos.
 """
 
 from __future__ import annotations
@@ -58,7 +62,9 @@ REASONS = {
         "informe da CVM com ISIN, CETIP, emissao ou serie diferente do ativo"
     ),
     "conflito": "a CVM traz mais de uma securitizadora para o ativo",
-    "cnpj_invalido_na_fonte": "o CNPJ informado pela CVM nao passa no digito verificador",
+    "cnpj_invalido_na_fonte": (
+        "o CNPJ informado pela CVM nao passa na regra do CNPJ (formato ou digito verificador)"
+    ),
     "sem_devedor_informado": "a CVM nao traz devedor com CNPJ (so o marcador 0)",
     "varios_devedores": "a CVM traz mais de um devedor",
     "devedor_parcial": "o devedor da CVM nao e 100% no informe mais recente",

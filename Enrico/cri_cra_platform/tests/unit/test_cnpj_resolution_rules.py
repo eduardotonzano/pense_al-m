@@ -24,6 +24,7 @@ from tests.cvm_fixtures import (
     ECO,
     OPEA,
 )
+from tests.cnpj_amostras import CNPJ_ALFA_1, CNPJ_ALFA_2, com_mascara, montar_cnpj
 
 CRI_2025 = CvmArchive(Path("inf_mensal_cri_2025.zip"), "a" * 64, "cri", 2025)
 CRI_2026 = CvmArchive(Path("inf_mensal_cri_2026.zip"), "b" * 64, "cri", 2026)
@@ -336,3 +337,65 @@ def test_decide_has_nothing_to_say_when_the_cvm_gave_no_single_valid_cnpj():
     assert decide(absent, "", apply_allowed=True) is None
     assert decide(absent, "10.753.164/0001-43", apply_allowed=True) is None
     assert SECURITIZADORA != DEVEDOR
+
+
+# ------------------------------------------------- CNPJ alfanumerico (ADR-011)
+# A comparacao usa o CNPJ canonico inteiro, com as letras: ZZZZZZZ1ZZZZ04 e
+# ZZZZZZZ1ZZZO04 tem os mesmos digitos (Z e O valem o mesmo no modulo 11), mas
+# sao dois CNPJ.
+ALFA_TWIN = montar_cnpj("ZZZZZZZ1ZZZO")
+
+
+def test_the_two_fictitious_alphanumeric_cnpj_share_every_digit():
+    assert (CNPJ_ALFA_1, ALFA_TWIN) == ("ZZZZZZZ1ZZZZ04", "ZZZZZZZ1ZZZO04")
+    assert [c for c in CNPJ_ALFA_1 if c.isdigit()] == [c for c in ALFA_TWIN if c.isdigit()]
+
+
+def test_alphanumeric_securitizadora_is_resolved_from_masked_and_lowercase_informes():
+    informes = [
+        *months(1, 4, cnpj=com_mascara(CNPJ_ALFA_1)),
+        *months(5, 8, cnpj=com_mascara(CNPJ_ALFA_1).lower()),
+    ]
+
+    result = resolve_securitizadora(match_filings(informes, **IDENTITY))
+
+    assert result.status == RESOLVED
+    assert result.cnpj == CNPJ_ALFA_1
+    assert (result.reference_first, result.reference_last, result.filings) == (
+        "2026-01-01", "2026-08-01", 8,
+    )
+
+
+def test_alphanumeric_securitizadoras_with_the_same_digits_are_a_conflict():
+    informes = [*months(1, 3, cnpj=com_mascara(ALFA_TWIN)), *months(4, 8, cnpj=CNPJ_ALFA_1)]
+
+    result = resolve_securitizadora(match_filings(informes, **IDENTITY))
+
+    assert result.status == "conflito" and result.cnpj is None
+    assert "ZZ.ZZZ.ZZ1/ZZZZ-04 em 2026-04-01 a 2026-08-01" in result.detail
+    assert "ZZ.ZZZ.ZZ1/ZZZO-04 em 2026-01-01 a 2026-03-01" in result.detail
+
+
+@pytest.mark.parametrize(
+    ("stored", "expected"),
+    [
+        ("ZZ.ZZZ.ZZ1/ZZZZ-04", "confirmed"),
+        ("zz.zzz.zz1/zzzz-04", "confirmed"),
+        (" zzzzzzz1zzzz04 ", "confirmed"),
+        ("ZZ.ZZZ.ZZ1/ZZZO-04", "conflict"),
+        ("ZZZZZZZ1ZZZO04", "conflict"),
+    ],
+)
+def test_decide_compares_the_whole_alphanumeric_cnpj(stored, expected):
+    alphanumeric = resolve_securitizadora(match_filings(months(1, 2, cnpj=CNPJ_ALFA_1), **IDENTITY))
+
+    assert decide(alphanumeric, stored, apply_allowed=True) == expected
+
+
+def test_alphanumeric_devedor_with_the_whole_debt_is_resolved():
+    parties = (debtor("0", "0"), debtor(com_mascara(CNPJ_ALFA_2)))
+
+    result = resolve_devedor(match_filings(months(7, 8, parties=parties), **IDENTITY))
+
+    assert result.status == RESOLVED and result.cnpj == CNPJ_ALFA_2
+    assert result.filings == 2

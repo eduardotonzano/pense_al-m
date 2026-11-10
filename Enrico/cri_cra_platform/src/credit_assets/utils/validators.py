@@ -2,43 +2,53 @@ from __future__ import annotations
 
 import re
 
-_CNPJ_TEXT = re.compile(r"[\d.\-/\s]*")
-_CNPJ_WEIGHTS = (
-    (5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2),
-    (6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2),
-)
+from credit_assets.cnpj import clean_cnpj
+from credit_assets.cnpj import normalize_cnpj as _canonical_cnpj
+
+# Valor sem letra: so digitos, ponto, barra, hifen e espaco, como antes da regra
+# alfanumerica. Outros simbolos reprovam em vez de serem descartados.
+_NUMERIC_CNPJ_TEXT = re.compile(r"[\d.\-/\s]*")
 
 def only_digits(value: str) -> str:
     return re.sub(r"\D", "", value or "")
 
-def _cnpj_check_digit(digits: str, weights: tuple[int, ...]) -> str:
-    remainder = sum(int(digit) * weight for digit, weight in zip(digits, weights)) % 11
-    return "0" if remainder < 2 else str(11 - remainder)
+def normalize_cnpj(value: object) -> str | None:
+    """CNPJ canonico (14 caracteres, numerico ou alfanumerico, maiusculas) ou None.
 
-def is_valid_cnpj(value: str | None) -> bool:
-    """CNPJ de 14 digitos, nao repetido, com os dois digitos verificadores (modulo 11).
-
-    Aceita so digitos, ponto, barra, hifen e espaco: letras e outros simbolos
-    reprovam em vez de serem descartados. CPF (11 digitos) tambem reprova.
+    A regra e a de credit_assets/cnpj.py (IN RFB 2.229/2024, ADR-011): formato,
+    caracteres iguais e os dois digitos verificadores. Valor com letra vai direto
+    para ela. Valor sem letra aceita tambem espacos entre os digitos, como antes;
+    tirados os separadores, passa pela mesma regra, que exige ASCII. Nunca corrige
+    nem completa zeros. CPF (11 digitos) reprova. Valor que nao e texto da None.
     """
-    if value is None or not _CNPJ_TEXT.fullmatch(value):
-        return False
-    digits = only_digits(value)
-    if len(digits) != 14 or len(set(digits)) == 1:
-        return False
-    first = _cnpj_check_digit(digits[:12], _CNPJ_WEIGHTS[0])
-    second = _cnpj_check_digit(digits[:12] + first, _CNPJ_WEIGHTS[1])
-    return digits[12:] == first + second
+    if not isinstance(value, str):
+        return None
+    if any(character.isalpha() for character in value):
+        candidate = value
+    elif _NUMERIC_CNPJ_TEXT.fullmatch(value):
+        candidate = only_digits(value)
+    else:
+        return None
+    try:
+        return _canonical_cnpj(candidate)
+    except ValueError:
+        return None
 
-def normalize_cnpj(value: str | None) -> str | None:
-    """Os 14 digitos do CNPJ valido, ou None. Nunca corrige nem completa."""
-    return only_digits(value) if is_valid_cnpj(value) else None
+def is_valid_cnpj(value: object) -> bool:
+    """True quando normalize_cnpj devolve um CNPJ."""
+    return normalize_cnpj(value) is not None
 
-def format_cnpj(digits: str) -> str:
-    """NN.NNN.NNN/NNNN-NN, o formato do ativos_piloto.csv."""
-    if len(digits) != 14 or not digits.isdigit():
-        raise ValueError(f"CNPJ precisa ter 14 digitos: {digits!r}")
-    return f"{digits[:2]}.{digits[2:5]}.{digits[5:8]}/{digits[8:12]}-{digits[12:]}"
+def format_cnpj(cnpj: str) -> str:
+    """NN.NNN.NNN/NNNN-NN, o formato do ativos_piloto.csv, tambem com letras.
+
+    Recebe so os 14 caracteres canonicos (saida de normalize_cnpj); a mensagem de
+    erro nao repete o valor.
+    """
+    if not isinstance(cnpj, str) or clean_cnpj(cnpj) != cnpj:
+        raise ValueError(
+            "CNPJ precisa ter 14 caracteres canonicos: 12 em [0-9A-Z] e 2 digitos, sem mascara."
+        )
+    return f"{cnpj[:2]}.{cnpj[2:5]}.{cnpj[5:8]}/{cnpj[8:12]}-{cnpj[12:]}"
 
 def validate_asset_type(value: str) -> str:
     normalized = value.strip().upper()

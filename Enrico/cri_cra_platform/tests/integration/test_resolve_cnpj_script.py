@@ -33,6 +33,7 @@ from tests.cvm_fixtures import (
     write_cvm_zip,
     write_eco_zip,
 )
+from tests.cnpj_amostras import CNPJ_ALFA_1, com_mascara
 
 PROJECT_DIR = Path(__file__).resolve().parents[2]
 SCRIPT_PATH = PROJECT_DIR / "scripts" / "resolve_cnpj.py"
@@ -292,6 +293,46 @@ def test_invalid_cnpjs_in_the_cvm_file_are_never_written(script, capsys, tmp_pat
     assert cnpjs(path)[ALMEIDA_ROW] == ("", None)
     assert observations(path) == {}
     assert out.count("cnpj_invalido_na_fonte") >= 2
+
+
+def test_commit_writes_an_alphanumeric_securitizadora_with_its_letters_and_source(
+    script, capsys, tmp_path
+):
+    """CNPJ alfanumerico (ADR-011): CVM -> regra -> assets mascarado -> observacao canonica."""
+
+    path = make_database(tmp_path)
+    cvm = tmp_path / "cvm"
+    issuer = com_mascara(CNPJ_ALFA_1)
+    references = {"2026-07-01": "2026-08-28", "2026-08-01": "2026-09-28"}
+    write_cvm_zip(
+        cvm / "inf_mensal_cri_2026.zip", "cri", 2026,
+        classe=[
+            classe_row(issuer, ALMEIDA_ISIN, reference, cetip=ALMEIDA_ROW, isin=ALMEIDA_ISIN)
+            for reference in references
+        ],
+        geral=[
+            geral_row(issuer, ALMEIDA_ISIN, reference, delivered=delivered, emissao="301")
+            for reference, delivered in references.items()
+        ],
+    )
+
+    code, out, _ = commit(script, capsys, path, cvm, tmp_path)
+    provenance = query(
+        path,
+        """SELECT p.cnpj, p.decision, p.source_id, p.reference_first, p.reference_last
+           FROM asset_cnpj_provenance p JOIN assets a USING (asset_id)
+           WHERE a.codigo_cetip = '24G2100031' AND p.field = 'cnpj_securitizadora'""",
+    )
+
+    assert code == 0
+    assert cnpjs(path)[ALMEIDA_ROW] == ("ZZ.ZZZ.ZZ1/ZZZZ-04", None)
+    assert observations(path)[(ALMEIDA_ROW, "cnpj_securitizadora")][:2] == (
+        "applied", "ZZZZZZZ1ZZZZ04",
+    )
+    assert provenance == [
+        ("ZZZZZZZ1ZZZZ04", "applied", "cvm_inf_mensal_cri", "2026-07-01", "2026-08-01")
+    ]
+    assert "ZZ.ZZZ.ZZ1/ZZZZ-04" in out
 
 
 # ------------------------------------------------------------- linhas reais
