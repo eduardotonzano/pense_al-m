@@ -109,15 +109,18 @@ locais.
 - **Nunca sobrescreve**: `assets` só recebe CNPJ em campo vazio. Valor diferente vira
   `conflict` na tabela e é listado na prévia.
 - **Fonte e data**: cada decisão (`applied`, `confirmed`, `candidate`, `conflict`) vai para
-  `asset_cnpj_observations` (migration 002) com o período dos informes, a data de entrega, o
+  `asset_cnpj_observations` (migration 004) com o período dos informes, a data de entrega, o
   arquivo da CVM (URL oficial e SHA-256) e a hora da leitura. A view `asset_cnpj_provenance`
   dá a fonte e a data do CNPJ que está hoje em `assets`; CNPJ digitado à mão não aparece nela.
 - Sem valor único e válido da CVM, o campo continua ausente e a prévia diz o motivo
   (`sem_fonte`, `conflito`, `cnpj_invalido_na_fonte`, `varios_devedores`...).
-- CNPJ alfanumérico (formato novo da Receita) é rejeitado como inválido, nunca gravado; nenhum
-  apareceu nos arquivos de 2026 da CVM lidos em 23/10/2026.
+- CNPJ alfanumérico (formato novo da Receita, IN RFB 2.229/2024) é aceito pela regra de
+  `credit_assets/cnpj.py`, em maiúsculas: o dígito verificador é conferido no código e o formato
+  (12 caracteres em [0-9A-Z] e 2 dígitos) no CHECK da migration 004. Dígitos fora do ASCII
+  (árabe-índicos, largura total) são recusados. Nenhum CNPJ alfanumérico apareceu nos arquivos
+  de 2026 da CVM lidos em 23/10/2026.
 
-O `--commit` exige a migration 002, faz backup (caminho e SHA-256 impressos), grava numa
+O `--commit` exige a migration 004, faz backup (caminho e SHA-256 impressos), grava numa
 transação e só confirma se a verificação passar. O `AssetRepository.upsert` não apaga mais o
 CNPJ gravado quando o CSV do piloto vem em branco.
 
@@ -169,7 +172,7 @@ Relatórios gerados ficam em `reports/`; o resumo do trabalho está em
   por série só pelo `instance_key` (NumeroSerie).
 - Ligar o classificador estrito ao catálogo (hoje o catálogo ainda usa `classify_document`).
 - Banco real: nenhum `cri_cra.db` está neste repositório; os números reais dependem dele. A
-  migration 002 e o `resolve_cnpj.py` ainda não rodaram em banco real.
+  migration 004 e o `resolve_cnpj.py` ainda não rodaram em banco real.
 - CNPJ do devedor do CRI Almeida Junior: a CVM informa 82.120.676/0001-83, mas ele só vira
   valor com uma segunda fonte (Termo de Securitização da emissão 301 ou cadastro da Receita,
   lido por uma pessoa). No Café Brasil o devedor da CVM difere do CSV, que não tem fonte.
