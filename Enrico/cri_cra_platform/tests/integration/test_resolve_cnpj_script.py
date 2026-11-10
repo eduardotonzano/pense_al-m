@@ -75,11 +75,11 @@ def pilot_assets() -> list[Asset]:
         ]
 
 
-def make_database(tmp_path: Path, *, with_migration_002: bool = True) -> Path:
+def make_database(tmp_path: Path, *, with_migration_004: bool = True) -> Path:
     path = tmp_path / "cri_cra.db"
     connection = connect(path)
 
-    if with_migration_002:
+    if with_migration_004:
         initialize_database(connection)
     else:
         empty = tmp_path / "empty_migrations"
@@ -467,10 +467,10 @@ def test_dry_run_leaves_the_database_untouched_and_shows_what_would_happen(
     assert {item["kind"] for item in data["archives"]} == {"cri", "cra"}
 
 
-def test_dry_run_on_a_database_without_migration_002_says_so_and_commit_refuses(
+def test_dry_run_on_a_database_without_migration_004_says_so_and_commit_refuses(
     script, capsys, tmp_path
 ):
-    path = make_database(tmp_path, with_migration_002=False)
+    path = make_database(tmp_path, with_migration_004=False)
     cvm = make_cvm_dir(tmp_path)
     before = file_sha256(path)
 
@@ -479,7 +479,7 @@ def test_dry_run_on_a_database_without_migration_002_says_so_and_commit_refuses(
 
     assert code == 0 and "PENDENTE" in out
     assert refused == 1
-    assert "migration 002" in error and "apply_migration.py" in error
+    assert "migration 004" in error and "apply_migration.py" in error
     assert file_sha256(path) == before
 
 

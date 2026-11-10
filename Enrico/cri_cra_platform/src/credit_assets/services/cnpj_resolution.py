@@ -623,7 +623,7 @@ def build_preview(
 
     preview = {
         "database": database,
-        "migration_002": has_table,
+        "migration_004": has_table,
         "apply_devedor": apply_devedor,
         "archives": [
             {"kind": item.kind, "year": item.year, "name": item.path.name, "sha256": item.sha256}
@@ -669,8 +669,8 @@ def format_preview(preview: dict) -> str:
     summary = preview["summary"]
     lines = [
         f"Banco: {preview['database']} (aberto somente para leitura)",
-        "Migration 002 (asset_cnpj_observations): "
-        + ("aplicada" if preview["migration_002"] else "PENDENTE: o --commit exige aplica-la"),
+        "Migration 004 (asset_cnpj_observations): "
+        + ("aplicada" if preview["migration_004"] else "PENDENTE: o --commit exige aplica-la"),
         f"Arquivos da CVM lidos: {len(preview['archives'])}",
     ]
     lines += [
@@ -846,7 +846,7 @@ def commit_resolution(
     with closing(open_read_only(path)) as reader:
         if not table_exists(reader, "asset_cnpj_observations"):
             raise ResolutionError(
-                "A tabela asset_cnpj_observations nao existe: aplique a migration 002 "
+                "A tabela asset_cnpj_observations nao existe: aplique a migration 004 "
                 f"com {APPLY_COMMAND} antes de gravar."
             )
 

@@ -1,4 +1,4 @@
-"""Observacoes de CNPJ dos ativos (migration 002): CNPJ, decisao, fonte e data."""
+"""Observacoes de CNPJ dos ativos (migration 004): CNPJ, decisao, fonte e data."""
 
 from __future__ import annotations
 

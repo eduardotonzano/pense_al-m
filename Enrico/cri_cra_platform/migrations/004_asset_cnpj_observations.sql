@@ -8,7 +8,14 @@ CREATE TABLE IF NOT EXISTS asset_cnpj_observations (
     observation_id INTEGER PRIMARY KEY AUTOINCREMENT,
     asset_id INTEGER NOT NULL,
     field TEXT NOT NULL CHECK (field IN ('cnpj_securitizadora', 'cnpj_devedor')),
-    cnpj TEXT NOT NULL CHECK (length(cnpj) = 14 AND cnpj NOT GLOB '*[^0-9]*'),
+    -- CNPJ canonico, numerico ou alfanumerico (IN RFB 2.229/2024): 12 caracteres
+    -- em [0-9A-Z] e 2 digitos, sem mascara. GLOB diferencia maiusculas, entao
+    -- minuscula e recusada. O DV e conferido no codigo, nao no banco.
+    cnpj TEXT NOT NULL CHECK (
+        length(cnpj) = 14
+        AND substr(cnpj, 1, 12) NOT GLOB '*[^0-9A-Z]*'
+        AND substr(cnpj, 13, 2) NOT GLOB '*[^0-9]*'
+    ),
     decision TEXT NOT NULL CHECK (
         decision IN ('applied', 'confirmed', 'candidate', 'conflict')
     ),

@@ -8,7 +8,7 @@ from datetime import datetime
 import pytest
 
 from credit_assets.database.connection import connect, initialize_database
-from credit_assets.database.migrations import read_applied_versions
+from credit_assets.database.migrations import discover_migrations, read_applied_versions
 from credit_assets.models.asset import Asset
 from credit_assets.repositories.asset_repository import AssetRepository
 from credit_assets.repositories.cnpj_observation_repository import (
@@ -67,7 +67,7 @@ def set_asset_cnpj(connection, asset_id: int, column: str, value: str | None) ->
     )
 
 
-def test_new_database_gets_the_observation_table_view_and_migration_002(tmp_path):
+def test_new_database_gets_the_observation_table_view_and_migration_004(tmp_path):
     connection, _ = make_database(tmp_path)
 
     names = {
@@ -77,10 +77,11 @@ def test_new_database_gets_the_observation_table_view_and_migration_002(tmp_path
         )
     }
 
-    assert read_applied_versions(connection) == {
-        1: "document_catalog",
-        2: "asset_cnpj_observations",
-    }
+    applied = read_applied_versions(connection)
+
+    assert applied[1] == "document_catalog"
+    assert applied[4] == "asset_cnpj_observations"
+    assert sorted(applied) == [item.version for item in discover_migrations()]
     assert {"asset_cnpj_observations", "asset_cnpj_provenance"} <= names
 
 
@@ -155,6 +156,8 @@ BAD_VALUES = [
     ("cnpj", "0277354200012"),
     ("cnpj", "02.773.542/0001-22"),
     ("cnpj", "0277354200012A"),
+    ("cnpj", "12abc34501de35"),
+    ("cnpj", "12ABC34501DE3A"),
     ("decision", "guess"),
     ("field", "securitizadora"),
     ("filings", 0),
@@ -218,6 +221,17 @@ def test_provenance_gives_source_and_date_of_the_cnpj_that_is_in_assets(tmp_path
     assert (row["reference_first"], row["reference_last"]) == ("2025-01-01", "2026-08-01")
     assert row["observed_at"] == "2026-10-23T12:00:00+00:00"
     assert repository.provenance(asset_id, "cnpj_devedor") is None
+
+
+def test_alphanumeric_cnpj_is_stored_and_gives_provenance_of_the_masked_value(tmp_path):
+    connection, asset_id = make_database(tmp_path)
+    repository = CnpjObservationRepository(connection)
+    set_asset_cnpj(connection, asset_id, "cnpj_securitizadora", "12.ABC.345/01DE-35")
+
+    assert repository.add(make_observation(asset_id, cnpj="12ABC34501DE35"), "run-1") is True
+
+    assert repository.for_asset(asset_id)[0]["cnpj"] == "12ABC34501DE35"
+    assert repository.provenance(asset_id, "cnpj_securitizadora")["cnpj"] == "12ABC34501DE35"
 
 
 def test_provenance_is_empty_for_a_cnpj_typed_by_hand(tmp_path):
