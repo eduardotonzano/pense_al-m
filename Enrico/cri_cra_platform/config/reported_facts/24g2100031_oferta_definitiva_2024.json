@@ -1,0 +1,509 @@
+{
+  "asset": {
+    "codigo_cetip": "24G2100031",
+    "isin": "BRRBRACRIP13"
+  },
+  "source_note": "Prospecto Definitivo da 301ª emissão da Opea Securitizadora (CRI Almeida Junior): doc. 727241 (610 páginas; capa e seções iniciais lidas e o restante comparado com o Prospecto Preliminar 722286 por diferença de texto; inclui anexos: ata da RCA e Rerrat RCA, estatutos, Escritura de Emissão de Debêntures e Primeiro Aditamento, Escritura de CCI e Primeiro Aditamento, Termo de Securitização e Primeiro Aditamento, declarações e o relatório de rating da Fitch de 27/08/2024) e Anúncio de Encerramento de 30/08/2024 (doc. 730623, 2 páginas, lidas por inteiro). Numeração de página = página da extração em PDF; a página impressa do Prospecto é a da extração menos 5. Só entram fatos novos ou que mudaram em relação aos registrados em 24g2100031_oferta_2024.json (Preliminar, Lâminas, Aviso e Anúncio de Início); diferenças e itens ambíguos em reports/24g2100031_prospecto_definitivo_vs_preliminar.md, sem decidir qual texto prevalece. As datas de referência são as dos documentos (27/08/2024 e 30/08/2024).",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-28",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "727241",
+      "page_number": 1,
+      "fact_name": "prosp_def_data_prospecto",
+      "reference_date": "2024-08-27",
+      "value": "2024-08-27",
+      "unit": "data",
+      "excerpt": "A data do presente Prospecto Definitivo 27 de agosto de 2024."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 1,
+      "fact_name": "prosp_def_registro_cvm",
+      "reference_date": "2024-08-27",
+      "value": "CVM/SRE/AUT/CRI/PRI/2024/622, concedido em 2024-08-27",
+      "unit": "texto",
+      "excerpt": "O REGISTRO DA OFERTA DOS CRI FOI CONCEDIDO PELA CVM EM 27 DE AGOSTO DE 2024, SOB O Nº CVM/SRE/AUT/CRI/PRI/2024/622",
+      "note": "O Prospecto Preliminar (722286, p. 1) não trazia o número do registro."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 1,
+      "fact_name": "prosp_def_rating_capa",
+      "reference_date": "2024-08-27",
+      "value": "AA-(EXP)sf(bra) - Fitch Ratings, rotulada 'definitiva' na capa, realizada em 2024-08-27",
+      "unit": "texto",
+      "excerpt": "CLASSIFICAÇÃO DE RISCO (RATING) DEFINITIVA DA EMISSÃO ATRIBUÍDA PELA FITCH RATINGS DO BRASIL LTDA.: ‘AA-(EXPsf(bra)’* *ESTA CLASSIFICAÇÃO FOI REALIZADA EM 27 DE AGOSTO DE 2024.",
+      "note": "A capa chama a classificação de 'definitiva', mas ainda traz o sufixo (EXP). A extração da página perdeu o parêntese de fechamento depois de EXP. O relatório da Fitch anexado ao mesmo Prospecto (Anexo IX, p. 600 e 601) fala em AA-sf(bra) sem (EXP)."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 1,
+      "fact_name": "prosp_def_publicacao_e_republicacao",
+      "reference_date": "2024-08-27",
+      "value": "Prospecto publicado originalmente em 2024-07-29 e republicado em 2024-08-09 por modificação da oferta",
+      "unit": "texto",
+      "excerpt": "O PROSPECTO DEFINITIVO FOI ORIGINALMENTE PUBLICADO EM 29 DE JULHO DE 2024 E FOI REPUBLICADO EM 9 DE AGOSTO DE 2024 EM RAZÃO DE MODIFICAÇÃO DA OFERTA",
+      "note": "O texto chama de Prospecto Definitivo também a versão de 29/07/2024, que na data era o Prospecto Preliminar (doc. 722286)."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 1,
+      "fact_name": "prosp_def_escritura_emissao_registro_aditamento",
+      "reference_date": "2024-08-27",
+      "value": "Escritura de Emissão (26/07/2024) registrada na JUCESP em 2024-08-06 sob nº ED006069-0/000; aditada em 2024-08-08 e protocolada na JUCESP em 2024-08-22 sob nº 2.272.348/24-5",
+      "unit": "texto",
+      "excerpt": "registrado na JUCESP em 6 de agosto de 2024 sob o n.º ED006069-0/000, conforme posteriormente aditado em 8 de agosto de 2024 e protocolado na JUCESP em 22 de agosto de 2024 sob o n.º 2.272.348/24-5",
+      "note": "O Prospecto Preliminar (p. 1) trazia só a data de 26/07/2024."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 1,
+      "fact_name": "prosp_def_escritura_af_data_celebracao",
+      "reference_date": "2024-08-27",
+      "value": "2024-08-23",
+      "unit": "data",
+      "excerpt": "“Escritura Pública de Alienação Fiduciária de Imóvel em Garantia e Outras Avenças” celebrada 23 de agosto de 2024, entre a Emissora e a Securitizadora",
+      "note": "O Prospecto Preliminar (p. 1) dizia \"a ser celebrada\". O texto da capa diz \"entre a Emissora e a Securitizadora\" (Emissora é definida na capa como a própria securitizadora); o alienante é a Devedora (p. 17). A p. 18 continua dizendo que a escritura \"deverá ser celebrada ... até o dia 25 de agosto de 2024\"."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 1,
+      "fact_name": "prosp_def_contrato_cf_celebracao_registro_rtd",
+      "reference_date": "2024-08-27",
+      "value": "Contrato de Cessão Fiduciária celebrado em 2024-07-26 e registrado no 2º Oficial de Registro de Títulos e Documentos de São Paulo sob nº 3.792.419; aditado em 2024-08-08",
+      "unit": "texto",
+      "excerpt": "celebrado em 26 de julho de 2024 e registrado no 2º Oficial de Registro de Títulos e Documentos da Comarca de São Paulo sob o n.º 3.792.419, conforme posteriormente aditado em 8 de agosto de 2024",
+      "note": "O Prospecto Preliminar (p. 1) dizia \"a ser celebrado\". O texto não informa a data do registro no RTD."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 1,
+      "fact_name": "prosp_def_garantias_capa",
+      "reference_date": "2024-08-27",
+      "value": "AF de imóvel \"a ser constituída\"; cessão fiduciária de recebíveis \"celebrada ... observada a Condição Suspensiva\"",
+      "unit": "texto",
+      "excerpt": "(i) Alienação Fiduciária de Imóvel (conforme abaixo definido), a ser constituída nos termos da Escritura de Emissão e da Escritura Pública de Alienação Fiduciária de Imóvel; e (ii) Cessão Fiduciária de Recebíveis (conforme abaixo definido), celebrada nos termos do Contrato de Cessão Fiduciária de Recebíveis, observada a Condição Suspensiva",
+      "note": "A capa do Preliminar dizia que o contrato de cessão fiduciária seria \"a ser celebrado\" (p. 1)."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 8,
+      "fact_name": "prosp_def_duration",
+      "reference_date": "2024-08-27",
+      "value": "4,86 anos, calculado em 2024-08-07",
+      "unit": "texto",
+      "excerpt": "Duration dos CRI 4,86 (quatro inteiros e oitenta e seis centésimos) anos, calculado em 7 de agosto de 2024.",
+      "note": "O Preliminar (p. 8) trazia 4,93 anos calculado em 24/07/2024; o Termo original tem 4,93 (p. 21) e o Aditamento 4,86."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 11,
+      "fact_name": "prosp_def_resgate_facultativo_data_inicial",
+      "reference_date": "2024-08-27",
+      "value": "2026-08-29",
+      "unit": "data",
+      "excerpt": "a Devedora poderá, a partir de 29 de agosto de 2026;observados os termos e condições estabelecidos a seguir",
+      "note": "O Preliminar (p. 11) trazia 29/08/2027 e a expressão \"após decorridos 36 meses\". A p. 84 repete 29/08/2026; porém as cópias do Termo original e da Escritura original anexas ao próprio Prospecto Definitivo ainda trazem 29/08/2027 (p. 225, 421), e o Aditamento anexo traz 29/08/2026."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 12,
+      "fact_name": "prosp_def_premio_resgate_tabela",
+      "reference_date": "2024-08-27",
+      "value": "29/08/2026-29/08/2027: 1,50%; 29/08/2027-29/08/2028: 1,00%; 29/08/2028-29/08/2029: 0,50%; 29/08/2029-29/08/2030: N/A; após 29/08/2030: 1,50%",
+      "unit": "texto",
+      "excerpt": "Entre 29 de agosto de 2026 (inclusive) e 29 de agosto de 2027 (exclusive) 1,50% Entre 29 de agosto de 2027 (inclusive) e 29 de agosto de 2028 (exclusive) 1,00% Entre 29 de agosto de 2028 (inclusive) e 29 de agosto de 2029 (exclusive) 0,50% Entre 29 de agosto de 2029 (inclusive) e 29 de agosto de 2030 (exclusive) N/A Após 29 de agosto de 2030 (inclusive) 1,50%",
+      "note": "O Preliminar (p. 12) trazia as mesmas faixas com datas em 29 de julho (de 2026 a 2030)."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 12,
+      "fact_name": "prosp_def_amortizacao_extraordinaria_data_inicial",
+      "reference_date": "2024-08-27",
+      "value": "2026-08-29",
+      "unit": "data",
+      "excerpt": "a Devedora poderá, a partir de 29 de agosto de 2026, realizar a amortização extraordinária",
+      "note": "O Preliminar (p. 12) não indicava data inicial para a amortização extraordinária facultativa."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 13,
+      "fact_name": "prosp_def_amortizacao_extraordinaria_premio_tabela",
+      "reference_date": "2024-08-27",
+      "value": "29/08/2026-29/08/2027: 1,50%; 29/08/2027-29/08/2028: 1,00%; 29/08/2028-29/08/2029: 0,50%; 29/08/2029-29/08/2030: N/A; após 29/08/2030: 1,50%",
+      "unit": "texto",
+      "excerpt": "Data da Amortização Extraordinária Obrigatória dos CRI Prêmio incidente Entre 29 de agosto de 2026 (inclusive) e 29 de agosto de 2027 (exclusive) 1,50% Entre 29 de agosto de 2027 (inclusive) e 29 de agosto de 2028 (exclusive) 1,00% Entre 29 de agosto de 2028 (inclusive) e 29 de agosto de 2029 (exclusive) 0,50% Entre 29 de agosto de 2029 (inclusive) e 29 de agosto de 2030 (exclusive) N/A Após 29 de agosto de 2030 (inclusive) 1,50%",
+      "note": "Tabela nova: o Preliminar (p. 12) dizia apenas \"prêmio equivalente ao previsto na Cláusula 4.5.3 do Termo\"."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 13,
+      "fact_name": "prosp_def_follow_on_premio_condicao",
+      "reference_date": "2024-08-27",
+      "value": "prêmio acrescido somente se o Percentual de Liberação das Garantias Follow On for superior a 20%",
+      "unit": "texto",
+      "excerpt": "Caso o Percentual de Liberação da Garantias Follow On seja superior a 20% (vinte por cento) da Alienação Fiduciária de Imóvel e da Cessão Fiduciária de Recebíveis, será acrescido no Valor da Amortização Extraordinária Facultativa Follow On prêmio equivalente ao disposto na tabela abaixo.",
+      "note": "O Preliminar (p. 13) não mencionava o prêmio nem o limite de 20%; o Termo (cl. 4.7) e o Aditamento já tinham."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 13,
+      "fact_name": "prosp_def_follow_on_premio_tabela",
+      "reference_date": "2024-08-27",
+      "value": "Data de Emissão-29/08/2027: 1,50%; 29/08/2027-29/08/2028: 1,00%; 29/08/2028-29/08/2029: 0,50%; 29/08/2029-29/08/2030: N/A; após 29/08/2030: 1,50%",
+      "unit": "texto",
+      "excerpt": "Entre a Data de Emissão dos CRI (inclusive) e 29 de agosto de 2027 (exclusive) 1,50% Entre 29 de agosto de 2027 (inclusive) e 29 de agosto de 2028 (exclusive) 1,00% Entre 29 de agosto de 2028 (inclusive) e 29 de agosto de 2029 (exclusive) 0,50% Entre 29 de agosto de 2029 (inclusive) e 29 de agosto de 2030 (exclusive) N/A Após 29 de agosto de 2030 (inclusive) 1,50%"
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 14,
+      "fact_name": "prosp_def_spread_ate_2030_08_29",
+      "reference_date": "2024-08-27",
+      "value": "0.0150",
+      "unit": "fração a.a. sobre DI (base 252)",
+      "excerpt": "Da primeira Data de Integralização (inclusive) até 29 de agosto de 2030 (exclusive) 1,50% ao ano",
+      "note": "O Preliminar (p. 14) dizia \"até o 72º mês\". O Termo original, a Escritura original e o relatório da Fitch anexos ao Definitivo ainda dizem 72º/73º mês (p. 373, 425, 602)."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 14,
+      "fact_name": "prosp_def_spread_a_partir_2030_08_29",
+      "reference_date": "2024-08-27",
+      "value": "0.0275",
+      "unit": "fração a.a. sobre DI (base 252)",
+      "excerpt": "De 29 de agosto de 2030 (inclusive) até a Data de Vencimento dos CRI 2,75% ao ano",
+      "note": "O Preliminar (p. 14) dizia \"a partir do 73º mês\"."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 62,
+      "fact_name": "prosp_def_cronograma_bookbuilding",
+      "reference_date": "2024-08-27",
+      "value": "2024-08-26",
+      "unit": "data",
+      "excerpt": "8. Procedimento de Bookbuilding 26/08/2024",
+      "note": "Tabela do cronograma com colunas desalinhadas na extração; só esta linha está legível sem ambiguidade."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 63,
+      "fact_name": "prosp_def_modificacao_oferta_data",
+      "reference_date": "2024-08-27",
+      "value": "2024-08-09",
+      "unit": "data",
+      "excerpt": "Em 9 de agosto de 2024, foi disponibilizado nos Meios de Divulgação descritos neste Prospecto, um comunicado de modificação da Oferta, bem como nova versão deste Prospecto e da Lâmina"
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 63,
+      "fact_name": "prosp_def_modificacao_oferta_itr_devedora",
+      "reference_date": "2024-08-27",
+      "value": "informações financeiras intermediárias da Devedora de 6 meses findos em 2024-06-30, divulgadas em 2024-08-07",
+      "unit": "texto",
+      "excerpt": "da divulgação, em 7 de agosto de 2024, pela Devedora, das suas informações financeiras intermediárias individuais e consolidadas referente ao período de 6 (seis) meses encerrado em 30 de junho de 2024"
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 64,
+      "fact_name": "prosp_def_modificacao_retificar_duration",
+      "reference_date": "2024-08-27",
+      "value": "retificação da Duration dos CRI (item 2.3)",
+      "unit": "texto",
+      "excerpt": "(II) (a) retificar a Duration dos CRI, no item"
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 64,
+      "fact_name": "prosp_def_modificacao_retificar_lockup_resgate",
+      "reference_date": "2024-08-27",
+      "value": "retificação do lock up do Resgate Antecipado Facultativo e da tabela de Prêmio de Resgate Antecipado (item 2.3)",
+      "unit": "texto",
+      "excerpt": "(b) retificar o lock up do Resgate Antecipado dos CRI decorrente do Resgate Antecipado Facultativo das Debêntures e a tabela de Prêmio de Resgate Antecipado"
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 64,
+      "fact_name": "prosp_def_modificacao_incluir_lockup_amort_extraordinaria",
+      "reference_date": "2024-08-27",
+      "value": "inclusão de lock up e tabela de prêmio para a Amortização Extraordinária Obrigatória (item 2.3)",
+      "unit": "texto",
+      "excerpt": "(c) incluir lock up para a hipótese de Amortização Extraordinária Obrigatória dos CRI decorrente da Amortização Extraordinária Facultativa das Debêntures e tabela de prêmio"
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 64,
+      "fact_name": "prosp_def_modificacao_incluir_tabela_follow_on",
+      "reference_date": "2024-08-27",
+      "value": "inclusão de tabela de prêmio da Amortização Extraordinária Facultativa Follow On (item 2.3)",
+      "unit": "texto",
+      "excerpt": "(d) incluir tabela de prêmio a ser acrescido no Valor da Amortização Extraordinária Facultativa Follow On"
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 64,
+      "fact_name": "prosp_def_modificacao_retificar_spread",
+      "reference_date": "2024-08-27",
+      "value": "retificação da tabela de Spread da Remuneração dos CRI (item 2.6 i) e das Debêntures (item 10.1 b)",
+      "unit": "texto",
+      "excerpt": "(e) retificar a tabela de Spread da Remuneração dos CRI"
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 68,
+      "fact_name": "prosp_def_rerrat_rca_devedora",
+      "reference_date": "2024-08-27",
+      "value": "RCA da Devedora de 2024-07-26 (registrada na JUCESP em 2024-08-01, nº 295.558/24-6), rerratificada em 2024-08-08 e protocolada na JUCESP em 2024-08-22 sob nº 2.272.328/24-6",
+      "unit": "texto",
+      "excerpt": "conforme posteriormente rerratificada nas deliberações da reunião do Conselho de Administração realizada em 8 de agosto de 2024 e protocolada na JUCESP em 22 de agosto de 2024 sob o n.º 2.272.328/24-6"
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 70,
+      "fact_name": "prosp_def_intencoes_perante_coordenador_lider",
+      "reference_date": "2024-08-27",
+      "value": "cada intenção de investimento foi realizada perante o Coordenador Líder",
+      "unit": "texto",
+      "excerpt": "Cada intenção de investimento foi realizada perante o Coordenador Líder.",
+      "note": "O Preliminar (p. 70) dizia \"apenas uma Instituição Participante da Oferta\"; o Anúncio de Início e o de Encerramento citam só o Coordenador Líder, o Itaú BBA."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 71,
+      "fact_name": "prosp_def_bookbuilding_sem_rateio",
+      "reference_date": "2024-08-27",
+      "value": "demanda não excedeu o Valor Total da Emissão; sem rateio",
+      "unit": "texto",
+      "excerpt": "foi verificado que o total de CRI objeto das intenções de investimento admitidas pelo Coordenador Líder no âmbito da Oferta não excedeu o Valor Total da Emissão, não foi necessário realizar o rateio dos CRI",
+      "note": "O Preliminar (p. 71) descrevia o procedimento no futuro. Nenhum número de intenções ou de investidores consta do Prospecto; o resultado por tipo de investidor está no Anúncio de Encerramento (730623, p. 2)."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 71,
+      "fact_name": "prosp_def_pessoas_vinculadas_sem_limitacao",
+      "reference_date": "2024-08-27",
+      "value": "sem excesso de demanda superior a 1/3; sem limitação à participação de Pessoas Vinculadas",
+      "unit": "texto",
+      "excerpt": "Tendo em vista que não foi verificado excesso de demanda superior em 1/3 (um terço) dos CRI ofertados, não houve limitação para participação de Pessoas Vinculadas na Oferta."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 72,
+      "fact_name": "prosp_def_formador_mercado_nao_contratado",
+      "reference_date": "2024-08-27",
+      "value": "formador de mercado não contratado",
+      "unit": "texto",
+      "excerpt": "a Securitizadora e a Devedora não contrataram o formador de mercado para atuar no âmbito da Oferta"
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 44,
+      "fact_name": "prosp_def_divida_liquida_ebitda_ajustado_2024_06_30",
+      "reference_date": "2024-08-27",
+      "value": "4.74",
+      "unit": "razão (Dívida Líquida / EBITDA Ajustado, últimos 12 meses findos em 2024-06-30)",
+      "excerpt": "era de R$ 1.046.295 mil, resultando em um indicador dívida líquida/EBITDA Ajustado dos últimos 12 meses findos em 30 de junho de 2024 de 4,74 x.",
+      "note": "Dívida líquida da Devedora de R$ 1.046.295 mil em 30/06/2024. O Preliminar (p. 44) trazia R$ 1.030.434 mil e 4,7x em 31/03/2024. Não é o indicador do covenant (limite 4,95x no Termo, cl. 15.2.2 xxii)."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 600,
+      "fact_name": "prosp_def_fitch_rating_final_atribuido",
+      "reference_date": "2024-08-27",
+      "value": "AA-sf(bra), perspectiva estável, atribuído pela Fitch em 2024-08-27 à série única da 301ª emissão (BRL 230 milhões)",
+      "unit": "texto",
+      "excerpt": "A Fitch Ratings atribuiu, hoje, o Rating Nacional de Longo Prazo ‘AA-sf(bra)’, com Perspectiva Estável, à série única da 301ª emissão de",
+      "note": "Relatório da Fitch publicado em 27/08/2024 17:09 ET e anexado como Anexo IX do Prospecto Definitivo. Sem o sufixo (EXP). A capa do Prospecto, o Anúncio de Início e o Anúncio de Encerramento continuam grafando AA-(EXP)sf(bra)."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 600,
+      "fact_name": "prosp_def_fitch_titulo_relatorio",
+      "reference_date": "2024-08-27",
+      "value": "Fitch Atribui Rating 'AA-sf(bra)' a 301ª Emissão de CRIs da Opea; Risco Almeida Junior",
+      "unit": "texto",
+      "excerpt": "Fitch Atribui Rating ‘AA-sf(bra)’ a 301ª Emissão de CRIs da Opea;"
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 601,
+      "fact_name": "prosp_def_fitch_tabela_rating_anterior_exp",
+      "reference_date": "2024-08-27",
+      "value": "ISIN BRRBRACRIP13: AA-sf(bra), perspectiva Stable; coluna do rating anterior: (EXP)sf(bra); 'New Rating'",
+      "unit": "texto",
+      "excerpt": "BRRBRACRIP13 AA-sf(bra) Rating Outlook Stable (EXP)sf(bra) Rat",
+      "note": "Tabela da ação de rating com colunas quebradas na extração; leitura frágil. Interpretação: o rating anterior era o esperado (EXP) e o atual é o final."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 602,
+      "fact_name": "prosp_def_fitch_spread_72_73_meses",
+      "reference_date": "2024-08-27",
+      "value": "spread 1,5% a.a. até 72 meses após a integralização; a partir do 73º mês, 2,75% a.a.",
+      "unit": "texto",
+      "excerpt": "acrescida de um spread de 1,5% ao ano, até 72 meses após a integralização dos CRIs. A partir do 73º mês, a remuneração será de CDI, acrescida de um spread de 2,75% ao ano.",
+      "note": "O relatório da Fitch descreve a regra em meses, como o Termo original e o Preliminar, e não pela data fixa de 29/08/2030 do corpo do Prospecto Definitivo (p. 14)."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 602,
+      "fact_name": "prosp_def_fitch_documentos_finais_ate",
+      "reference_date": "2024-08-27",
+      "value": "Fitch recebeu os documentos finais da transação até 2024-08-27, em conformidade com os analisados na atribuição do rating à proposta de emissão",
+      "unit": "texto",
+      "excerpt": "transação até 27 de agosto de 2024, em conformidade com os analisados no momento da atribuição do rating à proposta de emissão.",
+      "note": "A palavra \"finais\" está corrompida na extração (\"�nais\") logo antes do trecho citado."
+    },
+    {
+      "source_document_id": "727241",
+      "page_number": 602,
+      "fact_name": "prosp_def_fitch_escala_nacional_primeira_emissao",
+      "reference_date": "2024-08-27",
+      "value": "2024-07-29",
+      "unit": "data",
+      "excerpt": "foi emitida pela primeira vez: 29 de julho de 2024."
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 1,
+      "fact_name": "enc_quantidade_distribuida",
+      "reference_date": "2024-08-30",
+      "value": "230000",
+      "unit": "CRI",
+      "excerpt": "o encerramento da distribuição pública de 230.000 (duzentos e trinta mil) certificados de recebíveis imobiliários, todos nominativos e escriturais, em série única"
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 1,
+      "fact_name": "enc_montante_total_data_emissao",
+      "reference_date": "2024-08-30",
+      "value": "230000000.00",
+      "unit": "BRL",
+      "excerpt": "perfazendo, na Data de Emissão, qual seja, 29 de agosto de 2024, R$230.000.000,00 (duzentos e trinta milhões de reais)",
+      "note": "Data de Emissão 2024-08-29; VNU R$ 1.000,00 (mesma página)."
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 1,
+      "fact_name": "enc_rating_definitiva_grafia",
+      "reference_date": "2024-08-30",
+      "value": "AA-(EXP)sf(bra) - Fitch Ratings Brasil, rotulada 'definitiva', realizada em 2024-08-27",
+      "unit": "texto",
+      "excerpt": "CLASSIFICAÇÃO DE RISCO (RATING) DEFINITIVA DA EMISSÃO ATRIBUÍDA PELA FITCH RATINGS BRASIL LTDA.: ‘AA-(EXP)sf(bra)’* *ESTA CLASSIFICAÇÃO FOI REALIZADA EM 27 DE AGOSTO DE 2024.",
+      "note": "Mesmo rótulo e sufixo (EXP) do Anúncio de Início (727228). O relatório final da Fitch de 27/08/2024, anexo ao Prospecto Definitivo (727241, p. 600 a 602), traz AA-sf(bra) sem (EXP)."
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 1,
+      "fact_name": "enc_prospecto_definitivo_divulgado_em",
+      "reference_date": "2024-08-30",
+      "value": "2024-08-27",
+      "unit": "data",
+      "excerpt": "“Prospecto Definitivo”), divulgado em 27 de agosto de 2024."
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 1,
+      "fact_name": "enc_escriturador",
+      "reference_date": "2024-08-30",
+      "value": "Itaú Corretora de Valores S.A. (CNPJ 61.194.353/0001-64)",
+      "unit": "texto",
+      "excerpt": "A Instituição contratada para prestação de serviços de escriturador dos CRI é o ITAÚ CORRETORA DE VALORES S.A."
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 2,
+      "fact_name": "enc_subscritores_total",
+      "reference_date": "2024-08-30",
+      "value": "1710",
+      "unit": "subscritores",
+      "excerpt": "Demais Pessoas Jurídicas 1.710 Sócios, Administradores, Empregados, Prepostos e 230.000 Pessoas Ligadas à Emissora e/ou Participantes do Consórcio Total",
+      "note": "Tabela com valores desalinhados em relação aos rótulos: os valores 1.710 e 230.000 aparecem nas linhas acima do rótulo \"Total\". Interpretados como total de subscritores e total de CRI porque 1.709 + 1 = 1.710 e 221.120 + 8.880 = 230.000 (linhas parciais abaixo) e 230.000 é o total emitido."
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 2,
+      "fact_name": "enc_total_cri_subscritos",
+      "reference_date": "2024-08-30",
+      "value": "230000",
+      "unit": "CRI",
+      "excerpt": "Demais Pessoas Jurídicas 1.710 Sócios, Administradores, Empregados, Prepostos e 230.000 Pessoas Ligadas à Emissora e/ou Participantes do Consórcio Total",
+      "note": "Ver nota de enc_subscritores_total."
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 2,
+      "fact_name": "enc_linha_parcial_1709_subscritores_221120_cri",
+      "reference_date": "2024-08-30",
+      "value": "1.709 subscritores; 221.120 CRI (tipo de investidor não identificável na extração)",
+      "unit": "texto",
+      "excerpt": "DADOS FINAIS DA DISTRIBUIÇÃO Subscritores dos CRI CRI 1.709 221.120",
+      "note": "Os valores estão no cabeçalho da tabela, sem linha de tipo de investidor associada de forma legível. Não atribuir a nenhuma categoria sem conferir o PDF."
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 2,
+      "fact_name": "enc_linha_parcial_1_subscritor_8880_cri",
+      "reference_date": "2024-08-30",
+      "value": "1 subscritor; 8.880 CRI (tipo de investidor não identificável na extração)",
+      "unit": "texto",
+      "excerpt": "Entidades de Previdência Privada 1 – Companhias Seguradoras – 8.880",
+      "note": "A adjacência dos números com os rótulos Entidades de Previdência Privada e Companhias Seguradoras decorre do desalinhamento da tabela; não atribuir a categoria sem conferir o PDF."
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 2,
+      "fact_name": "enc_anbima_categoria",
+      "reference_date": "2024-08-30",
+      "value": "Corporativo",
+      "unit": "texto",
+      "excerpt": "(i) categoria: “Corporativo”"
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 2,
+      "fact_name": "enc_anbima_concentracao",
+      "reference_date": "2024-08-30",
+      "value": "concentrado (100% devido pela Devedora)",
+      "unit": "texto",
+      "excerpt": "(ii) concentração: “concentrado”, uma vez que os créditos imobiliários são devidos 100% (cem por cento) pela Devedora"
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 2,
+      "fact_name": "enc_anbima_segmento",
+      "reference_date": "2024-08-30",
+      "value": "shopping/lojas",
+      "unit": "texto",
+      "excerpt": "(iii) tipo de segmento: “shopping/lojas”"
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 2,
+      "fact_name": "enc_anbima_tipo_contrato_lastro",
+      "reference_date": "2024-08-30",
+      "value": "valores mobiliários representativos de dívida",
+      "unit": "texto",
+      "excerpt": "(iv) tipo de contrato com lastro: “valores mobiliários representativos de dívida”"
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 2,
+      "fact_name": "enc_data_anuncio",
+      "reference_date": "2024-08-30",
+      "value": "2024-08-30",
+      "unit": "data",
+      "excerpt": "A data deste Anúncio de Encerramento é 30 de agosto de 2024."
+    },
+    {
+      "source_document_id": "730623",
+      "page_number": 2,
+      "fact_name": "enc_registro_automatico_sem_analise_previa",
+      "reference_date": "2024-08-30",
+      "value": "oferta sob rito de registro automático; documentos sem revisão da CVM ou de entidade autorreguladora",
+      "unit": "texto",
+      "excerpt": "O REGISTRO DA OFERTA PRESCINDIU DE ANÁLISE PRÉVIA DA CVM, DA ANBIMA E/OU DE QUALQUER OUTRA ENTIDADE AUTORREGULADORA."
+    }
+  ]
+}

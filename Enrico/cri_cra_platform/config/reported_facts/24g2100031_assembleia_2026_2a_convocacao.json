@@ -1,0 +1,11 @@
+{
+  "asset": {"codigo_cetip": "24G2100031", "isin": "BRRBRACRIP13"},
+  "source_note": "Termo de não instalação da Assembleia Especial de Titulares em 2ª convocação, 28/10/2026 (doc. 1360837, entregue em 28/10/2026 18:13).",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-28",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {"source_document_id": "1360837", "page_number": 1, "fact_name": "assembleia_dfs_2026_2a_convocacao", "reference_date": "2026-10-28", "value": "não instalada: nenhum Titular presente ou voto à distância", "unit": "texto", "excerpt": "nenhum Titular dos CRI compareceu à assembleia pela plataforma Microsoft Teams ou enviou manifestação de voto à distância, sendo assim, não foi atingido o quórum de instalação da assembleia"},
+    {"source_document_id": "1360837", "page_number": 2, "fact_name": "assembleia_dfs_2026_aprovacao_automatica", "reference_date": "2026-10-28", "value": "DFs do PS de 30/06/2026 aprovadas automaticamente (art. 25, §2º, Res. CVM 60)", "unit": "texto", "excerpt": "consideram-se aprovadas automaticamente, exclusivamente, as demonstrações financeiras do Patrimônio Separado e o respectivo relatório do Auditor Independente, referentes ao exercício social encerrado em 30 de junho de 2026"}
+  ]
+}

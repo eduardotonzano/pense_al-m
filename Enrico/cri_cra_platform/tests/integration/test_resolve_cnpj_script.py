@@ -40,6 +40,9 @@ PILOT_CSV = PROJECT_DIR / "config" / "ativos_piloto.csv"
 OTHER_ISSUER = "12.130.744/0001-00"
 ALMEIDA_ROW = "24G2100031"
 ECO_ROW = "CRA022009VM"
+# Alibem: entrou no ativos_piloto.csv com a securitizadora digitada; os ZIPs de
+# teste da CVM nao trazem esse ativo, entao o resolvedor nao grava nada nele.
+ALIBEM_ROW = "CRA02500C1D"
 
 
 def load_script():
@@ -306,6 +309,7 @@ def test_commit_with_the_real_rows_applies_the_securitizadora_and_keeps_the_deve
     assert cnpjs(path) == {
         ALMEIDA_ROW: (OPEA, None),
         ECO_ROW: (ECO, CAFE_DEVEDOR_IN_CSV),
+        ALIBEM_ROW: (ECO, None),
     }
     assert found[(ALMEIDA_ROW, "cnpj_securitizadora")] == (
         "applied", "02773542000122", "2025-01-01", "2026-08-01", 20, "2026-09-28",
@@ -354,6 +358,7 @@ def test_apply_devedor_writes_the_devedor_but_still_never_overwrites_an_existing
     assert cnpjs(path) == {
         ALMEIDA_ROW: (OPEA, "82.120.676/0001-83"),
         ECO_ROW: (ECO, CAFE_DEVEDOR_IN_CSV),
+        ALIBEM_ROW: (ECO, None),
     }
     assert found[(ALMEIDA_ROW, "cnpj_devedor")][0] == "applied"
     assert query(
@@ -433,8 +438,12 @@ def test_every_value_written_by_the_resolver_has_source_period_and_read_time(
         "SELECT source_id, reference_first, reference_last, observed_at FROM asset_cnpj_provenance",
     )
 
-    # Sem fonte registrada: so o devedor digitado a mao do Cafe (a CVM discorda dele).
-    assert unsourced == [(ECO_ROW, "cnpj_devedor")]
+    # Sem fonte registrada: o devedor digitado a mao do Cafe (a CVM discorda dele)
+    # e a securitizadora do Alibem, digitada no CSV e ausente dos ZIPs de teste.
+    assert sorted(unsourced) == [
+        (ECO_ROW, "cnpj_devedor"),
+        (ALIBEM_ROW, "cnpj_securitizadora"),
+    ]
     assert len(sourced) == 3 and all(all(value for value in row) for row in sourced)
 
 

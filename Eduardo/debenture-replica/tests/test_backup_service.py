@@ -3,6 +3,7 @@ import sqlite3
 
 import pytest
 
+from cnpj_amostras import CNPJ_1
 from debenture_search.database import Database
 from debenture_search.services.backup_service import (
     BackupRecord,
@@ -27,7 +28,7 @@ def context(tmp_path):
             INSERT INTO issuers (cnpj, legal_name)
             VALUES (?, ?)
             """,
-            ("12345678000199", "Empresa Original"),
+            (CNPJ_1, "Empresa Original"),
         )
         connection.commit()
 

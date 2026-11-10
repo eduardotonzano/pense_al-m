@@ -1,0 +1,163 @@
+{
+  "version": "0.1.0",
+  "status": "proposed",
+  "notes": "Padrões (regex, sem diferenciar maiúsculas) que localizam a cláusula de cada campo padrão no texto de um Termo. Só localizam: não interpretam valor. A qualidade é medida por scripts/evaluate_finder_recall.py contra os parâmetros já aprovados.",
+  "topics": {
+    "identificacao.isin": [
+      "\\bISIN\\b",
+      "\\bBR[A-Z0-9]{9}\\d\\b"
+    ],
+    "identificacao.numero_emissao": [
+      "\\d+ª\\s*\\([^)]*\\)\\s*Emiss[ãa]o",
+      "Emiss[ãa]o\\s+n[ºo°]",
+      "\\b\\d+\\s*ª\\s+Emiss[ãa]o"
+    ],
+    "identificacao.numero_series": [
+      "s[ée]rie [úu]nica",
+      "\\d+\\s*\\([^)]*\\)\\s*s[ée]ries",
+      "Ser[ãa]o emitidas?\\s+\\d+"
+    ],
+    "identificacao.devedor": [
+      "[“\\\"]Devedora?[”\\\"]",
+      "[“\\\"]Cedente[”\\\"]",
+      "[“\\\"]Avalista[”\\\"]"
+    ],
+    "identificacao.agente_fiduciario": [
+      "[“\\\"]Agente Fiduci[áa]rio[”\\\"]",
+      "Remunera[çc][ãa]o do Agente Fiduci"
+    ],
+    "identificacao.lastro": [
+      "vincula.{0,60}(Cr[ée]ditos|Direitos) ",
+      "[“\\\"](Direitos|Cr[ée]ditos) (Credit[óo]rios|Imobili[áa]rios|do Agroneg[óo]cio)[^”\\\"]*[”\\\"]",
+      "\\blastro\\b"
+    ],
+    "identificacao.classe_serie": [
+      "Classe (S[êe]nior|Mezanino|Subordinada)",
+      "(CRA|CRI) (S[êe]niores|Mezanino|Subordinados)"
+    ],
+    "emissao.data_emissao": [
+      "Data de Emiss[ãa]o"
+    ],
+    "emissao.data_vencimento": [
+      "Data de Vencimento",
+      "Data de Vencimento Final"
+    ],
+    "emissao.valor_total": [
+      "Valor Total da (Emiss[ãa]o|Oferta)",
+      "valor global"
+    ],
+    "emissao.valor_nominal_unitario": [
+      "Valor Nominal Unit[áa]rio"
+    ],
+    "emissao.quantidade_titulos": [
+      "Quantidade de (CRA|CRI)",
+      "compreende [\\d.]+ .{0,30}(CRA|CRI)"
+    ],
+    "remuneracao.taxa": [
+      "[“\\\"]Remunera[çc][ãa]o( dos (CRA|CRI))?[”\\\"]",
+      "juros remunerat[óo]rios",
+      "Taxa DI"
+    ],
+    "remuneracao.periodicidade": [
+      "Data de Pagamento da Remunera",
+      "Pagamento da Remunera[çc][ãa]o",
+      "Cronograma de Pagamentos"
+    ],
+    "remuneracao.primeira_data_pagamento": [
+      "Primeira Data de Pagamento",
+      "Data de Pagamento da Remunera",
+      "Cronograma de Pagamentos"
+    ],
+    "remuneracao.amortizacao": [
+      "Amortiza[çc][ãa]o (Programada|Ordin[áa]ria|Mensal|Semestral)",
+      "cronograma de (amortiza|pagamentos)",
+      "Data de Pagamento da Amortiza"
+    ],
+    "remuneracao.atualizacao_monetaria": [
+      "Atualiza[çc][ãa]o Monet[áa]ria"
+    ],
+    "remuneracao.encargos_moratorios": [
+      "Encargos Morat[óo]rios",
+      "juros de mora",
+      "multa morat[óo]ria"
+    ],
+    "garantias.descricao": [
+      "Garantias?\\b.{0,80}(Aval|Cess[ãa]o Fiduci[áa]ria|Aliena[çc][ãa]o Fiduci[áa]ria)",
+      "garantia flutuante",
+      "constitu[íi]das as seguintes garantias",
+      "Aliena[çc][ãa]o Fiduci[áa]ria",
+      "Cess[ãa]o Fiduci[áa]ria"
+    ],
+    "garantias.razao_minima": [
+      "Raz[ãa]o (M[íi]nima )?de Garantia",
+      "\\bLTV\\b",
+      "\\bICSD\\b",
+      "[ÍI]ndice de Cobertura"
+    ],
+    "garantias.liberacao": [
+      "Libera[çc][ãa]o (de|das) Garantias?",
+      "Termo de Libera[çc][ãa]o"
+    ],
+    "garantias.fundo_despesas": [
+      "Fundo de Despesas"
+    ],
+    "garantias.fundo_reserva_retencao": [
+      "Fundo de (Reserva|Reten[çc][ãa]o|Liquidez|Amortiza)",
+      "cash sweep"
+    ],
+    "covenants.indices_financeiros": [
+      "[ÍI]ndices? Financeiros?",
+      "D[íi]vida L[íi]quida",
+      "Liquidez Corrente"
+    ],
+    "covenants.restricoes": [
+      "dividendos",
+      "\\bCAPEX\\b",
+      "m[úu]tuos?"
+    ],
+    "vencimento_antecipado.hipoteses": [
+      "Vencimento Antecipado",
+      "Evento de Vencimento"
+    ],
+    "vencimento_antecipado.limites_e_prazos": [
+      "cross.?default",
+      "prazo de cura",
+      "protesto",
+      "inadimplemento pecuni[áa]rio"
+    ],
+    "vencimento_antecipado.pagamento_e_quorum": [
+      "n[ãa]o declara[çc][ãa]o",
+      "qu[óo]rum.{0,80}vencimento antecipado"
+    ],
+    "vencimento_antecipado.liquidacao_ps": [
+      "Eventos? de Liquida[çc][ãa]o do Patrim[ôo]nio Separado"
+    ],
+    "resgate.facultativo": [
+      "Resgate Antecipado",
+      "Amortiza[çc][ãa]o Extraordin[áa]ria",
+      "Pr[êe]mio"
+    ],
+    "resgate.waiver_fee": [
+      "waiver"
+    ],
+    "obrigacoes.dfs_e_relatorios": [
+      "demonstra[çc][õo]es financeiras",
+      "relat[óo]rio (anual|mensal|de gest[ãa]o)",
+      "Dias [ÚU]teis (do|ap[óo]s)"
+    ],
+    "obrigacoes.rating": [
+      "classifica[çc][ãa]o de risco",
+      "\\bratings?\\b"
+    ],
+    "obrigacoes.destinacao_recursos": [
+      "Destina[çc][ãa]o dos Recursos"
+    ],
+    "governanca.quorum_assembleia": [
+      "qu[óo]rum",
+      "Assembleia (Geral|Especial|de Titulares)"
+    ],
+    "governanca.ordem_pagamentos": [
+      "Ordem de (Aloca|Pagamentos)"
+    ]
+  }
+}

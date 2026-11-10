@@ -3,6 +3,7 @@ from datetime import datetime
 from datetime import timedelta
 from datetime import timezone
 
+from cnpj_amostras import CNPJ_1
 from debenture_search.database import Database
 from debenture_search.repositories.debenture_repository import DebentureRepository
 from debenture_search.repositories.issuer_repository import IssuerRepository
@@ -59,7 +60,7 @@ def test_detects_debenture_without_observations(tmp_path):
     _, issuers, debentures, _, service, _ = create_context(tmp_path)
     issuer = issuers.create(
         legal_name="Empresa",
-        cnpj="12345678000199",
+        cnpj=CNPJ_1,
     )
     debentures.create(asset_code="QUAL13", issuer_id=issuer.id)
 
@@ -71,7 +72,7 @@ def test_detects_debenture_without_observations(tmp_path):
 
 def test_detects_non_positive_value(tmp_path):
     _, issuers, debentures, observations, service, source_id = create_context(tmp_path)
-    issuer = issuers.create("Empresa", "12345678000199")
+    issuer = issuers.create("Empresa", CNPJ_1)
     debenture = debentures.create("QUAL14", issuer_id=issuer.id)
     observations.create(
         debenture.id,
@@ -92,7 +93,7 @@ def test_detects_non_positive_value(tmp_path):
 
 def test_detects_suspect_observation(tmp_path):
     _, issuers, debentures, observations, service, source_id = create_context(tmp_path)
-    issuer = issuers.create("Empresa", "12345678000199")
+    issuer = issuers.create("Empresa", CNPJ_1)
     debenture = debentures.create("QUAL15", issuer_id=issuer.id)
     observations.create(
         debenture.id,
@@ -113,7 +114,7 @@ def test_detects_suspect_observation(tmp_path):
 
 def test_detects_stale_current_observation(tmp_path):
     _, issuers, debentures, observations, service, source_id = create_context(tmp_path)
-    issuer = issuers.create("Empresa", "12345678000199")
+    issuer = issuers.create("Empresa", CNPJ_1)
     debenture = debentures.create("QUAL16", issuer_id=issuer.id)
     old_date = datetime.now(timezone.utc) - timedelta(days=60)
     observations.create(
@@ -155,7 +156,7 @@ def test_detects_failed_collection(tmp_path):
 
 def test_valid_data_has_no_issues(tmp_path):
     _, issuers, debentures, observations, service, source_id = create_context(tmp_path)
-    issuer = issuers.create("Empresa", "12345678000199")
+    issuer = issuers.create("Empresa", CNPJ_1)
     debenture = debentures.create("QUAL17", issuer_id=issuer.id)
     observations.create(
         debenture.id,

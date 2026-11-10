@@ -1,0 +1,137 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA022009VM",
+    "isin": "BRECOACRABX0"
+  },
+  "source_document_id": "355426",
+  "proposed_by": "Claude (assistente), a partir dos trechos literais",
+  "proposed_at": "2026-10-26",
+  "parameters": [
+    {
+      "candidate_id": 1,
+      "candidate_excerpt_sha256": "3766a6b383ec129c70d0504ff822aa25e4e4460f8f0e3d55419cf013441e9be2",
+      "parameter_name": "razao_garantia_minima_jan_ago",
+      "parameter_value": "0.70",
+      "unit": "fração do valor nominal dos CRA",
+      "applies_when": "janeiro a agosto; verificação em 31/08",
+      "note": "Soma de Cessão Fiduciária, AF Imóvel, AF Estoque e saldo da Conta Garantia."
+    },
+    {
+      "candidate_id": 1,
+      "candidate_excerpt_sha256": "3766a6b383ec129c70d0504ff822aa25e4e4460f8f0e3d55419cf013441e9be2",
+      "parameter_name": "razao_garantia_minima_set_dez",
+      "parameter_value": "1.20",
+      "unit": "fração do valor nominal dos CRA",
+      "applies_when": "setembro a dezembro; verificação em 15/12",
+      "note": "AF Estoque 'se aplicável' neste período."
+    },
+    {
+      "candidate_id": 1,
+      "candidate_excerpt_sha256": "3766a6b383ec129c70d0504ff822aa25e4e4460f8f0e3d55419cf013441e9be2",
+      "parameter_name": "cessao_fiduciaria_minima_na_verificacao",
+      "parameter_value": "65000000.00",
+      "unit": "BRL",
+      "applies_when": "Data de Verificação da Razão de Garantia",
+      "note": "Redação no item (ii); confirmar se vale também para a verificação de 31/08."
+    },
+    {
+      "candidate_id": 2,
+      "candidate_excerpt_sha256": "f3d8b715be5f9784a1bdd5483554e4b0ad04eb38a069deb8ff99e12632ae7155",
+      "parameter_name": "datas_verificacao_razao_garantia",
+      "parameter_value": "31/08 (período jan–ago); 15/12 (período set–dez)",
+      "unit": "texto",
+      "applies_when": "anual",
+      "note": null
+    },
+    {
+      "candidate_id": 3,
+      "candidate_excerpt_sha256": "a081a4b9914de6111e413cfe47308301cdeeced4b021b09fb6118e57fbc21986",
+      "parameter_name": "recomposicao_garantia",
+      "parameter_value": "Recompor garantias ou depositar na Conta Garantia até reenquadrar a Razão de Garantia",
+      "unit": "texto",
+      "applies_when": "desenquadramento da Razão de Garantia ou garantias nulas/ineficazes",
+      "note": "Detalhes no CDCA."
+    },
+    {
+      "candidate_id": 4,
+      "candidate_excerpt_sha256": "317d24cc8d09019417944ba22024821f9420b1461cb301537f84063868aa05e1",
+      "parameter_name": "garantias",
+      "parameter_value": "Aval; Cessão Fiduciária; Alienação Fiduciária de Imóvel; Alienação Fiduciária de Estoque",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Informe Mensal declara 'não conta com garantias reais' e VlrTotalGarantias = 0."
+    },
+    {
+      "candidate_id": 9,
+      "candidate_excerpt_sha256": "070cedd8be363338ddd28aede7f4c76ba69c2165316c9a742b59f93ef03458f0",
+      "parameter_name": "fundo_despesas_valor_inicial",
+      "parameter_value": "3626417.56",
+      "unit": "BRL",
+      "applies_when": "constituição na integralização",
+      "note": null
+    },
+    {
+      "candidate_id": 10,
+      "candidate_excerpt_sha256": "be0ee75b2f85fc3ca22cbae6f662b9873e254c369e499993e39f87d5062b08bc",
+      "parameter_name": "fundo_despesas_recomposicao",
+      "parameter_value": "Anual a partir de 01/09/2023, no montante informado pela Securitizadora",
+      "unit": "texto",
+      "applies_when": "anual",
+      "note": null
+    },
+    {
+      "candidate_id": 11,
+      "candidate_excerpt_sha256": "ffde7459307f051498b392a3f6bcd8cc26579729ff7c1060022fcaa2fda70f48",
+      "parameter_name": "fundo_retencao_valor",
+      "parameter_value": "Projeção da próxima parcela de Remuneração dos CRA",
+      "unit": "texto",
+      "applies_when": "anual a partir de 01/09 (início em 01/10/2022)",
+      "note": null
+    },
+    {
+      "candidate_id": 12,
+      "candidate_excerpt_sha256": "74b020db773b7f4999b05ec9f6f628d52e48694288103222a4b1874aaeef9bbd",
+      "parameter_name": "remuneracao",
+      "parameter_value": "100% da Taxa DI + 4,5% a.a., base 252 dias úteis",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": null
+    },
+    {
+      "candidate_id": 14,
+      "candidate_excerpt_sha256": "71f8307fd57b5af19afa618cdd1f81957ab6b80caabe620c2fd24747a3f05fa4",
+      "parameter_name": "valor_nominal_unitario_emissao",
+      "parameter_value": "1000.00",
+      "unit": "BRL",
+      "applies_when": "data de emissão 21/09/2022",
+      "note": null
+    },
+    {
+      "candidate_id": 14,
+      "candidate_excerpt_sha256": "71f8307fd57b5af19afa618cdd1f81957ab6b80caabe620c2fd24747a3f05fa4",
+      "parameter_name": "valor_total_emissao",
+      "parameter_value": "100000000.00",
+      "unit": "BRL",
+      "applies_when": "data de emissão 21/09/2022",
+      "note": null
+    },
+    {
+      "candidate_id": 17,
+      "candidate_excerpt_sha256": "7fb2d443219861ebb0cfc823d1ef23aa5bef38450032c2d56de97d19ff0552bb",
+      "parameter_name": "vencimento_antecipado_fonte",
+      "parameter_value": "Hipóteses na Cláusula Quarta do CDCA",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "CDCA não está no catálogo Fundos.NET do ativo."
+    },
+    {
+      "candidate_id": 18,
+      "candidate_excerpt_sha256": "7529d1b72b88f8ba235e5b489cbb987f2380f584a809f6d247e3ac7ad6f3aa43",
+      "parameter_name": "indices_financeiros_fonte",
+      "parameter_value": "Definidos no CDCA",
+      "unit": "texto",
+      "applies_when": "toda a emissão",
+      "note": "Covenants financeiros indisponíveis sem o CDCA."
+    }
+  ]
+}

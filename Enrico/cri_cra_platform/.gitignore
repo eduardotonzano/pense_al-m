@@ -4,6 +4,10 @@ __pycache__/
 .env
 data/*.db
 data/backups/
+data/_ocr_page.png
+data/lotes_mercado/
+data/arquivos_removidos.csv
+data/*.db-journal
 data/catalogo_documentos.csv
 reports/fundosnet_session_diagnostics.json
 reports/fundosnet_native_ui_diagnostic.json
@@ -18,3 +22,15 @@ reports/*.json
 !reports/validacao_fundosnet_cri_fallback.md
 reports/fundosnet_capturas.jsonl
 reports/fundosnet_capturas.txt
+!reports/cafe_brasil_xml_union.json
+!reports/alibem_xml_union.json
+
+# Dados abertos da CVM (ingestão em massa): ZIPs baixados
+data/cvm_open/
+data/opea/
+data/eco/
+data/vert/
+data/leverage/
+data/bari/
+data/canal/
+data/atas_portais/

@@ -2,6 +2,7 @@ import pathlib
 
 import pytest
 
+from cnpj_amostras import CNPJ_1, CNPJ_2
 from debenture_search.database import Database
 from debenture_search.repositories.debenture_repository import (
     DebentureRecord,
@@ -48,7 +49,7 @@ def repositories(tmp_path):
 def create_issuer(issuer_repository):
     return issuer_repository.create(
         legal_name="Companhia Teste S.A.",
-        cnpj="12345678000199",
+        cnpj=CNPJ_1,
         trade_name="Companhia Teste",
     )
 
@@ -308,7 +309,7 @@ def test_search_by_issuer_name(repositories):
 
     issuer = issuer_repository.create(
         legal_name="Companhia Alfa de Energia",
-        cnpj="22345678000198",
+        cnpj=CNPJ_2,
     )
 
     repository.create(

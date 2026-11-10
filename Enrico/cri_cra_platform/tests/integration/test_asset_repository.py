@@ -101,6 +101,23 @@ def test_conflicting_isin_and_cetip_are_rejected(tmp_path):
     assert connection.execute("SELECT COUNT(*) FROM assets").fetchone()[0] == 2
 
 
+def test_same_code_from_other_issuer_or_issuance_is_a_conflict_not_an_update(tmp_path):
+    connection = connect(tmp_path / "assets.db")
+    initialize_database(connection)
+    repository = AssetRepository(connection)
+    asset_id = repository.upsert(make_asset("24E3191695", "BRAPCSCRIP54", emissao="330"))
+    other_issuer = Asset("24E3191695", "CRI", "Casa de Pedra", "31.468.139/0001-98", "330", "1", "", "", "BRAPCSCRIP54")
+
+    with pytest.raises(ValueError, match="outra securitizadora"):
+        repository.upsert(other_issuer)
+    with pytest.raises(ValueError, match="outra emissão"):
+        repository.upsert(make_asset("24E3191695", "BRAPCSCRIP54", emissao="29"))
+
+    row = connection.execute("SELECT cnpj_securitizadora, emissao FROM assets WHERE asset_id = ?", (asset_id,)).fetchone()
+    assert tuple(row) == ("10.753.164/0001-43", "330")
+    assert repository.upsert(make_asset("24E3191695", "BRAPCSCRIP54", emissao="0330")) == asset_id
+
+
 def test_empty_identifiers_do_not_match_each_other_or_create_duplicate_assets(tmp_path):
     connection = connect(tmp_path / "assets.db")
     initialize_database(connection)
@@ -168,25 +185,36 @@ def test_upsert_with_blank_cnpj_keeps_the_stored_cnpj(tmp_path):
     )
 
 
-def test_upsert_with_a_different_cnpj_still_replaces_the_stored_one(tmp_path):
+def test_upsert_replaces_another_devedor_and_refuses_another_securitizadora(tmp_path):
+    """Outro devedor atualiza a linha; outra securitizadora é conflito (_refuse_other_issuance)."""
     connection = connect(tmp_path / "assets.db")
     initialize_database(connection)
     repository = AssetRepository(connection)
     asset = make_asset("CRA022009VM", "BRECOACRABX0")
     asset_id = repository.upsert(asset)
 
-    repository.upsert(
-        replace(
-            asset,
-            cnpj_securitizadora="02.773.542/0001-22",
-            cnpj_devedor="82.120.676/0001-83",
-        )
-    )
+    found_id = repository.upsert(replace(asset, cnpj_devedor="82.120.676/0001-83"))
 
+    assert found_id == asset_id
     assert stored_cnpjs(connection, asset_id) == (
-        "02.773.542/0001-22",
+        "10.753.164/0001-43",
         "82.120.676/0001-83",
     )
+
+    with pytest.raises(ValueError, match="Conflito de identidade"):
+        repository.upsert(
+            replace(
+                asset,
+                cnpj_securitizadora="02.773.542/0001-22",
+                cnpj_devedor="01.486.546/0001-67",
+            )
+        )
+
+    assert stored_cnpjs(connection, asset_id) == (
+        "10.753.164/0001-43",
+        "82.120.676/0001-83",
+    )
+    assert connection.execute("SELECT COUNT(*) FROM assets").fetchone()[0] == 1
 
 
 def test_upsert_of_a_new_asset_without_cnpj_keeps_the_absence(tmp_path):
@@ -244,6 +272,7 @@ def test_foundation_rerun_keeps_a_cnpj_written_after_the_first_run(tmp_path):
     assert rows == [
         ("24G2100031", "02.773.542/0001-22", None),
         ("CRA022009VM", "10.753.164/0001-43", "01.486.546/0001-67"),
+        ("CRA02500C1D", "10.753.164/0001-43", None),
     ]
 
 
@@ -261,4 +290,5 @@ def test_foundation_runs_reuse_assets_without_duplicates(tmp_path):
     assert rows == [
         ("24G2100031", "BRRBRACRIP13", "1"),
         ("CRA022009VM", "BRECOACRABX0", "1"),
+        ("CRA02500C1D", "BRECOACRALJ8", "1"),
     ]

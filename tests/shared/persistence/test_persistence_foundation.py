@@ -7,6 +7,7 @@ import pytest
 from pense_alm.shared.persistence import (
     MigrationRunner,
     SQLiteConnectionManager,
+    SQLiteEntityRepository,
 )
 
 
@@ -64,6 +65,15 @@ def test_connection_manager_creates_parent_directory(
 
     assert database_path.exists()
     assert database_path.parent.exists()
+
+
+def test_memory_database_is_shared_between_manager_connections():
+    manager = SQLiteConnectionManager(":memory:")
+    repository = SQLiteEntityRepository(manager)
+
+    assert repository.count() == 0
+
+    manager.close()
 
 
 def test_connection_uses_row_factory(

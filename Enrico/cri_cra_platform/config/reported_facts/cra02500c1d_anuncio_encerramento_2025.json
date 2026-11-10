@@ -1,0 +1,142 @@
+{
+  "asset": {
+    "codigo_cetip": "CRA02500C1D",
+    "isin": "BRECOACRALJ8"
+  },
+  "source_note": "Anúncio de Encerramento da oferta da 426ª emissão da Eco Securitizadora (CRA Alibem): doc. 1068059, 4 páginas, lidas por inteiro, datado de 22/12/2025. Numeração de página = página da extração em PDF. As tabelas por série e tipo de investidor (p. 3 e 4) têm colunas desalinhadas na extração; só foram registrados os totais legíveis e a atribuição por tipo de investidor foi deixada de fora. Registro CVM, ISIN, participantes especiais e regime de distribuição já estão em cra02500c1d_oferta_2025.json (Anúncio de Início, doc. 1065461) e não foram repetidos.",
+  "proposed_by": "Claude (assistente), leitura com trecho literal conferido",
+  "proposed_at": "2026-10-28",
+  "extraction_method": "leitura_manual_com_trecho_literal",
+  "facts": [
+    {
+      "source_document_id": "1068059",
+      "page_number": 2,
+      "fact_name": "enc_total_ofertado_e_series",
+      "reference_date": "2025-12-22",
+      "value": "750000 CRA em 5 séries (classes sênior, mezanino e subordinada)",
+      "unit": "texto",
+      "excerpt": "comunicar o encerramento da oferta pública de 750.000 (setecentos e cinquenta mil) certificados de recebíveis do agronegócio, em 5 (cinco) séries, da classe sênior, da classe mezanino e da classe subordinada"
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 2,
+      "fact_name": "enc_serie_1_quantidade",
+      "reference_date": "2025-12-22",
+      "value": "233142",
+      "unit": "CRA",
+      "excerpt": "233.142 (duzentos e trinta e três mil, cento e quarenta e dois) CRA da 1ª Série, correspondentes ao montante de R$233.142.000,00"
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 2,
+      "fact_name": "enc_serie_2_quantidade",
+      "reference_date": "2025-12-22",
+      "value": "16858",
+      "unit": "CRA",
+      "excerpt": "16.858 (dezesseis mil, oitocentos e cinquenta e oito) CRA da 2ª Série, correspondentes ao montante de R$16.858.000,00"
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 2,
+      "fact_name": "enc_serie_3_quantidade",
+      "reference_date": "2025-12-22",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "250.000 (duzentos e cinquenta mil) CRA da 3ª Série, correspondentes ao montante de R$250.000.000,00"
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 2,
+      "fact_name": "enc_serie_4_quantidade",
+      "reference_date": "2025-12-22",
+      "value": "100000",
+      "unit": "CRA",
+      "excerpt": "100.000 (cem mil) CRA da 4ª Série, correspondentes ao montante de R$100.000.000,00"
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 2,
+      "fact_name": "enc_serie_5_quantidade",
+      "reference_date": "2025-12-22",
+      "value": "150000",
+      "unit": "CRA",
+      "excerpt": "150.000 (cento e cinquenta mil) CRA da 5ª Série, correspondentes ao montante de R$150.000.000,00"
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 1,
+      "fact_name": "enc_rating_definitivo_seniores",
+      "reference_date": "2025-12-22",
+      "value": "Moody's Local BR; escala nacional A.br (CRA Sêniores); realizada em 2025-12-17",
+      "unit": "texto",
+      "excerpt": "CLASSIFICAÇÃO DEFINITIVA DA EMISSÃO DOS CRA SÊNIORES ATRIBUÍDA PELA MOODY’S LOCAL BR AGÊNCIA DE CLASSIFICAÇÃO DE RISCO LTDA., EM ESCALA NACIONAL: “A.br”",
+      "note": "Só os CRA Sêniores têm rating; a mesma nota consta do Anúncio de Início (1065461). Data da classificação: \"17 de dezembro de 2025\" (p. 1)."
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 2,
+      "fact_name": "enc_escriturador",
+      "reference_date": "2025-12-22",
+      "value": "Vórtx Distribuidora de Títulos e Valores Mobiliários Ltda. (CNPJ 22.610.500/0001-88)",
+      "unit": "texto",
+      "excerpt": "A instituição financeira contratada para prestação de serviços de escrituração dos CRA é a VÓRTX DISTRIBUIDORA DE TÍTULOS E VALORES"
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 2,
+      "fact_name": "enc_sem_distribuicao_parcial",
+      "reference_date": "2025-12-22",
+      "value": "distribuição parcial não admitida",
+      "unit": "texto",
+      "excerpt": "Não foi admitida a distribuição parcial dos CRA."
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 2,
+      "fact_name": "enc_anbima_revolvencia",
+      "reference_date": "2025-12-22",
+      "value": "não revolventes",
+      "unit": "texto",
+      "excerpt": "(b) Revolvência: não revolventes"
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 3,
+      "fact_name": "enc_serie_1_total_subscritores_e_cra",
+      "reference_date": "2025-12-22",
+      "value": "998 subscritores; 233.142 CRA subscritos e integralizados",
+      "unit": "texto",
+      "excerpt": "Emissor e aos Participantes do Consórcio 998 233.142 Total",
+      "note": "Conferência visual de 2026-10-28 (confere): Anúncio p.3, CRA da 1ª Série: linha Total = 998 subscritores | 233.142 CRA. Parcelas: Pessoas Naturais 995 / 94.856; Instituições Financeiras Ligadas à Emissora e aos Participantes do Consórcio 1 / 138.283; Demais Pessoas Jurídicas 2 / 3 Na imagem a tabela é legível: dá para registrar a parcela de cada tipo de investidor. Nota anterior: Tabela da 1ª série com colunas desalinhadas; o total é a linha imediatamente acima do rótulo \"Total\". A soma das parcelas visíveis confere (995 + 1 + 2 = 998; 94.856 + 138.283 + 3 = 233.142), mas a atribuição a cada tipo de investidor não é legível e não foi registrada."
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 3,
+      "fact_name": "enc_serie_2_total_subscritores_e_cra",
+      "reference_date": "2025-12-22",
+      "value": "173 subscritores; 16.858 CRA subscritos e integralizados",
+      "unit": "texto",
+      "excerpt": "Pessoas Ligadas à 173 16.858 Emissor e aos Participantes do Consórcio Total",
+      "note": "Conferência visual de 2026-10-28 (confere): Anúncio p.3, CRA da 2ª Série: Total = 173 | 16.858. Parcelas: Pessoas Naturais 171 / 16.855; Demais Pessoas Jurídicas 2 / 3 Na imagem a tabela é legível. Nota anterior: Tabela da 2ª série com colunas desalinhadas (171 + 2 = 173; 16.855 + 3 = 16.858). Tipo de investidor das parcelas não é legível."
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 3,
+      "fact_name": "enc_serie_3_total_cra",
+      "reference_date": "2025-12-22",
+      "value": "250000",
+      "unit": "CRA",
+      "excerpt": "Emissor e aos Participantes do Consórcio 250.000 Total",
+      "note": "Conferência visual de 2026-10-28 (confere): Anúncio p.3, CRA da 3ª Série: Total = 1 subscritor | 250.000 CRA; a única linha preenchida é Instituições Financeiras Ligadas à Emissora e aos Participantes do Consórcio, 1 / 250.000 Na imagem não há ambiguidade: são 1 subscritor e 250.000 CRA. Nota anterior: O número de subscritores da 3ª série aparece como 1, mas a posição na tabela é ambígua e não foi registrado."
+    },
+    {
+      "source_document_id": "1068059",
+      "page_number": 4,
+      "fact_name": "enc_data_anuncio",
+      "reference_date": "2025-12-22",
+      "value": "2025-12-22",
+      "unit": "data",
+      "excerpt": "A data deste Anúncio de Encerramento é 22 de dezembro de 2025."
+    }
+  ]
+}

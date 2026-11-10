@@ -1,0 +1,1751 @@
+{
+  "mapping_version": "0.1.1",
+  "layout_version": null,
+  "layout_validation_status": "structural_only",
+  "approval": {
+    "rules_approved_by": "Enrico Suman Marques",
+    "rules_approved_at": "2026-10-26",
+    "decisions": {
+      "monetary_scale": "Marcar e não converter: scale='unknown' e warning quando monetary_scale_suspect dispara.",
+      "percentages": "Fração.",
+      "series_link": "instance_key = NumeroSerie nos dois blocos de séries; ausente ou repetido => invalid.",
+      "xsi_nil": "present_empty com xsi_nil=1.",
+      "invalid_case": "Coberto por testes unitários sintéticos; exigido no golden set só quando surgir caso real.",
+      "reducao_vlr_emissao_sign": "Decidido 2026-10-26: @total do Passivo soma ReducaoVlrEmissao com sinal invertido; a consistência é avaliada assim, sem alterar o valor gravado."
+    },
+    "confirmed_defaults": {
+      "competencia": "Literal preservado; nenhuma normalização para fim de mês.",
+      "totals": "Divergência entre @total e soma das folhas gera warning, sem alterar valores.",
+      "retentor_risco": "Identificador literal; '00000000000000' não vira not_applicable.",
+      "duration_carteira": "pending_decision (unidade).",
+      "current_version": "Regra do handoff: versão mais recente, válida e aprovada; is_current só após aprovação humana do relatório."
+    },
+    "confirmed_defaults_at": "2026-10-26"
+  },
+  "rules": {
+    "monetary_scale_suspect": {
+      "description": "Se totalVlrCertificados / soma(VlrTotalIntegralizado) < 0.01, todos os valores monetários do relatório recebem scale='unknown' e warning.",
+      "numerator": "/InformeMensalCRA/DetalhesSeries/totalVlrCertificados",
+      "denominator_sum": "/InformeMensalCRA/DadosGerais/Series/Serie/VlrTotalIntegralizado",
+      "threshold": "0.01"
+    },
+    "totals_consistency": {
+      "description": "Cada @total é comparado com a soma das folhas numéricas do contêiner; caminhos em sign_inverted_paths entram com sinal invertido. Diferença gera warning.",
+      "sign_inverted_paths": [
+        "/InformeMensalCRA/Passivo/ReducaoVlrEmissao"
+      ]
+    }
+  },
+  "paths": {
+    "/InformeMensalCRA/Ativo/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/CaixaEquivalentes/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/CaixaEquivalentes/CotasFILiquidezDiaria": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/CaixaEquivalentes/OperacoesCompromissadas": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/CaixaEquivalentes/Outros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/CaixaEquivalentes/TitulosPublicosFederais": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/Derivativos/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/Derivativos/ContratosTermo": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/Derivativos/Futuros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/Derivativos/Opcoes": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/Derivativos/Swap": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/DireitosCreditorios/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerComParcelasAtraso": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerSemParcelasAtraso": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/OutrosAtivos": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Ativo/ProvisaoRecuperacaoDireitosCreditorios": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/ContingenciaPatrimonioSeparado/OutrasContigenciasRelevantes": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes/PrincipaisFatos": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes/ValoresBensDireitosEnvolvidos": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/AgenteFiduciario": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/CNPJCompanhia": {
+      "status": "mapped",
+      "data_type": "identifier",
+      "justification": "Identificador: texto literal, nunca convertido em número nem tratado como zero."
+    },
+    "/InformeMensalCRA/DadosGerais/CompanhiaEmissora": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/Competencia": {
+      "status": "mapped",
+      "data_type": "date",
+      "justification": "Data ISO AAAA-MM-DD; preservada literalmente (sem ajuste para fim de mês)."
+    },
+    "/InformeMensalCRA/DadosGerais/CustodianteRegistradora": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/DetalhamentoLastro": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/Emissao/CodigoIdentificacao": {
+      "status": "mapped",
+      "data_type": "identifier",
+      "justification": "Identificador: texto literal, nunca convertido em número nem tratado como zero."
+    },
+    "/InformeMensalCRA/DadosGerais/Emissao/DataEmissao": {
+      "status": "mapped",
+      "data_type": "date",
+      "justification": "Data ISO AAAA-MM-DD; preservada literalmente (sem ajuste para fim de mês)."
+    },
+    "/InformeMensalCRA/DadosGerais/Emissao/NomeEmissao": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/Emissao/NumeroEmissao": {
+      "status": "mapped",
+      "data_type": "integer",
+      "justification": "Contagem/número de ordem inteiro."
+    },
+    "/InformeMensalCRA/DadosGerais/Emissao/QuantidadeSeries": {
+      "status": "mapped",
+      "data_type": "integer",
+      "justification": "Contagem/número de ordem inteiro."
+    },
+    "/InformeMensalCRA/DadosGerais/InstituicaoRegimeFiduciario": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/CadeiaProducao": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/EspecificacaoTipoSegmento": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/OutrasCaracteristicasEmissao": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/RetentorRisco": {
+      "status": "mapped",
+      "data_type": "identifier",
+      "justification": "Identificador: texto literal, nunca convertido em número nem tratado como zero."
+    },
+    "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/TipoRetencaoRisco": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto/categoria; vazio ou nil nesta amostra, preenchido em outros ativos (ex.: rating Alibem)."
+    },
+    "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas/TipoSegmento": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/Revolvencia": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie/Classe": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie/CodigoISIN": {
+      "status": "mapped",
+      "data_type": "identifier",
+      "justification": "Identificador: texto literal, nunca convertido em número nem tratado como zero.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie/CodigoNegociacaoMercadoSec": {
+      "status": "mapped",
+      "data_type": "identifier",
+      "justification": "Identificador: texto literal, nunca convertido em número nem tratado como zero.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie/DataVencimento": {
+      "status": "mapped",
+      "data_type": "date",
+      "justification": "Data ISO AAAA-MM-DD; preservada literalmente (sem ajuste para fim de mês).",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie/MesBaseApuracaoPagtoRemunAmort": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie/NumeroSerie": {
+      "status": "mapped",
+      "data_type": "integer",
+      "justification": "Contagem/número de ordem inteiro.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie/PeriodicidadePagtoRemunAmort": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie/Situacao": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie/TaxaJuros": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie/TipoOferta": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie/VlrTotalIntegralizado": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26).",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DadosGerais/Sobrecolateralizacao": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DadosGerais/TipoLastro": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Cambio": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/CommoditiesAgricolas": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Juros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Outros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Cambio": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/CommoditiesAgricolas": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Juros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Outros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Cambio": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/CommoditiesAgricolas": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Juros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Outros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Cambio": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/CommoditiesAgricolas": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Juros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Outros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/AgenciaClassificadora": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto/categoria; vazio ou nil nesta amostra, preenchido em outros ativos (ex.: rating Alibem)."
+    },
+    "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao": {
+      "status": "mapped",
+      "data_type": "date",
+      "justification": "Data ISO AAAA-MM-DD; preservada literalmente (sem ajuste para fim de mês)."
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/AmortizacoesRealizadasPeriodo": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26).",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/Classe": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto/categoria; vazio ou nil nesta amostra, preenchido em outros ativos (ex.: rating Alibem).",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/NumeroSerie": {
+      "status": "mapped",
+      "data_type": "integer",
+      "justification": "Contagem/número de ordem inteiro.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/QtdCertificadosPorClasse": {
+      "status": "mapped",
+      "data_type": "integer",
+      "justification": "Contagem/número de ordem inteiro.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/RendimentosDistribuidosPeriodo": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26).",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/RentabilidadePeriodo": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos.",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/VlrCertificadosPorClasse": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26).",
+      "instance_key": "NumeroSerie"
+    },
+    "/InformeMensalCRA/DetalhesSeries/Subordinacao/RecomposicaoIndice": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/DetalhesSeries/totalAmortizacoesRealizadas": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DetalhesSeries/totalQtdCertificados": {
+      "status": "mapped",
+      "data_type": "integer",
+      "justification": "Contagem/número de ordem inteiro."
+    },
+    "/InformeMensalCRA/DetalhesSeries/totalRendimentosDistribuidos": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/DetalhesSeries/totalVlrCertificados": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoCaixaEquivalentes": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoNovosDireitosCreditorios": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosPagamentos": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosRecebimentos": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PagamentosDespesas": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/AmortizacaoPrincipal": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/Juros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/AmortizacaoPrincipal": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/Juros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/AmortizacaoPrincipal": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/Juros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/RecebimentosAlienacaoCaixaEquivalentes": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/RecebimentosDireitosCreditorios": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/VariacaoLiquidaCaixaPatrimonioSeparado": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Acima361Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/Ate30Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De121a150Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De151a180Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De181a360Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De31a60Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De61a90Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento/De91a120Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/CNPJ": {
+      "status": "mapped",
+      "data_type": "identifier",
+      "justification": "Identificador: texto literal, nunca convertido em número nem tratado como zero."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente/Percentual": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/Concentracao": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoCedente/MaiorCedente": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/MaiorDevedor": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/CNPJ": {
+      "status": "mapped",
+      "data_type": "identifier",
+      "justification": "Identificador: texto literal, nunca convertido em número nem tratado como zero."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor/Percentual": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/DurationCarteira": {
+      "status": "pending_decision",
+      "justification": "Unidade não declarada (dias? meses?); valores 63 e 96."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/OutrasConsideracoesRelevantes": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PercentualDireitosCreditoriosCedentesTerceiros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PercentualDireitosCreditoriosOutrasGarantias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "unit": "fraction",
+      "justification": "Decisão 2026-10-26: percentuais como fração (0.0147 = 1,47%; 1 = 100%), coerente com CVM Dados Abertos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/PeriodicidadeAvaliacaoGarantias": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrDividasAdquiridasEmissorSecuritizadora": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalDirCredRelacaoVlrTotalEmissao": {
+      "status": "pending_decision",
+      "justification": "Razão entre valores; escala (fração ou percentual) não confirmada e só há zeros na amostra."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber/VlrTotalGarantias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/InfoImpactoPrePgtoInvestidores": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Acima361Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre121e150Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre151e180Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre181e360Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre1e30Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre31e60Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre61e90Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos/Entre91e120Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoInsumosAgropecuarios": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoMaquinasImplementos": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/BeneficiamentoProdutosAgropecuarios": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoInsumosAgropecuarios": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoMaquinasImplementos": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ComercializacaoProdutosAgropecuarios": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoInsumosAgropecuarios": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoMaquinasImplementos": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/IndustrializacaoProdutosAgropecuarios": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoInsumosAgropecuarios": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoMaquinasImplementos": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao/ProducaoProdutosAgropecuarios": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrTotalParcelasAtraso": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/OutrasInfoRelevantesDesempenhoEmissao": {
+      "status": "mapped",
+      "data_type": "text",
+      "justification": "Texto livre ou categórico; preservado literalmente."
+    },
+    "/InformeMensalCRA/Passivo/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Passivo/CompanhiaSecuritizadoraEmissora": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Passivo/Derivativos/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Passivo/Derivativos/ContratosTermo": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Passivo/Derivativos/Futuros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Passivo/Derivativos/Opcoes": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Passivo/Derivativos/Swap": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Passivo/Outros": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Passivo/ReducaoVlrEmissao": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/Passivo/VlrAtualizadoEmissao": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPatrimonioLiquidoEmissao": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Acima361Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/Ate30Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De121a150Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De151a180Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De181a360Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De31a60Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De61a90Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas/De91a120Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/@total": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Acima361Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/Ate30Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De121a150Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De151a180Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De181a360Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De31a60Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De61a90Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr/De91a120Dias": {
+      "status": "mapped",
+      "data_type": "decimal",
+      "currency": "BRL",
+      "scale": "1",
+      "scale_rule": "monetary_scale_suspect",
+      "justification": "Valor monetário em reais; ponto decimal; Decimal sem arredondamento. Escala suspeita é marcada (warning), nunca convertida (decisão 2026-10-26)."
+    },
+    "/InformeMensalCRA": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/Ativo": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/Ativo/CaixaEquivalentes": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/Ativo/CaixaEquivalentes/CotasFILiquidezDiaria/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Ativo/CaixaEquivalentes/OperacoesCompromissadas/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Ativo/CaixaEquivalentes/Outros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Ativo/CaixaEquivalentes/TitulosPublicosFederais/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Ativo/Derivativos": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/Ativo/Derivativos/ContratosTermo/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Ativo/Derivativos/Futuros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Ativo/Derivativos/Opcoes/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Ativo/Derivativos/Swap/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Ativo/DireitosCreditorios": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredAVencerComParcelasAtraso/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Ativo/DireitosCreditorios/DirCredVencidosNaoPagos/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Ativo/OutrosAtivos/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Ativo/ProvisaoRecuperacaoDireitosCreditorios/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/ContingenciaPatrimonioSeparado": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/ContingenciaPatrimonioSeparado/ProcessosRelevantes": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DadosGerais": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DadosGerais/Emissao": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DadosGerais/OutrasCaracteristicas": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DadosGerais/Series": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DadosGerais/Series/Serie": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Cambio/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/CommoditiesAgricolas/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Juros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Futuros/Outros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Cambio/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/CommoditiesAgricolas/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Juros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/MercadoTermo/Outros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Cambio/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/CommoditiesAgricolas/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Juros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Opcoes/Outros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Cambio/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/CommoditiesAgricolas/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Juros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DerivativosExposicaoLiquida/Swap/Outros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DetalhesSeries": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DetalhesSeries/ClassificacaoRisco/DataUltimaClassificacao/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/ClassificacaoRiscoAtual/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoDataBase/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DetalhesSeries/Series/Serie/IndiceSubordinacaoMinimo/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/DetalhesSeries/Subordinacao": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoCaixaEquivalentes/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/AquisicaoNovosDireitosCreditorios/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosPagamentos/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/OutrosRecebimentos/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PagamentosDespesas/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSenior/AmortizacaoPrincipal/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/AmortizacaoPrincipal/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaJunior/Juros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/PgtosEfetuadosClasseSubordinadaMezanino/AmortizacaoPrincipal/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/FluxoCaixaLiquidoMes/RecebimentosAlienacaoCaixaEquivalentes/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/AVencerPorPrazoVencimento": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/CedentesRepresentamMais20Porcento/Cedente": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoCedente": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/CincoMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/DezMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/ConcentracaoEmissaoPorGrupoDevedor/VinteMaioresDevedores/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/DevedoresRepresentamMais20Porcento/Devedor": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/OutrasInfoDireitosCreditoriosAReceber": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/PrePgtosPeriodo/MontanteRecebidoPrePgtoLastro/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VencidosNaoPagos": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrDireitosCreditoriosPorRamoAtuacao": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/InfoDireitosCreditoriosAgro/VlrTotalParcelasAtraso/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Passivo": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/Passivo/CompanhiaSecuritizadoraEmissora/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Passivo/Derivativos": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/Passivo/Derivativos/ContratosTermo/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Passivo/Derivativos/Futuros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Passivo/Derivativos/Opcoes/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Passivo/Derivativos/Swap/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Passivo/Outros/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/Passivo/ReducaoVlrEmissao/@{http://www.w3.org/2001/XMLSchema-instance}nil": {
+      "status": "ignored",
+      "justification": "xsi:nil é registrado na coluna extracted_values.xsi_nil da folha correspondente."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoDespesas": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    },
+    "/InformeMensalCRA/VlrPresenteDesembolsoEsperado/CronogramaPrevistoPgtoInvestidoresSr": {
+      "status": "ignored",
+      "justification": "Contêiner estrutural; seus valores são as folhas e atributos internos."
+    }
+  }
+}
