@@ -48,7 +48,7 @@ def main() -> int:
     parser.add_argument("--months", type=int, default=12)
     parser.add_argument("--min-emissions", type=int, default=5)
     args = parser.parse_args()
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     board: dict[str, dict] = defaultdict(lambda: {
         "nome": "", "tipos": set(), "informes": 0, "atrasos_entrega": [], "reenvios": 0, "emissoes": set(),

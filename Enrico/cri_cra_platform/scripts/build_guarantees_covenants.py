@@ -31,7 +31,7 @@ def main() -> int:
     parser.add_argument("--database", type=Path, default=ROOT / "data" / "cri_cra.db")
     parser.add_argument("--only", action="append")
     args = parser.parse_args()
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     docs = defaultdict(list)
     for row in connection.execute(
@@ -46,11 +46,17 @@ def main() -> int:
         docs[(row["codigo_cetip"], row["tipo_ativo"])].append(row)
 
     rows = []
+    unreadable = []  # documento que não se lê (ex.: saída do pdftotext fora de UTF-8) é pulado e listado, sem parar os outros
     for (cetip, kind), items in docs.items():
         pages = []
         for doc in items:
             path = ROOT / doc["local_file_path"] if doc["local_file_path"] else None
-            for number, text, ocr in document_pages(connection, doc["version_id"], path):
+            try:
+                doc_pages = document_pages(connection, doc["version_id"], path)
+            except Exception as error:  # falha operacional na leitura (pdftotext, arquivo, codificação)
+                unreadable.append(f"{cetip} {doc['source_document_id']}: {type(error).__name__}")
+                continue
+            for number, text, ocr in doc_pages:
                 pages.append((str(doc["source_document_id"]), number, text, ocr))
         rows.extend(as_rows(cetip, kind, extract(pages)))
     connection.close()
@@ -94,6 +100,8 @@ def main() -> int:
             print(f"{r['grupo']:9} {r['item']:34} {r['situacao']:10} {r['operador']}{r['limite']}{r['unidade']} "
                   f"| doc {r['documento']} p{r['pagina']} | {r['trecho'][:160]}")
     print(f"{len(assets)} ativos, {len(rows)} itens")
+    if unreadable:
+        print(f"{len(unreadable)} documentos não lidos (pulados): " + "; ".join(unreadable[:20]))
     return 0
 
 

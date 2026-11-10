@@ -1,0 +1,977 @@
+<title>Pense Além · Securitizados</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: cabeçalho fixo com mega menu por classe de ativo, corpo em faixas largas de tiles cinza, tipografia condensada em caixa alta, botões em pílula. */
+:root{
+  --bg:#ffffff; --fg:#0b1b33; --muted:#566884; --line:#dbe4f0; --line-strong:#bccbe0;
+  --tile:#eef3fa; --tile-2:#e0eaf7;
+  --accent:#2563eb; --cyan:#1fc4e8; --on-accent:#ffffff;
+  --hero-a:#081a33; --hero-b:#14407a; --hero-mark:rgba(255,255,255,.07);
+  --inv-bg:#081a33; --inv-bg-2:#12386b; --inv-fg:#ffffff; --inv-muted:#a9bddb; --inv-line:#25477a;
+  --ok:#0b7a3e; --down:#b3261e; --wip:#a85a00; --idle:#566884;
+  --shadow:rgba(8,26,51,.35);
+  --f-body:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --f-display:"Archivo","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --gutter:clamp(16px,3.4vw,48px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#08142a; --fg:#eaf1fb; --muted:#93a6c4; --line:#1c3256; --line-strong:#2b4a78;
+  --tile:#0f1f3a; --tile-2:#16294a;
+  --accent:#4d8dff; --cyan:#2fd3f0; --on-accent:#06142b;
+  --hero-a:#050d1c; --hero-b:#0f3260; --hero-mark:rgba(255,255,255,.06);
+  --inv-bg:#050d1c; --inv-bg-2:#0c274d; --inv-fg:#ffffff; --inv-muted:#93a6c4; --inv-line:#1c3256;
+  --ok:#4cc380; --down:#ff7b72; --wip:#f0a23a; --idle:#93a6c4;
+  --shadow:rgba(0,0,0,.55); color-scheme:dark;}}
+:root[data-theme="dark"]{
+  --bg:#08142a; --fg:#eaf1fb; --muted:#93a6c4; --line:#1c3256; --line-strong:#2b4a78;
+  --tile:#0f1f3a; --tile-2:#16294a;
+  --accent:#4d8dff; --cyan:#2fd3f0; --on-accent:#06142b;
+  --hero-a:#050d1c; --hero-b:#0f3260; --hero-mark:rgba(255,255,255,.06);
+  --inv-bg:#050d1c; --inv-bg-2:#0c274d; --inv-fg:#ffffff; --inv-muted:#93a6c4; --inv-line:#1c3256;
+  --ok:#4cc380; --down:#ff7b72; --wip:#f0a23a; --idle:#93a6c4;
+  --shadow:rgba(0,0,0,.55); color-scheme:dark;}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.5 var(--f-body);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--bg)}
+a{color:inherit}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--fg);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-999px;top:8px;background:var(--fg);color:var(--bg);padding:8px 14px;border-radius:999px;z-index:100}
+.skip:focus{left:16px}
+.wrap{max-width:1480px;margin-inline:auto;padding-left:max(var(--gutter),env(safe-area-inset-left,0px));padding-right:max(var(--gutter),env(safe-area-inset-right,0px))}
+.disp{font-family:var(--f-display);font-weight:800;letter-spacing:-.025em;line-height:1.02;margin:0;text-wrap:balance}
+
+/* barra utilitária */
+.util{background:var(--inv-bg);color:var(--inv-fg);font-size:12px;line-height:1}
+.util-in{display:flex;justify-content:flex-end;align-items:center;gap:16px;min-height:36px}
+.util-in span{color:var(--inv-muted)}
+.util-links{display:flex;gap:18px}
+.util-links a{text-decoration:none;font-weight:500}
+.util-links a:hover{text-decoration:underline}
+@media (max-width:640px){.util-links a:not(:last-child):not([data-page]){display:none}}
+
+/* cabeçalho */
+.hdr{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:var(--bg);border-bottom:1px solid var(--line)}
+.hdr-in{display:grid;grid-template-columns:auto 1fr auto;grid-template-areas:"b l t" "s s s";align-items:center;gap:8px 12px;padding-block:8px 10px}
+.burger{grid-area:b}
+.logo{grid-area:l;display:inline-flex;align-items:center;gap:4px;text-decoration:none;font-family:var(--f-display);font-weight:800;font-size:22px;line-height:1;letter-spacing:-.03em;justify-self:start}
+.logo svg{width:22px;height:22px;color:var(--accent)}
+.nav{grid-area:n;display:none}
+.tools{grid-area:t;display:flex;align-items:center;gap:4px;justify-self:end}
+.search{position:relative;display:block}
+.search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:18px;height:18px;pointer-events:none;color:var(--muted)}
+.search input{width:100%;height:40px;padding:0 16px 0 40px;border-radius:999px;border:1px solid transparent;background:var(--tile);font-size:15px}
+.search input::placeholder{color:var(--muted)}
+.search input:hover{background:var(--tile-2)}
+.search-m{grid-area:s}
+.search-d{display:none}
+.icon-btn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:50%;border:0;background:transparent;cursor:pointer}
+.icon-btn:hover{background:var(--tile)}
+.icon-btn svg{width:22px;height:22px}
+.icon-btn:disabled{opacity:.3;cursor:default}
+.icon-btn:disabled:hover{background:transparent}
+.round{background:var(--tile)}
+.round:hover{background:var(--tile-2)}
+
+@media (min-width:1100px){
+  .hdr-in{grid-template-columns:auto 1fr auto;grid-template-areas:"l n t";padding-block:0;gap:0 24px}
+  .burger,.search-m,.mnav{display:none}
+  .nav{display:block}
+  .search-d{display:block;width:clamp(150px,14vw,230px)}
+  .nav>ul{display:flex;justify-content:center;gap:6px;list-style:none;margin:0;padding:0}
+  .nav-btn{position:relative;height:60px;padding:0 14px;border:0;background:none;cursor:pointer;font-size:16px;font-weight:500}
+  .nav-btn::after{content:"";position:absolute;left:14px;right:14px;bottom:13px;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;transition:transform .18s}
+  .nav-btn:hover::after,.nav-btn.on::after{transform:scaleX(1)}
+}
+
+/* mega menu (desktop) */
+.mega{position:absolute;left:0;right:0;top:100%;background:var(--bg);border-top:1px solid var(--line);box-shadow:0 28px 40px -28px var(--shadow);visibility:hidden;opacity:0;transform:translateY(-6px);transition:opacity .16s,transform .16s,visibility 0s .16s}
+.mega.open{visibility:visible;opacity:1;transform:none;transition:opacity .16s,transform .16s}
+.mega-in{display:grid;grid-template-columns:minmax(210px,1.25fr) repeat(4,minmax(0,1fr));gap:32px;padding-block:36px 48px}
+.mega-intro{display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.mega-intro h2{font-size:clamp(28px,2.6vw,38px)}
+.mega-intro p{margin:0;color:var(--muted);font-size:15px;max-width:30ch}
+.mega-col h3{margin:0 0 12px;font-size:14px;font-weight:600}
+.mega-col ul{list-style:none;margin:0;padding:0}
+.mega-col a{display:block;padding:5px 0;color:var(--muted);text-decoration:none;font-size:15px}
+.mega-col a:hover{color:var(--fg)}
+.scrim{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.38);opacity:0;pointer-events:none;transition:opacity .18s}
+.menu-open .scrim,.m-open .scrim{opacity:1}
+
+/* menu mobile */
+.mnav{position:absolute;top:100%;left:0;right:0;background:var(--bg);border-top:1px solid var(--line);max-height:calc(100dvh - 112px);overflow-y:auto;visibility:hidden;opacity:0;transition:opacity .16s,visibility 0s .16s}
+.mnav.open{visibility:visible;opacity:1;transition:opacity .16s}
+.mnav details{border-bottom:1px solid var(--line)}
+.mnav summary{display:flex;justify-content:space-between;align-items:center;list-style:none;cursor:pointer;padding:16px 0;font-size:24px;font-weight:600;letter-spacing:-.01em}
+.mnav summary::-webkit-details-marker{display:none}
+.mnav summary::after{content:"";width:10px;height:10px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);transition:transform .2s;margin-right:6px}
+.mnav details[open] summary::after{transform:rotate(-135deg)}
+.m-body{padding:0 0 20px;display:grid;gap:4px}
+.m-body p{margin:6px 0 4px;color:var(--muted);font-size:15px}
+.m-body h3{margin:14px 0 2px;font-size:13px;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.m-body ul{list-style:none;margin:0;padding:0}
+.m-body a{display:block;padding:7px 0;color:var(--muted);text-decoration:none;font-size:16px}
+
+/* etiquetas e botões */
+.status{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;line-height:1}
+.status i{width:8px;height:8px;border-radius:50%;background:currentColor}
+.st-ok{color:var(--ok)} .st-wip{color:var(--wip)} .st-idle{color:var(--idle)}
+.pill{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 24px;border-radius:999px;border:1px solid var(--fg);font-size:16px;font-weight:500;text-decoration:none;cursor:pointer;white-space:nowrap;transition:opacity .15s,background .15s}
+.pill svg{width:16px;height:16px}
+.pill-solid{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.pill-solid:hover{opacity:.78}
+.pill-line{background:transparent;color:var(--fg);border-color:var(--line-strong)}
+.pill-line:hover{border-color:var(--fg)}
+.pill-soft{background:var(--bg);color:var(--fg);border-color:transparent;height:40px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;color:var(--inv-fg);background:linear-gradient(135deg,var(--hero-a) 0%,var(--hero-b) 100%)}
+.hero-in{position:relative;z-index:1;padding-block:clamp(48px,9vw,120px) clamp(40px,6vw,80px)}
+.eyebrow{margin:0 0 18px;font-size:13px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+.hero h1{font-size:clamp(38px,7vw,104px)}
+.hero .eyebrow{color:var(--cyan)}
+.hero .pill-line{color:var(--inv-fg);border-color:rgba(255,255,255,.45)}
+.hero .pill-line:hover{border-color:var(--inv-fg)}
+.hero .pill-solid{background:var(--cyan);border-color:var(--cyan);color:#06142b}
+.util :focus-visible,.hero :focus-visible,.band :focus-visible{outline-color:var(--cyan)}
+.tile,.mv{position:relative;border:1px solid var(--line);border-radius:14px}
+.tile::before,.mv::before{content:"";position:absolute;left:16px;right:16px;top:-1px;height:3px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,var(--cyan),var(--accent))}
+.lead{max-width:50ch;margin:28px 0 28px;font-size:clamp(16px,1.5vw,19px);color:var(--inv-fg);opacity:.9}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.hero-mark{position:absolute;right:-6vw;top:50%;width:clamp(300px,50vw,740px);height:auto;transform:translateY(-50%)}
+
+/* seções */
+.sec{padding-top:clamp(40px,6vw,76px)}
+.sec-h{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:20px}
+.sec-h h2{margin:0;font-size:clamp(22px,2.4vw,30px);font-weight:500;letter-spacing:-.01em;line-height:1.1}
+.arrows{display:flex;gap:8px}
+.note{margin:14px 0 0;font-size:13px;color:var(--muted)}
+
+.tiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.tile{container-type:inline-size;display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:clamp(380px,34vw,520px);padding:20px;background:var(--tile);color:inherit;text-decoration:none;transition:background .2s}
+.tile:hover{background:var(--tile-2)}
+.tile h3{font-size:30px;font-size:10cqw;overflow-wrap:anywhere}
+.tile p{margin:0 0 16px;color:var(--muted);font-size:15px;max-width:32ch}
+@media (max-width:1100px){.tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.tiles{grid-template-columns:minmax(0,1fr)}.tile{min-height:340px}}
+
+.rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.rail::-webkit-scrollbar{display:none}
+.card{flex:0 0 clamp(250px,27vw,340px);scroll-snap-align:start;display:block;text-decoration:none;min-width:0}
+.art{container-type:inline-size;position:relative;aspect-ratio:1;max-width:100%;display:flex;align-items:flex-end;padding:16px;background:var(--tile);transition:background .2s}
+.card:hover .art{background:var(--tile-2)}
+.chip{position:absolute;left:16px;top:16px;height:26px;padding:0 12px;display:inline-flex;align-items:center;border-radius:999px;background:var(--bg);font-size:12px;font-weight:600}
+.isin{position:absolute;right:16px;top:20px;font:500 11px/1 var(--f-mono);color:var(--muted)}
+.code{font-size:40px;line-height:.85;white-space:nowrap}
+.card h3{margin:14px 0 0;font-size:16px;font-weight:500;line-height:1.3}
+.card p{margin:0;font-size:15px;color:var(--muted);line-height:1.4}
+.card .price{margin-top:10px;color:var(--fg);font-weight:500}
+.empty{margin:8px 0 0;padding:24px;background:var(--tile)}
+
+.news{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.news-item{display:flex;flex-direction:column;justify-content:space-between;gap:28px;min-height:320px;padding:24px;background:var(--tile)}
+.news-item h3{font-size:clamp(28px,2.7vw,38px);font-stretch:70%}
+.news-item p{margin:14px 0 0;color:var(--muted);font-size:15px;max-width:40ch}
+@media (max-width:900px){.news{grid-template-columns:minmax(0,1fr)}.news-item{min-height:0}}
+
+/* princípios + rodapé */
+.band{margin-top:clamp(56px,8vw,104px);background:linear-gradient(160deg,var(--inv-bg) 0%,var(--inv-bg-2) 100%);color:var(--inv-fg)}
+.prin{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;padding-block:clamp(40px,6vw,80px)}
+.prin h3{font-size:clamp(24px,2.4vw,34px)}
+.prin p{margin:14px 0 0;color:var(--inv-muted);font-size:15px;max-width:34ch}
+.kicker{margin:0 0 20px;font-size:13px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--cyan)}
+@media (max-width:860px){.prin{grid-template-columns:minmax(0,1fr)}}
+.foot{border-top:1px solid var(--inv-line)}
+.foot-in{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px;padding-block:40px}
+.foot h4{margin:0 0 14px;font-size:14px;font-weight:600}
+.foot ul{list-style:none;margin:0;padding:0}
+.foot a{display:block;padding:4px 0;color:var(--inv-muted);text-decoration:none;font-size:14px}
+.foot a:hover{color:var(--inv-fg)}
+.foot li span{display:block;padding:4px 0;color:var(--inv-muted);font-size:14px}
+.legal{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;padding-block:20px 32px;border-top:1px solid var(--inv-line);font-size:12px;color:var(--inv-muted)}
+@media (max-width:640px){.foot-in{grid-template-columns:minmax(0,1fr)}}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);max-width:calc(100% - 32px);padding:12px 22px;border-radius:999px;background:var(--fg);color:var(--bg);font-size:14px;font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;z-index:100;text-align:center}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* ativos em carteira: maiores altas e quedas */
+.moves{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mv{background:var(--tile);padding:24px}
+.mv h3{font-size:clamp(30px,3.2vw,44px);margin-bottom:12px}
+.mv ol{list-style:none;margin:0;padding:0}
+.mv li{border-top:1px solid var(--line-strong)}
+.mv-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 16px;align-items:center;padding:16px 0;text-decoration:none}
+.mv-row:hover .mv-code{text-decoration:underline}
+.mv-code{font-weight:800;font-size:22px;line-height:1.1;letter-spacing:-.01em;overflow-wrap:anywhere}
+.mv-sub{grid-column:1;min-width:0;font-size:14px;color:var(--muted);line-height:1.35}
+.mv-var{grid-column:2;grid-row:1 / span 2;display:inline-flex;align-items:center;gap:6px;font:500 18px/1 var(--f-mono)}
+.mv-var svg{width:14px;height:14px}
+.up{color:var(--ok)} .dn{color:var(--down)}
+@media (max-width:860px){.moves{grid-template-columns:minmax(0,1fr)}}
+
+/* páginas de produto */
+.crumb{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 28px;font-size:13px;color:var(--inv-muted)}
+.crumb a{text-decoration:none}.crumb a:hover{text-decoration:underline}.crumb [aria-current]{color:var(--inv-fg)}
+.ph{color:var(--inv-fg);background:linear-gradient(135deg,var(--hero-a) 0%,var(--hero-b) 100%)}
+.ph-in{padding-block:clamp(28px,4vw,48px) clamp(32px,4vw,52px)}
+.ph .eyebrow{color:var(--cyan);margin-bottom:12px}
+.ph h1{font-size:clamp(36px,5.4vw,72px)}
+.ph .lead{margin:16px 0 20px;max-width:60ch;color:var(--inv-fg);opacity:.9}
+.ph-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 24px;font-size:14px;color:var(--inv-muted)}
+.ph .status{color:var(--inv-fg)}
+.ph .st-ok{color:#5be39a}.ph .st-wip{color:#ffc36a}.ph .st-idle{color:#b7c7e0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:28px}
+.stat{position:relative;padding:18px 16px 14px;border:1px solid var(--inv-line);border-radius:12px;background:rgba(255,255,255,.04);min-width:0}
+.stat::before{content:"";position:absolute;left:14px;right:14px;top:-1px;height:3px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,var(--cyan),var(--accent))}
+.stat b{display:block;font-size:26px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.stat span{display:block;margin-top:4px;font-size:13px;color:var(--inv-muted)}
+.search-p{width:min(100%,340px)}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{padding:12px 14px;text-align:left;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--tile);white-space:nowrap}
+.tbl td{padding:12px 14px;border-top:1px solid var(--line);vertical-align:top}
+.tbl tr.on td{background:var(--tile)}
+.tbl tr.prev td{color:var(--muted)}
+.tbl-s td,.tbl-s th{padding:10px 12px}
+.rowbtn{display:flex;flex-direction:column;align-items:flex-start;gap:2px;border:0;background:none;padding:0;cursor:pointer;text-align:left;color:var(--accent)}
+.rowbtn b{font-size:15px}.rowbtn small{font:500 11px/1.2 var(--f-mono);color:var(--muted)}
+.rowbtn:hover b{text-decoration:underline}
+.flag{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:999px;border:1px solid var(--wip);color:var(--wip);font-size:11px;font-weight:600;white-space:nowrap}
+.flag-n{border-color:var(--line-strong);color:var(--muted)}
+.nodata{color:var(--muted);font-style:italic}
+.mono{font-family:var(--f-mono);font-size:12px}
+.ficha{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:12px;align-items:start}
+.ficha-id,.ficha-obs{position:relative;padding:20px;background:var(--tile);border:1px solid var(--line);border-radius:14px;min-width:0}
+.ficha-id::before,.ficha-obs::before{content:"";position:absolute;left:16px;right:16px;top:-1px;height:3px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,var(--cyan),var(--accent))}
+.ficha h3{margin:0 0 14px;font-size:16px;font-weight:700}
+.ficha .h3-s{margin:22px 0 10px}
+.ficha dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 16px;margin:0;font-size:14px}
+.ficha dt{color:var(--muted)}.ficha dd{margin:0;overflow-wrap:anywhere}
+.ficha .tbl-wrap{background:var(--bg)}
+.conf{margin:12px 0 0;font-size:13px;font-weight:600;color:var(--ok)}
+.docs-n{margin:0 0 14px;font-size:15px}.docs-n b{font-size:28px;letter-spacing:-.02em;margin-right:4px}
+.ext{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip2{display:inline-flex;align-items:center;height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--line-strong);font-size:13px;background:var(--bg)}
+.chip2-b{cursor:pointer;height:36px;padding:0 16px;font-size:14px}
+.chip2-b[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.chips-f{margin-bottom:8px}
+.mods{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.mod{position:relative;display:flex;flex-direction:column;gap:12px;padding:20px;background:var(--tile);border:1px solid var(--line);border-radius:14px;min-width:0}
+.mod::before{content:"";position:absolute;left:16px;right:16px;top:-1px;height:3px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,var(--cyan),var(--accent))}
+.mod-n{font-size:13px;font-weight:700;color:var(--accent)}
+.mod h3{margin:0;font-size:18px;font-weight:700;letter-spacing:-.01em;line-height:1.25}
+.applied{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.applied li{display:flex;gap:12px;padding:16px;border:1px solid var(--line);border-radius:12px}
+.applied i{flex:none;width:18px;height:18px;margin-top:2px;border-radius:50%;background:var(--ok);position:relative}
+.applied i::after{content:"";position:absolute;left:6px;top:3px;width:4px;height:8px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.applied b{display:block;font-size:15px}.applied span{display:block;margin-top:2px;font-size:14px;color:var(--muted)}
+.rules{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.rbox{padding:20px;background:var(--tile);border:1px solid var(--line);border-radius:14px;min-width:0}
+.rbox h3{margin:0 0 12px;font-size:16px}
+.rbox ul,.rl{list-style:none;margin:0;padding:0}
+.rbox li,.rl li{display:grid;grid-template-columns:52px minmax(0,1fr);gap:12px;padding:10px 0;border-top:1px solid var(--line-strong);font-size:14px}
+.rbox li b,.rl li b{font:600 12px/1.6 var(--f-mono);color:var(--accent)}
+.rl-h{margin:32px 0 4px;font-size:22px;font-weight:700;letter-spacing:-.01em}
+.blank{padding:clamp(28px,5vw,56px);background:var(--tile);border:1px dashed var(--line-strong);border-radius:14px}
+.blank h3{font-size:clamp(24px,3vw,36px)}.blank p{margin:12px 0 0;max-width:60ch;color:var(--muted)}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+.prod{position:relative;display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:230px;padding:20px;background:var(--tile);border:1px solid var(--line);border-radius:14px;text-decoration:none;color:inherit;min-width:0}
+.prod:hover{background:var(--tile-2)}
+.prod::before{content:"";position:absolute;left:16px;right:16px;top:-1px;height:3px;border-radius:0 0 3px 3px;background:linear-gradient(90deg,var(--cyan),var(--accent))}
+.prod h3{font-size:34px}.prod p{margin:8px 0 0;font-size:14px;color:var(--muted)}
+@media (max-width:900px){.ficha,.rules{grid-template-columns:minmax(0,1fr)}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition-duration:0s!important}
+}
+
+/* Securitizados: busca e ficha com dados reais */
+.flag-ok{border-color:var(--ok);color:var(--ok)} .flag-bad{border-color:var(--down);color:var(--down)}
+.dgrp{margin:0 0 10px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
+.dgrp>summary{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;cursor:pointer;font-size:15px}
+.dgrp>summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dgrp[open]>summary{border-bottom:1px solid var(--line)}
+.dgrp .tbl-wrap{border:0;border-radius:0 0 12px 12px}
+.dgrp-n{font:600 12px/1 var(--f-mono);color:var(--muted)}
+.trecho{margin:8px 0 0;max-width:70ch;font-size:13px;line-height:1.5;color:var(--muted);white-space:pre-wrap}
+.tbl details summary{cursor:pointer;color:var(--accent);font-size:13px}
+.tbl small{color:var(--muted)}
+#sficha .sec{padding-top:clamp(32px,4vw,52px)}
+#sficha .sec-h h2 .mod-n{margin-right:6px}
+</style>
+
+<a class="skip" href="#main">Pular para o conteúdo</a>
+
+<div class="util">
+  <div class="wrap util-in">
+    <nav class="util-links" aria-label="Utilitários">
+      <a href="#" data-page="regras">Regras a definir</a>
+      <a href="#" data-go="Documentação">Documentação</a>
+      <a href="#" data-go="Fontes de dados">Fontes de dados</a>
+      <a href="#" data-go="Entrar">Entrar</a>
+    </nav>
+  </div>
+</div>
+
+<header class="hdr" id="hdr">
+  <div class="wrap hdr-in">
+    <button type="button" class="icon-btn burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="mnav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+    </button>
+    <a class="logo" href="#top" data-page="home" aria-label="Pense Além, início">Pense Além
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="square" aria-hidden="true"><path d="M5 19L19 5M8 5h11v11"/></svg>
+    </a>
+    <nav class="nav" aria-label="Classes de ativos"><ul id="navlist"></ul></nav>
+    <div class="tools">
+      <label class="search search-d">
+        <span class="sr">Buscar ativo</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+        <input id="q-d" type="search" placeholder="ISIN, nome ou CNPJ" autocomplete="off">
+      </label>
+      <button type="button" class="icon-btn" aria-label="Alertas" data-go="Alertas">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 1 1 12 0c0 5 2 6 2 6H4s2-1 2-6z"/><path d="M10 19a2 2 0 0 0 4 0"/></svg>
+      </button>
+      <button type="button" class="icon-btn" aria-label="Minha conta" data-go="Minha conta">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg>
+      </button>
+    </div>
+    <label class="search search-m">
+      <span class="sr">Buscar ativo</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <input id="q-m" type="search" placeholder="ISIN, nome ou CNPJ" autocomplete="off">
+    </label>
+  </div>
+  <div class="mnav" id="mnav"></div>
+</header>
+<div class="scrim" aria-hidden="true"></div>
+
+<main id="main">
+<div id="v-home">
+  <section class="hero" id="top">
+    <svg class="hero-mark" viewBox="0 0 100 100" fill="none" stroke="var(--hero-mark)" stroke-width="13" stroke-linecap="square" aria-hidden="true"><path d="M16 84L80 20M34 20h46v46"/></svg>
+    <div class="wrap hero-in">
+      <p class="eyebrow">Research de crédito</p>
+      <h1 class="disp">Todos os ativos.<br>Uma única fonte.</h1>
+      <p class="lead">Debêntures, CRI e CRA, renda fixa e fundos reunidos com a origem de cada dado, a data de coleta e o histórico completo.</p>
+      <div class="cta">
+        <button type="button" class="pill pill-solid" id="cta-search">Buscar ativo</button>
+        <a class="pill pill-line" href="#classes">Explorar classes</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="classes">
+    <div class="wrap">
+      <div class="sec-h"><h2>Explore por classe de ativo</h2></div>
+      <div class="tiles" id="tiles"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="carteira">
+    <div class="wrap">
+      <div class="sec-h"><h2>Ativos em carteira</h2></div>
+      <div class="moves">
+        <div class="mv"><h3 class="disp">Maiores altas</h3><ol id="ups"></ol></div>
+        <div class="mv"><h3 class="disp">Maiores quedas</h3><ol id="downs"></ol></div>
+      </div>
+      <p class="empty" id="empty" hidden>Nenhum ativo em carteira corresponde a “<span id="empty-q"></span>”.</p>
+      <p class="note">Exemplo de layout: as variações do PU no dia são ilustrativas e não são dados reais. Com a coleta ativa, cada valor mostrará fonte e data.</p>
+    </div>
+  </section>
+</div>
+<div id="v-page" hidden></div>
+</main>
+
+<footer class="band">
+  <div class="wrap">
+    <div class="prin">
+      <div><p class="kicker">Como tratamos os dados</p><h3 class="disp">Toda informação tem fonte e data.</h3><p>Cada campo mostra de onde veio e quando foi coletado.</p></div>
+      <div><p class="kicker">&nbsp;</p><h3 class="disp">O histórico fica. Nada é sobrescrito.</h3><p>Quando duas fontes divergem, as duas permanecem e o conflito é registrado.</p></div>
+      <div><p class="kicker">&nbsp;</p><h3 class="disp">O que falta aparece como falta.</h3><p>Dado ausente não é estimado nem preenchido por aproximação.</p></div>
+    </div>
+  </div>
+  <div class="foot">
+    <div class="wrap foot-in">
+      <div><h4>Ativos</h4><ul>
+        <li><a href="#" data-go="Renda Fixa" data-page="renda-fixa">Renda Fixa</a></li>
+        <li><a href="#" data-go="Debêntures" data-page="debentures">Debêntures</a></li>
+        <li><a href="#" data-go="Securitizados" data-page="securitizados">Securitizados</a></li>
+        <li><a href="#" data-go="Fundos" data-page="fundos">Fundos</a></li>
+        <li><a href="#" data-go="Emissores">Emissores</a></li></ul></div>
+      <div><h4>Fontes de dados</h4><ul>
+        <li><span>SND — ativa</span></li>
+        <li><span>Fundos.NET — ativa</span></li>
+        <li><span>CVM (Informe Mensal) — ativa</span></li>
+        <li><span>ANBIMA — prevista</span></li></ul></div>
+      <div><h4>Plataforma</h4><ul>
+        <li><a href="#" data-go="Alertas">Alertas</a></li>
+        <li><a href="#" data-go="Documentação">Documentação</a></li>
+        <li><a href="#" data-page="regras">Regras a definir</a></li>
+        <li><a href="#" data-go="Princípios de dados">Princípios de dados</a></li></ul></div>
+    </div>
+    <div class="wrap legal">
+      <span>© 2026 Multiplica Crédito e Investimento. Uso interno da equipe de research.</span>
+      <span>Layout em desenvolvimento</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var MENU=[
+    {id:'rf',label:'Renda Fixa',status:['idle','Em definição'],blurb:'Taxas, marcação a mercado e indicadores dos bancos.',all:'Ver toda Renda Fixa',cols:[
+      {title:'Produtos bancários',items:['CDB','LCI','LCA','LC','RDB']},
+      {title:'Letras e depósitos',items:['LF Sênior','LF Subordinada','LIG','DPGE']},
+      {title:'Títulos públicos',items:['Tesouro Selic','Tesouro IPCA+','Tesouro Prefixado']},
+      {title:'Ferramentas',items:['Taxas por banco','Marcação a mercado','Indicadores dos bancos']}]},
+    {id:'deb',label:'Debêntures',status:['ok','Em operação'],blurb:'Busca por empresa, PU real x PU par e o histórico de cada campo.',all:'Ver todas as debêntures',cols:[
+      {title:'Por tipo',items:['Simples','Incentivadas (Lei 12.431)','Conversíveis','Com resgate antecipado']},
+      {title:'Por indexador',items:['DI + spread','IPCA +','Pré-fixadas','% do CDI']},
+      {title:'Busca',items:['Por código do ativo','Por ISIN','Por emissor ou CNPJ']},
+      {title:'Análise',items:['PU real x PU par','Histórico de observações','Conflitos entre fontes','Agentes fiduciários']}]},
+    {id:'sec',label:'Securitizados',status:['wip','Piloto'],blurb:'CRI e CRA, com garantias, covenants e todos os documentos da operação.',all:'Ver todos os securitizados',cols:[
+      {title:'Produtos',items:['CRI','CRA','Operações multissérie']},
+      {title:'Documentos',items:['Termos de securitização','Aditamentos','Informes mensais','Atas e editais','Fatos relevantes','Relatórios de rating']},
+      {title:'Análise',items:['Garantias','Covenants','Histórico de documentos','Leitura rápida de documentos']},
+      {title:'Securitizadoras',items:['Eco Securitizadora','Opea Securitizadora','Riza Securitizadora']}]},
+    {id:'fun',label:'Fundos',status:['idle','Não iniciado'],blurb:'FIDC, FIC-FIDC e FIAGRO, da casa e do mercado.',all:'Ver todos os fundos',cols:[
+      {title:'FIDC',items:['Todos os FIDC','FIC-FIDC','Subordinação e cotas']},
+      {title:'FIAGRO',items:['Todos os FIAGRO','FIAGRO-FIDC','FIAGRO-FII','FIAGRO-FIP']},
+      {title:'Casa x mercado',items:['FIDCs da casa','Comparar com o mercado','Rentabilidade e spread']},
+      {title:'Participantes',items:['Gestoras','Administradoras','Custodiantes']}]},
+    {id:'emi',label:'Emissores',status:['wip','Parcial'],blurb:'Cadastro único de empresas, bancos, gestoras e securitizadoras.',all:'Ver todos os emissores',cols:[
+      {title:'Tipo',items:['Empresas','Bancos','Holdings','Cooperativas']},
+      {title:'Gestão',items:['Gestoras','Administradoras','Instituições financeiras']},
+      {title:'Securitização',items:['Securitizadoras','Devedores','Cedentes']},
+      {title:'Relacionamentos',items:['Grupos econômicos','Quem controla quem','Quem emite o quê']}]}
+  ];
+  var TILES=[
+    {id:'Renda Fixa',st:['idle','Em definição'],text:'Taxas, marcação a mercado e indicadores dos bancos. A frente ainda não tem responsável.'},
+    {id:'Debêntures',st:['ok','Em operação'],text:'3 emissores, 3 debêntures e 38 observações, cada uma com fonte e data.'},
+    {id:'Securitizados',st:['wip','Piloto'],text:'2.959 ativos (2.337 CRI e 622 CRA), com 206.119 documentos catalogados.'},
+    {id:'Fundos',st:['idle','Não iniciado'],text:'FIDC, FIC-FIDC e FIAGRO, com a comparação entre os fundos da casa e o mercado.'}
+  ];
+  var MOVES={
+    ups:[
+      {code:'PETR27',type:'Debênture',name:'Petrobras',isin:'BRPETRDBS0C2',v:'+0,42'},
+      {code:'SBSPC9',type:'Debênture',name:'Sabesp',isin:'BRSBSPDBS2D9',v:'+0,18'},
+      {code:'CRA022009VM',type:'CRA',name:'Café Brasil · Eco Securitizadora',isin:'BRECOACRABX0',v:'+0,11'}],
+    downs:[
+      {code:'CEPEA1',type:'Debênture',name:'Celpe',isin:'BRCEPEDBS0E2',v:'−0,09'},
+      {code:'24G2100031',type:'CRI',name:'Almeida Junior Shopping · Opea',isin:'BRRBRACRIP13',v:'−0,21'}]
+  };
+  var ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+  function $(s,r){return (r||document).querySelector(s)}
+  function $$(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))}
+  function norm(s){return s.normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase()}
+  function st(s){return '<span class="status st-'+s[0]+'"><i></i>'+s[1]+'</span>'}
+
+  var PAGEMAP={'CDB':'cdb','LCI':'lci','LCA':'lca','LC':'lc','RDB':'rdb','LF Sênior':'lf','LF Subordinada':'lf','LIG':'lig','DPGE':'dpge',
+    'Tesouro Selic':'tesouro','Tesouro IPCA+':'tesouro','Tesouro Prefixado':'tesouro','Ver toda Renda Fixa':'renda-fixa','Renda Fixa':'renda-fixa',
+    'Ver todas as debêntures':'debentures','Simples':'debentures','Incentivadas (Lei 12.431)':'debentures','Debêntures':'debentures',
+    'CRI':'cri','CRA':'cra','Ver todos os securitizados':'securitizados','Securitizados':'securitizados',
+    'Ver todos os fundos':'fundos','Fundos':'fundos','Todos os FIDC':'fidc','FIC-FIDC':'fic-fidc','Todos os FIAGRO':'fiagro'};
+  function pg(k){return PAGEMAP[k]?' data-page="'+PAGEMAP[k]+'"':''}
+  var hdr=$('#hdr'), navlist=$('#navlist'), mnav=$('#mnav'), burger=$('#burger');
+
+  /* menu desktop: cada painel fica dentro do próprio item, para o foco do teclado seguir a ordem natural */
+  navlist.innerHTML=MENU.map(function(m){
+    return '<li><button type="button" class="nav-btn" id="nb-'+m.id+'" data-id="'+m.id+'" aria-expanded="false" aria-controls="mega-'+m.id+'">'+m.label+'</button>'+
+    '<div class="mega" id="mega-'+m.id+'" role="region" aria-label="'+m.label+'"><div class="wrap mega-in">'+
+    '<div class="mega-intro">'+st(m.status)+'<h2 class="disp">'+m.label+'</h2><p>'+m.blurb+'</p><a class="pill pill-solid" href="#" data-go="'+m.all+'"'+pg(m.all)+'>'+m.all+'</a></div>'+
+    m.cols.map(function(c){return '<div class="mega-col"><h3>'+c.title+'</h3><ul>'+c.items.map(function(i){return '<li><a href="#" data-go="'+i+' · '+m.label+'"'+pg(i)+'>'+i+'</a></li>'}).join('')+'</ul></div>'}).join('')+
+    '</div></div></li>';
+  }).join('');
+
+  /* menu mobile */
+  mnav.innerHTML='<div class="wrap">'+MENU.map(function(m){
+    return '<details><summary>'+m.label+'</summary><div class="m-body">'+st(m.status)+'<p>'+m.blurb+'</p>'+
+    m.cols.map(function(c){return '<h3>'+c.title+'</h3><ul>'+c.items.map(function(i){return '<li><a href="#" data-go="'+i+' · '+m.label+'"'+pg(i)+'>'+i+'</a></li>'}).join('')+'</ul>'}).join('')+
+    '</div></details>';
+  }).join('')+'</div>';
+
+  var openId=null, tOpen, tClose, lastType='mouse';
+  function setOpen(id){
+    openId=id;
+    $$('.nav-btn').forEach(function(b){var on=b.dataset.id===id;b.setAttribute('aria-expanded',on?'true':'false');b.classList.toggle('on',on)});
+    $$('.mega').forEach(function(p){p.classList.toggle('open',p.id==='mega-'+id)});
+    document.body.classList.toggle('menu-open',!!id);
+  }
+  function closeM(){mnav.classList.remove('open');burger.setAttribute('aria-expanded','false');document.body.classList.remove('m-open')}
+
+  $$('#navlist > li').forEach(function(li){
+    var btn=$('.nav-btn',li), id=btn.dataset.id;
+    li.addEventListener('pointerenter',function(e){
+      if(e.pointerType!=='mouse')return;
+      clearTimeout(tClose);clearTimeout(tOpen);
+      tOpen=setTimeout(function(){setOpen(id)},openId?0:70);
+    });
+    btn.addEventListener('pointerdown',function(e){lastType=e.pointerType});
+    btn.addEventListener('keydown',function(){lastType='key'});
+    btn.addEventListener('click',function(){
+      if(lastType==='mouse'&&openId===id)return;
+      setOpen(openId===id?null:id);
+    });
+  });
+  hdr.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')clearTimeout(tClose)});
+  hdr.addEventListener('pointerleave',function(e){
+    if(e.pointerType!=='mouse')return;
+    clearTimeout(tOpen);
+    tClose=setTimeout(function(){setOpen(null)},160);
+  });
+  document.addEventListener('pointerdown',function(e){
+    if(!hdr.contains(e.target)){setOpen(null);closeM()}
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key!=='Escape')return;
+    if(openId){var b=$('#nb-'+openId);setOpen(null);if(b)b.focus()}
+    if(mnav.classList.contains('open')){closeM();burger.focus()}
+  });
+  burger.addEventListener('click',function(){
+    var on=!mnav.classList.contains('open');
+    mnav.classList.toggle('open',on);
+    burger.setAttribute('aria-expanded',on?'true':'false');
+    document.body.classList.toggle('m-open',on);
+  });
+  var desk=window.matchMedia('(min-width:1100px)');
+  desk.addEventListener('change',function(e){if(e.matches)closeM();else setOpen(null)});
+
+  /* aviso para telas que ainda não existem */
+  var tt;
+  function toast(msg){
+    var t=$('#toast');t.textContent=msg;t.classList.add('on');
+    clearTimeout(tt);tt=setTimeout(function(){t.classList.remove('on')},2600);
+  }
+  document.addEventListener('click',function(e){
+    var a=e.target.closest('[data-go],[data-page]');
+    if(!a)return;
+    e.preventDefault();setOpen(null);closeM();
+    if(a.dataset.page){openPage(a.dataset.page,false,a.dataset.asset);return}
+    toast(a.dataset.go+' — tela ainda a construir');
+  });
+
+  /* tiles por classe */
+  $('#tiles').innerHTML=TILES.map(function(t){
+    return '<a class="tile" href="#" data-go="'+t.id+'"'+pg(t.id)+'><div>'+st(t.st)+'</div>'+
+    '<h3 class="disp">'+t.id+'</h3>'+
+    '<div><p>'+t.text+'</p><span class="pill pill-soft">Explorar '+ARROW+'</span></div></a>';
+  }).join('');
+
+  /* ativos em carteira */
+  var UP='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 4l9 15H3z"/></svg>';
+  var DN='<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 20L3 5h18z"/></svg>';
+  function rows(list,cls,ico){
+    return list.map(function(a){
+      return '<li data-q="'+norm([a.code,a.isin,a.name,a.type].join(' '))+'"><a class="mv-row" href="#" data-go="'+a.code+'" data-page="'+(a.type==='CRA'?'cra':a.type==='CRI'?'cri':'debentures')+'" data-asset="'+a.code+'">'+
+      '<span class="mv-code">'+a.code+'</span>'+
+      '<span class="mv-var '+cls+'">'+ico+a.v+'%</span>'+
+      '<span class="mv-sub">'+a.type+' · '+a.name+'</span></a></li>';
+    }).join('');
+  }
+  $('#ups').innerHTML=rows(MOVES.ups,'up',UP);
+  $('#downs').innerHTML=rows(MOVES.downs,'dn',DN);
+
+  /* busca: filtra os ativos em carteira */
+  var inputs=[$('#q-d'),$('#q-m')];
+  function filter(v){
+    var q=norm(v.trim()),n=0;
+    $$('.mv li').forEach(function(c){var hit=!q||c.dataset.q.indexOf(q)>-1;c.hidden=!hit;if(hit)n++});
+    $('#empty').hidden=n>0;
+    $('#empty-q').textContent=v.trim();
+  }
+  inputs.forEach(function(i){
+    i.addEventListener('input',function(){
+      inputs.forEach(function(o){if(o!==i)o.value=i.value});
+      filter(i.value);
+    });
+    i.addEventListener('keydown',function(e){
+      if(e.key==='Enter')$('#carteira').scrollIntoView({behavior:'smooth'});
+    });
+  });
+  $('#cta-search').addEventListener('click',function(){
+    var i=desk.matches?inputs[0]:inputs[1];
+    window.scrollTo({top:0,behavior:'smooth'});
+    i.focus({preventScroll:true});
+  });
+  /* ===== páginas de produto ===== */
+  var D={"HIST": [{"a": "CEPEA1", "f": "agente_fiduciario", "t": "text", "v": "PENTAGONO S/A DTVM", "u": "", "s": "SND", "o": "2026-09-11T20:01:28.142147+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "classe", "t": "text", "v": "Simples", "u": "", "s": "SND", "o": "2026-09-11T20:01:21.495496+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "data_emissao", "t": "date", "v": "2021-10-15", "u": "", "s": "SND", "o": "2026-09-11T20:01:18.887718+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "data_vencimento", "t": "date", "v": "2026-10-15", "u": "", "s": "SND", "o": "2026-09-11T20:01:19.964076+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "garantia", "t": "text", "v": "Quirografária", "u": "", "s": "SND", "o": "2026-09-11T20:01:20.700759+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "incentivada", "t": "boolean", "v": "Nao", "u": "", "s": "SND", "o": "2026-09-11T20:01:29.034308+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "indexador", "t": "text", "v": "DI", "u": "", "s": "SND", "o": "2026-09-11T20:01:26.230924+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "quantidade_em_mercado", "t": "numeric", "v": "100000", "u": "titulos", "s": "SND", "o": "2026-09-11T20:01:23.317095+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "quantidade_emitida", "t": "numeric", "v": "100000", "u": "titulos", "s": "SND", "o": "2026-09-11T20:01:22.283673+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "resgate_antecipado", "t": "boolean", "v": "Sim", "u": "", "s": "SND", "o": "2026-09-11T20:01:30.024832+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "spread", "t": "numeric", "v": "100", "u": "percentual", "s": "SND", "o": "2026-09-11T20:01:27.289502+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "valor_nominal", "t": "numeric", "v": "1000", "u": "BRL", "s": "SND", "o": "2026-09-11T20:01:25.266027+00:00", "c": "reported"}, {"a": "CEPEA1", "f": "valor_nominal_emissao", "t": "numeric", "v": "1000", "u": "BRL", "s": "SND", "o": "2026-09-11T20:01:24.131668+00:00", "c": "reported"}, {"a": "PETR27", "f": "agente_fiduciario", "t": "text", "v": "PENTAGONO S/A DTVM", "u": "", "s": "SND", "o": "2026-09-11T16:46:22.366688+00:00", "c": "reported"}, {"a": "PETR27", "f": "classe", "t": "text", "v": "Simples", "u": "", "s": "SND", "o": "2026-09-11T16:46:17.357085+00:00", "c": "reported"}, {"a": "PETR27", "f": "data_emissao", "t": "date", "v": "2019-08-15", "u": "", "s": "SND", "o": "2026-09-11T16:46:15.190702+00:00", "c": "reported"}, {"a": "PETR27", "f": "data_vencimento", "t": "date", "v": "2034-09-15", "u": "", "s": "SND", "o": "2026-09-11T16:46:15.867735+00:00", "c": "reported"}, {"a": "PETR27", "f": "garantia", "t": "text", "v": "Quirografária", "u": "", "s": "SND", "o": "2026-09-11T16:46:16.605942+00:00", "c": "reported"}, {"a": "PETR27", "f": "incentivada", "t": "boolean", "v": "Sim", "u": "", "s": "SND", "o": "2026-09-11T16:46:23.145684+00:00", "c": "reported"}, {"a": "PETR27", "f": "indexador", "t": "text", "v": "IPCA", "u": "", "s": "SND", "o": "2026-09-11T16:46:21.538830+00:00", "c": "reported"}, {"a": "PETR27", "f": "quantidade_em_mercado", "t": "numeric", "v": "1478670", "u": "titulos", "s": "SND", "o": "2026-09-11T16:46:19.133320+00:00", "c": "reported"}, {"a": "PETR27", "f": "quantidade_emitida", "t": "numeric", "v": "1478670", "u": "titulos", "s": "SND", "o": "2026-09-11T16:46:18.127005+00:00", "c": "reported"}, {"a": "PETR27", "f": "resgate_antecipado", "t": "boolean", "v": "Nao", "u": "", "s": "SND", "o": "2026-09-11T16:46:23.870844+00:00", "c": "reported"}, {"a": "PETR27", "f": "valor_nominal", "t": "numeric", "v": "1460.23387", "u": "BRL", "s": "SND", "o": "2026-09-14T10:54:55.223275+00:00", "c": "reported"}, {"a": "PETR27", "f": "valor_nominal", "t": "numeric", "v": "1465.60931", "u": "BRL", "s": "SND", "o": "2026-09-11T16:46:20.753789+00:00", "c": "reported"}, {"a": "PETR27", "f": "valor_nominal_emissao", "t": "numeric", "v": "1000", "u": "BRL", "s": "SND", "o": "2026-09-11T16:46:19.811144+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "agente_fiduciario", "t": "text", "v": "VORTX DTVM LTDA.", "u": "", "s": "SND", "o": "2026-09-11T20:01:45.725236+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "classe", "t": "text", "v": "Simples", "u": "", "s": "SND", "o": "2026-09-11T20:01:39.442997+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "data_emissao", "t": "date", "v": "2026-08-13", "u": "", "s": "SND", "o": "2026-09-11T20:01:36.041369+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "data_vencimento", "t": "date", "v": "2034-12-26", "u": "", "s": "SND", "o": "2026-09-11T20:01:37.271189+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "garantia", "t": "text", "v": "Quirografária", "u": "", "s": "SND", "o": "2026-09-11T20:01:38.509997+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "incentivada", "t": "boolean", "v": "Nao", "u": "", "s": "SND", "o": "2026-09-11T20:01:46.901702+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "indexador", "t": "text", "v": "PRÉ", "u": "", "s": "SND", "o": "2026-09-11T20:01:44.546335+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "quantidade_em_mercado", "t": "numeric", "v": "178035714", "u": "titulos", "s": "SND", "o": "2026-09-11T20:01:41.526740+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "quantidade_emitida", "t": "numeric", "v": "178035714", "u": "titulos", "s": "SND", "o": "2026-09-11T20:01:40.387552+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "resgate_antecipado", "t": "boolean", "v": "Sim", "u": "", "s": "SND", "o": "2026-09-11T20:01:47.911205+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "valor_nominal", "t": "numeric", "v": "1", "u": "BRL", "s": "SND", "o": "2026-09-11T20:01:43.459120+00:00", "c": "reported"}, {"a": "SBSPC9", "f": "valor_nominal_emissao", "t": "numeric", "v": "1", "u": "BRL", "s": "SND", "o": "2026-09-11T20:01:42.616052+00:00", "c": "reported"}], "DEBS": [{"code": "CEPEA1", "isin": "BRCEPEDBS0E2", "issuer": "COMPANHIA ENERGETICA DE PERNAMBUCO-CELPE", "cnpj": "10835932000108", "emissao": "011", "serie": "001", "status": "active", "conf": "0"}, {"code": "PETR27", "isin": "BRPETRDBS0C2", "issuer": "PETROLEO BRASILEIRO S/A - PETROBRAS", "cnpj": "33000167000101", "emissao": "007", "serie": "002", "status": "active", "conf": "0"}, {"code": "SBSPC9", "isin": "BRSBSPDBS2D9", "issuer": "CIA SANEAMENTO BASICO EST. SP - SABESP", "cnpj": "43776517000180", "emissao": "039", "serie": "UNI", "status": "active", "conf": "0"}], "SEC": [{"code": "CRA022009VM", "isin": "BRECOACRABX0", "sec": "Eco Securitizadora de Direitos Creditórios do Agronegócio S.A.", "cnpjs": "10.753.164/0001-43", "emissao": "190", "serie": "1", "tipo": "CRA", "dev": "Café Brasil Indústria Comércio Importação e Exportação S.A.", "cnpjd": "01.486.546/0001-67"}, {"code": "24G2100031", "isin": "BRRBRACRIP13", "sec": "Opea Securitizadora S.A.", "cnpjs": "", "emissao": "301", "serie": "unica", "tipo": "CRI", "dev": "Almeida Junior", "cnpjd": ""}], "RULES": [{"id": "G-01", "area": "Geral", "text": "Formato de datas, números e moeda: casas decimais do VN e do PU, separadores e arredondamento sem perder o valor coletado (hoje o VN da PETR27 tem 5 casas)."}, {"id": "G-02", "area": "Geral", "text": "Como exibir a proveniência: coluna sempre visível, ícone com detalhe ou os dois. E o que mostrar quando a fonte não traz a data (o cadastro dos ativos não traz)."}, {"id": "G-03", "area": "Geral", "text": "Como exibir o nível de confiança do dado (hoje só existe \"reported\") e se ele aparece para o usuário."}, {"id": "G-04", "area": "Geral", "text": "Como exibir conflitos entre fontes: aviso na ficha, painel lateral ou os dois valores lado a lado. Hoje todos os ativos têm 0 conflitos abertos."}, {"id": "G-05", "area": "Geral", "text": "Prazo para marcar um dado como desatualizado (quantos dias desde a última coleta) e como sinalizar."}, {"id": "G-06", "area": "Geral", "text": "Ativo vencido ou inativo: some da lista, fica com marca ou vai para uma aba própria. Exemplo real: CEPEA1 venceu em 15/10/2026 e ainda consta como ativo na coleta de 11/09."}, {"id": "G-07", "area": "Geral", "text": "Campos da listagem x campos da ficha, ordenação padrão e filtros de cada produto."}, {"id": "G-08", "area": "Geral", "text": "Busca global: quais campos entram (código, ISIN, emissor, CNPJ) e como tratar ativos com mais de um identificador."}, {"id": "G-09", "area": "Geral", "text": "Como exibir relacionamentos entre entidades (grupo econômico, controle, emissão) vindos da camada compartilhada."}, {"id": "G-10", "area": "Geral", "text": "Alertas de preço e de notícias: onde aparecem, quem recebe e o limiar de variação anormal. Ainda não existe código."}, {"id": "G-11", "area": "Geral", "text": "Maiores altas e maiores quedas da home: quais carteiras entram, qual métrica (variação do PU?), período e fonte. Hoje não há variação coletada, os valores da home são ilustrativos."}, {"id": "G-12", "area": "Geral", "text": "Perfis e acesso: uso interno da equipe, quem edita manualmente (com log de auditoria) e quem só consulta."}, {"id": "G-13", "area": "Geral", "text": "Identidade visual final: logo da Multiplica, tipografia oficial e paleta."}, {"id": "D-01", "area": "Debêntures", "text": "PU real x PU par: fórmula, fonte de cada PU, data-base e como mostrar a diferença. Hoje só existe o valor nominal; nenhum PU é coletado."}, {"id": "D-02", "area": "Debêntures", "text": "Valor nominal: quando mostrar o da emissão e quando mostrar o atual, e como exibir o histórico (a PETR27 tem dois valores coletados, em 11/09 e 14/09)."}, {"id": "D-03", "area": "Debêntures", "text": "Busca por empresa: resultado por emissor ou por ativo, e como agrupar as debêntures do mesmo emissor."}, {"id": "D-04", "area": "Debêntures", "text": "Remuneração: o spread só foi coletado para a CEPEA1 (valor 100, unidade \"percentual\", sem indicar se é spread sobre o DI ou % do DI) e o rating não é coletado. Definir se entram na ficha e a fonte (CVM e ANBIMA estão previstas)."}, {"id": "D-05", "area": "Debêntures", "text": "Como destacar incentivada (Lei 12.431), resgate antecipado e classe: selo, filtro ou coluna."}, {"id": "D-06", "area": "Debêntures", "text": "Agente fiduciário: texto simples ou link para o cadastro da entidade."}, {"id": "D-07", "area": "Debêntures", "text": "Agenda de eventos (juros, amortização, repactuação): não é coletada. Definir se entra na ficha."}, {"id": "D-08", "area": "Debêntures", "text": "Data dos campos de identificação (código, ISIN, emissor): o export não traz a data do cadastro."}, {"id": "S-01", "area": "Securitizados", "text": "Garantias: como exibir (lista, tipo, valor, documento de origem). Não há coleta estruturada hoje."}, {"id": "S-02", "area": "Securitizados", "text": "Covenants: como exibir, com situação de cumprimento e data da verificação. Não há coleta estruturada hoje."}, {"id": "S-03", "area": "Securitizados", "text": "Histórico de documentos: ordem, agrupamento pelas 9 categorias, versões e destaque do mais recente."}, {"id": "S-04", "area": "Securitizados", "text": "Documento sem arquivo baixado ou com falha no download: como mostrar o estado."}, {"id": "S-05", "area": "Securitizados", "text": "Categoria \"Outro\": como exibir os documentos ainda não classificados (no inventário inicial do Café Brasil, os 124 documentos estavam nela)."}, {"id": "S-06", "area": "Securitizados", "text": "Leitura rápida dos documentos por agente: formato do resumo, citação da página de origem e aviso de que é resumo automático."}, {"id": "S-07", "area": "Securitizados", "text": "Operações com várias séries e ativos que tiveram o mesmo ISIN em mais de um cadastro (já aconteceu com o Café Brasil): como mostrar as séries."}, {"id": "S-08", "area": "Securitizados", "text": "Securitizadora ou devedor sem CNPJ (caso do CRI Almeida Junior): rótulo do dado ausente e se bloqueia a ficha."}, {"id": "S-09", "area": "Securitizados", "text": "Informe mensal: quais indicadores extrair do XML e exibir."}, {"id": "S-10", "area": "Securitizados", "text": "Rating: o relatório de rating é uma categoria de documento, mas a nota não é extraída. Definir exibição."}, {"id": "S-11", "area": "Securitizados", "text": "Diferenças entre CRI e CRA na ficha (lastro, devedor, setor)."}, {"id": "R-01", "area": "Renda Fixa", "text": "Responsável e fonte de dados: o README da raiz cita Eduardo \"e agora renda fixa\", enquanto o contrato de integração e o roadmap ainda dizem \"a definir\". Sem fonte definida, não há o que exibir."}, {"id": "R-02", "area": "Renda Fixa", "text": "Acompanhar taxas: por banco, por prazo e por indexador, com histórico e fonte."}, {"id": "R-03", "area": "Renda Fixa", "text": "Calculadora de marcação a mercado: entradas, curva usada, saída e aviso de premissas."}, {"id": "R-04", "area": "Renda Fixa", "text": "Indicadores dos bancos: quais, periodicidade e fonte."}, {"id": "R-05", "area": "Renda Fixa", "text": "Campos da ficha de cada produto (prazo, liquidez, cobertura do FGC, valor mínimo, indexador)."}, {"id": "R-06", "area": "Renda Fixa", "text": "LF Sênior e LF Subordinada: uma página com filtro ou duas páginas."}, {"id": "R-07", "area": "Renda Fixa", "text": "Comparação entre emissores do mesmo produto."}, {"id": "R-08", "area": "Renda Fixa", "text": "Títulos públicos: o escopo original não cita Tesouro Direto. Confirmar se entra, a fonte e a ficha."}, {"id": "F-01", "area": "Fundos", "text": "Fonte e coleta: a frente (Gui) não foi iniciada, então ainda não há dado de fundos."}, {"id": "F-02", "area": "Fundos", "text": "FIDCs da casa x mercado: quais fundos são \"da casa\", quais métricas comparam (rentabilidade, spread, subordinação) e como mostrar."}, {"id": "F-03", "area": "Fundos", "text": "Ficha do fundo: gestora, administradora, custodiante, cotas, subordinação, carteira de recebíveis e cedentes."}, {"id": "F-04", "area": "Fundos", "text": "FIC-FIDC: como exibir as cotas de FIDC em que o fundo investe."}, {"id": "F-05", "area": "Fundos", "text": "FIAGRO: variantes (FIDC, FII, FIP) na mesma página ou em páginas separadas."}, {"id": "F-06", "area": "Fundos", "text": "Relacionamentos (gestora, administradora, cedentes) vindos da camada compartilhada."}], "PAGES": {"debentures": {"name": "Debêntures", "full": "Debêntures e bonds de emissores brasileiros", "fam": "debentures", "kind": "deb", "owner": "Eduardo", "status": ["ok", "Em operação"], "mods": [["Buscar informações por empresa", ["wip", "Parcial"]], ["PU real x PU par", ["idle", "Sem dado"]]], "areas": ["Debêntures"]}, "cri": {"name": "CRI", "full": "Certificado de Recebíveis Imobiliários", "fam": "securitizados", "kind": "sec", "owner": "Enrico", "status": ["wip", "Piloto"], "mods": [["Análise de garantias", ["idle", "Não iniciado"]], ["Covenants", ["idle", "Não iniciado"]], ["Histórico de documentos", ["wip", "Parcial"]], ["Leitura rápida dos documentos por agente", ["idle", "Não iniciado"]]], "areas": ["Securitizados"]}, "cra": {"name": "CRA", "full": "Certificado de Recebíveis do Agronegócio", "fam": "securitizados", "kind": "sec", "owner": "Enrico", "status": ["wip", "Piloto"], "mods": [["Análise de garantias", ["idle", "Não iniciado"]], ["Covenants", ["idle", "Não iniciado"]], ["Histórico de documentos", ["wip", "Parcial"]], ["Leitura rápida dos documentos por agente", ["idle", "Não iniciado"]]], "areas": ["Securitizados"]}, "cdb": {"name": "CDB", "full": "Certificado de Depósito Bancário", "fam": "renda-fixa", "kind": "empty", "owner": "A definir", "status": ["idle", "Em definição"], "mods": [["Acompanhar taxas", ["idle", "Não iniciado"]], ["Calculadora de marcação a mercado", ["idle", "Não iniciado"]], ["Indicadores dos bancos", ["idle", "Não iniciado"]]], "areas": ["Renda Fixa"]}, "lci": {"name": "LCI", "full": "Letra de Crédito Imobiliário", "fam": "renda-fixa", "kind": "empty", "owner": "A definir", "status": ["idle", "Em definição"], "mods": [["Acompanhar taxas", ["idle", "Não iniciado"]], ["Calculadora de marcação a mercado", ["idle", "Não iniciado"]], ["Indicadores dos bancos", ["idle", "Não iniciado"]]], "areas": ["Renda Fixa"]}, "lca": {"name": "LCA", "full": "Letra de Crédito do Agronegócio", "fam": "renda-fixa", "kind": "empty", "owner": "A definir", "status": ["idle", "Em definição"], "mods": [["Acompanhar taxas", ["idle", "Não iniciado"]], ["Calculadora de marcação a mercado", ["idle", "Não iniciado"]], ["Indicadores dos bancos", ["idle", "Não iniciado"]]], "areas": ["Renda Fixa"]}, "lc": {"name": "LC", "full": "Letra de Câmbio", "fam": "renda-fixa", "kind": "empty", "owner": "A definir", "status": ["idle", "Em definição"], "mods": [["Acompanhar taxas", ["idle", "Não iniciado"]], ["Calculadora de marcação a mercado", ["idle", "Não iniciado"]], ["Indicadores dos bancos", ["idle", "Não iniciado"]]], "areas": ["Renda Fixa"]}, "rdb": {"name": "RDB", "full": "Recibo de Depósito Bancário", "fam": "renda-fixa", "kind": "empty", "owner": "A definir", "status": ["idle", "Em definição"], "mods": [["Acompanhar taxas", ["idle", "Não iniciado"]], ["Calculadora de marcação a mercado", ["idle", "Não iniciado"]], ["Indicadores dos bancos", ["idle", "Não iniciado"]]], "areas": ["Renda Fixa"]}, "lf": {"name": "LF", "full": "Letra Financeira, sênior e subordinada", "fam": "renda-fixa", "kind": "empty", "owner": "A definir", "status": ["idle", "Em definição"], "mods": [["Acompanhar taxas", ["idle", "Não iniciado"]], ["Calculadora de marcação a mercado", ["idle", "Não iniciado"]], ["Indicadores dos bancos", ["idle", "Não iniciado"]]], "areas": ["Renda Fixa"]}, "lig": {"name": "LIG", "full": "Letra Imobiliária Garantida", "fam": "renda-fixa", "kind": "empty", "owner": "A definir", "status": ["idle", "Em definição"], "mods": [["Acompanhar taxas", ["idle", "Não iniciado"]], ["Calculadora de marcação a mercado", ["idle", "Não iniciado"]], ["Indicadores dos bancos", ["idle", "Não iniciado"]]], "areas": ["Renda Fixa"]}, "dpge": {"name": "DPGE", "full": "Depósito a Prazo com Garantia Especial do FGC", "fam": "renda-fixa", "kind": "empty", "owner": "A definir", "status": ["idle", "Em definição"], "mods": [["Acompanhar taxas", ["idle", "Não iniciado"]], ["Calculadora de marcação a mercado", ["idle", "Não iniciado"]], ["Indicadores dos bancos", ["idle", "Não iniciado"]]], "areas": ["Renda Fixa"]}, "tesouro": {"name": "Títulos públicos", "full": "Tesouro Selic, Tesouro IPCA+ e Tesouro Prefixado", "fam": "renda-fixa", "kind": "empty", "owner": "A definir", "status": ["idle", "Escopo a confirmar"], "mods": [], "areas": ["Renda Fixa"]}, "fidc": {"name": "FIDC", "full": "Fundo de Investimento em Direitos Creditórios", "fam": "fundos", "kind": "empty", "owner": "Gui", "status": ["idle", "Não iniciado"], "mods": [["Acompanhar o mercado de FIDCs", ["idle", "Não iniciado"]], ["FIDCs da casa x mercado", ["idle", "Não iniciado"]]], "areas": ["Fundos"]}, "fic-fidc": {"name": "FIC-FIDC", "full": "Fundo de Investimento em Cotas de FIDC", "fam": "fundos", "kind": "empty", "owner": "Gui", "status": ["idle", "Não iniciado"], "mods": [["Acompanhar o mercado de FIDCs", ["idle", "Não iniciado"]], ["FIDCs da casa x mercado", ["idle", "Não iniciado"]]], "areas": ["Fundos"]}, "fiagro": {"name": "FIAGRO", "full": "Fundo de Investimento nas Cadeias Produtivas Agroindustriais", "fam": "fundos", "kind": "empty", "owner": "Gui", "status": ["idle", "Não iniciado"], "mods": [["Acompanhar o mercado de FIDCs", ["idle", "Não iniciado"]], ["FIDCs da casa x mercado", ["idle", "Não iniciado"]]], "areas": ["Fundos"]}}, "FAMS": {"renda-fixa": {"name": "Renda Fixa", "owner": "A definir", "status": ["idle", "Em definição"], "pain": "Acompanhar taxas, calculadora de precificação a mercado e indicadores dos bancos.", "products": ["cdb", "lci", "lca", "lc", "rdb", "lf", "lig", "dpge", "tesouro"], "areas": ["Renda Fixa"]}, "securitizados": {"name": "Securitizados", "owner": "Enrico", "status": ["wip", "Piloto"], "pain": "Análise de garantias, covenants e histórico de documentos, com um agente que leia rapidamente os documentos da empresa.", "products": ["cri", "cra"], "areas": ["Securitizados"]}, "fundos": {"name": "Fundos", "owner": "Gui", "status": ["idle", "Não iniciado"], "pain": "Acompanhar o mercado de FIDCs e comparar os FIDCs da casa com o mercado.", "products": ["fidc", "fic-fidc", "fiagro"], "areas": ["Fundos"]}}, "SECDOCS": {"CRA022009VM": {"n": 126}, "24G2100031": {"n": 42}}, "SAMPLE": [{"id": "355426", "cat": "Termo de Securitização", "nome": "Documento", "data": "2022-09-26", "fmt": "PDF", "kb": 2551591, "sha": "97a3e783b194"}, {"id": "1328844", "cat": "Informe Mensal", "nome": "Informe Mensal de CRA", "data": "2026-09-25", "fmt": "XML", "kb": 11212, "sha": "2cbd210ecd3f"}, {"id": "1340289", "cat": "Ata/Edital", "nome": "AGO/E", "data": "2026-10-05", "fmt": "PDF", "kb": 354812, "sha": "2d61eb7d750d"}], "CATS": ["Termo de Securitização", "Aditamento", "Informe Mensal", "Ata/Edital", "Fato Relevante", "Relatório Agente Fiduciário", "Relatório de Rating", "Anúncio de Encerramento", "Outro"]};
+  ['cri','cra'].forEach(function(t){D.PAGES[t].status=['ok','Dados reais'];D.PAGES[t].mods=[['Análise de garantias',['wip','Lida no Termo, a revisar']],['Covenants',['ok','Relatórios de 6 securitizadoras']],['Histórico de documentos',['ok','Fundos.NET']],['Leitura rápida dos documentos por agente',['wip','Atas dos portais']]]});
+  var vHome=$('#v-home'), vPage=$('#v-page'), curTok='home', selAsset={};
+  function esc(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+  function fd(d){if(!d)return '—';var p=String(d).slice(0,10).split('-');return p.length===3?p[2]+'/'+p[1]+'/'+p[0]:d}
+  function fval(o){
+    if(o.t==='date')return fd(o.v);
+    if(o.u==='BRL')return 'R$ '+Number(o.v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:8});
+    if(o.u==='titulos')return Number(o.v).toLocaleString('pt-BR')+' títulos';
+    if(o.t==='numeric')return Number(o.v).toLocaleString('pt-BR',{maximumFractionDigits:8})+(o.u?' '+o.u:'');
+    if(o.v==='Nao')return 'Não';
+    return o.v;
+  }
+  function obs(code,f){return D.HIST.filter(function(h){return h.a===code&&h.f===f}).sort(function(a,b){return a.o<b.o?1:-1})}
+  function last(code,f){return obs(code,f)[0]||null}
+  function cnpj(s){s=String(s||'').replace(/\D/g,'');return s.length===14?s.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/,'$1.$2.$3/$4-$5'):s}
+  function none(){return '<span class="nodata">Sem dado</span>'}
+  var FLABEL={data_emissao:'Data de emissão',data_vencimento:'Vencimento',indexador:'Indexador',spread:'Spread',valor_nominal:'Valor nominal atual',valor_nominal_emissao:'Valor nominal na emissão',quantidade_emitida:'Quantidade emitida',quantidade_em_mercado:'Quantidade em mercado',garantia:'Garantia',classe:'Classe',incentivada:'Incentivada (Lei 12.431)',resgate_antecipado:'Resgate antecipado',agente_fiduciario:'Agente fiduciário'};
+  var FORDER=['data_emissao','data_vencimento','indexador','spread','valor_nominal','valor_nominal_emissao','quantidade_emitida','quantidade_em_mercado','garantia','classe','incentivada','resgate_antecipado','agente_fiduciario'];
+  var maxObs=D.HIST.reduce(function(m,h){return h.o>m?h.o:m},'');
+  function today(){var d=new Date();return d.toISOString().slice(0,10)}
+
+  function crumb(arr){
+    return '<nav class="crumb" aria-label="Você está em"><a href="#" data-page="home">Início</a>'+arr.map(function(c){
+      return ' <span aria-hidden="true">/</span> '+(c[1]?'<a href="#" data-page="'+c[1]+'">'+c[0]+'</a>':'<span aria-current="page">'+c[0]+'</span>');
+    }).join('')+'</nav>';
+  }
+  function stat(n,l){return '<div class="stat"><b>'+n+'</b><span>'+l+'</span></div>'}
+  function head(eyebrow,title,sub,statusArr,owner,stats,cr){
+    return '<section class="ph"><div class="wrap ph-in">'+crumb(cr)+
+      '<p class="eyebrow">'+eyebrow+'</p><h1 class="disp">'+title+'</h1><p class="lead">'+sub+'</p>'+
+      '<div class="ph-meta">'+st(statusArr)+'<span>Responsável: '+owner+'</span></div>'+
+      '<div class="stats">'+stats.join('')+'</div></div></section>';
+  }
+  function rulesFor(areas,withG){
+    return D.RULES.filter(function(r){return areas.indexOf(r.area)>-1||(withG&&r.area==='Geral')});
+  }
+  function rulesBlock(areas){
+    var own=rulesFor(areas,false), g=D.RULES.filter(function(r){return r.area==='Geral'});
+    return '<section class="sec"><div class="wrap"><div class="sec-h"><h2>Regras de exibição a definir</h2><a class="pill pill-line" href="#" data-page="regras">Ver todas '+ARROW+'</a></div>'+
+      '<div class="rules"><div class="rbox"><h3>Desta página</h3><ul>'+own.map(function(r){return '<li><b>'+r.id+'</b><span>'+esc(r.text)+'</span></li>'}).join('')+'</ul></div>'+
+      '<div class="rbox"><h3>Valem para todos os produtos</h3><ul>'+g.slice(0,5).map(function(r){return '<li><b>'+r.id+'</b><span>'+esc(r.text)+'</span></li>'}).join('')+
+      '</ul><p class="note">Mais '+(g.length-5)+' itens gerais na lista completa.</p></div></div></div></section>';
+  }
+  function appliedBlock(){
+    var L=[['Fonte e data em cada valor','Cada campo da ficha mostra a fonte e a data de observação.'],
+      ['Histórico preservado','Valores antigos continuam visíveis e marcados como anteriores.'],
+      ['Conflitos entre fontes','O número de conflitos abertos aparece na ficha, sem apagar nenhum valor.'],
+      ['Nada é estimado','Dado ausente aparece como “Sem dado”, nunca como aproximação.'],
+      ['Fonte oficial primeiro','Fontes oficiais têm prioridade sobre as complementares.']];
+    return '<section class="sec"><div class="wrap"><div class="sec-h"><h2>Regras do projeto aplicadas aqui</h2></div><ul class="applied">'+
+      L.map(function(x){return '<li><i aria-hidden="true"></i><div><b>'+x[0]+'</b><span>'+x[1]+'</span></div></li>'}).join('')+'</ul></div></section>';
+  }
+  function modsBlock(p){
+    if(!p.mods.length)return '';
+    return '<section class="sec"><div class="wrap"><div class="sec-h"><h2>O que esta página vai mostrar</h2></div><div class="mods">'+
+      p.mods.map(function(m,i){return '<div class="mod"><span class="mod-n">0'+(i+1)+'</span><h3>'+m[0]+'</h3>'+st(m[1])+'</div>'}).join('')+'</div>'+
+      '<p class="note">Lista a partir da “maior dor” de cada frente no README do projeto.</p></div></section>';
+  }
+
+  /* ---- debêntures ---- */
+  function debTable(q){
+    var rows=D.DEBS.filter(function(d){return !q||norm([d.code,d.isin,d.issuer,d.cnpj].join(' ')).indexOf(q)>-1});
+    if(!rows.length)return '<p class="empty">Nenhuma debênture no cadastro corresponde à busca.</p>';
+    var sel=selAsset.debentures||D.DEBS[0].code, td=today();
+    return '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Ativo</th><th>Emissor</th><th>Indexador</th><th>Vencimento</th><th>VN atual</th><th>Fonte · data</th></tr></thead><tbody>'+
+    rows.map(function(d){
+      var ix=last(d.code,'indexador'),vc=last(d.code,'data_vencimento'),vn=last(d.code,'valor_nominal');
+      var old=vc&&vc.v<td?' <span class="flag">vencimento passado</span>':'';
+      return '<tr class="'+(d.code===sel?'on':'')+'"><td><button type="button" class="rowbtn" data-asset="'+d.code+'" aria-pressed="'+(d.code===sel)+'"><b>'+d.code+'</b><small>'+d.isin+'</small></button></td>'+
+      '<td>'+esc(d.issuer)+'</td><td>'+(ix?esc(ix.v):none())+'</td><td>'+(vc?fd(vc.v)+old:none())+'</td><td>'+(vn?fval(vn):none())+'</td>'+
+      '<td>'+(vn?'SND · '+fd(vn.o):'—')+'</td></tr>';
+    }).join('')+'</tbody></table></div>';
+  }
+  function debFicha(code){
+    var d=D.DEBS.filter(function(x){return x.code===code})[0]; if(!d)return '';
+    var idrows=[['Código do ativo',d.code],['ISIN',d.isin],['Emissor',esc(d.issuer)],['CNPJ do emissor',cnpj(d.cnpj)],['Emissão · série',d.emissao+' · '+d.serie],['Situação',d.status==='active'?'Ativa':d.status]];
+    var h='<div class="ficha"><div class="ficha-id"><h3>Identificação</h3><dl>'+idrows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>'}).join('')+'</dl>'+
+      '<p class="note">Fonte: cadastro do módulo (SND). O export não traz a data deste cadastro (regra D-08).</p>'+
+      '<p class="conf">'+(d.conf==='0'?'Nenhum conflito aberto entre fontes':d.conf+' conflitos abertos')+'</p></div>'+
+      '<div class="ficha-obs"><h3>Campos coletados</h3><div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Campo</th><th>Valor</th><th>Fonte</th><th>Observado em</th><th>Confiança</th></tr></thead><tbody>';
+    FORDER.forEach(function(f){
+      var o=obs(code,f);
+      if(!o.length){ if(f==='spread')h+='<tr><td>'+FLABEL[f]+'</td><td>'+none()+'</td><td>—</td><td>—</td><td>—</td></tr>'; return; }
+      o.forEach(function(x,i){
+        h+='<tr class="'+(i?'prev':'')+'"><td>'+(i?'':FLABEL[f])+'</td><td>'+fval(x)+(i?' <span class="flag flag-n">anterior</span>':'')+'</td><td>'+x.s+'</td><td>'+fd(x.o)+'</td><td>'+x.c+'</td></tr>';
+      });
+    });
+    ['PU real','PU par','Rating'].forEach(function(f){h+='<tr><td>'+f+'</td><td>'+none()+'</td><td>—</td><td>—</td><td>—</td></tr>'});
+    return h+'</tbody></table></div></div></div>';
+  }
+  function pageDebentures(){
+    var p=D.PAGES.debentures, n=D.DEBS.length, emis={};
+    D.DEBS.forEach(function(d){emis[d.cnpj]=1});
+    var sel=selAsset.debentures||D.DEBS[0].code;
+    return head('Debêntures',p.name,esc(p.full)+'. Fonte atual: SND.',p.status,p.owner,
+      [stat(n,'ativos no cadastro'),stat(Object.keys(emis).length,'emissores'),stat(D.HIST.length,'observações coletadas'),stat(fd(maxObs),'última coleta')],[['Debêntures']])+
+    '<section class="sec"><div class="wrap"><div class="sec-h"><h2>Ativos</h2>'+
+      '<label class="search search-p"><span class="sr">Buscar por empresa, código ou ISIN</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg><input id="pq" type="search" placeholder="Buscar por empresa, código ou ISIN" autocomplete="off"></label></div>'+
+      '<div id="tbl-box">'+debTable('')+'</div><p class="note">Fonte: SND, coletas de 11 e 14/09/2026. Selecione um ativo para ver a ficha.</p></div></section>'+
+    '<section class="sec"><div class="wrap"><div class="sec-h"><h2>Ficha · <span id="fk">'+sel+'</span></h2></div><div id="ficha-box">'+debFicha(sel)+'</div></div></section>'+
+    modsBlock(p)+appliedBlock()+rulesBlock(p.areas);
+  }
+
+  /* ---- CRI e CRA: dados reais (dados/indice.json e dados/fichas/NN.json, gerados por scripts/build_plataforma.py) ---- */
+  var SX=null, SXmeta=null, SXerr='', shardCache={}, secQ={cri:'',cra:''}, SECMAX=50;
+  var SITL={atendido:['Atendido','ok'],nao_atendido:['Não atendido','bad'],nao_verificado:['Não verificado','n'],nao_se_aplica:['Não se aplica','n'],outro:['Outro','n']};
+  var GSIT={presente:'prevista no Termo',negada:'negada no Termo',citada:'citada no Termo',com_limite:'com limite',sem_limite:'sem limite'};
+  var ARES={nao_instalada:'não instalada',aprovada:'aprovada',edital_ou_outro:'edital ou outro',sem_decisao_identificada:'sem decisão identificada',suspensa:'suspensa',rejeitada:'rejeitada'};
+  function loadIndex(cb){
+    if(SX||SXerr){cb();return}
+    fetch('dados/indice.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()}).then(function(j){
+      SXmeta=j.meta;
+      SX=j.ativos.map(function(a){a.qn=norm([a.c,a.i,a.s,a.d,a.n,a.e].join(' '));return a});
+      cb();
+    }).catch(function(e){SXerr='Não foi possível carregar os dados ('+e.message+').';cb()});
+  }
+  function loadShard(n,cb){
+    if(shardCache[n]){cb(shardCache[n]);return}
+    fetch('dados/fichas/'+(n<10?'0':'')+n+'.json').then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json()})
+      .then(function(j){shardCache[n]=j;cb(j)}).catch(function(){cb(null)});
+  }
+  function secMatch(tipo,q){
+    var nq=norm(q), qd=q.replace(/\D/g,'');
+    return SX.filter(function(a){
+      if(tipo&&a.t!==tipo)return false;
+      if(!q)return true;
+      if(qd.length>=8&&a.k.indexOf(qd)>-1)return true; /* CNPJ, com ou sem pontuação (raiz de 8 dígitos já basta) */
+      return a.qn.indexOf(nq)>-1;
+    });
+  }
+  function money(v){var n=Number(String(v).replace(',','.'));return v===''||v==null||isNaN(n)?none():'R$ '+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function size(b){return !b?'':b>=1048576?(b/1048576).toFixed(2)+' MB':Math.max(1,Math.round(b/1024))+' KB'}
+  function sit(s){var x=SITL[s];return x?'<span class="flag flag-'+x[1]+'">'+x[0]+'</span>':(s?esc(s):none())}
+  function dv(v){return v?esc(v):none()}
+  function secRows(tok){
+    if(SXerr)return '<p class="empty">'+esc(SXerr)+'</p>';
+    if(!SX)return '<p class="empty">Carregando os ativos…</p>';
+    var tipo=tok.toUpperCase(), q=secQ[tok]||'', m=secMatch(tipo,q), sel=selAsset[tok];
+    if(!m.length)return '<p class="empty">Nenhum '+tipo+' corresponde a “'+esc(q)+'”. A busca aceita código CETIP, ISIN, nome do devedor ou da securitizadora e CNPJ.</p>';
+    var rows=m.slice(0,SECMAX);
+    return '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Ativo</th><th>Securitizadora</th><th>Emissão · série</th><th>Devedor</th><th>Documentos</th><th>Covenants</th></tr></thead><tbody>'+
+      rows.map(function(a){
+        var cov=a.q[1]?a.q[1]+(a.q[4]?' <span class="flag flag-bad">'+a.q[4]+' não atendidos</span>':''):'—';
+        return '<tr class="'+(a.c===sel?'on':'')+'"><td><button type="button" class="rowbtn" data-sec="'+a.c+'" aria-pressed="'+(a.c===sel)+'"><b>'+a.c+'</b><small>'+(a.i||'sem ISIN')+'</small></button></td>'+
+        '<td>'+dv(a.s)+'</td><td>'+dv(a.e)+' · '+dv(a.r)+'</td><td>'+dv(a.d)+'</td><td>'+a.q[0].toLocaleString('pt-BR')+'</td><td>'+cov+'</td></tr>';
+      }).join('')+'</tbody></table></div>'+
+      '<p class="note">'+(m.length>SECMAX?'Mostrando '+SECMAX+' de '+m.length.toLocaleString('pt-BR')+' ativos. Refine a busca.':m.length.toLocaleString('pt-BR')+' ativo'+(m.length>1?'s':'')+'.')+' Selecione um ativo para ver a ficha.</p>';
+  }
+  function secFicha(f){
+    var a=f.id, inf=f.informe;
+    var idr=[['Código CETIP',a.codigo],['ISIN',a.isin||none()],['Tipo',a.tipo],['Securitizadora',dv(a.securitizadora)],['CNPJ da securitizadora',a.cnpj_securitizadora||none()],
+      ['Emissão · série',dv(a.emissao)+' · '+dv(a.serie)],['Devedor',dv(a.devedor)],['CNPJ do devedor',(a.cnpj_devedor||(a.devedores_cvm.length?a.devedores_cvm.length+' devedores no Informe':none()))+(a.cnpj_devedor_cvm?' <span class="flag flag-bad">diverge do Informe da CVM</span>':'')]]
+      .concat(a.cnpj_devedor_cvm?[['CNPJ do devedor no Informe',a.cnpj_devedor_cvm+' <span class="flag flag-bad">conflito</span>']]:[]).concat([
+      ['No catálogo',a.ativo?'Ativo':'Inativo']]);
+    var h='<div class="ficha"><div class="ficha-id"><h3>Identificação</h3><dl>'+idr.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>'}).join('')+'</dl>'+
+      '<p class="note">Fonte: cadastro do Fundos.NET.'+(a.cnpj_devedor_fonte?' CNPJ do devedor: '+esc(a.cnpj_devedor_fonte)+'.':'')+(a.cnpj_devedor_cvm_fonte?' No Informe: '+esc(a.cnpj_devedor_cvm_fonte)+'. As duas fontes ficam visíveis até a revisão (regra G-04).':'')+' CNPJ ausente aparece como falta, sem preenchimento (regra S-08).</p></div>'+
+      '<div class="ficha-obs"><h3>Informe Mensal na CVM'+(inf?' · competência '+inf.competencia:'')+'</h3>';
+    if(!inf)h+='<p class="note">Sem dado na base aberta da CVM para este ISIN.</p>';
+    else{
+      h+='<p class="note" style="margin:0 0 12px">'+dv(inf.emissora)+(inf.nome_emissao?' · '+esc(inf.nome_emissao):'')+(inf.data_emissao?' · emitida em '+fd(inf.data_emissao):'')+'</p>'+
+        '<div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Série</th><th>ISIN</th><th>Classe</th><th>Situação</th><th>Saldo</th><th>Vencimento</th><th>Taxa</th><th>Rating</th></tr></thead><tbody>'+
+        inf.series.map(function(s){return '<tr><td>'+dv(s.serie)+'</td><td class="mono">'+dv(s.isin)+'</td><td>'+dv(s.classe)+'</td><td>'+(/atraso/i.test(s.situacao)?'<span class="flag flag-bad">'+esc(s.situacao)+'</span>':dv(s.situacao))+'</td><td>'+money(s.saldo)+'</td><td>'+(s.vencimento?fd(s.vencimento):none())+'</td><td>'+dv(s.taxa)+'</td><td>'+dv(s.rating)+'</td></tr>'}).join('')+
+        '</tbody></table></div><p class="note">Fonte: dados abertos da CVM, Informe Mensal, competência '+inf.competencia+'. O valor é o informado pela securitizadora.</p>';
+    }
+    h+='</div></div>';
+    return h+modGarantias(f)+modCovenants(f)+modDocs(f)+modAtas(f);
+  }
+  function modHead(n,t,status){return '<section class="sec"><div class="sec-h"><h2><span class="mod-n">0'+n+'</span> '+t+'</h2>'+st(status)+'</div>'}
+  function modGarantias(f){
+    var g=f.garantias, h=modHead(1,'Análise de garantias',g.length?['wip','Lida no Termo, a revisar']:['idle','Sem leitura']);
+    if(!g.length)return h+'<p class="empty">Nenhuma garantia lida no Termo deste ativo: o Termo ainda não foi baixado ou ainda não tem texto (a coleta segue).</p></section>';
+    return h+'<div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Grupo</th><th>Item</th><th>Limite</th><th>Situação</th><th>Documento</th><th>Trecho</th></tr></thead><tbody>'+
+      g.map(function(x){return '<tr><td>'+dv(x.grupo)+'</td><td>'+dv(x.rotulo||x.item)+'</td><td>'+dv(x.limite)+(x.periodicidade?'<br><small>'+esc(x.periodicidade)+'</small>':'')+'</td><td>'+dv(GSIT[x.situacao]||x.situacao)+
+        (x.revisao&&x.revisao!=='aprovado'?' <span class="flag">não revisada</span>':'')+'</td><td>'+dv(x.documento)+(x.pagina?' · p. '+esc(x.pagina):'')+(x.ocr==='True'?' <span class="flag flag-n">OCR</span>':'')+'</td>'+
+        '<td>'+(x.trecho?'<details><summary>ver trecho</summary><p class="trecho">'+esc(x.trecho)+'</p></details>':none())+'</td></tr>'}).join('')+
+      '</tbody></table></div><p class="note">Fonte: Termo de Securitização, com página e trecho literal. Leitura automática, ainda sem revisão humana.</p></section>';
+  }
+  function modCovenants(f){
+    var c=f.covenants.slice().sort(function(x,y){return (x.situacao==='nao_atendido'?0:1)-(y.situacao==='nao_atendido'?0:1)}), bad=c.filter(function(x){return x.situacao==='nao_atendido'}).length;
+    var h=modHead(2,'Covenants',c.length?['ok',c.length+' itens'+(bad?', '+bad+' não atendidos':'')]:['idle','Sem apuração']);
+    if(!c.length)return h+'<p class="empty">Nenhum covenant apurado para este ativo. Hoje há relatório mensal de 6 securitizadoras (Opea, Eco, Vert, Leverage, Bari, Canal) e limites lidos no Termo.</p></section>';
+    var rows=c.slice(0,200);
+    return h+'<div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Item</th><th>Exigido</th><th>Apurado</th><th>Situação</th><th>Data da apuração</th><th>Fonte</th></tr></thead><tbody>'+
+      rows.map(function(x){return '<tr><td>'+dv(x.item)+(x.grupo&&x.grupo!==x.item?'<br><small>'+esc(x.grupo)+'</small>':'')+'</td><td>'+dv(x.exigido)+'</td><td>'+dv(x.apurado)+'</td><td>'+sit(x.situacao)+'</td>'+
+        '<td>'+(x.data?esc(x.data):'<span class="nodata">não informada</span>')+'</td><td>'+dv(x.fonte)+(x.competencia?' · '+esc(x.competencia):'')+(x.sha?'<br><small class="mono">'+x.sha+'…</small>':'')+'</td></tr>'}).join('')+
+      '</tbody></table></div><p class="note">'+(c.length>200?'Mostrando 200 de '+c.length+' itens. ':'')+'Situação como a fonte informa, sem recálculo. Item sem data: vale a competência do relatório.</p></section>';
+  }
+  function modDocs(f){
+    var cats=(SXmeta&&SXmeta.categorias)||D.CATS, total=0, by=f.docs_por_categoria;
+    Object.keys(by).forEach(function(k){total+=by[k]});
+    var h=modHead(3,'Histórico de documentos',total?['ok',total.toLocaleString('pt-BR')+' documentos']:['idle','Sem documentos']);
+    if(!total)return h+'<p class="empty">Nenhum documento catalogado no Fundos.NET para este ativo.</p></section>';
+    var extra=Object.keys(by).filter(function(k){return cats.indexOf(k)<0});
+    h+=cats.concat(extra).filter(function(c){return by[c]}).map(function(c){
+      var d=f.docs.filter(function(x){return x.cat===c});
+      var cut=c==='Informe Mensal'&&by[c]>d.length?' <span class="flag flag-n">mostrando os '+d.length+' mais recentes</span>':'';
+      return '<details class="dgrp"'+(c==='Termo de Securitização'||c==='Fato Relevante'?' open':'')+'><summary><b>'+c+'</b> <span class="dgrp-n">'+by[c].toLocaleString('pt-BR')+'</span>'+cut+'</summary>'+
+        '<div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Documento</th><th>Referência</th><th>Publicação</th><th>Arquivo</th><th>SHA-256</th></tr></thead><tbody>'+
+        d.map(function(x){
+          var stt=x.estado==='baixado'?'<span class="flag flag-ok">baixado</span>'+(x.texto?' <span class="flag flag-n">texto</span>':''):x.estado==='falhou'?'<span class="flag flag-bad">falhou no download</span>':'<span class="flag flag-n">catalogado, não baixado</span>';
+          return '<tr><td><a class="ext" target="_blank" rel="noopener" href="https://fnet.bmfbovespa.com.br/fnet/publico/downloadDocumento?id='+encodeURIComponent(x.id)+'">'+esc(x.nome||'Documento')+' · '+esc(x.id)+'</a></td>'+
+            '<td>'+(x.ref?fd(x.ref):none())+'</td><td>'+(x.pub?fd(x.pub):none())+'</td><td>'+stt+(x.fmt?'<br><small>'+x.fmt+(x.bytes?' · '+size(x.bytes):'')+'</small>':'')+'</td>'+
+            '<td class="mono">'+(x.sha?x.sha+'…':'—')+'</td></tr>'}).join('')+'</tbody></table></div></details>';
+    }).join('');
+    return h+'<p class="note">Fonte: Fundos.NET. O link abre o documento no Fundos.NET; o SHA-256 só existe para o arquivo baixado e conferido.</p></section>';
+  }
+  function modAtas(f){
+    var a=f.atas, h=modHead(4,'Leitura rápida dos documentos por agente',a.length?['wip','Resumo automático']:['idle','Sem leitura']);
+    if(!a.length)return h+'<p class="empty">Nenhuma ata ou fato relevante lido para este ativo. A leitura depende do documento baixado com texto (Fundos.NET) ou publicado no portal da securitizadora.</p></section>';
+    return h+'<p class="note" style="margin:0 0 12px">Resumo automático, confira no documento. Cada decisão traz o trecho literal da ata.</p><div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Data</th><th>Documento</th><th>Resultado</th><th>Eventos graves · assuntos</th><th>Trecho</th></tr></thead><tbody>'+
+      a.map(function(x){return '<tr><td>'+(x.data?fd(x.data):none())+'</td><td>'+(x.url?'<a class="ext" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.titulo||x.tipo||'Ata')+'</a>':dv(x.titulo||x.tipo))+'<br><small>'+dv(x.fonte||x.securitizadora)+(x.ocr==='sim'?' · lido por OCR':'')+'</small></td>'+
+        '<td>'+(x.resultado==='minuta_reuniao_futura'?'<span class="flag flag-n">minuta de reunião futura</span>':(x.resultado?esc(ARES[x.resultado]||x.resultado):'<span class="nodata">sem decisão lida</span>'))+(x.decisoes?'<br><small>'+esc(x.decisoes)+'</small>':'')+'</td>'+
+        '<td>'+(x.eventos?'<span class="flag flag-bad">'+esc(x.eventos)+'</span>'+(x.origem?'<br><small>'+esc(x.origem)+'</small>':''):x.assuntos?'<span class="flag flag-n">'+esc(x.assuntos)+'</span>':'—')+'</td>'+
+        '<td>'+(x.trecho?'<details><summary>ver trecho</summary><p class="trecho">'+esc(x.trecho)+'</p></details>':none())+'</td></tr>'}).join('')+
+      '</tbody></table></div><p class="note">Fonte: atas e fatos relevantes do Fundos.NET e atas publicadas nos portais das securitizadoras (indicada em cada linha).</p></section>';
+  }
+  function pageSec(tok){
+    var p=D.PAGES[tok], tipo=tok.toUpperCase();
+    var nT=SXmeta&&SXmeta.por_tipo?SXmeta.por_tipo[tipo]:null;
+    var h=head(tipo,p.name,esc(p.full)+'. Fontes: Fundos.NET (documentos), CVM (Informe Mensal), relatórios das securitizadoras e Termos de Securitização.',p.status,p.owner,
+      [stat(nT==null?'…':nT.toLocaleString('pt-BR'),'ativos no catálogo'),stat(SXmeta?SXmeta.totais.documentos.toLocaleString('pt-BR'):'…','documentos catalogados (CRI e CRA)'),
+       stat(SXmeta?fd(SXmeta.gerado_em):'…','dados gerados em')],[['Securitizados','securitizados'],[tipo]]);
+    h+='<section class="sec"><div class="wrap"><div class="sec-h"><h2>Ativos</h2>'+
+      '<label class="search search-p"><span class="sr">Buscar por ISIN, nome ou CNPJ</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>'+
+      '<input id="sq" type="search" placeholder="ISIN, nome ou CNPJ" autocomplete="off" value="'+esc(secQ[tok]||'')+'"></label></div>'+
+      '<div id="sec-box">'+secRows(tok)+'</div></div></section>'+
+      '<section class="sec"><div class="wrap"><div class="sec-h"><h2>Ficha · <span id="sk">'+(selAsset[tok]||'selecione um ativo')+'</span></h2></div><div id="sficha">'+
+      (selAsset[tok]?'<p class="empty">Carregando a ficha…</p>':'<p class="empty">Busque pelo ISIN, pelo nome do devedor ou da securitizadora, ou pelo CNPJ, e selecione o ativo.</p>')+'</div></div></section>';
+    return h+appliedBlock()+rulesBlock(p.areas);
+  }
+  function secShowFicha(tok,code){
+    var a=SX&&SX.filter(function(x){return x.c===code})[0], box=$('#sficha');
+    if(!box)return;
+    if(!a){box.innerHTML='<p class="empty">Ativo '+esc(code)+' não encontrado no catálogo.</p>';return}
+    $('#sk').textContent=code;
+    box.innerHTML='<p class="empty">Carregando a ficha…</p>';
+    loadShard(a.b,function(j){
+      if(curTok!==tok||selAsset[tok]!==code)return;
+      var f=j&&j[code];
+      box.innerHTML=f?secFicha(f):'<p class="empty">Não foi possível carregar a ficha de '+esc(code)+'.</p>';
+    });
+  }
+  function secInit(tok){
+    loadIndex(function(){
+      if(curTok!==tok)return;
+      var t=tok.toUpperCase(), nT=SXmeta&&SXmeta.por_tipo?SXmeta.por_tipo[t]:null, bs=document.querySelectorAll('.stats .stat b');
+      if(bs.length>=3&&SXmeta){bs[0].textContent=(nT||0).toLocaleString('pt-BR');bs[1].textContent=SXmeta.totais.documentos.toLocaleString('pt-BR');bs[2].textContent=fd(SXmeta.gerado_em)}
+      $('#sec-box').innerHTML=secRows(tok);
+      if(selAsset[tok])secShowFicha(tok,selAsset[tok]);
+    });
+  }
+  /* ---- produtos sem coleta ---- */
+  function pageEmpty(tok){
+    var p=D.PAGES[tok], famName=D.FAMS[p.fam].name;
+    var h=head(famName,p.name,esc(p.full)+'.',p.status,p.owner,[stat(0,'ativos coletados'),stat('—','última coleta')],[[famName,p.fam],[p.name]]);
+    h+='<section class="sec"><div class="wrap"><div class="sec-h"><h2>Ativos</h2></div><div class="blank"><h3 class="disp">Sem dados coletados</h3><p>'+
+      (p.fam==='fundos'?'A frente de Fundos ainda não foi iniciada, então não há fonte nem ativo cadastrado.':p.fam==='renda-fixa'?'A frente de Renda Fixa está sem responsável e sem fonte de dados definidos. Não exibimos taxas nem ativos de exemplo.':'')+
+      '</p></div></div></section>';
+    return h+modsBlock(p)+appliedBlock()+rulesBlock(p.areas);
+  }
+
+  /* ---- famílias ---- */
+  function pageFam(tok){
+    var f=D.FAMS[tok];
+    var h=head('Classe de ativo',f.name,esc(f.pain),f.status,f.owner,(tok==='securitizados'&&SXmeta?[stat(SXmeta.totais.ativos.toLocaleString('pt-BR'),'ativos (CRI e CRA)'),stat(SXmeta.totais.documentos.toLocaleString('pt-BR'),'documentos catalogados')]:[stat(f.products.length,'produtos')]),[[f.name]]);
+    h+='<section class="sec"><div class="wrap"><div class="sec-h"><h2>Produtos</h2></div><div class="prod-grid">'+f.products.map(function(t){
+      var p=D.PAGES[t];
+      return '<a class="prod" href="#" data-page="'+t+'"><div>'+st(p.status)+'</div><h3 class="disp">'+p.name+'</h3><p>'+esc(p.full)+'</p><span class="pill pill-soft">Abrir '+ARROW+'</span></a>';
+    }).join('')+'</div></div></section>';
+    return h+rulesBlock(f.areas);
+  }
+
+  /* ---- lista de regras ---- */
+  var ruleFilter='Todas';
+  function pageRules(){
+    var areas=['Todas','Geral','Debêntures','Securitizados','Renda Fixa','Fundos'];
+    return head('Planejamento','Regras de exibição a definir','Lista para definirmos juntos como cada produto deve aparecer. As páginas já aplicam o que o projeto define e marcam o que depende destas decisões.',['wip','Em aberto'],'Toda a equipe',
+      [stat(D.RULES.length,'itens em aberto'),stat(areas.length-1,'áreas')],[['Regras a definir']])+
+    '<section class="sec"><div class="wrap"><div class="chips chips-f" id="rf" role="group" aria-label="Filtrar por área">'+areas.map(function(a){return '<button type="button" class="chip2 chip2-b" data-area="'+a+'" aria-pressed="'+(a===ruleFilter)+'">'+a+'</button>'}).join('')+'</div>'+
+      '<div id="rl">'+rulesList()+'</div></div></section>';
+  }
+  function rulesList(){
+    var areas=['Geral','Debêntures','Securitizados','Renda Fixa','Fundos'];
+    return areas.filter(function(a){return ruleFilter==='Todas'||ruleFilter===a}).map(function(a){
+      return '<h2 class="rl-h">'+a+'</h2><ul class="rl">'+D.RULES.filter(function(r){return r.area===a}).map(function(r){return '<li><b>'+r.id+'</b><span>'+esc(r.text)+'</span></li>'}).join('')+'</ul>';
+    }).join('');
+  }
+
+  function openPage(tok,noHash,asset){
+    if(tok!=='home'&&!D.PAGES[tok]&&!D.FAMS[tok]&&tok!=='regras')tok='home';
+    if(asset)selAsset[tok]=asset;
+    curTok=tok;
+    if(tok==='home'){vPage.hidden=true;vHome.hidden=false;vPage.innerHTML='';document.title='Pense Além';}
+    else{
+      vHome.hidden=true;vPage.hidden=false;
+      var p=D.PAGES[tok];
+      vPage.innerHTML=tok==='regras'?pageRules():D.FAMS[tok]?pageFam(tok):tok==='debentures'?pageDebentures():p.kind==='sec'?pageSec(tok):pageEmpty(tok);
+      if(p&&p.kind==='sec')secInit(tok);
+      if(tok==='securitizados')loadIndex(function(){if(curTok===tok&&SXmeta){var b=document.querySelectorAll('.stats .stat b'),l=document.querySelectorAll('.stats .stat span, .stats .stat small');if(b.length===1){vPage.innerHTML=pageFam(tok)}}});
+      document.title=(tok==='regras'?'Regras a definir':D.FAMS[tok]?D.FAMS[tok].name:p.name)+' · Pense Além';
+    }
+    window.scrollTo(0,0);
+    if(!noHash){try{if(tok==='home'){history.replaceState(null,'',location.pathname+location.search)}else{location.hash=tok}}catch(e){}}
+  }
+  window.addEventListener('hashchange',function(){
+    var h=location.hash.replace('#','');
+    if(h===curTok)return;
+    if(D.PAGES[h]||D.FAMS[h]||h==='regras')openPage(h,true);
+    else if(curTok!=='home'&&!h)openPage('home',true);
+  });
+
+  /* interações dentro das páginas */
+  vPage.addEventListener('input',function(e){
+    if(e.target.id==='pq')$('#tbl-box').innerHTML=debTable(norm(e.target.value.trim()));
+    if(e.target.id==='sq'){secQ[curTok]=e.target.value.trim();$('#sec-box').innerHTML=secRows(curTok)}
+  });
+  vPage.addEventListener('click',function(e){
+    var sb=e.target.closest('[data-sec]');
+    if(sb&&(curTok==='cri'||curTok==='cra')){
+      selAsset[curTok]=sb.dataset.sec;
+      $('#sec-box').innerHTML=secRows(curTok);
+      secShowFicha(curTok,sb.dataset.sec);
+      var fb=$('#sficha');if(fb)fb.scrollIntoView({behavior:'smooth',block:'start'});
+      return;
+    }
+    var b=e.target.closest('[data-asset]');
+    if(b&&curTok==='debentures'){
+      selAsset.debentures=b.dataset.asset;
+      $('#tbl-box').innerHTML=debTable(norm(($('#pq')||{value:''}).value.trim()));
+      $('#fk').textContent=b.dataset.asset;
+      $('#ficha-box').innerHTML=debFicha(b.dataset.asset);
+      return;
+    }
+    var c=e.target.closest('[data-area]');
+    if(c){
+      ruleFilter=c.dataset.area;
+      $$('#rf [data-area]').forEach(function(x){x.setAttribute('aria-pressed',x===c?'true':'false')});
+      $('#rl').innerHTML=rulesList();
+    }
+  });
+
+  /* busca no topo: ISIN, nome ou CNPJ. Um resultado abre a ficha; vários abrem a lista do tipo com mais resultados */
+  var IDX=D.DEBS.map(function(d){return {tok:'debentures',code:d.code,q:norm([d.code,d.isin,d.issuer,d.cnpj].join(' '))}});
+  inputs.forEach(function(i){
+    i.addEventListener('keydown',function(e){
+      if(e.key!=='Enter')return;
+      var raw=i.value.trim(), q=norm(raw); if(!q)return;
+      i.blur();
+      loadIndex(function(){
+        var deb=IDX.filter(function(x){return x.q.indexOf(q)>-1});
+        var sec=SX?secMatch('',raw):[];
+        if(sec.length+deb.length===1){
+          if(sec.length){var t=sec[0].t.toLowerCase();secQ[t]=raw;openPage(t,false,sec[0].c)}else openPage('debentures',false,deb[0].code);
+          return;
+        }
+        if(sec.length){
+          var cri=sec.filter(function(a){return a.t==='CRI'}).length, t2=cri>=sec.length-cri?'cri':'cra';
+          secQ[t2]=raw;openPage(t2,false);
+          return;
+        }
+        if(deb.length){openPage('debentures',false);return}
+        toast('Nenhum ativo corresponde a “'+raw+'”.');
+      });
+    });
+  });
+  var h0=location.hash.replace('#','');
+  if(D.PAGES[h0]||D.FAMS[h0]||h0==='regras')openPage(h0,true);
+
+})();
+</script>

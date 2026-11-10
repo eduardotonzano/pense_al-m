@@ -13,6 +13,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -92,12 +93,21 @@ def main() -> int:
                           "extractor": extractor, "dry_run": args.dry_run}, ensure_ascii=False))
         if args.dry_run:
             return 0
-        engine = RapidOCR()
+        # OCR_THREADS limita os threads do onnxruntime por processo (vários processos em paralelo sem disputar a CPU)
+        threads = int(os.environ.get("OCR_THREADS", "-1"))
+        engine = RapidOCR(**({f"{part}_{name}": threads for part in ("det", "cls", "rec")
+                              for name in ("intra_op_num_threads", "inter_op_num_threads")} if threads > 0 else {}))
         now = datetime.now(timezone.utc).isoformat()
+        image = ROOT / "data" / f"_ocr_page_{os.getpid()}.png"  # um arquivo por processo: OCR em paralelo
+        done_pages = {row[0] for row in connection.execute(
+            "SELECT page_number FROM document_text_pages WHERE document_version_id = ? AND extractor = ?",
+            (version["version_id"], extractor))}  # retomada: página já lida pelo mesmo OCR não é refeita
         low = []
         for number in range(args.first_page, last + 1):
-            document[number - 1].get_pixmap(dpi=DPI).save(ROOT / "data" / "_ocr_page.png")
-            result, _ = engine(str(ROOT / "data" / "_ocr_page.png"))
+            if number in done_pages:
+                continue
+            document[number - 1].get_pixmap(dpi=DPI).save(image)
+            result, _ = engine(str(image))
             text, mean = lines_from_boxes(result)
             if mean < 0.85:
                 low.append({"page": number, "mean_confidence": round(mean, 3)})
@@ -109,7 +119,7 @@ def main() -> int:
                     (version["version_id"], number, text,
                      hashlib.sha256(text.encode("utf-8")).hexdigest(), extractor, now),
                 )
-        (ROOT / "data" / "_ocr_page.png").unlink(missing_ok=True)
+        image.unlink(missing_ok=True)
         print(json.dumps({"done": last - args.first_page + 1, "low_confidence_pages": low},
                          ensure_ascii=False))
     finally:

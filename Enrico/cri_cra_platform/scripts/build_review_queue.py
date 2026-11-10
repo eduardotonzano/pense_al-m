@@ -43,7 +43,7 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--database", default=str(ROOT / "data" / "cri_cra.db"))
     args = parser.parse_args()
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     catalog = load_catalog(ROOT / "config" / "contract_terms" / "standard_fields.json")
     core_ids = {f["id"] for f in catalog["fields"] if f["importance"] == "core"}

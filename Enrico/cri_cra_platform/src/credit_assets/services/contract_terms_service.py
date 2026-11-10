@@ -41,7 +41,9 @@ def extract_pdf_pages(pdf_path: Path) -> tuple[list[str], str]:
             [binary, "-layout", "-enc", "UTF-8", str(pdf_path), str(output)],
             check=True, capture_output=True,
         )
-        text = output.read_text(encoding="utf-8")
+        # alguns PDFs saem do pdftotext com byte fora de UTF-8 (fonte embutida); o caractere vira "�" em vez de
+        # derrubar a leitura de todos os documentos (rotina mensal e garantias pararam assim em 06/11/2026)
+        text = output.read_text(encoding="utf-8", errors="replace")
     pages = text.split("\f")
     if pages and not pages[-1].strip():
         pages = pages[:-1]

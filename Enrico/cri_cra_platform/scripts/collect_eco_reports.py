@@ -41,7 +41,7 @@ def fetch(url: str) -> bytes:
 def universe() -> set[str]:
     with (ROOT / "config" / "ativos_mercado.csv").open(encoding="utf-8-sig") as handle:
         codes = {row["codigo_cetip"] for row in csv.DictReader(handle)}
-    connection = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True, timeout=120)
     codes |= {row[0] for row in connection.execute("SELECT codigo_cetip FROM assets") if row[0]}
     connection.close()
     return codes

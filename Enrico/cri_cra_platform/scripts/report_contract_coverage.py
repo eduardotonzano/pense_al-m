@@ -32,7 +32,7 @@ def main() -> int:
     args = parser.parse_args()
     catalog = load_catalog(args.catalog)
     not_applicable = load_not_applicable(args.not_applicable)
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     try:
         report = coverage(connection, catalog, not_applicable)

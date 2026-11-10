@@ -25,7 +25,7 @@ def main() -> int:
     )
     args = parser.parse_args()
     config = load_checks(args.checks)
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     try:
         results = run_checks(connection, config)

@@ -30,7 +30,7 @@ def main() -> int:
     topics = load_topics(ROOT / "config" / "contract_terms" / "field_topics.json")
     field_ids = [f["id"] for f in catalog["fields"]]
     importance = {f["id"]: f["importance"] for f in catalog["fields"]}
-    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=30)
+    connection = sqlite3.connect(f"file:{args.database}?mode=ro", uri=True, timeout=120)
     connection.row_factory = sqlite3.Row
     rows = connection.execute(
         """SELECT a.codigo_cetip, a.tipo_ativo, d.source_document_id, d.category, d.document_name, v.version_id, v.local_file_path

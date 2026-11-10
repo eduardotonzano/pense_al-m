@@ -101,7 +101,7 @@ def scope() -> tuple[set[str], set[str]]:
     first = set()
     with (ROOT / "reports" / "alertas_por_ativo.csv").open(encoding="utf-8-sig") as handle:
         first |= {row["codigo_cetip"].upper() for row in csv.DictReader(handle, delimiter=";")}
-    connection = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True)
+    connection = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True, timeout=120)
     for cetip, isin in connection.execute("SELECT codigo_cetip, isin FROM assets"):
         first |= {str(cetip or "").upper(), str(isin or "").upper()}
     connection.close()

@@ -45,7 +45,7 @@ DEBTORS = """
 
 
 def main() -> int:
-    catalog = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True)
+    catalog = sqlite3.connect(f"file:{ROOT / 'data' / 'cri_cra.db'}?mode=ro", uri=True, timeout=120)
     assets = catalog.execute("SELECT codigo_cetip, upper(coalesce(isin, '')), tipo_ativo, coalesce(devedor, ''), "
                              "coalesce(cnpj_devedor, '') FROM assets WHERE codigo_cetip IS NOT NULL").fetchall()
     catalog.close()
