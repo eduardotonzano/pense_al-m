@@ -121,8 +121,14 @@ locais.
   de 2026 da CVM lidos em 23/10/2026.
 
 O `--commit` exige a migration 004, faz backup (caminho e SHA-256 impressos), grava numa
-transação e só confirma se a verificação passar. O `AssetRepository.upsert` não apaga mais o
-CNPJ gravado quando o CSV do piloto vem em branco.
+transação e só confirma se a verificação passar.
+
+No `AssetRepository.upsert`, CNPJ em branco no CSV do piloto (depois de tirar os espaços)
+mantém o gravado, na securitizadora e no devedor. Devedor preenchido e diferente substitui o
+gravado; securitizadora preenchida e diferente é conflito de identidade (`ValueError`), e nada é
+gravado nesse ativo. Por isso o CSV não limpa um CNPJ já gravado, e uma securitizadora errada só
+se corrige direto no banco: hoje nenhum comando faz isso. O resolvedor da CVM também só grava em
+campo vazio.
 
 ## Pipeline de análise dos pilotos
 
