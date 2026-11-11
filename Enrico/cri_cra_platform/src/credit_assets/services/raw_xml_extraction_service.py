@@ -13,7 +13,9 @@ import hashlib
 import sqlite3
 import uuid
 from collections import defaultdict
+from dataclasses import dataclass
 from datetime import datetime, timezone
+from enum import StrEnum
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 from typing import Any
@@ -37,26 +39,105 @@ RETENTION_POLICY = "pending_definition"
 MAX_EXCERPT = 200
 COMPETENCIA_SUFFIX = "/DadosGerais/Competencia"
 
+# Teto de bytes de um XML: o mesmo teto do download de documentos
+# (document_download_service.DEFAULT_MAX_BYTES; aquele módulo importa playwright,
+# por isso o valor não é importado). O maior XML real dos diagnósticos
+# versionados (reports/xml_diagnostics, 88 arquivos) tem 16.178 bytes.
+DEFAULT_MAX_BYTES = 25_000_000
+# Teto de profundidade, contada como no xml_diagnostics (a raiz é o nível 1).
+# Valor escolhido como teto de segurança, não medido: os 88 XMLs reais têm 5
+# níveis. Validar o leiaute é papel do mapeamento, não deste teto.
+DEFAULT_MAX_DEPTH = 100
+
+
+@dataclass(frozen=True)
+class XmlReadLimits:
+    """Tetos da leitura de um XML; cada um é parâmetro com valor padrão."""
+
+    max_bytes: int = DEFAULT_MAX_BYTES
+    max_depth: int = DEFAULT_MAX_DEPTH
+
+    def __post_init__(self) -> None:
+        for name in ("max_bytes", "max_depth"):
+            value = getattr(self, name)
+            # bool é int em Python: True e False não valem como teto.
+            if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+                raise ValueError(f"{name} precisa ser um inteiro positivo")
+
+
+# Recusas da leitura: o código fica no começo da mensagem gravada em
+# extraction_runs.error_message ("xml_recusado:<código>: <detalhe>"). Os detalhes
+# só trazem números e caminhos, nunca texto do XML.
+REFUSAL_PREFIX = "xml_recusado"
+
+
+class XmlRefusal(StrEnum):
+    TAMANHO = "tamanho"
+    CODIFICACAO = "codificacao"
+    DOCTYPE_ENTITY = "doctype_entity"
+    MAL_FORMADO = "mal_formado"
+    PROFUNDIDADE = "profundidade"
+    CONTEUDO_MISTO = "conteudo_misto"
+    PAR_REPETIDO = "par_repetido"
+
+
+REFUSAL_DETAILS: dict[XmlRefusal, str] = {
+    XmlRefusal.TAMANHO: "arquivo com {size} bytes, acima do teto de {limit} bytes",
+    XmlRefusal.CODIFICACAO: "o arquivo precisa estar em UTF-8 e declarar uma codificação conhecida",
+    XmlRefusal.DOCTYPE_ENTITY: "XML com DOCTYPE/ENTITY recusado",
+    XmlRefusal.MAL_FORMADO: "XML mal formado: {error} (linha {line}, coluna {column})",
+    XmlRefusal.PROFUNDIDADE: "mais de {limit} níveis de elementos (linha {line})",
+    XmlRefusal.CONTEUDO_MISTO: "texto junto de elementos filhos em {path} (linha {line}); esse texto se perderia",
+    XmlRefusal.PAR_REPETIDO: "{path} aparece mais de uma vez na ocorrência {index}",
+}
+
+
+class XmlRefusedError(UnsafeXmlError):
+    """XML recusado pela leitura, com código estável da lista XmlRefusal."""
+
+    def __init__(self, code: XmlRefusal, **details: Any) -> None:
+        self.code = XmlRefusal(code)
+        super().__init__(f"{REFUSAL_PREFIX}:{self.code.value}: {REFUSAL_DETAILS[self.code].format(**details)}")
+
 
 def mapping_root(mapping: dict[str, Any]) -> str:
     """Raiz do leiaute (InformeMensalCRA, InformeMensalCRI); CRA quando o mapeamento não declara."""
     return "/" + mapping.get("root", "InformeMensalCRA")
 
 
-def walk_values(data: bytes) -> list[dict[str, Any]]:
+def walk_values(
+    data: bytes, *, limits: XmlReadLimits = XmlReadLimits()
+) -> list[dict[str, Any]]:
     """Lista folhas e atributos com caminho, ocorrência, linha e texto literal.
 
     ``chain`` guarda o índice de ocorrência de cada ancestral, para ligar
-    valores ao bloco repetido a que pertencem.
+    valores ao bloco repetido a que pertencem. Levanta ``XmlRefusedError``, com
+    um código de ``XmlRefusal``, para arquivo acima de ``limits.max_bytes``, fora
+    de UTF-8, com DOCTYPE/ENTITY, mal formado, mais fundo que
+    ``limits.max_depth``, com texto junto de elementos filhos (que se perderia)
+    ou com o mesmo par (caminho, ocorrência) duas vezes.
     """
+    if len(data) > limits.max_bytes:
+        raise XmlRefusedError(XmlRefusal.TAMANHO, size=len(data), limit=limits.max_bytes)
+    # U+0000 nunca é permitido em XML: byte nulo indica UTF-16 ou UTF-32.
+    if b"\x00" in data:
+        raise XmlRefusedError(XmlRefusal.CODIFICACAO)
+    try:
+        data.decode("utf-8")
+    except UnicodeDecodeError:
+        raise XmlRefusedError(XmlRefusal.CODIFICACAO) from None
     if _FORBIDDEN.search(data):
-        raise UnsafeXmlError("XML com DOCTYPE/ENTITY recusado")
+        raise XmlRefusedError(XmlRefusal.DOCTYPE_ENTITY)
     parser = expat.ParserCreate(namespace_separator=" ")
     stack: list[dict[str, Any]] = []
     counters: dict[str, int] = defaultdict(int)
     values: list[dict[str, Any]] = []
 
     def start(name, attributes):
+        if len(stack) + 1 > limits.max_depth:
+            raise XmlRefusedError(
+                XmlRefusal.PROFUNDIDADE, limit=limits.max_depth, line=parser.CurrentLineNumber
+            )
         tag = name.split(" ")[-1]
         parent = stack[-1] if stack else None
         path = (parent["path"] if parent else "") + "/" + tag
@@ -84,6 +165,10 @@ def walk_values(data: bytes) -> list[dict[str, Any]]:
 
     def end(_name):
         node = stack.pop()
+        if node["has_children"] and "".join(node["chunks"]).strip(" \t\r\n"):
+            raise XmlRefusedError(
+                XmlRefusal.CONTEUDO_MISTO, path=node["path"], line=node["line"]
+            )
         if not node["has_children"]:
             values.append({
                 "xml_path": node["path"],
@@ -101,7 +186,24 @@ def walk_values(data: bytes) -> list[dict[str, Any]]:
     parser.StartElementHandler = start
     parser.EndElementHandler = end
     parser.CharacterDataHandler = text
-    parser.Parse(data, True)
+    try:
+        parser.Parse(data, True)
+    except expat.ExpatError as error:
+        raise XmlRefusedError(
+            XmlRefusal.MAL_FORMADO,
+            error=expat.ErrorString(error.code),
+            line=error.lineno,
+            column=error.offset,
+        ) from None
+    except LookupError:
+        # Codificação declarada desconhecida; o nome declarado não vai para a mensagem.
+        raise XmlRefusedError(XmlRefusal.CODIFICACAO) from None
+    seen: set[tuple[str, int]] = set()
+    for value in values:
+        key = (value["xml_path"], value["instance_index"])
+        if key in seen:
+            raise XmlRefusedError(XmlRefusal.PAR_REPETIDO, path=key[0], index=key[1])
+        seen.add(key)
     return values
 
 
@@ -213,9 +315,16 @@ def totals_consistency(values, mapping=None) -> list[dict[str, Any]]:
 
 
 class RawXmlExtractionService:
-    def __init__(self, connection: sqlite3.Connection, project_root: str | Path):
+    def __init__(
+        self,
+        connection: sqlite3.Connection,
+        project_root: str | Path,
+        *,
+        limits: XmlReadLimits = XmlReadLimits(),
+    ):
         self.connection = connection
         self.project_root = Path(project_root).resolve()
+        self.limits = limits
 
     def extract_version(
         self, document_version_id: int, mapping: dict[str, Any]
@@ -249,10 +358,17 @@ class RawXmlExtractionService:
                 ),
             )
         try:
-            data = (self.project_root / version["local_file_path"]).read_bytes()
+            file_path = self.project_root / version["local_file_path"]
+            # O tamanho é conferido antes de ler: arquivo acima do teto nem entra na memória.
+            size = file_path.stat().st_size
+            if size > self.limits.max_bytes:
+                raise XmlRefusedError(
+                    XmlRefusal.TAMANHO, size=size, limit=self.limits.max_bytes
+                )
+            data = file_path.read_bytes()
             if hashlib.sha256(data).hexdigest() != version["file_hash"]:
                 raise ValueError("hash do arquivo diverge de document_versions")
-            values = walk_values(data)
+            values = walk_values(data, limits=self.limits)
             lines = data.decode("utf-8").splitlines()
             findings = []
             scale_finding = None
@@ -306,6 +422,11 @@ class RawXmlExtractionService:
                     (datetime.now(timezone.utc).isoformat(), unmapped, run_id),
                 )
         except Exception as error:
+            # Recusa da leitura: a mensagem começa pelo código estável (xml_recusado:...).
+            message = (
+                str(error) if isinstance(error, XmlRefusedError)
+                else f"{type(error).__name__}: {error}"
+            )
             with self.connection:
                 self.connection.execute(
                     """UPDATE extraction_runs
@@ -313,7 +434,7 @@ class RawXmlExtractionService:
                        WHERE extraction_run_id = ?""",
                     (
                         datetime.now(timezone.utc).isoformat(),
-                        f"{type(error).__name__}: {error}"[:500],
+                        message[:500],
                         run_id,
                     ),
                 )

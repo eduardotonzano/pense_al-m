@@ -12,11 +12,23 @@ from credit_assets.database.connection import connect, initialize_database
 from credit_assets.services.raw_xml_extraction_service import (
     EXTRACTOR_VERSION,
     RawXmlExtractionService,
+    XmlReadLimits,
 )
 from credit_assets.xml_diagnostics import load_mapping
 
 
+def positive_int(text: str) -> int:
+    try:
+        value = int(text)
+    except ValueError:
+        raise argparse.ArgumentTypeError("precisa ser um inteiro positivo") from None
+    if value <= 0:
+        raise argparse.ArgumentTypeError("precisa ser um inteiro positivo")
+    return value
+
+
 def main() -> int:
+    defaults = XmlReadLimits()
     parser = argparse.ArgumentParser()
     parser.add_argument("--cetip", required=True)
     parser.add_argument("--isin", required=True)
@@ -29,7 +41,16 @@ def main() -> int:
         "--reprocess", action="store_true",
         help="cria nova extraction_run mesmo se já houver uma bem-sucedida",
     )
+    parser.add_argument(
+        "--max-bytes", type=positive_int, default=defaults.max_bytes,
+        help=f"teto de bytes de cada XML (padrão {defaults.max_bytes})",
+    )
+    parser.add_argument(
+        "--max-depth", type=positive_int, default=defaults.max_depth,
+        help=f"teto de níveis de elementos, com a raiz no nível 1 (padrão {defaults.max_depth})",
+    )
     args = parser.parse_args()
+    limits = XmlReadLimits(max_bytes=args.max_bytes, max_depth=args.max_depth)
     mapping = load_mapping(args.mapping)
     connection = connect(ROOT / "data" / "cri_cra.db")
     initialize_database(connection)
@@ -45,7 +66,7 @@ def main() -> int:
                ORDER BY CAST(d.source_document_id AS INTEGER)""",
             (args.cetip, args.isin, args.category),
         ).fetchall()
-        service = RawXmlExtractionService(connection, ROOT)
+        service = RawXmlExtractionService(connection, ROOT, limits=limits)
         summary = {"extracted": 0, "skipped": 0, "failed": 0, "runs": []}
         for version in versions:
             already = connection.execute(
