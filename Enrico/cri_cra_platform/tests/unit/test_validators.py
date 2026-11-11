@@ -51,6 +51,27 @@ def test_is_valid_cnpj_rejects_bad_check_digits_length_cpf_and_letter_in_check_d
     assert not is_valid_cnpj(value)
     assert normalize_cnpj(value) is None
 
+# Valor sem letra so aceita digitos, ponto, barra, hifen e espaco: outro simbolo
+# reprova o valor inteiro, nao e descartado como separador. Todos vem de
+# 02.773.542/0001-22, que e valido.
+STRAY_SYMBOLS = [
+    "02,773,542/0001-22",
+    "02.773.542/0001_22",
+    "02.773.542/0001-22;",
+    "(02.773.542/0001-22)",
+    "02:773:542/0001-22",
+    "02.773.542\\0001-22",
+    "02.773.542/0001-22!",
+    "+02.773.542/0001-22",
+    "02.773.542/0001-2,2",
+]
+
+@pytest.mark.parametrize("value", STRAY_SYMBOLS)
+def test_stray_symbols_are_refused_not_discarded(value):
+    assert only_digits(value) == "02773542000122"
+    assert normalize_cnpj(value) is None
+    assert not is_valid_cnpj(value)
+
 def test_is_valid_cnpj_rejects_none():
     assert not is_valid_cnpj(None)
     assert normalize_cnpj(None) is None
