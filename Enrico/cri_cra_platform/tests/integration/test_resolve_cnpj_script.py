@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import csv
 import importlib.util
 import json
 import sqlite3
@@ -33,17 +32,18 @@ from tests.cvm_fixtures import (
     write_cvm_zip,
     write_eco_zip,
 )
+from tests.ativos_piloto import pilot_rows, typed_cnpjs
 from tests.cnpj_amostras import CNPJ_ALFA_1, com_mascara
 
 PROJECT_DIR = Path(__file__).resolve().parents[2]
 SCRIPT_PATH = PROJECT_DIR / "scripts" / "resolve_cnpj.py"
-PILOT_CSV = PROJECT_DIR / "config" / "ativos_piloto.csv"
 OTHER_ISSUER = "12.130.744/0001-00"
 ALMEIDA_ROW = "24G2100031"
 ECO_ROW = "CRA022009VM"
-# Alibem: entrou no ativos_piloto.csv com a securitizadora digitada; os ZIPs de
-# teste da CVM nao trazem esse ativo, entao o resolvedor nao grava nada nele.
-ALIBEM_ROW = "CRA02500C1D"
+# Os ZIPs de teste da CVM (make_cvm_dir) so cobrem estes dois ativos do piloto; um ZIP
+# novo que cubra outro ativo entra aqui. Os outros (hoje o Alibem) ficam como o CSV os
+# traz: sem informe, o resolvedor nao grava nada neles.
+CVM_COVERED = {ALMEIDA_ROW, ECO_ROW}
 
 
 def load_script():
@@ -59,24 +59,32 @@ def script():
 
 
 def pilot_assets() -> list[Asset]:
-    """Os dois ativos do ativos_piloto.csv como o run_foundation.py os carrega."""
+    """Os ativos com ativo=true do ativos_piloto.csv, como o run_foundation.py os carrega."""
 
-    with PILOT_CSV.open(encoding="utf-8-sig", newline="") as source:
-        return [
-            Asset(
-                codigo_cetip=row["codigo_cetip"],
-                tipo_ativo=row["tipo_ativo"],
-                securitizadora=row["securitizadora"],
-                cnpj_securitizadora=row["cnpj_securitizadora"],
-                emissao=row["emissao"],
-                serie=row["serie"],
-                devedor=row.get("devedor", ""),
-                cnpj_devedor=row.get("cnpj_devedor", ""),
-                isin=row.get("isin", ""),
-            )
-            for row in csv.DictReader(source)
-            if row["ativo"].lower() == "true"
-        ]
+    return [
+        Asset(
+            codigo_cetip=row["codigo_cetip"],
+            tipo_ativo=row["tipo_ativo"],
+            securitizadora=row["securitizadora"],
+            cnpj_securitizadora=row["cnpj_securitizadora"],
+            emissao=row["emissao"],
+            serie=row["serie"],
+            devedor=row.get("devedor", ""),
+            cnpj_devedor=row.get("cnpj_devedor", ""),
+            isin=row.get("isin", ""),
+        )
+        for row in pilot_rows()
+    ]
+
+
+def uncovered_cnpjs() -> dict[str, tuple]:
+    """CNPJ esperados dos ativos do piloto fora dos ZIPs de teste: os do CSV."""
+
+    return {
+        row["codigo_cetip"]: typed_cnpjs(row)
+        for row in pilot_rows()
+        if row["codigo_cetip"] not in CVM_COVERED
+    }
 
 
 def make_database(tmp_path: Path, *, with_migration_004: bool = True) -> Path:
@@ -350,7 +358,7 @@ def test_commit_with_the_real_rows_applies_the_securitizadora_and_keeps_the_deve
     assert cnpjs(path) == {
         ALMEIDA_ROW: (OPEA, None),
         ECO_ROW: (ECO, CAFE_DEVEDOR_IN_CSV),
-        ALIBEM_ROW: (ECO, None),
+        **uncovered_cnpjs(),
     }
     assert found[(ALMEIDA_ROW, "cnpj_securitizadora")] == (
         "applied", "02773542000122", "2025-01-01", "2026-08-01", 20, "2026-09-28",
@@ -399,7 +407,7 @@ def test_apply_devedor_writes_the_devedor_but_still_never_overwrites_an_existing
     assert cnpjs(path) == {
         ALMEIDA_ROW: (OPEA, "82.120.676/0001-83"),
         ECO_ROW: (ECO, CAFE_DEVEDOR_IN_CSV),
-        ALIBEM_ROW: (ECO, None),
+        **uncovered_cnpjs(),
     }
     assert found[(ALMEIDA_ROW, "cnpj_devedor")][0] == "applied"
     assert query(
@@ -479,12 +487,16 @@ def test_every_value_written_by_the_resolver_has_source_period_and_read_time(
         "SELECT source_id, reference_first, reference_last, observed_at FROM asset_cnpj_provenance",
     )
 
-    # Sem fonte registrada: o devedor digitado a mao do Cafe (a CVM discorda dele)
-    # e a securitizadora do Alibem, digitada no CSV e ausente dos ZIPs de teste.
-    assert sorted(unsourced) == [
-        (ECO_ROW, "cnpj_devedor"),
-        (ALIBEM_ROW, "cnpj_securitizadora"),
+    # Sem fonte registrada: o devedor digitado a mao do Cafe (a CVM discorda dele) e os
+    # CNPJ digitados no CSV dos ativos ausentes dos ZIPs de teste (hoje a securitizadora
+    # do Alibem).
+    typed = [
+        (code, field)
+        for code, values in uncovered_cnpjs().items()
+        for field, value in zip(("cnpj_securitizadora", "cnpj_devedor"), values)
+        if value
     ]
+    assert sorted(unsourced) == sorted([(ECO_ROW, "cnpj_devedor"), *typed])
     assert len(sourced) == 3 and all(all(value for value in row) for row in sourced)
 
 

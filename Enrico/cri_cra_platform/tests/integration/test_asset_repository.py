@@ -11,6 +11,7 @@ import pytest
 from credit_assets.database.connection import connect, initialize_database
 from credit_assets.models.asset import Asset
 from credit_assets.repositories.asset_repository import AssetRepository
+from tests.ativos_piloto import pilot_rows, typed_cnpjs
 
 
 def make_asset(
@@ -269,11 +270,17 @@ def test_foundation_rerun_keeps_a_cnpj_written_after_the_first_run(tmp_path):
         "FROM assets ORDER BY codigo_cetip"
     ).fetchall()
     connection.close()
-    assert rows == [
+    named = [
         ("24G2100031", "02.773.542/0001-22", None),
         ("CRA022009VM", "10.753.164/0001-43", "01.486.546/0001-67"),
-        ("CRA02500C1D", "10.753.164/0001-43", None),
     ]
+    # Os outros ativos do piloto ficam como o CSV os traz.
+    others = [
+        (row["codigo_cetip"], *typed_cnpjs(row))
+        for row in pilot_rows()
+        if row["codigo_cetip"] not in {code for code, *_ in named}
+    ]
+    assert rows == sorted(named + others)
 
 
 def test_foundation_runs_reuse_assets_without_duplicates(tmp_path):
