@@ -9,6 +9,7 @@ from types import SimpleNamespace
 from credit_assets.collectors.fundosnet_collector import FundosNetCollector
 from credit_assets.database.backup import file_sha256
 from credit_assets.database.connection import connect, initialize_database
+from credit_assets.database.migrations import discover_migrations
 
 
 PROJECT = Path(__file__).parents[2]
@@ -179,7 +180,9 @@ def test_main_reports_pending_migrations_without_a_traceback(tmp_path, capsys):
     ])
     error = capsys.readouterr().err
 
+    versions = ", ".join(format(item.version, "03d") for item in discover_migrations())
     assert code == 1
+    assert f"migrations pendentes ({versions})" in error
     assert "migrations pendentes (001" in error
     assert "apply_migration.py" in error
     assert "Traceback" not in error

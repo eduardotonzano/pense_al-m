@@ -38,7 +38,11 @@ Proposta, até o Fábio aprovar no pull request. A decisão de aceitar o CNPJ al
   - feito (pull request do código): `SndParser.normalize_cnpj`, em `Eduardo/debenture-replica/src/debenture_search/parsers/snd_parser.py`, devolvia "sem CNPJ" (`None`) quando não havia 14 dígitos. Agora devolve o CNPJ no formato 12 + 2 sem conferir o DV; com DV inválido, o repositório recusa e aquele documento falha no lote, sem parar os outros;
   - como o Fundos, as debêntures têm utilitário próprio (`Eduardo/debenture-replica/src/debenture_search/cnpj.py`), porque o pacote não depende da camada. A regra e os vetores de teste são os mesmos;
   - a migration 003 precisa estar aplicada no banco antes do código.
-- **CRI/CRA precisa adotar a regra** quando integrar com a camada.
+- **CRI/CRA adotou a regra**, em dois pull requests à parte:
+  - feito (PR #39): exposição por devedor, Termo, fichas, diagnóstico de XML e `AssetRepository`, com cópia local da regra em `Enrico/cri_cra_platform/src/credit_assets/cnpj.py`;
+  - feito (PR #8): `utils/validators.py` usa essa cópia, e o resolvedor de CNPJ (`services/cnpj_resolution.py`) passa por ele; o CHECK de `asset_cnpj_observations.cnpj` (migration `004_asset_cnpj_observations.sql`) aceita 12 caracteres em [0-9A-Z] e 2 dígitos, sem conferir o DV no banco;
+  - como o Fundos e as debêntures, o CRI/CRA tem utilitário próprio, porque o módulo não depende da camada; a paridade com a camada é conferida em `tests/unit/test_cnpj.py` (`test_local_rule_matches_shared_layer` e `test_local_rule_matches_shared_layer_on_random_strings`);
+  - a migration 004 precisa estar aplicada no banco antes do código.
 
 ## Fora do escopo
 
