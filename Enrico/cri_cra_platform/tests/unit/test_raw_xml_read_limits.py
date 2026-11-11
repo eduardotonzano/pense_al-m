@@ -147,8 +147,14 @@ def test_the_default_byte_ceiling_is_the_document_download_ceiling():
         b"<R><A>1</A>entre<B>2</B></R>",
         b"<R><A>1</A><![CDATA[x]]></R>",
         "<R> <A>1</A></R>".encode(),
+        b"<R>\n  <A>1</A>\n  resto\n</R>",
+        b"<R>\n  <A>1</A>\n  meio\n  <B>2</B>\n</R>",
+        b"<R>\n  solto\n  <A>1</A>\n</R>",
     ],
-    ids=["antes", "depois", "entre", "cdata", "espaco-nao-quebravel"],
+    ids=[
+        "antes", "depois", "entre", "cdata", "espaco-nao-quebravel",
+        "indentado-depois", "indentado-entre", "indentado-antes",
+    ],
 )
 def test_text_next_to_child_elements_is_refused_because_it_would_be_lost(data):
     error = assert_refused(data, XmlRefusal.CONTEUDO_MISTO)
