@@ -1,6 +1,6 @@
 # ADR-012: Prestadores de serviço de fundos e relação "investe em" na camada compartilhada
 
-**Status:** Proposta (rascunho de 12/11/2026, revisado após os comentários do Fábio (13:16 e 13:28); confirmado pelo Gui em 12/11/2026, 13:31; passa a Aceita quando o Fábio mudar o status; não implementada)
+**Status:** Aceita em 12/11/2026 (rascunho de 12/11/2026, revisado após os comentários do Fábio (13:16 e 13:28); confirmado pelo Gui em 12/11/2026, 13:31; aceita pelo Eduardo, que conduz o projeto; não implementada)
 **Autores:** Eduardo e Claude, a partir do levantamento da FU7.1 e das inclinações do Fábio (12/11/2026, 13:00)
 **Decide:** Fábio (camada compartilhada), com o Gui (frente de Fundos)
 **Relacionados:** ADR-002 (relações), ADR-005 (matching), ADR-007 a 009 (adaptador de debêntures), ADR-011 (CNPJ alfanumérico), levantamento da FU7.1 (documento do projeto, fora do repositório)
@@ -28,7 +28,7 @@ A frente de Fundos (Gui) precisa ligar fundos às instituições que os administ
 **Por quê (evidência).** Um CNPJ é uma entidade com um tipo; os números acima mostram que tipo por papel não representa os dados.
 
 **Acréscimos nossos.**
-- Nome do novo `RelationshipType`: `CUSTODIED_BY` é o exemplo do Fábio; confirmar o nome final.
+- Nome do novo `RelationshipType`: `CUSTODIED_BY` é o exemplo do Fábio; nome confirmado pelo Gui (13:31).
 - `PROVIDES_SERVICES_TO` deixa de ser usado para administração e custódia em Fundos (cada serviço tem relação própria). Sugestão: não usar a relação genérica para fundos até haver outro serviço a registrar.
 - Auditor e controlador (36 e 29 CNPJs na medição) não entram neste ADR; ficam fora até o Gui dizer se a camada precisa deles.
 
@@ -36,11 +36,11 @@ A frente de Fundos (Gui) precisa ligar fundos às instituições que os administ
 
 **Inclinação do Fábio.** Nunca atualizar o tipo de entidade já existente. Prestadores de serviço de fundo usam o tipo neutro.
 
-**Acréscimos nossos (ponto aberto, precisa do Fábio).**
+**Acréscimos nossos (respondido pelo Fábio e pelo Gui).**
 - **Conflito com a gestora (sem a proposta de tipo abaixo).** O Fábio quer `MANAGES` com a gestora como origem, "como hoje", e o pacote do Gui cria a gestora como `ASSET_MANAGER`. Mas 46 das 99 administradoras também são gestoras, e 18 gestoras também são custodiantes. Para esses CNPJs, o tipo que fica na entidade depende de qual importação rodou primeiro (`ASSET_MANAGER` se a gestora entrou antes; `FINANCIAL_INSTITUTION` se entrou antes como administradora). A mesma coisa vale para um CNPJ que já exista como `COMPANY` pelo adaptador de debêntures.
 - **Decidido pelo Fábio (13:16):** aceita a dependência da ordem, com as duas regras abaixo; ordem fixa dentro do adaptador não vale o custo. Regras: (a) o `entity_type` de um prestador é informativo e nenhum leitor pode deduzir papel dele (o papel vem só das relações); (b) o adaptador de fundos, ao achar o CNPJ já cadastrado, reutiliza a entidade e não altera o tipo. 
 - **Tipo que o adaptador de fundos dá quando ele mesmo cria a entidade (proposta do Fábio, 13:16):** `FINANCIAL_INSTITUTION` para os três papéis (gestora, administradora e custodiante), não `ASSET_MANAGER` para a gestora. Com isso a dependência da ordem se reduz ao caso do adaptador de debêntures (que cria como `COMPANY`). **Muda dois pontos do pacote do Gui (FU7.2, item 1):** a gestora deixa de ser criada como `ASSET_MANAGER`, e a lista de relações (hoje `MANAGES`, `ADMINISTERED_BY`, `PROVIDES_SERVICES_TO` e "investe em") passa a trazer `CUSTODIED_BY` no lugar de `PROVIDES_SERVICES_TO` (D1). **Gui confirmou em 12/11/2026, 13:31** (a FU7.2 não foi começada, então a troca não desfaz nada); o pacote foi ajustado. `MANAGES` continua com a gestora como origem.
-- **Revisão ou casamento direto.** Hoje o CNPJ já existente em outro tipo é casado direto, sem revisão. O prompt da FU7.2 do pacote do Gui dizia o contrário ("vai para revisão"); foi corrigido em 12/11/2026. Se o Fábio quiser revisão nesse caso, é mudança de comportamento do #11 e fica fora deste ADR.
+- **Revisão ou casamento direto.** Hoje o CNPJ já existente em outro tipo é casado direto, sem revisão. O prompt da FU7.2 do pacote do Gui dizia o contrário ("vai para revisão"); foi corrigido em 12/11/2026. Se o Fábio quiser revisão nesse caso, é mudança de comportamento do #11 e fica fora deste ADR (decisão futura).
 - **Gatilho de medição:** quando o cadastro real de emissores de debêntures existir, refazer a contagem de CNPJs que são ao mesmo tempo emissor e prestador/fundo e informar o Fábio (pedido dele, 12/11/2026). Hoje o resultado é zero, mas sem valor como evidência.
 
 ### D3. Direção das relações
@@ -69,8 +69,8 @@ A frente de Fundos (Gui) precisa ligar fundos às instituições que os administ
 
 ## 3. Fora do escopo deste ADR
 
-- **D5 (gestora pessoa física), D6 (classe como entidade), D7 (mapa de situação) e D9 ("investe em" derivado):** decisão do Gui, com o Fábio avisado. A proposta de trabalho para D5 é não criar entidade e só contar no relatório do adaptador (sem CPF, o único identificador possível seria o nome, que nunca une).
-- **D8 (CNPJ alfanumérico):** o Fábio aprovou o ADR-011 e vai mudar o status para Aceita. A regra da camada é a referência; `fundos.cnpj` do Gui continua mais estrito de propósito.
+- **D5 (gestora pessoa física), D6 (classe como entidade), D7 (mapa de situação) e D9 ("investe em" derivado):** decisão tomada à parte do ADR-012. A proposta de trabalho para D5 é não criar entidade e só contar no relatório do adaptador (sem CPF, o único identificador possível seria o nome, que nunca une).
+- **D8 (CNPJ alfanumérico):** o Fábio aprovou o ADR-011. A regra da camada é a referência; `fundos.cnpj` do Gui continua mais estrito de propósito.
 
 ## 4. Migração
 
@@ -92,4 +92,4 @@ Nenhuma migration de schema: os três enums são texto sem `CHECK`. O que existe
 4. D4: regra de reabertura de acordo, com o uuid5 da chave e a regra de fechamento escritas acima. A condição de leitura completa para fechar: de acordo (13:28), com a definição acima. O relatório do `--dry-run` do adaptador deve dizer quantas relações seriam fechadas e quantas reabertas antes de qualquer `--commit` (fica na FU7.2, não neste ADR).
 5. Auditor e controlador ficam fora. Sim.
 
-**Próximo passo:** Fábio e Gui confirmaram; o Fábio muda o status para Aceita. O Gui decide D5, D6, D7 e D9 (esta última na FU6.1). Detalhe de como verificar "leitura completa" (proposta do Gui: comparar as linhas lidas com as do manifesto em `raw_records`, além do status em `collection_runs`; se divergirem, não fecha nada e reporta) e o relatório do `--dry-run` com relações a fechar e a reabrir ficam na FU7.2, não neste ADR.
+**Próximo passo:** D5, D6, D7 e D9 ficam para decisão à parte. Detalhe de como verificar "leitura completa" (proposta do Gui: comparar as linhas lidas com as do manifesto em `raw_records`, além do status em `collection_runs`; se divergirem, não fecha nada e reporta) e o relatório do `--dry-run` com relações a fechar e a reabrir ficam na FU7.2, não neste ADR.
