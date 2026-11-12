@@ -762,12 +762,12 @@ button,input{font:inherit;color:inherit}
     var h='<div class="ficha"><div class="ficha-id"><h3>Identificação</h3><dl>'+idr.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+r[1]+'</dd>'}).join('')+'</dl>'+
       '<p class="note">Fonte: cadastro do Fundos.NET.'+(a.cnpj_devedor_fonte?' CNPJ do devedor: '+esc(a.cnpj_devedor_fonte)+'.':'')+(a.cnpj_devedor_cvm_fonte?' No Informe: '+esc(a.cnpj_devedor_cvm_fonte)+'. As duas fontes ficam visíveis até a revisão (regra G-04).':'')+' CNPJ ausente aparece como falta, sem preenchimento (regra S-08).</p></div>'+
       '<div class="ficha-obs"><h3>Informe Mensal na CVM'+(inf?' · competência '+inf.competencia:'')+'</h3>';
-    if(!inf)h+='<p class="note">Sem dado na base aberta da CVM para este ISIN.</p>';
+    if(!inf)h+='<p class="note">'+(f.informe_aviso?esc(f.informe_aviso):'Sem dado na base aberta da CVM para este ISIN.')+'</p>';
     else{
       h+='<p class="note" style="margin:0 0 12px">'+dv(inf.emissora)+(inf.nome_emissao?' · '+esc(inf.nome_emissao):'')+(inf.data_emissao?' · emitida em '+fd(inf.data_emissao):'')+'</p>'+
-        '<div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Série</th><th>ISIN</th><th>Classe</th><th>Situação</th><th>Saldo</th><th>Vencimento</th><th>Taxa</th><th>Rating</th></tr></thead><tbody>'+
-        inf.series.map(function(s){return '<tr><td>'+dv(s.serie)+'</td><td class="mono">'+dv(s.isin)+'</td><td>'+dv(s.classe)+'</td><td>'+(/atraso/i.test(s.situacao)?'<span class="flag flag-bad">'+esc(s.situacao)+'</span>':dv(s.situacao))+'</td><td>'+money(s.saldo)+'</td><td>'+(s.vencimento?fd(s.vencimento):none())+'</td><td>'+dv(s.taxa)+'</td><td>'+dv(s.rating)+'</td></tr>'}).join('')+
-        '</tbody></table></div><p class="note">Fonte: dados abertos da CVM, Informe Mensal, competência '+inf.competencia+'. O valor é o informado pela securitizadora.</p>';
+        '<div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Série</th><th>ISIN</th><th>Classe</th><th>Situação</th><th>Valor informado</th><th>Qtd. certificados</th><th>Integralizado</th><th>Vencimento</th><th>Taxa</th><th>Rating</th></tr></thead><tbody>'+
+        inf.series.map(function(s){return '<tr'+(s.propria?' class="on"':'')+'><td>'+dv(s.serie)+(s.propria?' <small>(este ativo)</small>':'')+'</td><td class="mono">'+dv(s.isin)+'</td><td>'+dv(s.classe)+'</td><td>'+(/atraso/i.test(s.situacao)?'<span class="flag flag-bad">'+esc(s.situacao)+'</span>':dv(s.situacao))+'</td><td>'+money(s.saldo)+'</td><td>'+(s.qtd?Number(s.qtd).toLocaleString('pt-BR'):none())+'</td><td>'+money(s.integralizado)+'</td><td>'+(s.vencimento?fd(s.vencimento):none())+'</td><td>'+dv(s.taxa)+'</td><td>'+dv(s.rating)+'</td></tr>'}).join('')+
+        '</tbody></table></div><p class="note">Fonte: dados abertos da CVM, Informe Mensal, competência '+inf.competencia+'. O valor é o informado pela securitizadora: em algumas é o valor unitário do certificado (PU), em outras o saldo total; compare com a quantidade e o total integralizado.'+(f.informe_aviso?' <b>'+esc(f.informe_aviso)+'</b>':'')+'</p>';
     }
     h+='</div></div>';
     return h+modGarantias(f)+modCovenants(f)+modDocs(f)+modAtas(f);
@@ -783,12 +783,12 @@ button,input{font:inherit;color:inherit}
       '</tbody></table></div><p class="note">Fonte: Termo de Securitização, com página e trecho literal. Leitura automática, ainda sem revisão humana.</p></section>';
   }
   function modCovenants(f){
-    var c=f.covenants.slice().sort(function(x,y){return (x.situacao==='nao_atendido'?0:1)-(y.situacao==='nao_atendido'?0:1)}), bad=c.filter(function(x){return x.situacao==='nao_atendido'}).length;
-    var h=modHead(2,'Covenants',c.length?['ok',c.length+' itens'+(bad?', '+bad+' não atendidos':'')]:['idle','Sem apuração']);
+    var c=f.covenants.slice().sort(function(x,y){return (x.situacao==='nao_atendido'?0:1)-(y.situacao==='nao_atendido'?0:1)}), bad=c.filter(function(x){return x.grupo==='covenant'&&x.situacao==='nao_atendido'}).length, nc=c.filter(function(x){return x.grupo==='covenant'}).length;
+    var h=modHead(2,'Covenants',c.length?[nc?'ok':'wip',c.length+' itens'+(nc?' ('+nc+' covenants)':'')+(bad?', '+bad+' não atendidos':'')]:['idle','Sem apuração']);
     if(!c.length)return h+'<p class="empty">Nenhum covenant apurado para este ativo. Hoje há relatório mensal de 6 securitizadoras (Opea, Eco, Vert, Leverage, Bari, Canal) e limites lidos no Termo.</p></section>';
     var rows=c.slice(0,200);
     return h+'<div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Item</th><th>Exigido</th><th>Apurado</th><th>Situação</th><th>Data da apuração</th><th>Fonte</th></tr></thead><tbody>'+
-      rows.map(function(x){return '<tr><td>'+dv(x.item)+(x.grupo&&x.grupo!==x.item?'<br><small>'+esc(x.grupo)+'</small>':'')+'</td><td>'+dv(x.exigido)+'</td><td>'+dv(x.apurado)+'</td><td>'+sit(x.situacao)+'</td>'+
+      rows.map(function(x){return '<tr><td>'+dv(x.item)+(x.grupo&&x.grupo!==x.item?'<br><small>'+esc(x.grupo)+'</small>':'')+'</td><td>'+dv(x.exigido)+'</td><td>'+dv(x.apurado)+'</td><td>'+sit(x.situacao)+(x.alerta?'<br><span class="flag flag-bad" title="'+esc(x.alerta)+'">revisar na fonte</span>':'')+'</td>'+
         '<td>'+(x.data?esc(x.data):'<span class="nodata">não informada</span>')+'</td><td>'+dv(x.fonte)+(x.competencia?' · '+esc(x.competencia):'')+(x.sha?'<br><small class="mono">'+x.sha+'…</small>':'')+'</td></tr>'}).join('')+
       '</tbody></table></div><p class="note">'+(c.length>200?'Mostrando 200 de '+c.length+' itens. ':'')+'Situação como a fonte informa, sem recálculo. Item sem data: vale a competência do relatório.</p></section>';
   }
@@ -814,8 +814,8 @@ button,input{font:inherit;color:inherit}
   function modAtas(f){
     var a=f.atas, h=modHead(4,'Leitura rápida dos documentos por agente',a.length?['wip','Resumo automático']:['idle','Sem leitura']);
     if(!a.length)return h+'<p class="empty">Nenhuma ata ou fato relevante lido para este ativo. A leitura depende do documento baixado com texto (Fundos.NET) ou publicado no portal da securitizadora.</p></section>';
-    return h+'<p class="note" style="margin:0 0 12px">Resumo automático, confira no documento. Cada decisão traz o trecho literal da ata.</p><div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Data</th><th>Documento</th><th>Resultado</th><th>Eventos graves · assuntos</th><th>Trecho</th></tr></thead><tbody>'+
-      a.map(function(x){return '<tr><td>'+(x.data?fd(x.data):none())+'</td><td>'+(x.url?'<a class="ext" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.titulo||x.tipo||'Ata')+'</a>':dv(x.titulo||x.tipo))+'<br><small>'+dv(x.fonte||x.securitizadora)+(x.ocr==='sim'?' · lido por OCR':'')+'</small></td>'+
+    return h+'<p class="note" style="margin:0 0 12px">Resumo automático, <b>sem revisão humana</b>: na conferência por amostra, o resultado lido errou em cerca de 1 de cada 5 atas (por exemplo, ata suspensa lida como aprovada). Confira sempre no documento. A data é a da publicação, não a da assembleia.</p><div class="tbl-wrap"><table class="tbl tbl-s"><thead><tr><th>Publicada em</th><th>Documento</th><th>Resultado</th><th>Eventos graves · assuntos</th><th>Trecho</th></tr></thead><tbody>'+
+      a.map(function(x){return '<tr><td>'+((x.publicado||x.data)?fd(x.publicado||x.data):none())+'</td><td>'+(x.url?'<a class="ext" target="_blank" rel="noopener" href="'+esc(x.url)+'">'+esc(x.titulo||x.tipo||'Ata')+'</a>':dv(x.titulo||x.tipo))+'<br><small>'+dv(x.fonte||x.securitizadora)+(x.ocr==='sim'?' · lido por OCR':'')+'</small></td>'+
         '<td>'+(x.resultado==='minuta_reuniao_futura'?'<span class="flag flag-n">minuta de reunião futura</span>':(x.resultado?esc(ARES[x.resultado]||x.resultado):'<span class="nodata">sem decisão lida</span>'))+(x.decisoes?'<br><small>'+esc(x.decisoes)+'</small>':'')+'</td>'+
         '<td>'+(x.eventos?'<span class="flag flag-bad">'+esc(x.eventos)+'</span>'+(x.origem?'<br><small>'+esc(x.origem)+'</small>':''):x.assuntos?'<span class="flag flag-n">'+esc(x.assuntos)+'</span>':'—')+'</td>'+
         '<td>'+(x.trecho?'<details><summary>ver trecho</summary><p class="trecho">'+esc(x.trecho)+'</p></details>':none())+'</td></tr>'}).join('')+

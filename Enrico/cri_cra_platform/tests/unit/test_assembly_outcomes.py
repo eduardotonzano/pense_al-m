@@ -105,3 +105,14 @@ def test_suspension_of_effects_is_not_declared_acceleration():
                "pela decretação de vencimento antecipado em valor igual ou superior a R$ 5.000.000,00, ficando a sustação "
                "sujeita à condição resolutiva.")
     assert events(text) == ["vencimento_antecipado_efeitos_sustados"]
+
+
+def test_waiver_of_mandatory_redemption_is_not_a_redemption_decision():
+    text = ("ATA DA ASSEMBLEIA. ORDEM DO DIA: deliberar sobre a renúncia prévia (waiver). DELIBERAÇÕES: i) Os Titulares "
+            "dos CRA, representativos de 26,07% dos CRA em Circulação, aprovaram a renúncia prévia (waiver), de modo que "
+            "não sejam instaurados os efeitos do vencimento antecipado das Debêntures, e, consequentemente, a obrigação de "
+            "resgate antecipado obrigatório dos CRA, em caso de não atingimento do índice financeiro.")
+    events = [d.event for d in decide(text).decisions]
+    assert "waiver_aprovado" in events and "resgate_amortizacao_aprovado" not in events
+    redemption = "ATA. ORDEM DO DIA: resgate. DELIBERAÇÕES: Os Titulares aprovaram o resgate antecipado total dos CRA."
+    assert "resgate_amortizacao_aprovado" in [d.event for d in decide(redemption).decisions]

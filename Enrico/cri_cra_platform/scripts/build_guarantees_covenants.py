@@ -11,6 +11,8 @@ from __future__ import annotations
 
 import argparse
 import csv
+import json
+import re
 import sqlite3
 import sys
 from collections import Counter, defaultdict
@@ -21,6 +23,40 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from credit_assets.guarantees_covenants import COVENANT_TYPES, EXTRACTOR, GUARANTEE_TYPES, as_rows, extract
 from credit_assets.services.contract_terms_service import document_pages
+
+# anexo do agente fiduciário com as outras emissões dele: as garantias da tabela são de outros ativos
+OTHER_CODES = re.compile(r"\b(?:CR[AI]\d{3}[0-9A-Z]{5}|\d{2}[A-L]\d{7})\b")
+OTHER_CODES_LIMIT = 3
+
+
+STATUS_COLUMN = re.compile(r"\b(?:In)?adimplent", re.IGNORECASE)  # coluna "situação" da tabela, mesmo com o código cortado
+
+
+def other_emissions_page(text: str, cetip: str) -> bool:
+    return (len({code for code in OTHER_CODES.findall(text) if code != cetip}) >= OTHER_CODES_LIMIT
+            or len(STATUS_COLUMN.findall(text)) >= OTHER_CODES_LIMIT)
+
+
+# anexo do Termo com as emissões em que o agente fiduciário já atuou (Res. CVM 17, art. 6º, § 2º): vai do título
+# até o anexo seguinte, e as garantias e índices dele são de outros ativos (ex.: CRA02400AHV, p. 115 a 258)
+ANNEX_HEADING = re.compile(r"(?m)^\s*ANEXO\s+[IVXL\d]+\b")
+ANNEX_OTHER = re.compile(
+    r"(?m)^\s*ANEXO\s+[IVXL\d]+\b[\s\S]{0,300}?(?:OUTRAS\s+EMISS|EMISS[ÕO]ES\s+DO\s+AGENTE|RELA[ÇC][ÃA]O\s+DE\s+EMISS"
+    r"|OPERA[ÇC][ÕO]ES\s+(?:DO\s+)?AGENTE\s+FIDUCI|RESOLU[ÇC][ÃA]O\s+CVM\s+(?:N[ºo°.]*\s*)?17\b)", re.IGNORECASE)
+TABLE_OF_CONTENTS = re.compile(r"\.{8,}")
+
+
+def pages_outside_other_emissions_annex(doc_pages):
+    inside = False
+    for number, text, ocr in doc_pages:
+        head = text[:1200]
+        if ANNEX_OTHER.search(head) and not TABLE_OF_CONTENTS.search(text[:3000]):
+            inside = True
+        elif inside and ANNEX_HEADING.search(head):
+            inside = False
+        if not inside:
+            yield number, text, ocr
+
 
 FIELDS = ["codigo_cetip", "tipo", "grupo", "item", "rotulo", "situacao", "operador", "limite", "unidade", "periodicidade",
           "valores_no_trecho", "documento", "pagina", "ocr", "trecho", "extrator", "revisao"]
@@ -45,9 +81,22 @@ def main() -> int:
             continue
         docs[(row["codigo_cetip"], row["tipo_ativo"])].append(row)
 
+    # ponto de retomada: cada ativo lido é gravado; se o computador reiniciar, a próxima execução continua de onde parou
+    checkpoint = ROOT / "logs" / f"garantias_ckpt_{EXTRACTOR}.jsonl"
+    done = {}
+    if checkpoint.exists() and not args.only:
+        for line in checkpoint.read_text(encoding="utf-8").splitlines():
+            try:
+                entry = json.loads(line)
+                done[entry["cetip"]] = entry["rows"]
+            except (ValueError, KeyError):
+                pass  # linha cortada pelo reinício
     rows = []
     unreadable = []  # documento que não se lê (ex.: saída do pdftotext fora de UTF-8) é pulado e listado, sem parar os outros
     for (cetip, kind), items in docs.items():
+        if cetip in done:
+            rows.extend(done[cetip])
+            continue
         pages = []
         for doc in items:
             path = ROOT / doc["local_file_path"] if doc["local_file_path"] else None
@@ -56,9 +105,15 @@ def main() -> int:
             except Exception as error:  # falha operacional na leitura (pdftotext, arquivo, codificação)
                 unreadable.append(f"{cetip} {doc['source_document_id']}: {type(error).__name__}")
                 continue
-            for number, text, ocr in doc_pages:
+            for number, text, ocr in pages_outside_other_emissions_annex(doc_pages):
+                if other_emissions_page(text, cetip):
+                    continue
                 pages.append((str(doc["source_document_id"]), number, text, ocr))
-        rows.extend(as_rows(cetip, kind, extract(pages)))
+        asset_rows = as_rows(cetip, kind, extract(pages))
+        rows.extend(asset_rows)
+        if not args.only:
+            with checkpoint.open("a", encoding="utf-8") as handle:
+                handle.write(json.dumps({"cetip": cetip, "rows": asset_rows}, ensure_ascii=False) + "\n")
     connection.close()
 
     out = ROOT / "reports" / "garantias_covenants.csv"

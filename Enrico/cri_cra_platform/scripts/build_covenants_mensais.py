@@ -99,7 +99,7 @@ def main() -> int:
         if int(r.get("acompanhamento_aderencia_itens") or 0):
             bad = int(r.get("acompanhamento_aderencia_nao_aderentes") or 0)
             items.append(("covenant", "Critérios de elegibilidade da carteira (aderência ao Termo)",
-                          f"{bad} não aderente(s) de {r['acompanhamento_aderencia_itens']}", "nao_atendido" if bad else "atendido"))
+                          f"{bad} não aderente(s) de {r['acompanhamento_aderencia_itens']}", ""))  # sem dedução: a fonte não diz se isso é descumprimento
         for cetip in codes(r.get("cetips", "")):
             for group, item, value, status in items:
                 add(cetip, fonte="Eco (relatório de acompanhamento)", competencia=r.get("acompanhamento_competencia", ""),

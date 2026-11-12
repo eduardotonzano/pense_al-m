@@ -48,7 +48,106 @@ def digits(value: str | None) -> str:
 
 def cnpj_or_blank(value: str | None) -> str:
     kind, number = classify_identifier(value or "")
-    return format_cnpj(number) if kind == "cnpj" and number else ""
+    if kind != "cnpj" or not number or looks_like_cpf_padded(number):
+        return ""
+    return format_cnpj(number)
+
+
+CPF_FORMATTED = re.compile(r"(?<!\d)\d{3}\.\d{3}\.\d{3}-\d{2}(?!\d)")
+CPF_CONTEXT = re.compile(r"(CPF(?:/MF|/ME)?[^0-9]{0,40})(\d{11})(?!\d)", re.IGNORECASE)
+NOT_A_RATING = {"0", "n/a", "na", "-", "não há", "nao ha", "não há classificação", "nao ha classificacao", "sem rating"}
+
+
+def cpf_valid(number: str) -> bool:
+    if len(number) != 11 or len(set(number)) == 1:
+        return False
+    for size in (9, 10):
+        total = sum(int(d) * (size + 1 - i) for i, d in enumerate(number[:size]))
+        if total * 10 % 11 % 10 != int(number[size]):
+            return False
+    return True
+
+
+def mask_cpf(text: str | None) -> str:
+    """CPF nunca sai na plataforma: o número vira [CPF omitido] (formatado, ou 11 dígitos depois da palavra CPF)."""
+    text = CPF_FORMATTED.sub("[CPF omitido]", text or "")
+    return CPF_CONTEXT.sub(lambda m: m.group(1) + "[CPF omitido]", text)
+
+
+def looks_like_cpf_padded(cnpj_digits: str) -> bool:
+    """CPF com zeros à esquerda que passou por CNPJ: 000 + CPF válido (o CNPJ legítimo 00.000.000/0001-91 não entra)."""
+    return (len(cnpj_digits) == 14 and cnpj_digits.startswith("000") and not cnpj_digits[3:].startswith("0000")
+            and cpf_valid(cnpj_digits[3:]))
+
+
+def sort_date(value: str | None) -> str:
+    """Data como texto ordenável (AAAA-MM-DD): o Informe vem em MM/AAAA, os demais em DD/MM/AAAA."""
+    value = (value or "").strip()
+    if re.fullmatch(r"\d{2}/\d{4}", value):
+        return f"{value[3:]}-{value[:2]}-01"
+    if re.fullmatch(r"\d{2}/\d{2}/\d{4}", value):
+        return f"{value[6:]}-{value[3:5]}-{value[:2]}"
+    return value[:10]
+
+
+def plausible_date(value: str | None) -> str:
+    """Data de publicação com ano absurdo (ex.: 2205, erro de digitação do portal) sai vazia."""
+    value = (value or "").strip()
+    year = value[:4]
+    return value if year.isdigit() and 2000 <= int(year) <= datetime.now(timezone.utc).year + 1 else ""
+
+
+def clean_rating(value: str | None) -> str:
+    value = (value or "").strip()
+    return "" if value.lower() in NOT_A_RATING else value
+
+
+NUMBER = re.compile(r"\d{1,3}(?:\.\d{3})+(?:,\d+)?|\d+(?:[.,]\d+)?")
+
+
+def _number(text: str) -> float | None:
+    found = NUMBER.search(text or "")
+    if not found:
+        return None
+    token = found.group(0)
+    token = token.replace(".", "").replace(",", ".") if "," in token or token.count(".") > 1 or re.search(r"\.\d{3}$", token) else token
+    try:
+        return float(token)
+    except ValueError:
+        return None
+
+
+def _unit(text: str) -> str:
+    text = text or ""
+    if "R$" in text:
+        return "R$"
+    if "%" in text:
+        return "%"
+    if re.search(r"\dx\b|\bvezes\b", text, re.IGNORECASE):
+        return "x"
+    return ""
+
+
+def coherence_alert(required: str, measured: str, status: str) -> str:
+    """Aviso quando o apurado contradiz a situação ou não é comparável ao exigido (a plataforma só repassa a fonte)."""
+    ex, ap = _number(required), _number(measured)
+    if ex is None or ap is None or status not in ("atendido", "nao_atendido"):
+        return ""
+    ue, ua = _unit(required), _unit(measured)
+    if ue and ua and ue != ua:
+        return f"exigido em {ue} e apurado em {ua}: não comparáveis, confira na fonte"
+    if ue != ua:
+        return ""
+    low = required.lower()
+    if re.search(r"m[ií]nim|>=|maior ou igual|superior", low):
+        ok = ap >= ex
+    elif re.search(r"m[aá]xim|<=|inferior|menor", low):
+        ok = ap <= ex
+    else:
+        return ""
+    if ok != (status == "atendido"):
+        return "a situação informada contradiz o valor apurado frente ao exigido: confira na fonte"
+    return ""
 
 
 def read_csv(name: str) -> list[dict[str, str]]:
@@ -131,7 +230,8 @@ def main() -> int:
         kind = (a["tipo_ativo"] or "").upper()
         # devedor: cadastro do catálogo; senão o CNPJ informado no Informe Mensal (um único devedor por ativo)
         debtor_rows = debtor_cvm.get(cetip, [])
-        debtor_cnpjs = sorted({r["cnpj_devedor"] for r in debtor_rows if r["cnpj_devedor"]})
+        debtor_cnpjs = sorted({r["cnpj_devedor"] for r in debtor_rows
+                               if r["cnpj_devedor"] and not looks_like_cpf_padded(digits(r["cnpj_devedor"]))})
         devedor_cnpj, devedor_fonte = cnpj_or_blank(a["cnpj_devedor"]), "cadastro do catálogo (Fundos.NET)"
         if not devedor_cnpj and len(debtor_cnpjs) == 1:
             r = debtor_rows[0]
@@ -147,32 +247,53 @@ def main() -> int:
                               f"(versão {debtor_rows[0]['versao']})")
             totals["conflito_cnpj_devedor"] += 1
 
-        em = None
+        em, own, informe_aviso = None, None, ""
         if a["isin"] and kind in ("CRI", "CRA"):
             try:
                 em = emission(cvm, kind.lower(), a["isin"])
+                if em:
+                    own = cvm.execute(
+                        f"SELECT * FROM {kind.lower()}_classe_vigente WHERE Codigo_ISIN = ? "
+                        "ORDER BY Data_Referencia DESC LIMIT 1", (a["isin"],)).fetchone()
             except sqlite3.Error:
+                em, own = None, None
+            # o catálogo e a CVM precisam concordar no par ISIN x código CETIP; se não, o Informe não é exibido
+            if em and own is not None and (own["Codigo_CETIP"] or "").strip().upper() not in ("", cetip):
+                informe_aviso = (f"A CVM associa o ISIN {a['isin']} ao código CETIP {(own['Codigo_CETIP'] or '').strip()}, "
+                                 f"diferente do catálogo ({cetip}). O Informe não é exibido para não mostrar outra série.")
                 em = None
         informe = None
         if em:
             geral = em["geral"]
+            own_isin = a["isin"]
+            series_rows = list(em["series"])
+            competence = em["last"] or ""
+            if not any((x.get("Codigo_ISIN") or "") == own_isin for x in series_rows) and own is not None:
+                # a série deste ativo parou de reportar antes da última competência da emissão: mostra a própria
+                series_rows, competence = [dict(own)], own["Data_Referencia"] or ""
+                informe_aviso = (f"A série deste ativo não consta no Informe de {(em['last'] or '')[:7]}; "
+                                 f"exibida a última competência dela ({competence[:7]}).")
             informe = {
-                "competencia": (em["last"] or "")[:7], "emissora": geral.get("Companhia_Emissora") or "",
+                "competencia": competence[:7], "emissora": geral.get("Companhia_Emissora") or "",
                 "nome_emissao": geral.get("Nome_Emissao") or "", "data_emissao": em["data_emissao"],
-                "series": [{"serie": str(s.get("Numero_Serie") or ""), "isin": s.get("Codigo_ISIN") or "",
-                            "classe": s.get("Classe") or "", "situacao": s.get("Situacao") or "",
-                            "saldo": s.get("Valor_Certificados") or "", "vencimento": (s.get("Data_Vencimento") or "")[:10],
-                            "taxa": s.get("Taxa_Juros") or "", "rating": s.get("Classificacao_Risco_Atual") or ""}
-                           for s in sorted(em["series"], key=lambda s: str(s.get("Numero_Serie")))],
+                "series": [{"serie": str(x.get("Numero_Serie") or ""), "isin": x.get("Codigo_ISIN") or "",
+                            "classe": x.get("Classe") or "", "situacao": x.get("Situacao") or "",
+                            "saldo": x.get("Valor_Certificados") or "", "qtd": x.get("Quantidade_Certificados") or "",
+                            "integralizado": x.get("Total_Integralizado") or "",
+                            "vencimento": (x.get("Data_Vencimento") or "")[:10],
+                            "taxa": x.get("Taxa_Juros") or "",
+                            "rating": clean_rating(x.get("Classificacao_Risco_Atual")),
+                            "propria": (x.get("Codigo_ISIN") or "") == own_isin}
+                           for x in sorted(series_rows, key=lambda x: str(x.get("Numero_Serie")))],
             }
 
         docs = documents.get(a["asset_id"], [])
         by_cat = Counter(d["category"] or "Outro" for d in docs)
         informes = sorted((d for d in docs if d["category"] == "Informe Mensal"),
-                          key=lambda d: d["reference_date"] or "", reverse=True)[:LAST_INFORMES]
+                          key=lambda d: sort_date(d["reference_date"]), reverse=True)[:LAST_INFORMES]
         shown = [d for d in docs if d["category"] != "Informe Mensal"] + informes
         doc_rows = []
-        for d in sorted(shown, key=lambda d: (d["reference_date"] or d["publication_date"] or ""), reverse=True):
+        for d in sorted(shown, key=lambda d: sort_date(d["reference_date"] or d["publication_date"]), reverse=True):
             downloaded = d["validation_status"] == "valid"
             state = "baixado" if downloaded else ("falhou" if d["download_status"] == "failed" else "catalogado")
             doc_rows.append({"id": d["source_document_id"], "cat": d["category"] or "Outro",
@@ -183,17 +304,18 @@ def main() -> int:
 
         cov_rows = [{"fonte": r["fonte"], "competencia": r["competencia"], "grupo": r["grupo"], "item": r["item"],
                      "exigido": r["exigido"], "apurado": r["apurado"], "situacao": r["situacao"],
-                     "data": r["data_verificacao"], "documento": r["documento"], "sha": short_sha(r["sha256"])}
+                     "data": r["data_verificacao"], "documento": r["documento"], "sha": short_sha(r["sha256"]),
+                     "alerta": coherence_alert(r["exigido"], r["apurado"], r["situacao"])}
                     for r in covenants.get(cetip, [])]
         gar_rows = [{"grupo": r["grupo"], "item": r["item"], "rotulo": r["rotulo"], "situacao": r["situacao"],
-                     "limite": " ".join(x for x in (r["operador"], r["limite"], r["unidade"]) if x),
+                     "limite": " ".join(x for x in (r["operador"], r["limite"].replace(".", ","), r["unidade"]) if x),
                      "periodicidade": r["periodicidade"], "documento": r["documento"], "pagina": r["pagina"],
-                     "ocr": r["ocr"], "trecho": (r["trecho"] or "")[:600], "revisao": r["revisao"]}
+                     "ocr": r["ocr"], "trecho": mask_cpf((r["trecho"] or "")[:600]), "revisao": r["revisao"]}
                     for r in guarantees.get(cetip, [])]
-        ata_rows = [{"data": r["data_evento"] or r["publicado_em"], "publicado": r["publicado_em"], "tipo": r["tipo"],
-                     "titulo": r["titulo"], "resultado": r["resultado"], "decisoes": r["decisoes"],
+        ata_rows = [{"data": r["data_evento"] or r["publicado_em"], "publicado": plausible_date(r["publicado_em"]), "tipo": r["tipo"],
+                     "titulo": mask_cpf(r["titulo"]), "resultado": r["resultado"], "decisoes": r["decisoes"],
                      "eventos": r["eventos_graves"], "origem": r["origem_eventos"], "assuntos": r.get("assuntos", ""),
-                     "trecho": (r["trecho_decisao"] or r["trecho"] or "")[:500], "ocr": r["ocr"], "url": r["url"],
+                     "trecho": mask_cpf((r["trecho_decisao"] or r["trecho"] or "")[:500]), "ocr": r["ocr"], "url": r["url"],
                      "sha": short_sha(r["sha256"]), "securitizadora": r["securitizadora"], "fonte": r["fonte"]}
                     for r in sorted(atas.get(cetip, []), key=lambda r: r["publicado_em"] or "", reverse=True)]
 
@@ -205,8 +327,8 @@ def main() -> int:
             "e": a["emissao"] or "", "r": a["serie"] or "", "d": a["devedor"] or "",
             "n": names, "k": " ".join(sorted({digits(a["cnpj_securitizadora"]), digits(devedor_cnpj),
                                               *(digits(x) for x in debtor_cnpjs)} - {""})),
-            "b": shard_of(cetip), "q": [len(docs), len(cov_rows), len(gar_rows), len(ata_rows),
-                                         sum(1 for r in cov_rows if r["situacao"] == "nao_atendido")],
+            "b": shard_of(cetip), "q": [len(docs), sum(1 for r in cov_rows if r["grupo"] == "covenant"), len(gar_rows), len(ata_rows),
+                                         sum(1 for r in cov_rows if r["grupo"] == "covenant" and r["situacao"] == "nao_atendido")],
             "a": 1 if a["active"] else 0,
         })
         fichas[shard_of(cetip)][cetip] = {
@@ -216,13 +338,13 @@ def main() -> int:
                    "cnpj_devedor_fonte": devedor_fonte if (devedor_cnpj or debtor_cnpjs) else "",
                    "cnpj_devedor_cvm": cnpj_cvm, "cnpj_devedor_cvm_fonte": cnpj_cvm_fonte,
                    "devedores_cvm": debtor_cnpjs if len(debtor_cnpjs) > 1 else [], "ativo": bool(a["active"])},
-            "informe": informe, "docs_por_categoria": dict(by_cat), "docs": doc_rows,
+            "informe": informe, "informe_aviso": informe_aviso, "docs_por_categoria": dict(by_cat), "docs": doc_rows,
             "docs_informe_total": by_cat.get("Informe Mensal", 0), "covenants": cov_rows, "garantias": gar_rows,
             "atas": ata_rows,
         }
         totals["ativos"] += 1
         totals["documentos"] += len(docs)
-        totals["com_covenants"] += bool(cov_rows)
+        totals["com_covenants"] += any(r["grupo"] == "covenant" for r in cov_rows)
         totals["com_garantias"] += bool(gar_rows)
         totals["com_atas"] += bool(ata_rows)
         totals["com_cnpj_devedor"] += bool(devedor_cnpj)

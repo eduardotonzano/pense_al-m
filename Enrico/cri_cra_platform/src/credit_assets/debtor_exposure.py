@@ -48,6 +48,8 @@ def classify_identifier(value: str | None) -> tuple[str, str | None]:
     digits = re.sub(r"\D", "", value or "")
     if not digits or (len(digits) <= 2 and set(digits) <= {"0", "1"}) or len(set(digits)) == 1:
         return "nao_informado", None  # vazio, "0", "NA", "00000000000000", "99.999.999/9999-99"
+    if len(digits) == 11 and _is_cpf(digits):
+        return "cpf", None  # CPF válido não vira CNPJ por completar zeros à esquerda
     cnpj = normalize_cnpj(digits)
     if cnpj:
         return "cnpj", cnpj

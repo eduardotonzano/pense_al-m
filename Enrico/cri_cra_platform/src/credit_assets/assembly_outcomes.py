@@ -92,6 +92,7 @@ TOPICS = {
                                        r"individualizacaod[eo]s?(?:seu)?(?:direito|credito)|pedidodefalencia|falenciad"),
     "uso_fundo_reserva": re.compile(r"(?:utiliza\w{0,4}|uso|recomposicao|liberacao)(?:d[eoa]s?)?(?:recursosd[oa])?(?:fundo(?:s)?dereserva|fundodedespesas)"),
 }
+WAIVED_CONSEQUENCE = re.compile(r"(?:obrigacao|obrigatoriedade|dever)(?:d[eoa]s?)?(?:realizar|realizacaod[eoa])?(?:o|a)?$")
 WINDOW = 260
 # "atos necessários para a implementação das matérias constantes da ordem do dia" é autorização padrão, não aprovação em bloco
 BOILERPLATE_ALL = re.compile(r"(?:implementacao|efetivacao|execucao|formalizacao|cumprimento)(?:e\w{0,14})?d[ao]?s?$")
@@ -156,10 +157,18 @@ def _topics(text: str, approved: bool, head: int | None = None) -> list[str]:
     elif positive and not _negated(text, positive.start()):
         events.append("vencimento_antecipado_declarado" if approved else "vencimento_antecipado_nao_declarado")
     start = text[:head] if head else text
+    waived = TOPICS["waiver"].search(start)
     for topic, pattern in TOPICS.items():
-        found = pattern.search(start)
-        if found and not _negated(start, found.start()):
+        for found in pattern.finditer(start):
+            if _negated(start, found.start()):
+                continue
+            # waiver "para que não sejam instaurados ... a obrigação de resgate antecipado": o resgate é o efeito
+            # dispensado, não uma decisão de resgatar (CRA025008NB, AGT de 29/10/2026)
+            if (topic == "resgate_amortizacao" and waived
+                    and WAIVED_CONSEQUENCE.search(start[max(0, found.start() - 40):found.start()])):
+                continue
             events.append(_event(topic, approved))
+            break
     return events
 
 
