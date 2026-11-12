@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposta, até o Fábio aprovar no pull request. A decisão de aceitar o CNPJ alfanumérico é do Fábio, dono da camada compartilhada, de 05/11/2026.
+Aceita em 12/11/2026. A decisão de aceitar o CNPJ alfanumérico é do Fábio, dono da camada compartilhada, de 05/11/2026, aprovada por ele em 12/11/2026.
 
 ## Contexto
 
