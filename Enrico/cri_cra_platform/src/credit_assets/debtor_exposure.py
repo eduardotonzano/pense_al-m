@@ -2,9 +2,10 @@
 
 A tabela ``*_cedente_devedor`` do Informe traz, por certificado, o CNPJ dos devedores (e cedentes) que
 representam mais de 20% dos créditos e o percentual. Aqui:
-  - o CNPJ é normalizado (só dígitos) e validado pelos dígitos verificadores; o que não é CNPJ fica de fora e é
-    contado por motivo: não informado (vazio, "0", "NA"), CPF de pessoa física (contado, nunca exibido) ou inválido;
-    CNPJ com 12 ou 13 dígitos que perdeu os zeros à esquerda só é aceito se os dígitos verificadores baterem;
+  - o CNPJ, numérico ou alfanumérico (IN RFB 2.229/2024, regra em credit_assets.cnpj), é normalizado e validado
+    pelos dígitos verificadores; o que não é CNPJ fica de fora e é contado por motivo: não informado (vazio, "0",
+    "NA"), CPF de pessoa física (contado, nunca exibido) ou inválido; CNPJ numérico com 12 ou 13 dígitos que perdeu
+    os zeros à esquerda só é aceito se os dígitos verificadores baterem e se o valor não tiver letra;
   - a exposição estimada é percentual × saldo dos certificados da emissão no mês;
   - "contágio" = devedor com alguma emissão em atraso e outra emissão ainda adimplente.
 CNPJ é o identificador forte (regra 6 do projeto): nada é unido por nome.
@@ -16,19 +17,36 @@ from collections import defaultdict
 from decimal import Decimal, InvalidOperation
 from typing import Any, Iterable
 
+from credit_assets import cnpj as cnpj_rule
+
+
+def _has_letter(text: str) -> bool:
+    return any(character.isalpha() for character in text)
+
+
+def _rule(value: str) -> str | None:
+    try:
+        return cnpj_rule.normalize_cnpj(value)
+    except ValueError:
+        return None
+
 
 def normalize_cnpj(value: str | None) -> str | None:
-    digits = re.sub(r"\D", "", value or "")
-    if len(digits) != 14 or len(set(digits)) == 1:
-        return None
-    def check(base: str) -> str:
-        weights = [6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2][-len(base):]
-        total = sum(int(d) * w for d, w in zip(base, weights))
-        rest = total % 11
-        return "0" if rest < 2 else str(11 - rest)
-    first = check(digits[:12])
-    second = check(digits[:12] + first)
-    return digits if digits[12:] == first + second else None
+    """CNPJ canônico de 14 caracteres (numérico ou alfanumérico, em maiúsculas) ou None.
+
+    Valor sem letra: como antes, só os dígitos, e eles passam pela regra de credit_assets.cnpj.
+    Valor com letra: primeiro a regra inteira (tira só ponto, barra e hífen; maiúsculas; DV); senão, se sobram
+    exatamente 14 dígitos ASCII (ex.: "CNPJ 01.486.546/0001-67"), esses 14 pela mesma regra. Um CNPJ alfanumérico
+    tem no máximo 13 dígitos, então esses 14 nunca vêm só dele. Nunca completa zeros."""
+
+    text = value if isinstance(value, str) else ""
+    if not _has_letter(text):
+        return _rule(re.sub(r"\D", "", text))
+    canonical = _rule(text)
+    if canonical:
+        return canonical
+    digits = re.sub(r"[^0-9]", "", text)
+    return _rule(digits) if len(digits) == 14 else None
 
 
 def _is_cpf(digits: str) -> bool:
@@ -42,17 +60,25 @@ def _is_cpf(digits: str) -> bool:
 
 
 def classify_identifier(value: str | None) -> tuple[str, str | None]:
-    """Identificador de devedor do Informe: ("cnpj" | "cnpj_sem_zeros", dígitos), ("cpf", None),
-    ("nao_informado", None) ou ("invalido", None). CPF não é devolvido: não sai em relatório."""
+    """Identificador de devedor do Informe: ("cnpj" | "cnpj_sem_zeros", CNPJ canônico), ("cpf", None),
+    ("nao_informado", None) ou ("invalido", None). CPF não é devolvido: não sai em relatório.
 
-    digits = re.sub(r"\D", "", value or "")
-    if not digits or (len(digits) <= 2 and set(digits) <= {"0", "1"}) or len(set(digits)) == 1:
-        return "nao_informado", None  # vazio, "0", "NA", "00000000000000", "99.999.999/9999-99"
-    if len(digits) == 11 and _is_cpf(digits):
+    Valor com letra só pode ser "cnpj" (ver normalize_cnpj), "nao_informado" ou "invalido": nunca completa zeros
+    nem vira CPF, porque tirar as letras de um CNPJ alfanumérico deixa 12 ou 13 dígitos que podem formar, por
+    acaso, o CNPJ numérico de outra empresa. Valor sem letra: como antes."""
+
+    text = value if isinstance(value, str) else ""
+    raw_digits = re.sub(r"\D", "", text)
+    if not _has_letter(text) and len(raw_digits) == 11 and _is_cpf(raw_digits):
         return "cpf", None  # CPF válido não vira CNPJ por completar zeros à esquerda
-    cnpj = normalize_cnpj(digits)
+    cnpj = normalize_cnpj(text)
     if cnpj:
         return "cnpj", cnpj
+    digits = re.sub(r"\D", "", text)
+    if not digits or (len(digits) <= 2 and set(digits) <= {"0", "1"}) or len(set(digits)) == 1:
+        return "nao_informado", None  # vazio, "0", "NA", "00000000000000", "99.999.999/9999-99"
+    if _has_letter(text):
+        return "invalido", None
     if len(digits) in (12, 13) and (padded := normalize_cnpj(digits.zfill(14))):
         return "cnpj_sem_zeros", padded
     if _is_cpf(digits):
@@ -85,10 +111,15 @@ def aggregate(
     delinquent: set[str],
 ) -> tuple[list[dict[str, Any]], dict[str, int]]:
     """``links``: linhas {certificado, tipo, cnpj, percentual, kind}. ``balances``: saldo por certificado.
-    ``delinquent``: certificados com alguma série em atraso. Devolve devedores ordenados por exposição e contadores."""
+    ``delinquent``: certificados com alguma série em atraso. Devolve devedores ordenados por exposição e contadores.
+
+    Unidade dos contadores: ``vinculos``, ``nao_informado``, ``cpf``, ``cnpj_invalido``, ``cnpj_sem_zeros`` e
+    ``cnpj_alfanumerico`` contam vínculos de devedor (linhas), antes de deduplicar por certificado;
+    ``cnpj_alfanumerico`` conta o vínculo cujo CNPJ devolvido (canônico) tem letra, e esse CNPJ também entra no
+    ranking. ``percentual_invalido`` conta pares (CNPJ, certificado) já deduplicados."""
 
     stats = {"vinculos": 0, "nao_informado": 0, "cpf": 0, "cnpj_invalido": 0, "cnpj_sem_zeros": 0,
-             "percentual_invalido": 0}
+             "cnpj_alfanumerico": 0, "percentual_invalido": 0}
     seen: set[tuple[str, str]] = set()
     debtors: dict[str, dict[str, Any]] = defaultdict(lambda: {
         "cnpj": "", "certificados": set(), "em_atraso": set(), "exposicao": Decimal(0), "tipos": set(),
@@ -103,6 +134,8 @@ def aggregate(
             continue
         if kind == "cnpj_sem_zeros":
             stats["cnpj_sem_zeros"] += 1
+        if re.search(r"[A-Z]", cnpj):
+            stats["cnpj_alfanumerico"] += 1
         cert = link["certificado"]
         if (cnpj, cert) in seen:
             continue

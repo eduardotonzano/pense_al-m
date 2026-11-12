@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import runpy
 import sqlite3
+from dataclasses import replace
 from pathlib import Path
 
 import pytest
@@ -10,6 +11,7 @@ import pytest
 from credit_assets.database.connection import connect, initialize_database
 from credit_assets.models.asset import Asset
 from credit_assets.repositories.asset_repository import AssetRepository
+from tests.ativos_piloto import pilot_rows, typed_cnpjs
 
 
 def make_asset(
@@ -30,6 +32,18 @@ def make_asset(
         "01.486.546/0001-67",
         isin,
     )
+
+
+def without_cnpj(asset: Asset) -> Asset:
+    return replace(asset, cnpj_securitizadora="", cnpj_devedor="")
+
+
+def stored_cnpjs(connection, asset_id: int) -> tuple:
+    row = connection.execute(
+        "SELECT cnpj_securitizadora, cnpj_devedor FROM assets WHERE asset_id = ?",
+        (asset_id,),
+    ).fetchone()
+    return tuple(row)
 
 
 def test_pilot_config_keeps_cetip_and_isin_separate_with_canonical_series():
@@ -156,7 +170,65 @@ def test_partial_indexes_reject_normalized_duplicate_identifiers(tmp_path):
         )
 
 
-def test_foundation_runs_reuse_assets_without_duplicates(tmp_path):
+def test_upsert_with_blank_cnpj_keeps_the_stored_cnpj(tmp_path):
+    connection = connect(tmp_path / "assets.db")
+    initialize_database(connection)
+    repository = AssetRepository(connection)
+    asset = make_asset("CRA022009VM", "BRECOACRABX0")
+    asset_id = repository.upsert(asset)
+
+    found_id = repository.upsert(without_cnpj(asset))
+
+    assert found_id == asset_id
+    assert stored_cnpjs(connection, asset_id) == (
+        "10.753.164/0001-43",
+        "01.486.546/0001-67",
+    )
+
+
+def test_upsert_replaces_another_devedor_and_refuses_another_securitizadora(tmp_path):
+    """Outro devedor atualiza a linha; outra securitizadora é conflito (_refuse_other_issuance)."""
+    connection = connect(tmp_path / "assets.db")
+    initialize_database(connection)
+    repository = AssetRepository(connection)
+    asset = make_asset("CRA022009VM", "BRECOACRABX0")
+    asset_id = repository.upsert(asset)
+
+    found_id = repository.upsert(replace(asset, cnpj_devedor="82.120.676/0001-83"))
+
+    assert found_id == asset_id
+    assert stored_cnpjs(connection, asset_id) == (
+        "10.753.164/0001-43",
+        "82.120.676/0001-83",
+    )
+
+    with pytest.raises(ValueError, match="Conflito de identidade"):
+        repository.upsert(
+            replace(
+                asset,
+                cnpj_securitizadora="02.773.542/0001-22",
+                cnpj_devedor="01.486.546/0001-67",
+            )
+        )
+
+    assert stored_cnpjs(connection, asset_id) == (
+        "10.753.164/0001-43",
+        "82.120.676/0001-83",
+    )
+    assert connection.execute("SELECT COUNT(*) FROM assets").fetchone()[0] == 1
+
+
+def test_upsert_of_a_new_asset_without_cnpj_keeps_the_absence(tmp_path):
+    connection = connect(tmp_path / "assets.db")
+    initialize_database(connection)
+    asset = without_cnpj(make_asset("24G2100031", "BRRBRACRIP13", emissao="301"))
+
+    asset_id = AssetRepository(connection).upsert(asset)
+
+    assert stored_cnpjs(connection, asset_id) == ("", None)
+
+
+def prepare_foundation(tmp_path):
     project = Path(__file__).parents[2]
     root = tmp_path / "project"
     (root / "config").mkdir(parents=True)
@@ -174,6 +246,45 @@ def test_foundation_runs_reuse_assets_without_duplicates(tmp_path):
     )
     exec(compile(script, namespace["__file__"], "exec"), namespace)
     namespace["ROOT"] = root
+    return namespace, root
+
+
+def test_foundation_rerun_keeps_a_cnpj_written_after_the_first_run(tmp_path):
+    namespace, root = prepare_foundation(tmp_path)
+    namespace["main"]()
+    # O CSV do piloto traz o Almeida Junior sem CNPJ; este valor entra depois,
+    # como o resolvedor da CVM o grava.
+    connection = sqlite3.connect(root / "data" / "cri_cra.db")
+    connection.execute(
+        "UPDATE assets SET cnpj_securitizadora = '02.773.542/0001-22' "
+        "WHERE codigo_cetip = '24G2100031'"
+    )
+    connection.commit()
+    connection.close()
+
+    namespace["main"]()
+
+    connection = sqlite3.connect(root / "data" / "cri_cra.db")
+    rows = connection.execute(
+        "SELECT codigo_cetip, cnpj_securitizadora, cnpj_devedor "
+        "FROM assets ORDER BY codigo_cetip"
+    ).fetchall()
+    connection.close()
+    named = [
+        ("24G2100031", "02.773.542/0001-22", None),
+        ("CRA022009VM", "10.753.164/0001-43", "01.486.546/0001-67"),
+    ]
+    # Os outros ativos do piloto ficam como o CSV os traz.
+    others = [
+        (row["codigo_cetip"], *typed_cnpjs(row))
+        for row in pilot_rows()
+        if row["codigo_cetip"] not in {code for code, *_ in named}
+    ]
+    assert rows == sorted(named + others)
+
+
+def test_foundation_runs_reuse_assets_without_duplicates(tmp_path):
+    namespace, root = prepare_foundation(tmp_path)
 
     namespace["main"]()
     namespace["main"]()

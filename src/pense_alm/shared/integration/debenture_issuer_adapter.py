@@ -1,6 +1,6 @@
 ﻿"""Adaptador de emissores do modulo de Debentures."""
 
-from datetime import UTC, datetime
+from datetime import datetime
 from uuid import NAMESPACE_URL, uuid5
 
 from pense_alm.shared.entities import (
@@ -13,6 +13,7 @@ from pense_alm.shared.entities import (
     SourceType,
 )
 
+from .legacy_datetime import parse_legacy_datetime
 from .records import DebentureIssuerRecord
 
 
@@ -94,26 +95,4 @@ class DebentureIssuerAdapter:
     ) -> datetime:
         """Converte timestamps SQLite legados para UTC."""
 
-        if not isinstance(value, str):
-            raise TypeError(
-                "Timestamp legado deve ser texto."
-            )
-
-        normalized = value.strip()
-
-        if not normalized:
-            raise ValueError(
-                "Timestamp legado nao pode ser vazio."
-            )
-
-        try:
-            parsed = datetime.fromisoformat(normalized)
-        except ValueError as error:
-            raise ValueError(
-                "Timestamp legado invalido."
-            ) from error
-
-        if parsed.tzinfo is None:
-            return parsed.replace(tzinfo=UTC)
-
-        return parsed.astimezone(UTC)
+        return parse_legacy_datetime(value)

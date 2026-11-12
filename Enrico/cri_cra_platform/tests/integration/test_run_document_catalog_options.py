@@ -9,6 +9,8 @@ from types import SimpleNamespace
 from credit_assets.collectors.fundosnet_collector import FundosNetCollector
 from credit_assets.database.backup import file_sha256
 from credit_assets.database.connection import connect, initialize_database
+from credit_assets.database.migrations import discover_migrations
+from tests.ativos_piloto import pilot_rows
 
 
 PROJECT = Path(__file__).parents[2]
@@ -16,6 +18,14 @@ THIRD_ASSET = (
     "CRA0TEST001,BRTSTCRA0017,Outra Securitizadora S.A.,00.000.000/0001-00,"
     "12,1,CRA,Devedor Teste,,true\n"
 )
+
+
+def pilot_isins() -> list[str]:
+    """ISIN das linhas ativas do ativos_piloto.csv com ISIN preenchido, na ordem do arquivo.
+
+    Le o CSV por pilot_rows(), nao por load_assets: a expectativa nao depende do codigo testado.
+    """
+    return [row["isin"] for row in pilot_rows() if row.get("isin", "").strip()]
 
 
 def load_script():
@@ -44,12 +54,7 @@ def test_load_assets_is_not_limited_to_two_isins(tmp_path):
 
     assets = namespace["load_assets"](config)
 
-    assert [asset.isin for asset in assets] == [
-        "BRECOACRABX0",
-        "BRRBRACRIP13",
-        "BRECOACRALJ8",
-        "BRTSTCRA0017",
-    ]
+    assert [asset.isin for asset in assets] == pilot_isins() + ["BRTSTCRA0017"]
 
 
 def test_load_assets_only_matches_cetip_or_isin_ignoring_case(tmp_path):
@@ -89,7 +94,10 @@ def test_dry_run_without_a_database_creates_nothing(tmp_path):
     assert result["dry_run"] is True
     assert result["database_existe"] is False
     assert {item.name for item in tmp_path.iterdir()} == before
-    assert [asset["documentos_novos"] for asset in result["assets"]] == [2, 2, 2]
+    isins = pilot_isins()
+    assert [asset["isin"] for asset in result["assets"]] == isins
+    # fixture_documents devolve sempre 2 documentos por ativo; o que varia e o numero de ativos.
+    assert [asset["documentos_novos"] for asset in result["assets"]] == [2] * len(isins)
     assert result["errors"] == 0
 
 
@@ -111,8 +119,11 @@ def test_dry_run_leaves_an_existing_database_and_outputs_untouched(tmp_path):
 
     assert [file_sha256(item) for item in watched] == before
     assert result["database_existe"] is True
-    assert [asset["documentos_novos"] for asset in result["assets"]] == [0, 0, 0]
-    assert [asset["documentos_existentes"] for asset in result["assets"]] == [2, 2, 2]
+    isins = pilot_isins()
+    assert [asset["isin"] for asset in result["assets"]] == isins
+    # Os 2 documentos do fixture de cada ativo ja foram gravados pela execucao real acima.
+    assert [asset["documentos_novos"] for asset in result["assets"]] == [0] * len(isins)
+    assert [asset["documentos_existentes"] for asset in result["assets"]] == [2] * len(isins)
 
 
 def test_dry_run_reports_new_documents_keys_and_grid_fields(tmp_path, monkeypatch):
@@ -179,7 +190,9 @@ def test_main_reports_pending_migrations_without_a_traceback(tmp_path, capsys):
     ])
     error = capsys.readouterr().err
 
+    versions = ", ".join(format(item.version, "03d") for item in discover_migrations())
     assert code == 1
+    assert f"migrations pendentes ({versions})" in error
     assert "migrations pendentes (001" in error
     assert "apply_migration.py" in error
     assert "Traceback" not in error

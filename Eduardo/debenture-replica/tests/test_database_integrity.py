@@ -3,6 +3,8 @@ import sqlite3
 
 import pytest
 
+from cnpj_amostras import CNPJ_1
+
 
 PROJECT_DIR = pathlib.Path(__file__).resolve().parent.parent
 MIGRATION_PATH = (
@@ -85,7 +87,7 @@ def test_rejects_duplicate_cnpj(database):
         VALUES (?, ?)
         """,
         (
-            "12345678000199",
+            CNPJ_1,
             "Empresa A",
         ),
     )
@@ -100,7 +102,7 @@ def test_rejects_duplicate_cnpj(database):
             VALUES (?, ?)
             """,
             (
-                "12345678000199",
+                CNPJ_1,
                 "Empresa B",
             ),
         )

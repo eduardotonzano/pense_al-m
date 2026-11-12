@@ -9,6 +9,19 @@ Uso (a partir de Eduardo/debenture-replica):
 informado. --commit faz o backup, aplica tudo numa unica transacao e so
 confirma se a verificacao passar; caso contrario desfaz e mantem o banco
 como estava.
+
+Marcas no arquivo .sql, uma por linha, para recriar uma tabela (o SQLite
+nao altera CHECK):
+
+    -- apply_migration: foreign_keys=off
+    -- apply_migration: recria=<tabela>
+
+foreign_keys=off desliga as chaves estrangeiras antes do BEGIN e as religa
+no fim, tambem em caso de erro; o PRAGMA foreign_key_check roda antes do
+COMMIT e qualquer linha encontrada desfaz tudo. Se uma pendente tiver a
+marca, o lote inteiro roda assim, numa transacao so. recria=<tabela>
+aceita a mudanca do DDL so dessa tabela; a contagem de linhas e o resto
+do esquema continuam conferidos. Marca desconhecida e erro.
 """
 
 import argparse
@@ -23,6 +36,8 @@ PROJECT_DIR = pathlib.Path(__file__).resolve().parent.parent
 SOURCE_DIR = PROJECT_DIR / "src"
 MIGRATIONS_DIR = PROJECT_DIR / "migrations"
 MIGRATION_FILE = re.compile(r"^(\d{3})_([a-z0-9_]+)\.sql$")
+MARK_PREFIX = "-- apply_migration:"
+REBUILT_TABLE = re.compile(r"^recria=([a-z_][a-z0-9_]*)$")
 
 # O venv pode apontar para outra copia do pacote (hoje, a pasta antiga fora
 # do repositorio). O codigo que altera o banco vem sempre deste checkout.
@@ -95,6 +110,73 @@ def split_statements(sql):
     return statements
 
 
+def read_marks(sql):
+    """Retorna (foreign_keys_off, tabelas recriadas) das marcas do script."""
+
+    foreign_keys_off = False
+    rebuilt_tables = set()
+
+    for line in sql.splitlines():
+        stripped = line.strip()
+
+        if not stripped.startswith(MARK_PREFIX):
+            continue
+
+        value = stripped[len(MARK_PREFIX):].strip()
+        rebuilt = REBUILT_TABLE.match(value)
+
+        if value == "foreign_keys=off":
+            foreign_keys_off = True
+        elif rebuilt is not None:
+            rebuilt_tables.add(rebuilt.group(1))
+        else:
+            raise MigrationError("Marca desconhecida: " + value)
+
+    return foreign_keys_off, frozenset(rebuilt_tables)
+
+
+def read_pending_marks(pending):
+    """Junta as marcas das migrations pendentes."""
+
+    foreign_keys_off = False
+    rebuilt_tables = set()
+
+    for version, name, path in pending:
+        try:
+            off, tables = read_marks(path.read_text(encoding="utf-8"))
+        except MigrationError as error:
+            raise MigrationError(
+                format(version, "03d") + "_" + name + ": " + str(error)
+            ) from error
+
+        foreign_keys_off = foreign_keys_off or off
+        rebuilt_tables.update(tables)
+
+    return foreign_keys_off, frozenset(rebuilt_tables)
+
+
+def set_foreign_keys(connection, enabled):
+    """Liga ou desliga as chaves estrangeiras e confere o resultado."""
+
+    if connection.in_transaction:
+        raise MigrationError(
+            "PRAGMA foreign_keys nao tem efeito dentro de uma transacao."
+        )
+
+    connection.execute(
+        "PRAGMA foreign_keys = " + ("ON" if enabled else "OFF")
+    )
+
+    if connection.execute("PRAGMA foreign_keys").fetchone()[0] != int(
+        enabled
+    ):
+        raise MigrationError(
+            "Nao foi possivel "
+            + ("ligar" if enabled else "desligar")
+            + " as chaves estrangeiras."
+        )
+
+
 def read_applied_versions(connection):
     """Retorna {versao: nome} das migrations registradas no banco."""
 
@@ -144,8 +226,17 @@ def snapshot(connection):
     return objects, counts
 
 
-def check_state(connection, before, expected, allow_existing_changes):
-    """Verifica o banco e retorna a lista de problemas encontrados."""
+def check_state(
+    connection,
+    before,
+    expected,
+    allow_existing_changes,
+    rebuilt_tables=frozenset(),
+):
+    """Verifica o banco e retorna a lista de problemas encontrados.
+
+    rebuilt_tables: tabelas marcadas com recria=; so o DDL delas pode mudar.
+    """
 
     problems = []
 
@@ -196,7 +287,9 @@ def check_state(connection, before, expected, allow_existing_changes):
             problems.append(
                 "Objeto removido: " + key[0] + " " + key[1] + "."
             )
-        elif objects_after[key] != ddl:
+        elif objects_after[key] != ddl and not (
+            key[0] == "table" and key[1] in rebuilt_tables
+        ):
             problems.append(
                 "DDL alterado: " + key[0] + " " + key[1] + "."
             )
@@ -237,36 +330,48 @@ def apply_in_transaction(
     """Aplica as migrations e so confirma se a verificacao passar."""
 
     expected = {version: name for version, name, _ in pending}
+    foreign_keys_off, rebuilt_tables = read_pending_marks(pending)
 
-    connection.execute("BEGIN IMMEDIATE")
+    # O PRAGMA so tem efeito fora de transacao: desliga antes do BEGIN.
+    if foreign_keys_off:
+        set_foreign_keys(connection, False)
 
     try:
-        for _, _, path in pending:
-            sql = path.read_text(encoding="utf-8")
+        connection.execute("BEGIN IMMEDIATE")
 
-            for statement in split_statements(sql):
-                connection.execute(statement)
+        try:
+            for _, _, path in pending:
+                sql = path.read_text(encoding="utf-8")
 
-        problems = check_state(
-            connection,
-            before,
-            expected,
-            allow_existing_changes,
-        )
+                for statement in split_statements(sql):
+                    connection.execute(statement)
 
-        if problems:
-            raise MigrationError(
-                "Verificacao antes do COMMIT falhou: "
-                + " ".join(problems)
+            # Inclui o PRAGMA foreign_key_check: qualquer linha desfaz tudo.
+            problems = check_state(
+                connection,
+                before,
+                expected,
+                allow_existing_changes,
+                rebuilt_tables,
             )
 
-        connection.execute("COMMIT")
+            if problems:
+                raise MigrationError(
+                    "Verificacao antes do COMMIT falhou: "
+                    + " ".join(problems)
+                )
 
-    except BaseException:
-        if connection.in_transaction:
-            connection.execute("ROLLBACK")
+            connection.execute("COMMIT")
 
-        raise
+        except BaseException:
+            if connection.in_transaction:
+                connection.execute("ROLLBACK")
+
+            raise
+
+    finally:
+        if foreign_keys_off:
+            set_foreign_keys(connection, True)
 
 
 def print_report(connection, before):
@@ -313,6 +418,7 @@ def apply_and_verify(db, pending, allow_existing_changes):
     """Aplica numa transacao e reverifica numa conexao nova."""
 
     expected = {version: name for version, name, _ in pending}
+    _, rebuilt_tables = read_pending_marks(pending)
 
     connection = open_connection(db.database_path)
 
@@ -335,6 +441,7 @@ def apply_and_verify(db, pending, allow_existing_changes):
             before,
             expected,
             allow_existing_changes,
+            rebuilt_tables,
         )
 
         if problems:
@@ -419,6 +526,18 @@ def run(args):
             for version, name, _ in pending
         )
     )
+
+    # Le as marcas antes do backup: marca invalida nao altera nada.
+    foreign_keys_off, rebuilt_tables = read_pending_marks(pending)
+
+    if foreign_keys_off:
+        print(
+            "Chaves estrangeiras desligadas durante a transacao; "
+            "foreign_key_check antes do COMMIT."
+        )
+
+    if rebuilt_tables:
+        print("Tabelas recriadas: " + ", ".join(sorted(rebuilt_tables)))
 
     if args.dry_run:
         with tempfile.TemporaryDirectory(

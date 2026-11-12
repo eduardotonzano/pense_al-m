@@ -9,6 +9,7 @@ from credit_assets.database.connection import connect, initialize_database
 from credit_assets.database.migrations import (
     MIGRATIONS_DIR,
     apply_pending,
+    discover_migrations,
     pending_migrations,
     read_applied_versions,
 )
@@ -390,7 +391,10 @@ def test_migration_003_on_existing_database_is_idempotent(tmp_path):
         (only_old / name).write_text((MIGRATIONS_DIR / name).read_text(encoding="utf-8"), encoding="utf-8")
     conn = connect(tmp_path / "old.db")
     initialize_database(conn, migrations_dir=only_old)
-    assert [m.version for m in pending_migrations(conn, MIGRATIONS_DIR)] == [3]
+    pending = [m.version for m in pending_migrations(conn, MIGRATIONS_DIR)]
+    assert 3 in pending
+    assert 1 not in pending and 2 not in pending
+    assert pending == [m.version for m in discover_migrations(MIGRATIONS_DIR) if m.version >= 3]
     apply_pending(conn, pending_migrations(conn, MIGRATIONS_DIR))
     assert read_applied_versions(conn)[3] == "download_queue"
     assert apply_pending(conn, pending_migrations(conn, MIGRATIONS_DIR)) == []
