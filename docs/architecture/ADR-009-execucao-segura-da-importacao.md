@@ -2,7 +2,7 @@
 
 ## Status
 
-Proposta. Implementada no ramo `feat/shared-adapter-debentures`; passa a aceita com a revisão do pull request.
+Aceita em 12/11/2026. Implementada e mesclada no #11 (merge 9ac5032); o Fábio aprovou o #11 em 12/11/2026 e deixou a troca de status com o Eduardo.
 
 ## Contexto
 
