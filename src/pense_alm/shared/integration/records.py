@@ -199,21 +199,10 @@ class DebentureInstrumentRecord:
                     "issuer_cnpj exige issuer_legacy_id."
                 )
 
-            normalized_cnpj = "".join(
-                character
-                for character in self.issuer_cnpj
-                if character.isdigit()
-            )
-
-            if len(normalized_cnpj) != 14:
-                raise ValueError(
-                    "issuer_cnpj deve conter 14 digitos."
-                )
-
             object.__setattr__(
                 self,
                 "issuer_cnpj",
-                normalized_cnpj,
+                normalize_cnpj(self.issuer_cnpj),
             )
 
         for field_name in (

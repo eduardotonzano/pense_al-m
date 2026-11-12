@@ -15,6 +15,31 @@ from ..cnpj_amostras import cnpj_ficticio
 
 
 ALFA_CNPJ = cnpj_ficticio(1)
+BETA_CNPJ = cnpj_ficticio(2)
+ALFA_CNPJ_ALFANUMERICO = cnpj_ficticio(1, alfanumerico=True)
+
+
+def issuer_row(legacy_id, cnpj):
+    return (
+        legacy_id,
+        cnpj,
+        f"Empresa {legacy_id} S.A.",
+        None,
+        "2026-09-20 10:00:00",
+        "2026-09-21 12:00:00",
+    )
+
+
+def debenture_row(legacy_id, issuer_id, asset_code, isin):
+    return (
+        legacy_id,
+        issuer_id,
+        asset_code,
+        isin,
+        "active",
+        "2026-09-20 10:00:00",
+        "2026-09-21 12:00:00",
+    )
 
 
 def sha256_of(path):
@@ -151,6 +176,56 @@ def test_reader_reports_invalid_row_and_continues(
     assert error.legacy_id == 2
     assert error.error_type == "ValueError"
     assert "isin" in error.message
+
+
+def test_reader_reads_issuer_with_alphanumeric_cnpj(
+    legacy_database_factory,
+):
+    database_path = legacy_database_factory(
+        issuers=(issuer_row(1, ALFA_CNPJ_ALFANUMERICO),),
+        debentures=(debenture_row(1, 1, "ALFA11", "BRALFADBS001"),),
+    )
+
+    results = list(
+        LegacyDebentureInstrumentReader(
+            database_path
+        ).iter_records()
+    )
+
+    assert len(results) == 1
+    assert isinstance(results[0], DebentureInstrumentRecord)
+    assert results[0].issuer_cnpj == ALFA_CNPJ_ALFANUMERICO
+
+
+def test_reader_reports_issuer_cnpj_with_invalid_check_digit_and_continues(
+    legacy_database_factory,
+):
+    # 14 digitos: passa no CHECK do legado, mas o DV nao confere.
+    invalid_cnpj = ALFA_CNPJ[:-1] + str((int(ALFA_CNPJ[-1]) + 1) % 10)
+    database_path = legacy_database_factory(
+        issuers=(
+            issuer_row(1, invalid_cnpj),
+            issuer_row(2, BETA_CNPJ),
+        ),
+        debentures=(
+            debenture_row(1, 1, "ALFA11", "BRALFADBS001"),
+            debenture_row(2, 2, "BETA11", "BRBETADBS001"),
+        ),
+    )
+
+    error, record = list(
+        LegacyDebentureInstrumentReader(
+            database_path
+        ).iter_records()
+    )
+
+    assert isinstance(error, LegacyInstrumentReadError)
+    assert error.legacy_id == 1
+    assert error.error_type == "IdentifierValidationError"
+    assert "digito verificador" in error.message
+    assert invalid_cnpj not in error.message
+    assert isinstance(record, DebentureInstrumentRecord)
+    assert record.issuer_cnpj == BETA_CNPJ
 
 
 @pytest.mark.parametrize("batch_size", [0, -1])

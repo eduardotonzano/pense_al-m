@@ -1,7 +1,8 @@
 """Fixtures sinteticas do banco legado de debentures.
 
 Os bancos nascem em tmp_path, fora do repositorio. O DDL repete as
-restricoes do schema real (Eduardo/debenture-replica/migrations/001).
+restricoes do schema real (Eduardo/debenture-replica/migrations/001; o
+CHECK de issuers.cnpj e o da 003, que aceita o CNPJ alfanumerico).
 """
 
 import sqlite3
@@ -29,7 +30,8 @@ _LEGACY_DDL = (
             cnpj IS NULL
             OR (
                 length(cnpj) = 14
-                AND cnpj NOT GLOB '*[^0-9]*'
+                AND substr(cnpj, 1, 12) NOT GLOB '*[^0-9A-Z]*'
+                AND substr(cnpj, 13, 2) NOT GLOB '*[^0-9]*'
             )
         )
     )

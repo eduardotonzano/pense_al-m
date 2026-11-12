@@ -24,12 +24,13 @@ from pense_alm.shared.integration import (
     InstrumentImportReason,
 )
 
-from ..cnpj_amostras import cnpj_ficticio
+from ..cnpj_amostras import cnpj_ficticio, com_mascara
 
 
 ALFA_CNPJ = cnpj_ficticio(1)
 BETA_CNPJ = cnpj_ficticio(2)
 GAMA_CNPJ = cnpj_ficticio(3)
+ALFA_CNPJ_ALFANUMERICO = cnpj_ficticio(1, alfanumerico=True)
 
 
 def create_record(**overrides):
@@ -119,6 +120,32 @@ def test_import_creates_instrument_and_issuance(
         IdentifierType.ISIN,
         "BRALFADBS001",
     ) == result.resolved_entity
+
+
+def test_import_links_issuer_registered_with_alphanumeric_cnpj():
+    entities = InMemoryEntityRepository()
+    entities.save(create_issuer(3, ALFA_CNPJ_ALFANUMERICO))
+    relationships = InMemoryRelationshipRepository()
+    service = DebentureInstrumentImportService(
+        entities,
+        relationships,
+    )
+    record = create_record(
+        issuer_legacy_id=3,
+        issuer_cnpj=com_mascara(ALFA_CNPJ_ALFANUMERICO).lower(),
+    )
+
+    result = service.import_record(record)
+
+    assert record.issuer_cnpj == ALFA_CNPJ_ALFANUMERICO
+    assert result.action is EntityImportAction.CREATED
+    assert result.reason is None
+    assert result.relationship_created is True
+    assert result.issuer_entity.cnpj == ALFA_CNPJ_ALFANUMERICO
+    assert result.relationship.source_entity_id == (
+        result.issuer_entity.entity_id
+    )
+    assert issues_count(relationships) == 1
 
 
 def test_import_is_idempotent(

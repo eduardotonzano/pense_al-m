@@ -30,7 +30,7 @@ Reaproveitados sem mudança: `EntityImportAction`, `BatchImportReport`, `BatchIm
 
 Campos: identificador legado, `asset_code`, `isin`, `status`, identificador legado do emissor, CNPJ do emissor, data de criação e de atualização.
 
-Valida como o schema legado: ao menos um entre código e ISIN; código em maiúsculas e sem espaços; ISIN com 12 caracteres alfanuméricos; status entre `unknown`, `active`, `inactive`, `matured` e `cancelled`; CNPJ do emissor com 14 dígitos e só junto do identificador do emissor.
+Valida como o schema legado: ao menos um entre código e ISIN; código em maiúsculas e sem espaços; ISIN com 12 caracteres alfanuméricos; status entre `unknown`, `active`, `inactive`, `matured` e `cancelled`; CNPJ do emissor com 14 caracteres, numérico ou alfanumérico, validado como em `normalize_cnpj` (ADR-011), e só junto do identificador do emissor.
 
 ## Conversão
 
