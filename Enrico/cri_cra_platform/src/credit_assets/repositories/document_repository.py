@@ -115,6 +115,18 @@ class DocumentRepository:
             )
             document_pk = int(cursor.lastrowid)
             status = "inserted"
+        elif document.financial_statements_evidence and document.category == "Outro":
+            status = (
+                "updated"
+                if existing["category"] != document.category
+                else "unchanged"
+            )
+            if status == "updated":
+                self.connection.execute(
+                    "UPDATE documents SET category = ? WHERE document_pk = ?",
+                    (document.category, existing["document_pk"]),
+                )
+            document_pk = int(existing["document_pk"])
         else:
             document_pk = int(existing["document_pk"])
             category = (

@@ -1,0 +1,34 @@
+{
+  "rules_version": "0.1.0-draft",
+  "asset": {"codigo_cetip": "CRA02500C1D", "isin": "BRECOACRALJ8"},
+  "approval_status": "pending",
+  "proposed_by": "Claude (assistente)",
+  "proposed_at": "2026-10-28",
+  "interpretations": {
+    "fundo_despesas_saldo": "o saldo do fundo de despesas é o caixa aplicado das DFs do Patrimônio Separado (df_caixa_aplicacao_fundo_despesas, nota 4: 'Recursos do fundo de despesas mantidos em aplicações financeiras'); DF em milhares de reais, convertida para reais",
+    "prazo_dfs": "exercício do Patrimônio Separado encerra em 30/06 e as DFs vencem em 90 dias (28/09); cumprimento comprovado pela existência de fato aprovado da DF da data-base",
+    "prazo_rating": "rating atribuído pela Moody's Local em 17/12/2025; atualização anual entendida como até 17/12/2026"
+  },
+  "not_covered": "Covenants (liquidez corrente ≥ 1,20; Dívida Líquida/EBITDA ≤ 3,0x) dependem das DFs do Avalista, que não estão no Fundos.NET; subordinação sem índice mínimo no Termo.",
+  "rules": {
+    "fundo_despesas_minimo": {
+      "type": "fact_minimum",
+      "severity": "warning",
+      "label": "Fundo de despesas (caixa aplicado nas DFs) × Valor Mínimo do Termo",
+      "parameter": "fundo_despesas_valor_minimo",
+      "facts": ["df_caixa_aplicacao_fundo_despesas"]
+    },
+    "obligation_deadlines": {
+      "type": "obligation_deadlines",
+      "severity": "info",
+      "warn_days": 30,
+      "obligations": [
+        {"parameter": "obrigacao_df_patrimonio_separado", "due": "2026-09-28",
+         "label": "DFs do Patrimônio Separado do exercício encerrado em 30/06/2026",
+         "fulfilled_by_fact": {"fact": "df_total_ativo", "reference_date": "2026-06-30"}},
+        {"parameter": "rating_obrigacao", "due": "2026-12-17",
+         "label": "Atualização anual do rating dos CRA Sêniores (Moody's Local)"}
+      ]
+    }
+  }
+}

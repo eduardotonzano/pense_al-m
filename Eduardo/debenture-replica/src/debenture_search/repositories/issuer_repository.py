@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 import sqlite3
 
+from debenture_search.cnpj import normalize_cnpj as canonical_cnpj
 from debenture_search.database import Database
 from debenture_search.database import database
 
@@ -25,23 +26,18 @@ class IssuerRepository:
 
     @staticmethod
     def normalize_cnpj(cnpj):
-        """Remove a pontuacao e valida o tamanho do CNPJ."""
+        """Normaliza e valida o CNPJ numerico ou alfanumerico.
+
+        None continua None (emissor sem CNPJ). O resto passa pela regra
+        do ADR-011 (debenture_search.cnpj), que levanta ValueError com
+        formato invalido, caracteres todos iguais ou digito verificador
+        invalido.
+        """
 
         if cnpj is None:
             return None
 
-        normalized = "".join(
-            character
-            for character in str(cnpj)
-            if character.isdigit()
-        )
-
-        if len(normalized) != 14:
-            raise ValueError(
-                "O CNPJ deve conter exatamente 14 digitos."
-            )
-
-        return normalized
+        return canonical_cnpj(cnpj)
 
     @staticmethod
     def normalize_name(name):

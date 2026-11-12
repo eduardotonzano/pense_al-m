@@ -83,12 +83,16 @@ class DebentureIssuerBatchImportService:
         errors = 0
         error_details = []
 
-        for record in self._reader.iter_records(
+        # O registro e montado dentro do try: uma linha recusada (por
+        # exemplo, CNPJ invalido) vira erro daquele registro e o lote
+        # continua. O dry-run passa pelo mesmo laco.
+        for row in self._reader.iter_rows(
             batch_size=batch_size
         ):
             total_read += 1
 
             try:
+                record = self._reader.to_record(row)
                 result = import_service.import_record(
                     record
                 )
@@ -96,7 +100,7 @@ class DebentureIssuerBatchImportService:
                 errors += 1
                 error_details.append(
                     BatchImportError(
-                        legacy_id=record.legacy_id,
+                        legacy_id=self._legacy_id_of(row),
                         error_type=type(error).__name__,
                         message=str(error),
                     )
@@ -123,6 +127,21 @@ class DebentureIssuerBatchImportService:
             dry_run=dry_run,
             error_details=tuple(error_details),
         )
+
+    @staticmethod
+    def _legacy_id_of(row) -> int | None:
+        """Identificador legado da linha, quando utilizavel no erro."""
+
+        value = row.get("id")
+
+        if (
+            isinstance(value, int)
+            and not isinstance(value, bool)
+            and value > 0
+        ):
+            return value
+
+        return None
 
     def _create_simulation_repository(
         self,

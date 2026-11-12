@@ -3,6 +3,7 @@ import sqlite3
 
 import pytest
 
+from cnpj_amostras import CNPJ_1, CNPJ_3, CNPJ_4, CNPJ_5
 from debenture_search.database import Database
 
 
@@ -41,7 +42,7 @@ def test_transaction_commits_valid_data(database):
             VALUES (?, ?)
             """,
             (
-                "12345678000199",
+                CNPJ_1,
                 "Empresa Teste",
             ),
         )
@@ -52,11 +53,11 @@ def test_transaction_commits_valid_data(database):
         FROM issuers
         WHERE cnpj = ?
         """,
-        ("12345678000199",),
+        (CNPJ_1,),
     )
 
     assert issuer is not None
-    assert issuer["cnpj"] == "12345678000199"
+    assert issuer["cnpj"] == CNPJ_1
     assert issuer["legal_name"] == "Empresa Teste"
 
 
@@ -72,7 +73,7 @@ def test_transaction_rolls_back_after_error(database):
                 VALUES (?, ?)
                 """,
                 (
-                    "98765432000188",
+                    CNPJ_5,
                     "Empresa que deve desaparecer",
                 ),
             )
@@ -87,7 +88,7 @@ def test_transaction_rolls_back_after_error(database):
         FROM issuers
         WHERE cnpj = ?
         """,
-        ("98765432000188",),
+        (CNPJ_5,),
     )
 
     assert issuer is None
@@ -105,7 +106,7 @@ def test_transaction_rolls_back_integrity_error(database):
                 VALUES (?, ?)
                 """,
                 (
-                    "11111111000111",
+                    CNPJ_3,
                     "Empresa Valida",
                 ),
             )
@@ -130,7 +131,7 @@ def test_transaction_rolls_back_integrity_error(database):
         FROM issuers
         WHERE cnpj = ?
         """,
-        ("11111111000111",),
+        (CNPJ_3,),
     )
 
     assert issuer is None
@@ -146,7 +147,7 @@ def test_data_persists_after_reopening_database(database):
         VALUES (?, ?)
         """,
         (
-            "22222222000122",
+            CNPJ_4,
             "Empresa Persistente",
         ),
     )
@@ -161,7 +162,7 @@ def test_data_persists_after_reopening_database(database):
         FROM issuers
         WHERE cnpj = ?
         """,
-        ("22222222000122",),
+        (CNPJ_4,),
     )
 
     assert issuer is not None

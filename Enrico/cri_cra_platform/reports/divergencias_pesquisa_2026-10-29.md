@@ -1,0 +1,154 @@
+# Pesquisa das divergências entre documentos (29/10/2026)
+
+Origem: `reports/cross_document_checks.md` (comparação do mesmo dado em Termo, oferta, AF, DFs e Informe Mensal).
+Nada aqui altera dados nem aprova fato. Cada item traz as fontes, o que elas dizem e o que ainda falta para fechar.
+Onde há interpretação minha, está marcada como **hipótese**.
+
+## Resumo
+
+| # | Ativo | Dado | Quem destoa | Gravidade |
+|---|---|---|---|---|
+| 1 | Alibem | Vencimento das 5 séries | Informe Mensal (todas as séries, todos os meses) | alta |
+| 2 | Alibem | Quantidade emitida das séries 1, 2, 4 e 5 | Relatório do AF 2025 (diz 0) | alta |
+| 3 | Alibem | Remuneração da 1ª série | Relatório do AF 2025 (diz "CDI") | média |
+| 4 | Alibem | Classe da 4ª série | Informe Mensal (diz Mezanino) | média, já em aberto |
+| 5 | Alibem | Fim da 5ª série nas DFs (17/12/2035) | DFs 2026 | baixa |
+| 6 | Café Brasil | Vencimento no Informe (30/09/2027) | Informe Mensal (47 meses) | alta |
+| 7 | Café Brasil | Classe da série | meu parâmetro pendente × Informe | baixa (correção minha) |
+
+CRI Almeida Junior: nenhuma divergência (9 verificações concordam, 1 compatível).
+
+## 1. Alibem: vencimento por série no Informe
+
+| Série | Termo / Lâmina / Prospecto def. / AF | Informe (todos os 10 meses, dez/2025 a set/2026) |
+|---|---|---|
+| 1ª | 18/12/2030 | 16/07/2029 |
+| 2ª | 18/12/2030 | 15/07/2032 |
+| 3ª | 18/12/2030 | 16/07/2035 |
+| 4ª | 17/12/2032 | 15/07/2030 |
+| 5ª | 19/12/2035 | 15/07/2030 |
+
+- Cinco documentos independentes dão as mesmas datas: Termo (p.66), Lâmina (p.6-7), Prospecto definitivo (p.15), Relatório do AF
+  (p.3, 6 e 7) e, indiretamente, as Notas Comerciais (2 dias antes de cada CRA, por desenho).
+- As datas do Termo conferem com a conta de dias corridos da Data de Emissão (15/12/2025 + 1.829 dias = 18/12/2030;
+  + 2.559 = 17/12/2032; + 3.656 = 19/12/2035).
+- As datas do Informe não têm relação com as do Termo (mês de julho em todas, ordem diferente) e não mudam em nenhum mês.
+- **Confirmado na tela (imagem enviada por Enrico em 29/10/2026):** a visualização do Informe no Fundos.NET mostra as mesmas datas
+  (16/07/2029, 15/07/2032, 16/07/2035, 15/07/2030, 15/07/2030), então não é erro da nossa extração: o dado foi assim informado.
+- **Incoerência interna do próprio Informe:** o mesmo quadro diz periodicidade semestral com "mês base da apuração: Junho e Dezembro",
+  mas todos os vencimentos caem em julho. As datas do Termo (18/12, 17/12, 19/12) casam com o mês base de dezembro.
+- **Hipótese:** campo preenchido de modo errado no cadastro do Informe e nunca corrigido. Os documentos não explicam.
+- **Para fechar:** o registro do vencimento na B3/ANBIMA para os ISINs BRECOACRALJ8, LK6, LL4, LM2 e LN0.
+  **ENRICO, FAÇA VC MESMO** (a consulta é em sistema da B3/ANBIMA ou da CVM).
+- **Impacto:** qualquer alerta ou cálculo de prazo que use o vencimento do Informe fica errado para o Alibem. Usar o Termo.
+
+## 2. Alibem: quantidade emitida no Relatório do AF
+
+- O AF 2025 (doc 1175590, p.3-7) traz "Quantidade emitida 0 / Volume R$ 0,00" nas séries 1, 2, 4 e 5 e 250.000 só na 3ª.
+- Contra isso: o **Anúncio de Encerramento de 22/12/2025** (doc 1068059, p.2) informa a distribuição integral: 233.142, 16.858,
+  250.000, 100.000 e 150.000 CRA (total 750.000), sem distribuição parcial; o Informe de dez/2025 em diante e o Termo trazem as mesmas
+  quantidades.
+- O mesmo relatório do AF tem outros defeitos: ISIN "-" em todas as séries, 2ª série ausente da tabela de ativos em circulação,
+  saldo da 1ª série incompatível com 233.142 CRA e a ficha da 5ª série desalinhada (p.7).
+- **Hipótese:** o AF preencheu o relatório com dados parciais do dia da primeira integralização (19/12/2025). Não afeta o ativo, afeta a
+  confiança nesse relatório como fonte.
+- **Para fechar:** pedir ao AF (Vórtx) a versão corrigida, ou aceitar o relatório como não confiável para quantidade.
+
+## 3. Alibem: remuneração da 1ª série no AF
+
+- AF 2025 (p.3): "Remuneração CDI". Termo (p.81), Comunicado de oferta, Lâmina e Informe: **prefixada 14,80% a.a.** (Informe: "PRÉ 14,8000 % a.a").
+  Na mesma tabela, as séries 2 a 5 do AF batem com o Termo (108% CDI; CDI+1,5%; CDI+2,5%; IPCA+8,88%).
+- Cinco fontes dizem prefixada. O AF destoa (mesmo relatório do item 2).
+- **Hipótese:** erro de preenchimento do AF. Sem impacto na remuneração real.
+
+## 4. Alibem: classe da 4ª série (já em aberto)
+
+- Termo, Lâmina e prospectos: 4ª série **Subordinada**. Informe: **Mezanino** (3ª e 4ª). As DFs variam de nota para nota.
+- A comparação automática reencontrou o mesmo ponto. A decisão de qual classe vale continua sua (`asset_series.classe_termo` × `classe_informe`).
+
+## 5. Alibem: fim da 5ª série nas DFs
+
+- DFs (doc 1328400, p.10): "de 15 de dezembro de 2025 a **17 de dezembro de 2035**". Termo, Lâmina e AF: 19/12/2035.
+- **Hipótese forte:** as DFs citam o vencimento da **Nota Comercial** da 5ª série, que vence em 17/12/2035 (Prospecto def. p.88), dois dias
+  antes do CRA. Mesmo padrão nas séries 1 (16/12/2030) e 4 (15/12/2032). Falta ver se as DFs dizem isso em outro trecho.
+
+## 6. Café Brasil: vencimento no Informe
+
+- O Informe traz **30/09/2027** em todos os 47 meses (out/2022 a ago/2026), inclusive depois da assembleia de 14/03/2024.
+- A ata 619771 aprovou novo fluxo com último pagamento em **30/12/2026** (tabela vista na imagem; a ata não escreve a nova data por extenso)
+  e o resgate total foi anunciado para 29/10/2026.
+- O parâmetro aprovado `data_vencimento_final_cdca_cra` é 30/12/2026. O Termo original (30/09/2027) agora está registrado como
+  parâmetro à parte, vigente só até 13/03/2024.
+- **Hipótese:** o Informe e as DFs não foram atualizados depois da assembleia. Não há documento que o confirme.
+- **Impacto:** o vencimento do Informe não serve para prazo do Café Brasil.
+
+## 7. Café Brasil: classe da série (correção minha)
+
+- O parâmetro pendente `classe_serie_1` ("Série única; o Termo não divide em classes") é uma inferência minha do silêncio do Termo.
+- O Informe diz **Sênior**. O Termo nada diz sobre classe. Uma inferência minha não deve ficar ao lado de um dado real.
+- **Proposta:** rejeitar o parâmetro 269 e, se quiser a classe, registrar "Sênior (Informe)" como fonte de menor prioridade. Aguardo você.
+
+## O que isso muda no projeto
+- O Informe Mensal tem campos cadastrais errados ou desatualizados em 2 dos 3 ativos (vencimento no Alibem e no Café Brasil). O
+  mesmo vale para a classe da 4ª série. Faz sentido um alerta de qualidade "dado cadastral do Informe diverge do Termo", a propor numa
+  próxima etapa.
+- Relatórios de AF também erram (itens 2 e 3). Convém tratá-los como fonte secundária para dados cadastrais.
+
+## Resolução do Alibem com base nas DFs de 30/06/2026 (pedido de Enrico em 29/10/2026)
+
+Base: DFs do Patrimônio Separado da 426ª emissão (doc 1328400, BDO, relatório de 24/09/2026). Os 24 fatos novos dessas DFs
+(`config/reported_facts/cra02500c1d_df_2026_06_complemento.json`, ids 839 a 862) foram **aprovados por Enrico em 29/10/2026**. A série 5 fica sem resolução até a consulta ao registro.
+
+| Dado | DFs (base) | Termo | Informe | AF 2025 | Resolução proposta |
+|---|---|---|---|---|---|
+| Vencimento, séries 1 a 3 | 18/12/2030 (p.10) | 18/12/2030 | 16/07/2029, 15/07/2032, 16/07/2035 | 18/12/2030 | **18/12/2030**; Informe errado |
+| Vencimento, série 4 | 17/12/2032 (p.10) | 17/12/2032 | 15/07/2030 | 17/12/2032 | **17/12/2032**; Informe errado |
+| Vencimento, série 5 | **17/12/2035** (p.10) | 19/12/2035 | 15/07/2030 | 19/12/2035 | **sem resolução**: DFs divergem do Termo em 2 dias (ver abaixo) |
+| Quantidade emitida, séries 1, 2, 4 e 5 | 233.142; 16.858; 100.000; 150.000 (p.17 e p.20) | idem | idem | 0 | **valores das DFs**; AF errado |
+| Remuneração da 1ª série | taxa prefixada 14,8% a.a. (p.20) | prefixada 14,80% | PRÉ 14,8% | "CDI" | **prefixada 14,8%**; AF errado |
+| Classe da 4ª série | Subordinada (nota 6b, p.21) | Subordinada | Mezanino | n/d | **Subordinada**; Informe errado |
+| Meses de pagamento | juros semestrais desde 17/06/2026; amortização desde 17/06/2027 (séries 1-3) e 17/12/2027 (4-5) | idem | vencimentos em julho | n/d | junho/dezembro; confirma o Termo, contradiz as datas do Informe |
+
+**Série 5 (o único ponto em que base e Termo se separam):** as DFs dizem 17/12/2035, o Termo, a Lâmina, o Prospecto definitivo e o AF dizem
+19/12/2035. Não adoto o valor das DFs em silêncio nem o do Termo: a hipótese é que as DFs citam a data da Nota Comercial (17/12/2035, Prospecto
+def. p.88), mas isso é interpretação. Decisão sua, ou consulta ao registro na B3/ANBIMA.
+
+**Inconsistência interna das DFs (baixa gravidade):** "Prazo de vencimento: 59 meses (1ª a 3ª), 77 meses (4ª), 120 meses (5ª)" (p.20); pelas datas
+seriam cerca de 60, 84 e 120 meses. Os 77 meses da 4ª série não fecham com 17/12/2032.
+
+**O que isso muda:** as três divergências de alta e média gravidade do Alibem (Informe, AF e classe) ficam explicadas por erro de **Informe e AF**,
+com as DFs auditadas, o Termo e a oferta do mesmo lado. O Informe e o AF passam a ser tratados como fonte secundária para dado cadastral do Alibem.
+
+## 8. Café Brasil: devedor e cedente informados à CVM (pesquisa de 29/10/2026, noite)
+
+Fonte: Informe Mensal (dados abertos da CVM, tabela de cedentes e devedores, e o XML já extraído no catálogo) e texto dos
+781 páginas baixadas do ativo (Termo, atas, relatórios do AF e outros). Só leitura.
+
+| O que | Informe da CVM (BRECOACRABX0 e BRECOACRAC05, mesma emissão) | Termo e atas |
+|---|---|---|
+| Devedor | 31.943.818/0001-71 (CNPJ válido), de 10/2022 a 08/2026 | Café Brasil Indústria, Comércio, Importação e Exportação S.A., 01.486.546/0001-67 (Termo p.13; atas de waiver) |
+| Cedente | 23.357.072/0001-81, de 10/2022 a 08/2026 | não é citado |
+
+- **31.943.818/0001-71 não aparece em nenhuma das 781 páginas** do ativo; na base da CVM, só nessa emissão. Nome não identificado (o XML do
+  Informe traz só o CNPJ).
+- **23.357.072/0001-81 é CNPJ inválido** (dígitos verificadores não batem). A raiz 23.357.072 é da Indústria de Rações Patense Ltda.,
+  devedora do CRA022009C1F, cujo Termo traz o CNPJ válido 23.357.072/0007-81. O mesmo CNPJ inválido aparece como cedente e/ou devedor em
+  outros 7 códigos de certificado da mesma securitizadora (alguns podem ser a mesma emissão com dois códigos: BRECOACRABM3, BRECOACRABR2, BRECOACRABW2, BRECOACRAC13, BRECOACRAC62, BRECOACRACC2,
+  BRECOACRACD0), o que indica preenchimento repetido no Informe, não um vínculo real com o Café Brasil.
+- O CNPJ do Café Brasil (01.486.546/0001-67) aparece na CVM só como devedor de outra emissão da mesma securitizadora (BRECOACRA1O7,
+  07/2022 a 12/2023).
+
+**Leitura:** o Informe do CRA do Café Brasil traz devedor e cedente que não são os do Termo. Hipótese: erro de preenchimento da securitizadora
+(o cedente com CNPJ inválido se repete em várias emissões). Isso é interpretação. O devedor do Café Brasil na plataforma é o do Termo; o do
+Informe não é usado.
+
+**Atualização de 30/10/2026:** Enrico consultou o CNPJ na Receita: 31.943.818/0001-71 é **Agro Quartzo Administração e Participações
+Sociedade Unipessoal Ltda.** Conferências feitas depois disso (só leitura):
+- "Quartzo" não aparece em nenhuma página do Café Brasil. As únicas ocorrências no catálogo são de outra empresa, a BTGI Quartzo
+  Participações S.A., no CRI 22D0836679 (Tecnisa/Windsor).
+- Nenhuma holding citada nos documentos do Café Brasil (Termo, atas, relatórios do AF) é a Agro Quartzo.
+- Na CVM, a Agro Quartzo é devedora só desta emissão: de 10/2022 a 08/2026 no BRECOACRAC05 e de 11/2022 a 08/2026 no BRECOACRABX0. Em 10/2022
+  o BRECOACRABX0 trazia como devedor o mesmo CNPJ inválido do cedente (23.357.072/0001-81).
+
+O vínculo da Agro Quartzo com o Café Brasil (sócia, controladora, garantidora ou erro de preenchimento) não tem evidência nos documentos.
+Fica pendente para pergunta à securitizadora ou ao AF. A plataforma mantém o devedor do Termo.

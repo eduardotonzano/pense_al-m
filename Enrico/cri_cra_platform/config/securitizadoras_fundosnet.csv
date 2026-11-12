@@ -1,0 +1,12 @@
+cnpj,nome_cvm,nome_busca,fonte
+02.773.542/0001-22,Opea Securtizadora,OPEA SECURITIZADORA S.A,"mesmo CNPJ resolve no Fundos.NET (erro de digitação na CVM); buscarAdministrador 03/11/2026"
+02.773.542/0001-22,RB Capital Companhia de Securitização,OPEA SECURITIZADORA S.A,"nome antigo; mesmo CNPJ resolve como OPEA; buscarAdministrador 03/11/2026"
+02.773.542/0001-22,RB Sec Companhia de Securitizacao,OPEA SECURITIZADORA S.A,"nome antigo; mesmo CNPJ resolve como OPEA; buscarAdministrador 03/11/2026"
+07.587.384/0001-30,Opea Securtizadora,OPEA SECURITIZADORA S.A,"tentativa: único administrador OPEA no Fundos.NET; o ISIN do certificado valida; buscarAdministrador 03/11/2026"
+03.767.538/0001-14,BSEC COMPANHIA DE SECURITIZAÇÃO,B.SEC Companhia de Securitização,"nome no Fundos.NET (id 1271); buscarAdministrador 03/11/2026"
+25.005.683/0001-09,VERT Sec,Vert Companhia Securitizadora,"mesmo CNPJ resolve no Fundos.NET; buscarAdministrador 03/11/2026"
+02.105.040/0001-23,RIZA II SECUTIRIZADORA S.A,Riza II Securitizadora S.A,"erro de digitação na CVM; mesmo CNPJ resolve; buscarAdministrador 03/11/2026"
+08.769.451/0001-08,VIRGO COMPANHIA DE SECURITIZACAO,RIZA SECURITIZADORA S.A.,"Virgo passou a Riza; mesmo CNPJ resolve; buscarAdministrador 03/11/2026"
+40.446.476/0001-75,PLAYBANCO SECURITIZADORA S.A,PLAYSEC SECURITIZADORA SA,"único administrador PLAY no Fundos.NET (id 8266); o ISIN do certificado valida; buscarAdministrador 03/11/2026"
+48.238.484/0001-38,Kanastra Securitizadora S.A.,COMPANHIA SECURITIZADORA KANASTRA,"nome no Fundos.NET (id 9550); buscarAdministrador 03/11/2026"
+10.753.164/0001-43,369,Eco Securitizdora de Direitos Creditórios do Agronegócio,"nome inválido na CVM; mesmo CNPJ resolve; buscarAdministrador 03/11/2026"

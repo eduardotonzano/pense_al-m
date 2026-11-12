@@ -6,6 +6,14 @@ from pense_alm.shared.integration.cli import (
     build_parser,
 )
 
+from ..cnpj_amostras import (
+    CNPJ_3,
+    CNPJ_4,
+    CNPJ_5,
+    CNPJ_7,
+    dv_errado,
+)
+
 
 def test_parser_accepts_required_paths():
     parser = build_parser()
@@ -184,7 +192,7 @@ def test_run_import_dry_run_does_not_persist(
             """,
             (
                 1,
-                "12345678000199",
+                CNPJ_3,
                 "Empresa Teste S.A.",
                 "Empresa Teste",
                 "2026-09-20 10:00:00",
@@ -263,7 +271,7 @@ def test_run_import_dry_run_does_not_persist(
             """,
             (
                 1,
-                "12345678000199",
+                CNPJ_3,
                 "Empresa Teste S.A.",
                 "Empresa Teste",
                 "2026-09-20 10:00:00",
@@ -342,7 +350,7 @@ def test_run_import_persists_and_is_idempotent(
             """,
             (
                 1,
-                "12345678000199",
+                CNPJ_3,
                 "Empresa Persistida S.A.",
                 "Empresa Persistida",
                 "2026-09-20 10:00:00",
@@ -430,7 +438,7 @@ def test_run_import_returns_two_when_record_fails(
             """,
             (
                 1,
-                "12345678000199",
+                CNPJ_3,
                 "Empresa com Erro S.A.",
                 None,
                 "data-invalida",
@@ -509,7 +517,7 @@ def test_run_import_returns_three_when_record_is_blocked(
             """,
             (
                 1,
-                "12345678000199",
+                CNPJ_3,
                 "Empresa Conflitante S.A.",
                 "Empresa Conflitante",
                 "2026-09-20 10:00:00",
@@ -530,7 +538,7 @@ def test_run_import_returns_three_when_record_is_blocked(
             legacy_id=99,
             legal_name="Empresa Conflitante S.A.",
             trade_name="Empresa Conflitante",
-            cnpj="99999999000199",
+            cnpj=CNPJ_7,
             created_at="2026-09-19 10:00:00",
             updated_at="2026-09-19 12:00:00",
         )
@@ -647,3 +655,131 @@ def test_run_import_returns_four_when_record_requires_review(
     assert "Bloqueados: 0" in output
     assert "Erros: 0" in output
     assert repository.count() == 1
+
+
+def test_run_import_dry_run_and_commit_report_invalid_cnpj_alike(
+    tmp_path,
+    capsys,
+):
+    import sqlite3
+
+    from pense_alm.shared.integration.cli import (
+        run_import,
+    )
+    from pense_alm.shared.persistence import (
+        SQLiteConnectionManager,
+        SQLiteEntityRepository,
+    )
+
+    legacy_path = tmp_path / "legacy_invalid_cnpj.sqlite3"
+    target_path = tmp_path / "target_invalid_cnpj.sqlite3"
+    invalid_cnpj = dv_errado(CNPJ_4)
+
+    connection = sqlite3.connect(legacy_path)
+
+    try:
+        connection.execute(
+            """
+            CREATE TABLE issuers (
+                id INTEGER PRIMARY KEY,
+                cnpj TEXT,
+                legal_name TEXT NOT NULL,
+                trade_name TEXT,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            )
+            """
+        )
+
+        connection.executemany(
+            """
+            INSERT INTO issuers (
+                id,
+                cnpj,
+                legal_name,
+                trade_name,
+                created_at,
+                updated_at
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (
+                (
+                    1,
+                    CNPJ_3,
+                    "Empresa Alfa S.A.",
+                    None,
+                    "2026-09-20 10:00:00",
+                    "2026-09-21 12:00:00",
+                ),
+                (
+                    2,
+                    invalid_cnpj,
+                    "Empresa Beta S.A.",
+                    None,
+                    "2026-09-20 11:00:00",
+                    "2026-09-21 13:00:00",
+                ),
+                (
+                    3,
+                    CNPJ_5,
+                    "Empresa Gama S.A.",
+                    None,
+                    "2026-09-20 12:00:00",
+                    "2026-09-21 14:00:00",
+                ),
+            ),
+        )
+
+        connection.commit()
+    finally:
+        connection.close()
+
+    dry_run_exit_code = run_import(
+        legacy_db=legacy_path,
+        target_db=target_path,
+        batch_size=1,
+        dry_run=True,
+    )
+    dry_run_output = capsys.readouterr().out
+
+    repository = SQLiteEntityRepository(
+        SQLiteConnectionManager(target_path)
+    )
+
+    assert repository.count() == 0
+
+    commit_exit_code = run_import(
+        legacy_db=legacy_path,
+        target_db=target_path,
+        batch_size=1,
+        dry_run=False,
+    )
+    commit_output = capsys.readouterr().out
+
+    assert repository.count() == 2
+
+    def without_dry_run_line(output):
+        return [
+            line
+            for line in output.splitlines()
+            if not line.startswith("Dry run:")
+        ]
+
+    assert dry_run_exit_code == 2
+    assert commit_exit_code == 2
+    assert without_dry_run_line(dry_run_output) == (
+        without_dry_run_line(commit_output)
+    )
+
+    for output in (dry_run_output, commit_output):
+        assert "Total lido: 3" in output
+        assert "Criados: 2" in output
+        assert "Erros: 1" in output
+        assert "legacy_id=2;" in output
+        assert "tipo=IdentifierValidationError;" in output
+        assert (
+            "mensagem=CNPJ com digito verificador invalido."
+            in output
+        )
+        assert invalid_cnpj not in output

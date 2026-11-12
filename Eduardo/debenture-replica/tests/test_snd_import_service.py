@@ -2,6 +2,7 @@ from pathlib import Path
 
 import pytest
 
+from cnpj_amostras import CNPJ_1
 from debenture_search.database import Database
 from debenture_search.services.debenture_query_service import (
     DebentureQueryService,
@@ -117,7 +118,7 @@ def test_imports_issuer(context):
         (result.issuer_id,),
     )
 
-    assert issuer["cnpj"] == "12345678000199"
+    assert issuer["cnpj"] == CNPJ_1
     assert issuer["legal_name"] == (
         "Companhia Exemplo de Energia S.A."
     )
@@ -238,7 +239,7 @@ def test_records_identity_fields_as_observations(context):
     assert set(rows) == set(IDENTITY_FIELDS)
     assert rows["codigo_ativo"]["value_text"] == "EXMP12"
     assert rows["isin"]["value_text"] == "BREXMPDBS001"
-    assert rows["cnpj_emissor"]["value_text"] == "12345678000199"
+    assert rows["cnpj_emissor"]["value_text"] == CNPJ_1
     # emissor e a razao social (issuers.legal_name), nao o nome fantasia.
     assert rows["emissor"]["value_text"] == "Companhia Exemplo de Energia S.A."
     for row in rows.values():

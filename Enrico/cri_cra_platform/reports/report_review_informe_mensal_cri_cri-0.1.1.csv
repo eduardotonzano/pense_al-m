@@ -1,0 +1,27 @@
+﻿report_id;codigo_cetip;isin;competencia_mes;reference_date;source_version;source_document_id;publication_date;automatic_validation_status;findings;proposed_action;reason;decision;reviewed_by;comment
+208;24G2100031;BRRBRACRIP13;2024-08;2024-08-01;1;939497;04/07/2025 12:15;valid;;aprovar;maior versão do mês e validação automática valid;;;
+199;24G2100031;BRRBRACRIP13;2024-09;2024-09-01;1;767561;30/10/2024 10:11;valid;;aprovar;maior versão do mês e validação automática valid;;;
+200;24G2100031;BRRBRACRIP13;2024-10;2024-10-01;1;788138;26/11/2024 17:18;valid;;aprovar;maior versão do mês e validação automática valid;;;
+201;24G2100031;BRRBRACRIP13;2024-11;2024-11-01;1;807613;23/12/2024 16:58;valid;;aprovar;maior versão do mês e validação automática valid;;;
+202;24G2100031;BRRBRACRIP13;2024-12;2024-12-01;1;828668;30/01/2025 16:17;valid;;aprovar;maior versão do mês e validação automática valid;;;
+203;24G2100031;BRRBRACRIP13;2025-01;2025-01-01;1;850969;28/02/2025 16:58;valid;;aprovar;maior versão do mês e validação automática valid;;;
+204;24G2100031;BRRBRACRIP13;2025-02;2025-02-01;1;869483;31/03/2025 18:35;valid;;aprovar;maior versão do mês e validação automática valid;;;
+205;24G2100031;BRRBRACRIP13;2025-03;2025-03-01;1;888608;30/04/2025 11:43;valid;;aprovar;maior versão do mês e validação automática valid;;;
+206;24G2100031;BRRBRACRIP13;2025-04;2025-04-01;1;912876;28/05/2025 17:29;valid;;aprovar;maior versão do mês e validação automática valid;;;
+207;24G2100031;BRRBRACRIP13;2025-05;2025-05-01;1;933064;26/06/2025 16:11;valid;;aprovar;maior versão do mês e validação automática valid;;;
+209;24G2100031;BRRBRACRIP13;2025-06;2025-06-01;1;953527;28/07/2025 08:49;valid;;aprovar;maior versão do mês e validação automática valid;;;
+210;24G2100031;BRRBRACRIP13;2025-07;2025-07-01;1;976233;22/08/2025 11:20;valid;;aprovar;maior versão do mês e validação automática valid;;;
+211;24G2100031;BRRBRACRIP13;2025-08;2025-08-01;1;996667;23/09/2025 17:06;valid;;aprovar;maior versão do mês e validação automática valid;;;
+212;24G2100031;BRRBRACRIP13;2025-09;2025-09-01;1;1020634;27/10/2025 09:18;valid;;aprovar;maior versão do mês e validação automática valid;;;
+213;24G2100031;BRRBRACRIP13;2025-10;2025-10-01;1;1047947;27/11/2025 11:05;valid;;aprovar;maior versão do mês e validação automática valid;;;
+214;24G2100031;BRRBRACRIP13;2025-11;2025-11-01;1;1070670;26/12/2025 15:53;valid;;aprovar;maior versão do mês e validação automática valid;;;
+215;24G2100031;BRRBRACRIP13;2025-12;2025-12-01;1;1092201;26/01/2026 09:42;valid;;aprovar;maior versão do mês e validação automática valid;;;
+216;24G2100031;BRRBRACRIP13;2026-01;2026-01-01;1;1123606;27/02/2026 13:12;valid;;aprovar;maior versão do mês e validação automática valid;;;
+217;24G2100031;BRRBRACRIP13;2026-02;2026-02-01;1;1145397;26/03/2026 16:38;valid;;aprovar;maior versão do mês e validação automática valid;;;
+218;24G2100031;BRRBRACRIP13;2026-03;2026-03-01;1;1169763;27/04/2026 09:29;valid;;aprovar;maior versão do mês e validação automática valid;;;
+219;24G2100031;BRRBRACRIP13;2026-04;2026-04-01;1;1203437;26/05/2026 11:27;valid;;aprovar;maior versão do mês e validação automática valid;;;
+220;24G2100031;BRRBRACRIP13;2026-05;2026-05-01;1;1230125;26/06/2026 12:39;valid;;aprovar;maior versão do mês e validação automática valid;;;
+221;24G2100031;BRRBRACRIP13;2026-06;2026-06-01;1;1264371;27/07/2026 10:28;valid;;aprovar;maior versão do mês e validação automática valid;;;
+222;24G2100031;BRRBRACRIP13;2026-07;2026-07-01;1;1300985;26/08/2026 17:14;valid;;aprovar;maior versão do mês e validação automática valid;;;
+223;24G2100031;BRRBRACRIP13;2026-08;2026-08-01;1;1330020;28/09/2026 11:07;valid;;aprovar;maior versão do mês e validação automática valid;;;
+224;24G2100031;BRRBRACRIP13;2026-09;2026-09-01;1;1357521;23/10/2026 11:52;warning;"totals_consistency:/Ativo/@total ; totals_consistency:/Ativo/CaixaEquivalentes/@total ; totals_consistency:/Passivo/@total";decidir;maior versão do mês com status warning;;;

@@ -15,6 +15,12 @@ from pense_alm.shared.entities import (
     normalize_matching_name,
 )
 
+from ..cnpj_amostras import (
+    CNPJ_1,
+    CNPJ_2,
+    com_mascara,
+)
+
 
 @pytest.fixture
 def bacen_provenance():
@@ -28,12 +34,13 @@ def create_identifier(
     provenance,
     identifier_type,
     value,
+    is_primary=True,
 ):
     return EntityIdentifier(
         identifier_type=identifier_type,
         value=value,
         provenance=provenance,
-        is_primary=True,
+        is_primary=is_primary,
     )
 
 
@@ -67,12 +74,12 @@ def test_same_cnpj_allows_automatic_match(
     left_identifier = create_identifier(
         bacen_provenance,
         IdentifierType.CNPJ,
-        "12.345.678/0001-90",
+        com_mascara(CNPJ_1),
     )
     right_identifier = create_identifier(
         bacen_provenance,
         IdentifierType.CNPJ,
-        "12345678000190",
+        CNPJ_1,
     )
 
     left = create_entity(
@@ -108,7 +115,7 @@ def test_conflicting_cnpj_blocks_match(
             create_identifier(
                 bacen_provenance,
                 IdentifierType.CNPJ,
-                "12.345.678/0001-90",
+                com_mascara(CNPJ_1),
             ),
         ),
     )
@@ -119,7 +126,7 @@ def test_conflicting_cnpj_blocks_match(
             create_identifier(
                 bacen_provenance,
                 IdentifierType.CNPJ,
-                "98.765.432/0001-10",
+                com_mascara(CNPJ_2),
             ),
         ),
     )
@@ -130,6 +137,81 @@ def test_conflicting_cnpj_blocks_match(
     assert result.strength is MatchStrength.CONFLICT
     assert result.score == 0
     assert result.can_auto_match is False
+
+
+def test_matching_uses_all_identifiers_of_the_same_type(
+    bacen_provenance,
+):
+    left = create_entity(
+        bacen_provenance,
+        "Banco Exemplo S.A.",
+        identifiers=(
+            create_identifier(
+                bacen_provenance,
+                IdentifierType.CNPJ,
+                "12.345.678/0001-95",
+            ),
+            create_identifier(
+                bacen_provenance,
+                IdentifierType.CNPJ,
+                "12.345.678/0002-76",
+                is_primary=False,
+            ),
+        ),
+    )
+    right = create_entity(
+        bacen_provenance,
+        "Banco Exemplo S.A.",
+        identifiers=(
+            create_identifier(
+                bacen_provenance,
+                IdentifierType.CNPJ,
+                "12.345.678/0001-95",
+            ),
+        ),
+    )
+
+    result = EntityMatcher().compare(left, right)
+
+    assert result.decision is MatchDecision.AUTO_MATCH
+    assert result.matched_identifier_type is IdentifierType.CNPJ
+
+
+def test_conflicting_primary_identifier_still_blocks_match(
+    bacen_provenance,
+):
+    left = create_entity(
+        bacen_provenance,
+        "Banco Exemplo S.A.",
+        identifiers=(
+            create_identifier(
+                bacen_provenance,
+                IdentifierType.CNPJ,
+                "12.345.678/0001-95",
+            ),
+            create_identifier(
+                bacen_provenance,
+                IdentifierType.CNPJ,
+                "12.345.678/0002-76",
+                is_primary=False,
+            ),
+        ),
+    )
+    right = create_entity(
+        bacen_provenance,
+        "Banco Exemplo S.A.",
+        identifiers=(
+            create_identifier(
+                bacen_provenance,
+                IdentifierType.CNPJ,
+                "98.765.432/0001-98",
+            ),
+        ),
+    )
+
+    result = EntityMatcher().compare(left, right)
+
+    assert result.decision is MatchDecision.BLOCKED
 
 
 def test_same_legal_name_requires_human_review(
@@ -192,6 +274,26 @@ def test_same_trade_name_requires_review(
     assert result.decision is MatchDecision.REVIEW
     assert result.strength is MatchStrength.WEAK
     assert result.score == 40
+
+
+def test_cross_legal_and_trade_name_match_requires_review(
+    bacen_provenance,
+):
+    left = create_entity(
+        bacen_provenance,
+        "Banco Exemplo S.A.",
+        trade_name="Exemplo Financeira",
+    )
+    right = create_entity(
+        bacen_provenance,
+        "Exemplo Financeira",
+        trade_name="Outra Marca",
+    )
+
+    result = EntityMatcher().compare(left, right)
+
+    assert result.decision is MatchDecision.REVIEW
+    assert result.strength is MatchStrength.WEAK
 
 
 def test_different_entities_do_not_match(

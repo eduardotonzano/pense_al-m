@@ -2,6 +2,8 @@
 
 from dataclasses import dataclass
 
+from pense_alm.shared.entities import normalize_cnpj
+
 
 @dataclass(frozen=True, slots=True)
 class DebentureIssuerRecord:
@@ -62,21 +64,10 @@ class DebentureIssuerRecord:
                     "cnpj deve ser texto."
                 )
 
-            normalized_cnpj = "".join(
-                character
-                for character in self.cnpj
-                if character.isdigit()
-            )
-
-            if len(normalized_cnpj) != 14:
-                raise ValueError(
-                    "cnpj deve conter 14 digitos."
-                )
-
             object.__setattr__(
                 self,
                 "cnpj",
-                normalized_cnpj,
+                normalize_cnpj(self.cnpj),
             )
 
         for field_name in (

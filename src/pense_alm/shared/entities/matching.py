@@ -103,32 +103,61 @@ class EntityMatcher:
         right: Entity,
     ) -> EntityMatchResult | None:
         left_identifiers = {
+            identifier_type: {
+                identifier.value
+                for identifier in left.identifiers
+                if identifier.identifier_type is identifier_type
+            }
+            for identifier_type in _STRONG_IDENTIFIER_TYPES
+        }
+
+        right_identifiers = {
+            identifier_type: {
+                identifier.value
+                for identifier in right.identifiers
+                if identifier.identifier_type is identifier_type
+            }
+            for identifier_type in _STRONG_IDENTIFIER_TYPES
+        }
+
+        left_primaries = {
             identifier.identifier_type: identifier.value
             for identifier in left.identifiers
             if identifier.identifier_type
             in _STRONG_IDENTIFIER_TYPES
+            and identifier.is_primary
         }
 
-        right_identifiers = {
+        right_primaries = {
             identifier.identifier_type: identifier.value
             for identifier in right.identifiers
             if identifier.identifier_type
             in _STRONG_IDENTIFIER_TYPES
+            and identifier.is_primary
         }
 
-        shared_types = (
-            set(left_identifiers)
-            & set(right_identifiers)
-        )
+        shared_types = {
+            identifier_type
+            for identifier_type in _STRONG_IDENTIFIER_TYPES
+            if left_identifiers[identifier_type]
+            and right_identifiers[identifier_type]
+        }
 
         for identifier_type in sorted(
             shared_types,
             key=lambda item: item.value,
         ):
-            left_value = left_identifiers[identifier_type]
-            right_value = right_identifiers[identifier_type]
+            left_primary = left_primaries.get(identifier_type)
+            right_primary = right_primaries.get(identifier_type)
 
-            if left_value != right_value:
+            if (
+                left_primary is not None
+                and right_primary is not None
+                and left_primary != right_primary
+            ) or not (
+                left_identifiers[identifier_type]
+                & right_identifiers[identifier_type]
+            ):
                 return EntityMatchResult(
                     decision=MatchDecision.BLOCKED,
                     strength=MatchStrength.CONFLICT,
@@ -146,7 +175,7 @@ class EntityMatcher:
         ):
             if (
                 left_identifiers[identifier_type]
-                == right_identifiers[identifier_type]
+                & right_identifiers[identifier_type]
             ):
                 return EntityMatchResult(
                     decision=MatchDecision.AUTO_MATCH,
@@ -203,6 +232,21 @@ class EntityMatcher:
         right_display_name = normalize_matching_name(
             right.display_name
         )
+
+        if (
+            left_legal_name == right_display_name
+            or left_display_name == right_legal_name
+        ):
+            return EntityMatchResult(
+                decision=MatchDecision.REVIEW,
+                strength=MatchStrength.WEAK,
+                score=40,
+                reasons=(
+                    "Razao social e nome de exibicao normalizados "
+                    "coincidem entre as entidades.",
+                    "Identificador oficial compartilhado ausente.",
+                ),
+            )
 
         if left_display_name == right_display_name:
             return EntityMatchResult(

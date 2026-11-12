@@ -19,6 +19,13 @@ from pense_alm.shared.persistence import (
     SQLiteEntityRepository,
 )
 
+from ..cnpj_amostras import (
+    CNPJ_1,
+    CNPJ_2,
+    CNPJ_ALFA_1,
+    com_mascara,
+)
+
 
 @pytest.fixture
 def provenance():
@@ -73,7 +80,7 @@ def test_repository_saves_and_loads_entity(
     entity = create_entity(
         provenance,
         "Empresa Exemplo S.A.",
-        cnpj="12.345.678/0001-90",
+        cnpj=com_mascara(CNPJ_1),
     )
 
     repository.save(entity)
@@ -102,17 +109,55 @@ def test_repository_finds_by_formatted_identifier(
         provenance,
         "Banco Exemplo S.A.",
         entity_type=EntityType.BANK,
-        cnpj="12.345.678/0001-90",
+        cnpj=com_mascara(CNPJ_1),
     )
 
     repository.save(entity)
 
     restored = repository.get_by_identifier(
         IdentifierType.CNPJ,
-        "12345678000190",
+        CNPJ_1,
     )
 
     assert restored == entity
+
+
+def test_repository_persists_and_finds_alphanumeric_cnpj(
+    tmp_path,
+    provenance,
+):
+    database_path = tmp_path / "alfanumerico.sqlite3"
+
+    entity = create_entity(
+        provenance,
+        "Empresa Alfanumerica S.A.",
+        cnpj=com_mascara(CNPJ_ALFA_1).lower(),
+    )
+
+    SQLiteEntityRepository(
+        SQLiteConnectionManager(database_path)
+    ).save(entity)
+
+    reopened = SQLiteEntityRepository(
+        SQLiteConnectionManager(database_path)
+    )
+
+    for lookup in (
+        CNPJ_ALFA_1,
+        com_mascara(CNPJ_ALFA_1),
+    ):
+        restored = reopened.get_by_identifier(
+            IdentifierType.CNPJ,
+            lookup,
+        )
+
+        assert restored == entity
+        assert restored.cnpj == CNPJ_ALFA_1
+
+    assert reopened.get_by_identifier(
+        IdentifierType.CNPJ,
+        CNPJ_1,
+    ) is None
 
 
 def test_repository_rejects_duplicate_identifier(
@@ -122,12 +167,12 @@ def test_repository_rejects_duplicate_identifier(
     first = create_entity(
         provenance,
         "Empresa Alfa S.A.",
-        cnpj="12.345.678/0001-90",
+        cnpj=com_mascara(CNPJ_1),
     )
     second = create_entity(
         provenance,
         "Empresa Beta S.A.",
-        cnpj="12.345.678/0001-90",
+        cnpj=com_mascara(CNPJ_1),
     )
 
     repository.save(first)
@@ -160,14 +205,14 @@ def test_repository_updates_identifier_index(
     original = create_entity(
         provenance,
         "Empresa Exemplo S.A.",
-        cnpj="12.345.678/0001-90",
+        cnpj=com_mascara(CNPJ_1),
     )
 
     repository.save(original)
 
     replacement_identifier = EntityIdentifier(
         identifier_type=IdentifierType.CNPJ,
-        value="98.765.432/0001-10",
+        value=com_mascara(CNPJ_2),
         provenance=provenance,
         is_primary=True,
     )
@@ -181,12 +226,12 @@ def test_repository_updates_identifier_index(
 
     assert repository.get_by_identifier(
         IdentifierType.CNPJ,
-        "12345678000190",
+        CNPJ_1,
     ) is None
 
     assert repository.get_by_identifier(
         IdentifierType.CNPJ,
-        "98765432000110",
+        CNPJ_2,
     ) == updated
 
 

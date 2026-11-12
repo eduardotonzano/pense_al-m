@@ -203,6 +203,49 @@ def test_native_certificate_validation_rejects_other_isin():
     assert selected is None
 
 
+def polo(**changes):
+    values = dict(codigo_cetip="13C0017641", isin="BRPLSCCRI041", tipo_ativo="CRI",
+                  securitizadora="POLO CAPITAL SECURITIZADORA S.A.", emissao="1", serie="13")
+    values.update(changes)
+    return asset(**values)
+
+
+def test_certificate_listed_by_cetip_is_found_when_no_isin_matches():
+    collector = FundosNetCollector()
+    matches = [
+        FundosNetMatch(1, "POLO CAP SEC CRI Emissão:1 Série:13  KPFR PARTICIPAÇÕES 03/2013 13C0017641"),
+        FundosNetMatch(2, "POLO CAP SEC CRI Emissão:1 Série(s):16 (+1) Diversificado 08/2013 13H0072616"),
+    ]
+    assert collector._select_match(polo(), matches).id_fundo == 1
+
+
+def test_cetip_fallback_refuses_other_isin_other_emission_and_partial_code():
+    collector = FundosNetCollector()
+    # texto com outro ISIN é outro certificado, mesmo trazendo o CETIP
+    assert collector._select_match(polo(), [FundosNetMatch(1, "OPEA CRI Emissão:1 13C0017641 BRAPCSCRIP54")]) is None
+    # emissão diferente
+    assert collector._select_match(polo(), [FundosNetMatch(1, "POLO CAP SEC CRI Emissão:2 Série:13 13C0017641")]) is None
+    # código que só contém o CETIP
+    assert collector._select_match(polo(), [FundosNetMatch(1, "POLO CAP SEC CRI Emissão:1 13C00176410")]) is None
+
+
+def test_isin_match_has_priority_over_cetip():
+    collector = FundosNetCollector()
+    matches = [
+        FundosNetMatch(1, "POLO CAP SEC CRI Emissão:1 Série:13 13C0017641"),
+        FundosNetMatch(2, "POLO CAP SEC CRI Emissão:1 Série:13 BRPLSCCRI041"),
+    ]
+    assert collector._select_match(polo(), matches).id_fundo == 2
+
+
+def test_document_description_accepts_cetip_only_without_isin():
+    from credit_assets.collectors.fundosnet_collector import describes_asset
+    assert describes_asset(polo(), "POLO CAP SEC CRI Emissão:1 Série:13 KPFR 03/2013 13C0017641")
+    assert not describes_asset(polo(), "POLO CAP SEC CRI Emissão:1 Série:13 13C0017641 BROUTROCRI09")
+    assert describes_asset(asset(), "ECO CRA Emissão:190 Série:1 CAFÉ BRASIL BRECOACRABX0")
+    assert not describes_asset(asset(), "ECO CRA Emissão:190 Série:2 CAFÉ BRASIL BRECOACRAZZ1")
+
+
 def test_captcha_marker_is_not_solved():
     diagnostics = {"captcha": None}
     assert "captcha_required" in "captcha_required"
