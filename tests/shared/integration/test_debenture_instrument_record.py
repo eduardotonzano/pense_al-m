@@ -6,6 +6,12 @@ from pense_alm.shared.integration import (
     DebentureInstrumentRecord,
 )
 
+from ..cnpj_amostras import cnpj_ficticio, com_mascara
+
+
+ALFA_CNPJ = cnpj_ficticio(1)
+ALFA_CNPJ_MASCARA = com_mascara(ALFA_CNPJ)
+
 
 def create_record(**overrides):
     values = {
@@ -14,7 +20,7 @@ def create_record(**overrides):
         "isin": "BRALFADBS001",
         "status": "active",
         "issuer_legacy_id": 1,
-        "issuer_cnpj": "12.345.678/0001-99",
+        "issuer_cnpj": ALFA_CNPJ_MASCARA,
         "created_at": "2026-09-20 10:00:00",
         "updated_at": "2026-09-21 12:00:00",
     }
@@ -32,7 +38,7 @@ def test_record_normalizes_identifiers_status_and_cnpj():
     assert record.asset_code == "ALFA11"
     assert record.isin == "BRALFADBS001"
     assert record.status == "active"
-    assert record.issuer_cnpj == "12345678000199"
+    assert record.issuer_cnpj == ALFA_CNPJ
 
 
 def test_record_accepts_only_asset_code():

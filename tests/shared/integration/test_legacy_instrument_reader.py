@@ -11,6 +11,11 @@ from pense_alm.shared.integration import (
     LegacyInstrumentReadError,
 )
 
+from ..cnpj_amostras import cnpj_ficticio
+
+
+ALFA_CNPJ = cnpj_ficticio(1)
+
 
 def sha256_of(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -41,7 +46,7 @@ def test_reader_returns_records_with_issuer_data(
     assert first.isin == "BRALFADBS001"
     assert first.status == "active"
     assert first.issuer_legacy_id == 1
-    assert first.issuer_cnpj == "12345678000199"
+    assert first.issuer_cnpj == ALFA_CNPJ
 
 
 def test_reader_maps_issuer_without_cnpj(legacy_database):
@@ -92,7 +97,7 @@ def test_reader_reports_invalid_row_and_continues(
         issuers=(
             (
                 1,
-                "12345678000199",
+                ALFA_CNPJ,
                 "Empresa Alfa S.A.",
                 None,
                 "2026-09-20 10:00:00",

@@ -8,6 +8,12 @@ import sqlite3
 
 import pytest
 
+from ..cnpj_amostras import cnpj_ficticio
+
+
+ALFA_CNPJ = cnpj_ficticio(1)
+BETA_CNPJ = cnpj_ficticio(2)
+
 
 _LEGACY_DDL = (
     """
@@ -72,7 +78,7 @@ _LEGACY_DDL = (
 DEFAULT_ISSUERS = (
     (
         1,
-        "12345678000199",
+        ALFA_CNPJ,
         "Empresa Alfa S.A.",
         "Empresa Alfa",
         "2026-09-20 10:00:00",
@@ -80,7 +86,7 @@ DEFAULT_ISSUERS = (
     ),
     (
         2,
-        "22345678000198",
+        BETA_CNPJ,
         "Empresa Beta S.A.",
         None,
         "2026-09-20 11:00:00",

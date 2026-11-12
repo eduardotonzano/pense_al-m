@@ -24,8 +24,12 @@ from pense_alm.shared.integration import (
     InstrumentImportReason,
 )
 
-ALFA_CNPJ = "12345678000199"
-BETA_CNPJ = "22345678000198"
+from ..cnpj_amostras import cnpj_ficticio
+
+
+ALFA_CNPJ = cnpj_ficticio(1)
+BETA_CNPJ = cnpj_ficticio(2)
+GAMA_CNPJ = cnpj_ficticio(3)
 
 
 def create_record(**overrides):
@@ -392,7 +396,7 @@ def test_unregistered_issuer_goes_to_review_and_is_not_created(
     result = service.import_record(
         create_record(
             issuer_legacy_id=3,
-            issuer_cnpj="32345678000197",
+            issuer_cnpj=GAMA_CNPJ,
         )
     )
 
@@ -403,7 +407,7 @@ def test_unregistered_issuer_goes_to_review_and_is_not_created(
     assert entities.count() == entities_before
     assert entities.get_by_identifier(
         IdentifierType.CNPJ,
-        "32345678000197",
+        GAMA_CNPJ,
     ) is None
     assert issues_count(relationships) == 0
 

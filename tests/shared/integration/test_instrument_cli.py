@@ -30,6 +30,11 @@ from pense_alm.shared.persistence import (
     SQLiteRelationshipRepository,
 )
 
+from ..cnpj_amostras import cnpj_ficticio
+
+
+ALFA_CNPJ = cnpj_ficticio(1)
+
 
 def sha256_of(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -482,7 +487,7 @@ def clean_legacy(legacy_database_factory):
         issuers=(
             (
                 1,
-                "12345678000199",
+                ALFA_CNPJ,
                 "Empresa Alfa S.A.",
                 None,
                 "2026-09-20 10:00:00",
@@ -593,7 +598,7 @@ def test_exit_code_is_two_for_invalid_legacy_row(
         issuers=(
             (
                 1,
-                "12345678000199",
+                ALFA_CNPJ,
                 "Empresa Alfa S.A.",
                 None,
                 "2026-09-20 10:00:00",

@@ -18,6 +18,11 @@ from pense_alm.shared.integration import (
     LegacyDebentureIssuerReader,
 )
 
+from ..cnpj_amostras import cnpj_ficticio
+
+
+ALFA_CNPJ = cnpj_ficticio(1)
+
 
 def sha256_of(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
@@ -133,7 +138,7 @@ def test_batch_records_read_error_and_continues(
 ):
     issuer = (
         1,
-        "12345678000199",
+        ALFA_CNPJ,
         "Empresa Alfa S.A.",
         None,
         "2026-09-20 10:00:00",

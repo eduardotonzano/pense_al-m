@@ -20,6 +20,11 @@ from pense_alm.shared.integration import (
     DebentureIssuerRecord,
 )
 
+from ..cnpj_amostras import cnpj_ficticio
+
+
+ALFA_CNPJ = cnpj_ficticio(1)
+
 
 def create_record(**overrides):
     values = {
@@ -28,7 +33,7 @@ def create_record(**overrides):
         "isin": "BRALFADBS001",
         "status": "active",
         "issuer_legacy_id": 1,
-        "issuer_cnpj": "12345678000199",
+        "issuer_cnpj": ALFA_CNPJ,
         "created_at": "2026-09-20 10:00:00",
         "updated_at": "2026-09-21 12:00:00",
     }
@@ -41,7 +46,7 @@ def create_issuer():
         DebentureIssuerRecord(
             legacy_id=1,
             legal_name="Empresa Alfa S.A.",
-            cnpj="12345678000199",
+            cnpj=ALFA_CNPJ,
             created_at="2026-09-20 10:00:00",
             updated_at="2026-09-21 12:00:00",
         )
