@@ -2,7 +2,7 @@
 
 Plataforma de acompanhamento de ativos de crédito e renda fixa, construída pela equipe de research da Multiplica Capital.
 
-> **Status (20/10/2026):** em desenvolvimento. Coletores de debêntures e de CRI/CRA funcionando de forma independente; a camada compartilhada de entidades está construída e integrada apenas para emissores de debêntures. Veja [Estado atual](#estado-atual).
+> **Status (13/11/2026):** em desenvolvimento. Coletores de debêntures e de CRI/CRA funcionando de forma independente; o módulo de Fundos (`Gui/fundos`) tem banco próprio e leitores da CVM, ainda sem adaptador para a camada compartilhada. A camada compartilhada de entidades está construída e integra os emissores de debêntures e, desde o #11, a própria debênture (instrumento). Veja [Estado atual](#estado-atual).
 
 ---
 
@@ -78,8 +78,13 @@ Decisões de arquitetura registradas em `docs/architecture/`:
 | ADR-004 | Persistência em SQLite |
 | ADR-005 | Integração gradual de emissores de debêntures |
 | ADR-006 | Contrato de leitura para o site (proposta) |
+| ADR-007 | Instrumento (debênture) como entidade |
+| ADR-008 | Importação de debêntures como instrumento |
+| ADR-009 | Execução segura da importação de instrumentos |
 | ADR-010 | Prioridade de fontes em Fundos (proposta) |
-| ADR-011 | CNPJ alfanumérico (proposta) |
+| ADR-011 | CNPJ alfanumérico |
+| ADR-012 | Prestadores de fundos e relação "investe em" |
+| ADR-013 | Decisões de Fundos na camada compartilhada |
 
 A integração é gradual: os módulos legados são lidos em modo somente leitura por adaptadores, sem reescrita imediata e sem que a camada compartilhada dependa das classes internas deles.
 
@@ -93,7 +98,7 @@ pense_al-m/
 │   ├── entities/                      # modelos, identificadores, matching, relacionamentos
 │   ├── persistence/                   # SQLite, migrations, repositórios
 │   ├── collection/                    # contratos de coleta (requests, runs, results, raw records)
-│   └── integration/                   # adaptadores e CLI de importação de emissores
+│   └── integration/                   # adaptadores e CLIs de importação de emissores e de instrumentos
 ├── tests/shared/                      # testes da camada compartilhada
 ├── debenture-replica/                 # módulo de debêntures, versão congelada (etapas 1 a 8)
 ├── Eduardo/                           # módulo de debêntures, versão de trabalho (SND, observações, auditoria)
@@ -145,7 +150,7 @@ Plataforma de coleta, histórico e monitoramento de CRIs e CRAs a partir do Fund
 
 ### Fundos (`Gui/fundos`)
 
-Base do módulo de FIDC, FIC-FIDC e FIAGRO, no repositório desde 27/10/2026, com banco SQLite próprio e leitores do cadastro e dos informes mensais da CVM. O dono da frente é o Gui; o nome da pasta e o do pacote (`fundos`) são provisórios. Ainda não existem, nas palavras do `Gui/fundos/README.md`: "coletor, acesso à rede, banco real, dados reais e adaptador para a camada compartilhada". O que existe e o que falta está em `Gui/fundos/README.md`.
+Base do módulo de FIDC, FIC-FIDC e FIAGRO, no repositório desde 27/10/2026, com banco SQLite próprio e leitores do cadastro e dos informes mensais da CVM. O dono da frente é o Gui; o nome da pasta e o do pacote (`fundos`) são provisórios. Ainda não existem, nas palavras do `Gui/fundos/README.md`: "coletor, acesso à rede, banco real, dados reais e adaptador para a camada compartilhada". O que existe e o que falta está em `Gui/fundos/README.md`. Como os fundos vão entrar na camada compartilhada está decidido no ADR-012 e no ADR-013 (aceitos, ainda não implementados).
 
 ### Renda fixa
 
@@ -233,11 +238,11 @@ Mapa por passo do escopo, conforme o repositório em 20/10/2026:
 |---|---|
 | 1. Listagem dos ativos | Concluído |
 | 2. Coletores/APIs | Em andamento: debêntures madura; CRI/CRA avançando com ativo piloto; fundos com a base do módulo em `Gui/fundos`, ainda sem coletor, acesso à rede, banco real, dados reais e adaptador para a camada compartilhada (correção de 09/11/2026); renda fixa não iniciada |
-| 3. Junção dos códigos | Iniciado: a camada compartilhada existe e integra apenas emissores de debêntures (3 emissores reais importados) |
+| 3. Junção dos códigos | Iniciado: a camada compartilhada existe e integra os emissores de debêntures (3 emissores reais importados) e, desde o #11, a debênture como instrumento (ADR-007 a 009; correção de 13/11/2026) |
 
 Pontos em aberto:
 
-- integrar a debênture (o instrumento) e os ativos CRI/CRA à camada compartilhada, com adaptador próprio para CRI/CRA (securitizadora e devedor, ambos com CNPJ);
+- integrar os ativos CRI/CRA à camada compartilhada, com adaptador próprio (securitizadora e devedor, ambos com CNPJ); a debênture (o instrumento) já foi integrada no #11;
 - rodar o download em escala dos documentos CRI/CRA e o catálogo completo no banco principal (o código que persiste o catálogo já está na `main`: migration 001 e `run_document_catalog.py`);
 - ligar fontes oficiais adicionais (CVM e ANBIMA) às debêntures;
 - iniciar a frente de Renda fixa (a de Fundos começou em `Gui/fundos`);
@@ -246,7 +251,7 @@ Pontos em aberto:
 
 ## Roadmap
 
-1. Adaptador de debêntures (instrumento) para a camada compartilhada.
+1. Adaptador de debêntures (instrumento) para a camada compartilhada: feito no #11 (merge 9ac5032, 12/11/2026). A debênture virou entidade (ADR-007 a 009), e a CLI `python -m pense_alm.shared.integration.instrument_cli` simula por padrão e só grava com `--commit` e backup.
 2. Adaptador CRI/CRA para a camada compartilhada. O ISIN duplicado do Café Brasil, segundo `Enrico/cri_cra_platform/reports/duplicate_assets_diagnostic.md`, foi resolvido no banco local do Enrico em 08/10/2026 (não verificável neste repositório). As séries por ativo têm tabela própria desde a migration `002_asset_series.sql` do CRI/CRA (PR #21); como exibi-las segue em aberto (S-07 em `docs/regras-de-exibicao-pendentes.md`).
 3. Frente de Fundos (FIDC/FIAGRO), iniciada em `Gui/fundos`, e definição do responsável por Renda fixa (em aberto, ver R-01).
 4. Levantamento de requisitos de interface com a equipe e retomada da etapa 9.
