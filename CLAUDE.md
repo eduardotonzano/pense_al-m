@@ -39,17 +39,18 @@ Há `README.md` na raiz e `Fábio/README.md` (contrato de integração); os cont
 
 ## Testes
 Python 3.14. Venvs: `C:\Users\eduardo.tonzano\debenture-venv` (camada compartilhada e debêntures) e `C:\Users\eduardo.tonzano\cricra-venv` (CRI/CRA; tem `playwright` e `requests`, que o outro não tem). Rode sempre no diretório indicado.
-- Camada compartilhada (raiz do repo): `$env:PYTHONPATH='src'; python -m pytest tests` (353 testes; sem o PYTHONPATH a coleta falha)
+- Camada compartilhada (raiz do repo): `$env:PYTHONPATH='src'; python -m pytest tests` (485 testes; sem o PYTHONPATH a coleta falha)
 - Debêntures, versão de trabalho: `cd Eduardo\debenture-replica; python -m pytest -q` (543; o `pyproject.toml` já define `pythonpath=src`)
 - Debêntures, automação congelada: `cd debenture-replica; python -m pytest -q` (105)
-- CRI/CRA (venv `cricra-venv`): `cd Enrico\cri_cra_platform; python -m pytest` (869; `pytest.ini` define `pythonpath=src`; no `debenture-venv`, 7 arquivos de teste falham na coleta por falta do `playwright`)
-- Baseline histórico de 417 testes (ADR-001; `FREEZE.md`: "suite completa"). Soma atual: 543 + 105 = 648. Não deve cair. Contagens por `pytest --collect-only` em 11/11/2026.
+- CRI/CRA (venv `cricra-venv`): `cd Enrico\cri_cra_platform; python -m pytest` (965; `pytest.ini` define `pythonpath=src`; no `debenture-venv`, 7 arquivos de teste falham na coleta por falta do `playwright`)
+- Baseline histórico de 417 testes (ADR-001; `FREEZE.md`: "suite completa"). Soma atual: 543 + 105 = 648. Não deve cair. Contagens por `pytest --collect-only` em 13/11/2026.
 
 ## Regras operacionais
 - **Nunca** rodar coleta, importação ou CLI com `--commit` sem minha aprovação explícita na conversa. Sempre `--dry-run` antes.
   - `debenture-replica/scripts/run_collection.py <config> --dry-run|--commit` e `run_scheduled_collection.py` exigem uma das duas flags.
   - `Eduardo/debenture-replica/scripts/snd_import_one.py` e `snd_import_batch.py` fazem só a prévia sem `--commit`.
   - `python -m pense_alm.shared.integration.cli --legacy-db ... --target-db ... --dry-run` só tem `--dry-run`: **sem a flag ele grava**. Sempre passá-la primeiro.
+  - `python -m pense_alm.shared.integration.instrument_cli --legacy-db ... --target-db ...` (debênture como instrumento, ADR-009) **simula por padrão**, numa cópia descartável do destino (`--dry-run` tem o mesmo efeito). Gravar exige `--commit --backup-dir <pasta>` (backup antes de gravar); destino novo exige também `--create`.
 - Backup antes de qualquer migration (debêntures: `BackupService.create_backup()` em `Eduardo/debenture-replica/src/debenture_search/services/backup_service.py`; CRI/CRA: `create_backup` em `Enrico/cri_cra_platform/src/credit_assets/database/backup.py`).
 - Não versionar bancos (`*.db`, `*.sqlite*`), `.env`, ambientes virtuais, documentos baixados (`data/documents/`), backups, exports gerados, `*.bak`, `.vscode/`. Há arquivos assim já versionados (ex.: `debenture_db_base64.txt`, `*.tar.gz`); não remover sem pedido, pois a limpeza é um `chore:` à parte.
 - Commits: `feat:`, `fix:`, `test:`, `chore:`, em português, no estilo do histórico. Trabalhar em branch de feature e abrir pull request para `main`; nunca commitar direto na `main`.

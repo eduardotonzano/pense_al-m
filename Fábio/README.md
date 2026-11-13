@@ -42,7 +42,7 @@ Repositório: `github.com/eduardotonzano/pense_al-m` · branch principal `main`.
 - 417 testes automatizados aprovados na versão "congelada" (`debenture-replica/docs/FREEZE.md`)
 - Dado real no banco: 3 emissores, 3 debêntures (Petrobras/PETR27, Sabesp/SBSPC9, Celpe/CEPEA1), 38 observações — fonte principal: **SND** (Sistema Nacional de Debêntures)
 - **Novidade:** os 3 emissores já foram importados com sucesso pro galpão via a camada de integração (ver seção 5) — validado com dado real, de forma idempotente
-- Falta: ligar fontes oficiais adicionais (CVM, ANBIMA), criar a interface visual (pausada de propósito), e integrar a **debênture em si** (o instrumento, não só o emissor) ao galpão
+- Falta: ligar fontes oficiais adicionais (CVM, ANBIMA) e criar a interface visual (pausada de propósito). A **debênture em si** (o instrumento, não só o emissor) foi integrada ao galpão no #11 (ADR-007 a 009; atualizado em 13/11/2026)
 
 ### Enrico — CRI/CRA 🟡 avançando, endpoint real validado
 - Consegue acessar o Fundos.NET automaticamente (Playwright, headless validado em 16/09)
@@ -72,7 +72,7 @@ Repositório: `github.com/eduardotonzano/pense_al-m` · branch principal `main`.
 | Tabela | Campos principais | Observação |
 |---|---|---|
 | `issuers` | `id`, `cnpj` (único, 14 dígitos), `legal_name`, `trade_name`, `created_at`, `updated_at` | **Já tem adaptador pro galpão — ver seção 5** |
-| `debentures` | `id`, `issuer_id` → FK `issuers`, `asset_code` (único), `isin` (único, 12 chars), `issue_number`, `series`, `status` | Fica no domínio de Eduardo — ainda não vira `Entity` nem nada no galpão |
+| `debentures` | `id`, `issuer_id` → FK `issuers`, `asset_code` (único), `isin` (único, 12 chars), `issue_number`, `series`, `status` | Os atributos ficam no domínio de Eduardo; desde o #11, a identidade (ISIN e código) vira `Entity` do tipo `DEBENTURE` no galpão, ligada ao emissor por `ISSUES` (ADR-007 e 008; atualizado em 13/11/2026) |
 | `sources` | `id`, `code`, `name`, `source_type`, `priority`, `active` | Hoje: `SND` (prio 100), `CVM` (prio 200), `ANBIMA_API` (prio 300, inativa), `MANUAL` (prio 1000) |
 | `collection_runs` | `id`, `source_id`, `started_at`, `finished_at`, `status`, contadores de sucesso/falha | Log de cada execução de coleta |
 | `raw_records` | `id`, `source_id`, `payload` (BLOB), `payload_sha256`, `http_status`, `processing_status` | Resposta bruta antes do parsing |
@@ -87,7 +87,7 @@ Repositório: `github.com/eduardotonzano/pense_al-m` · branch principal `main`.
 
 **Como o galpão lê isso hoje:** não é via `IssuerRepository` diretamente — a integração lê o **arquivo SQLite bruto**, somente leitura (`PRAGMA query_only`), via `LegacyDebentureIssuerReader` (ver seção 5). Não modifica o banco original.
 
-**Debêntures (o instrumento) ainda não têm nenhum caminho de integração** — só o cadastro do emissor foi conectado até agora.
+**Atualização de 13/11/2026:** as debêntures (o instrumento) ganharam caminho de integração no #11 (merge 9ac5032, 12/11/2026; ADR-007 a 009). `LegacyDebentureInstrumentReader` lê `debentures` com `LEFT JOIN issuers` sob `PRAGMA query_only`; `DebentureInstrumentAdapter` transforma cada debênture em `Entity` do tipo `DEBENTURE` (identificadores `ISIN` e `ASSET_CODE`) e monta a relação `ISSUES` a partir do emissor, que precisa já ter sido importado; a CLI `python -m pense_alm.shared.integration.instrument_cli` simula por padrão e só grava com `--commit` e `--backup-dir`.
 
 ---
 
@@ -144,7 +144,7 @@ Mecanismo: `event_download` via Playwright, reproduzindo a ação oficial de "Do
 
 ### 3.3 Gui — Fundos/FIAGRO
 
-Nada existe ainda. Quando essa frente começar, o padrão esperado (a confirmar com o Gui) é: gestora e fundo entram como `Entity` (tipos `ASSET_MANAGER` e `FUND`/`FIDC`/`FIAGRO`), cotas e histórico do fundo ficam no banco próprio dessa frente — mesmo padrão de Eduardo e Enrico.
+Nada existe ainda. Quando essa frente começar, o padrão esperado (a confirmar com o Gui) é: gestora e fundo entram como `Entity` (tipos `ASSET_MANAGER` e `FUND`/`FIDC`/`FIAGRO`), cotas e histórico do fundo ficam no banco próprio dessa frente — mesmo padrão de Eduardo e Enrico. **Atualização de 13/11/2026:** a frente começou em `Gui/fundos` em 27/10/2026, e como os fundos vão entrar na camada compartilhada está decidido no ADR-012 e no ADR-013 (aceitos, ainda não implementados).
 
 ---
 
@@ -293,7 +293,7 @@ Tirando `--dry-run`, o comando persiste de verdade. Códigos de saída: `0` sem 
 - Entidades já existentes **não são atualizadas automaticamente** num `MATCHED` — só a criação é automática; atualização exige regras futuras de precedência entre fontes
 - A fila de `REVIEW` **não é persistente** — hoje é só o resultado do relatório, não fica guardada em lugar nenhum pra alguém aprovar depois
 - Registros `BLOCKED` também não vão pra fila própria
-- **Debêntures (o instrumento) ainda não são integradas** — só o cadastro do emissor
+- **Debêntures (o instrumento) ainda não são integradas** — só o cadastro do emissor. Resolvido depois, no #11 (ADR-007 a 009; atualizado em 13/11/2026).
 - CRI/CRA, FIDC, FIAGRO: nenhum adaptador ainda
 - A CLI não está registrada como comando instalável (roda só via `python -m`)
 - Os caminhos dos bancos são sempre explícitos — sem descoberta automática
@@ -309,7 +309,7 @@ Tirando `--dry-run`, o comando persiste de verdade. Códigos de saída: `0` sem 
 - [ ] Escrever o adaptador Enrico → galpão (2 entidades por `Asset`: securitizadora e devedor)
 - [ ] Decidir e construir a fila persistente de revisão pros casos `REVIEW` (hoje não existe)
 - [ ] Decidir a regra de atualização automática de entidades já `MATCHED` (precedência entre fontes)
-- [ ] Integrar a debênture em si (o instrumento) ao galpão, não só o emissor
+- [x] ~~Integrar a debênture em si (o instrumento) ao galpão, não só o emissor~~ — feito no #11, 12/11/2026 (ADR-007 a 009)
 - [ ] Investigar e corrigir a duplicidade de ISIN no banco do Enrico (asset_id=1 vs asset_id=6) antes de migrar
 - [ ] Registrar a CLI de integração como comando instalável
 - [ ] Construir a camada de busca federada (fluxograma 2 do mapa visual) — ainda não existe
@@ -336,4 +336,4 @@ Tirando `--dry-run`, o comando persiste de verdade. Códigos de saída: `0` sem 
 
 ---
 
-*Última atualização: 28/09/2026, com base no estado do repositório `pense_al-m` nesse mesmo dia (357 arquivos versionados; commits mais recentes do Eduardo e do Enrico entre 22 e 28/09).*
+*Última atualização: 28/09/2026, com base no estado do repositório `pense_al-m` nesse mesmo dia (357 arquivos versionados; commits mais recentes do Eduardo e do Enrico entre 22 e 28/09). Em 13/11/2026, só os trechos sobre a debênture como instrumento e a nota sobre Fundos (seções 2, 3.1, 3.3, 5.5 e 6) foram atualizados, após o #11.*
