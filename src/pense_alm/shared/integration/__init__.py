@@ -21,6 +21,38 @@ from .debenture_issuer_batch_import_service import (
 from .debenture_issuer_import_service import (
     DebentureIssuerImportService,
 )
+from .fundos_adapter import (
+    FundosAdapter,
+    FundosAdapterError,
+    FundosReason,
+    NameResolution,
+    SituationGroup,
+    TypeResolution,
+)
+from .fundos_import_report import (
+    FundosBacklog,
+    FundosEntityReport,
+    FundosImportError,
+    FundosNaoCriados,
+    PrestadorasNaoCriadas,
+)
+from .fundos_import_service import (
+    FundosEntityPhase,
+    FundosImportService,
+)
+from .fundos_reader import (
+    CadastroNotFound,
+    FundosDatabaseReader,
+    FundosDatabaseUnavailable,
+    FundosReaderError,
+    FundosSchemaError,
+    build_read_only_uri,
+)
+from .fundos_records import (
+    CadastroSnapshot,
+    FundosPartyLink,
+    FundosSubjectRecord,
+)
 from .import_result import (
     EntityImportAction,
     EntityImportResult,
@@ -43,6 +75,8 @@ from .records import (
 __all__ = [
     "BatchImportError",
     "BatchImportReport",
+    "CadastroNotFound",
+    "CadastroSnapshot",
     "DebentureInstrumentAdapter",
     "DebentureInstrumentBatchImportService",
     "DebentureInstrumentImportService",
@@ -53,11 +87,31 @@ __all__ = [
     "DebentureIssuerRecord",
     "EntityImportAction",
     "EntityImportResult",
+    "FundosAdapter",
+    "FundosAdapterError",
+    "FundosBacklog",
+    "FundosDatabaseReader",
+    "FundosDatabaseUnavailable",
+    "FundosEntityPhase",
+    "FundosEntityReport",
+    "FundosImportError",
+    "FundosImportService",
+    "FundosNaoCriados",
+    "FundosPartyLink",
+    "FundosReaderError",
+    "FundosReason",
+    "FundosSchemaError",
+    "FundosSubjectRecord",
     "InstrumentBatchOutcome",
     "InstrumentImportReason",
     "InstrumentImportResult",
     "LegacyDebentureInstrumentReader",
     "LegacyDebentureIssuerReader",
     "LegacyInstrumentReadError",
+    "NameResolution",
+    "PrestadorasNaoCriadas",
+    "SituationGroup",
+    "TypeResolution",
+    "build_read_only_uri",
     "parse_legacy_datetime",
 ]
