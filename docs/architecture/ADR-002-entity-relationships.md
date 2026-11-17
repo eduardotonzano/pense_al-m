@@ -40,6 +40,8 @@ A direção inversa não será criada automaticamente nesta primeira versão.
 
 Isso evita efeitos indiretos e mantém cada operação explícita.
 
+**Convenção de leitura (16/11/2026; ADR-012, D3).** Cada relação se lê "origem verbo destino". Na forma passiva (`..._BY`), a origem é quem sofre a ação: em `ADMINISTERED_BY` e `CUSTODIED_BY`, origem é o fundo e destino é a prestadora; o mesmo vale para `CONTROLLED_BY`. Na forma ativa, a origem é quem age: `MANAGES` (gestora para fundo), `INVESTS_IN` (fundo detentor para fundo investido), `ISSUES` (emissor para instrumento).
+
 ## Temporalidade
 
 Os relacionamentos podem possuir:
