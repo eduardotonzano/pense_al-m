@@ -39,7 +39,7 @@ Há `README.md` na raiz e `Fábio/README.md` (contrato de integração); os cont
 
 ## Testes
 Python 3.14. Venvs: `C:\Users\eduardo.tonzano\debenture-venv` (camada compartilhada e debêntures) e `C:\Users\eduardo.tonzano\cricra-venv` (CRI/CRA; tem `playwright` e `requests`, que o outro não tem). Rode sempre no diretório indicado.
-- Camada compartilhada (raiz do repo): `$env:PYTHONPATH='src'; python -m pytest tests` (490 testes; sem o PYTHONPATH a coleta falha)
+- Camada compartilhada (raiz do repo): `$env:PYTHONPATH='src'; python -m pytest tests` (667 testes; sem o PYTHONPATH a coleta falha)
 - Debêntures, versão de trabalho: `cd Eduardo\debenture-replica; python -m pytest -q` (543; o `pyproject.toml` já define `pythonpath=src`)
 - Debêntures, automação congelada: `cd debenture-replica; python -m pytest -q` (105)
 - CRI/CRA (venv `cricra-venv`): `cd Enrico\cri_cra_platform; python -m pytest` (965; `pytest.ini` define `pythonpath=src`; no `debenture-venv`, 7 arquivos de teste falham na coleta por falta do `playwright`)
