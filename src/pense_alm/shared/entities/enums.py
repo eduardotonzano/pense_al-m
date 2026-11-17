@@ -93,6 +93,8 @@ class RelationshipType(StrEnum):
     BELONGS_TO_GROUP = "belongs_to_group"
     MANAGES = "manages"
     ADMINISTERED_BY = "administered_by"
+    CUSTODIED_BY = "custodied_by"
+    INVESTS_IN = "invests_in"
     ISSUES = "issues"
     ORIGINATES = "originates"
     SECURITIZES = "securitizes"

@@ -565,6 +565,146 @@ def test_repository_counts_type(
 
 
 @pytest.mark.parametrize(
+    (
+        "relationship_type",
+        "target_type",
+        "stored_value",
+    ),
+    [
+        (
+            RelationshipType.CUSTODIED_BY,
+            EntityType.FINANCIAL_INSTITUTION,
+            "custodied_by",
+        ),
+        (
+            RelationshipType.INVESTS_IN,
+            EntityType.FIDC,
+            "invests_in",
+        ),
+    ],
+)
+def test_repository_round_trips_fund_relationship_types(
+    repositories,
+    provenance,
+    tmp_path,
+    relationship_type,
+    target_type,
+    stored_value,
+):
+    entity_repository, repository = repositories
+
+    fund = create_entity(
+        provenance,
+        "FIDC Exemplo",
+        EntityType.FIDC,
+    )
+    target = create_entity(
+        provenance,
+        "Contraparte Exemplo",
+        target_type,
+    )
+
+    entity_repository.save(fund)
+    entity_repository.save(target)
+
+    relationship = create_relationship(
+        provenance,
+        fund.entity_id,
+        target.entity_id,
+        relationship_type,
+    )
+
+    repository.save(relationship)
+
+    manager = SQLiteConnectionManager(
+        tmp_path
+        / "sqlite_relationship_repository.sqlite3"
+    )
+
+    with manager.read_connection() as connection:
+        row = connection.execute(
+            """
+            SELECT relationship_type
+            FROM entity_relationships
+            WHERE relationship_id = ?
+            """,
+            (str(relationship.relationship_id),),
+        ).fetchone()
+
+    assert row["relationship_type"] == stored_value
+
+    restored = repository.get_by_canonical_key(
+        relationship.canonical_key
+    )
+
+    assert restored == relationship
+    assert restored.relationship_type is relationship_type
+
+
+def test_repository_filters_and_counts_fund_relationship_types(
+    repositories,
+    provenance,
+):
+    entity_repository, repository = repositories
+
+    holder = create_entity(
+        provenance,
+        "FIDC Detentor Exemplo",
+        EntityType.FIDC,
+    )
+    investee = create_entity(
+        provenance,
+        "FIDC Investido Exemplo",
+        EntityType.FIDC,
+    )
+    custodian = create_entity(
+        provenance,
+        "Custodiante Exemplo S.A.",
+        EntityType.FINANCIAL_INSTITUTION,
+    )
+
+    for entity in (
+        holder,
+        investee,
+        custodian,
+    ):
+        entity_repository.save(entity)
+
+    invests = create_relationship(
+        provenance,
+        holder.entity_id,
+        investee.entity_id,
+        RelationshipType.INVESTS_IN,
+    )
+    custodied = create_relationship(
+        provenance,
+        holder.entity_id,
+        custodian.entity_id,
+        RelationshipType.CUSTODIED_BY,
+    )
+
+    repository.save(invests)
+    repository.save(custodied)
+
+    reference = datetime.now(UTC)
+
+    assert repository.list_active_at(
+        reference,
+        RelationshipType.INVESTS_IN,
+    ) == (invests,)
+    assert repository.list_active_at(
+        reference,
+        RelationshipType.CUSTODIED_BY,
+    ) == (custodied,)
+    assert repository.count(
+        RelationshipType.INVESTS_IN
+    ) == 1
+    assert repository.count(
+        RelationshipType.CUSTODIED_BY
+    ) == 1
+
+
+@pytest.mark.parametrize(
     "operation",
     [
         lambda repository: repository.save("invalid"),

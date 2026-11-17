@@ -6,6 +6,7 @@ from pense_alm.shared.entities import (
     EntityStatus,
     EntityType,
     IdentifierType,
+    RelationshipType,
     SourceType,
     ValidationStatus,
 )
@@ -50,3 +51,25 @@ def test_instrument_values_are_stable():
     assert EntityType.DEBENTURE == "debenture"
     assert IdentifierType.ISIN == "isin"
     assert IdentifierType.ASSET_CODE == "asset_code"
+
+
+def test_fund_relationship_values_are_stable():
+    assert RelationshipType.CUSTODIED_BY == "custodied_by"
+    assert RelationshipType.INVESTS_IN == "invests_in"
+    assert (
+        RelationshipType("custodied_by")
+        is RelationshipType.CUSTODIED_BY
+    )
+    assert (
+        RelationshipType("invests_in")
+        is RelationshipType.INVESTS_IN
+    )
+
+
+def test_existing_relationship_values_do_not_change():
+    assert RelationshipType.MANAGES == "manages"
+    assert (
+        RelationshipType.ADMINISTERED_BY
+        == "administered_by"
+    )
+    assert RelationshipType.ISSUES == "issues"
