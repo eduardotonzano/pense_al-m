@@ -1,4 +1,4 @@
-"""Testes do adaptador do cadastro de Fundos (FU7.2): A1 a A4, motivos e mapas.
+"""Testes do adaptador do cadastro de Fundos (FU7.2): A1 a A5, motivos e mapas.
 
 Records montados direto, sem banco. So CNPJs ficticios de cnpj_amostras e
 nomes marcados como ficticios.
@@ -16,12 +16,18 @@ from pense_alm.shared.entities import (
     EntityType,
     IdentifierType,
     IdentifierValidationError,
+    RelationshipStatus,
+    RelationshipType,
     SourceType,
 )
 from pense_alm.shared.integration.fundos_adapter import (
     CLASS_TYPES,
+    FUND_SOURCE_TYPES,
+    FUND_TARGET_TYPES,
     FUND_TYPES,
     NORMAL,
+    RELATION_TYPES,
+    ROLE_RELATIONS,
     SITUATIONS,
     FundosAdapter,
     FundosAdapterError,
@@ -467,3 +473,151 @@ def test_fundo_que_nao_entra_nao_vira_entidade(muda):
 
     assert CNPJ_FUNDO not in str(erro.value)
     assert "FUNDO FICTÍCIO" not in str(erro.value)
+
+
+# --- A5: relacoes de prestadora (direcao, id e proveniencia) ---
+
+
+FUNDO_ID = adaptador.entity_id(CNPJ_FUNDO)
+PRESTADORA_ID = adaptador.entity_id(CNPJ_PRESTADORA)
+ADMINISTERED_BY = RelationshipType.ADMINISTERED_BY
+CUSTODIED_BY = RelationshipType.CUSTODIED_BY
+MANAGES = RelationshipType.MANAGES
+
+
+def test_a5_papeis_e_tipos_de_relacao():
+    assert ROLE_RELATIONS == {
+        "administrador": ADMINISTERED_BY,
+        "custodiante": CUSTODIED_BY,
+        "gestor": MANAGES,
+    }
+    assert FUND_SOURCE_TYPES == (ADMINISTERED_BY, CUSTODIED_BY)
+    assert FUND_TARGET_TYPES == (MANAGES,)
+    assert set(RELATION_TYPES) == set(ROLE_RELATIONS.values())
+
+
+@pytest.mark.parametrize(
+    ("role", "tipo", "fundo_e_origem"),
+    [
+        ("administrador", ADMINISTERED_BY, True),
+        ("custodiante", CUSTODIED_BY, True),
+        ("gestor", MANAGES, False),
+    ],
+)
+def test_a5_direcao_por_papel(role, tipo, fundo_e_origem):
+    kind, origem, destino = adaptador.relation_ends(role, FUNDO_ID, PRESTADORA_ID)
+
+    assert kind is tipo
+
+    if fundo_e_origem:
+        assert (origem, destino) == (FUNDO_ID, PRESTADORA_ID)
+    else:
+        assert (origem, destino) == (PRESTADORA_ID, FUNDO_ID)
+
+
+def test_a5_papel_sem_relacao_e_recusado():
+    with pytest.raises(FundosAdapterError):
+        adaptador.relation_ends("auditor", FUNDO_ID, PRESTADORA_ID)
+
+
+def test_a5_relationship_id_e_o_uuid5_da_chave_canonica():
+    snapshot = retrato(assunto())
+    esperado = uuid5(NAMESPACE_URL, f"{FUNDO_ID}:administered_by:{PRESTADORA_ID}")
+    relacao = adaptador.build_relationship(
+        ADMINISTERED_BY,
+        FUNDO_ID,
+        PRESTADORA_ID,
+        adaptador.relationship_provenance(snapshot, 3),
+        snapshot,
+    )
+
+    assert adaptador.relationship_id(FUNDO_ID, ADMINISTERED_BY, PRESTADORA_ID) == esperado
+    assert relacao.relationship_id == esperado
+    assert relacao.relationship_id == uuid5(NAMESPACE_URL, relacao.canonical_key)
+    assert adaptador.relationship_id(PRESTADORA_ID, ADMINISTERED_BY, FUNDO_ID) != esperado
+    assert adaptador.relationship_id(FUNDO_ID, CUSTODIED_BY, PRESTADORA_ID) != esperado
+
+
+def test_a5_build_relationship_ativa_desde_a_competencia():
+    snapshot = retrato(assunto())
+    proveniencia = adaptador.relationship_provenance(snapshot, 3)
+
+    relacao = adaptador.build_relationship(
+        MANAGES,
+        PRESTADORA_ID,
+        FUNDO_ID,
+        proveniencia,
+        snapshot,
+    )
+
+    assert relacao.relationship_type is MANAGES
+    assert relacao.source_entity_id == PRESTADORA_ID
+    assert relacao.target_entity_id == FUNDO_ID
+    assert relacao.status is RelationshipStatus.ACTIVE
+    assert relacao.valid_from == datetime(2026, 10, 27, tzinfo=UTC)
+    assert relacao.valid_to is None
+    assert relacao.created_at == INICIO
+    assert relacao.provenance == proveniencia
+    assert relacao == adaptador.build_relationship(
+        MANAGES,
+        PRESTADORA_ID,
+        FUNDO_ID,
+        proveniencia,
+        snapshot,
+    )
+
+
+@pytest.mark.parametrize(
+    "tipo",
+    [RelationshipType.ISSUES, RelationshipType.INVESTS_IN, "manages"],
+)
+def test_a5_build_relationship_recusa_tipo_fora_do_adaptador(tipo):
+    snapshot = retrato(assunto())
+
+    with pytest.raises(FundosAdapterError):
+        adaptador.build_relationship(
+            tipo,
+            FUNDO_ID,
+            PRESTADORA_ID,
+            adaptador.closing_provenance(snapshot),
+            snapshot,
+        )
+
+
+def test_a5_proveniencia_de_relacao_e_de_fechamento():
+    snapshot = retrato(assunto())
+    linha = adaptador.relationship_provenance(snapshot, 12)
+    coleta = adaptador.closing_provenance(snapshot)
+
+    for proveniencia in (linha, coleta):
+        assert proveniencia.source_type is SourceType.CVM
+        assert proveniencia.source_name == "Fundos - CVM Cadastro"
+        assert proveniencia.reference_date == datetime(2026, 10, 27, tzinfo=UTC)
+        assert proveniencia.collected_at == INICIO
+
+    assert linha.source_reference == "fundos:party_observations:12"
+    assert coleta.source_reference == "fundos:collection_runs:7"
+    assert provenance_id(linha) == provenance_id(
+        adaptador.relationship_provenance(snapshot, 12)
+    )
+    assert provenance_id(coleta) == provenance_id(adaptador.closing_provenance(snapshot))
+    assert adaptador.reference_datetime(snapshot) == datetime(2026, 10, 27, tzinfo=UTC)
+
+
+def test_a5_is_cadastro_provenance_so_para_a_deste_adaptador():
+    snapshot = retrato(assunto())
+    manual = DataProvenance(
+        source_type=SourceType.MANUAL,
+        source_name="Fundos - CVM Cadastro",
+        collected_at=INICIO,
+    )
+    cda = DataProvenance(
+        source_type=SourceType.CVM,
+        source_name="Fundos - CVM CDA",
+        collected_at=INICIO,
+    )
+
+    assert adaptador.is_cadastro_provenance(adaptador.closing_provenance(snapshot))
+    assert adaptador.is_cadastro_provenance(adaptador.relationship_provenance(snapshot, 1))
+    assert not adaptador.is_cadastro_provenance(manual)
+    assert not adaptador.is_cadastro_provenance(cda)

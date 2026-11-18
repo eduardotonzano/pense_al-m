@@ -18,7 +18,12 @@ das decisoes de 16 e 17/11/2026:
   UNKNOWN (o cadastro nao informa a situacao dela);
 - proveniencia: SourceType.CVM, source_reference so com id de linha do banco
   de Fundos, reference_date = competencia as 00:00 UTC e collected_at = inicio
-  da coleta usada no retrato.
+  da coleta usada no retrato;
+- relacoes de prestadora (ADR-012, D3): ADMINISTERED_BY e CUSTODIED_BY vao do
+  fundo para a prestadora, MANAGES vai da gestora para o fundo; o
+  relationship_id e o uuid5 da chave canonica origem:tipo:destino, como no
+  adaptador de debentures; a proveniencia e a linha de party_observations
+  (criar e reabrir) ou a coleta (fechar, decisao B3).
 
 created_at e updated_at de toda entidade sao o inicio da coleta usada na
 proveniencia (snapshot.started_at), igual para todas: a entidade sai
@@ -35,9 +40,12 @@ from pense_alm.shared.entities import (
     DataProvenance,
     Entity,
     EntityIdentifier,
+    EntityRelationship,
     EntityStatus,
     EntityType,
     IdentifierType,
+    RelationshipStatus,
+    RelationshipType,
     SourceType,
     normalize_cnpj,
     normalize_name,
@@ -65,6 +73,20 @@ CLASS_TYPES = {
     "Classes de Cotas de Fundos FIDC": EntityType.FIDC,
     "Classes de Cotas de Fundos FIAGRO": EntityType.FIAGRO,
 }
+
+# Papel do cadastro e tipo da relacao (ADR-012, D1 e D3).
+ROLE_RELATIONS = {
+    "administrador": RelationshipType.ADMINISTERED_BY,
+    "custodiante": RelationshipType.CUSTODIED_BY,
+    "gestor": RelationshipType.MANAGES,
+}
+# Na forma passiva (..._BY) o fundo e a origem; em MANAGES, o destino.
+FUND_SOURCE_TYPES = (
+    RelationshipType.ADMINISTERED_BY,
+    RelationshipType.CUSTODIED_BY,
+)
+FUND_TARGET_TYPES = (RelationshipType.MANAGES,)
+RELATION_TYPES = FUND_SOURCE_TYPES + FUND_TARGET_TYPES
 
 
 class SituationGroup(StrEnum):
@@ -256,11 +278,94 @@ class FundosAdapter:
             source_name=SOURCE_NAME_CADASTRO,
             source_reference=source_reference,
             collected_at=snapshot.started_at,
-            reference_date=datetime.combine(
-                snapshot.reference_date,
-                time(0, 0),
-                tzinfo=UTC,
-            ),
+            reference_date=self.reference_datetime(snapshot),
+        )
+
+    @staticmethod
+    def reference_datetime(snapshot: CadastroSnapshot) -> datetime:
+        """Competencia do retrato as 00:00 UTC (proveniencia e vigencia)."""
+
+        return datetime.combine(snapshot.reference_date, time(0, 0), tzinfo=UTC)
+
+    def relationship_provenance(
+        self,
+        snapshot: CadastroSnapshot,
+        party_observation_id: int,
+    ) -> DataProvenance:
+        """Proveniencia de criar ou reabrir: a linha do papel em R."""
+
+        return self.cadastro_provenance(
+            snapshot,
+            f"fundos:party_observations:{party_observation_id}",
+        )
+
+    def closing_provenance(self, snapshot: CadastroSnapshot) -> DataProvenance:
+        """Proveniencia do fechamento: a coleta que mostra a ausencia (B3)."""
+
+        return self.cadastro_provenance(
+            snapshot,
+            f"fundos:collection_runs:{snapshot.collection_run_id}",
+        )
+
+    @staticmethod
+    def is_cadastro_provenance(provenance: DataProvenance) -> bool:
+        """Se a proveniencia e deste adaptador (B4): CVM e o nome do cadastro."""
+
+        return (
+            provenance.source_type is SourceType.CVM
+            and provenance.source_name == SOURCE_NAME_CADASTRO
+        )
+
+    @staticmethod
+    def relation_ends(
+        role: str,
+        fund_id: UUID,
+        provider_id: UUID,
+    ) -> tuple[RelationshipType, UUID, UUID]:
+        """Tipo, origem e destino da relacao de um papel (ADR-012, D3)."""
+
+        kind = ROLE_RELATIONS.get(role)
+
+        if kind is None:
+            raise FundosAdapterError("Papel sem relacao na camada.")
+
+        if kind in FUND_SOURCE_TYPES:
+            return kind, fund_id, provider_id
+
+        return kind, provider_id, fund_id
+
+    @staticmethod
+    def relationship_id(
+        source_id: UUID,
+        kind: RelationshipType,
+        target_id: UUID,
+    ) -> UUID:
+        """uuid5 da chave canonica origem:tipo:destino (o padrao do #11)."""
+
+        return uuid5(NAMESPACE_URL, f"{source_id}:{kind.value}:{target_id}")
+
+    def build_relationship(
+        self,
+        kind: RelationshipType,
+        source_id: UUID,
+        target_id: UUID,
+        provenance: DataProvenance,
+        snapshot: CadastroSnapshot,
+    ) -> EntityRelationship:
+        """Relacao nova, ativa desde a competencia; created_at = started_at."""
+
+        if not isinstance(kind, RelationshipType) or kind not in RELATION_TYPES:
+            raise FundosAdapterError("Tipo de relacao fora do adaptador de Fundos.")
+
+        return EntityRelationship(
+            relationship_id=self.relationship_id(source_id, kind, target_id),
+            source_entity_id=source_id,
+            target_entity_id=target_id,
+            relationship_type=kind,
+            provenance=provenance,
+            status=RelationshipStatus.ACTIVE,
+            valid_from=self.reference_datetime(snapshot),
+            created_at=snapshot.started_at,
         )
 
     def to_fund_entity(
