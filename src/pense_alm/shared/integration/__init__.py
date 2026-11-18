@@ -29,6 +29,11 @@ from .fundos_adapter import (
     SituationGroup,
     TypeResolution,
 )
+from .fundos_cadastro_import import (
+    FundosCadastroImport,
+    FundosCadastroRun,
+    SnapshotOlderThanApplied,
+)
 from .fundos_import_report import (
     FundosBacklog,
     FundosEntityReport,
@@ -77,6 +82,10 @@ from .fundos_relation_rules import (
 from .fundos_relation_service import (
     FundosRelationService,
 )
+from .fundos_target_state import (
+    FundosTargetState,
+    FundosTargetStateError,
+)
 from .import_result import (
     EntityImportAction,
     EntityImportResult,
@@ -116,6 +125,8 @@ __all__ = [
     "FundosAdapter",
     "FundosAdapterError",
     "FundosBacklog",
+    "FundosCadastroImport",
+    "FundosCadastroRun",
     "FundosDatabaseReader",
     "FundosDatabaseUnavailable",
     "FundosEntityPhase",
@@ -131,6 +142,8 @@ __all__ = [
     "FundosRelationService",
     "FundosSchemaError",
     "FundosSubjectRecord",
+    "FundosTargetState",
+    "FundosTargetStateError",
     "InstrumentBatchOutcome",
     "InstrumentImportReason",
     "InstrumentImportResult",
@@ -148,6 +161,7 @@ __all__ = [
     "RelationPair",
     "SituationGroup",
     "SkippedPair",
+    "SnapshotOlderThanApplied",
     "TypeResolution",
     "build_read_only_uri",
     "classify",
