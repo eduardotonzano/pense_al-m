@@ -584,6 +584,39 @@ def test_p8_conta_backlog_ja_na_camada_so_se_for_fidc_ou_fiagro(destino):
     assert espiao.salvas == []
 
 
+def test_backlog_funds_guarda_o_que_fora_do_normal_ja_na_camada_conta(destino):
+    _, repositorio = destino
+    fidc = entidade_existente(CNPJ_1, EntityType.FIDC)
+    repositorio.save(fidc)
+    repositorio.save(entidade_existente(CNPJ_2, EntityType.FINANCIAL_INSTITUTION))
+    snapshot = retrato(
+        assunto(CNPJ_1, 1, situacoes=("Cancelado",)),
+        assunto(CNPJ_2, 2, situacoes=("Cancelado",)),
+        assunto(CNPJ_3, 3, situacoes=("Cancelado",)),
+        assunto(CNPJ_4, 4),
+    )
+
+    fase = importar(repositorio, snapshot)
+
+    assert set(fase.backlog_funds) == {CNPJ_1}
+    assert fase.backlog_funds[CNPJ_1].entity_id == fidc.entity_id
+    assert len(fase.backlog_funds) == fase.report.fora_do_normal_ja_na_camada
+    assert CNPJ_4 not in fase.backlog_funds
+    assert CNPJ_1 not in repr(fase)
+
+    with pytest.raises(TypeError):
+        fase.backlog_funds[CNPJ_3] = None
+
+
+def test_backlog_funds_vazio_sem_fundo_do_backlog_na_camada(destino):
+    _, repositorio = destino
+
+    fase = importar(repositorio, retrato(assunto(CNPJ_1, 1, situacoes=("Cancelado",))))
+
+    assert dict(fase.backlog_funds) == {}
+    assert fase.report.fora_do_normal_ja_na_camada == 0
+
+
 def test_p8_falha_na_busca_do_backlog_propaga():
     snapshot = retrato(assunto(CNPJ_1, 1, situacoes=("Cancelado",)))
 

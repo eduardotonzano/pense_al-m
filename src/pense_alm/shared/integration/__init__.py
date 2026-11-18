@@ -29,6 +29,11 @@ from .fundos_adapter import (
     SituationGroup,
     TypeResolution,
 )
+from .fundos_cadastro_import import (
+    FundosCadastroImport,
+    FundosCadastroRun,
+    SnapshotOlderThanApplied,
+)
 from .fundos_import_report import (
     FundosBacklog,
     FundosEntityReport,
@@ -49,9 +54,37 @@ from .fundos_reader import (
     build_read_only_uri,
 )
 from .fundos_records import (
+    CadastroIncompleteReason,
     CadastroSnapshot,
     FundosPartyLink,
     FundosSubjectRecord,
+)
+from .fundos_relation_report import (
+    FundosRelationError,
+    FundosRelationReport,
+    RelacoesNaoCriadas,
+    RelacoesPorTipo,
+)
+from .fundos_relation_rules import (
+    FundPairs,
+    PairSkip,
+    RelationDecision,
+    RelationOperation,
+    RelationOutcome,
+    RelationPair,
+    SkippedPair,
+    classify,
+    collect_pairs,
+    fund_side,
+    relationship_to_save,
+    unresolved_pair_types,
+)
+from .fundos_relation_service import (
+    FundosRelationService,
+)
+from .fundos_target_state import (
+    FundosTargetState,
+    FundosTargetStateError,
 )
 from .import_result import (
     EntityImportAction,
@@ -75,6 +108,7 @@ from .records import (
 __all__ = [
     "BatchImportError",
     "BatchImportReport",
+    "CadastroIncompleteReason",
     "CadastroNotFound",
     "CadastroSnapshot",
     "DebentureInstrumentAdapter",
@@ -87,9 +121,12 @@ __all__ = [
     "DebentureIssuerRecord",
     "EntityImportAction",
     "EntityImportResult",
+    "FundPairs",
     "FundosAdapter",
     "FundosAdapterError",
     "FundosBacklog",
+    "FundosCadastroImport",
+    "FundosCadastroRun",
     "FundosDatabaseReader",
     "FundosDatabaseUnavailable",
     "FundosEntityPhase",
@@ -100,8 +137,13 @@ __all__ = [
     "FundosPartyLink",
     "FundosReaderError",
     "FundosReason",
+    "FundosRelationError",
+    "FundosRelationReport",
+    "FundosRelationService",
     "FundosSchemaError",
     "FundosSubjectRecord",
+    "FundosTargetState",
+    "FundosTargetStateError",
     "InstrumentBatchOutcome",
     "InstrumentImportReason",
     "InstrumentImportResult",
@@ -109,9 +151,23 @@ __all__ = [
     "LegacyDebentureIssuerReader",
     "LegacyInstrumentReadError",
     "NameResolution",
+    "PairSkip",
     "PrestadorasNaoCriadas",
+    "RelacoesNaoCriadas",
+    "RelacoesPorTipo",
+    "RelationDecision",
+    "RelationOperation",
+    "RelationOutcome",
+    "RelationPair",
     "SituationGroup",
+    "SkippedPair",
+    "SnapshotOlderThanApplied",
     "TypeResolution",
     "build_read_only_uri",
+    "classify",
+    "collect_pairs",
+    "fund_side",
     "parse_legacy_datetime",
+    "relationship_to_save",
+    "unresolved_pair_types",
 ]

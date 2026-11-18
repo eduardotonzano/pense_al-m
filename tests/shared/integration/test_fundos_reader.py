@@ -20,6 +20,7 @@ from pense_alm.shared.integration.fundos_reader import (
     build_read_only_uri,
 )
 from pense_alm.shared.integration.fundos_records import (
+    CadastroIncompleteReason,
     CadastroSnapshot,
     FundosPartyLink,
     FundosSubjectRecord,
@@ -362,6 +363,7 @@ def test_s1_vale_a_competencia_mais_recente(banco):
     assert snapshot.reference_date == date(2026, 10, 27)
     assert snapshot.collection_run_id == nova
     assert snapshot.complete is True
+    assert snapshot.incomplete_reason is None
     assert snapshot.started_at == datetime(2026, 10, 27, 12, tzinfo=UTC)
 
     (assunto,) = snapshot.subjects
@@ -370,24 +372,56 @@ def test_s1_vale_a_competencia_mais_recente(banco):
 
 
 @pytest.mark.parametrize(
-    "opcoes",
+    ("opcoes", "motivo"),
     [
-        {"status": "partial"},
-        {"status": "failed"},
-        {"pendentes": (MEMBRO_CLASSE,)},
-        {"sem_linhas": (MEMBRO_FUNDO,)},
-        {"membros": (MEMBRO_FUNDO,)},
-        {"fonte": "MANUAL"},
+        ({"status": "partial"}, CadastroIncompleteReason.STATUS_NAO_SUCCESS),
+        ({"status": "failed"}, CadastroIncompleteReason.STATUS_NAO_SUCCESS),
+        (
+            {"pendentes": (MEMBRO_CLASSE,)},
+            CadastroIncompleteReason.MEMBRO_NAO_PROCESSADO,
+        ),
+        ({"sem_linhas": (MEMBRO_FUNDO,)}, CadastroIncompleteReason.LINE_COUNT_NULO),
+        ({"membros": (MEMBRO_FUNDO,)}, CadastroIncompleteReason.MEMBRO_AUSENTE),
+        ({"fonte": "MANUAL"}, CadastroIncompleteReason.FONTE_DIFERENTE),
     ],
 )
-def test_s2_coleta_incompleta_marca_o_retrato_como_incompleto(banco, opcoes):
+def test_s2_coleta_incompleta_marca_o_retrato_como_incompleto(banco, opcoes, motivo):
     coleta = banco.coleta(**opcoes)
     banco.fundo_do_cadastro(coleta, CNPJ_1)
 
     snapshot = ler(banco)
 
     assert snapshot.complete is False
+    assert snapshot.incomplete_reason is motivo
     assert snapshot.collection_run_id == coleta
+
+
+@pytest.mark.parametrize(
+    ("opcoes", "motivo"),
+    [
+        (
+            {"status": "partial", "membros": (MEMBRO_FUNDO,)},
+            CadastroIncompleteReason.STATUS_NAO_SUCCESS,
+        ),
+        (
+            {"fonte": "MANUAL", "membros": (MEMBRO_FUNDO,)},
+            CadastroIncompleteReason.FONTE_DIFERENTE,
+        ),
+        (
+            {"membros": (MEMBRO_FUNDO,), "pendentes": (MEMBRO_FUNDO,)},
+            CadastroIncompleteReason.MEMBRO_AUSENTE,
+        ),
+        (
+            {"pendentes": (MEMBRO_CLASSE,), "sem_linhas": (MEMBRO_FUNDO,)},
+            CadastroIncompleteReason.MEMBRO_NAO_PROCESSADO,
+        ),
+    ],
+)
+def test_s2_vale_a_primeira_checagem_que_falha(banco, opcoes, motivo):
+    coleta = banco.coleta(**opcoes)
+    banco.fundo_do_cadastro(coleta, CNPJ_1)
+
+    assert ler(banco).incomplete_reason is motivo
 
 
 def test_p10_vale_a_coleta_completa_mais_recente_que_gravou_r(banco):
@@ -403,6 +437,7 @@ def test_p10_vale_a_coleta_completa_mais_recente_que_gravou_r(banco):
 
     assert snapshot.collection_run_id == completa
     assert snapshot.complete is True
+    assert snapshot.incomplete_reason is None
 
 
 def test_p10_sem_coleta_completa_vale_a_mais_recente_que_gravou_r(banco):
@@ -421,6 +456,7 @@ def test_p10_sem_coleta_completa_vale_a_mais_recente_que_gravou_r(banco):
 
     assert snapshot.collection_run_id == nova
     assert snapshot.complete is False
+    assert snapshot.incomplete_reason is CadastroIncompleteReason.STATUS_NAO_SUCCESS
 
 
 def test_p10_coleta_que_nao_gravou_r_nao_conta(banco):
@@ -778,6 +814,16 @@ def test_records_validos_viram_tuplas():
 
     assert isinstance(retrato.subjects, tuple)
     assert isinstance(retrato.subjects[0].parties, tuple)
+    assert retrato.incomplete_reason is None
+
+
+@pytest.mark.parametrize("motivo", list(CadastroIncompleteReason))
+def test_retrato_incompleto_leva_o_motivo(motivo):
+    retrato = criar_retrato(complete=False, incomplete_reason=motivo)
+
+    assert retrato.complete is False
+    assert retrato.incomplete_reason is motivo
+    assert len(CadastroIncompleteReason) == 5
 
 
 @pytest.mark.parametrize(
@@ -834,6 +880,12 @@ def test_record_de_assunto_recusa_valor_invalido(muda, erro):
         ({"reference_date": datetime(2026, 10, 27, tzinfo=UTC)}, TypeError),
         ({"started_at": datetime(2026, 10, 27, 12)}, ValueError),
         ({"complete": 1}, TypeError),
+        ({"complete": False}, ValueError),
+        (
+            {"incomplete_reason": CadastroIncompleteReason.LINE_COUNT_NULO},
+            ValueError,
+        ),
+        ({"complete": False, "incomplete_reason": "status_nao_success"}, TypeError),
         ({"funds_read": -1}, ValueError),
         ({"funds_read": True}, TypeError),
         ({"funds_in_table": 0}, ValueError),

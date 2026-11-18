@@ -1,6 +1,6 @@
 # ADR-013: Gestora pessoa física, classe, situação e "investe em" derivado (Fundos na camada compartilhada)
 
-**Status:** Aceita em 12/11/2026 (rascunho de 12/11/2026, com a medição no banco de teste; aceita pelo Eduardo, que conduz o projeto, junto com as decisões sobre D7 e D9 de 17:01; não implementada)
+**Status:** Aceita em 12/11/2026 (rascunho de 12/11/2026, com a medição no banco de teste; aceita pelo Eduardo, que conduz o projeto, junto com as decisões sobre D7 e D9 de 17:01); implementada na FU7.2 (PR #50 e B2), exceto o D9 (PR C)
 **Autores:** Eduardo e Claude
 **Decide:** Eduardo (condução do projeto)
 **Relacionados:** ADR-002 (relações), ADR-005 (matching), ADR-012 (prestadores de fundos e "investe em"), levantamento da FU7.1 (documento do projeto, fora do repositório)
@@ -91,3 +91,35 @@ O adaptador de fundos (FU7.2) liga fundos a gestoras, administradoras e custodia
 - Atualizar o `EntityStatus` de fundo já importado (gatilho para ADR novo).
 - Unificar o `fundos.cnpj` do módulo de Fundos com o `normalize_cnpj` da camada (ADR-011).
 - Medir o CDA quando houver banco com ele; explicar os 612 fundos adaptados sem classe.
+
+## 5. Implementação na FU7.2 (18/11/2026; decisão B8)
+
+Como o adaptador de fundos (FU7.2: PR #50 e PR B2) aplicou este ADR e o ADR-012, com as decisões de implementação do Eduardo de 16 a 18/11/2026. O texto acima não muda, exceto o Status. As contagens vêm do banco de teste de Fundos (cadastro de 27/10/2026), aberto só para leitura.
+
+**Entidades**
+- A prestadora criada pelo adaptador entra como `FINANCIAL_INSTITUTION` com `EntityStatus.UNKNOWN`: o cadastro não informa a situação dela, e ela fica assim até existir um caminho de atualização. O filtro `incluir_inativos` do ADR-006 (proposta, depende da G-06) trata os ativos do produto de debêntures; se um dia valer para a camada, é preciso definir se `UNKNOWN` conta como inativo.
+- D5: `gestor_pessoa_fisica` conta fundos cujo `Tipo_Pessoa_Gestor` é exatamente `{'PF'}`, em qualquer situação (7 no banco de teste); a D5 cita 225 gestoras pessoa física no cadastro de teste. Como o banco de Fundos só guarda papel com CNPJ, a gestora pessoa física nunca vira entidade nem relação.
+- D6: a classe com o CNPJ de outro fundo entra no grupo desse fundo, e o custodiante dela vira `CUSTODIED_BY` desse fundo. O teste é sintético, no leitor; no banco de teste o único caso tem o fundo dono fora do funcionamento normal e não gera relação.
+- D7: além dos grupos da tabela e da situação fora da tabela, o relatório tem "sem situação" (nenhum valor) e "situação conflitante" (mais de um valor distinto de situação no lado que decide, na mesma competência); os dois ficam no backlog.
+
+**Relações**
+- Direção, chave e uma linha por par como no ADR-012 (D3, D4) e na convenção do ADR-002. A relação gravada é achada pela chave canônica entre as relações do próprio fundo, lidas como origem e como destino, qualquer que seja o `relationship_id`; por isso o adaptador não tenta gravar um par que já existe com outro id. Só a relação com proveniência deste adaptador (`SourceType.CVM`, "Fundos - CVM Cadastro") é reaberta ou fechada; a de outra fonte nunca é tocada, só contada.
+- Reabrir: `valid_to` vazio, `valid_from` igual à competência às 00:00 UTC, status `ACTIVE` e a proveniência da linha de `party_observations`. Fechar, só com leitura completa: `valid_to` igual à competência às 00:00 UTC, status `INACTIVE` e a proveniência `fundos:collection_runs:{id}` da coleta. As duas preservam `relationship_id` e `created_at`. A relação não tem `updated_at`: a marca da mudança é a proveniência nova, e as anteriores continuam em `data_provenance`.
+- Uma relação deste adaptador com status fora de `ACTIVE` e `INACTIVE` (`PENDING_REVIEW`, `DISPUTED` ou `UNKNOWN`) fica intacta e é contada como `status_inesperado`.
+- No banco de teste: 13.949 pares (4.634 `ADMINISTERED_BY`, 4.601 `CUSTODIED_BY` e 4.714 `MANAGES`) e 576 prestadoras.
+
+**Leitura completa**
+- `CadastroIncompleteReason` registra a primeira checagem que falha, nesta ordem: status da coleta diferente de `success`; fonte diferente de `CVM_DADOS_ABERTOS`; `registro_fundo.csv` ou `registro_classe.csv` ausente; membro não `processed`; `line_count` nulo. A leitura é completa se e só se não há motivo. A comparação com o manifesto (proposta do Gui, no "Próximo passo" do ADR-012) ficou de fora: o `line_count` conta todos os tipos de fundo, e o cadastro só carregou FIDC e FIAGRO (seção 1).
+
+**Trava B6**
+- Antes de gravar, o adaptador lê `MAX(reference_date)` de `data_provenance` com `source_type = 'cvm'` e `source_name = 'Fundos - CVM Cadastro'` e recusa um retrato de competência anterior; a mesma competência passa (é reexecução). Nesta fonte o texto da data é sempre `AAAA-MM-DDT00:00:00+00:00` (o `isoformat()` da serialização), e a ordem do texto é a ordem do tempo. Uma linha fora desse formato, conferida por `GLOB`, ou sem data, aborta sem gravar.
+- Limite aceito: uma execução completa que não muda nada não grava proveniência, então a data aplicada é a maior que gravou alguma coisa.
+
+**Fundos fora do funcionamento normal ou fora do retrato**
+- S8: as relações com proveniência deste adaptador de um fundo do backlog que já está na camada como FIDC ou FIAGRO (o mesmo conjunto de `fora_do_normal_ja_na_camada`) são contadas e ficam intactas. Um fundo reaproveitado de outro tipo (por exemplo, `COMPANY`) fica com as relações intactas e fora das duas contagens.
+- Fundo ausente do retrato: as relações ativas deste adaptador cujo fundo não tem CNPJ entre os assuntos do retrato são contadas só como informação; nada é fechado.
+
+**Execução (`fundos_cli`)**
+- Dry-run por padrão, numa cópia descartável do destino; `--commit` exige `--backup-dir`, e destino novo exige `--create`. Uma transação por escrita: uma falha no meio deixa o que já foi gravado, e a saída pede para rodar de novo ou restaurar o backup. Códigos 0/2/3/4, com precedência 2 > 3 > 4 > 0 (3: `id_ocupado` ou `cnpj_colisao`; 4: leitura incompleta). Aviso na primeira gravação de `custodied_by`. Saída só com contagens e tipos.
+- Divergência do ADR-009 (item 3): a CLI mostra o nome do arquivo de backup, o tamanho e o SHA-256, mas não o caminho absoluto.
+- O `--commit` recusa destino em caminho de rede (UNC, ou unidade mapeada remota pelo `GetDriveTypeW` no Windows); os limites estão no `CLAUDE.md`. A ordem de implantação é a da seção 4 do ADR-012.

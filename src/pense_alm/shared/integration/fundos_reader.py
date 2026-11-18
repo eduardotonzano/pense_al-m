@@ -18,7 +18,8 @@ Retrato do cadastro (ADR-012 e ADR-013):
 - a coleta e a completa mais recente que gravou R; sem nenhuma completa, a
   mais recente que gravou R. Completa: status success na fonte
   CVM_DADOS_ABERTOS, com registro_fundo.csv e registro_classe.csv
-  processados e com line_count;
+  processados e com line_count. Incompleta: o retrato leva o motivo, a
+  primeira checagem que falha, nessa ordem (CadastroIncompleteReason);
 - os valores sao os brutos de R, todos os distintos de cada campo;
 - agrupamento por CNPJ (D6): o fundo com a classe de mesmo CNPJ; a classe
   com CNPJ de outro fundo vai para o grupo desse fundo; a classe que so
@@ -41,6 +42,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 from .fundos_records import (
+    CadastroIncompleteReason,
     CadastroSnapshot,
     FundosPartyLink,
     FundosSubjectRecord,
@@ -99,11 +101,10 @@ _Q_CLASSES_WITH_DATA = (
     "SELECT DISTINCT fund_class_id FROM observations WHERE reference_date = ?"
     " AND fund_class_id IS NOT NULL AND field_name GLOB 'registro_classe.*'"
 )
-_Q_MEMBER_OK = (
-    "SELECT 1 FROM raw_records WHERE collection_run_id = ?"
-    " AND parent_raw_record_id IS NOT NULL AND file_name = ?"
-    " AND processing_status = 'processed' AND line_count IS NOT NULL"
-    " LIMIT 1"
+_Q_MEMBER = (
+    "SELECT processing_status, line_count FROM raw_records"
+    " WHERE collection_run_id = ? AND parent_raw_record_id IS NOT NULL"
+    " AND file_name = ?"
 )
 
 
@@ -248,7 +249,54 @@ def _check_migrations(connection: sqlite3.Connection) -> None:
         )
 
 
-def _choose_run(connection, run_ids) -> tuple[int, datetime, bool]:
+def _member_reason(connection, run_id, member):
+    """Motivo do membro no manifesto da coleta; None quando esta em ordem."""
+
+    rows = connection.execute(_Q_MEMBER, (run_id, member)).fetchall()
+
+    if not rows:
+        return CadastroIncompleteReason.MEMBRO_AUSENTE
+
+    processed = [line_count for status, line_count in rows if status == "processed"]
+
+    if not processed:
+        return CadastroIncompleteReason.MEMBRO_NAO_PROCESSADO
+
+    if all(line_count is None for line_count in processed):
+        return CadastroIncompleteReason.LINE_COUNT_NULO
+
+    return None
+
+
+def _incomplete_reason(connection, run_id, status, source_code):
+    """A primeira checagem que falha, na ordem do CadastroIncompleteReason."""
+
+    if status != "success":
+        return CadastroIncompleteReason.STATUS_NAO_SUCCESS
+
+    if source_code != SOURCE_CODE:
+        return CadastroIncompleteReason.FONTE_DIFERENTE
+
+    reasons = {
+        _member_reason(connection, run_id, member)
+        for member in (FUND_MEMBER, CLASS_MEMBER)
+    }
+
+    for reason in (
+        CadastroIncompleteReason.MEMBRO_AUSENTE,
+        CadastroIncompleteReason.MEMBRO_NAO_PROCESSADO,
+        CadastroIncompleteReason.LINE_COUNT_NULO,
+    ):
+        if reason in reasons:
+            return reason
+
+    return None
+
+
+def _choose_run(
+    connection,
+    run_ids,
+) -> tuple[int, datetime, CadastroIncompleteReason | None]:
     """Coleta completa mais recente que gravou R; sem completa, a mais recente."""
 
     candidates = []
@@ -263,25 +311,17 @@ def _choose_run(connection, run_ids) -> tuple[int, datetime, bool]:
         if row is None:
             continue
 
-        complete = (
-            row[1] == "success"
-            and row[2] == SOURCE_CODE
-            and all(
-                connection.execute(_Q_MEMBER_OK, (run_id, member)).fetchone()
-                is not None
-                for member in (FUND_MEMBER, CLASS_MEMBER)
-            )
-        )
-        candidates.append((complete, _parse_timestamp(row[0]), run_id))
+        reason = _incomplete_reason(connection, run_id, row[1], row[2])
+        candidates.append((reason, _parse_timestamp(row[0]), run_id))
 
     if not candidates:
         raise CadastroNotFound("Nenhuma coleta gravou o retrato do cadastro.")
 
-    complete_ones = [item for item in candidates if item[0]]
+    complete_ones = [item for item in candidates if item[0] is None]
     pool = complete_ones or candidates
-    complete, started_at, run_id = max(pool, key=lambda item: (item[1], item[2]))
+    reason, started_at, run_id = max(pool, key=lambda item: (item[1], item[2]))
 
-    return run_id, started_at, complete
+    return run_id, started_at, reason
 
 
 def _read_snapshot(connection: sqlite3.Connection) -> CadastroSnapshot:
@@ -324,7 +364,7 @@ def _read_snapshot(connection: sqlite3.Connection) -> CadastroSnapshot:
 
         values[key][field_name].add(value)
 
-    collection_run_id, started_at, complete = _choose_run(
+    collection_run_id, started_at, incomplete_reason = _choose_run(
         connection,
         sorted(run_ids),
     )
@@ -447,7 +487,8 @@ def _read_snapshot(connection: sqlite3.Connection) -> CadastroSnapshot:
         reference_date=reference_date,
         collection_run_id=collection_run_id,
         started_at=started_at,
-        complete=complete,
+        complete=incomplete_reason is None,
+        incomplete_reason=incomplete_reason,
         funds_in_table=len(funds),
         classes_in_table=len(classes),
         funds_read=len(funds_with_data),
