@@ -27,6 +27,7 @@ from pense_alm.shared.entities import (
 )
 from pense_alm.shared.integration.fundos_adapter import NORMAL, FundosAdapter
 from pense_alm.shared.integration.fundos_records import (
+    CadastroIncompleteReason,
     CadastroSnapshot,
     FundosPartyLink,
     FundosSubjectRecord,
@@ -42,6 +43,7 @@ from pense_alm.shared.integration.fundos_relation_rules import (
     classify,
     collect_pairs,
     relationship_to_save,
+    unresolved_pair_types,
 )
 from pense_alm.shared.persistence import (
     SQLiteConnectionManager,
@@ -163,6 +165,9 @@ def retrato(complete=True, inicio=INICIO, competencia=date(2026, 10, 27), coleta
         classes_only_class=0,
         classes_of_fund_without_data=0,
         subjects=(assunto(),),
+        incomplete_reason=(
+            None if complete else CadastroIncompleteReason.STATUS_NAO_SUCCESS
+        ),
     )
 
 
@@ -348,6 +353,52 @@ def test_repr_nao_mostra_cnpj_nome_nem_id_de_entidade():
         str(CUSTODIANTE.entity_id),
     ):
         assert proibido not in texto
+
+
+# --- unresolved_pair_types (grupo normal sem Entity) ---
+
+
+def test_sem_entidade_conta_um_par_por_tipo_e_prestadora():
+    tipos = unresolved_pair_types(
+        assunto(
+            papel("administrador", CNPJ_ADMIN, 1),
+            papel("administrador", com_mascara(CNPJ_ADMIN), 2),
+            papel("gestor", CNPJ_ADMIN, 3),
+            papel("custodiante", CNPJ_CUSTODIANTE, 4),
+            papel("custodiante", CNPJ_GESTORA, 5),
+        ),
+        adaptador,
+    )
+
+    assert sorted(tipos) == sorted(
+        [ADMINISTERED_BY, MANAGES, CUSTODIED_BY, CUSTODIED_BY]
+    )
+
+
+def test_sem_entidade_cnpj_invalido_conta_pelo_texto():
+    tipos = unresolved_pair_types(
+        assunto(
+            papel("administrador", dv_errado(CNPJ_ADMIN), 1),
+            papel("administrador", dv_errado(CNPJ_ADMIN), 2),
+            papel("administrador", dv_errado(CNPJ_CUSTODIANTE), 3),
+            papel("administrador", CNPJ_FUNDO, 4),
+        ),
+        adaptador,
+    )
+
+    assert tipos == (ADMINISTERED_BY, ADMINISTERED_BY, ADMINISTERED_BY)
+
+
+def test_sem_entidade_sem_papel_e_sem_dado_no_resultado():
+    assert unresolved_pair_types(assunto(), adaptador) == ()
+
+    tipos = unresolved_pair_types(assunto(papel("gestor", CNPJ_GESTORA, 1)), adaptador)
+
+    assert tipos == (MANAGES,)
+    assert CNPJ_GESTORA not in repr(tipos)
+
+    with pytest.raises(TypeError):
+        unresolved_pair_types(object(), adaptador)
 
 
 # --- classify ---

@@ -57,13 +57,16 @@ _ERROR = "erro"
 class FundosEntityPhase:
     """Resultado das fases 1 e 2: o relatorio e as entidades resolvidas.
 
-    funds e providers vao do CNPJ canonico para a entidade. Ficam so em
-    memoria, para a fase de relacoes (B2), e fora do repr.
+    funds e providers vao do CNPJ canonico para a entidade. backlog_funds
+    leva o CNPJ canonico do grupo fora do funcionamento normal ate a entidade
+    FIDC ou FIAGRO ja na camada (o que fora_do_normal_ja_na_camada conta),
+    para o S8 da fase de relacoes. Ficam so em memoria e fora do repr.
     """
 
     report: FundosEntityReport
     funds: Mapping[str, Entity] = field(repr=False)
     providers: Mapping[str, Entity] = field(repr=False)
+    backlog_funds: Mapping[str, Entity] = field(repr=False)
 
 
 class FundosImportService:
@@ -79,14 +82,17 @@ class FundosImportService:
         except IdentifierValidationError:
             return None
 
-    def _is_fund_in_layer(self, cnpj: str) -> bool:
+    def _fund_in_layer(self, cnpj: str) -> Entity | None:
         # Sem try de proposito: falha de leitura do destino e sistemica. A
         # excecao propaga e a execucao para, em vez de virar erro contado,
         # para que a soma 7 (fora_do_normal_ja_na_camada <= backlog) continue
         # fechando com numeros verdadeiros.
         existing = self._entities.get_by_identifier(IdentifierType.CNPJ, cnpj)
 
-        return existing is not None and existing.entity_type in FUND_ENTITY_TYPES
+        if existing is not None and existing.entity_type in FUND_ENTITY_TYPES:
+            return existing
+
+        return None
 
     def _resolve_fund(self, subject, cnpj, repeated, snapshot):
         if cnpj is None:
@@ -163,6 +169,7 @@ class FundosImportService:
         fund_reasons = Counter()
         errors = Counter()
         funds = {}
+        backlog_funds = {}
         counts = Counter()
         normal = []
         resolved = set()
@@ -181,10 +188,12 @@ class FundosImportService:
             if group is not SituationGroup.NORMAL:
                 backlog[group.value] += 1
 
-                if canonical[index] is not None and self._is_fund_in_layer(
-                    canonical[index]
-                ):
-                    counts["fora_do_normal_ja_na_camada"] += 1
+                if canonical[index] is not None:
+                    existing = self._fund_in_layer(canonical[index])
+
+                    if existing is not None:
+                        counts["fora_do_normal_ja_na_camada"] += 1
+                        backlog_funds[canonical[index]] = existing
 
                 continue
 
@@ -294,4 +303,5 @@ class FundosImportService:
             report=report,
             funds=MappingProxyType(funds),
             providers=MappingProxyType(providers),
+            backlog_funds=MappingProxyType(backlog_funds),
         )

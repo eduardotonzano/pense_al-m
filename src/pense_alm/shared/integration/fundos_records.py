@@ -16,11 +16,27 @@ que nenhuma impressao de objeto mostre esses dados.
 
 from dataclasses import dataclass, field
 from datetime import date, datetime
+from enum import StrEnum
 
 
 PARTY_ROLES = ("administrador", "gestor", "custodiante")
 CLASS_ONLY_ROLES = ("custodiante",)
 SOURCE_TABLES = ("funds", "fund_classes")
+
+
+class CadastroIncompleteReason(StrEnum):
+    """Por que a leitura nao e completa: a primeira checagem que falha.
+
+    A ordem e a dos valores: status da coleta, fonte, membro ausente,
+    membro nao processado e line_count nulo (registro_fundo.csv e
+    registro_classe.csv). Sem comparacao com o manifesto.
+    """
+
+    STATUS_NAO_SUCCESS = "status_nao_success"
+    FONTE_DIFERENTE = "fonte_diferente"
+    MEMBRO_AUSENTE = "membro_ausente"
+    MEMBRO_NAO_PROCESSADO = "membro_nao_processado"
+    LINE_COUNT_NULO = "line_count_nulo"
 
 
 def _require_positive_int(value, name: str) -> None:
@@ -157,6 +173,8 @@ class CadastroSnapshot:
     em: mesmo CNPJ do proprio fundo, CNPJ de outro fundo, CNPJ que so existe
     como classe e CNPJ de fundo sem dado em R (vale o lado do fundo, entao
     essa classe nao abre grupo).
+
+    complete e verdadeiro se e so se incomplete_reason e None.
     """
 
     reference_date: date
@@ -172,6 +190,7 @@ class CadastroSnapshot:
     classes_only_class: int
     classes_of_fund_without_data: int
     subjects: tuple[FundosSubjectRecord, ...] = field(repr=False)
+    incomplete_reason: CadastroIncompleteReason | None = None
 
     def __post_init__(self) -> None:
         if isinstance(self.reference_date, datetime) or not isinstance(
@@ -189,6 +208,16 @@ class CadastroSnapshot:
 
         if not isinstance(self.complete, bool):
             raise TypeError("complete deve ser booleano.")
+
+        if self.incomplete_reason is not None and not isinstance(
+            self.incomplete_reason, CadastroIncompleteReason
+        ):
+            raise TypeError("incomplete_reason deve ser CadastroIncompleteReason.")
+
+        if self.complete != (self.incomplete_reason is None):
+            raise ValueError(
+                "A leitura e completa se e so se nao ha motivo de incompleta."
+            )
 
         for name in (
             "funds_in_table",

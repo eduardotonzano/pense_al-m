@@ -49,9 +49,33 @@ from .fundos_reader import (
     build_read_only_uri,
 )
 from .fundos_records import (
+    CadastroIncompleteReason,
     CadastroSnapshot,
     FundosPartyLink,
     FundosSubjectRecord,
+)
+from .fundos_relation_report import (
+    FundosRelationError,
+    FundosRelationReport,
+    RelacoesNaoCriadas,
+    RelacoesPorTipo,
+)
+from .fundos_relation_rules import (
+    FundPairs,
+    PairSkip,
+    RelationDecision,
+    RelationOperation,
+    RelationOutcome,
+    RelationPair,
+    SkippedPair,
+    classify,
+    collect_pairs,
+    fund_side,
+    relationship_to_save,
+    unresolved_pair_types,
+)
+from .fundos_relation_service import (
+    FundosRelationService,
 )
 from .import_result import (
     EntityImportAction,
@@ -75,6 +99,7 @@ from .records import (
 __all__ = [
     "BatchImportError",
     "BatchImportReport",
+    "CadastroIncompleteReason",
     "CadastroNotFound",
     "CadastroSnapshot",
     "DebentureInstrumentAdapter",
@@ -87,6 +112,7 @@ __all__ = [
     "DebentureIssuerRecord",
     "EntityImportAction",
     "EntityImportResult",
+    "FundPairs",
     "FundosAdapter",
     "FundosAdapterError",
     "FundosBacklog",
@@ -100,6 +126,9 @@ __all__ = [
     "FundosPartyLink",
     "FundosReaderError",
     "FundosReason",
+    "FundosRelationError",
+    "FundosRelationReport",
+    "FundosRelationService",
     "FundosSchemaError",
     "FundosSubjectRecord",
     "InstrumentBatchOutcome",
@@ -109,9 +138,22 @@ __all__ = [
     "LegacyDebentureIssuerReader",
     "LegacyInstrumentReadError",
     "NameResolution",
+    "PairSkip",
     "PrestadorasNaoCriadas",
+    "RelacoesNaoCriadas",
+    "RelacoesPorTipo",
+    "RelationDecision",
+    "RelationOperation",
+    "RelationOutcome",
+    "RelationPair",
     "SituationGroup",
+    "SkippedPair",
     "TypeResolution",
     "build_read_only_uri",
+    "classify",
+    "collect_pairs",
+    "fund_side",
     "parse_legacy_datetime",
+    "relationship_to_save",
+    "unresolved_pair_types",
 ]

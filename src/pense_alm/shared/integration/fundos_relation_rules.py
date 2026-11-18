@@ -11,6 +11,9 @@ B1, B3, B4 e de 17/11/2026:
   CNPJ), entao nao gera par (D5);
 - prestadora sem entidade e autorrelacao nao viram par: sao contadas, uma
   vez por tipo e prestadora;
+- grupo em funcionamento normal sem Entity (nao resolvido na fase 1): so a
+  contagem dos pares distintos por (tipo, prestadora), com a mesma chave de
+  prestadora (unresolved_pair_types);
 - a relacao gravada e achada pela chave canonica entre as do proprio fundo,
   qualquer que seja o relationship_id (C6). So a de proveniencia deste
   adaptador (CVM, "Fundos - CVM Cadastro") e reaberta ou fechada (B4); a
@@ -105,7 +108,7 @@ def _require_relation_type(kind) -> None:
         raise ValueError("Tipo de relacao fora do adaptador de Fundos.")
 
 
-def _fund_side(kind: RelationshipType, source_id: UUID, target_id: UUID):
+def fund_side(kind: RelationshipType, source_id: UUID, target_id: UUID):
     """O id do lado do fundo, pela direcao do tipo; None fora dos tres."""
 
     if kind in FUND_SOURCE_TYPES:
@@ -115,6 +118,21 @@ def _fund_side(kind: RelationshipType, source_id: UUID, target_id: UUID):
         return target_id
 
     return None
+
+
+def _provider_marker(kind: RelationshipType, link, adapter: FundosAdapter):
+    """Chave de (tipo, prestadora) e o CNPJ canonico (None se invalido).
+
+    A prestadora e o CNPJ canonico; sem CNPJ valido, o texto cru da linha.
+    A chave fica so em memoria: nunca sai em resultado nem em repr.
+    """
+
+    try:
+        key = adapter.canonical_cnpj(link.cnpj)
+    except IdentifierValidationError:
+        return (kind.value, "texto", link.cnpj), None
+
+    return (kind.value, "cnpj", key), key
 
 
 @dataclass(frozen=True, slots=True)
@@ -259,17 +277,7 @@ def collect_pairs(
 
     for link in subject.parties:
         kind = ROLE_RELATIONS[link.role]
-
-        try:
-            key = adapter.canonical_cnpj(link.cnpj)
-        except IdentifierValidationError:
-            key = None
-
-        marker = (kind.value, "cnpj", key) if key is not None else (
-            kind.value,
-            "texto",
-            link.cnpj,
-        )
+        marker, key = _provider_marker(kind, link, adapter)
         provider = None if key is None else providers.get(key)
 
         if provider is None:
@@ -305,6 +313,30 @@ def collect_pairs(
             )
         ),
     )
+
+
+def unresolved_pair_types(
+    subject: FundosSubjectRecord,
+    adapter: FundosAdapter,
+) -> tuple[RelationshipType, ...]:
+    """Um tipo por par distinto (tipo, prestadora) de um grupo sem Entity.
+
+    Para o grupo em funcionamento normal nao resolvido na fase 1: sem a
+    entidade do fundo nao ha par, so a contagem. Sem Entity tambem nao da
+    para saber se e autorrelacao, entao esse par conta igual.
+    """
+
+    if not isinstance(subject, FundosSubjectRecord):
+        raise TypeError("subject deve ser FundosSubjectRecord.")
+
+    markers = {}
+
+    for link in subject.parties:
+        kind = ROLE_RELATIONS[link.role]
+        marker, _ = _provider_marker(kind, link, adapter)
+        markers[marker] = kind
+
+    return tuple(markers[marker] for marker in sorted(markers))
 
 
 def _present(pair, stored, adapter) -> RelationDecision:
@@ -368,7 +400,7 @@ def classify(
         if not isinstance(relationship, EntityRelationship):
             raise TypeError("stored deve conter EntityRelationship.")
 
-        side = _fund_side(
+        side = fund_side(
             relationship.relationship_type,
             relationship.source_entity_id,
             relationship.target_entity_id,
@@ -388,7 +420,7 @@ def classify(
     read = set()
 
     for pair in sorted(pairs.pairs, key=lambda item: item.canonical_key):
-        side = _fund_side(
+        side = fund_side(
             pair.relationship_type,
             pair.source_entity_id,
             pair.target_entity_id,
