@@ -28,12 +28,11 @@ from types import MappingProxyType
 
 from pense_alm.shared.entities import (
     Entity,
-    EntityType,
     IdentifierType,
     IdentifierValidationError,
 )
 
-from .fundos_adapter import FundosAdapter, SituationGroup
+from .fundos_adapter import FUND_ENTITY_TYPES, FundosAdapter, SituationGroup
 from .fundos_import_report import (
     FundosBacklog,
     FundosEntityReport,
@@ -44,7 +43,6 @@ from .fundos_import_report import (
 from .fundos_records import CadastroSnapshot
 
 
-FUND_ENTITY_TYPES = (EntityType.FIDC, EntityType.FIAGRO)
 NATURAL_PERSON = "PF"
 
 _CREATED = "criado"

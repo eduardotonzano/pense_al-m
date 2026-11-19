@@ -23,7 +23,12 @@ das decisoes de 16 e 17/11/2026:
   fundo para a prestadora, MANAGES vai da gestora para o fundo; o
   relationship_id e o uuid5 da chave canonica origem:tipo:destino, como no
   adaptador de debentures; a proveniencia e a linha de party_observations
-  (criar e reabrir) ou a coleta (fechar, decisao B3).
+  (criar e reabrir) ou a coleta (fechar, decisao B3);
+- "investe em" (ADR-013, D9; PR C): INVESTS_IN vai do fundo detentor para o
+  fundo investido, com o relationship_id pelo mesmo uuid5 da chave; a
+  proveniencia e "Fundos - CVM CDA", com a linha de holdings (criar e
+  reabrir) ou a coleta do CDA (fechar), e as datas sao a competencia do CDA
+  as 00:00 UTC.
 
 created_at e updated_at de toda entidade sao o inicio da coleta usada na
 proveniencia (snapshot.started_at), igual para todas: a entidade sai
@@ -32,7 +37,7 @@ CNPJ nem nome.
 """
 
 from dataclasses import dataclass, field
-from datetime import UTC, datetime, time
+from datetime import UTC, date, datetime, time
 from enum import StrEnum
 from uuid import NAMESPACE_URL, UUID, uuid5
 
@@ -87,6 +92,9 @@ FUND_SOURCE_TYPES = (
 )
 FUND_TARGET_TYPES = (RelationshipType.MANAGES,)
 RELATION_TYPES = FUND_SOURCE_TYPES + FUND_TARGET_TYPES
+# Tipos de fundo e classe na camada (D6, D7): o detentor e o investido do
+# INVESTS_IN; a fase 1 tambem reconhece por eles o fundo ja na camada.
+FUND_ENTITY_TYPES = (EntityType.FIDC, EntityType.FIAGRO)
 
 
 class SituationGroup(StrEnum):
@@ -127,6 +135,14 @@ class FundosReason(StrEnum):
 
 class FundosAdapterError(ValueError):
     """O record nao pode virar entidade (a mensagem nunca traz dado)."""
+
+
+def _require_row_id(value, name: str) -> None:
+    if isinstance(value, bool) or not isinstance(value, int):
+        raise FundosAdapterError(f"{name} deve ser inteiro.")
+
+    if value < 1:
+        raise FundosAdapterError(f"{name} deve ser positivo.")
 
 
 @dataclass(frozen=True, slots=True)
@@ -366,6 +382,102 @@ class FundosAdapter:
             status=RelationshipStatus.ACTIVE,
             valid_from=self.reference_datetime(snapshot),
             created_at=snapshot.started_at,
+        )
+
+    @staticmethod
+    def competence_datetime(competence: date) -> datetime:
+        """Competencia do CDA as 00:00 UTC (proveniencia e vigencia)."""
+
+        if isinstance(competence, datetime) or not isinstance(competence, date):
+            raise FundosAdapterError("A competencia do CDA deve ser uma data.")
+
+        return datetime.combine(competence, time(0, 0), tzinfo=UTC)
+
+    def cda_provenance(
+        self,
+        competence: date,
+        collected_at: datetime,
+        source_reference: str,
+    ) -> DataProvenance:
+        """Proveniencia do CDA: CVM, referencia de linha e competencia."""
+
+        return DataProvenance(
+            source_type=SourceType.CVM,
+            source_name=SOURCE_NAME_CDA,
+            source_reference=source_reference,
+            collected_at=collected_at,
+            reference_date=self.competence_datetime(competence),
+        )
+
+    def holding_provenance(
+        self,
+        competence: date,
+        collected_at: datetime,
+        holding_id: int,
+    ) -> DataProvenance:
+        """Proveniencia de criar ou reabrir INVESTS_IN: a linha de holdings."""
+
+        _require_row_id(holding_id, "holding_id")
+
+        return self.cda_provenance(
+            competence,
+            collected_at,
+            f"fundos:holdings:{holding_id}",
+        )
+
+    def cda_closing_provenance(
+        self,
+        competence: date,
+        collected_at: datetime,
+        run_id: int,
+    ) -> DataProvenance:
+        """Proveniencia do fechamento: a coleta do CDA que mostra a ausencia."""
+
+        _require_row_id(run_id, "run_id")
+
+        return self.cda_provenance(
+            competence,
+            collected_at,
+            f"fundos:collection_runs:{run_id}",
+        )
+
+    @staticmethod
+    def is_cda_provenance(provenance: DataProvenance) -> bool:
+        """Se a proveniencia e do CDA deste adaptador: CVM e o nome do CDA."""
+
+        return (
+            provenance.source_type is SourceType.CVM
+            and provenance.source_name == SOURCE_NAME_CDA
+        )
+
+    def build_investment(
+        self,
+        holder_id: UUID,
+        investee_id: UUID,
+        provenance: DataProvenance,
+        competence: date,
+        created_at: datetime,
+    ) -> EntityRelationship:
+        """INVESTS_IN nova, ativa desde a competencia do CDA (D9)."""
+
+        if not isinstance(provenance, DataProvenance) or not self.is_cda_provenance(
+            provenance
+        ):
+            raise FundosAdapterError("A proveniencia do INVESTS_IN deve ser do CDA.")
+
+        return EntityRelationship(
+            relationship_id=self.relationship_id(
+                holder_id,
+                RelationshipType.INVESTS_IN,
+                investee_id,
+            ),
+            source_entity_id=holder_id,
+            target_entity_id=investee_id,
+            relationship_type=RelationshipType.INVESTS_IN,
+            provenance=provenance,
+            status=RelationshipStatus.ACTIVE,
+            valid_from=self.competence_datetime(competence),
+            created_at=created_at,
         )
 
     def to_fund_entity(
