@@ -29,7 +29,7 @@ Os reprs nao mostram CNPJ, nome nem id de entidade.
 """
 
 from collections.abc import Iterable, Mapping
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, replace
 from datetime import date, datetime
 from enum import StrEnum
 from uuid import UUID
@@ -38,21 +38,25 @@ from pense_alm.shared.entities import (
     Entity,
     EntityRelationship,
     IdentifierValidationError,
+    RelationshipStatus,
     RelationshipType,
     normalize_cnpj,
 )
 
-from .fundos_adapter import FUND_ENTITY_TYPES
+from .fundos_adapter import FUND_ENTITY_TYPES, FundosAdapter
 from .fundos_records import CdaHoldingLink
 from .fundos_relation_rules import (
     RelationOperation,
     RelationOutcome,
+    absent_outcome,
     decision_is_coherent,
     operation_for,
+    present_outcome,
 )
 
 
 INVESTS_IN = RelationshipType.INVESTS_IN
+_EXPECTED_STATUSES = (RelationshipStatus.ACTIVE, RelationshipStatus.INACTIVE)
 
 
 class InvestmentSkip(StrEnum):
@@ -285,3 +289,172 @@ def collect_investment_pairs(
             for reason in sorted(skipped.values(), key=lambda item: item.value)
         ),
     )
+
+
+def _applied(stored: EntityRelationship) -> datetime | None:
+    """A maior data aplicada da gravada: reference_date ou valid_from."""
+
+    dates = [
+        value
+        for value in (stored.provenance.reference_date, stored.valid_from)
+        if value is not None
+    ]
+
+    return max(dates) if dates else None
+
+
+def _decide(stored, present: bool, reading: HolderReading, adapter) -> RelationOutcome:
+    is_own = adapter.is_cda_provenance(stored.provenance)
+
+    if is_own and stored.status in _EXPECTED_STATUSES:
+        applied = _applied(stored)
+
+        if applied is not None and applied > adapter.competence_datetime(
+            reading.competence
+        ):
+            return RelationOutcome.VIGENCIA_POSTERIOR
+
+    if present:
+        return present_outcome(stored, is_own)
+
+    if (
+        is_own
+        and stored.status is RelationshipStatus.ACTIVE
+        and reading.complete
+        and reading.has_confidential
+    ):
+        return RelationOutcome.SUSPENSA_POR_CONFIDENCIAL
+
+    return absent_outcome(stored, is_own, reading.complete)
+
+
+def classify_investments(
+    holder_id: UUID,
+    pairs: HolderPairs,
+    stored: Iterable[EntityRelationship],
+    reading: HolderReading,
+    adapter: FundosAdapter,
+) -> tuple[InvestmentDecision, ...]:
+    """Compara os pares lidos de um detentor com as INVESTS_IN gravadas dele.
+
+    stored pode trazer qualquer relacao do detentor: so entram as INVESTS_IN
+    em que ele e a origem. Saida estavel: os pares lidos e depois as
+    ausentes, pela chave.
+    """
+
+    if not isinstance(holder_id, UUID):
+        raise TypeError("holder_id deve ser UUID.")
+
+    if not isinstance(pairs, HolderPairs):
+        raise TypeError("pairs deve ser HolderPairs.")
+
+    if not isinstance(reading, HolderReading):
+        raise TypeError("reading deve ser HolderReading.")
+
+    own = {}
+
+    for relationship in stored:
+        if not isinstance(relationship, EntityRelationship):
+            raise TypeError("stored deve conter EntityRelationship.")
+
+        if (
+            relationship.relationship_type is not INVESTS_IN
+            or relationship.source_entity_id != holder_id
+        ):
+            continue
+
+        key = relationship.canonical_key
+
+        if key in own:
+            raise ValueError("Chave canonica repetida nas relacoes gravadas.")
+
+        own[key] = relationship
+
+    decisions = []
+    read = set()
+
+    for pair in sorted(pairs.pairs, key=lambda item: item.canonical_key):
+        if pair.holder_entity_id != holder_id:
+            raise ValueError("Par de outro detentor.")
+
+        if pair.competence != reading.competence:
+            raise ValueError("Par de outra competencia que a do detentor.")
+
+        if pair.canonical_key in read:
+            raise ValueError("Par repetido.")
+
+        read.add(pair.canonical_key)
+        current = own.get(pair.canonical_key)
+        outcome = (
+            present_outcome(None, False)
+            if current is None
+            else _decide(current, True, reading, adapter)
+        )
+        decisions.append(InvestmentDecision(outcome, pair=pair, stored=current))
+
+    for key in sorted(own):
+        if key not in read:
+            decisions.append(
+                InvestmentDecision(
+                    _decide(own[key], False, reading, adapter),
+                    stored=own[key],
+                )
+            )
+
+    return tuple(decisions)
+
+
+def investment_to_save(
+    decision: InvestmentDecision,
+    reading: HolderReading,
+    adapter: FundosAdapter,
+) -> EntityRelationship | None:
+    """A INVESTS_IN a gravar (criar, reabrir ou fechar); None nos demais.
+
+    Pode levantar EntityValidationError; o servico conta como erro da
+    operacao.
+    """
+
+    if not isinstance(decision, InvestmentDecision):
+        raise TypeError("decision deve ser InvestmentDecision.")
+
+    if not isinstance(reading, HolderReading):
+        raise TypeError("reading deve ser HolderReading.")
+
+    pair = decision.pair
+
+    if decision.outcome is RelationOutcome.CRIADA:
+        return adapter.build_investment(
+            pair.holder_entity_id,
+            pair.investee_entity_id,
+            adapter.holding_provenance(pair.competence, pair.collected_at, pair.holding_id),
+            pair.competence,
+            pair.collected_at,
+        )
+
+    if decision.outcome is RelationOutcome.REABERTA:
+        return replace(
+            decision.stored,
+            status=RelationshipStatus.ACTIVE,
+            valid_from=adapter.competence_datetime(pair.competence),
+            valid_to=None,
+            provenance=adapter.holding_provenance(
+                pair.competence,
+                pair.collected_at,
+                pair.holding_id,
+            ),
+        )
+
+    if decision.outcome is RelationOutcome.FECHADA:
+        return replace(
+            decision.stored,
+            status=RelationshipStatus.INACTIVE,
+            valid_to=adapter.competence_datetime(reading.competence),
+            provenance=adapter.cda_closing_provenance(
+                reading.competence,
+                reading.closing_collected_at,
+                reading.closing_run_id,
+            ),
+        )
+
+    return None

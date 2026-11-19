@@ -52,7 +52,9 @@ from .fundos_investment_rules import (
     InvestmentPair,
     InvestmentSkip,
     SkippedInvestment,
+    classify_investments,
     collect_investment_pairs,
+    investment_to_save,
 )
 from .fundos_reader import (
     CadastroNotFound,
@@ -187,10 +189,12 @@ __all__ = [
     "absent_outcome",
     "build_read_only_uri",
     "classify",
+    "classify_investments",
     "collect_investment_pairs",
     "collect_pairs",
     "decision_is_coherent",
     "fund_side",
+    "investment_to_save",
     "operation_for",
     "parse_legacy_datetime",
     "present_outcome",
