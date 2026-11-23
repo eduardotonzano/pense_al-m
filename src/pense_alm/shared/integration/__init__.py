@@ -62,6 +62,9 @@ from .fundos_investment_rules import (
     collect_investment_pairs,
     investment_to_save,
 )
+from .fundos_investment_service import (
+    FundosInvestmentService,
+)
 from .fundos_reader import (
     CadastroNotFound,
     FundosDatabaseReader,
@@ -172,6 +175,7 @@ __all__ = [
     "FundosImportService",
     "FundosInvestmentError",
     "FundosInvestmentReport",
+    "FundosInvestmentService",
     "FundosNaoCriados",
     "FundosPartyLink",
     "FundosReaderError",
