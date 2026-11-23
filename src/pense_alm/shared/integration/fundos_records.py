@@ -12,6 +12,10 @@ conta o que for recusado.
 
 Os campos com CNPJ, nome ou a lista de assuntos ficam fora do repr, para
 que nenhuma impressao de objeto mostre esses dados.
+
+Os records Cda* sao o CDA lido para a fase 4 (INVESTS_IN, PR C): as
+competencias com posicao, os meses com coleta e sem posicao e os detentores
+no L_H de cada um, so com CNPJ, ids e datas, nunca nome nem valor.
 """
 
 from dataclasses import dataclass, field
@@ -314,3 +318,284 @@ class CdaHoldingLink:
 
         if self.collected_at.utcoffset() is None:
             raise ValueError("collected_at deve possuir timezone.")
+
+
+class CdaUnavailableReason(StrEnum):
+    """Por que o banco de Fundos nao tem dados de CDA (a fase 4 so conta)."""
+
+    SEM_MIGRATION_004 = "sem_migration_004"
+    SEM_COLETA_DE_CDA = "sem_coleta_de_cda"
+
+
+class CdaIncompleteReason(StrEnum):
+    """Por que uma competencia do CDA nao e completa: a primeira checagem que falha.
+
+    A ordem e a dos valores: status da coleta, fonte, membro ausente
+    (cda_fie_AAAAMM.csv ou cda_fie_CONFID_AAAAMM.csv), membro nao
+    processado, line_count nulo e competencia divergente (linhas da coleta
+    com mais de um reference_date, ou de outro mes que o AAAAMM do
+    manifesto).
+    """
+
+    STATUS_NAO_SUCCESS = "status_nao_success"
+    FONTE_DIFERENTE = "fonte_diferente"
+    MEMBRO_AUSENTE = "membro_ausente"
+    MEMBRO_NAO_PROCESSADO = "membro_nao_processado"
+    LINE_COUNT_NULO = "line_count_nulo"
+    COMPETENCIA_DIVERGENTE = "competencia_divergente"
+
+
+def _require_date(value, name: str) -> None:
+    if isinstance(value, datetime) or not isinstance(value, date):
+        raise TypeError(f"{name} deve ser date.")
+
+
+def _require_bool(value, name: str) -> None:
+    if not isinstance(value, bool):
+        raise TypeError(f"{name} deve ser booleano.")
+
+
+def _tuple_of(values, kind, name: str) -> tuple:
+    if isinstance(values, str) or not isinstance(values, (tuple, list)):
+        raise TypeError(f"{name} deve ser uma tupla.")
+
+    values = tuple(values)
+
+    if any(not isinstance(value, kind) for value in values):
+        raise TypeError(f"{name} deve conter {kind.__name__}.")
+
+    return values
+
+
+def _run_ids(values) -> tuple[int, ...]:
+    values = _tuple_of(values, int, "run_ids")
+
+    for value in values:
+        _require_positive_int(value, "run_ids")
+
+    if not values or list(values) != sorted(set(values)):
+        raise ValueError("run_ids deve ter ids em ordem, sem repetir.")
+
+    return values
+
+
+def _require_reason(value) -> None:
+    if value is not None and not isinstance(value, CdaIncompleteReason):
+        raise TypeError("incomplete_reason deve ser CdaIncompleteReason.")
+
+
+def months_between(earlier: date, later: date) -> int:
+    """Meses entre duas competencias: 0 no mesmo mes, negativo se later vem antes."""
+
+    _require_date(earlier, "earlier")
+    _require_date(later, "later")
+
+    return (later.year - earlier.year) * 12 + later.month - earlier.month
+
+
+@dataclass(frozen=True, slots=True)
+class CdaCompetence:
+    """Uma competencia do CDA com posicao (identificada ou confidencial).
+
+    run_ids sao as coletas com linha na competencia e as coletas sem nenhuma
+    posicao do mesmo mes. closing_run_id e a de maior (started_at, id) entre
+    as que tem linha: a coleta da proveniencia do fechamento. Completa se e
+    so se nao ha motivo.
+    """
+
+    reference_date: date
+    run_ids: tuple[int, ...]
+    closing_run_id: int
+    closing_started_at: datetime
+    incomplete_reason: CdaIncompleteReason | None = None
+
+    def __post_init__(self) -> None:
+        _require_date(self.reference_date, "reference_date")
+        object.__setattr__(self, "run_ids", _run_ids(self.run_ids))
+        _require_positive_int(self.closing_run_id, "closing_run_id")
+
+        if self.closing_run_id not in self.run_ids:
+            raise ValueError("closing_run_id deve estar em run_ids.")
+
+        if not isinstance(self.closing_started_at, datetime):
+            raise TypeError("closing_started_at deve ser datetime.")
+
+        if self.closing_started_at.utcoffset() is None:
+            raise ValueError("closing_started_at deve possuir timezone.")
+
+        _require_reason(self.incomplete_reason)
+
+    @property
+    def period(self) -> str:
+        """AAAAMM da competencia."""
+
+        return f"{self.reference_date.year:04d}{self.reference_date.month:02d}"
+
+    @property
+    def complete(self) -> bool:
+        return self.incomplete_reason is None
+
+
+@dataclass(frozen=True, slots=True)
+class CdaEmptyPeriod:
+    """Mes (AAAAMM do manifesto) com coleta de CDA e nenhuma posicao gravada."""
+
+    period: str
+    run_ids: tuple[int, ...]
+    incomplete_reason: CdaIncompleteReason | None = None
+
+    def __post_init__(self) -> None:
+        period = self.period
+
+        if not (
+            isinstance(period, str)
+            and len(period) == 6
+            and period.isascii()
+            and period.isdigit()
+            and 1 <= int(period[4:]) <= 12
+        ):
+            raise ValueError("period deve ser AAAAMM.")
+
+        object.__setattr__(self, "run_ids", _run_ids(self.run_ids))
+        _require_reason(self.incomplete_reason)
+
+    @property
+    def complete(self) -> bool:
+        return self.incomplete_reason is None
+
+
+@dataclass(frozen=True, slots=True)
+class CdaHolderRecord:
+    """Um detentor do CDA na competencia mais recente dele (L_H).
+
+    links sao so as linhas de holdings de L_H, em ordem de id; o CNPJ fica
+    sem normalizar (o servico normaliza). has_confidential: ha posicao
+    confidencial em L_H.
+    """
+
+    cnpj: str = field(repr=False)
+    competence: date
+    has_identified: bool
+    has_confidential: bool
+    links: tuple[CdaHoldingLink, ...] = field(default=(), repr=False)
+
+    def __post_init__(self) -> None:
+        _require_text(self.cnpj, "cnpj")
+        _require_date(self.competence, "competence")
+        _require_bool(self.has_identified, "has_identified")
+        _require_bool(self.has_confidential, "has_confidential")
+        links = _tuple_of(self.links, CdaHoldingLink, "links")
+        ids = [link.holding_id for link in links]
+
+        if ids != sorted(set(ids)):
+            raise ValueError("links deve estar em ordem de id, sem repetir.")
+
+        if self.has_identified != bool(links):
+            raise ValueError("has_identified vale se e so se ha links.")
+
+        if not (self.has_identified or self.has_confidential):
+            raise ValueError("O detentor precisa ter posicao em L_H.")
+
+        object.__setattr__(self, "links", links)
+
+
+@dataclass(frozen=True, slots=True)
+class CdaSnapshot:
+    """O CDA do banco de Fundos lido pela camada (fase 4, INVESTS_IN).
+
+    Sem dados (sem a migration 004 ou sem coleta de CDA): available falso e
+    so o motivo. Com dados: as competencias com posicao, os meses com coleta
+    e nenhuma posicao, e os detentores, cada um no seu L_H.
+    """
+
+    available: bool
+    unavailable_reason: CdaUnavailableReason | None = None
+    competences: tuple[CdaCompetence, ...] = ()
+    empty_periods: tuple[CdaEmptyPeriod, ...] = ()
+    holders: tuple[CdaHolderRecord, ...] = field(default=(), repr=False)
+
+    def __post_init__(self) -> None:
+        _require_bool(self.available, "available")
+        competences = _tuple_of(self.competences, CdaCompetence, "competences")
+        empty = _tuple_of(self.empty_periods, CdaEmptyPeriod, "empty_periods")
+        holders = _tuple_of(self.holders, CdaHolderRecord, "holders")
+
+        if self.available:
+            if self.unavailable_reason is not None:
+                raise ValueError("Com dados de CDA nao ha motivo de indisponivel.")
+
+            if not competences and not empty:
+                raise ValueError("Com dados de CDA ha pelo menos uma coleta.")
+        else:
+            if not isinstance(self.unavailable_reason, CdaUnavailableReason):
+                raise TypeError("Sem dados de CDA, informe o CdaUnavailableReason.")
+
+            if competences or empty or holders:
+                raise ValueError("Sem dados de CDA nao ha competencia nem detentor.")
+
+        dates = [item.reference_date for item in competences]
+
+        if dates != sorted(set(dates)):
+            raise ValueError("competences deve estar em ordem, sem repetir.")
+
+        periods = [item.period for item in empty]
+
+        if periods != sorted(set(periods)) or set(periods) & {
+            item.period for item in competences
+        }:
+            raise ValueError("empty_periods deve estar em ordem, sem mes com posicao.")
+
+        cnpjs = [holder.cnpj for holder in holders]
+
+        if len(set(cnpjs)) != len(cnpjs):
+            raise ValueError("holders nao pode repetir CNPJ.")
+
+        if any(holder.competence not in dates for holder in holders):
+            raise ValueError("O L_H de cada detentor deve estar em competences.")
+
+        object.__setattr__(self, "competences", competences)
+        object.__setattr__(self, "empty_periods", empty)
+        object.__setattr__(self, "holders", holders)
+
+    def competence(self, reference_date: date) -> CdaCompetence:
+        """A competencia lida com essa data; KeyError se nao houver."""
+
+        for item in self.competences:
+            if item.reference_date == reference_date:
+                return item
+
+        raise KeyError("Competencia fora do CDA lido.")
+
+    @property
+    def latest_complete(self) -> date | None:
+        """C_max: a maior competencia completa com posicao."""
+
+        dates = [item.reference_date for item in self.competences if item.complete]
+
+        return max(dates) if dates else None
+
+    @property
+    def complete(self) -> bool:
+        """O L_H de todo detentor e completo e o mes mais novo do banco tambem.
+
+        Um mes recente com coleta incompleta e sem nenhuma posicao deixa o CDA
+        incompleto (C6). Sem dados de CDA, falso: quem chama olha available
+        antes.
+        """
+
+        if not self.available:
+            return False
+
+        if any(not self.competence(holder.competence).complete for holder in self.holders):
+            return False
+
+        newest = max(
+            [item.period for item in self.competences]
+            + [item.period for item in self.empty_periods]
+        )
+
+        return all(
+            item.complete
+            for item in self.competences + self.empty_periods
+            if item.period == newest
+        )
