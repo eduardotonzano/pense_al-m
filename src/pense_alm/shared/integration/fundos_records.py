@@ -290,3 +290,27 @@ class CadastroSnapshot:
         """Classes da tabela sem nenhuma observacao registro_classe.* em R."""
 
         return self.classes_in_table - self.classes_read
+
+
+@dataclass(frozen=True, slots=True)
+class CdaHoldingLink:
+    """Uma linha de holdings do CDA de um detentor (INVESTS_IN, PR C).
+
+    So o CNPJ do investido (sem normalizar: as regras normalizam e contam o
+    recusado), o id da linha e o inicio da coleta. Nome e valores da posicao
+    nunca entram aqui.
+    """
+
+    investee_cnpj: str = field(repr=False)
+    holding_id: int
+    collected_at: datetime
+
+    def __post_init__(self) -> None:
+        _require_text(self.investee_cnpj, "investee_cnpj")
+        _require_positive_int(self.holding_id, "holding_id")
+
+        if not isinstance(self.collected_at, datetime):
+            raise TypeError("collected_at deve ser datetime.")
+
+        if self.collected_at.utcoffset() is None:
+            raise ValueError("collected_at deve possuir timezone.")

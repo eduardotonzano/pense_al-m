@@ -64,6 +64,9 @@ class RelationOutcome(StrEnum):
     INATIVA_AUSENTE = "inativa_ausente"
     OUTRA_FONTE_AUSENTE = "outra_fonte_ausente"
     STATUS_INESPERADO = "status_inesperado"
+    # So da fase 4 (INVESTS_IN, PR C); a fase 3 nunca os produz.
+    SUSPENSA_POR_CONFIDENCIAL = "suspensa_por_confidencial"
+    VIGENCIA_POSTERIOR = "vigencia_posterior"
 
 
 class PairSkip(StrEnum):
@@ -94,6 +97,7 @@ _ABSENT = frozenset(
         RelationOutcome.FECHAMENTO_SUSPENSO,
         RelationOutcome.INATIVA_AUSENTE,
         RelationOutcome.OUTRA_FONTE_AUSENTE,
+        RelationOutcome.SUSPENSA_POR_CONFIDENCIAL,
     }
 )
 _OPERATIONS = {
@@ -101,6 +105,27 @@ _OPERATIONS = {
     RelationOutcome.REABERTA: RelationOperation.REABRIR,
     RelationOutcome.FECHADA: RelationOperation.FECHAR,
 }
+
+
+def decision_is_coherent(outcome, has_pair: bool, has_stored: bool) -> bool:
+    """Se o resultado combina com a presenca do par e da relacao gravada."""
+
+    if outcome is RelationOutcome.CRIADA:
+        return has_pair and not has_stored
+
+    if outcome in _ABSENT:
+        return has_stored and not has_pair
+
+    if outcome in _WITH_PAIR_AND_STORED:
+        return has_pair and has_stored
+
+    return has_stored
+
+
+def operation_for(outcome) -> RelationOperation | None:
+    """criar, reabrir ou fechar; None quando nada e gravado."""
+
+    return _OPERATIONS.get(outcome)
 
 
 def _require_relation_type(kind) -> None:
@@ -235,19 +260,11 @@ class RelationDecision:
         ):
             raise TypeError("stored deve ser EntityRelationship.")
 
-        has_pair = self.pair is not None
-        has_stored = self.stored is not None
-
-        if self.outcome is RelationOutcome.CRIADA:
-            coherent = has_pair and not has_stored
-        elif self.outcome in _ABSENT:
-            coherent = has_stored and not has_pair
-        elif self.outcome in _WITH_PAIR_AND_STORED:
-            coherent = has_pair and has_stored
-        else:
-            coherent = has_stored
-
-        if not coherent:
+        if not decision_is_coherent(
+            self.outcome,
+            self.pair is not None,
+            self.stored is not None,
+        ):
             raise ValueError("Resultado incoerente com o par e a relacao gravada.")
 
         for item in (self.pair, self.stored):
@@ -258,7 +275,7 @@ class RelationDecision:
     def operation(self) -> RelationOperation | None:
         """criar, reabrir ou fechar; None quando nada e gravado."""
 
-        return _OPERATIONS.get(self.outcome)
+        return operation_for(self.outcome)
 
 
 def collect_pairs(
@@ -339,37 +356,60 @@ def unresolved_pair_types(
     return tuple(markers[marker] for marker in sorted(markers))
 
 
-def _present(pair, stored, adapter) -> RelationDecision:
-    kind = pair.relationship_type
+def present_outcome(stored: EntityRelationship | None, is_own: bool) -> RelationOutcome:
+    """Resultado de um par lido: criada, outra fonte, mantida, reaberta ou status."""
 
     if stored is None:
-        return RelationDecision(RelationOutcome.CRIADA, kind, pair=pair)
+        return RelationOutcome.CRIADA
 
-    if not adapter.is_cadastro_provenance(stored.provenance):
-        outcome = RelationOutcome.OUTRA_FONTE_PRESENTE
-    elif stored.status is RelationshipStatus.ACTIVE:
-        outcome = RelationOutcome.MANTIDA
-    elif stored.status is RelationshipStatus.INACTIVE:
-        outcome = RelationOutcome.REABERTA
-    else:
-        outcome = RelationOutcome.STATUS_INESPERADO
+    if not is_own:
+        return RelationOutcome.OUTRA_FONTE_PRESENTE
 
-    return RelationDecision(outcome, kind, pair=pair, stored=stored)
+    if stored.status is RelationshipStatus.ACTIVE:
+        return RelationOutcome.MANTIDA
+
+    if stored.status is RelationshipStatus.INACTIVE:
+        return RelationOutcome.REABERTA
+
+    return RelationOutcome.STATUS_INESPERADO
+
+
+def absent_outcome(
+    stored: EntityRelationship,
+    is_own: bool,
+    complete: bool,
+) -> RelationOutcome:
+    """Resultado de uma gravada sem par lido: outra fonte, inativa, fechar ou status."""
+
+    if not is_own:
+        return RelationOutcome.OUTRA_FONTE_AUSENTE
+
+    if stored.status is RelationshipStatus.INACTIVE:
+        return RelationOutcome.INATIVA_AUSENTE
+
+    if stored.status is RelationshipStatus.ACTIVE:
+        return (
+            RelationOutcome.FECHADA
+            if complete
+            else RelationOutcome.FECHAMENTO_SUSPENSO
+        )
+
+    return RelationOutcome.STATUS_INESPERADO
+
+
+def _present(pair, stored, adapter) -> RelationDecision:
+    is_own = stored is not None and adapter.is_cadastro_provenance(stored.provenance)
+    outcome = present_outcome(stored, is_own)
+
+    return RelationDecision(outcome, pair.relationship_type, pair=pair, stored=stored)
 
 
 def _absent(stored, snapshot, adapter) -> RelationDecision:
-    if not adapter.is_cadastro_provenance(stored.provenance):
-        outcome = RelationOutcome.OUTRA_FONTE_AUSENTE
-    elif stored.status is RelationshipStatus.INACTIVE:
-        outcome = RelationOutcome.INATIVA_AUSENTE
-    elif stored.status is RelationshipStatus.ACTIVE:
-        outcome = (
-            RelationOutcome.FECHADA
-            if snapshot.complete
-            else RelationOutcome.FECHAMENTO_SUSPENSO
-        )
-    else:
-        outcome = RelationOutcome.STATUS_INESPERADO
+    outcome = absent_outcome(
+        stored,
+        adapter.is_cadastro_provenance(stored.provenance),
+        snapshot.complete,
+    )
 
     return RelationDecision(outcome, stored.relationship_type, stored=stored)
 
