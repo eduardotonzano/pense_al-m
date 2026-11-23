@@ -2,6 +2,10 @@
 
 python -m pense_alm.shared.integration.fundos_cli --fundos-db ... --target-db ...
 
+Le o cadastro e o CDA do banco de Fundos numa sessao so (read_all) e roda
+as duas travas e as fases 1 a 4 (fundos_cadastro_import). Sem dados de CDA
+(sem a migration 004 ou sem coleta), a fase 4 so informa o motivo.
+
 Por padrao e uma simulacao: o destino e copiado para uma pasta temporaria
 local, o mesmo codigo roda sobre a copia e a copia e removida no fim. Gravar
 exige --commit e --backup-dir; o backup e feito antes de qualquer gravacao.
@@ -13,11 +17,13 @@ excecao. Uma transacao por escrita: uma falha no meio do --commit deixa o
 que ja foi gravado, e a saida pede para rodar de novo ou restaurar o backup.
 
 Codigos de saida, com precedencia 2 > 3 > 4 > 0:
-- 2: erro, erro contado, retrato ausente ou mais antigo que o aplicado,
-  formato de data inesperado no destino, destino de rede no --commit, falha
-  no backup ou execucao parcial;
+- 2: erro, erro contado (em qualquer das 4 fases), retrato ausente ou mais
+  antigo que o aplicado, CDA mais antigo que o aplicado ou ausente com CDA
+  ja aplicado, formato de data inesperado no destino, destino de rede no
+  --commit, falha no backup ou execucao parcial;
 - 3: id_ocupado ou cnpj_colisao maior que 0;
-- 4: leitura incompleta (nenhuma relacao e fechada);
+- 4: leitura incompleta do cadastro (nenhuma relacao do cadastro e fechada)
+  ou do CDA (o detentor com competencia incompleta nao tem fechamento);
 - 0: tudo certo.
 """
 
@@ -37,17 +43,28 @@ from pense_alm.shared.persistence import (
     create_sqlite_backup,
 )
 
-from .fundos_cadastro_import import FundosCadastroImport, SnapshotOlderThanApplied
+from .fundos_cadastro_import import (
+    CdaOlderThanApplied,
+    CdaUnavailableButApplied,
+    FundosCadastroImport,
+    SnapshotOlderThanApplied,
+)
+from .fundos_investment_report import HOLDER_COUNTERS, PAIR_COUNTERS
 from .fundos_reader import FundosDatabaseReader
 from .fundos_relation_report import TYPE_COUNTERS, TYPE_FIELDS
 from .fundos_target_state import FundosTargetState, FundosTargetStateError
 
 
 NETWORK_MESSAGE = "Erro: destino em caminho de rede; use um banco em disco local."
-RUNNING_MESSAGE = "Executando as fases 1 a 3; pode levar alguns minutos"
+RUNNING_MESSAGE = "Executando as fases 1 a 4; pode levar alguns minutos"
 PARTIAL_MESSAGE = "execucao parcial: rode de novo ou restaure o backup"
 DRIVE_REMOTE = 4
-_ABORTS = (SnapshotOlderThanApplied, FundosTargetStateError)
+_ABORTS = (
+    SnapshotOlderThanApplied,
+    CdaOlderThanApplied,
+    CdaUnavailableButApplied,
+    FundosTargetStateError,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -56,8 +73,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
             "Importa o cadastro de Fundos (fundos, classes, prestadoras e "
-            "relacoes) para a Shared Entity Layer. Sem --commit apenas "
-            "simula, em uma copia descartavel do destino."
+            "relacoes) e as relacoes investe em do CDA para a Shared Entity "
+            "Layer. Sem --commit apenas simula, em uma copia descartavel do "
+            "destino."
         )
     )
     parser.add_argument(
@@ -157,13 +175,77 @@ def _print_snapshot(snapshot) -> None:
     else:
         completa = (
             f"nao (motivo: {snapshot.incomplete_reason.value}); "
-            "nenhuma relacao e fechada"
+            "nenhuma relacao do cadastro e fechada"
         )
 
     print(
         f"Retrato: competencia {snapshot.reference_date.isoformat()}; "
         f"leitura completa: {completa}"
     )
+
+
+def _label(name: str) -> str:
+    return name.replace("_", " ")
+
+
+def _print_investments(report) -> None:
+    """Bloco da fase 4; sem dados de CDA, uma linha so."""
+
+    if not report.cda_disponivel:
+        print(
+            "Investe em (CDA): sem dados de CDA "
+            f"(motivo: {report.motivo_sem_cda.value})"
+        )
+        return
+
+    latest = report.competencia_mais_nova_completa
+
+    if report.leitura_completa:
+        completa = "sim"
+    else:
+        completa = (
+            f"nao (motivo: {report.motivo_incompleto.value}); o detentor com "
+            "competencia incompleta nao tem fechamento"
+        )
+
+    print(
+        "Investe em (CDA): competencia mais nova completa "
+        f"{latest.isoformat() if latest is not None else 'nenhuma'}; "
+        f"leitura completa: {completa}"
+    )
+    print(
+        "  detentores: "
+        + "; ".join(
+            f"{_label(name.removeprefix('detentores_'))} {getattr(report, name)}"
+            for name in HOLDER_COUNTERS
+        )
+    )
+
+    for name in PAIR_COUNTERS:
+        print(f"  {_label(name)}: {getattr(report, name)}")
+
+    print(f"  nao criadas: {report.nao_criadas.total} ({_parts(report.nao_criadas)})")
+    print(
+        "  fora do normal: detentores com relacao "
+        f"{report.detentores_fora_do_normal_com_relacao}; relacoes intactas "
+        f"{report.relacoes_de_detentor_fora_do_normal_intactas}"
+    )
+    print(
+        "  pares com investido fora do normal (informativo): "
+        f"{report.pares_com_investido_fora_do_normal}"
+    )
+    print(
+        "  relacoes de detentor ausente do cda (informativo): "
+        f"{report.relacoes_de_detentor_ausente_do_cda}"
+    )
+    print(
+        f"  atraso (informativo): detentores {report.detentores_atrasados}; "
+        f"relacoes {report.relacoes_de_detentor_atrasado}"
+    )
+
+    for item in report.atraso:
+        meses = "1 mes" if item.meses == 1 else f"{item.meses} meses"
+        print(f"    {meses}: detentores {item.detentores}; relacoes {item.relacoes}")
 
 
 def _print_run(run) -> None:
@@ -214,6 +296,7 @@ def _print_run(run) -> None:
         "  ausentes do retrato (informativo): "
         f"{relations.relacoes_de_fundo_ausente_do_retrato}"
     )
+    _print_investments(run.investments)
     print(f"Erros: {run.erros_total}")
 
     for erro in entities.erros:
@@ -225,9 +308,15 @@ def _print_run(run) -> None:
             f"{erro.tipo}: {erro.quantidade}"
         )
 
+    for erro in run.investments.erros:
+        print(f"  investe em {erro.operacao.value} {erro.tipo}: {erro.quantidade}")
+
 
 def _exit_code(run) -> int:
-    """2 > 3 > 4 > 0: erro contado, id ocupado ou colisao, leitura incompleta."""
+    """2 > 3 > 4 > 0: erro contado, id ocupado ou colisao, leitura incompleta.
+
+    A leitura incompleta e a do cadastro ou a do CDA (C6).
+    """
 
     if run.erros_total > 0:
         return 2
@@ -235,18 +324,19 @@ def _exit_code(run) -> int:
     if run.id_ocupado > 0 or run.cnpj_colisao > 0:
         return 3
 
-    if not run.relations.leitura_completa:
+    if not run.leitura_completa:
         return 4
 
     return 0
 
 
-def _import_into(snapshot, database_path, commit: bool, has_backup: bool) -> int:
+def _import_into(snapshot, cda, database_path, commit: bool, has_backup: bool) -> int:
     try:
         manager = SQLiteConnectionManager(database_path)
         entities = SQLiteEntityRepository(manager)
         relationships = SQLiteRelationshipRepository(manager)
         custodied_before = relationships.count(RelationshipType.CUSTODIED_BY)
+        invests_before = relationships.count(RelationshipType.INVESTS_IN)
     except Exception as error:
         print(f"Erro: {type(error).__name__}; nenhum dado foi gravado.")
         return 2
@@ -258,7 +348,7 @@ def _import_into(snapshot, database_path, commit: bool, has_backup: bool) -> int
             entities,
             relationships,
             FundosTargetState(manager),
-        ).run(snapshot)
+        ).run(snapshot, cda)
     except _ABORTS as error:
         message = f"Erro: {type(error).__name__}; nenhum dado foi gravado"
 
@@ -273,13 +363,17 @@ def _import_into(snapshot, database_path, commit: bool, has_backup: bool) -> int
         return 2
 
     _print_run(run)
+    first = "primeira gravacao" if commit else "seria a primeira gravacao"
 
-    if custodied_before == 0 and run.relations.custodied_by.criadas > 0:
-        first = "primeira gravacao" if commit else "seria a primeira gravacao"
-        print(
-            f"Aviso: {first} de custodied_by neste banco; quem ler este banco "
-            "precisa da main a partir de 0fb907f (#49)."
-        )
+    for name, before, created in (
+        ("custodied_by", custodied_before, run.relations.custodied_by.criadas),
+        ("invests_in", invests_before, run.investments.criadas),
+    ):
+        if before == 0 and created > 0:
+            print(
+                f"Aviso: {first} de {name} neste banco; quem ler este banco "
+                "precisa da main a partir de 0fb907f (#49)."
+            )
 
     if run.erros_total > 0:
         print(
@@ -293,7 +387,7 @@ def _import_into(snapshot, database_path, commit: bool, has_backup: bool) -> int
     return code
 
 
-def _dry_run(snapshot, target: Path) -> int:
+def _dry_run(snapshot, cda, target: Path) -> int:
     with tempfile.TemporaryDirectory(
         prefix="fundos_import_",
         ignore_cleanup_errors=True,
@@ -311,13 +405,13 @@ def _dry_run(snapshot, target: Path) -> int:
             print("Aviso: destino inexistente; simulacao sobre um banco vazio.")
             working = Path(temp_dir) / "vazio.sqlite3"
 
-        code = _import_into(snapshot, working, commit=False, has_backup=False)
+        code = _import_into(snapshot, cda, working, commit=False, has_backup=False)
 
     print("Nada foi gravado no destino; a copia descartavel foi removida.")
     return code
 
 
-def _commit(snapshot, target: Path, backup_dir: Path, create: bool) -> int:
+def _commit(snapshot, cda, target: Path, backup_dir: Path, create: bool) -> int:
     if target.is_file():
         try:
             backup = create_sqlite_backup(target, backup_dir)
@@ -329,14 +423,14 @@ def _commit(snapshot, target: Path, backup_dir: Path, create: bool) -> int:
         print(f"  tamanho: {backup.size_bytes} bytes")
         print(f"  sha256: {backup.sha256}")
         print("  o backup esta na pasta de --backup-dir")
-        return _import_into(snapshot, target, commit=True, has_backup=True)
+        return _import_into(snapshot, cda, target, commit=True, has_backup=True)
 
     if not create:
         print("Erro: banco de destino inexistente; use --create para criar um novo.")
         return 2
 
     print("Banco de destino novo: nao ha o que copiar no backup.")
-    return _import_into(snapshot, target, commit=True, has_backup=False)
+    return _import_into(snapshot, cda, target, commit=True, has_backup=False)
 
 
 def run_fundos_import(
@@ -364,7 +458,7 @@ def run_fundos_import(
         print("Modo: dry-run (simulacao em copia descartavel; o destino nao e alterado)")
 
     try:
-        snapshot = FundosDatabaseReader(fundos_db).read_cadastro()
+        snapshot, cda = FundosDatabaseReader(fundos_db).read_all()
     except Exception as error:
         print(f"Erro: {type(error).__name__}; nada foi gravado.")
         return 2
@@ -372,9 +466,9 @@ def run_fundos_import(
     _print_snapshot(snapshot)
 
     if not commit:
-        return _dry_run(snapshot, Path(target_db))
+        return _dry_run(snapshot, cda, Path(target_db))
 
-    return _commit(snapshot, Path(target_db), Path(backup_dir), create)
+    return _commit(snapshot, cda, Path(target_db), Path(backup_dir), create)
 
 
 def main(argv: list[str] | None = None) -> int:

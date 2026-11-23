@@ -30,6 +30,8 @@ from .fundos_adapter import (
     TypeResolution,
 )
 from .fundos_cadastro_import import (
+    CdaOlderThanApplied,
+    CdaUnavailableButApplied,
     FundosCadastroImport,
     FundosCadastroRun,
     SnapshotOlderThanApplied,
@@ -149,7 +151,9 @@ __all__ = [
     "CdaHolderRecord",
     "CdaHoldingLink",
     "CdaIncompleteReason",
+    "CdaOlderThanApplied",
     "CdaSnapshot",
+    "CdaUnavailableButApplied",
     "CdaUnavailableReason",
     "DebentureInstrumentAdapter",
     "DebentureInstrumentBatchImportService",
