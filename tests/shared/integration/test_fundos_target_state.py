@@ -29,6 +29,7 @@ from pense_alm.shared.integration.fundos_target_state import (
     FundosTargetStateError,
 )
 from pense_alm.shared.persistence import SQLiteConnectionManager, SQLiteEntityRepository
+from pense_alm.shared.persistence import SQLiteRelationshipRepository
 
 from ..cnpj_amostras import cnpj_ficticio
 
@@ -180,3 +181,86 @@ def test_formato_inesperado_de_outra_fonte_nao_conta(destino):
 def test_manager_de_tipo_errado_e_recusado(tmp_path):
     with pytest.raises(TypeError):
         FundosTargetState(tmp_path / "camada.sqlite3")
+
+
+# --- PR C2: competencia do CDA ja aplicada (trava do CDA) ---
+
+
+CDA = "Fundos - CVM CDA"
+INICIO_CDA = datetime(2026, 11, 28, 12, tzinfo=UTC)
+
+
+def test_contrato_da_invests_in_grava_pela_camada_e_le_o_texto_cru(destino):
+    manager, repositorio = destino
+    gravar(repositorio, 1, meia_noite(2026, 10, 27))
+    gravar(repositorio, 2, meia_noite(2026, 10, 27))
+    origem, alvo = (
+        repositorio.get_by_identifier(IdentifierType.CNPJ, cnpj_ficticio(n)) for n in (1, 2)
+    )
+    adaptador = FundosAdapter()
+    competencia = date(2026, 10, 31)
+    SQLiteRelationshipRepository(manager).save(
+        adaptador.build_investment(
+            origem.entity_id,
+            alvo.entity_id,
+            adaptador.holding_provenance(competencia, INICIO_CDA, 7),
+            competencia,
+            INICIO_CDA,
+        )
+    )
+
+    with manager.read_connection() as conexao:
+        textos = [
+            linha[0]
+            for linha in conexao.execute(
+                "SELECT reference_date FROM data_provenance"
+                " WHERE source_type = 'cvm' AND source_name = ?",
+                (CDA,),
+            )
+        ]
+
+    estado = FundosTargetState(manager)
+    assert textos == ["2026-10-31T00:00:00+00:00"]
+    assert estado.latest_applied_cda_reference() == meia_noite(2026, 10, 31)
+    assert estado.latest_applied_reference() == meia_noite(2026, 10, 27)
+
+
+def test_cda_destino_vazio_da_none(destino):
+    manager, _ = destino
+
+    assert FundosTargetState(manager).latest_applied_cda_reference() is None
+
+
+def test_cda_vale_a_maior_de_duas_datas(destino):
+    manager, repositorio = destino
+    gravar(repositorio, 1, meia_noite(2026, 10, 31), source_name=CDA)
+    gravar(repositorio, 2, meia_noite(2026, 9, 30), source_name=CDA)
+
+    assert FundosTargetState(manager).latest_applied_cda_reference() == meia_noite(2026, 10, 31)
+
+
+def test_cadastro_e_cda_nao_se_misturam(destino):
+    manager, repositorio = destino
+    gravar(repositorio, 1, meia_noite(2026, 12, 31))
+    gravar(repositorio, 2, meia_noite(2026, 9, 30), source_name=CDA)
+    gravar(repositorio, 3, meia_noite(2026, 12, 31), source_type=SourceType.MANUAL, source_name=CDA)
+    estado = FundosTargetState(manager)
+
+    assert estado.latest_applied_cda_reference() == meia_noite(2026, 9, 30)
+    assert estado.latest_applied_reference() == meia_noite(2026, 12, 31)
+
+
+@pytest.mark.parametrize("reference_date", [datetime(2026, 10, 31, 3, tzinfo=UTC), None])
+def test_cda_formato_inesperado_da_erro_sem_dado(destino, reference_date):
+    manager, repositorio = destino
+    gravar(repositorio, 1, meia_noite(2026, 9, 30), source_name=CDA)
+    gravar(repositorio, 2, reference_date, source_name=CDA)
+    estado = FundosTargetState(manager)
+
+    with pytest.raises(FundosTargetStateError, match="do CDA") as erro:
+        estado.latest_applied_cda_reference()
+
+    assert "2026" not in str(erro.value)
+    assert cnpj_ficticio(2) not in str(erro.value)
+    # A trava B6 nao le as linhas do CDA.
+    assert estado.latest_applied_reference() is None

@@ -1,10 +1,12 @@
-"""Estado do destino para a trava B6 da importacao de Fundos (FU7.2).
+"""Estado do destino para as travas da importacao de Fundos (FU7.2).
 
 A maior competencia que o adaptador de Fundos ja gravou no destino e o
-MAX(reference_date) de data_provenance com source_type 'cvm' e source_name
-"Fundos - CVM Cadastro". Nenhum repositorio expoe essa leitura: a consulta
-e so de leitura, por SQLiteConnectionManager.read_connection(), no destino
-real (commit) ou na copia (dry-run).
+MAX(reference_date) de data_provenance com source_type 'cvm' e o
+source_name da fonte: "Fundos - CVM Cadastro" para a trava B6 e "Fundos -
+CVM CDA" para a trava do CDA (PR C2). As duas fontes nunca se misturam.
+Nenhum repositorio expoe essa leitura: a consulta e so de leitura, por
+SQLiteConnectionManager.read_connection(), no destino real (commit) ou na
+copia (dry-run).
 
 O texto da data e o datetime.isoformat() da serializacao. O adaptador sempre
 grava a competencia as 00:00 UTC, entao toda linha desta fonte tem o formato
@@ -21,7 +23,7 @@ from datetime import datetime
 from pense_alm.shared.entities import SourceType
 from pense_alm.shared.persistence import SQLiteConnectionManager
 
-from .fundos_adapter import SOURCE_NAME_CADASTRO
+from .fundos_adapter import SOURCE_NAME_CADASTRO, SOURCE_NAME_CDA
 
 
 _Q_APPLIED = (
@@ -46,18 +48,16 @@ class FundosTargetState:
 
         self._connection_manager = connection_manager
 
-    def latest_applied_reference(self) -> datetime | None:
-        """A maior competencia ja gravada, as 00:00 UTC; None se nao houver."""
-
+    def _latest(self, source_name: str, label: str) -> datetime | None:
         with self._connection_manager.read_connection() as connection:
             latest, unexpected = connection.execute(
                 _Q_APPLIED,
-                (SourceType.CVM.value, SOURCE_NAME_CADASTRO),
+                (SourceType.CVM.value, source_name),
             ).fetchone()
 
         if unexpected:
             raise FundosTargetStateError(
-                "Formato de data inesperado na proveniencia do cadastro de "
+                "Formato de data inesperado na proveniencia " + label + " de "
                 "Fundos no destino."
             )
 
@@ -65,3 +65,13 @@ class FundosTargetState:
             return None
 
         return datetime.fromisoformat(latest)
+
+    def latest_applied_reference(self) -> datetime | None:
+        """A maior competencia do cadastro ja gravada, as 00:00 UTC (B6)."""
+
+        return self._latest(SOURCE_NAME_CADASTRO, "do cadastro")
+
+    def latest_applied_cda_reference(self) -> datetime | None:
+        """A maior competencia do CDA ja gravada, as 00:00 UTC (trava do CDA)."""
+
+        return self._latest(SOURCE_NAME_CDA, "do CDA")

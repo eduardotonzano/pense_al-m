@@ -36,6 +36,10 @@ from pense_alm.shared.integration.fundos_cli import (
     main,
     run_fundos_import,
 )
+from pense_alm.shared.integration.fundos_investment_report import (
+    AtrasoEmMeses,
+    FundosInvestmentReport,
+)
 from pense_alm.shared.integration.fundos_reader import FundosDatabaseReader
 from pense_alm.shared.integration.fundos_relation_service import FundosRelationService
 from pense_alm.shared.persistence import (
@@ -45,6 +49,7 @@ from pense_alm.shared.persistence import (
 )
 
 from ..cnpj_amostras import cnpj_ficticio, com_mascara
+from .cda_sintetico import COMPETENCIA_CDA, INICIO_CDA, PERIODO, BancoCda
 from .fundos_sintetico import BancoFundos, criar_banco
 
 
@@ -518,9 +523,9 @@ def test_retrato_antigo_no_dry_run_so_a_primeira_parte(caminhos, tmp_path, capsy
 def test_retrato_antigo_sem_backup_so_a_primeira_parte(caminhos, tmp_path, capsys):
     criar_destino(caminhos, capsys)
     antigo = banco_de_fundos(tmp_path / "antigo", competencia=ANTIGA, inicio=INICIO_ANTIGO)
-    snapshot = FundosDatabaseReader(antigo).read_cadastro()
+    snapshot, cda = FundosDatabaseReader(antigo).read_all()
 
-    codigo = _import_into(snapshot, caminhos.destino, commit=True, has_backup=False)
+    codigo = _import_into(snapshot, cda, caminhos.destino, commit=True, has_backup=False)
     saida = capsys.readouterr().out
 
     assert codigo == 2
@@ -651,7 +656,7 @@ def test_leitura_incompleta_sai_4(caminhos, tmp_path, capsys):
     assert codigo == 4
     assert (
         "leitura completa: nao (motivo: status_nao_success); "
-        "nenhuma relacao e fechada"
+        "nenhuma relacao do cadastro e fechada"
     ) in saida
     assert "Resultado: codigo 4" in saida
 
@@ -661,7 +666,7 @@ def corrida(erros=0, id_ocupado=0, colisao=0, completa=True):
         erros_total=erros,
         id_ocupado=id_ocupado,
         cnpj_colisao=colisao,
-        relations=SimpleNamespace(leitura_completa=completa),
+        leitura_completa=completa,
     )
 
 
@@ -776,3 +781,304 @@ def test_saida_sem_cnpj_nome_caminho_nem_mensagem(caminhos, tmp_path, monkeypatc
 
     for proibido in proibidos:
         assert proibido not in saida
+
+
+# --- PR C2: fase 4 (CDA) na CLI, IC2 a IC7 ---
+
+
+CNPJ_INVESTIDO = cnpj_ficticio(2)
+CNPJS_CDA = (*CNPJS, CNPJ_INVESTIDO)
+SEM_CDA_LINHA = "Investe em (CDA): sem dados de CDA (motivo: sem_migration_004)"
+CDA_SETEMBRO = dict(
+    periodo="202609",
+    competencia="2026-09-30",
+    inicio="2026-10-29T12:00:00.000000+00:00",
+)
+CDA_MAIS_ANTIGO = (
+    "Erro: CdaOlderThanApplied; nenhum dado foi gravado; o backup feito antes "
+    "continua na pasta de --backup-dir."
+)
+
+
+def banco_com_cda(
+    pasta,
+    *,
+    status="success",
+    posicao=True,
+    periodo=PERIODO,
+    competencia=COMPETENCIA_CDA,
+    inicio=INICIO_CDA,
+):
+    """Banco de Fundos com a 004: dois fundos no cadastro e uma coleta de CDA.
+
+    CNPJ_FUNDO investe em CNPJ_INVESTIDO; posicao=False deixa a coleta do CDA
+    sem nenhuma posicao.
+    """
+
+    pasta.mkdir(parents=True, exist_ok=True)
+    banco = BancoCda(criar_banco(pasta, versoes=(1, 2, 3, 4)))
+    coleta = banco.coleta()
+    fundo = banco.fundo_do_cadastro(coleta, CNPJ_FUNDO)
+    banco.administrador(coleta, fundo, CNPJ_ADMIN, nome="ADMINISTRADORA FICTICIA")
+    banco.fundo_do_cadastro(coleta, CNPJ_INVESTIDO)
+    coleta_cda = banco.coleta_cda(periodo=periodo, status=status, inicio=inicio)
+
+    if posicao:
+        banco.posicao(coleta_cda, CNPJ_INVESTIDO, fundo_id=fundo, competencia=competencia)
+
+    return banco.caminho
+
+
+def bloco_cda(saida):
+    """As linhas do bloco Investe em (CDA), ate antes de Erros."""
+
+    linhas_saida = saida.splitlines()
+    inicio = [linha.startswith("Investe em (CDA)") for linha in linhas_saida].index(True)
+    fim = [linha.startswith("Erros: ") for linha in linhas_saida].index(True)
+    return linhas_saida[inicio:fim]
+
+
+def falhar_invests_in(monkeypatch):
+    original = SQLiteRelationshipRepository.save
+
+    def falha(self, relationship):
+        if relationship.relationship_type is RelationshipType.INVESTS_IN:
+            raise RuntimeError("falha ficticia")
+
+        return original(self, relationship)
+
+    monkeypatch.setattr(SQLiteRelationshipRepository, "save", falha)
+
+
+def test_ic5_banco_sem_004_e_a_saida_do_b2_com_uma_linha_a_mais(caminhos, monkeypatch, capsys):
+    main(argumentos(caminhos))
+    saida = capsys.readouterr().out.splitlines()
+    monkeypatch.setattr(fundos_cli, "_print_investments", lambda report: None)
+    main(argumentos(caminhos))
+    sem_bloco = capsys.readouterr().out.splitlines()
+    posicao = saida.index(SEM_CDA_LINHA)
+
+    assert saida[posicao - 1] == "  ausentes do retrato (informativo): 0"
+    assert saida[posicao + 1] == "Erros: 0"
+    assert saida[:posicao] + saida[posicao + 1 :] == sem_bloco
+    assert sum(linha.startswith("Investe em") for linha in saida) == 1
+
+
+def test_bloco_do_cda_linha_a_linha(capsys):
+    report = FundosInvestmentReport(
+        cda_disponivel=True,
+        leitura_completa=True,
+        competencia_mais_nova_completa=datetime.fromisoformat(COMPETENCIA_CDA).date(),
+        detentores_lidos=2,
+        detentores_na_camada=2,
+        pares_lidos=2,
+        gravadas=1,
+        criadas=1,
+        mantidas=1,
+        detentores_atrasados=2,
+        relacoes_de_detentor_atrasado=1,
+        atraso=(AtrasoEmMeses(1, 1, 0), AtrasoEmMeses(2, 1, 1)),
+    )
+
+    fundos_cli._print_investments(report)
+
+    assert capsys.readouterr().out.splitlines() == [
+        "Investe em (CDA): competencia mais nova completa 2026-10-31; leitura completa: sim",
+        "  detentores: lidos 2; na camada 2; fora do normal na camada 0; fora da camada 0;"
+        " fora do retrato 0; cnpj recusado 0; em cda incompleto 0",
+        "  pares lidos: 2",
+        "  gravadas: 1",
+        "  criadas: 1",
+        "  mantidas: 1",
+        "  reabertas: 0",
+        "  outra fonte presente: 0",
+        "  status inesperado presente: 0",
+        "  vigencia posterior presente: 0",
+        "  fechadas: 0",
+        "  fechamento suspenso: 0",
+        "  suspensa por confidencial: 0",
+        "  inativa ausente: 0",
+        "  outra fonte ausente: 0",
+        "  status inesperado ausente: 0",
+        "  vigencia posterior ausente: 0",
+        "  nao criadas: 0 (investido fora da camada 0; investido de outro tipo 0;"
+        " autorrelacao 0; cnpj recusado 0)",
+        "  fora do normal: detentores com relacao 0; relacoes intactas 0",
+        "  pares com investido fora do normal (informativo): 0",
+        "  relacoes de detentor ausente do cda (informativo): 0",
+        "  atraso (informativo): detentores 2; relacoes 1",
+        "    1 mes: detentores 1; relacoes 0",
+        "    2 meses: detentores 1; relacoes 1",
+    ]
+
+
+def test_ic2_cda_incompleto_com_cadastro_completo_sai_4(caminhos, tmp_path, capsys):
+    parcial = banco_com_cda(tmp_path / "parcial", status="partial")
+
+    codigo = main(gravar(caminhos, "--create", fundos=parcial))
+    saida = capsys.readouterr().out
+    bloco = bloco_cda(saida)
+
+    assert codigo == 4
+    assert "Retrato: competencia 2026-10-27; leitura completa: sim" in saida
+    assert bloco[0] == (
+        "Investe em (CDA): competencia mais nova completa nenhuma; leitura "
+        "completa: nao (motivo: status_nao_success); o detentor com competencia "
+        "incompleta nao tem fechamento"
+    )
+    assert bloco[1].endswith("; em cda incompleto 1")
+    assert "  criadas: 1" in bloco
+    assert "Resultado: codigo 4" in saida
+
+
+@pytest.mark.parametrize(("modo", "esperado"), [("id ocupado", 3), ("erro contado", 2)])
+def test_ic2_precedencia_com_cda_incompleto(caminhos, tmp_path, monkeypatch, capsys, modo, esperado):
+    parcial = banco_com_cda(tmp_path / "parcial", status="partial")
+
+    if modo == "id ocupado":
+        SQLiteEntityRepository(SQLiteConnectionManager(caminhos.destino)).save(
+            Entity(
+                entity_id=adaptador.entity_id(CNPJ_ADMIN),
+                legal_name="OCUPANTE FICTICIO",
+                entity_type=EntityType.OTHER,
+                provenance=DataProvenance(
+                    source_type=SourceType.MANUAL,
+                    source_name="Teste ficticio",
+                ),
+            )
+        )
+        codigo = main(gravar(caminhos, fundos=parcial))
+    else:
+        falhar_invests_in(monkeypatch)
+        codigo = main(gravar(caminhos, "--create", fundos=parcial))
+
+    saida = capsys.readouterr().out
+
+    assert codigo == esperado
+    assert f"Resultado: codigo {esperado}" in saida
+
+
+def test_ic3_aviso_de_invests_in_so_na_primeira_gravacao(caminhos, tmp_path, capsys):
+    com_cda = banco_com_cda(tmp_path / "cda")
+
+    main(argumentos(caminhos, fundos=com_cda))
+    simulada = capsys.readouterr().out
+    main(gravar(caminhos, "--create", fundos=com_cda))
+    primeira = capsys.readouterr().out
+    main(gravar(caminhos, fundos=com_cda))
+    segunda = capsys.readouterr().out
+
+    assert "Aviso: seria a primeira gravacao de invests_in neste banco" in simulada
+    assert (
+        "Aviso: primeira gravacao de invests_in neste banco; quem ler este banco "
+        "precisa da main a partir de 0fb907f (#49)."
+    ) in primeira
+    assert "invests_in neste banco" not in segunda
+    assert "  criadas: 1" in bloco_cda(primeira)
+    assert "  mantidas: 1" in bloco_cda(segunda)
+
+
+@pytest.mark.parametrize("modo", ["dry-run", "commit", "erro contado", "trava"])
+def test_ic4_saida_com_cda_sem_cnpj_nome_caminho_nem_mensagem(
+    caminhos, tmp_path, monkeypatch, capsys, modo
+):
+    com_cda = banco_com_cda(tmp_path / "cda")
+
+    if modo == "erro contado":
+        falhar_invests_in(monkeypatch)
+
+    if modo == "trava":
+        main(gravar(caminhos, "--create", fundos=com_cda))
+        com_cda = banco_com_cda(tmp_path / "antigo", **CDA_SETEMBRO)
+        capsys.readouterr()
+        codigo = main(gravar(caminhos, fundos=com_cda))
+    elif modo == "dry-run":
+        codigo = main(argumentos(caminhos, fundos=com_cda))
+    else:
+        codigo = main(gravar(caminhos, "--create", fundos=com_cda))
+
+    saida = capsys.readouterr().out
+    proibidos = [
+        *CNPJS_CDA,
+        *(com_mascara(cnpj) for cnpj in CNPJS_CDA),
+        "FICTICI",
+        "FICT\xcdCI",
+        str(tmp_path),
+        str(caminhos.backups),
+        str(caminhos.destino),
+        "falha ficticia",
+    ]
+
+    assert codigo == {"dry-run": 0, "commit": 0, "erro contado": 2, "trava": 2}[modo]
+    assert ("  investe em criar RuntimeError: 1" in saida) is (modo == "erro contado")
+
+    for proibido in proibidos:
+        assert proibido not in saida
+
+
+def test_ic6_dry_run_com_cda_nao_altera_o_destino_nem_o_banco_de_fundos(caminhos, tmp_path, capsys):
+    com_cda = banco_com_cda(tmp_path / "cda")
+    criar_destino(caminhos, capsys)
+    destino_antes = sha256_of(caminhos.destino)
+    fundos_antes = sha256_of(com_cda)
+
+    codigo = main(argumentos(caminhos, fundos=com_cda))
+    saida = capsys.readouterr().out
+
+    assert codigo == 0
+    assert "  criadas: 1" in bloco_cda(saida)
+    assert "Aviso: seria a primeira gravacao de invests_in neste banco" in saida
+    assert "Nada foi gravado no destino; a copia descartavel foi removida." in saida
+    assert sha256_of(caminhos.destino) == destino_antes
+    assert sha256_of(com_cda) == fundos_antes
+
+
+def test_ic7_cda_mais_antigo_no_commit_aborta_sem_gravar(caminhos, tmp_path, capsys):
+    main(gravar(caminhos, "--create", fundos=banco_com_cda(tmp_path / "cda")))
+    capsys.readouterr()
+    antes = linhas(caminhos.destino)
+    antigo = banco_com_cda(tmp_path / "antigo", **CDA_SETEMBRO)
+
+    codigo = main(gravar(caminhos, fundos=antigo))
+    saida = capsys.readouterr().out
+
+    assert codigo == 2
+    assert CDA_MAIS_ANTIGO in saida
+    assert linhas(caminhos.destino) == antes
+    assert len(list(caminhos.backups.iterdir())) == 1
+
+
+@pytest.mark.parametrize(
+    ("modo", "excecao"),
+    [("sem 004", "CdaUnavailableButApplied"), ("sem posicao", "CdaOlderThanApplied")],
+)
+def test_ic7_sem_cda_ou_sem_posicao_com_cda_aplicado_aborta(caminhos, tmp_path, capsys, modo, excecao):
+    main(gravar(caminhos, "--create", fundos=banco_com_cda(tmp_path / "cda")))
+    capsys.readouterr()
+    antes = linhas(caminhos.destino)
+    fundos = (
+        caminhos.fundos
+        if modo == "sem 004"
+        else banco_com_cda(tmp_path / "vazio", posicao=False)
+    )
+
+    codigo = main(argumentos(caminhos, fundos=fundos))
+    saida = capsys.readouterr().out
+
+    assert codigo == 2
+    assert f"Erro: {excecao}; nenhum dado foi gravado." in saida
+    assert "o backup feito antes" not in saida
+    assert linhas(caminhos.destino) == antes
+
+
+def test_ic7_aplicado_de_competencia_incompleta_a_reexecucao_passa(caminhos, tmp_path, capsys):
+    parcial = banco_com_cda(tmp_path / "parcial", status="partial")
+
+    primeira = main(gravar(caminhos, "--create", fundos=parcial))
+    capsys.readouterr()
+    segunda = main(gravar(caminhos, fundos=parcial))
+    saida = capsys.readouterr().out
+
+    assert (primeira, segunda) == (4, 4)
+    assert "CdaOlderThanApplied" not in saida
+    assert "  mantidas: 1" in bloco_cda(saida)
