@@ -7,7 +7,7 @@ marcados como ficticios. Os nomes dos testes trazem o codigo do plano (IS1
 a IS17).
 """
 
-from dataclasses import fields
+from dataclasses import fields, replace
 from datetime import UTC, date, datetime, time
 from uuid import uuid4
 
@@ -29,10 +29,12 @@ from pense_alm.shared.integration.fundos_adapter import NORMAL, FundosAdapter
 from pense_alm.shared.integration.fundos_import_service import FundosImportService
 from pense_alm.shared.integration.fundos_investment_report import (
     COUNTERS,
+    AtrasoEmMeses,
     FundosInvestmentError,
     FundosInvestmentReport,
 )
 from pense_alm.shared.integration.fundos_investment_service import FundosInvestmentService
+from pense_alm.shared.integration.fundos_reader import FundosDatabaseReader
 from pense_alm.shared.integration.fundos_records import (
     CadastroSnapshot,
     CdaCompetence,
@@ -41,9 +43,11 @@ from pense_alm.shared.integration.fundos_records import (
     CdaIncompleteReason,
     CdaSnapshot,
     CdaUnavailableReason,
+    FundosPartyLink,
     FundosSubjectRecord,
 )
 from pense_alm.shared.integration.fundos_relation_rules import RelationOperation
+from pense_alm.shared.integration.fundos_relation_service import FundosRelationService
 from pense_alm.shared.persistence import (
     SQLiteConnectionManager,
     SQLiteEntityRepository,
@@ -51,6 +55,8 @@ from pense_alm.shared.persistence import (
 )
 
 from ..cnpj_amostras import cnpj_ficticio, com_mascara, dv_errado
+from .cda_sintetico import BancoCda
+from .fundos_sintetico import criar_banco
 
 
 INVESTS_IN = RelationshipType.INVESTS_IN
@@ -546,3 +552,212 @@ def test_servico_recusa_o_que_nao_e_cda_retrato_nem_fase(destino):
     for argumentos in ((object(), FUNDOS, fase), (leitura, object(), fase), (leitura, FUNDOS, object())):
         with pytest.raises(TypeError):
             servico.import_investments(*argumentos)
+
+
+# --- 3c: S8, investido fora do normal, atraso (C4) e detentor ausente (D5) ---
+
+
+def com_situacao(cnpj, situacao="Cancelado"):
+    """FUNDOS com o fundo do CNPJ fora do funcionamento normal."""
+
+    return retrato(
+        *(
+            assunto(item.cnpj, item.source_id, situacao) if item.cnpj == cnpj else item
+            for item in FUNDOS.subjects
+        )
+    )
+
+
+def test_is4_s8_detentor_do_backlog_tem_as_nossas_intactas(destino):
+    executar(destino, cda(detentor(CNPJ_A, JULHO, CNPJ_B, CNPJ_C)))
+    destino[2].save(manual(CNPJ_A, CNPJ_D))
+    antes = linhas_relacoes(destino)
+    espiao = EspiaoRelacoes(destino[2])
+
+    report = executar(
+        destino,
+        cda(detentor(CNPJ_A, AGOSTO, CNPJ_B, base=20)),
+        snapshot=com_situacao(CNPJ_A),
+        relacoes=espiao,
+    )
+
+    assert nao_zero(report) == {
+        "detentores_lidos": 1,
+        "detentores_fora_do_normal_na_camada": 1,
+        "detentores_fora_do_normal_com_relacao": 1,
+        "relacoes_de_detentor_fora_do_normal_intactas": 2,
+    }
+    assert espiao.salvas == [] and linhas_relacoes(destino) == antes
+
+
+def test_is17_investido_fora_do_normal_cria_e_conta(destino):
+    executar(destino, cda(detentor(CNPJ_A, JULHO, CNPJ_C)))
+    destino[1].save(entidade(CNPJ_CAMADA))
+
+    report = executar(
+        destino,
+        cda(detentor(CNPJ_A, AGOSTO, CNPJ_B, CNPJ_C, CNPJ_CAMADA, base=20)),
+        snapshot=com_situacao(CNPJ_B),
+    )
+
+    assert nao_zero(report) == {
+        **UM_NA_CAMADA,
+        "pares_lidos": 3,
+        "gravadas": 1,
+        "criadas": 2,
+        "mantidas": 1,
+        "pares_com_investido_fora_do_normal": 2,
+    }
+    assert relacao(destino, CNPJ_A, CNPJ_B).status is ACTIVE
+    assert relacao(destino, CNPJ_A, CNPJ_CAMADA).status is ACTIVE
+
+
+def test_is16_atraso_do_detentor_em_meses(destino):
+    leitura = cda(
+        detentor(CNPJ_A, JULHO, CNPJ_B, CNPJ_C),
+        detentor(CNPJ_B, AGOSTO, CNPJ_FORA, base=20),
+        detentor(CNPJ_D, SETEMBRO, CNPJ_B, base=30),
+        incompletas={OUTUBRO: PARCIAL},
+    )
+
+    primeira = executar(destino, leitura)
+    segunda = executar(destino, leitura)
+
+    # O C_max ignora a competencia incompleta mais nova.
+    assert primeira.competencia_mais_nova_completa == SETEMBRO
+    assert primeira.atraso == (AtrasoEmMeses(1, 1, 0), AtrasoEmMeses(2, 1, 2))
+    assert (primeira.detentores_atrasados, primeira.relacoes_de_detentor_atrasado) == (2, 2)
+    # C4: a relacao do detentor atrasado fica ativa e o atraso se repete.
+    assert relacao(destino, CNPJ_A, CNPJ_B).status is ACTIVE
+    assert (segunda.mantidas, segunda.atraso) == (3, primeira.atraso)
+
+
+def test_d5_relacoes_nossas_de_detentor_ausente_do_cda(destino):
+    executar(destino, cda(detentor(CNPJ_A, JULHO, CNPJ_B, CNPJ_C), detentor(CNPJ_D, JULHO, CNPJ_B, base=20)))
+    executar(destino, cda(detentor(CNPJ_A, AGOSTO, CNPJ_B, base=30), detentor(CNPJ_D, AGOSTO, CNPJ_B, base=40)))
+    destino[2].save(manual(CNPJ_A, CNPJ_D))
+    espiao = EspiaoRelacoes(destino[2])
+
+    report = executar(destino, cda(detentor(CNPJ_D, SETEMBRO, CNPJ_B, base=50)), relacoes=espiao)
+
+    # Do detentor A, so a nossa ativa conta: a fechada e a manual nao.
+    assert report.relacoes_de_detentor_ausente_do_cda == 1
+    assert nao_zero(report) == {
+        **UM_NA_CAMADA,
+        "pares_lidos": 1,
+        "gravadas": 1,
+        "mantidas": 1,
+        "relacoes_de_detentor_ausente_do_cda": 1,
+    }
+    assert espiao.salvas == [] and espiao.lidas == [ID[CNPJ_D]]
+    assert relacao(destino, CNPJ_A, CNPJ_B).status is ACTIVE
+
+
+def test_is8_fases_3_e_4_nao_se_tocam(destino):
+    admin = cnpj_ficticio(8)
+    gerido = replace(
+        FUNDOS.subjects[0],
+        parties=(
+            FundosPartyLink(
+                role="administrador",
+                cnpj=admin,
+                name="ADMINISTRADORA FICTICIA",
+                party_observation_id=101,
+            ),
+        ),
+    )
+    com_admin = retrato(gerido, *FUNDOS.subjects[1:])
+    leitura = cda(detentor(CNPJ_A, JULHO, CNPJ_B), detentor(CNPJ_B, JULHO, CNPJ_A, base=20))
+
+    def quatro_fases(snapshot):
+        fase = FundosImportService(destino[1]).import_entities(snapshot)
+        relacoes = FundosRelationService(destino[1], destino[2]).import_relationships(snapshot, fase)
+        investimentos = FundosInvestmentService(destino[1], destino[2]).import_investments(
+            leitura, snapshot, fase
+        )
+        return relacoes, investimentos
+
+    quatro_fases(com_admin)
+    relacoes, investimentos = quatro_fases(FUNDOS)
+
+    # A fase 3 fecha a administracao e nao conta INVESTS_IN; a fase 4 so ve
+    # as INVESTS_IN que saem de cada detentor.
+    assert (relacoes.administered_by.gravadas, relacoes.administered_by.fechadas) == (1, 1)
+    assert nao_zero(investimentos) == {
+        "detentores_lidos": 2,
+        "detentores_na_camada": 2,
+        "pares_lidos": 2,
+        "gravadas": 2,
+        "mantidas": 2,
+    }
+    assert destino[2].count(INVESTS_IN) == 2
+    assert destino[2].count(RelationshipType.ADMINISTERED_BY) == 1
+    assert relacao(destino, CNPJ_A, CNPJ_B).status is ACTIVE
+
+
+def test_is9_somas_num_cenario_misto(destino):
+    executar(destino, cda(detentor(CNPJ_D, JULHO, CNPJ_B)))
+    destino[1].save(entidade(CNPJ_CAMADA))
+
+    report = executar(
+        destino,
+        cda(
+            detentor(CNPJ_A, AGOSTO, CNPJ_B, CNPJ_C, CNPJ_FORA, base=20),
+            detentor(CNPJ_D, AGOSTO, CNPJ_C, base=30),
+            detentor(CNPJ_CAMADA, JULHO, CNPJ_B, base=40),
+            detentor(CNPJ_FORA, JULHO, CNPJ_B, base=50),
+            detentor(CNPJ_B, JULHO, CNPJ_C, base=60),
+        ),
+        snapshot=com_situacao(CNPJ_D),
+    )
+
+    assert nao_zero(report) == {
+        "detentores_lidos": 5,
+        "detentores_na_camada": 2,
+        "detentores_fora_do_normal_na_camada": 1,
+        "detentores_fora_da_camada": 1,
+        "detentores_fora_do_retrato": 1,
+        "pares_lidos": 4,
+        "criadas": 3,
+        "nao_criadas.investido_fora_da_camada": 1,
+        "detentores_fora_do_normal_com_relacao": 1,
+        "relacoes_de_detentor_fora_do_normal_intactas": 1,
+        "detentores_atrasados": 1,
+        "relacoes_de_detentor_atrasado": 1,
+    }
+    assert report.atraso == (AtrasoEmMeses(1, 1, 1),)
+    assert report.leitura_completa and report.erros == ()
+
+
+def test_is6_d6_ponta_a_ponta_com_o_leitor(tmp_path, destino):
+    banco = BancoCda(criar_banco(tmp_path, versoes=(1, 2, 3, 4)))
+    coleta = banco.coleta()
+    fundo_a = banco.fundo_do_cadastro(coleta, CNPJ_A)
+    classe_a = banco.classe_do_cadastro(coleta, CNPJ_A, fundo_a)
+    fundo_b = banco.fundo_do_cadastro(coleta, CNPJ_B)
+    so_classe = banco.classe_do_cadastro(coleta, CNPJ_C, fundo_b)
+    banco.fundo_do_cadastro(coleta, CNPJ_D)
+    classe_de_outro = banco.classe_do_cadastro(coleta, CNPJ_D, fundo_b)
+    coleta_cda = banco.coleta_cda()
+    # Classe com o CNPJ do proprio fundo, classe que so existe como classe e
+    # classe com o CNPJ de outro fundo, como detentor e como investido.
+    banco.posicao(coleta_cda, CNPJ_C, classe_id=classe_a)
+    banco.posicao(coleta_cda, CNPJ_D, fundo_id=fundo_a)
+    banco.posicao(coleta_cda, CNPJ_D, classe_id=so_classe)
+    banco.posicao(coleta_cda, CNPJ_A, classe_id=classe_de_outro)
+
+    cadastro, leitura = FundosDatabaseReader(banco.caminho).read_all()
+    fase = FundosImportService(destino[1]).import_entities(cadastro)
+    report = FundosInvestmentService(destino[1], destino[2]).import_investments(
+        leitura, cadastro, fase
+    )
+
+    assert nao_zero(report) == {
+        "detentores_lidos": 3,
+        "detentores_na_camada": 3,
+        "pares_lidos": 4,
+        "criadas": 4,
+    }
+    pares = {(CNPJ_A, CNPJ_C), (CNPJ_A, CNPJ_D), (CNPJ_C, CNPJ_D), (CNPJ_D, CNPJ_A)}
+    assert all(relacao(destino, origem, alvo).status is ACTIVE for origem, alvo in pares)
+    assert destino[2].count(INVESTS_IN) == 4
