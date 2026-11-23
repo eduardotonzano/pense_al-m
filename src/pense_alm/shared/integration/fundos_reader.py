@@ -29,6 +29,13 @@ Retrato do cadastro (ADR-012 e ADR-013):
   registro_fundo.*, custodiante em registro_classe.*. A classe que so existe
   como classe fica so com o custodiante dela (decisao B1).
 
+CDA (fase 4, INVESTS_IN; PR C): a migration 004 e opcional. Sem ela, ou sem
+coleta de CDA, o retrato do CDA so traz o motivo, e o do cadastro nao muda.
+Com dados: o L_H de cada detentor e a maior competencia em que ele tem
+posicao (identificada ou confidencial), achada pelo MAX do SQL; so as linhas
+de holdings do L_H viram objeto. Reapresentacoes da mesma competencia entram
+como uniao. Nome e valor da posicao nunca sao lidos.
+
 As mensagens de erro nunca trazem CNPJ, nome ou caminho.
 """
 
@@ -44,6 +51,13 @@ from urllib.parse import quote
 from .fundos_records import (
     CadastroIncompleteReason,
     CadastroSnapshot,
+    CdaCompetence,
+    CdaEmptyPeriod,
+    CdaHolderRecord,
+    CdaHoldingLink,
+    CdaIncompleteReason,
+    CdaSnapshot,
+    CdaUnavailableReason,
     FundosPartyLink,
     FundosSubjectRecord,
 )
@@ -105,6 +119,64 @@ _Q_MEMBER = (
     "SELECT processing_status, line_count FROM raw_records"
     " WHERE collection_run_id = ? AND parent_raw_record_id IS NOT NULL"
     " AND file_name = ?"
+)
+
+# CDA (fase 4): so ids, CNPJs e datas; nunca nome nem valor da posicao.
+CDA_MIGRATION = 4
+CDA_TABLES = ("holdings", "confidential_holdings")
+CDA_MEMBERS = ("cda_fie_{}.csv", "cda_fie_CONFID_{}.csv")
+_CDA_REASONS = tuple(CdaIncompleteReason)
+# A coleta do CDA e achada pelo membro cda_fie_AAAAMM.csv e pelas linhas de
+# posicao, nao pelo ZIP cda_fi_AAAAMM.zip, e isso basta (conferido no modulo
+# de Fundos em 19/11/2026): load_cda (fundos/cda/loader.py) grava a coleta,
+# o ZIP, os 12 membros e as posicoes na transacao de quem chama
+# (scripts/load_cda.py, Database.transaction(): BEGIN IMMEDIATE ... COMMIT),
+# so termina em success e, em qualquer erro, tudo e desfeito; o leitor do
+# ZIP recusa ZIP sem os 12 membros. Coleta que falhou ou em andamento nao
+# deixa nada visivel. Se o modulo de Fundos passar a gravar a coleta fora
+# dessa transacao, a coleta so com o ZIP tem de entrar aqui (C6).
+_Q_CDA_MANIFEST = (
+    "SELECT DISTINCT collection_run_id, substr(file_name, 9, 6) FROM raw_records"
+    " WHERE parent_raw_record_id IS NOT NULL"
+    " AND file_name GLOB 'cda_fie_[0-9][0-9][0-9][0-9][0-9][0-9].csv'"
+)
+_Q_CDA_RUN_DATES = (
+    "SELECT collection_run_id, reference_date FROM holdings"
+    " UNION SELECT collection_run_id, reference_date FROM confidential_holdings"
+)
+_Q_CDA_RUN = (
+    "SELECT c.started_at, c.status, s.code FROM collection_runs c"
+    " JOIN sources s ON s.id = c.source_id WHERE c.id = ?"
+)
+_CDA_HOLDER = "COALESCE(f.cnpj, c.cnpj)"
+_CDA_JOIN = (
+    " LEFT JOIN funds f ON f.id = {0}.fund_id"
+    " LEFT JOIN fund_classes c ON c.id = {0}.fund_class_id"
+)
+# L_H pelo MAX do SQL, por detentor (decisao b de 19/11/2026): nenhuma linha
+# de competencia antiga vira objeto em Python.
+_CDA_LATEST = (
+    "WITH latest(holder, competence) AS (SELECT holder, MAX(reference_date)"
+    " FROM (SELECT " + _CDA_HOLDER + " AS holder, h.reference_date FROM holdings h"
+    + _CDA_JOIN.format("h")
+    + " UNION ALL SELECT " + _CDA_HOLDER + ", q.reference_date"
+    " FROM confidential_holdings q" + _CDA_JOIN.format("q")
+    + ") GROUP BY holder) "
+)
+_Q_CDA_LATEST = _CDA_LATEST + "SELECT holder, competence FROM latest"
+_Q_CDA_LINKS = (
+    _CDA_LATEST
+    + "SELECT h.id, l.holder, h.investee_cnpj, h.collection_run_id FROM holdings h"
+    + _CDA_JOIN.format("h")
+    + " JOIN latest l ON l.holder = " + _CDA_HOLDER
+    + " AND l.competence = h.reference_date"
+)
+_Q_CDA_CONFIDENTIAL = (
+    _CDA_LATEST
+    + "SELECT DISTINCT l.holder FROM confidential_holdings q"
+    + _CDA_JOIN.format("q")
+    + " JOIN latest l ON l.holder = " + _CDA_HOLDER
+    + " AND l.competence = q.reference_date"
 )
 
 
@@ -501,6 +573,165 @@ def _read_snapshot(connection: sqlite3.Connection) -> CadastroSnapshot:
     )
 
 
+def _cda_unavailable(connection) -> CdaUnavailableReason | None:
+    versions = {
+        int(row[0]) for row in connection.execute("SELECT version FROM schema_migrations")
+    }
+    tables = {
+        row[0]
+        for row in connection.execute(
+            "SELECT name FROM sqlite_master WHERE type = 'table' AND name IN (?, ?)",
+            CDA_TABLES,
+        )
+    }
+
+    if CDA_MIGRATION not in versions or tables != set(CDA_TABLES):
+        return CdaUnavailableReason.SEM_MIGRATION_004
+
+    return None
+
+
+def _cda_run_reason(connection, run_id, status, source_code, periods, days):
+    """A primeira checagem que falha na coleta do CDA, na ordem do CdaIncompleteReason."""
+
+    if status != "success":
+        return CdaIncompleteReason.STATUS_NAO_SUCCESS
+
+    if source_code != SOURCE_CODE:
+        return CdaIncompleteReason.FONTE_DIFERENTE
+
+    if not periods:
+        return CdaIncompleteReason.MEMBRO_AUSENTE
+
+    found = {
+        CdaIncompleteReason(reason.value)
+        for period in periods
+        for member in CDA_MEMBERS
+        if (reason := _member_reason(connection, run_id, member.format(period)))
+        is not None
+    }
+
+    for reason in _CDA_REASONS:
+        if reason in found:
+            return reason
+
+    months = {day[:4] + day[5:7] for day in days}
+
+    if len(periods) > 1 or len(days) > 1 or not months <= periods:
+        return CdaIncompleteReason.COMPETENCIA_DIVERGENTE
+
+    return None
+
+
+def _read_cda(connection) -> CdaSnapshot:
+    """O CDA do banco de Fundos (fase 4); sem a 004 ou sem coleta, so o motivo."""
+
+    unavailable = _cda_unavailable(connection)
+
+    if unavailable is not None:
+        return CdaSnapshot(available=False, unavailable_reason=unavailable)
+
+    periods = defaultdict(set)
+    days = defaultdict(set)
+
+    for run_id, period in connection.execute(_Q_CDA_MANIFEST):
+        periods[int(run_id)].add(str(period))
+
+    for run_id, day in connection.execute(_Q_CDA_RUN_DATES):
+        days[int(run_id)].add(str(day))
+
+    run_ids = sorted(periods.keys() | days.keys())
+
+    if not run_ids:
+        return CdaSnapshot(
+            available=False,
+            unavailable_reason=CdaUnavailableReason.SEM_COLETA_DE_CDA,
+        )
+
+    started, reasons = {}, {}
+
+    for run_id in run_ids:
+        row = connection.execute(_Q_CDA_RUN, (run_id,)).fetchone()
+
+        if row is None:
+            raise FundosSchemaError("Coleta do CDA sem registro em collection_runs.")
+
+        started[run_id] = _parse_timestamp(row[0])
+        reasons[run_id] = _cda_run_reason(
+            connection, run_id, row[1], row[2], periods[run_id], days[run_id]
+        )
+
+    def first_reason(ids):
+        found = {reasons[run_id] for run_id in ids}
+        return next((reason for reason in _CDA_REASONS if reason in found), None)
+
+    # Coleta sem nenhuma posicao: conta no mes do manifesto (C6).
+    empty_by_period = defaultdict(set)
+    by_day = defaultdict(set)
+
+    for run_id in run_ids:
+        if not days[run_id]:
+            for period in periods[run_id]:
+                empty_by_period[period].add(run_id)
+
+        for day in days[run_id]:
+            by_day[day].add(run_id)
+
+    competences = []
+
+    for day in sorted(by_day):
+        with_rows = by_day[day]
+        ids = sorted(with_rows | empty_by_period.get(day[:4] + day[5:7], set()))
+        closing = max(with_rows, key=lambda run_id: (started[run_id], run_id))
+        competences.append(
+            CdaCompetence(
+                date.fromisoformat(day),
+                tuple(ids),
+                closing,
+                started[closing],
+                first_reason(ids),
+            )
+        )
+
+    months = {item.period for item in competences}
+    empty_periods = tuple(
+        CdaEmptyPeriod(period, tuple(sorted(ids)), first_reason(ids))
+        for period, ids in sorted(empty_by_period.items())
+        if period not in months
+    )
+    links = defaultdict(list)
+
+    for holding_id, holder, investee, run_id in connection.execute(_Q_CDA_LINKS):
+        links[str(holder)].append(
+            CdaHoldingLink(
+                investee_cnpj=str(investee),
+                holding_id=int(holding_id),
+                collected_at=started[int(run_id)],
+            )
+        )
+
+    confidential = {str(row[0]) for row in connection.execute(_Q_CDA_CONFIDENTIAL)}
+    holders = tuple(
+        CdaHolderRecord(
+            cnpj=str(holder),
+            competence=date.fromisoformat(str(competence)),
+            has_identified=bool(links.get(str(holder))),
+            has_confidential=str(holder) in confidential,
+            links=tuple(
+                sorted(links.get(str(holder), ()), key=lambda link: link.holding_id)
+            ),
+        )
+        for holder, competence in sorted(connection.execute(_Q_CDA_LATEST).fetchall())
+    )
+
+    return CdaSnapshot(
+        available=True,
+        competences=tuple(competences),
+        empty_periods=empty_periods,
+        holders=holders,
+    )
+
+
 class FundosDatabaseReader:
     """Le o retrato do cadastro do banco de Fundos, so para leitura."""
 
@@ -562,3 +793,25 @@ class FundosDatabaseReader:
                     + type(error).__name__
                     + ")."
                 ) from None
+
+    def _read(self, reader):
+        with self.session() as connection:
+            try:
+                _check_migrations(connection)
+                return reader(connection)
+            except sqlite3.Error as error:
+                raise FundosDatabaseUnavailable(
+                    "Erro de leitura no banco de Fundos ("
+                    + type(error).__name__
+                    + ")."
+                ) from None
+
+    def read_cda(self) -> CdaSnapshot:
+        """Le o CDA (fase 4); sem a migration 004 ou sem coleta, so o motivo."""
+
+        return self._read(_read_cda)
+
+    def read_all(self) -> tuple[CadastroSnapshot, CdaSnapshot]:
+        """Le o cadastro e o CDA numa sessao so (um BEGIN): retrato consistente."""
+
+        return self._read(lambda connection: (_read_snapshot(connection), _read_cda(connection)))
