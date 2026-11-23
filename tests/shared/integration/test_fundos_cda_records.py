@@ -89,6 +89,51 @@ def test_il12_completo_exige_o_l_h_e_o_mes_mais_novo_completos(competencias, vaz
 
 
 @pytest.mark.parametrize(
+    "cda, mais_nova, c_max",
+    [
+        (retrato((competencia(SETEMBRO), competencia(coletas=(2,)))), OUTUBRO, OUTUBRO),
+        (retrato((competencia(SETEMBRO), competencia(OUTUBRO, PARCIAL, (2,)))), OUTUBRO, SETEMBRO),
+        (retrato((competencia(OUTUBRO, PARCIAL),)), OUTUBRO, None),
+        (retrato((), (CdaEmptyPeriod("202610", (1,)),)), None, None),
+        (CdaSnapshot(False, CdaUnavailableReason.SEM_COLETA_DE_CDA), None, None),
+    ],
+)
+def test_il12_competencia_mais_nova_com_posicao_em_qualquer_completude(cda, mais_nova, c_max):
+    # Trava do CDA (ajuste 1 de 23/11/2026): a maior competencia com posicao.
+    assert (cda.latest_competence, cda.latest_complete) == (mais_nova, c_max)
+
+
+@pytest.mark.parametrize(
+    "competencias, vazios, detentores, esperado",
+    [
+        ((competencia(),), (), (detentor(),), None),
+        (
+            (competencia(SETEMBRO, CdaIncompleteReason.FONTE_DIFERENTE), competencia(OUTUBRO, PARCIAL, (2,))),
+            (),
+            (detentor(dia=SETEMBRO), detentor(CNPJ_B)),
+            PARCIAL,
+        ),
+        (
+            (competencia(SETEMBRO),),
+            (CdaEmptyPeriod("202610", (2,), CdaIncompleteReason.MEMBRO_AUSENTE),),
+            (detentor(dia=SETEMBRO),),
+            CdaIncompleteReason.MEMBRO_AUSENTE,
+        ),
+        ((competencia(SETEMBRO, PARCIAL), competencia(coletas=(2,))), (), (detentor(),), None),
+    ],
+)
+def test_il12_motivo_do_cda_incompleto(competencias, vazios, detentores, esperado):
+    cda = retrato(competencias, vazios, detentores)
+    assert cda.incomplete_reason is esperado
+    assert cda.complete is (esperado is None)
+
+
+def test_il12_sem_dados_de_cda_nao_ha_motivo_de_incompleto():
+    cda = CdaSnapshot(False, CdaUnavailableReason.SEM_MIGRATION_004)
+    assert (cda.incomplete_reason, cda.complete) == (None, False)
+
+
+@pytest.mark.parametrize(
     "montar",
     [
         lambda: retrato((competencia(), competencia(SETEMBRO))),
