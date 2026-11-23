@@ -45,6 +45,12 @@ from .fundos_import_service import (
     FundosEntityPhase,
     FundosImportService,
 )
+from .fundos_investment_report import (
+    AtrasoEmMeses,
+    FundosInvestmentError,
+    FundosInvestmentReport,
+    InvestimentosNaoCriados,
+)
 from .fundos_investment_rules import (
     HolderPairs,
     HolderReading,
@@ -55,6 +61,9 @@ from .fundos_investment_rules import (
     classify_investments,
     collect_investment_pairs,
     investment_to_save,
+)
+from .fundos_investment_service import (
+    FundosInvestmentService,
 )
 from .fundos_reader import (
     CadastroNotFound,
@@ -129,6 +138,7 @@ from .records import (
 )
 
 __all__ = [
+    "AtrasoEmMeses",
     "BatchImportError",
     "BatchImportReport",
     "CadastroIncompleteReason",
@@ -163,6 +173,9 @@ __all__ = [
     "FundosEntityReport",
     "FundosImportError",
     "FundosImportService",
+    "FundosInvestmentError",
+    "FundosInvestmentReport",
+    "FundosInvestmentService",
     "FundosNaoCriados",
     "FundosPartyLink",
     "FundosReaderError",
@@ -179,6 +192,7 @@ __all__ = [
     "InstrumentBatchOutcome",
     "InstrumentImportReason",
     "InstrumentImportResult",
+    "InvestimentosNaoCriados",
     "InvestmentDecision",
     "InvestmentPair",
     "InvestmentSkip",

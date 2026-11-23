@@ -575,6 +575,39 @@ class CdaSnapshot:
         return max(dates) if dates else None
 
     @property
+    def latest_competence(self) -> date | None:
+        """A maior competencia com posicao lida, completa ou nao (trava do CDA)."""
+
+        return max((item.reference_date for item in self.competences), default=None)
+
+    @property
+    def incomplete_reason(self) -> CdaIncompleteReason | None:
+        """O primeiro motivo, na ordem do CdaIncompleteReason, do CDA incompleto.
+
+        Entram as competencias L_H dos detentores e os itens do mes mais novo
+        do banco. None se o CDA esta completo ou se nao ha dados de CDA.
+        """
+
+        if not self.available:
+            return None
+
+        found = {
+            self.competence(holder.competence).incomplete_reason
+            for holder in self.holders
+        }
+        newest = max(
+            [item.period for item in self.competences]
+            + [item.period for item in self.empty_periods]
+        )
+        found |= {
+            item.incomplete_reason
+            for item in self.competences + self.empty_periods
+            if item.period == newest
+        }
+
+        return next((reason for reason in CdaIncompleteReason if reason in found), None)
+
+    @property
     def complete(self) -> bool:
         """O L_H de todo detentor e completo e o mes mais novo do banco tambem.
 
@@ -583,19 +616,4 @@ class CdaSnapshot:
         antes.
         """
 
-        if not self.available:
-            return False
-
-        if any(not self.competence(holder.competence).complete for holder in self.holders):
-            return False
-
-        newest = max(
-            [item.period for item in self.competences]
-            + [item.period for item in self.empty_periods]
-        )
-
-        return all(
-            item.complete
-            for item in self.competences + self.empty_periods
-            if item.period == newest
-        )
+        return self.available and self.incomplete_reason is None
