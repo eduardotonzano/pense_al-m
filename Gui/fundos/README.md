@@ -12,7 +12,7 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - `src/fundos/cadastro/`: leitor do cadastro de fundos da CVM (`registro_fundo_classe.zip`), sem banco (`reader.py`, com a lista fechada de colunas em `columns.py`); filtro de FIDC e FIAGRO e escolha do registro vigente (`selection.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/informe_fidc/`: leitor do informe mensal de FIDC (`inf_mensal_fidc_AAAAMM.zip`, 18 tabelas), sem banco (`reader.py`, com a lista fechada das 461 colunas em `columns.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/informe_fiagro/`: leitor do informe mensal de FIAGRO (`inf_mensal_fiagro_AAAAMM.zip`, 2 arquivos), sem banco (`reader.py`, com a lista fechada das 133 + 6 colunas em `columns.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
-- `src/fundos/indicators/`: indicadores calculados na leitura a partir do informe de FIDC já carregado (vencidos na carteira, faixas de atraso e a distribuição "Por Prazo de Vencimento (R$)"), sem gravar nada. Veja "Indicadores de carteira vencida".
+- `src/fundos/indicators/`: indicadores calculados na leitura a partir do informe de FIDC já carregado (vencidos na carteira, faixas de atraso, a distribuição "Por Prazo de Vencimento (R$)", os cedentes gravados e as alienações do mês a partes relacionadas), sem gravar nada. Veja "Indicadores de carteira vencida" e "Cedentes e alienações a partes relacionadas".
 - `scripts/apply_migration.py`: aplica as migrations numeradas, com backup e verificação.
 - `scripts/load_cadastro.py`: carrega os FIDC e FIAGRO do cadastro. Veja "Como carregar o cadastro".
 - `scripts/load_informe_fidc.py`: carrega o informe mensal de FIDC. Veja "Como carregar o informe de FIDC".
@@ -29,7 +29,7 @@ Coletor, acesso à rede, banco real, dados reais e adaptador para a camada compa
 - as classes de chave repetida no arquivo de FIAGRO e as subclasses delas (2 classes e 9 linhas de subclasse em 09/2026): só contadas, até o Gui decidir;
 - a comparação, na leitura, entre o informe de FIAGRO e o de FIDC e entre o informe e o cadastro (gestor e administradora): a conferência foi feita na FU5.2 (seção 10.5 de `docs/fundos-descoberta.md`) e o Gui decidiu em 04/11/2026 que vale o informe que corresponde ao `Tipo_Classe` e, para gestor e administradora, o cadastro vigente (F-03 e F-05 de `docs/regras-de-exibicao-pendentes.md`). Nada disso está no código: o banco não compara os informes, a comparação fica na camada de leitura (FU9.2) e a view de valor atual dos papéis entra antes da FU9.1. O informe de FII foi amostrado (seção 13 de `docs/fundos-descoberta.md`) e não é carregado;
 - a `tab_VIII` e a `tab_X_4` do informe, lidas e conferidas mas **não carregadas** (várias linhas para o mesmo assunto e campo). A `tab_X_4` (captações, resgates e amortizações por série) fica **indisponível** até uma tarefa própria, com ADR (uma dimensão a mais em `observations`);
-- o uso dos cedentes: a regra para o percentual (em 09/2026, 385 valores acima de 100), as métricas de concentração e a forma de exibir são do Gui (Fases 6 a 10). Hoje os cedentes só são gravados;
+- o uso do percentual do cedente em contas e as métricas de concentração: pela decisão de 24/11/2026 (FU11.2), o percentual é só mostrado como informado, com qualificador, até a base dele ser confirmada, e não há métrica de concentração. A forma de exibir continua em aberto;
 - **pendência do FIAGRO nos indicadores de carteira vencida (FU11.1):** os campos `Vencidos_*`, `A_Vencer_*` e `Total_Ativos_Prazo_Vencimento` do informe de FIAGRO ficaram fora por falta de descrição oficial. O dicionário de FIAGRO descreve 13 dos 133 campos, e nenhum destes. A inclusão depende da leitura do Anexo Normativo VI da Resolução CVM 175 e do modelo do informe de FIAGRO, que exige aprovação de rede;
 - a evolução das faixas de atraso conferida no dado real: o banco de teste tem uma competência só do informe de FIDC (09/2026). Uma segunda exige baixar outro mês (rede, com aprovação) e carregá-lo numa cópia;
 - a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
@@ -287,7 +287,7 @@ O `src/fundos/indicators/` calcula, na leitura, três indicadores do informe men
 - **Percentual acima de 100 não é cortado.**
 
 **Campos lidos.** Cada indicador lê uma lista fechada de campos:
-- campo de identificação (CPF, CNPJ ou cedente no nome) é recusado;
+- campo de identificação (CPF ou CNPJ no nome) e coluna da lista de cedentes da `tab_I` (`TAB_I2A12_*` e `TAB_I2B12_*`) são recusados;
 - nenhuma provisão é lida (`TAB_I2A11` e `TAB_I2B11` ficam para a FU11.3);
 - nenhum campo de FIAGRO é lido.
 
@@ -373,6 +373,86 @@ Feita em 24/11/2026 numa cópia idêntica do banco de teste: o SHA-256 do origin
 4. **Os itens a.5 a a.10 da `tab_I`:** não se sabe se são recortes de a.1 a a.4, nem se as parcelas deles entram em `V.b`.
 5. **A evolução no dado real:** há uma competência só carregada. Ela foi testada com dado sintético.
 6. **O sentido dos valores negativos:** carteira (2 assuntos), direitos creditórios a + b (1) e `V.a` (2).
+
+## Cedentes e alienações a partes relacionadas
+
+Dois indicadores do informe de FIDC já carregado, por assunto (classe ou fundo) e competência (FU11.2). Como os da seção anterior, são calculados na leitura, com a conexão só de leitura e os mesmos estados. Nada é gravado.
+
+### Cedentes gravados (`cedentes.stored_cedentes(conexao, competencia)`)
+
+**O que o informe traz.** Em cada bloco da `tab_I` há até 9 posições de cedente, com CPF ou CNPJ e percentual:
+- **bloco a:** com aquisição substancial dos riscos e benefícios, `TAB_I2A12_*`;
+- **bloco b:** sem aquisição substancial, `TAB_I2B12_*`.
+
+O modelo pede o cedente "quando representar mais de 10% do PL do fundo" (seção 3 de `docs/fundos-sonda-pdd-cedente.md`).
+
+**O que está no banco.** A carga grava só o cedente com CNPJ válido, sem nome. O percentual vai como veio.
+- **O cedente com CPF não é gravado.** O informe pode ter cedente pessoa física que não aparece aqui.
+- A lista é a dos cedentes **gravados**, com a posição e o percentual como informado.
+- O CNPJ não aparece em `repr`, log, erro nem relatório.
+
+**Regras de leitura.**
+- **Bloco sem cedente gravado** sai com o estado e o motivo `sem_cedente_gravado`, nunca zero nem "sem concentração". Não se sabe se não há cedente acima do corte, se o cedente tem CPF ou se o informe não o trouxe.
+- **A quantidade é um mínimo, nunca o total.** Conta os CNPJs distintos gravados no bloco.
+- **O maior percentual** é o maior valor informado entre os gravados, sem conta nenhuma.
+  - Leva o qualificador do próprio valor, que pode ser `acima_de_100`.
+  - Não é medida de concentração.
+- **O percentual** (decisão de 24/11/2026) é mostrado como informado e não entra em conta nenhuma enquanto a base não for confirmada. O qualificador nunca muda o valor: `acima_de_100`, `zero`, `ate_10` (acima de 0 e até 10) ou `negativo`.
+- **Marcas do bloco:**
+  - `lista_cheia`: a posição 9 está ocupada, e a lista do informe pode estar cortada;
+  - `posicao_sem_cnpj_gravado`: há posição sem CNPJ gravado abaixo da maior. No arquivo ela estava vazia, era CPF ou era inválida, e não se distingue qual;
+  - `cnpj_repetido_no_bloco`: o mesmo CNPJ em duas posições;
+  - `posicao_com_mais_de_um_cnpj`: só acontece com reapresentação. Os dois CNPJs são listados e nenhum é escolhido.
+- **Cedente nos dois blocos:** cada bloco o mostra separado, com a marca `in_other_block`. Os blocos nunca são juntados.
+- **Limitação da carga** (veja "Papéis"): com reapresentação, o conjunto de cedentes de uma competência é a soma dos ZIPs carregados e pode incluir cedente que saiu.
+
+### Alienações do mês a partes relacionadas (`partes_relacionadas.alienacoes_partes_relacionadas(conexao, competencia)`)
+
+São **alienações** de direitos creditórios **realizadas no mês**, e não aquisições nem uma medida geral de parte relacionada. Vêm do item VII do modelo ("Negócios com Direitos Creditórios Realizados no Mês"), letra b), e só dos dois grupos cuja descrição oficial cita parte relacionada:
+- **VII.b.1:** "Para o Cedente e Partes Relacionadas aos Cedentes";
+- **VII.b.2:** "Para os Prestadores de Serviços e Partes Relacionadas aos Prestadores de Serviços".
+
+Cada grupo traz Quantidade, Valor e Valor Contábil, como informados.
+- **Nada é calculado entre Valor e Valor Contábil,** porque o dicionário não define a diferença.
+- **Ficam fora:** VII.a (aquisições), VII.b.3 (alienações para terceiros), VII.c (substituições) e VII.d (recompras), cuja descrição não cita parte relacionada.
+
+### Medição em 09/2026 (só leitura, só contagens)
+
+Feita em 24/11/2026 na mesma cópia idêntica do banco de teste, aberta com `mode=ro&immutable=1` e `query_only`. O SHA-256 ficou igual antes e depois.
+
+**Os totais:** 4.425 assuntos, 1.989 deles com algum cedente gravado; 3.587 cedentes e 3.587 percentuais.
+
+| Bloco | Com cedente gravado | Total do bloco > 0 | Total do bloco = 0 | `sem_cedente_gravado` | `lista_cheia` | `cnpj_repetido_no_bloco` | `posicao_sem_cnpj_gravado` |
+|---|---|---|---|---|---|---|---|
+| a | 1.622 | 1.530 | 92 | 2.803 | 0 | 3 | 25 |
+| b | 665 | 533 | 132 | 3.760 | 5 | 0 | 3 |
+
+**O resto:**
+- `posicao_com_mais_de_um_cnpj`: 0; conflito aberto: 0.
+- Cedente nos dois blocos: 208 pares (assunto, CNPJ).
+
+**Qualificadores do percentual:**
+
+| Bloco | `acima_de_100` | `zero` | `ate_10` | Sem qualificador (acima de 10 e até 100) | `negativo` |
+|---|---|---|---|---|---|
+| a | 301 | 66 | 125 | 1.975 | 0 |
+| b | 79 | 58 | 44 | 939 | 0 |
+
+**Alienações a partes relacionadas,** nos 4.425 assuntos:
+- VII.b.1 é positivo em 6 assuntos (Quantidade e Valor) e em 5 (Valor Contábil);
+- VII.b.2 é positivo em 3, nos três campos;
+- o resto é zero.
+
+**Tempo:** cerca de 1 s por função, para todos os assuntos.
+
+### Não confirmado
+
+1. **A base do percentual do cedente.** Há valores iguais a 0, de 0 a 10 e acima de 100.
+2. **O bloco sem cedente gravado:** não se sabe se não há cedente acima de 10% do PL, se o cedente tem CPF ou se o informe não o trouxe.
+3. **A lista cortada:** não se sabe se as 9 posições cortam a lista do informe. Se a posição 9 for CPF, a lista cheia nem é detectada.
+4. **A posição sem CNPJ gravado:** vazia, CPF ou inválida, e não se distingue qual.
+5. **A diferença entre Valor e Valor Contábil** em VII.b.
+6. **Partes relacionadas além das alienações de VII.b.1 e VII.b.2:** o informe não traz outra medida.
 
 ## Como renomear
 
