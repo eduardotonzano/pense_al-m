@@ -12,6 +12,7 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - `src/fundos/cadastro/`: leitor do cadastro de fundos da CVM (`registro_fundo_classe.zip`), sem banco (`reader.py`, com a lista fechada de colunas em `columns.py`); filtro de FIDC e FIAGRO e escolha do registro vigente (`selection.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/informe_fidc/`: leitor do informe mensal de FIDC (`inf_mensal_fidc_AAAAMM.zip`, 18 tabelas), sem banco (`reader.py`, com a lista fechada das 461 colunas em `columns.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/informe_fiagro/`: leitor do informe mensal de FIAGRO (`inf_mensal_fiagro_AAAAMM.zip`, 2 arquivos), sem banco (`reader.py`, com a lista fechada das 133 + 6 colunas em `columns.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
+- `src/fundos/indicators/`: indicadores calculados na leitura a partir do informe de FIDC já carregado (vencidos na carteira, faixas de atraso e a distribuição "Por Prazo de Vencimento (R$)"), sem gravar nada. Veja "Indicadores de carteira vencida".
 - `scripts/apply_migration.py`: aplica as migrations numeradas, com backup e verificação.
 - `scripts/load_cadastro.py`: carrega os FIDC e FIAGRO do cadastro. Veja "Como carregar o cadastro".
 - `scripts/load_informe_fidc.py`: carrega o informe mensal de FIDC. Veja "Como carregar o informe de FIDC".
@@ -29,6 +30,8 @@ Coletor, acesso à rede, banco real, dados reais e adaptador para a camada compa
 - a comparação, na leitura, entre o informe de FIAGRO e o de FIDC e entre o informe e o cadastro (gestor e administradora): a conferência foi feita na FU5.2 (seção 10.5 de `docs/fundos-descoberta.md`) e o Gui decidiu em 04/11/2026 que vale o informe que corresponde ao `Tipo_Classe` e, para gestor e administradora, o cadastro vigente (F-03 e F-05 de `docs/regras-de-exibicao-pendentes.md`). Nada disso está no código: o banco não compara os informes, a comparação fica na camada de leitura (FU9.2) e a view de valor atual dos papéis entra antes da FU9.1. O informe de FII foi amostrado (seção 13 de `docs/fundos-descoberta.md`) e não é carregado;
 - a `tab_VIII` e a `tab_X_4` do informe, lidas e conferidas mas **não carregadas** (várias linhas para o mesmo assunto e campo). A `tab_X_4` (captações, resgates e amortizações por série) fica **indisponível** até uma tarefa própria, com ADR (uma dimensão a mais em `observations`);
 - o uso dos cedentes: a regra para o percentual (em 09/2026, 385 valores acima de 100), as métricas de concentração e a forma de exibir são do Gui (Fases 6 a 10). Hoje os cedentes só são gravados;
+- **pendência do FIAGRO nos indicadores de carteira vencida (FU11.1):** os campos `Vencidos_*`, `A_Vencer_*` e `Total_Ativos_Prazo_Vencimento` do informe de FIAGRO ficaram fora por falta de descrição oficial. O dicionário de FIAGRO descreve 13 dos 133 campos, e nenhum destes. A inclusão depende da leitura do Anexo Normativo VI da Resolução CVM 175 e do modelo do informe de FIAGRO, que exige aprovação de rede;
+- a evolução das faixas de atraso conferida no dado real: o banco de teste tem uma competência só do informe de FIDC (09/2026). Uma segunda exige baixar outro mês (rede, com aprovação) e carregá-lo numa cópia;
 - a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
 - a carteira de cotas de fundos;
 - o mapa de séries sênior, mezanino e subordinada;
@@ -255,6 +258,121 @@ python scripts\load_informe_fiagro.py --database C:\<pasta-local>\fundos.db --zi
 - **Saída:** 0 (sucesso ou nada a fazer), 1 (erro, com "Erro ao carregar o informe de FIAGRO: ..." no stderr), 2 (argumentos).
 - **O relatório tem só agregados**, nunca CNPJ, nome, ISIN ou valor: linhas e colunas por arquivo, CNPJ por situação, chaves repetidas, `Versao` igual ou diferente de 1, datas de entrega distintas, ISIN, notação científica, papéis, subclasses, o casamento por arquivo e por classe e os candidatos (dry-run) ou o que foi gravado (commit).
 - **Esperado em 09/2026** (contagem em memória, só agregados, do arquivo de SHA-256 `a9700ab7...0948` da seção 9.1 de `docs/fundos-descoberta.md`): 312 linhas de classe (310 `CNPJ_Classe`), 308 carregáveis; 697 linhas de subclasse, 688 carregáveis (688 séries); 39.316 observações (37.252 da classe e 2.064 das séries); 616 papéis (308 administradores e 308 gestores). Com o cadastro de 27/10/2026, as 308 classes carregáveis estão em `fund_classes`.
+
+## Indicadores de carteira vencida
+
+O `src/fundos/indicators/` calcula, na leitura, três indicadores do informe mensal de FIDC já carregado (FU11.1), por assunto (a classe ou o fundo do informe) e por competência.
+
+**Nada é gravado:** não há tabela nova nem migration. Cada valor sai com:
+- a fonte (`tabela.coluna`);
+- a competência;
+- a observação de origem;
+- o estado.
+
+**Conexão.**
+- `reading.open_read_only(caminho)` abre o banco com URI `mode=ro` e confere o `PRAGMA query_only`.
+- Recusa caminho de rede e banco em WAL.
+- As consultas rodam numa transação fechada com `ROLLBACK`.
+- Quem já tem uma conexão pode passá-la direto às funções.
+
+**Leitura por competência, e não pela view.**
+- **O problema da view:** `current_observations` guarda só a competência mais recente de cada assunto e campo. Não serve para a série mensal, e misturaria competências num mesmo indicador: um campo que viesse vazio no mês novo continuaria com o valor do mês anterior.
+- **O que `reading.read_competence` faz:** aplica a regra de ordem da view dentro de cada competência. Valem só as fontes ativas, depois a prioridade da fonte, depois a coleta mais recente e depois o `id`.
+- **Diferença conhecida:** um valor `MANUAL` de competência antiga continua sendo o atual na view. Aqui, cada competência fica com o que foi informado nela.
+
+**Estados e motivos.**
+- Cada valor é `presente` ou `sem_dado`. O `sem_dado` traz um motivo: `campo_ausente`, `tipo_inesperado`, `competencia_anterior_nao_carregada`, `denominador_zero` ou `denominador_negativo`.
+- **Ausente nunca vira zero,** e zero informado é zero.
+- **Precisão:** os valores são `Decimal` exatos. O percentual tem 28 dígitos significativos e não é arredondado, porque arredondar é decisão de exibição.
+- **Percentual acima de 100 não é cortado.**
+
+**Campos lidos.** Cada indicador lê uma lista fechada de campos:
+- campo de identificação (CPF, CNPJ ou cedente no nome) é recusado;
+- nenhuma provisão é lida (`TAB_I2A11` e `TAB_I2B11` ficam para a FU11.3);
+- nenhum campo de FIAGRO é lido.
+
+**Blocos.**
+- **`a`:** direitos creditórios com aquisição substancial dos riscos e benefícios (I.2.a e `tab_V`).
+- **`b`:** sem aquisição substancial (I.2.b e `tab_VI`).
+- **`a+b`:** soma a mesma medida dos dois blocos, que não se sobrepõem, e só existe com os dois presentes.
+
+### Os indicadores
+
+| Indicador | Função | Campos |
+|---|---|---|
+| Vencidos na carteira | `overdue.overdue_in_portfolio(conexao, competencia, denominador)` | R$: `tab_V.TAB_V_B_VL_DIRCRED_INAD` e `tab_VI.TAB_VI_B_VL_DIRCRED_INAD` ("Inadimplentes (Valor das Parcelas Inadimplentes, em R$)"). Ao lado, separados: a.2, a.2.1 e a.3 da `tab_I`, e os equivalentes do bloco b |
+| Faixas de atraso | `overdue.delinquency_buckets(conexao, competencia)` | as 10 faixas de `tab_V.b` e `tab_VI.b`, de "Vencidos e não Pagos entre 1 e 30 dias" a "acima de 1080 dias", com o % de cada uma no total informado |
+| Evolução das faixas | `overdue.bucket_evolution(conexao, competencia)` | cada faixa na competência M e em M-1 (último dia do mês anterior): os dois valores, a diferença em R$ e a diferença da participação em pontos percentuais |
+| Indicador 10: "Por Prazo de Vencimento (R$)" | `prazo_de_vencimento.por_prazo_de_vencimento(conexao, competencia)` | a distribuição informada: `tab_V.TAB_V_A_VL_DIRCRED_PRAZO` e `tab_VI.TAB_VI_A_VL_DIRCRED_PRAZO`, cada um com as 10 faixas, de "Até 30 dias" a "Acima de 1080 dias", e o % de cada faixa no total |
+
+**Denominador do % de vencidos** (decidido em 24/11/2026): é um parâmetro obrigatório, sem padrão.
+- **`Denominator.PORTFOLIO` (D1):** `tab_I.TAB_I2_VL_CARTEIRA`, o mesmo para o bloco a, o bloco b e o total. Inclui títulos, cotas, compromissadas e CDB.
+- **`Denominator.CREDIT_RIGHTS` (D2):** I.2.a para o bloco a, I.2.b para o b e a soma dos dois para o total. Os totais I.2.a e I.2.b vêm líquidos da provisão (seção 2.2 de `docs/fundos-sonda-pdd-cedente.md`).
+- **O PL não é uma opção.**
+
+**Regras de cálculo.**
+- **Parcela e crédito não se somam.** a.2.1 (parcelas inadimplentes de créditos a vencer) e a.3 (créditos inadimplentes) são medidas diferentes e voltam separadas. O R$ de vencidos é o total `V.b` (ou `VI.b`) que a CVM informa.
+- **O total nunca é recalculado pelas faixas,** nem nas faixas de atraso nem em "Por Prazo de Vencimento (R$)".
+- **Evolução:** sem M-1 carregada para o assunto, o resultado é `sem_dado` (`competencia_anterior_nao_carregada`), e nenhum buraco é pulado.
+  - A passagem de crédito de uma faixa para outra não é observável no informe, que é agregado, e não é calculada.
+- **"Por Prazo de Vencimento (R$)"** é a distribuição como o informe a traz. O que o total cobre não está confirmado.
+
+Exemplo, com o banco em disco local:
+
+```python
+from fundos.indicators.overdue import Denominator, overdue_in_portfolio
+from fundos.indicators.reading import open_read_only
+
+conexao = open_read_only(r"C:\<pasta-local>\fundos.db")
+try:
+    resultados = overdue_in_portfolio(conexao, "2026-09-30", Denominator.CREDIT_RIGHTS)
+finally:
+    conexao.close()
+```
+
+### Medição em 09/2026 (só leitura, só contagens)
+
+Feita em 24/11/2026 numa cópia idêntica do banco de teste: o SHA-256 do original e o da cópia eram iguais, antes e depois. A cópia foi aberta com `mode=ro&immutable=1` e `query_only`.
+
+**O dado:**
+- uma competência carregada (2026-09-30), com 4.425 assuntos (4.394 classes e 31 fundos);
+- nenhum campo dos indicadores ausente, porque o zero é gravado;
+- nenhuma chave com mais de uma linha e nenhum conflito aberto.
+
+**Vencidos, D1:**
+- % presente em 4.276 assuntos; `denominador_zero` em 147 e `denominador_negativo` em 2;
+- acima de 100% em 147 assuntos (bloco a), 32 (bloco b) e 175 (a+b).
+
+**Vencidos, D2:**
+
+| | Bloco a | Bloco b | a+b |
+|---|---|---|---|
+| % presente | 2.874 | 1.103 | 3.259 |
+| `denominador_zero` | 1.550 | 3.322 | 1.165 |
+| `denominador_negativo` | 1 | 0 | 1 |
+| acima de 100% | 203 | 62 | 191 |
+
+**Faixas de atraso:** `V.b` > 0 em 1.655 assuntos e `VI.b` > 0 em 846 (1.984 com algum dos dois).
+
+**Evolução:** os 4.425 assuntos não têm 08/2026, então todos dão `competencia_anterior_nao_carregada`.
+
+**"Por Prazo de Vencimento (R$)":** `V.a` > 0 em 2.844 assuntos, zero em 1.579 e negativo em 2; `VI.a` > 0 em 1.099.
+
+**Tempo:** de 1,5 s a 6,6 s por indicador, para todos os assuntos.
+
+**Aritmética informativa** (tolerância de R$ 1; descreve o dado e não define nenhum campo):
+- o total `V.b` fecha com a soma das 10 faixas em 1.655 de 1.655 assuntos com `V.b` > 0, e com a.2.1 + a.3 em 4.425 de 4.425;
+- o `VI.b` fecha com b.2.1 + b.3 em 4.425 de 4.425;
+- o `V.a` fecha com a.1 em 2.422 de 2.844 assuntos com `V.a` > 0.
+
+### Não confirmado
+
+1. **`V.b` = a.2.1 + a.3 como regra:** o dado fecha em todos os assuntos de 09/2026, mas o texto da CVM não diz isso.
+2. **O que o total "Por Prazo de Vencimento (R$)" cobre** (`V.a` e `VI.a`): a descrição oficial não diz.
+3. **Prazo médio:** o informe de FIDC não tem esse campo, e nada é estimado.
+4. **Os itens a.5 a a.10 da `tab_I`:** não se sabe se são recortes de a.1 a a.4, nem se as parcelas deles entram em `V.b`.
+5. **A evolução no dado real:** há uma competência só carregada. Ela foi testada com dado sintético.
+6. **O sentido dos valores negativos:** carteira (2 assuntos), direitos creditórios a + b (1) e `V.a` (2).
 
 ## Como renomear
 
