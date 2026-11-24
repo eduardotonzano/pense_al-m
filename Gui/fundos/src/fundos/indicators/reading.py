@@ -209,18 +209,35 @@ def loaded_competences(connection, field_names):
     return tuple(row[0] for row in rows)
 
 
-def _subject_filter(subjects):
+def subject_filter(subjects, alias="o"):
+    """Trecho " AND (...)" e parametros que limitam a consulta aos assuntos."""
+
     funds = sorted({s.id for s in subjects if s.kind == FUND_SUBJECT})
     classes = sorted({s.id for s in subjects if s.kind == CLASS_SUBJECT})
     clauses = []
 
     if funds:
-        clauses.append("o.fund_id IN (" + _placeholders(funds) + ")")
+        clauses.append(alias + ".fund_id IN (" + _placeholders(funds) + ")")
 
     if classes:
-        clauses.append("o.fund_class_id IN (" + _placeholders(classes) + ")")
+        clauses.append(alias + ".fund_class_id IN (" + _placeholders(classes) + ")")
 
     return " AND (" + " OR ".join(clauses) + ")", tuple(funds) + tuple(classes)
+
+
+def check_subjects(subjects):
+    """Tupla de Subject de classe ou fundo; recusa qualquer outra coisa."""
+
+    subjects = tuple(subjects)
+
+    for subject in subjects:
+        if not isinstance(subject, Subject) or subject.kind not in (
+            CLASS_SUBJECT,
+            FUND_SUBJECT,
+        ):
+            raise ValueError("Assunto invalido: use Subject de classe ou fundo.")
+
+    return subjects
 
 
 def _numeric(value_type, value_numeric):
@@ -246,19 +263,12 @@ def read_competence(connection, reference_date, field_names, subjects=None):
     where, parameters = "", ()
 
     if subjects is not None:
-        subjects = tuple(subjects)
-
-        for subject in subjects:
-            if not isinstance(subject, Subject) or subject.kind not in (
-                CLASS_SUBJECT,
-                FUND_SUBJECT,
-            ):
-                raise ValueError("Assunto invalido: use Subject de classe ou fundo.")
+        subjects = check_subjects(subjects)
 
         if not subjects:
             return {}
 
-        where, parameters = _subject_filter(subjects)
+        where, parameters = subject_filter(subjects)
 
     with read_snapshot(connection):
         rows = connection.execute(

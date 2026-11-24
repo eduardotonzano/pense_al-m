@@ -9,4 +9,6 @@ overdue: vencidos na carteira, faixas de atraso e evolucao entre
 competencias.
 prazo_de_vencimento: a distribuicao "Por Prazo de Vencimento (R$)", como o
 informe a traz (indicador 10).
+cedentes: os cedentes gravados (com CNPJ) por bloco, com o percentual como
+informado; o cedente com CPF nao e gravado.
 """
