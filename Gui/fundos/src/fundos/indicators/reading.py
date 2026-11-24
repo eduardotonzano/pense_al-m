@@ -18,8 +18,10 @@ arquivos -wal e -shm ao lado dele). As leituras acontecem numa transacao
 So assuntos de classe e de fundo (series ficam de fora). Valor ausente nao
 tem linha e volta como sem_dado (campo_ausente), nunca zero. Valor que nao
 veio como numero volta como sem_dado (tipo_inesperado), sem repetir o valor.
-Campo de identificacao (CPF, CNPJ ou cedente no nome) e recusado antes de
-consultar o banco. As mensagens de erro nunca trazem caminho, CNPJ ou valor.
+Campo de identificacao (CPF ou CNPJ no nome) e coluna da lista de cedentes
+da tab_I (TAB_I2A12_* e TAB_I2B12_*, que cedentes le de party_observations)
+sao recusados antes de consultar o banco. As mensagens de erro nunca trazem
+caminho, CNPJ ou valor.
 """
 
 import os
@@ -41,6 +43,7 @@ from fundos.indicators.values import PRESENT
 from fundos.indicators.values import REASON_UNEXPECTED_TYPE
 from fundos.indicators.values import FieldValue
 from fundos.indicators.values import Subject
+from fundos.personal_data import is_identification_column
 
 
 SQLITE_HEADER = b"SQLite format 3\x00"
@@ -49,7 +52,7 @@ HEADER_SIZE = 100
 WAL_VERSION = 2
 
 FIELD_NAME = re.compile(r"[A-Za-z0-9_]+\.[A-Za-z0-9_]+")
-_IDENTIFICATION = ("CPF", "CNPJ", "CEDENTE")
+_CEDENTE_LIST = ("TAB_I2A12_", "TAB_I2B12_")
 
 
 class IndicatorDatabaseError(Exception):
@@ -148,11 +151,12 @@ def check_field_names(field_names):
         if not isinstance(name, str) or FIELD_NAME.fullmatch(name) is None:
             raise ValueError("Campo fora do formato tabela.coluna.")
 
-        column = name.split(".", 1)[1].upper()
+        column = name.split(".", 1)[1]
 
-        if any(word in column for word in _IDENTIFICATION):
+        if is_identification_column(column) or column.upper().startswith(_CEDENTE_LIST):
             raise ValueError(
-                "Campo de identificacao (CPF, CNPJ ou cedente) nao e lido aqui."
+                "Campo de identificacao (CPF ou CNPJ) ou da lista de cedentes "
+                "nao e lido aqui."
             )
 
     if len(set(names)) != len(names):
@@ -209,18 +213,35 @@ def loaded_competences(connection, field_names):
     return tuple(row[0] for row in rows)
 
 
-def _subject_filter(subjects):
+def subject_filter(subjects, alias="o"):
+    """Trecho " AND (...)" e parametros que limitam a consulta aos assuntos."""
+
     funds = sorted({s.id for s in subjects if s.kind == FUND_SUBJECT})
     classes = sorted({s.id for s in subjects if s.kind == CLASS_SUBJECT})
     clauses = []
 
     if funds:
-        clauses.append("o.fund_id IN (" + _placeholders(funds) + ")")
+        clauses.append(alias + ".fund_id IN (" + _placeholders(funds) + ")")
 
     if classes:
-        clauses.append("o.fund_class_id IN (" + _placeholders(classes) + ")")
+        clauses.append(alias + ".fund_class_id IN (" + _placeholders(classes) + ")")
 
     return " AND (" + " OR ".join(clauses) + ")", tuple(funds) + tuple(classes)
+
+
+def check_subjects(subjects):
+    """Tupla de Subject de classe ou fundo; recusa qualquer outra coisa."""
+
+    subjects = tuple(subjects)
+
+    for subject in subjects:
+        if not isinstance(subject, Subject) or subject.kind not in (
+            CLASS_SUBJECT,
+            FUND_SUBJECT,
+        ):
+            raise ValueError("Assunto invalido: use Subject de classe ou fundo.")
+
+    return subjects
 
 
 def _numeric(value_type, value_numeric):
@@ -246,19 +267,12 @@ def read_competence(connection, reference_date, field_names, subjects=None):
     where, parameters = "", ()
 
     if subjects is not None:
-        subjects = tuple(subjects)
-
-        for subject in subjects:
-            if not isinstance(subject, Subject) or subject.kind not in (
-                CLASS_SUBJECT,
-                FUND_SUBJECT,
-            ):
-                raise ValueError("Assunto invalido: use Subject de classe ou fundo.")
+        subjects = check_subjects(subjects)
 
         if not subjects:
             return {}
 
-        where, parameters = _subject_filter(subjects)
+        where, parameters = subject_filter(subjects)
 
     with read_snapshot(connection):
         rows = connection.execute(

@@ -15,9 +15,11 @@ from apoio import source_id
 from fundos.indicators.values import CLASS_SUBJECT
 from fundos.indicators.values import FUND_SUBJECT
 from fundos.indicators.values import Subject
+from fundos.repositories.party_observation_repository import PartyObservationRepository
 
 
 _KINDS = {CLASS_SUBJECT: "class", FUND_SUBJECT: "fund"}
+_SUBJECT_ARGUMENT = {CLASS_SUBJECT: "fund_class_id", FUND_SUBJECT: "fund_id"}
 
 
 class SyntheticInforme:
@@ -88,6 +90,58 @@ class SyntheticInforme:
             )
             for field_name, value in values.items()
         }
+
+    def put_cedente(
+        self,
+        subject,
+        block,
+        position,
+        cnpj,
+        share=None,
+        reference_date="2026-09-30",
+        source="cvm",
+        collected_at=T0,
+        raw=None,
+    ):
+        """Grava um cedente ficticio pelo repositorio real (papel cedente).
+
+        block e "a" (TAB_I2A12) ou "b" (TAB_I2B12); share None grava o
+        cedente sem percentual. Devolve o PartyRecordResult.
+        """
+
+        group = {"a": "TAB_I2A12", "b": "TAB_I2B12"}[block]
+        share_field = "tab_I." + group + "_PR_CEDENTE_" + str(position)
+
+        return PartyObservationRepository(self.connection).record(
+            **{_SUBJECT_ARGUMENT[subject.kind]: subject.id},
+            role="cedente",
+            field_name="tab_I." + group + "_CPF_CNPJ_CEDENTE_" + str(position),
+            party_cnpj=cnpj,
+            share_field_name=None if share is None else share_field,
+            share_value=share,
+            source_id=self.source[source],
+            collection_run_id=self.run[source],
+            raw_record_id=raw or self.raw[source],
+            reference_date=reference_date,
+            collected_at=collected_at,
+        )
+
+    def put_administrator(self, subject, cnpj, reference_date="2026-09-30"):
+        """Grava uma administradora ficticia (outro papel, para teste de filtro)."""
+
+        return PartyObservationRepository(self.connection).record(
+            **{_SUBJECT_ARGUMENT[subject.kind]: subject.id},
+            role="administrador",
+            field_name="tab_I.CNPJ_ADMIN",
+            party_cnpj=cnpj,
+            name_field_name="tab_I.ADMIN",
+            party_name="Administradora Ficticia",
+            source_id=self.source["cvm"],
+            collection_run_id=self.run["cvm"],
+            raw_record_id=self.raw["cvm"],
+            reference_date=reference_date,
+            collected_at=T0,
+        )
 
     def open_conflict(self, field_name, reference_date, first_id, second_id):
         """Conflito aberto entre duas observacoes do mesmo campo e competencia."""
