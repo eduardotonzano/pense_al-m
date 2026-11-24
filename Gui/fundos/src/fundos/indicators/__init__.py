@@ -13,4 +13,6 @@ cedentes: os cedentes gravados (com CNPJ) por bloco, com o percentual como
 informado; o cedente com CPF nao e gravado.
 partes_relacionadas: as ALIENACOES do mes para o cedente e para prestadores
 de servicos e partes relacionadas (tab_VII, itens VII.b.1 e VII.b.2).
+reducao_valor_recuperacao: a "Provisao para Reducao no Valor de
+Recuperacao" de cada bloco, como informada, e a cobertura dos vencidos.
 """
