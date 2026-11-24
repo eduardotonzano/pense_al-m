@@ -51,12 +51,12 @@ class Subject:
     """Assunto do informe: a classe ou o fundo do cadastro (tipo e id do banco).
 
     A identidade e o par (tipo, id); o CNPJ vem junto para quem chama, mas
-    nao entra na comparacao.
+    nao entra na comparacao nem no repr (nao vaza em log, erro ou teste).
     """
 
     kind: str
     id: int
-    cnpj: str = field(compare=False)
+    cnpj: str = field(compare=False, repr=False)
 
 
 @dataclass(frozen=True)

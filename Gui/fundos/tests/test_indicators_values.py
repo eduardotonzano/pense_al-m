@@ -2,9 +2,12 @@ from decimal import Decimal
 
 import pytest
 
+from apoio import make_test_cnpj
+
 from fundos.indicators.values import BLOCK_A
 from fundos.indicators.values import BLOCK_B
 from fundos.indicators.values import BLOCK_TOTAL
+from fundos.indicators.values import CLASS_SUBJECT
 from fundos.indicators.values import NO_DATA
 from fundos.indicators.values import PRESENT
 from fundos.indicators.values import REASON_MISSING
@@ -12,6 +15,7 @@ from fundos.indicators.values import REASON_NEGATIVE_DENOMINATOR
 from fundos.indicators.values import REASON_UNEXPECTED_TYPE
 from fundos.indicators.values import REASON_ZERO_DENOMINATOR
 from fundos.indicators.values import FieldValue
+from fundos.indicators.values import Subject
 from fundos.indicators.values import bucket_blocks
 from fundos.indicators.values import difference
 from fundos.indicators.values import percentage
@@ -24,6 +28,16 @@ REF = "2026-09-30"
 
 def present(name, value, conflict=False):
     return FieldValue(name, REF, PRESENT, Decimal(value), open_conflict=conflict)
+
+
+def test_subject_keeps_the_cnpj_out_of_repr_and_comparison():
+    cnpj = make_test_cnpj(1)
+    subject = Subject(CLASS_SUBJECT, 7, cnpj)
+
+    assert subject.cnpj == cnpj
+    assert cnpj not in repr(subject)
+    assert cnpj not in str(subject)
+    assert subject == Subject(CLASS_SUBJECT, 7, make_test_cnpj(2))
 
 
 def test_missing_field_value_has_no_value_and_a_reason():
