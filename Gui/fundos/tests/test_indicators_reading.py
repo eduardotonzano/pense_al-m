@@ -156,6 +156,16 @@ def test_field_list_is_closed_and_never_identification(fields):
         check_field_names(fields)
 
 
+def test_quantity_and_value_columns_that_mention_cedente_are_accepted():
+    fields = ("tab_VII.TAB_VII_B1_1_QT_CEDENTE", "tab_VII.TAB_VII_B1_2_VL_CEDENTE")
+
+    assert check_field_names(fields) == fields
+
+    for refused in ("tab_I.TAB_I2B12_PR_CEDENTE_9", "tab_I.tab_i2a12_pr_cedente_1", "tab_X.cpf_qualquer"):
+        with pytest.raises(ValueError):
+            check_field_names((refused,))
+
+
 @pytest.mark.parametrize(
     ("current", "previous"),
     (("2026-09-30", "2026-08-31"), ("2026-03-31", "2026-02-28"), ("2026-01-31", "2025-12-31"), ("2028-03-31", "2028-02-29")),
