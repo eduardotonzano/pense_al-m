@@ -7,7 +7,7 @@ gera uma linha nova e um conflito aberto; nenhuma observacao e sobrescrita.
 
 Valor que volta (A, depois B, depois A): por padrao o terceiro A acha o
 checksum do primeiro e nao gera linha, e o valor atual continua B. Com
-restatement=True (so a carga do informe de FIDC usa), o A volta como linha
+restatement=True (so as cargas dos informes de FIDC e de FIAGRO usam), o A volta como linha
 reapresentada, com a coleta no checksum, e vira o valor atual; o conflito
 A x B, que ja existe, nao e aberto de novo.
 """
