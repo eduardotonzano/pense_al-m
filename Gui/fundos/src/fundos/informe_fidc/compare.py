@@ -127,6 +127,7 @@ class _Values:
         self.latest[key] = value
         return status, current
 
+LatestValues = _Values
 
 class Comparison:
     """Estado da competencia no banco e as contagens da comparacao."""

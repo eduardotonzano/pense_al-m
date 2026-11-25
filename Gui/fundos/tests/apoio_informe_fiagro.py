@@ -26,6 +26,8 @@ PERIOD = "202609"
 DATA_REFERENCIA = "2026-09-01"
 COMPETENCE = "2026-09-30"
 MEMBER_DATE = (2026, 10, 24, 8, 34, 6)
+# A semana seguinte: o mesmo conteudo com esta data tem outro SHA-256.
+LATER_MEMBER_DATE = (2026, 10, 29, 8, 34, 6)
 ZIP_NAME = "inf_mensal_fiagro_" + PERIOD + ".zip"
 
 ADMIN_CNPJ = fake_cnpj(901)
@@ -134,6 +136,18 @@ def merge(*parts):
     return merged
 
 
+def changed(tables=None, **changes):
+    """Copia das linhas (padrao: a classe 1) com {arquivo: {coluna: valor}} em todas as linhas do arquivo."""
+
+    tables = subject_rows() if tables is None else tables
+    copy = {table: [dict(r) for r in rows] for table, rows in tables.items()}
+
+    for table, columns in changes.items():
+        copy[table] = [dict(r, **columns) for r in copy[table]]
+
+    return copy
+
+
 def load_fictitious_cadastro(db, classes=(1,), funds_without_class=()):
     """Carrega um cadastro ficticio de FIAGRO pelo carregador do cadastro.
 
@@ -197,3 +211,9 @@ def build_informe_zip(
             archive.writestr(zipfile.ZipInfo(name, date_time=date_time), data)
 
     return buffer.getvalue()
+
+
+def later_zip(tables=None, date_time=LATER_MEMBER_DATE):
+    """Outro ZIP da mesma competencia (outra semana): outro SHA-256 mesmo sem mudar valor."""
+
+    return build_informe_zip(tables, date_time=date_time)
