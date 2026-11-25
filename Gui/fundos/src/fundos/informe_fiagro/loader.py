@@ -18,7 +18,11 @@ Os field_name do FIAGRO nao coincidem com os do FIDC (tab_*.COLUNA) nem
 com os do cadastro (registro_*.Coluna): a classe que esta em mais de um
 informe nao abre conflito falso.
 
-Linha de chave repetida no arquivo, e as subclasses dela, e par
+Chave repetida no arquivo com a maior Versao numa linha so: essa linha
+entra e as outras (versao anterior no mesmo arquivo) so sao contadas; as
+subclasses dessa classe nao entram, porque o arquivo de subclasse nao tem
+Versao, e sao contadas com motivo proprio. A outra chave repetida (Versao
+igual, empate na maior ou Versao vazia), e as subclasses dela, e o par
 (classe, rotulo) repetido nao sao carregados: so contados.
 
 Uma competencia = um ZIP: o mesmo ZIP (mesmo SHA-256) nao e carregado de
@@ -58,11 +62,18 @@ ONLY_FUND = "CNPJ so como fundo"
 NOT_FOUND = "CNPJ fora do cadastro carregado"
 REASONS = (INVALID_CNPJ, REPEATED_KEY, ONLY_FUND, NOT_FOUND)
 
+# Motivo so da linha de classe: a classe entra pela linha de maior Versao.
+SUPERSEDED = "versao anterior no mesmo arquivo"
+CLASS_LINE_REASONS = (INVALID_CNPJ, REPEATED_KEY, SUPERSEDED, ONLY_FUND, NOT_FOUND)
+
 # Motivos so da linha de subclasse.
 NO_CLASS_ROW = "sem linha no arquivo de classe"
+VERSIONED_SUBCLASS = "subclasse de classe com mais de uma Versao no arquivo"
 EMPTY_LABEL = "rotulo vazio"
 REPEATED_SERIES = "par (classe, rotulo) repetido"
-SUBCLASS_REASONS = (INVALID_CNPJ, NO_CLASS_ROW, REPEATED_KEY, ONLY_FUND, NOT_FOUND, EMPTY_LABEL, REPEATED_SERIES)
+SUBCLASS_REASONS = (
+    INVALID_CNPJ, NO_CLASS_ROW, REPEATED_KEY, ONLY_FUND, NOT_FOUND, VERSIONED_SUBCLASS, EMPTY_LABEL, REPEATED_SERIES,
+)
 
 ALREADY_LOADED = "mesmo ZIP"
 SAME_COMPETENCE = "mesma competencia"
@@ -129,13 +140,21 @@ class ClassResolver:
         if row.table == spec.SUBCLASS_TABLE and cnpj not in self.informe.class_keys:
             return None, NO_CLASS_ROW
 
-        if cnpj in self.informe.repeated_keys:
+        versioned = cnpj in self.informe.versioned_keys
+
+        if cnpj in self.informe.repeated_keys and not versioned:
             return None, REPEATED_KEY
+
+        if versioned and row.table == spec.CLASS_TABLE and row.line != self.informe.chosen_lines[cnpj]:
+            return None, SUPERSEDED
 
         if cnpj not in self.classes:
             return None, ONLY_FUND if cnpj in self.funds else NOT_FOUND
 
         if row.table == spec.SUBCLASS_TABLE:
+            if versioned:
+                return None, VERSIONED_SUBCLASS
+
             if row.series_key is None:
                 return None, EMPTY_LABEL
 
@@ -149,14 +168,15 @@ def iter_matched(informe, table, resolver, counts, classes):
     """Linhas do arquivo que entram: (linha, id da classe).
 
     Conta por arquivo as linhas que entram e as que ficam fora, por motivo;
-    classes guarda o resultado de cada CNPJ do arquivo de classe.
+    classes guarda o resultado de cada CNPJ do arquivo de classe (o da
+    linha escolhida, quando a classe tem mais de uma Versao no arquivo).
     """
 
     for row in informe.rows(table):
         class_id, outcome = resolver.resolve(row)
         counts[("casamento", table, outcome)] += 1
 
-        if table == spec.CLASS_TABLE:
+        if table == spec.CLASS_TABLE and outcome != SUPERSEDED:
             classes.setdefault(row.cnpj, outcome)
 
         if class_id is not None:
@@ -369,6 +389,11 @@ def load_informe(connection, informe, *, progress=None, last_modified=None):
         ("chaves_repetidas_nao_carregadas", counts[("classes", REPEATED_KEY)]),
         ("classes_fora_do_cadastro", counts[("classes", ONLY_FUND)] + counts[("classes", NOT_FOUND)]),
         ("linhas_com_cnpj_classe_invalido", counts[("casamento", spec.CLASS_TABLE, INVALID_CNPJ)]),
+        ("linhas_de_versao_anterior_nao_carregadas", counts[("casamento", spec.CLASS_TABLE, SUPERSEDED)]),
+        (
+            "subclasses_de_classe_com_mais_de_uma_versao",
+            counts[("casamento", spec.SUBCLASS_TABLE, VERSIONED_SUBCLASS)],
+        ),
     ):
         if total:
             summary[label] = total

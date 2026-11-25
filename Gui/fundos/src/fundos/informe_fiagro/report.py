@@ -7,6 +7,7 @@ do codigo.
 
 from fundos.cvm_csv import IDENTIFIER_STATUSES
 from fundos.informe_fiagro import columns as spec
+from fundos.informe_fiagro.loader import CLASS_LINE_REASONS
 from fundos.informe_fiagro.loader import LOADED
 from fundos.informe_fiagro.loader import PARSER_VERSION
 from fundos.informe_fiagro.loader import REASONS
@@ -23,7 +24,7 @@ EXCLUDED_COLUMNS = tuple(
 )
 VALUE_TYPES = ("text", "numeric", "date", "boolean")
 ROLES = tuple(role for role, _, _ in spec.PARTIES)
-TABLE_REASONS = {spec.CLASS_TABLE: REASONS, spec.SUBCLASS_TABLE: SUBCLASS_REASONS}
+TABLE_REASONS = {spec.CLASS_TABLE: CLASS_LINE_REASONS, spec.SUBCLASS_TABLE: SUBCLASS_REASONS}
 
 
 def _statuses(counts, prefix):
@@ -85,7 +86,13 @@ def format_read_report(informe):
         + str(counts[("chaves", "linhas_repetidas")])
         + " linhas; com Versao diferente "
         + str(counts[("chaves", "repetidas_com_versao_diferente")])
-        + "): nenhuma linha nem subclasse de chave repetida e carregada"
+        + "); com a maior Versao numa linha so "
+        + str(counts[("chaves", "escolhidas_pela_versao")])
+        + " (entra essa linha; versao anterior nao carregada "
+        + str(counts[("chaves", "linhas_de_versao_anterior")])
+        + " linha(s); subclasses nao carregadas "
+        + str(counts[("subclasse", "de_classe_com_mais_de_uma_versao")])
+        + "); nenhuma linha nem subclasse das outras chaves repetidas e carregada"
     )
     lines.append(
         "Versao: igual a 1 em "

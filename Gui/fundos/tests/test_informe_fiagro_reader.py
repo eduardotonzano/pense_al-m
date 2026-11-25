@@ -339,6 +339,39 @@ def test_repeated_key_is_marked_and_counted(second_version, different):
     assert counts[("subclasse", "pares_repetidos_fora_das_chaves_repetidas")] == 0
 
 
+@pytest.mark.parametrize(
+    ("versions", "chosen"),
+    (
+        (("1", "2"), 1),
+        (("2", "1"), 0),
+        (("1", "10", "9"), 1),
+        (("1", "1"), None),
+        (("1", "2", "2"), None),
+        (("2", ""), None),
+    ),
+)
+def test_highest_single_version_is_chosen_and_the_rest_is_not(versions, chosen):
+    tables = merge(
+        *(
+            subject_rows(1, labels=(FIRST_SUBCLASS,), Versao=version, Nome_Classe="FIAGRO Exemplo 1" + "ABC"[i] + " (ficticio)")
+            for i, version in enumerate(versions)
+        ),
+        subject_rows(2),
+    )
+    informe = read(build_informe_zip(tables))
+    counts = informe.counts
+    lines = [row.line for row in informe.rows(CLASS) if row.cnpj == fake_cnpj(1)]
+    found = chosen is not None
+
+    assert informe.repeated_keys == {fake_cnpj(1)}
+    assert informe.versioned_keys == ({fake_cnpj(1)} if found else set())
+    assert dict(informe.chosen_lines) == ({fake_cnpj(1): lines[chosen]} if found else {})
+    assert counts[("chaves", "escolhidas_pela_versao")] == int(found)
+    assert counts[("chaves", "linhas_de_versao_anterior")] == (len(versions) - 1 if found else 0)
+    assert counts[("subclasse", "de_classe_com_mais_de_uma_versao")] == (len(versions) if found else 0)
+    assert counts[("subclasse", "de_chave_repetida")] == len(versions)
+
+
 def test_version_and_delivery_are_counted_with_fixed_labels():
     tables = merge(
         subject_rows(1),

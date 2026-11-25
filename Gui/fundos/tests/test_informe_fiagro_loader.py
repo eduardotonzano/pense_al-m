@@ -39,6 +39,8 @@ from fundos.informe_fiagro.loader import PARSER_VERSION
 from fundos.informe_fiagro.loader import REPEATED_KEY
 from fundos.informe_fiagro.loader import REPEATED_SERIES
 from fundos.informe_fiagro.loader import SAME_COMPETENCE
+from fundos.informe_fiagro.loader import SUPERSEDED
+from fundos.informe_fiagro.loader import VERSIONED_SUBCLASS
 from fundos.informe_fiagro.loader import ClassResolver
 from fundos.informe_fiagro.loader import find_loaded_informe
 from fundos.informe_fiagro.loader import load_informe
@@ -239,15 +241,21 @@ def test_invalid_last_modified_is_refused_before_writing(loaded_db, value, messa
     assert snapshot(loaded_db) == before
 
 
-@pytest.mark.parametrize(("second_version", "different"), (("1", 0), ("2", 1)))
-def test_repeated_key_loads_nothing_of_that_class(loaded_db, second_version, different):
-    informe = read_tables(
-        merge(
-            subject_rows(1),
-            subject_rows(1, labels=(FIRST_SUBCLASS,), Nome_Classe="FIAGRO Exemplo 1B (ficticio)", Versao=second_version),
-            subject_rows(2),
-        )
-    )
+def repeated_class(*versions):
+    """A classe 1 numa linha por Versao (a primeira com 2 subclasses, as outras com 1) e a classe 2."""
+
+    first = subject_rows(1, Versao=versions[0])
+    others = [
+        subject_rows(1, labels=(FIRST_SUBCLASS,), Nome_Classe="FIAGRO Exemplo 1" + "BC"[i] + " (ficticio)", Versao=version)
+        for i, version in enumerate(versions[1:])
+    ]
+    return merge(first, *others, subject_rows(2))
+
+
+# A FU5.1 continua: mesma Versao, empate na maior ou Versao vazia nao escolhe linha.
+@pytest.mark.parametrize(("versions", "different"), ((("1", "1"), 0), (("1", "2", "2"), 1), (("2", ""), 1)))
+def test_repeated_key_loads_nothing_of_that_class(loaded_db, versions, different):
+    informe = read_tables(repeated_class(*versions))
     result = load(loaded_db, informe)
     counts = result.counts
 
@@ -256,13 +264,47 @@ def test_repeated_key_loads_nothing_of_that_class(loaded_db, second_version, dif
     assert count(loaded_db, "quota_series", "fund_class_id = ?", (class_id(loaded_db, 1),)) == 0
     assert count(loaded_db, "party_observations", FIAGRO_CLASS_ROWS, (class_id(loaded_db, 1),)) == 0
     assert count(loaded_db, "observations", FIAGRO_CLASS_ROWS, (class_id(loaded_db, 2),)) == 122
-    assert counts[("casamento", CLASS, REPEATED_KEY)] == 2
-    assert counts[("casamento", SUBCLASS, REPEATED_KEY)] == 3
+    assert counts[("casamento", CLASS, REPEATED_KEY)] == len(versions)
+    assert counts[("casamento", SUBCLASS, REPEATED_KEY)] == len(versions) + 1
+    assert counts[("casamento", CLASS, SUPERSEDED)] == 0
     assert counts[("classes", REPEATED_KEY)] == 1
     assert counts[("classes", LOADED)] == 1
     status, requested, successful, failed, summary = run_summary(loaded_db)
     assert (status, requested, successful, failed) == ("success", 2, 1, 0)
     assert json.loads(summary) == {"chaves_repetidas_nao_carregadas": 1}
+
+
+@pytest.mark.parametrize("versions", (("1", "2"), ("2", "1")))
+def test_highest_version_in_the_same_zip_loads_and_its_subclasses_do_not(loaded_db, versions):
+    tables = repeated_class(*versions)
+    patrimonio = {"1": "1000", "2": "2000"}
+
+    for row in tables[CLASS][:2]:
+        row["Patrimonio_Liquido"] = patrimonio[row["Versao"]]
+
+    result = load(loaded_db, read_tables(tables))
+    counts = result.counts
+    fund_class = class_id(loaded_db, 1)
+
+    assert current(loaded_db, "inf_mensal_fiagro.Versao", fund_class_id=fund_class).value_numeric == "2"
+    assert current(loaded_db, "inf_mensal_fiagro.Patrimonio_Liquido", fund_class_id=fund_class).value_numeric == "2000"
+    assert count(loaded_db, "observations", FIAGRO_CLASS_ROWS, (fund_class,)) == 122
+    assert count(loaded_db, "party_observations", FIAGRO_CLASS_ROWS, (fund_class,)) == 2
+    # As subclasses nao se ligam a uma Versao: nenhuma entra (P2).
+    assert count(loaded_db, "quota_series", "fund_class_id = ?", (fund_class,)) == 0
+    assert count(loaded_db, "data_conflicts") == 0
+    assert counts[("casamento", CLASS, LOADED)] == 2
+    assert counts[("casamento", CLASS, SUPERSEDED)] == 1
+    assert counts[("casamento", SUBCLASS, VERSIONED_SUBCLASS)] == 3
+    assert counts[("casamento", SUBCLASS, REPEATED_KEY)] == 0
+    assert counts[("classes", LOADED)] == 2
+    assert counts[("classes", REPEATED_KEY)] == 0
+    status, requested, successful, failed, summary = run_summary(loaded_db)
+    assert (status, requested, successful, failed) == ("success", 2, 2, 0)
+    assert json.loads(summary) == {
+        "linhas_de_versao_anterior_nao_carregadas": 1,
+        "subclasses_de_classe_com_mais_de_uma_versao": 3,
+    }
 
 
 def test_version_two_alone_is_the_current_value(loaded_db):
