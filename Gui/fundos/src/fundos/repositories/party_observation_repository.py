@@ -14,8 +14,8 @@ O percentual do cedente fica em party_observation_shares (migration 003),
 Limitacao: uma parte que some numa reapresentacao da mesma competencia nao
 gera conflito, porque as linhas se somam.
 
-Valor que volta: como em observations, restatement=True (so a carga do
-informe de FIDC usa) grava a linha reapresentada, com a coleta no checksum,
+Valor que volta: como em observations, restatement=True (so as cargas dos
+informes de FIDC e de FIAGRO usam) grava a linha reapresentada, com a coleta no checksum,
 e nao abre de novo o conflito que o par de valores ja tem.
 """
 

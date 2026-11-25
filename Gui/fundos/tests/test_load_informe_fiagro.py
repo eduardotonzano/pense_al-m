@@ -50,9 +50,12 @@ SECRETS = (
 )
 
 SAME_COMPETENCE = (
-    "Ja existe informe de FIAGRO carregado para a competencia 2026-09 (outro ZIP). A reapresentacao"
-    " do informe de FIAGRO ainda nao existe (tarefa propria)"
+    "Ja existe informe de FIAGRO carregado para a competencia 2026-09 (outro ZIP). Para carregar"
+    " este ZIP como reapresentacao, informe --last-modified"
 )
+
+LM1 = "2026-10-24T11:46:15Z"
+LM2_HTTP = "Sat, 31 Oct 2026 11:46:15 GMT"
 
 
 def load_module():
@@ -229,26 +232,94 @@ def test_second_commit_has_nothing_to_load(script, database, zip_path, tmp_path,
     assert len(backups_in(tmp_path / "bk")) == 1
 
 
-def test_other_zip_of_the_same_competence_is_refused(script, database, zip_path, tmp_path, capsys):
+def test_other_zip_of_the_same_competence_needs_last_modified(script, database, zip_path, tmp_path, capsys):
     run_with(script, database, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"))
     capsys.readouterr()
     before = file_hash(database)
     other = other_zip(tmp_path, subject_rows(Patrimonio_Liquido="2000"))
 
-    dry = run_with(script, database, other, "--dry-run", "--last-modified", "2026-10-31T09:00:00Z")
+    dry = run_with(script, database, other, "--dry-run")
     dry_output = capsys.readouterr().out
-    code = run_with(
-        script, database, other, "--commit", "--backup-dir", str(tmp_path / "bk"),
-        "--last-modified", "2026-10-31T09:00:00Z",
-    )
+    code = run_with(script, database, other, "--commit", "--backup-dir", str(tmp_path / "bk"))
     error = capsys.readouterr().err
 
     assert dry == 0
-    assert "Banco: o --commit seria recusado: " + SAME_COMPETENCE + "." in dry_output
+    assert "Banco: o --commit seria recusado: " + SAME_COMPETENCE in dry_output
+    assert "Reapresentacao: comparacao com o ultimo valor carregado" in dry_output
+    assert "Last-Modified do ZIP: nao informado" in dry_output
     assert code == 1
-    assert SAME_COMPETENCE + ". O banco nao foi alterado." in error
+    assert SAME_COMPETENCE in error
     assert file_hash(database) == before
     assert len(backups_in(tmp_path / "bk")) == 1
+
+
+def test_commit_of_a_reapresentation(script, database, zip_path, tmp_path, capsys):
+    arguments = ("--commit", "--backup-dir", str(tmp_path / "bk"))
+    run_with(script, database, zip_path, *arguments, "--last-modified", LM1)
+    capsys.readouterr()
+    other = other_zip(tmp_path, subject_rows(Patrimonio_Liquido="98765.4321"))
+
+    dry = run_with(script, database, other, "--dry-run", "--last-modified", LM2_HTTP)
+    dry_output = capsys.readouterr().out
+    code = run_with(script, database, other, *arguments, "--last-modified", LM2_HTTP)
+    output = capsys.readouterr().out
+
+    assert (dry, code) == (0, 0)
+    assert "Last-Modified do ZIP a gravar (UTC): 2026-10-31T11:46:15.000000+00:00" in dry_output
+    assert "ZIPs ja carregados desta competencia: 1; maior Last-Modified 2026-10-24T11:46:15.000000+00:00" in dry_output
+    assert "o --commit carregaria este como reapresentacao" in dry_output
+    assert "  celulas inf_mensal_fiagro: iguais 121, alteradas 1, novas 0, voltam a valor anterior 0, sumiram 0" in output
+    assert "  observations inf_mensal_fiagro: criadas 1, existentes 121" in output
+    assert "Carga concluida." in output
+    assert len(backups_in(tmp_path / "bk")) == 2
+    assert query(
+        database,
+        "SELECT last_modified FROM raw_records WHERE parent_raw_record_id IS NULL AND file_name = ? ORDER BY id",
+        (ZIP_NAME,),
+    ) == [("2026-10-24T11:46:15.000000+00:00",), ("2026-10-31T11:46:15.000000+00:00",)]
+
+
+def test_older_zip_is_refused_on_dry_run_and_commit(script, database, zip_path, tmp_path, capsys):
+    run_with(script, database, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"), "--last-modified", LM2_HTTP)
+    capsys.readouterr()
+    before = file_hash(database)
+    other = other_zip(tmp_path, subject_rows(Patrimonio_Liquido="2000"))
+    message = (
+        "O Last-Modified deste ZIP (2026-10-24T11:46:15.000000+00:00) nao e posterior ao do ZIP mais"
+        " novo ja carregado da competencia 2026-09 (2026-10-31T11:46:15.000000+00:00)"
+    )
+
+    dry = run_with(script, database, other, "--dry-run", "--last-modified", LM1)
+    dry_output = capsys.readouterr().out
+    code = run_with(script, database, other, "--commit", "--backup-dir", str(tmp_path / "bk"), "--last-modified", LM1)
+    error = capsys.readouterr().err
+
+    assert dry == 0
+    assert "Banco: o --commit seria recusado: " + message in dry_output
+    assert code == 1
+    assert message in error
+    assert file_hash(database) == before
+    assert len(backups_in(tmp_path / "bk")) == 1
+
+
+def test_reapresentation_output_has_only_aggregates(script, database, zip_path, tmp_path, capsys):
+    run_with(script, database, zip_path, "--commit", "--backup-dir", str(tmp_path / "bk"), "--last-modified", LM1)
+    capsys.readouterr()
+    tables = subject_rows(Patrimonio_Liquido="98765.4321", Nome_Gestor="Gestora Ficticia Renomeada Ltda")
+    other = other_zip(tmp_path, tables)
+
+    run_with(script, database, other, "--dry-run", "--last-modified", LM2_HTTP)
+    dry = capsys.readouterr()
+    code = run_with(script, database, other, "--commit", "--backup-dir", str(tmp_path / "bk"), "--last-modified", LM2_HTTP)
+    committed = capsys.readouterr()
+    text = dry.out + dry.err + committed.out + committed.err
+
+    assert code == 0
+    assert "Reapresentacao: comparacao com o ultimo valor carregado" in committed.out
+    assert "nome alterado 1" in committed.out
+
+    for secret in SECRETS + ("98765.4321", "Renomeada"):
+        assert secret not in text
 
 
 @pytest.mark.parametrize(

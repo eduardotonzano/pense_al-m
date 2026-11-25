@@ -14,9 +14,14 @@ hoje (UTC). A data gravada nao e a literal do arquivo; a literal e
 reconstruivel, porque so o dia 1 e aceito.
 
 Chaves: um CNPJ_Classe que aparece em mais de uma linha do arquivo de
-classe nao e carregado (nenhuma das linhas, nem as subclasses dele), e o
-par (CNPJ_Classe, rotulo normalizado) repetido no arquivo de subclasse
-tambem nao. Nada e escolhido por Versao, Data_Entrega ou nome; tudo e
+classe so tem uma linha escolhida quando todas as linhas tem Versao e a
+maior Versao (comparada como numero) e de uma linha so: essa linha vale e
+as outras sao de versao anterior. O arquivo de subclasse nao tem Versao,
+entao as subclasses de uma classe com mais de uma linha nunca se ligam a
+uma versao. Empate na maior Versao, ou Versao vazia, deixa a chave
+repetida sem escolha (nenhuma linha, nem as subclasses dela, e carregada),
+e o par (CNPJ_Classe, rotulo normalizado) repetido no arquivo de
+subclasse tambem nao. Nada e escolhido por Data_Entrega ou nome; tudo e
 contado.
 
 Normalizacao: CNPJ sem mascara (12 ou 13 digitos ganham os zeros), S/N
@@ -42,6 +47,7 @@ from dataclasses import dataclass
 from dataclasses import field
 from datetime import datetime
 from datetime import timezone
+from decimal import Decimal
 from pathlib import Path
 from types import MappingProxyType
 
@@ -106,9 +112,11 @@ class InformeFile:
     reference e o Data_Referencia (dia 1); competence e o ultimo dia do mes,
     a data gravada. class_keys tem os CNPJ_Classe validos do arquivo de
     classe; repeated_keys, os que aparecem em mais de uma linha;
-    repeated_series, os pares (CNPJ_Classe, rotulo normalizado) repetidos no
-    arquivo de subclasse. rows(tabela) le de novo o membro (guardado em
-    bytes). Nada disso aparece no repr.
+    versioned_keys, os repetidos com a maior Versao numa linha so, e
+    chosen_lines, a linha escolhida de cada um; repeated_series, os pares
+    (CNPJ_Classe, rotulo normalizado) repetidos no arquivo de subclasse.
+    rows(tabela) le de novo o membro (guardado em bytes). Nada disso
+    aparece no repr.
     """
 
     zip: InformeZipManifest
@@ -118,6 +126,8 @@ class InformeFile:
     counts: Counter
     class_keys: frozenset[str] = field(repr=False)
     repeated_keys: frozenset[str] = field(repr=False)
+    versioned_keys: frozenset[str] = field(repr=False)
+    chosen_lines: MappingProxyType = field(repr=False, compare=False)
     repeated_series: frozenset[tuple[str, str]] = field(repr=False)
     contents: MappingProxyType = field(repr=False, compare=False)
 
@@ -380,6 +390,22 @@ def _version_status(row):
     return VERSION_ONE if version == "1" else VERSION_OTHER
 
 
+def chosen_line(entries):
+    """Linha de maior Versao entre (linha, Versao) da mesma chave, ou None.
+
+    None quando alguma linha nao tem Versao ou quando a maior Versao esta
+    em mais de uma linha: ai nada e escolhido.
+    """
+
+    if any(version is None for _, version in entries):
+        return None
+
+    top = max(Decimal(version) for _, version in entries)
+    lines = [line for line, version in entries if Decimal(version) == top]
+
+    return lines[0] if len(lines) == 1 else None
+
+
 def read_informe_bytes(data, file_name, *, progress=None, max_member_bytes=MAX_MEMBER_BYTES):
     """Le e confere o ZIP ja carregado em memoria; devolve InformeFile.
 
@@ -399,6 +425,8 @@ def read_informe_bytes(data, file_name, *, progress=None, max_member_bytes=MAX_M
     references = set()
     keys = Counter()
     versions = defaultdict(set)
+    lines_of = defaultdict(list)
+    subclass_lines = Counter()
     names = {}
     deliveries = set()
     isins = defaultdict(set)
@@ -449,6 +477,7 @@ def read_informe_bytes(data, file_name, *, progress=None, max_member_bytes=MAX_M
                     if row.cnpj is not None:
                         keys[row.cnpj] += 1
                         versions[row.cnpj].add(row.values.get(spec.VERSION_COLUMN))
+                        lines_of[row.cnpj].append((row.line, row.values.get(spec.VERSION_COLUMN)))
                         names[row.cnpj] = row.name
 
                     continue
@@ -460,6 +489,8 @@ def read_informe_bytes(data, file_name, *, progress=None, max_member_bytes=MAX_M
 
                 if row.cnpj is None:
                     continue
+
+                subclass_lines[row.cnpj] += 1
 
                 if row.cnpj not in keys:
                     counts[("subclasse", "sem_classe_no_arquivo")] += 1
@@ -482,6 +513,15 @@ def read_informe_bytes(data, file_name, *, progress=None, max_member_bytes=MAX_M
 
     reference, competence = _check_reference(references, period)
     repeated_keys = frozenset(cnpj for cnpj, n in keys.items() if n > 1)
+    chosen = {}
+
+    for cnpj in repeated_keys:
+        line = chosen_line(lines_of[cnpj])
+
+        if line is not None:
+            chosen[cnpj] = line
+
+    versioned_keys = frozenset(chosen)
     repeated_series = frozenset(pair for pair, n in pairs.items() if n > 1)
     outside = [pair for pair in repeated_series if pair[0] not in repeated_keys]
 
@@ -490,6 +530,11 @@ def read_informe_bytes(data, file_name, *, progress=None, max_member_bytes=MAX_M
     counts[("chaves", "linhas_repetidas")] = sum(keys[cnpj] for cnpj in repeated_keys)
     counts[("chaves", "repetidas_com_versao_diferente")] = sum(
         1 for cnpj in repeated_keys if len(versions[cnpj]) > 1
+    )
+    counts[("chaves", "escolhidas_pela_versao")] = len(versioned_keys)
+    counts[("chaves", "linhas_de_versao_anterior")] = sum(keys[cnpj] - 1 for cnpj in versioned_keys)
+    counts[("subclasse", "de_classe_com_mais_de_uma_versao")] = sum(
+        subclass_lines[cnpj] for cnpj in versioned_keys
     )
     counts[("data_entrega", "distintas")] = len(deliveries)
     counts[("isin", "distintos")] = len(isins)
@@ -521,6 +566,8 @@ def read_informe_bytes(data, file_name, *, progress=None, max_member_bytes=MAX_M
         counts=counts,
         class_keys=frozenset(keys),
         repeated_keys=repeated_keys,
+        versioned_keys=versioned_keys,
+        chosen_lines=MappingProxyType(chosen),
         repeated_series=repeated_series,
         contents=MappingProxyType(contents),
     )

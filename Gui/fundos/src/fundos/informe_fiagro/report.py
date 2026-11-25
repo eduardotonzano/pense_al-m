@@ -7,13 +7,22 @@ do codigo.
 
 from fundos.cvm_csv import IDENTIFIER_STATUSES
 from fundos.informe_fiagro import columns as spec
+from fundos.informe_fiagro.compare import DELIVERY_EARLIER
+from fundos.informe_fiagro.compare import PARTY_STATUSES
+from fundos.informe_fiagro.compare import SAME_VERSION_CHANGED
+from fundos.informe_fiagro.compare import VERSION_HIGHER
+from fundos.informe_fiagro.loader import CLASS_LINE_REASONS
 from fundos.informe_fiagro.loader import LOADED
 from fundos.informe_fiagro.loader import PARSER_VERSION
 from fundos.informe_fiagro.loader import REASONS
 from fundos.informe_fiagro.loader import SUBCLASS_REASONS
+from fundos.informe_fiagro.loader import WITHHELD_FILES
 from fundos.informe_fiagro.reader import VERSION_EMPTY
 from fundos.informe_fiagro.reader import VERSION_ONE
 from fundos.informe_fiagro.reader import VERSION_OTHER
+from fundos.informe_fidc.compare import CELL_STATUSES
+from fundos.informe_fidc.compare import VANISHED_EMPTY
+from fundos.informe_fidc.compare import VANISHED_ROW
 
 
 EXCLUDED_COLUMNS = tuple(
@@ -23,7 +32,21 @@ EXCLUDED_COLUMNS = tuple(
 )
 VALUE_TYPES = ("text", "numeric", "date", "boolean")
 ROLES = tuple(role for role, _, _ in spec.PARTIES)
-TABLE_REASONS = {spec.CLASS_TABLE: REASONS, spec.SUBCLASS_TABLE: SUBCLASS_REASONS}
+TABLE_REASONS = {spec.CLASS_TABLE: CLASS_LINE_REASONS, spec.SUBCLASS_TABLE: SUBCLASS_REASONS}
+
+# Rotulos da comparacao da reapresentacao (compare.py).
+STATUS_LABELS = {
+    "iguais": "iguais",
+    "alteradas": "alteradas",
+    "novas": "novas",
+    "voltam": "voltam a valor anterior",
+    "nome_alterado": "nome alterado",
+    "cnpj_trocado": "CNPJ trocado na posicao",
+    "entrou": "entrou",
+    "saiu": "saiu",
+    "retidos": "retidos (classe nao comparada)",
+}
+WITHHELD_REASONS = tuple(WITHHELD_FILES)
 
 
 def _statuses(counts, prefix):
@@ -85,7 +108,13 @@ def format_read_report(informe):
         + str(counts[("chaves", "linhas_repetidas")])
         + " linhas; com Versao diferente "
         + str(counts[("chaves", "repetidas_com_versao_diferente")])
-        + "): nenhuma linha nem subclasse de chave repetida e carregada"
+        + "); com a maior Versao numa linha so "
+        + str(counts[("chaves", "escolhidas_pela_versao")])
+        + " (entra essa linha; versao anterior nao carregada "
+        + str(counts[("chaves", "linhas_de_versao_anterior")])
+        + " linha(s); subclasses nao carregadas "
+        + str(counts[("subclasse", "de_classe_com_mais_de_uma_versao")])
+        + "); nenhuma linha nem subclasse das outras chaves repetidas e carregada"
     )
     lines.append(
         "Versao: igual a 1 em "
@@ -234,6 +263,92 @@ def format_candidates_report(counts):
         "  party_observations: "
         + ", ".join(role + " " + str(counts[("papeis_candidatos", role)]) for role in ROLES)
     )
+
+    return lines
+
+
+def _cells(counts, tables):
+    parts = [
+        STATUS_LABELS[status]
+        + " "
+        + str(sum(counts[("reapresentacao", "celulas", table, status)] for table in tables))
+        for status in CELL_STATUSES
+    ]
+    empty = sum(counts[("reapresentacao", "sumiram", table, VANISHED_EMPTY)] for table in tables)
+    without_row = sum(counts[("reapresentacao", "sumiram", table, VANISHED_ROW)] for table in tables)
+    held = [
+        sum(counts[("reapresentacao", "retidas", table, reason)] for table in tables)
+        for reason in WITHHELD_REASONS
+    ]
+
+    return (
+        ", ".join(parts)
+        + ", sumiram "
+        + str(empty + without_row)
+        + " (vazias no ZIP novo "
+        + str(empty)
+        + ", sem a linha "
+        + str(without_row)
+        + "); retidas, nao comparadas "
+        + str(sum(held))
+        + " ("
+        + "; ".join(reason + " " + str(n) for reason, n in zip(WITHHELD_REASONS, held))
+        + ")"
+    )
+
+
+def format_reapresentation_report(counts):
+    """Linhas da comparacao do ZIP novo com o ultimo valor carregado (so contagens)."""
+
+    lines = [
+        "Reapresentacao: comparacao com o ultimo valor carregado desta fonte na competencia"
+        " (ZIPs ja carregados: "
+        + str(counts[("reapresentacao", "zips")])
+        + "):"
+    ]
+    lines.extend("  celulas " + table + ": " + _cells(counts, (table,)) for table in spec.TABLES)
+    lines.append("  celulas total: " + _cells(counts, spec.TABLES))
+    lines.append(
+        "  classes: nos dois "
+        + str(counts[("reapresentacao", "classes", "nos_dois")])
+        + ", novas "
+        + str(counts[("reapresentacao", "classes", "novas")])
+        + ", sumiram "
+        + str(counts[("reapresentacao", "classes", "sumiram")])
+        + " (com "
+        + str(counts[("reapresentacao", "classes", "celulas_das_que_sumiram")])
+        + " celula(s) no banco; nada e apagado), retidas por Versao menor que a carregada "
+        + str(counts[("reapresentacao", "classes", "retidas")])
+    )
+    lines.append(
+        "  Versao da classe contra a carregada (so contada, nao ordena nada): subiu "
+        + str(counts[("reapresentacao", "versao", VERSION_HIGHER)])
+        + ", a mesma com celula alterada "
+        + str(counts[("reapresentacao", "versao", SAME_VERSION_CHANGED)])
+        + ", Data_Entrega anterior a carregada "
+        + str(counts[("reapresentacao", "versao", DELIVERY_EARLIER)])
+    )
+    lines.append(
+        "  series (classe e rotulo): novas "
+        + str(counts[("reapresentacao", "series", "novas")])
+        + ", sumiram "
+        + str(counts[("reapresentacao", "series", "sumiram")])
+        + "; classes com serie nova e serie que sumiu (possivel troca de rotulo): "
+        + str(counts[("reapresentacao", "series", "possivel_troca_de_rotulo")])
+        + "; retidas, nao comparadas "
+        + str(counts[("reapresentacao", "series", "retidas")])
+    )
+
+    for role in ROLES:
+        lines.append(
+            "  party_observations "
+            + role
+            + ": "
+            + ", ".join(
+                STATUS_LABELS[status] + " " + str(counts[("reapresentacao", "papeis", role, status)])
+                for status in PARTY_STATUSES
+            )
+        )
 
     return lines
 
