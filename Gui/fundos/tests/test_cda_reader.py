@@ -15,6 +15,8 @@ from apoio_cda import HOLDER_NAME
 from apoio_cda import INVESTEE_NAME
 from apoio_cda import INVESTEES
 from apoio_cda import OTHER_HOLDER
+from apoio_cda import PADDED_CPF_DV_FAILS
+from apoio_cda import PADDED_CPF_DV_PASSES
 from apoio_cda import PERSON_NAME
 from apoio_cda import ZIP_NAME
 from apoio_cda import build_cda_zip
@@ -23,7 +25,6 @@ from apoio_cda import fic_fidc_rows
 from apoio_cda import fie_row
 from apoio_cda import investee_name
 from apoio_cda import other_row
-from apoio_informe_fidc import ambiguous_cpf
 from apoio_informe_fidc import cnpj_with_two_leading_zeros
 from fundos.cda import columns
 from fundos.cda.reader import CONFIDENTIAL
@@ -39,12 +40,7 @@ from fundos.cda.reader import read_cda_bytes
 from fundos.cda.reader import read_cda_zip
 from fundos.cda.report import format_read_report
 from fundos.cnpj import is_valid_cnpj
-
-
-# CPF ficticio completado com zeros ate 14 caracteres, nos dois casos da
-# secao 12.6: o DV de CNPJ falha, ou fecha por acaso.
-PADDED_CPF_DV_FAILS = "000" + FAKE_CPF
-PADDED_CPF_DV_PASSES = "000" + ambiguous_cpf()
+from fundos.cnpj import looks_like_cpf
 
 
 def read(data=None, **options):
@@ -220,6 +216,28 @@ def test_cpf_padded_with_zeros_in_pf_line_is_refused_in_both_dv_cases():
     assert PADDED_CPF_DV_FAILS not in output
     assert PADDED_CPF_DV_PASSES not in output
     assert PERSON_NAME not in output
+
+
+def test_cpf_padded_with_zeros_in_pj_line_follows_guard_a():
+    # Guarda (a), aprovada em 25/11/2026: numa linha PJ, os 14 caracteres so
+    # valem como CNPJ se o DV de CNPJ fechar. O CPF ficticio completado com
+    # zeros cujo DV falha e recusado; o que fecha por acaso e aceito como
+    # CNPJ, e a varredura de 11 digitos nao o ve. E o risco residual
+    # registrado no README do modulo.
+    rows = [
+        fie_row(CPF_CNPJ_EMISSOR=PADDED_CPF_DV_FAILS, EMISSOR=PERSON_NAME),
+        fie_row(CPF_CNPJ_EMISSOR=PADDED_CPF_DV_PASSES),
+    ]
+    cda = read_rows(rows)
+    output = repr(cda) + repr(cda.counts) + "\n".join(format_read_report(cda))
+
+    assert check_investee("PJ", PADDED_CPF_DV_FAILS) == (None, REFUSED_DV)
+    assert check_investee("PJ", PADDED_CPF_DV_PASSES) == (PADDED_CPF_DV_PASSES, None)
+    assert [h.investee_cnpj for h in cda.holdings()] == [PADDED_CPF_DV_PASSES]
+    assert refused(cda, REFUSED_DV) == 1
+    assert cda.counts[(IDENTIFIED, "emissor_descartado")] == 1
+    assert not looks_like_cpf(PADDED_CPF_DV_PASSES)
+    assert_hidden(output)
 
 
 @pytest.mark.parametrize(

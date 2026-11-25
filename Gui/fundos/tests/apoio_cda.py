@@ -10,6 +10,8 @@ os decodifica.
 import io
 import zipfile
 
+from apoio import FAKE_CPF
+from apoio import FAKE_CPF_MASKED
 from apoio import make_test_cnpj
 from apoio_cadastro import FIAGRO_CLASS
 from apoio_cadastro import build_zip
@@ -17,6 +19,7 @@ from apoio_cadastro import class_row
 from apoio_cadastro import csv_bytes
 from apoio_cadastro import fund_row
 from apoio_cadastro import masked
+from apoio_informe_fidc import ambiguous_cpf
 from fundos.cadastro.loader import load_cadastro
 from fundos.cadastro.reader import read_cadastro_bytes
 from fundos.cadastro.selection import select_fidc_fiagro
@@ -37,6 +40,25 @@ INVESTEES = (make_test_cnpj(4), make_test_cnpj(5), make_test_cnpj(6))
 HOLDER_NAME = "FIDC Detentor (ficticio)"
 INVESTEE_NAME = "FIDC Investido (ficticio)"
 PERSON_NAME = "Pessoa Natural (ficticia)"
+
+# CPF ficticio completado com zeros ate 14 caracteres, nos dois casos da
+# secao 12.6: o DV de CNPJ falha, ou fecha por acaso.
+PADDED_CPF_DV_FAILS = "000" + FAKE_CPF
+PADDED_CPF_DV_PASSES = "000" + ambiguous_cpf()
+
+# Investido ficticio com o ultimo DV trocado (DV de CNPJ invalido).
+WRONG_DV_INVESTEE = INVESTEES[1][:13] + str((int(INVESTEES[1][13]) + 1) % 10)
+
+# Tudo o que as guardas (a) e (b) descartam em refused_identifier_rows():
+# nunca pode chegar ao banco, ao relatorio nem a mensagem de erro.
+REFUSED_TEXTS = (
+    FAKE_CPF,
+    FAKE_CPF_MASKED,
+    PADDED_CPF_DV_FAILS,
+    PADDED_CPF_DV_PASSES,
+    WRONG_DV_INVESTEE,
+    PERSON_NAME,
+)
 
 # Conteudo dos membros que o leitor so manifesta. O byte 0x81 nao existe em
 # cp1252: se o leitor decodificasse, a leitura falharia.
@@ -144,6 +166,27 @@ def fic_fidc_rows():
     return [
         fie_row(investee=investee, EMISSOR=investee_name(n), VL_MERC_POS_FINAL=str(100 * n) + ".5")
         for n, investee in enumerate(INVESTEES, start=1)
+    ]
+
+
+def refused_identifier_rows():
+    """Linhas ficticias de cotas cujo identificador as guardas (a) e (b) recusam.
+
+    Todas com nome de pessoa natural ficticio em EMISSOR: PF com CPF, com a
+    mascara de CPF e com o CPF completado com zeros (o DV de CNPJ falha e
+    fecha); PJ com o CPF completado cujo DV de CNPJ falha; e PJ com DV de
+    CNPJ invalido. Recusas esperadas: PF 4 e DV 2.
+    """
+
+    person = {"EMISSOR": PERSON_NAME}
+
+    return [
+        fie_row(PF_PJ_EMISSOR="PF", CPF_CNPJ_EMISSOR=FAKE_CPF, **person),
+        fie_row(PF_PJ_EMISSOR="PF", CPF_CNPJ_EMISSOR=FAKE_CPF_MASKED, **person),
+        fie_row(PF_PJ_EMISSOR="PF", CPF_CNPJ_EMISSOR=PADDED_CPF_DV_FAILS, **person),
+        fie_row(PF_PJ_EMISSOR="PF", CPF_CNPJ_EMISSOR=PADDED_CPF_DV_PASSES, **person),
+        fie_row(CPF_CNPJ_EMISSOR=PADDED_CPF_DV_FAILS, **person),
+        fie_row(CPF_CNPJ_EMISSOR=WRONG_DV_INVESTEE, **person),
     ]
 
 

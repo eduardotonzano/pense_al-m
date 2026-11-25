@@ -10,6 +10,9 @@ from apoio_cda import FUND_ONLY
 from apoio_cda import HOLDER
 from apoio_cda import INVESTEES
 from apoio_cda import OTHER_HOLDER
+from apoio_cda import PADDED_CPF_DV_PASSES
+from apoio_cda import PERSON_NAME
+from apoio_cda import REFUSED_TEXTS
 from apoio_cda import UNKNOWN_HOLDER
 from apoio_cda import ZIP_NAME
 from apoio_cda import build_cda_zip
@@ -18,6 +21,7 @@ from apoio_cda import fic_fidc_rows
 from apoio_cda import fie_row
 from apoio_cda import investee_name
 from apoio_cda import load_fictitious_cadastro
+from apoio_cda import refused_identifier_rows
 from conftest import MIGRATION_001
 from conftest import MIGRATIONS_DIR
 from conftest import create_schema
@@ -445,6 +449,86 @@ def test_scan_counts_invalid_cnpj_and_cpf_format(loaded_db):
 
     assert found == (1, 1)
     assert count(loaded_db, "holdings", "investee_name = ?", (FAKE_CPF_MASKED,)) == 0
+
+
+def cells_with(db, value, *, inside=False):
+    """Celulas de todas as tabelas iguais ao valor, sem espacos nas pontas (ou que o contem)."""
+
+    condition = "instr(CAST({0} AS TEXT), ?) > 0" if inside else "trim(CAST({0} AS TEXT)) = ?"
+    total = 0
+
+    with db.connection() as connection:
+        tables = [
+            row[0]
+            for row in connection.execute(
+                "SELECT name FROM sqlite_master WHERE type = 'table' AND name NOT LIKE 'sqlite_%'"
+            )
+        ]
+
+        for table in tables:
+            for column in connection.execute('PRAGMA table_info("' + table + '")').fetchall():
+                sql = 'SELECT COUNT(*) FROM "' + table + '" WHERE ' + condition.format('"' + column[1] + '"')
+                total += connection.execute(sql, (value,)).fetchone()[0]
+
+    return total
+
+
+def test_refused_identifiers_never_reach_the_database(loaded_db):
+    # Guardas (a), (b) e (c): o CPF, a mascara de CPF, o CPF completado com
+    # zeros (nos dois casos de DV), o DV errado e o nome de pessoa natural,
+    # todos ficticios, nao chegam a tabela nenhuma; so a contagem fica.
+    cda = read_rows(fic_fidc_rows() + refused_identifier_rows())
+    result = load(loaded_db, cda)
+
+    assert cda.counts[(IDENTIFIED, "identificador_recusado", "PF")] == 4
+    assert cda.counts[(IDENTIFIED, "identificador_recusado", "DV")] == 2
+    assert cda.counts[(IDENTIFIED, "emissor_descartado")] == 6
+    assert count(loaded_db, "holdings") == 3
+    assert result.counts[("varredura", "cnpj_invalido")] == 0
+    assert result.counts[("varredura", "formato_cpf")] == 0
+    # Controle: a busca acha o que foi gravado.
+    assert cells_with(loaded_db, INVESTEES[0]) > 0
+    assert cells_with(loaded_db, investee_name(1), inside=True) > 0
+
+    for value in REFUSED_TEXTS:
+        assert cells_with(loaded_db, value) == 0
+
+    assert cells_with(loaded_db, PERSON_NAME, inside=True) == 0
+
+
+def test_pre_commit_scan_does_not_see_a_padded_cpf(loaded_db):
+    # A varredura antes do COMMIT procura so 11 digitos ou a mascara de CPF.
+    # O CPF ficticio completado com zeros cujo DV de CNPJ fecha passa por ela
+    # (e pelo repositorio, que so exige DV valido): quem o barra numa linha
+    # PF e a guarda (a) do leitor. Gravado aqui direto, numa transacao
+    # desfeita no fim, so para provar o limite da varredura.
+    load(loaded_db)
+    holder = class_id(loaded_db, HOLDER)
+
+    with loaded_db.connection() as connection:
+        run, source, raw = tuple(
+            connection.execute(
+                "SELECT collection_run_id, source_id, raw_record_id FROM holdings ORDER BY id LIMIT 1"
+            ).fetchone()
+        )
+        connection.execute("BEGIN")
+        HoldingRepository(connection).record(
+            fund_class_id=holder,
+            investee_field_name=columns.INVESTEE_FIELD,
+            investee_cnpj=PADDED_CPF_DV_PASSES,
+            value_field_name=columns.VALUE_FIELD,
+            market_value="1",
+            source_id=source,
+            collection_run_id=run,
+            raw_record_id=raw,
+            reference_date=COMPETENCE,
+            line_order=1,
+        )
+        found = scan_positions(connection, run)
+        connection.execute("ROLLBACK")
+
+    assert found == (0, 0)
+    assert cells_with(loaded_db, PADDED_CPF_DV_PASSES) == 0
 
 
 def test_failed_scan_rolls_back_everything(loaded_db, monkeypatch):
