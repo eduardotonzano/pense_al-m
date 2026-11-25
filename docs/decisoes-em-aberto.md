@@ -140,6 +140,8 @@ A parte **Fundos: decisões da Fase 0**, no fim, é diferente: registra oito dec
 
 Fechamento da Fase 0 do plano da frente de Fundos. Ao contrário das quatro decisões acima, estas oito já foram tomadas: o Gui aprovou todas em 27/10/2026, por mensagem, conforme a sugestão enviada a ele, e Eduardo as registrou aqui. As perguntas de origem são as regras F-01 a F-06 de `docs/regras-de-exibicao-pendentes.md` e os pontos que a seção 8 de `docs/fundos-descoberta.md` deixava em aberto. Os números citados são da amostra de 09/2026 (seção 10 de `docs/fundos-descoberta.md`).
 
+A decisão 9 (banco real) veio depois, em 25/11/2026, na etapa 10 do plano de Fundos.
+
 ### 1. Dono da frente de Fundos (F-01)
 
 **Pergunta:** quem é o dono da frente de Fundos? Era um dos pontos em aberto de F-01 na seção 8 de `docs/fundos-descoberta.md`.
@@ -180,7 +182,14 @@ Fechamento da Fase 0 do plano da frente de Fundos. Ao contrário das quatro deci
 2. os arquivos originais ficam fora do Git e fora de pasta de rede, em pasta local de acesso restrito;
 3. não há regra de apagar o original depois da leitura.
 
-A decisão trata só do alcance da regra no arquivo original. As regras de guarda do leitor (seção 12.6 de `docs/fundos-descoberta.md`) continuam como proposta, a aprovar no plano da FU6.1.
+A decisão trata só do alcance da regra no arquivo original. As regras de guarda do leitor do CDA (seção 12.6 de `docs/fundos-descoberta.md`) foram aprovadas em 25/11/2026, para valer na etapa 10 do plano de Fundos:
+
+- **(a)** um valor de 14 caracteres só vale como CNPJ se `PF_PJ_EMISSOR` for PJ e o dígito verificador fechar; fora disso, o identificador não é gravado;
+- **(b)** o leitor não carrega `EMISSOR` de linha PF;
+- **(c)** o teste automático cobre o CPF completado com zeros até 14 dígitos, que a varredura só de 11 dígitos não acha;
+- **(d)** o que for descartado aparece só como contagem agregada no relatório, nunca o valor.
+
+**Regra 4 do CLAUDE.md (decidido em 25/11/2026):** preservar o valor original da fonte não impede o descarte. O identificador PJ com DV inválido não é gravado, e o descarte fica registrado na contagem. O valor original continua íntegro no arquivo, identificado pelo manifesto e pelo SHA-256.
 
 **O que depende dela:** o coletor e o adaptador da Fase 5, o teste automático que garante que nenhum CPF é gravado, a ficha (F-03) e os papéis em `party_observations` (seção 5 de `docs/fundos-descoberta.md`), que só recebem CNPJ.
 
@@ -246,6 +255,23 @@ A decisão trata só do alcance da regra no arquivo original. As regras de guard
 
 **Continua em aberto:** a ordem entre duas subordinadas da mesma classe, que o rótulo não diz (20 classes em 09/2026).
 
+### 9. Banco real de Fundos
+
+**Pergunta:** onde fica o banco real de Fundos, e com que cuidados ele é criado e atualizado? Até a etapa 10 do plano de Fundos só existiam bancos de teste.
+
+**Decisão:**
+
+1. o banco fica numa pasta local de caminho curto na máquina de quem o opera (por exemplo `C:\pense\fundos\fundos.db`), fora do Git e fora de pasta de rede;
+2. o `--backup-dir` também é local (por exemplo `C:\pense\bk\fundos`), porque a `fundos_cli` da camada compartilhada não confere esse parâmetro;
+3. o caminho do banco e o do backup, contando o `-journal`, ficam abaixo de 260 caracteres;
+4. todo `--commit` faz o backup antes e só roda com aprovação explícita.
+
+**Situação:** decidida em 25/11/2026.
+
+**O que depende dela:** a criação do banco real e as cargas seguintes (seção "Banco real" do README de Fundos).
+
+**Continua em aberto:** com um segundo consumidor do banco, o local é revisto (disco local de servidor). A guarda que recusa caminho de rede e caminho longo nos scripts do módulo fica para um PR próprio, depois da primeira carga real.
+
 ### Resumo das decisões de Fundos
 
 | Nº | Assunto | Regra | Situação | Pendência |
@@ -258,3 +284,4 @@ A decisão trata só do alcance da regra no arquivo original. As regras de guard
 | 6 | FIC-FIDC | F-04 | decidida | |
 | 7 | Variante do FIAGRO | F-05 | decidida | |
 | 8 | Sênior e subordinada | F-02, F-03 | decidida | |
+| 9 | Banco real de Fundos | | decidida | rever o local com um segundo consumidor; guarda de caminho de rede e de caminho longo nos scripts |

@@ -11,6 +11,7 @@ from apoio_cda import CONFIDENTIAL_HOLDER
 from apoio_cda import HOLDER
 from apoio_cda import HOLDER_NAME
 from apoio_cda import INVESTEES
+from apoio_cda import REFUSED_TEXTS
 from apoio_cda import ZIP_NAME
 from apoio_cda import build_cda_zip
 from apoio_cda import confid_row
@@ -18,6 +19,7 @@ from apoio_cda import fic_fidc_rows
 from apoio_cda import fie_row
 from apoio_cda import investee_name
 from apoio_cda import load_fictitious_cadastro
+from apoio_cda import refused_identifier_rows
 from conftest import MIGRATION_001
 from conftest import create_full_schema
 from conftest import create_schema
@@ -327,3 +329,53 @@ def test_output_has_only_aggregates(script, database, zip_path, tmp_path, capsys
 
     for secret in SECRETS:
         assert secret not in text
+
+
+def test_output_hides_refused_identifiers_and_names(script, database, tmp_path, capsys):
+    # Guarda (d): o que as guardas (a) e (b) descartam aparece so como
+    # contagem, no dry-run e no commit; nenhum valor ficticio sai.
+    path = write_zip(tmp_path, build_cda_zip(fic_fidc_rows() + refused_identifier_rows()), name=ZIP_NAME)
+
+    assert run_with(script, database, path, "--dry-run") == 0
+    assert run_with(script, database, path, "--commit", "--backup-dir", str(tmp_path / "bk")) == 0
+    captured = capsys.readouterr()
+    text = captured.out + captured.err
+
+    assert "recusado 6 (PF 4; vazio 0; PF_PJ_EMISSOR fora de PJ 0; formato 0; DV 2)" in text
+    assert "EMISSOR descartado (linha com identificador recusado): 6" in text
+    assert "nome ou CNPJ com formato de CPF 0" in text
+
+    for secret in SECRETS + REFUSED_TEXTS:
+        assert secret not in text
+
+
+def test_errors_hide_refused_identifiers(script, database, tmp_path, capsys):
+    # Guarda (d) nas mensagens de erro: um valor fora do formato numa linha
+    # PF com CPF e um arquivo recusado com linhas de CPF so citam o local ou
+    # a contagem, nunca o valor. Nada e gravado e nenhum backup e feito.
+    rows = refused_identifier_rows()
+    rows[0] = dict(rows[0], VL_MERC_POS_FINAL="1,5")
+    bad_value = write_zip(tmp_path, build_cda_zip(fic_fidc_rows() + rows), name=ZIP_NAME)
+    directory = tmp_path / "repetido"
+    directory.mkdir()
+    repeated = write_zip(
+        directory,
+        build_cda_zip(fic_fidc_rows() + refused_identifier_rows(), [confid_row(), confid_row()]),
+        name=ZIP_NAME,
+    )
+    before = file_hash(database)
+
+    assert run_with(script, database, bad_value, "--commit", "--backup-dir", str(tmp_path / "bk")) == 1
+    first = capsys.readouterr()
+    assert run_with(script, database, repeated, "--commit", "--backup-dir", str(tmp_path / "bk")) == 1
+    second = capsys.readouterr()
+
+    assert "cda_fie_202609.csv, linha 5, coluna VL_MERC_POS_FINAL" in first.err
+    assert "1,5" not in first.out + first.err
+    assert "chave repetida nas confidenciais: 1 detentor(es)" in second.err
+    assert file_hash(database) == before
+    assert backups_in(tmp_path / "bk") == []
+
+    for text in (first.out + first.err, second.out + second.err):
+        for secret in SECRETS + REFUSED_TEXTS:
+            assert secret not in text
