@@ -12,7 +12,7 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - `src/fundos/cadastro/`: leitor do cadastro de fundos da CVM (`registro_fundo_classe.zip`), sem banco (`reader.py`, com a lista fechada de colunas em `columns.py`); filtro de FIDC e FIAGRO e escolha do registro vigente (`selection.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/informe_fidc/`: leitor do informe mensal de FIDC (`inf_mensal_fidc_AAAAMM.zip`, 18 tabelas), sem banco (`reader.py`, com a lista fechada das 461 colunas em `columns.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/informe_fiagro/`: leitor do informe mensal de FIAGRO (`inf_mensal_fiagro_AAAAMM.zip`, 2 arquivos), sem banco (`reader.py`, com a lista fechada das 133 + 6 colunas em `columns.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
-- `src/fundos/indicators/`: indicadores calculados na leitura a partir do informe de FIDC já carregado (vencidos na carteira, faixas de atraso, a distribuição "Por Prazo de Vencimento (R$)", os cedentes gravados e as alienações do mês a partes relacionadas), sem gravar nada. Veja "Indicadores de carteira vencida" e "Cedentes e alienações a partes relacionadas".
+- `src/fundos/indicators/`: indicadores calculados na leitura a partir do informe de FIDC já carregado (vencidos na carteira, faixas de atraso, a distribuição "Por Prazo de Vencimento (R$)", os cedentes gravados, as alienações do mês a partes relacionadas e a "Provisão para Redução no Valor de Recuperação" com a cobertura dos vencidos), sem gravar nada. Veja "Indicadores de carteira vencida", "Cedentes e alienações a partes relacionadas" e "Provisão para Redução no Valor de Recuperação e cobertura".
 - `scripts/apply_migration.py`: aplica as migrations numeradas, com backup e verificação.
 - `scripts/load_cadastro.py`: carrega os FIDC e FIAGRO do cadastro. Veja "Como carregar o cadastro".
 - `scripts/load_informe_fidc.py`: carrega o informe mensal de FIDC. Veja "Como carregar o informe de FIDC".
@@ -453,6 +453,70 @@ Feita em 24/11/2026 na mesma cópia idêntica do banco de teste, aberta com `mod
 4. **A posição sem CNPJ gravado:** vazia, CPF ou inválida, e não se distingue qual.
 5. **A diferença entre Valor e Valor Contábil** em VII.b.
 6. **Partes relacionadas além das alienações de VII.b.1 e VII.b.2:** o informe não traz outra medida.
+
+## Provisão para Redução no Valor de Recuperação e cobertura
+
+A função é `reducao_valor_recuperacao.provisao_reducao_valor_recuperacao(conexao, competencia)` (FU11.3). Por assunto (classe ou fundo), competência e bloco, ela dá a provisão da carteira de direitos creditórios e a cobertura dos vencidos por ela. É calculada na leitura, com a conexão só de leitura e os estados das seções anteriores. Nada é gravado.
+
+### A provisão
+
+- **Campos:** `tab_I.TAB_I2A11_VL_REDUCAO_RECUP` (bloco a) e `tab_I.TAB_I2B11_VL_REDUCAO_RECUP` (bloco b).
+- **Nome oficial:** "Provisão para Redução no Valor de Recuperação". São os itens a.10 e b.10 do Suplemento G, e a.11 e b.11 no dicionário.
+- **PDD (equivalência não confirmada):** nenhuma fonte oficial usa essa sigla.
+- **Sinal:** o valor vem positivo e é subtraído do total do bloco, então os totais I.2.a e I.2.b já vêm líquidos (seção 2 de `docs/fundos-sonda-pdd-cedente.md`).
+- **Como sai:** como informada, por bloco. O a+b só existe com os dois blocos presentes e sem valor negativo.
+- **Nunca são lidas:** `TAB_I2_COTA_FIDC`, `TAB_I2_DEBENTURE_CRI` e `TAB_I2_VL_OUTRO_ATIVO`. São provisões sobre cotas de FIDC, sobre debêntures e CRI e sobre outros ativos, e não sobre a carteira de direitos creditórios.
+- **FIAGRO:** nenhum campo de provisão foi confirmado, e fica de fora.
+
+### A cobertura
+
+A cobertura é a provisão dividida pelos vencidos, vezes 100, por bloco e no a+b. Os vencidos são o total `V.b` (ou `VI.b`), "Inadimplentes (Valor das Parcelas Inadimplentes, em R$)", o mesmo da FU11.1 (decisão de 24/11/2026).
+
+- **A provisão cobre o bloco todo, e não só o vencido.** A cobertura compara a provisão do bloco com o vencido do bloco. Ela não diz quanto do vencido está provisionado.
+- **Cobertura acima de 100% não é erro.** A provisão é do bloco todo, e o vencido (`V.b` ou `VI.b`) é só uma parte dele, por isso o valor não é cortado.
+  - Em 09/2026, a cobertura passa de 100% em 634 de 1.655 assuntos no bloco a, 191 de 846 no bloco b e 681 de 1.984 no a+b.
+- **Estados, nesta ordem:**
+  1. falta um dos lados: `sem_dado` com o motivo da parte (`campo_ausente` ou `tipo_inesperado`);
+  2. provisão negativa: `sem_dado/provisao_negativa`, sem conta, e o R$ continua como informado;
+  3. vencidos negativos: `sem_dado/vencidos_negativos`;
+  4. vencidos iguais a 0: `sem_dado/denominador_zero`, com a provisão em R$ presente;
+  5. fora disso, presente. Provisão 0 com vencidos > 0 é 0%: zero informado é zero.
+- **No a+b,** um bloco com valor negativo impede a soma, com o mesmo motivo.
+- **Marca `provisao_sem_vencidos`:** a provisão é maior que 0 e os vencidos são 0, para não parecer que não há o que cobrir.
+- **Fica de fora** (decisão de 24/11/2026): nada é somado nem comparado com a.2.1, a.3 ou o total do bloco. Não há "bruto" (total do bloco + provisão) nem provisão como % da carteira.
+
+### Medição em 09/2026 (só leitura, só contagens)
+
+Feita em 24/11/2026 na mesma cópia idêntica do banco de teste, aberta com `mode=ro&immutable=1` e `query_only`. O SHA-256 ficou igual antes e depois. São 4.425 assuntos: 4.394 classes e 31 fundos.
+
+| Medida | Bloco a | Bloco b | a+b |
+|---|---|---|---|
+| Provisão positiva | 1.550 | 791 | 1.862 |
+| Provisão zero | 2.875 | 3.634 | 2.563 |
+| Provisão ou vencidos negativos, ou ausentes | 0 | 0 | 0 |
+| Vencidos > 0 | 1.655 | 846 | 1.984 |
+| Cobertura acima de 0 e até 100% | 789 | 575 | 1.058 |
+| Cobertura acima de 100% | 634 | 191 | 681 |
+| Cobertura igual a 0% | 232 | 80 | 245 |
+| `denominador_zero` | 2.770 | 3.579 | 2.441 |
+| `provisao_sem_vencidos` | 127 | 25 | 123 |
+
+**Diferença para a contagem no ZIP** (FU11.0: no bloco a, 1.551 positivas e 2.893 zeros; no b, 791 e 3.653):
+- os dois blocos têm 19 linhas a menos, que é a diferença entre as 4.444 linhas do ZIP e os 4.425 assuntos carregados;
+- são as linhas cujo assunto não está no cadastro;
+- uma delas tinha provisão positiva no bloco a, e as outras eram zero.
+
+**Teste de vazamento:** em `repr()` e `str()` dos 4.425 resultados, 0 CNPJ de assunto, 0 sequência de 14 dígitos e 0 máscara de CNPJ ou de CPF.
+
+**Tempo:** cerca de 1 s para todos os assuntos.
+
+### Não confirmado
+
+1. **A equivalência entre a "Provisão para Redução no Valor de Recuperação" e a PDD.**
+2. **Quanto do vencido está provisionado:** a provisão é do bloco todo.
+3. **O "bruto" do bloco (total + provisão):** só a aritmética de 09/2026 o sugere, e o texto da CVM não.
+4. **Por que há provisão maior que 0 com vencidos iguais a 0:** são 127 assuntos no bloco a e 25 no b.
+5. **A provisão no FIAGRO:** não há campo descrito no dicionário.
 
 ## Como renomear
 
