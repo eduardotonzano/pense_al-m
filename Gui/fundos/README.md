@@ -7,16 +7,19 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - Banco SQLite próprio, criado pela migration `migrations/001_initial_schema.sql`, com o mesmo esqueleto de proveniência das debêntures: `sources`, `collection_runs`, `raw_records`, `observations`, `data_conflicts`, `audit_log`, a view `current_observations` e `schema_migrations`. Os assuntos são `funds`, `fund_classes` e `quota_series`.
 - A migration `migrations/002_party_observations.sql` cria `party_observations` (papéis com vários valores: gestor, administrador, custodiante, controlador e auditor) e `party_conflicts`. Veja "Papéis".
 - A migration `migrations/003_party_observation_shares.sql` cria `party_observation_shares`, com o percentual do cedente do informe de FIDC, 1:1 com a linha do cedente em `party_observations`. Veja "Papéis".
+- A migration `migrations/004_holdings.sql` cria `holdings` e `confidential_holdings` (posições em cotas de fundos do CDA, identificadas e confidenciais), cada uma com a sua tabela de conflitos. Veja "Como carregar o CDA".
 - `src/fundos/`: conexão (`database.py`), utilitário de CNPJ (`cnpj.py`), guarda de dados pessoais (`personal_data.py`), backup (`backup.py`) e repositórios mínimos (`repositories/`).
 - `src/fundos/cvm_csv.py`: leitura comum dos CSV da CVM (cp1252 estrito, cabeçalho exato, largura das linhas, conversão por tipo, situação do identificador), usada pelo cadastro e pelo informe.
 - `src/fundos/cadastro/`: leitor do cadastro de fundos da CVM (`registro_fundo_classe.zip`), sem banco (`reader.py`, com a lista fechada de colunas em `columns.py`); filtro de FIDC e FIAGRO e escolha do registro vigente (`selection.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/informe_fidc/`: leitor do informe mensal de FIDC (`inf_mensal_fidc_AAAAMM.zip`, 18 tabelas), sem banco (`reader.py`, com a lista fechada das 461 colunas em `columns.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/informe_fiagro/`: leitor do informe mensal de FIAGRO (`inf_mensal_fiagro_AAAAMM.zip`, 2 arquivos), sem banco (`reader.py`, com a lista fechada das 133 + 6 colunas em `columns.py`); gravação (`loader.py`), com a reapresentação (`compare.py`, FU5.3); e relatório só com agregados (`report.py`).
+- `src/fundos/cda/`: leitor do CDA da CVM (`cda_fi_AAAAMM.zip`, 12 membros, dos quais só o `cda_fie` e o `cda_fie_CONFID` são lidos), sem banco (`reader.py`, com a lista fechada de colunas em `columns.py`); gravação das posições em cotas de fundos (`loader.py`, com `repositories/holding_repository.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/indicators/`: indicadores calculados na leitura a partir do informe de FIDC já carregado (vencidos na carteira, faixas de atraso, a distribuição "Por Prazo de Vencimento (R$)", os cedentes gravados, as alienações do mês a partes relacionadas e a "Provisão para Redução no Valor de Recuperação" com a cobertura dos vencidos), sem gravar nada. Veja "Indicadores de carteira vencida", "Cedentes e alienações a partes relacionadas" e "Provisão para Redução no Valor de Recuperação e cobertura".
 - `scripts/apply_migration.py`: aplica as migrations numeradas, com backup e verificação.
 - `scripts/load_cadastro.py`: carrega os FIDC e FIAGRO do cadastro. Veja "Como carregar o cadastro".
 - `scripts/load_informe_fidc.py`: carrega o informe mensal de FIDC. Veja "Como carregar o informe de FIDC".
 - `scripts/load_informe_fiagro.py`: carrega o informe mensal de FIAGRO. Veja "Como carregar o informe de FIAGRO".
+- `scripts/load_cda.py`: carrega as posições em cotas de fundos do CDA. Veja "Como carregar o CDA" e, para o primeiro banco real, "Banco real".
 
 ## O que ainda não existe
 
@@ -33,7 +36,6 @@ Coletor, acesso à rede, banco real, dados reais e adaptador para a camada compa
 - **pendência do FIAGRO nos indicadores de carteira vencida (FU11.1):** os campos `Vencidos_*`, `A_Vencer_*` e `Total_Ativos_Prazo_Vencimento` do informe de FIAGRO ficaram fora por falta de descrição oficial. O dicionário de FIAGRO descreve 13 dos 133 campos, e nenhum destes. A inclusão depende da leitura do Anexo Normativo VI da Resolução CVM 175 e do modelo do informe de FIAGRO, que exige aprovação de rede;
 - a evolução das faixas de atraso conferida no dado real: o banco de teste tem uma competência só do informe de FIDC (09/2026). Uma segunda exige baixar outro mês (rede, com aprovação) e carregá-lo numa cópia;
 - a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
-- a carteira de cotas de fundos;
 - o mapa de séries sênior, mezanino e subordinada;
 - a resolução de conflitos com `audit_log`.
 
@@ -76,7 +78,7 @@ A tabela dos fundos da casa não entra neste módulo (veja "Regras").
     - **O conjunto de cedentes de uma competência no banco é a soma dos ZIPs carregados dela**, não o do ZIP mais novo: o cedente que saiu continua lá, e a linha igual fica presa ao ZIP que a gravou primeiro, então o conjunto do ZIP mais novo não pode ser reconstruído. Isso importa para as métricas de concentração (Gui).
     - Banco só com 001 e 002 continua servindo ao cadastro: o repositório percebe que a tabela não existe e só recusa gravar percentual.
 - **Fundos da casa ficam fora** deste banco e de qualquer arquivo versionado (`docs/decisoes-em-aberto.md`, decisões 2 e 4 de Fundos). O caminho da pasta interna vai só na variável de ambiente `PENSE_INTERNAL_DIR`; este módulo ainda não a lê.
-- **O banco real fica fora do Git e em disco local**, não no compartilhamento de rede. Não versionar `*.db`, `*.sqlite*`, ZIPs, CSVs da CVM, backups nem `.env` (veja `.gitignore`).
+- **O banco real fica fora do Git e em disco local**, não no compartilhamento de rede (veja "Banco real"). Não versionar `*.db`, `*.sqlite*`, ZIPs, CSVs da CVM, backups nem `.env` (veja `.gitignore`).
 
 ## Como testar
 
@@ -279,6 +281,79 @@ python scripts\load_informe_fiagro.py --database C:\<pasta-local>\fundos.db --zi
 - **Saída:** 0 (sucesso ou nada a fazer), 1 (erro, com "Erro ao carregar o informe de FIAGRO: ..." no stderr), 2 (argumentos).
 - **O relatório tem só agregados**, nunca CNPJ, nome, ISIN ou valor: linhas e colunas por arquivo, CNPJ por situação, chaves repetidas, `Versao` igual ou diferente de 1, datas de entrega distintas, ISIN, notação científica, papéis, subclasses, o casamento por arquivo e por classe e os candidatos (dry-run) ou o que foi gravado (commit).
 - **Esperado em 09/2026** (contagem em memória, só agregados, do arquivo de SHA-256 `a9700ab7...0948` da seção 9.1 de `docs/fundos-descoberta.md`): 312 linhas de classe (310 `CNPJ_Classe`), 308 carregáveis; 697 linhas de subclasse, 688 carregáveis (688 séries); 39.316 observações (37.252 da classe e 2.064 das séries); 616 papéis (308 administradores e 308 gestores). Com o cadastro de 27/10/2026, as 308 classes carregáveis estão em `fund_classes`.
+
+## Como carregar o CDA
+
+O `scripts/load_cda.py` lê o `cda_fi_AAAAMM.zip` da CVM (baixado à mão, fora do Git) e grava as posições em cotas de fundos das classes e fundos que **já estão no banco**: o cadastro tem de ser carregado antes. `--database` e `--zip` são obrigatórios, e `--dry-run` ou `--commit` também. `--last-modified` é o `Last-Modified` do ZIP na CVM: opcional na primeira carga da competência e obrigatório na reapresentação; passe sempre. Rode sempre o `--dry-run` antes. O `--commit` só com aprovação explícita.
+
+```powershell
+cd Gui\fundos
+# prévia: lê e confere o ZIP; com o banco, mostra o casamento do detentor, o tipo do investido e a comparação com o banco; não escreve nada
+python scripts\load_cda.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\originais\cda\cda_fi_202610.zip --last-modified "Tue, 24 Nov 2026 04:05:23 GMT" --dry-run
+# carga (banco com as migrations 001 a 004 e o cadastro carregado)
+python scripts\load_cda.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\originais\cda\cda_fi_202610.zip --last-modified "Tue, 24 Nov 2026 04:05:23 GMT" --commit --backup-dir C:\<pasta-local>\bk\fundos
+```
+
+- **Banco em disco local**, como no cadastro: caminho de rede só gera aviso no stderr (veja "Banco real").
+- **Formato:** os 12 membros e só eles, com o mesmo `AAAAMM` (e o do nome do ZIP). Só o `cda_fie` e o `cda_fie_CONFID` são lidos, em cp1252 estrito e com o cabeçalho exato de `src/fundos/cda/columns.py`. Os 10 `cda_fi_*` entram só no manifesto, sem ser decodificados.
+- **Competência = `DT_COMPTC`** das linhas de "Cotas de Fundos": um só valor, do mês do `AAAAMM`, não posterior a hoje (UTC). As outras linhas são só contadas por `TP_APLIC`.
+- **Detentor:** `CNPJ_FUNDO_CLASSE`, sem completar zeros. `CLASSES - FIDC` e `CLASSES - FIAGRO` casam com a classe; `FIDC` e `FIAGRO`, com o fundo. O detentor fora do cadastro carregado, de outro tipo (`CLASSES FIIM`) ou de classe que só existe como fundo é só contado, por motivo. Nenhum fundo nem classe é criado.
+- **Dados pessoais** (guardas aprovadas em 25/11/2026; seção 12.6 de `docs/fundos-descoberta.md` e decisão 3 de `docs/decisoes-em-aberto.md`):
+  - **(a)** `CPF_CNPJ_EMISSOR` só vale como CNPJ do investido se `PF_PJ_EMISSOR` for PJ, se tiver 14 caracteres ou a máscara completa (sem completar zeros) e se o DV de CNPJ fechar. Fora disso, o identificador não é gravado e a linha é contada por motivo: PF, vazio, `PF_PJ_EMISSOR` fora de PJ, formato ou DV;
+  - **(b)** `EMISSOR` só entra com o identificador aceito, nunca de linha PF nem de linha recusada;
+  - **(c)** os testes cobrem o CPF completado com zeros até 14 dígitos, em linha PF e em linha PJ. A varredura antes do COMMIT procura só 11 dígitos ou a máscara de CPF e não o acha: a barreira é a guarda (a);
+  - **(d)** o descarte aparece só como contagem no relatório; as mensagens de erro citam arquivo, linha e coluna, nunca o valor.
+  - **Regra 4 do CLAUDE.md:** o identificador PJ com DV inválido não vai para o banco e é contado. O valor original continua íntegro no arquivo da CVM, identificado pelo manifesto (nome, tamanho e SHA-256).
+  - **Risco residual da guarda (a):** todo CPF que começa com `00`, completado com zeros até 14 dígitos, é também um CNPJ válido (começa com `00000`, e os dois DVs coincidem), e numa linha PJ de cotas ele seria aceito. Os outros CPFs completados com zeros só passam se o DV de CNPJ fechar por acaso. Em 10/2026, nenhum investido de linha de cotas começa com 000.
+- **O que é gravado:** uma coleta, o manifesto do ZIP e dos 12 CSV (os 10 `cda_fi_*` como `ignored`), as posições identificadas em `holdings` e as confidenciais em `confidential_holdings`, com a competência = `DT_COMPTC`.
+  - Chave das identificadas: detentor, investido, `DT_COMPTC` e a ordem da linha na chave. Cada linha repetida é uma posição própria, e nenhuma soma é gravada.
+  - O investido é só o CNPJ, sem FK.
+  - O arquivo com mais de uma linha confidencial de cotas do mesmo detentor é recusado.
+- **Mesmo ZIP:** o mesmo ZIP (mesmo SHA-256) diz "Nada a carregar" e não faz backup.
+- **Reapresentação:** outro ZIP da competência exige `--last-modified` estritamente posterior ao do ZIP mais novo já carregado (ou ao início da carga dele, se não tiver a data). Valor igual não grava; valor diferente grava linha nova e conflito aberto; a posição que sumiu só é contada.
+- **Migrations:** 001 a 004.
+- **Antes do COMMIT:** o `verify()` do cadastro (`integrity_check`, `foreign_key_check`, nenhuma coluna com `cpf` e nenhum texto com formato de CPF) e a varredura das posições desta coleta (todo investido com DV válido; nenhum nome nem CNPJ com formato de CPF). Se algo falhar, desfaz tudo e mantém o backup.
+- **Saída:** 0 (sucesso ou nada a fazer), 1 (erro, com "Erro ao carregar o CDA: ..." no stderr), 2 (argumentos).
+- **Esperado em 10/2026** (ZIP de SHA-256 `25e71555...0bca01`, carga em banco em memória com o cadastro de 27/10/2026, em 25/11/2026, só agregados):
+  - 5.846 linhas de cotas, das quais 8 recusadas por DV: são 5.838 posições lidas;
+  - 5.746 gravadas em `holdings`, com 92 de detentor fora (1 classe fora do cadastro e 91 `CLASSES FIIM`);
+  - 183 confidenciais, das quais 136 gravadas e 47 `CLASSES FIIM` fora;
+  - 0 conflitos.
+
+## Banco real
+
+Decidido em 25/11/2026 (decisão 9 de Fundos em `docs/decisoes-em-aberto.md`). O banco real ainda não foi criado: a sequência abaixo roda com aprovação explícita a cada `--commit`.
+
+- **Onde:** numa pasta local de caminho curto (por exemplo `C:\pense\fundos\fundos.db`), fora do Git e fora de pasta de rede.
+  - O `--backup-dir` também é local (por exemplo `C:\pense\bk\fundos`), porque a `fundos_cli` da camada compartilhada não confere esse parâmetro.
+  - O caminho do banco e o do backup, contando o `-journal`, ficam abaixo de 260 caracteres. No exemplo, são 33 e 65.
+- **Backup:** todo `--commit` faz o backup antes e só roda com aprovação explícita. A exceção é o `--create --commit` da migration: o banco ainda não existe e não há o que copiar. O backup da carga do cadastro cobre esse estado.
+- **Originais:** os ZIPs da CVM ficam numa pasta local de acesso restrito, fora do Git e de rede, sem regra de apagar (decisão 3 de Fundos).
+  - Por exemplo `C:\pense\originais`, sem herança de permissão, com acesso só para o usuário, SYSTEM e Administradores.
+  - O carregador lê a cópia, nunca a amostra original. O SHA-256 é conferido antes e depois da cópia, e a cópia fica somente leitura.
+- **No banco, só o manifesto:** `raw_records` guarda nome, tamanho, SHA-256 e número de linhas de cada arquivo, nunca o conteúdo.
+- **Dados pessoais:** o CPF nunca é gravado. O que as guardas descartam aparece só como contagem no relatório (veja "Como carregar o CDA").
+  - O original pode ter CPF. O CDA de 10/2026 tem 5 CPFs com máscara no `cda_fi_BLC_6`, que o carregador não decodifica, e 1 CPF completado com zeros numa linha PF do `cda_fie` que não é de cotas.
+- **Caminho de rede:** hoje os carregadores só avisam no stderr quando `--database` é de rede, e nenhum script confere a rede no `--backup-dir`. A guarda que recusa isso (e caminho longo, também no dry-run) fica para um PR próprio, depois da primeira carga real. Até lá, use só caminhos locais, como nos exemplos.
+- **Sequência:** cada passo com `--dry-run` antes e `--commit` depois.
+  1. Pasta local restrita e cópia dos originais (o cadastro de 27/10/2026 e o CDA de 10/2026), com o SHA-256 antes e depois.
+  2. `scripts\apply_migration.py --create`: as migrations 001 a 004. A 005 fica reservada à prioridade de fontes (ADR-010).
+  3. `scripts\load_cadastro.py --reference-date 2026-10-27`.
+  4. `scripts\load_cda.py --last-modified "Tue, 24 Nov 2026 04:05:23 GMT"`: o `Last-Modified` do ZIP na CVM, do manifesto do download. Ele grava a data da fonte e evita recusar uma reapresentação publicada entre essa data e a carga.
+  5. Verificação só de leitura:
+     - `integrity_check`, `foreign_key_check` e a varredura de CPF em todas as colunas;
+     - as contagens contra o ensaio em memória: 8.044 fundos, 5.839 classes, 5.746 posições, 136 confidenciais e 0 conflitos.
+
+     A segunda execução de cada passo diz que já foi carregado e não duplica.
+
+### Fora desta etapa
+
+- a carga dos informes de FIDC e de FIAGRO no banco real;
+- a classificação de FIC-FIDC e a conferência cruzada do CDA com a `tab_I` (FU6.1, partes 3 e 4, etapa 11 do plano de Fundos);
+- a fase 4 da camada compartilhada (`fundos_cli`) sobre o banco real;
+- o segundo consumidor do banco (com ele, revisita-se o local: disco local de servidor);
+- a guarda de caminho de rede e de caminho longo nos scripts (PR próprio);
+- um cadastro mais novo que o de 27/10/2026 (outra competência, com download aprovado).
 
 ## Indicadores de carteira vencida
 

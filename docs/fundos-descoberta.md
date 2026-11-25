@@ -901,12 +901,23 @@ Em todas as 6.228 linhas de cotas, sem filtro de faixa, os tipos são:
   - O valor tem 14 caracteres, só dígitos, e começa com "000".
   - O DV de CNPJ falha, e os 11 dígitos finais passam no DV de CPF.
   - Está entre os 3 DVs inválidos de 12.4. O valor não é reproduzido aqui.
-  - O conteúdo de `EMISSOR` nessa linha não foi verificado. Por precaução, o leitor não carrega `EMISSOR` de linha PF. Proposta, pendente de aprovação no plano da FU6.1 (o alcance da regra do CPF no arquivo original foi decidido em 03/11/2026, decisão 3).
+  - O conteúdo de `EMISSOR` nessa linha não foi verificado. Por precaução, o leitor não carrega `EMISSOR` de linha PF: é a guarda (b), aprovada em 25/11/2026 (decisão 3 de `docs/decisoes-em-aberto.md`).
 - **Nenhuma coluna tem CPF com 11 dígitos ou com máscara de CPF.** Os valores de 11 dígitos encontrados não têm indício de CPF:
   - `QT_ATIVO_EXTERIOR` (`BLC_7`): 2.285 valores, numa coluna de quantidade. Os 25 que passam no DV de CPF são 1,1% de 2.285, proporção compatível com o acaso;
   - `VL_VENDA_NEGOC`, `VL_AQUIS_NEGOC` e `VL_MERC_POS_FINAL` (`cda_fi_CONFID`): 6, 6 e 46 valores, em colunas de valor; nenhum passa no DV de CPF;
   - `DS_ATIVO` (`BLC_8`): 14 valores, numa descrição do ativo; nenhum passa no DV de CPF.
-- **Uma varredura que procure só 11 dígitos não acha o caso acima.** Regra de guarda para o leitor: um valor de 14 caracteres só vale como CNPJ se `PF_PJ_EMISSOR` for PJ e o DV de CNPJ fechar. Fora disso, o identificador não é gravado (decisão 3 de `docs/decisoes-em-aberto.md`). Proposta, pendente de aprovação no plano da FU6.1 (o alcance da regra do CPF no arquivo original foi decidido em 03/11/2026, decisão 3). A guarda também deixaria de fora identificadores PJ com DV inválido, o que precisa ser conciliado com a regra de preservar o valor original da fonte (CLAUDE.md, regra 4). O teste automático do CPF precisa cobrir o CPF completado com zeros.
+- **Uma varredura que procure só 11 dígitos não acha o caso acima.** Guardas do leitor, aprovadas em 25/11/2026 para a etapa 10 (decisão 3 de `docs/decisoes-em-aberto.md`):
+  - **(a)** um valor de 14 caracteres só vale como CNPJ se `PF_PJ_EMISSOR` for PJ e o DV de CNPJ fechar. Fora disso, o identificador não é gravado;
+  - **(b)** o leitor não carrega `EMISSOR` de linha PF;
+  - **(c)** o teste automático cobre o CPF completado com zeros até 14 dígitos, em linha PF e em linha PJ;
+  - **(d)** o que for descartado aparece só como contagem agregada no relatório, nunca o valor; as mensagens de erro citam arquivo, linha e coluna.
+  - **Regra 4 do CLAUDE.md** (preservar o valor original da fonte): a guarda deixa de fora os identificadores PJ com DV inválido. O descarte fica registrado na contagem, e o valor original continua íntegro no arquivo, identificado pelo manifesto e pelo SHA-256.
+  - **Risco residual da guarda (a):** quando o CNPJ começa com `00000`, os dois DVs de CNPJ são os DVs de CPF dos 11 dígitos finais, porque os pesos dos dois cálculos só diferem nas duas primeiras posições desses 11 dígitos, que são zero. Por isso todo CPF que começa com `00`, completado com zeros, também é um CNPJ válido, e numa linha PJ a guarda (a) o aceita. No cadastro de 27/10/2026, 97 `CNPJ_Fundo` começam com 000: os 22 que começam com `00000` fecham o DV de CPF, e nenhum dos outros 75 fecha. Um CPF completado que comece com `000` mas não com `00000` só passa se o DV de CNPJ fechar por acaso.
+- **CDA de 10/2026** (`cda_fi_202610.zip`, 15.008.902 bytes, SHA-256 `25e715554c5266c75f4aa1d5758c51151a1775938ae5ba2ecaca39f74c0bca01`, `Last-Modified` 2026-11-24 04:05:23 GMT; contado em memória em 25/11/2026, só agregados):
+  - nos dois membros lidos (`cda_fie` e `cda_fie_CONFID`), nenhum valor com 11 dígitos nem com máscara de CPF nas colunas de identificador;
+  - no `cda_fi_BLC_6`, que só entra no manifesto e não é decodificado, há 5 valores com máscara de CPF em `CPF_CNPJ_EMISSOR`, em linhas PF, com DV de CPF válido. Eles ficam só no arquivo original (decisão 3);
+  - no `cda_fie`, 12 linhas têm 14 dígitos começando com 000, nenhuma de cotas. A de `PF_PJ_EMISSOR` PF está em "Outras aplicações", o DV de CNPJ falha e os 11 dígitos finais fecham o DV de CPF: é o mesmo padrão do caso de 09/2026. As outras 11 são PJ, em "Disponibilidades", com um único valor, que começa com `00000`;
+  - nenhum investido das 5.838 posições em cotas começa com 000.
 - **Nomes:**
   - `DENOM_SOCIAL`, do detentor, vem em todos os arquivos;
   - `EMISSOR`, do emissor ou investido, vem no `cda_fie` e nos blocos 5 a 8;
