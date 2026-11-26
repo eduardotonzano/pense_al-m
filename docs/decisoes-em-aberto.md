@@ -270,7 +270,13 @@ A decisão trata só do alcance da regra no arquivo original. As regras de guard
 
 **O que depende dela:** a criação do banco real e as cargas seguintes (seção "Banco real" do README de Fundos).
 
-**Continua em aberto:** com um segundo consumidor do banco, o local é revisto (disco local de servidor). A guarda que recusa caminho de rede e caminho longo nos scripts do módulo fica para um PR próprio, depois da primeira carga real.
+**Guarda de caminho (26/11/2026):** os 5 scripts do módulo de Fundos (`apply_migration.py` e os 4 carregadores) recusam com saída 1, no `--dry-run` também:
+- `--database` e o destino do backup em caminho de rede (UNC, relativo dentro de pasta de rede ou unidade mapeada remota);
+- caminho longo.
+
+A recusa vem antes de ler o ZIP e de abrir o banco. A mensagem traz só o parâmetro e o motivo, nunca o caminho.
+
+**Continua em aberto:** com um segundo consumidor do banco, o local é revisto (disco local de servidor). A mesma guarda na `fundos_cli` da camada compartilhada e na leitura dos indicadores fica para PR próprio.
 
 ### Resumo das decisões de Fundos
 
@@ -284,4 +290,4 @@ A decisão trata só do alcance da regra no arquivo original. As regras de guard
 | 6 | FIC-FIDC | F-04 | decidida | |
 | 7 | Variante do FIAGRO | F-05 | decidida | |
 | 8 | Sênior e subordinada | F-02, F-03 | decidida | |
-| 9 | Banco real de Fundos | | decidida | rever o local com um segundo consumidor; guarda de caminho de rede e de caminho longo nos scripts |
+| 9 | Banco real de Fundos | | decidida | rever o local com um segundo consumidor; guarda de caminho na `fundos_cli` e na leitura dos indicadores |

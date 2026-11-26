@@ -28,6 +28,7 @@ from conftest import MIGRATION_001
 from conftest import MIGRATIONS_DIR
 from conftest import create_full_schema
 from conftest import create_schema
+from fundos import backup
 
 
 PROJECT_DIR = pathlib.Path(__file__).resolve().parent.parent
@@ -422,21 +423,69 @@ def test_bad_zip_fails_cleanly(script, database, tmp_path, capsys):
     assert file_hash(database) == before
 
 
-def test_network_path_detection(script):
-    assert script.is_network_path("\\\\servidor\\pasta\\fundos.db")
-    assert script.is_network_path("//servidor/pasta/fundos.db")
-    assert not script.is_network_path("C:\\bk\\fundos.db")
+# Caminhos de rede ficticios: a recusa vem antes de qualquer acesso, entao
+# nenhum teste toca a rede.
+NETWORK_DATABASE = "\\\\servidor\\pasta\\fundos.db"
+NETWORK_BACKUP_DIR = "\\\\servidor\\pasta\\bk"
 
 
-def test_warns_but_does_not_refuse_a_network_database(script, database, zip_path, monkeypatch, capsys):
-    monkeypatch.setattr(script, "is_network_path", lambda path: True)
+def only_l_is_remote(drive):
+    return backup.REMOTE_DRIVE if drive.upper() == "L:" else 3
 
-    code = run_with(script, database, zip_path, "--dry-run")
+
+def zip_not_read(script, monkeypatch):
+    def read(*args, **kwargs):
+        raise AssertionError("o ZIP foi lido")
+
+    monkeypatch.setattr(script, "read_informe_zip", read)
+
+
+@pytest.mark.parametrize("mode", ["--dry-run", "--commit"])
+def test_network_database_is_refused(script, zip_path, tmp_path, monkeypatch, mode, capsys):
+    # Antes de ler o ZIP e de abrir banco, no dry-run tambem; a mensagem traz
+    # so o rotulo e o motivo.
+    zip_not_read(script, monkeypatch)
+
+    code = run_with(script, NETWORK_DATABASE, zip_path, mode, "--backup-dir", str(tmp_path / "bk"))
     captured = capsys.readouterr()
 
-    assert code == 0
-    assert "caminho de rede" in captured.err
-    assert "Dry-run concluido" in captured.out
+    assert code == 1
+    assert "--database em caminho de rede (UNC)" in captured.err
+    assert "servidor" not in captured.out + captured.err
+    assert not (tmp_path / "bk").exists()
+
+
+@pytest.mark.parametrize("mode", ["--dry-run", "--commit"])
+def test_network_backup_dir_is_refused(script, database, zip_path, monkeypatch, mode, capsys):
+    zip_not_read(script, monkeypatch)
+    before = file_hash(database)
+
+    code = run_with(script, database, zip_path, mode, "--backup-dir", NETWORK_BACKUP_DIR)
+    captured = capsys.readouterr()
+
+    assert code == 1
+    assert "--backup-dir em caminho de rede (UNC)" in captured.err
+    assert "servidor" not in captured.out + captured.err
+    assert file_hash(database) == before
+
+
+def test_remote_drive_and_long_backup_are_refused_in_the_dry_run(
+    script, database, zip_path, tmp_path, monkeypatch, capsys
+):
+    zip_not_read(script, monkeypatch)
+    monkeypatch.setattr(backup, "_drive_type", only_l_is_remote)
+    long_dir = tmp_path / ("b" * 255)
+
+    remote = run_with(script, "L:\\pasta\\fundos.db", zip_path, "--dry-run")
+    first = capsys.readouterr()
+    long_backup = run_with(script, database, zip_path, "--dry-run", "--backup-dir", str(long_dir))
+    second = capsys.readouterr()
+
+    assert remote == 1
+    assert "--database em caminho de rede (unidade remota)" in first.err
+    assert long_backup == 1
+    assert "caminho longo" in second.err
+    assert not long_dir.exists()
 
 
 def test_failure_after_the_backup_keeps_the_database(script, database, zip_path, tmp_path, monkeypatch, capsys):

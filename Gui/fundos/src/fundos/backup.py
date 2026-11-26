@@ -4,12 +4,21 @@ O nome do backup e curto (fundos_<UTC>.sqlite3) e o caminho final e
 conferido contra o limite de 260 caracteres do Windows antes de qualquer
 escrita: no compartilhamento de rede, um caminho longo faz o SQLite falhar
 com "unable to open database file".
+
+O banco e o backup ficam em disco local (decisao 9 de Fundos): SQLite em
+compartilhamento de rede tem trava nao confiavel e deixa o journal na rede.
+check_local_paths recusa o banco e o destino do backup em caminho de rede
+(UNC, relativo dentro de pasta de rede ou unidade remota) e em caminho
+longo, antes de qualquer leitura.
 """
 
 from __future__ import annotations
 
 import hashlib
+import ntpath
+import os
 import sqlite3
+import sys
 from dataclasses import dataclass
 from datetime import datetime
 from datetime import timezone
@@ -77,6 +86,106 @@ def backup_path(
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S_%fZ")
 
     return folder / (prefix + "_" + stamp + ".sqlite3")
+
+
+# GetDriveTypeW: DRIVE_REMOTE (unidade mapeada de rede).
+REMOTE_DRIVE = 4
+UNC = "UNC"
+REMOTE = "unidade remota"
+NETWORK_HINT = "o banco de Fundos e o backup ficam em disco local, numa pasta curta."
+DATABASE_HINT = "use um banco numa pasta de caminho curto, em disco local."
+
+
+def _on_windows() -> bool:
+    return sys.platform == "win32"
+
+
+def _drive_type(drive: str) -> int | None:
+    """GetDriveTypeW da unidade (por exemplo C:), so no Windows; None se nao der para saber."""
+
+    if not _on_windows():
+        return None
+
+    try:
+        import ctypes
+
+        return int(ctypes.windll.kernel32.GetDriveTypeW(drive + "\\"))
+    except Exception:
+        return None
+
+
+def _absolute(text: str) -> str:
+    """O caminho completado com a pasta atual, sem resolver link nem tocar o disco."""
+
+    return str(Path(text).absolute())
+
+
+def network_reason(path: str | Path) -> str | None:
+    """UNC, unidade remota ou None.
+
+    So olha o texto do caminho (completado com a pasta atual quando e
+    relativo) e, no Windows, o tipo da unidade. Nunca chama resolve, exists
+    nem is_file: o caminho de rede e recusado antes de ser tocado. O prefixo
+    de caminho estendido do Windows (duas barras invertidas e interrogacao)
+    conta como UNC, um falso positivo seguro. E a regra de
+    fundos_cli._is_network_path, copiada porque o modulo de Fundos nao
+    importa a camada compartilhada.
+    """
+
+    text = os.fspath(path)
+
+    if text.startswith(("\\\\", "//")):
+        return UNC
+
+    absolute = _absolute(text)
+
+    if absolute.startswith(("\\\\", "//")):
+        return UNC
+
+    drive = ntpath.splitdrive(text)[0] or ntpath.splitdrive(absolute)[0]
+
+    if len(drive) == 2 and drive[1] == ":" and _drive_type(drive) == REMOTE_DRIVE:
+        return REMOTE
+
+    return None
+
+
+def check_local_path(path: str | Path, label: str) -> None:
+    """Recusa o caminho de rede; a mensagem traz so o rotulo e o motivo, nunca o caminho."""
+
+    reason = network_reason(path)
+
+    if reason is not None:
+        raise BackupError(label + " em caminho de rede (" + reason + "): " + NETWORK_HINT)
+
+
+def check_local_paths(database: str | Path, backup_dir: str | Path | None = None) -> Path:
+    """Confere o banco e o destino do backup; devolve o banco resolvido.
+
+    Ordem: o texto do banco, o banco resolvido (link ou juncao para a rede),
+    o comprimento do banco com o -journal, o destino do backup (o texto e,
+    com backup_dir, a pasta resolvida) e o comprimento dele. O resolve so
+    roda depois que o texto passou, entao um caminho de rede nunca e tocado.
+    Levanta BackupError; nenhuma mensagem traz o caminho.
+    """
+
+    check_local_path(database, "--database")
+    database_path = Path(database).resolve()
+    check_local_path(database_path, "--database")
+
+    try:
+        check_path_length(database_path, hint=DATABASE_HINT)
+    except BackupError as error:
+        raise BackupError("Banco com " + str(error)) from error
+
+    target = backup_path(database_path, backup_dir)
+    check_local_path(target, "--backup-dir")
+
+    if backup_dir is not None:
+        check_local_path(Path(backup_dir).resolve(), "--backup-dir")
+
+    check_path_length(target)
+    return database_path
 
 
 def _integrity(connection: sqlite3.Connection) -> str:

@@ -21,6 +21,12 @@ backup antes e grava tudo numa unica transacao, que
 so e confirmada se a verificacao passar. O mesmo ZIP nao e carregado de
 novo. Outro ZIP de uma competencia ja carregada (reapresentacao) exige
 --last-modified posterior ao do ZIP mais novo ja carregado.
+
+O banco e o backup ficam em disco local, de caminho curto (decisao 9 de
+Fundos): --database e o destino do backup (--backup-dir ou a pasta backups
+ao lado do banco) em caminho de rede (UNC, relativo dentro de pasta de rede
+ou unidade remota) ou longo sao recusados antes de ler o ZIP, no --dry-run
+tambem.
 """
 
 import argparse
@@ -38,6 +44,7 @@ sys.path.insert(0, str(SOURCE_DIR))
 import fundos  # noqa: E402
 from fundos.backup import BackupError  # noqa: E402
 from fundos.backup import backup_path  # noqa: E402
+from fundos.backup import check_local_paths  # noqa: E402
 from fundos.backup import check_path_length  # noqa: E402
 from fundos.backup import create_backup  # noqa: E402
 from fundos.cadastro.loader import LoadError  # noqa: E402
@@ -59,19 +66,6 @@ from fundos.cda.report import format_load_report  # noqa: E402
 from fundos.cda.report import format_match_report  # noqa: E402
 from fundos.cda.report import format_read_report  # noqa: E402
 from fundos.database import Database  # noqa: E402
-
-
-NETWORK_WARNING = (
-    "Aviso: o banco esta num caminho de rede. SQLite em compartilhamento de "
-    "rede nao e seguro (trava e journal); use um banco em disco local."
-)
-
-
-def is_network_path(path):
-    """Caminho UNC (comeca com duas barras invertidas ou normais)."""
-
-    text = str(path)
-    return text.startswith("\\\\") or text.startswith("//")
 
 
 def say(line):
@@ -218,20 +212,14 @@ def commit(args, database_path, cda, last_modified):
 
 
 def run(args):
-    database_path = pathlib.Path(args.database).resolve()
-
     say("Pacote fundos: " + str(pathlib.Path(fundos.__file__).resolve().parent))
 
-    if is_network_path(args.database) or is_network_path(database_path):
-        print(NETWORK_WARNING, file=sys.stderr)
-
+    # Banco e backup em disco local, de caminho curto, antes de ler qualquer
+    # coisa (no dry-run tambem): caminho de rede ou longo e recusado.
     try:
-        check_path_length(
-            database_path,
-            hint="use um banco numa pasta de caminho curto, em disco local.",
-        )
+        database_path = check_local_paths(args.database, args.backup_dir)
     except BackupError as error:
-        raise LoadError("Banco com " + str(error)) from error
+        raise LoadError(str(error)) from error
 
     last_modified = None
 

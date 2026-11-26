@@ -7,6 +7,7 @@ import sqlite3
 import pytest
 
 from apoio import make_test_cnpj
+from fundos import backup
 from fundos.database import Database
 
 
@@ -533,3 +534,82 @@ def test_check_state_detects_foreign_key_errors(script, tmp_path):
         connection.close()
 
     assert any("foreign_key_check encontrou" in p for p in problems)
+
+
+# Caminhos de rede ficticios: a recusa vem antes de qualquer acesso, entao
+# nenhum teste toca a rede.
+NETWORK_DATABASE = "\\\\servidor\\pasta\\fundos.db"
+NETWORK_BACKUP_DIR = "\\\\servidor\\pasta\\bk"
+
+
+def only_l_is_remote(drive):
+    return backup.REMOTE_DRIVE if drive.upper() == "L:" else 3
+
+
+@pytest.mark.parametrize("mode", ["--dry-run", "--commit"])
+def test_network_database_is_refused(script, tmp_path, mode, capsys):
+    # Antes de criar ou abrir banco, no dry-run tambem; a mensagem traz so o
+    # rotulo e o motivo.
+    code = run_with(script, NETWORK_DATABASE, "--create", mode, "--backup-dir", str(tmp_path / "bk"))
+    captured = capsys.readouterr()
+
+    assert code == 1
+    assert "--database em caminho de rede (UNC)" in captured.err
+    assert "servidor" not in captured.out + captured.err
+    assert "Banco novo" not in captured.out
+    assert not (tmp_path / "bk").exists()
+
+
+@pytest.mark.parametrize("mode", ["--dry-run", "--commit"])
+def test_network_backup_dir_is_refused(script, tmp_path, mode, capsys):
+    path = create_database(tmp_path)
+    migrations = copy_migrations(tmp_path, "extra", EXTRA_SQL)
+    before = file_hash(path)
+
+    code = run_with(script, path, mode, "--migrations-dir", str(migrations), "--backup-dir", NETWORK_BACKUP_DIR)
+    captured = capsys.readouterr()
+
+    assert code == 1
+    assert "--backup-dir em caminho de rede (UNC)" in captured.err
+    assert "servidor" not in captured.out + captured.err
+    assert file_hash(path) == before
+    assert versions(path) == [1]
+
+
+def test_remote_drive_and_long_backup_are_refused_in_the_dry_run(script, tmp_path, monkeypatch, capsys):
+    monkeypatch.setattr(backup, "_drive_type", only_l_is_remote)
+    path = create_database(tmp_path)
+    migrations = copy_migrations(tmp_path, "extra", EXTRA_SQL)
+    long_dir = tmp_path / ("b" * 255)
+
+    remote = run_with(script, "L:\\pasta\\fundos.db", "--create", "--dry-run")
+    first = capsys.readouterr()
+    long_backup = run_with(
+        script, path, "--dry-run", "--migrations-dir", str(migrations), "--backup-dir", str(long_dir)
+    )
+    second = capsys.readouterr()
+
+    assert remote == 1
+    assert "--database em caminho de rede (unidade remota)" in first.err
+    assert long_backup == 1
+    assert "caminho longo" in second.err
+    assert not long_dir.exists()
+    assert versions(path) == [1]
+
+
+def test_network_temp_folder_is_refused_in_the_dry_run(script, tmp_path, monkeypatch, capsys):
+    # O dry-run copia o banco para a pasta temporaria: ela tambem tem de ser
+    # local, senao uma copia do banco iria para a rede.
+    path = create_database(tmp_path)
+    migrations = copy_migrations(tmp_path, "extra", EXTRA_SQL)
+    before = file_hash(path)
+    monkeypatch.setattr(script.tempfile, "gettempdir", lambda: "\\\\servidor\\temp")
+
+    code = run_with(script, path, "--dry-run", "--migrations-dir", str(migrations))
+    captured = capsys.readouterr()
+
+    assert code == 1
+    assert "pasta temporaria em caminho de rede (UNC)" in captured.err
+    assert "servidor" not in captured.out + captured.err
+    assert "Copia de teste" not in captured.out
+    assert file_hash(path) == before
