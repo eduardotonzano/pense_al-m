@@ -110,7 +110,11 @@ python scripts\apply_migration.py --database C:\<pasta-local>\fundos.db --commit
 - `--dry-run` aplica e verifica numa cópia temporária; o banco informado não muda.
 - `--commit` faz o backup antes (`backups\fundos_<UTC>.sqlite3` ao lado do banco, ou a pasta de `--backup-dir`) e aplica tudo numa transação.
 - Antes do COMMIT, confere `integrity_check`, `foreign_key_check`, a versão registrada, que nada do que existia mudou (a não ser com `--allow-existing-changes`) e que nenhuma coluna tem `cpf` no nome. Se algo falhar, desfaz e mantém o backup.
-- **Caminho longo:** se o caminho do backup ou do banco, com `-journal`, chegar a 260 caracteres, o script recusa antes de tocar no banco. Use `--backup-dir` com uma pasta curta (por exemplo `C:\bk\fundos`).
+- **Caminho de rede e caminho longo:** o script recusa antes de tocar no banco, no `--dry-run` também (saída 1):
+  - `--database` ou o destino do backup (`--backup-dir` ou `backups` ao lado do banco) em caminho de rede: `\\servidor\...`, um caminho relativo rodado de dentro do compartilhamento ou uma unidade mapeada remota;
+  - o caminho do banco ou do backup que, com `-journal`, chega a 260 caracteres.
+
+  O `--dry-run` também recusa a pasta temporária em rede, porque a cópia de teste vai para ela. A mensagem traz só o parâmetro e o motivo, nunca o caminho. Use pasta local curta, também no `--backup-dir` (por exemplo `C:\pense\bk\fundos`).
 - Nova migration: novo arquivo `migrations/NNN_nome.sql` que termina com `INSERT OR IGNORE INTO schema_migrations(version,name) VALUES(NNN,'nome');`. Nunca edite uma migration já aplicada.
 
 ## Como carregar o cadastro
@@ -125,7 +129,11 @@ python scripts\load_cadastro.py --database C:\<pasta-local>\fundos.db --zip C:\<
 python scripts\load_cadastro.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\cvm-amostras\cadastro-fidc\registro_fundo_classe.zip --reference-date 2026-10-27 --commit
 ```
 
-- **Banco em disco local.** SQLite em compartilhamento de rede não é seguro. Se `--database` apontar para um caminho de rede (`\\servidor\...`, inclusive um caminho relativo rodado de dentro do compartilhamento), o script avisa no stderr e segue. Use uma pasta local, como nos exemplos.
+- **Banco em disco local.** SQLite em compartilhamento de rede não é seguro (trava e journal). O script recusa antes de ler o ZIP, no `--dry-run` também (saída 1):
+  - `--database` ou o destino do backup (`--backup-dir` ou `backups` ao lado do banco) em caminho de rede: `\\servidor\...`, um caminho relativo rodado de dentro do compartilhamento ou uma unidade mapeada remota;
+  - caminho longo.
+
+  A mensagem traz só o parâmetro e o motivo, nunca o caminho. Use uma pasta local, como nos exemplos.
 - **`--reference-date`** é a competência do retrato: a data do `Last-Modified` do ZIP na CVM (para o arquivo de 27/10/2026, `2026-10-27`), nunca a data da coleta (ADR-010).
   - É recusada se for posterior a hoje (UTC) ou anterior ao maior `Data_Registro` do arquivo.
   - Se a data dos membros dentro do ZIP for diferente, o script avisa e segue.
@@ -169,7 +177,7 @@ python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip 
 python scripts\load_informe_fidc.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\cvm-amostras\cadastro-fidc\inf_mensal_fidc_202609.zip --last-modified 2026-10-24T11:46:15Z --commit
 ```
 
-- **Banco em disco local**, como no cadastro: caminho de rede só gera aviso no stderr.
+- **Banco em disco local**, como no cadastro: banco ou backup em caminho de rede ou longo é recusado antes de ler o ZIP, no `--dry-run` também.
 - **Competência = `DT_COMPTC`.** O arquivo tem de ter um só valor, do mês do `AAAAMM` dos 18 membros (e do nome do ZIP), não posterior a hoje (UTC). `collected_at` é o início da coleta.
 - **Formato:** os 18 membros e só eles; o cabeçalho de cada tabela tem de ser exatamente o da lista fechada (`src/fundos/informe_fidc/columns.py`, montada do cabeçalho do dado de 09/2026, não do dicionário). Qualquer diferença aborta sem gravar nada.
 - **Identidade:** `TP_FUNDO_CLASSE` Classe precisa do CNPJ em `fund_classes`; Fundo, em `funds`. O resto não carrega e é contado por tabela e por assunto, em 6 motivos (Classe com CNPJ só como fundo, Classe fora do cadastro, Fundo com CNPJ só como classe, Fundo fora do cadastro, tipo desconhecido, CNPJ inválido). Nenhum fundo nem classe é criado.
@@ -220,7 +228,7 @@ python scripts\load_informe_fiagro.py --database C:\<pasta-local>\fundos.db --zi
 python scripts\load_informe_fiagro.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\cvm-amostras\fiagro\inf_mensal_fiagro_202609.zip --last-modified 2026-10-24T11:46:15Z --commit
 ```
 
-- **Banco em disco local**, como no cadastro: caminho de rede só gera aviso no stderr.
+- **Banco em disco local**, como no cadastro: banco ou backup em caminho de rede ou longo é recusado antes de ler o ZIP, no `--dry-run` também.
 - **Competência:**
   - é o `AAAAMM` dos dois membros (e do nome do ZIP, quando segue o padrão `inf_mensal_fiagro_AAAAMM.zip`);
   - `Data_Referencia` tem de ter um só valor nos dois arquivos, **o dia 1 desse mês**; senão o arquivo é recusado e nada é lido;
@@ -294,7 +302,7 @@ python scripts\load_cda.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta
 python scripts\load_cda.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta-local>\originais\cda\cda_fi_202610.zip --last-modified "Tue, 24 Nov 2026 04:05:23 GMT" --commit --backup-dir C:\<pasta-local>\bk\fundos
 ```
 
-- **Banco em disco local**, como no cadastro: caminho de rede só gera aviso no stderr (veja "Banco real").
+- **Banco em disco local**, como no cadastro: banco ou backup em caminho de rede ou longo é recusado antes de ler o ZIP, no `--dry-run` também (veja "Banco real").
 - **Formato:** os 12 membros e só eles, com o mesmo `AAAAMM` (e o do nome do ZIP). Só o `cda_fie` e o `cda_fie_CONFID` são lidos, em cp1252 estrito e com o cabeçalho exato de `src/fundos/cda/columns.py`. Os 10 `cda_fi_*` entram só no manifesto, sem ser decodificados.
 - **Competência = `DT_COMPTC`** das linhas de "Cotas de Fundos": um só valor, do mês do `AAAAMM`, não posterior a hoje (UTC). As outras linhas são só contadas por `TP_APLIC`.
 - **Detentor:** `CNPJ_FUNDO_CLASSE`, sem completar zeros. `CLASSES - FIDC` e `CLASSES - FIAGRO` casam com a classe; `FIDC` e `FIAGRO`, com o fundo. O detentor fora do cadastro carregado, de outro tipo (`CLASSES FIIM`) ou de classe que só existe como fundo é só contado, por motivo. Nenhum fundo nem classe é criado.
@@ -322,7 +330,7 @@ python scripts\load_cda.py --database C:\<pasta-local>\fundos.db --zip C:\<pasta
 
 ## Banco real
 
-Decidido em 25/11/2026 (decisão 9 de Fundos em `docs/decisoes-em-aberto.md`). O banco real ainda não foi criado: a sequência abaixo roda com aprovação explícita a cada `--commit`.
+Decidido em 25/11/2026 (decisão 9 de Fundos em `docs/decisoes-em-aberto.md`). O primeiro banco real foi criado e carregado com o cadastro de 27/10/2026 e o CDA de 10/2026; os informes de FIDC e de FIAGRO ainda não estão nele. Cada `--commit` da sequência abaixo roda com aprovação explícita.
 
 - **Onde:** numa pasta local de caminho curto (por exemplo `C:\pense\fundos\fundos.db`), fora do Git e fora de pasta de rede.
   - O `--backup-dir` também é local (por exemplo `C:\pense\bk\fundos`), porque a `fundos_cli` da camada compartilhada não confere esse parâmetro.
@@ -334,7 +342,16 @@ Decidido em 25/11/2026 (decisão 9 de Fundos em `docs/decisoes-em-aberto.md`). O
 - **No banco, só o manifesto:** `raw_records` guarda nome, tamanho, SHA-256 e número de linhas de cada arquivo, nunca o conteúdo.
 - **Dados pessoais:** o CPF nunca é gravado. O que as guardas descartam aparece só como contagem no relatório (veja "Como carregar o CDA").
   - O original pode ter CPF. O CDA de 10/2026 tem 5 CPFs com máscara no `cda_fi_BLC_6`, que o carregador não decodifica, e 1 CPF completado com zeros numa linha PF do `cda_fie` que não é de cotas.
-- **Caminho de rede:** hoje os carregadores só avisam no stderr quando `--database` é de rede, e nenhum script confere a rede no `--backup-dir`. A guarda que recusa isso (e caminho longo, também no dry-run) fica para um PR próprio, depois da primeira carga real. Até lá, use só caminhos locais, como nos exemplos.
+- **Caminho de rede:** os 5 scripts (`apply_migration.py` e os 4 carregadores) recusam, antes de ler o ZIP e de abrir o banco, no `--dry-run` também (saída 1):
+  - `--database` e o destino do backup em caminho de rede (UNC, relativo dentro de pasta de rede ou unidade mapeada remota);
+  - caminho longo.
+
+  Mais regras:
+  - a mensagem traz só o parâmetro e o motivo, nunca o caminho;
+  - o caminho de rede é recusado antes de ser tocado, e o link ou a junção local para a rede é recusado pelo caminho resolvido;
+  - o `\\?\` conta como rede, um falso positivo seguro;
+  - a unidade criada com SUBST sobre pasta local é aceita;
+  - o `--zip` não é conferido: ler o ZIP pela rede não tem o risco de trava do SQLite.
 - **Sequência:** cada passo com `--dry-run` antes e `--commit` depois.
   1. Pasta local restrita e cópia dos originais (o cadastro de 27/10/2026 e o CDA de 10/2026), com o SHA-256 antes e depois.
   2. `scripts\apply_migration.py --create`: as migrations 001 a 004. A 005 fica reservada à prioridade de fontes (ADR-010).
@@ -352,7 +369,7 @@ Decidido em 25/11/2026 (decisão 9 de Fundos em `docs/decisoes-em-aberto.md`). O
 - a classificação de FIC-FIDC e a conferência cruzada do CDA com a `tab_I` (FU6.1, partes 3 e 4, etapa 11 do plano de Fundos);
 - a fase 4 da camada compartilhada (`fundos_cli`) sobre o banco real;
 - o segundo consumidor do banco (com ele, revisita-se o local: disco local de servidor);
-- a guarda de caminho de rede e de caminho longo nos scripts (PR próprio);
+- a mesma guarda de caminho na `fundos_cli` da camada compartilhada (o `--backup-dir`, o `--target-db` no dry-run e a unidade remota no `--fundos-db`) e na leitura dos indicadores (`indicators/reading.py`, que já recusa UNC, mas não unidade remota), em PR próprio;
 - um cadastro mais novo que o de 27/10/2026 (outra competência, com download aprovado).
 
 ## Indicadores de carteira vencida
