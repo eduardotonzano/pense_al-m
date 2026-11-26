@@ -229,7 +229,20 @@ A decisão trata só do alcance da regra no arquivo original. As regras de guard
 
 **O que depende dela:** a classificação de FIC-FIDC na Fase 5 e a fila de revisão manual.
 
-**Continua em aberto:** em F-04, a forma de exibir as cotas de FIDC investidas; a lista dos FIDCs investidos continua dependendo do CDA, lido em 29/10/2026 (seção 12 de `docs/fundos-descoberta.md`): a lista existe só para as classes com posição em cotas identificada.
+**Implementação (26/11/2026):** no módulo de Fundos (`src/fundos/fic_fidc/`, seção "FIC-FIDC e conferência do CDA" do README de Fundos).
+- **A classificação** é calculada na leitura e não é gravada. A faixa sai da multiplicação cruzada em `Decimal`. O ativo igual a 0 ou negativo, o campo ausente e as cotas negativas dão "sem dado", com o motivo.
+- **A fila de revisão manual** vai no `audit_log`: uma linha por assunto, competência e evidência, com a fonte MANUAL como fonte da decisão, sem duplicar.
+- **A conferência do CDA com a `tab_I`** soma só os investidos FIDC no cadastro e compara a mesma competência. A tolerância é `max(R$ 1; 1% do informe)`. A divergência é nota de qualidade, calculada na leitura, e não vai para `data_conflicts`. A tolerância e o destino da divergência foram decididos em 26/11/2026.
+- **Medição em 09/2026,** numa cópia do banco de teste: 517 FIC-FIDC e 374 em revisão manual.
+- **Medição em 10/2026 contra 10/2026,** numa cópia do banco real com o informe de FIDC de 10/2026, baixado em 26/11/2026.
+  - Classificação: 4.506 assuntos; 532 FIC-FIDC, 365 em revisão manual, 3.467 não classificados e 142 sem dado.
+  - Conferência: 424 dentro da tolerância, 71 fora e 4.013 sem dado.
+  - Fila: 365 entradas.
+
+**Continua em aberto:**
+- em F-04, a forma de exibir as cotas de FIDC investidas. A lista dos FIDCs investidos continua dependendo do CDA, lido em 29/10/2026 (seção 12 de `docs/fundos-descoberta.md`): a lista existe só para as classes com posição em cotas identificada;
+- a resolução da fila (a decisão de uma pessoa, como entrada MANUAL), que espera a migration 005 (ADR-010);
+- a classificação e a conferência no banco real, que esperam a carga, no próprio banco real, do informe de FIDC de 10/2026, a mesma competência do CDA carregado. O informe já foi baixado e usado numa cópia em 26/11/2026.
 
 ### 7. Variante do FIAGRO (F-05)
 
@@ -287,7 +300,7 @@ A recusa vem antes de ler o ZIP e de abrir o banco. A mensagem traz só o parâm
 | 3 | CPF e dados pessoais | F-03 | decidida | papel de gestor, auditor ou cedente pessoa física, sem identificador; 7 valores de cedente de 11 dígitos que também são CNPJ válido |
 | 4 | Pasta interna | F-02 | decidida | criação da pasta, pelo Eduardo com a TI |
 | 5 | Licença ODbL | | aprovada | conferir a licença (citar a fonte e manter a mesma licença) só antes de publicar fora da casa; não bloqueia o uso interno |
-| 6 | FIC-FIDC | F-04 | decidida | |
+| 6 | FIC-FIDC | F-04 | decidida | resolução da fila depois da migration 005; classificação e conferência no banco real depois da carga do informe de 10/2026 nele (já medidas numa cópia) |
 | 7 | Variante do FIAGRO | F-05 | decidida | |
 | 8 | Sênior e subordinada | F-02, F-03 | decidida | |
 | 9 | Banco real de Fundos | | decidida | rever o local com um segundo consumidor; guarda de caminho na `fundos_cli` e na leitura dos indicadores |
