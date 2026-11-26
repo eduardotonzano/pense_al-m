@@ -386,13 +386,12 @@ def _types_by_cnpj(connection, subject_table, field_name, scope):
     return {str(row[0]): scope.get(str(row[1]).strip(), OUTSIDE) for row in rows}
 
 
-def investee_type_counts(connection, cda):
-    """Linhas e investidos distintos por tipo no cadastro carregado (so leitura).
+def cadastro_types(connection):
+    """({CNPJ: tipo} das classes, {CNPJ: tipo} dos fundos) pelo cadastro atual (so leitura).
 
-    O tipo e o Tipo_Classe atual da classe ou, sem classe, o Tipo_Fundo do
-    fundo; classe e fundo com tipos diferentes contam como misto. Investido
-    FIF, FII ou FIP fica como fora do cadastro carregado (o banco so tem
-    FIDC e FIAGRO).
+    O tipo e o Tipo_Classe atual da classe e o Tipo_Fundo atual do fundo,
+    pelo mapa SCOPE do cadastro (FIDC ou FIAGRO). Usado pelo relatorio do
+    tipo do investido e pela conferencia do CDA com a tab_I (fic_fidc).
     """
 
     classes = _types_by_cnpj(
@@ -407,17 +406,41 @@ def investee_type_counts(connection, cda):
         cadastro_spec.field_name(cadastro_spec.FUND_TABLE, "Tipo_Fundo"),
         cadastro_spec.SCOPE[cadastro_spec.FUND_TABLE],
     )
+
+    return classes, funds
+
+
+def investee_label(cnpj, classes, funds):
+    """Tipo do investido: o da classe ou, sem classe, o do fundo.
+
+    Classe e fundo com tipos diferentes sao MIXED; CNPJ que nao esta no
+    cadastro carregado e OUTSIDE.
+    """
+
+    found = {t for t in (classes.get(cnpj), funds.get(cnpj)) if t is not None}
+
+    if cnpj in classes:
+        return MIXED if len(found) > 1 else classes[cnpj]
+
+    return funds.get(cnpj, OUTSIDE)
+
+
+def investee_type_counts(connection, cda):
+    """Linhas e investidos distintos por tipo no cadastro carregado (so leitura).
+
+    O tipo e o Tipo_Classe atual da classe ou, sem classe, o Tipo_Fundo do
+    fundo; classe e fundo com tipos diferentes contam como misto. Investido
+    FIF, FII ou FIP fica como fora do cadastro carregado (o banco so tem
+    FIDC e FIAGRO).
+    """
+
+    classes, funds = cadastro_types(connection)
     counts = Counter()
     investees = {}
 
     for holding in cda.holdings():
         cnpj = holding.investee_cnpj
-        found = {t for t in (classes.get(cnpj), funds.get(cnpj)) if t is not None}
-
-        if cnpj in classes:
-            label = MIXED if len(found) > 1 else classes[cnpj]
-        else:
-            label = funds.get(cnpj, OUTSIDE)
+        label = investee_label(cnpj, classes, funds)
 
         counts[("tipo_investido", "linhas", label)] += 1
         investees[cnpj] = label
