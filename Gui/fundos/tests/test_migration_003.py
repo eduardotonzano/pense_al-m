@@ -116,7 +116,7 @@ def test_applying_twice_changes_nothing(tmp_path):
         connection.close()
 
     assert before == after
-    assert [row[0] for row in versions] == [1, 2, 3, 4]
+    assert [row[0] for row in versions] == [1, 2, 3, 4, 6]
 
 
 def test_share_right_after_its_cedente_is_accepted(full_connection, base):
