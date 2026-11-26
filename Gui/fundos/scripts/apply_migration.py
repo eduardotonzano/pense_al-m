@@ -13,6 +13,13 @@ informado. --commit faz o backup, aplica tudo numa unica transacao e so
 confirma se a verificacao passar; caso contrario desfaz e mantem o banco
 como estava. A verificacao tambem recusa qualquer coluna com 'cpf' no nome:
 o banco de Fundos nunca guarda CPF.
+
+O banco e o backup ficam em disco local, de caminho curto (decisao 9 de
+Fundos): --database e o destino do backup (--backup-dir ou a pasta backups
+ao lado do banco) em caminho de rede (UNC, relativo dentro de pasta de rede
+ou unidade remota) ou longo sao recusados antes de tudo, no --dry-run
+tambem. O --dry-run tambem recusa a pasta temporaria em rede, porque a
+copia de teste vai para ela.
 """
 
 import argparse
@@ -35,6 +42,8 @@ sys.path.insert(0, str(SOURCE_DIR))
 import fundos  # noqa: E402
 from fundos.backup import BackupError  # noqa: E402
 from fundos.backup import backup_path  # noqa: E402
+from fundos.backup import check_local_path  # noqa: E402
+from fundos.backup import check_local_paths  # noqa: E402
 from fundos.backup import check_path_length  # noqa: E402
 from fundos.backup import create_backup  # noqa: E402
 from fundos.database import Database  # noqa: E402
@@ -370,7 +379,6 @@ def remove_new_database(database_path):
 
 
 def run(args):
-    database_path = pathlib.Path(args.database).resolve()
     migrations = discover_migrations(args.migrations_dir)
 
     print(
@@ -378,13 +386,12 @@ def run(args):
         + str(pathlib.Path(fundos.__file__).resolve().parent)
     )
 
+    # Banco e backup em disco local, de caminho curto, antes de tocar no
+    # banco (no dry-run tambem): caminho de rede ou longo e recusado.
     try:
-        check_path_length(
-            database_path,
-            hint="use um banco numa pasta de caminho curto, em disco local.",
-        )
+        database_path = check_local_paths(args.database, args.backup_dir)
     except BackupError as error:
-        raise MigrationError("Banco com " + str(error)) from error
+        raise MigrationError(str(error)) from error
 
     created_new = False
 
@@ -445,6 +452,13 @@ def run(args):
     )
 
     if args.dry_run:
+        # O banco de teste (ou a copia de teste do banco existente) vai para a
+        # pasta temporaria: ela tambem tem de ser local.
+        try:
+            check_local_path(tempfile.gettempdir(), "pasta temporaria")
+        except BackupError as error:
+            raise MigrationError(str(error)) from error
+
         with tempfile.TemporaryDirectory(
             prefix="fu_",
             ignore_cleanup_errors=True,
