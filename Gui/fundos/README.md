@@ -14,16 +14,20 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - `src/fundos/informe_fidc/`: leitor do informe mensal de FIDC (`inf_mensal_fidc_AAAAMM.zip`, 18 tabelas), sem banco (`reader.py`, com a lista fechada das 461 colunas em `columns.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/informe_fiagro/`: leitor do informe mensal de FIAGRO (`inf_mensal_fiagro_AAAAMM.zip`, 2 arquivos), sem banco (`reader.py`, com a lista fechada das 133 + 6 colunas em `columns.py`); gravação (`loader.py`), com a reapresentação (`compare.py`, FU5.3); e relatório só com agregados (`report.py`).
 - `src/fundos/cda/`: leitor do CDA da CVM (`cda_fi_AAAAMM.zip`, 12 membros, dos quais só o `cda_fie` e o `cda_fie_CONFID` são lidos), sem banco (`reader.py`, com a lista fechada de colunas em `columns.py`); gravação das posições em cotas de fundos (`loader.py`, com `repositories/holding_repository.py`); e relatório só com agregados (`report.py`).
+- `src/fundos/fic_fidc/`: a classificação de FIC-FIDC (decisão 6 de Fundos) e a conferência das posições do CDA em cotas de FIDC com a `tab_I`, calculadas na leitura, sem gravar nada, e a fila de revisão manual no `audit_log`. Veja "FIC-FIDC e conferência do CDA".
 - `src/fundos/indicators/`: indicadores calculados na leitura a partir do informe de FIDC já carregado (vencidos na carteira, faixas de atraso, a distribuição "Por Prazo de Vencimento (R$)", os cedentes gravados, as alienações do mês a partes relacionadas e a "Provisão para Redução no Valor de Recuperação" com a cobertura dos vencidos), sem gravar nada. Veja "Indicadores de carteira vencida", "Cedentes e alienações a partes relacionadas" e "Provisão para Redução no Valor de Recuperação e cobertura".
 - `scripts/apply_migration.py`: aplica as migrations numeradas, com backup e verificação.
 - `scripts/load_cadastro.py`: carrega os FIDC e FIAGRO do cadastro. Veja "Como carregar o cadastro".
 - `scripts/load_informe_fidc.py`: carrega o informe mensal de FIDC. Veja "Como carregar o informe de FIDC".
 - `scripts/load_informe_fiagro.py`: carrega o informe mensal de FIAGRO. Veja "Como carregar o informe de FIAGRO".
 - `scripts/load_cda.py`: carrega as posições em cotas de fundos do CDA. Veja "Como carregar o CDA" e, para o primeiro banco real, "Banco real".
+- `scripts/classify_fic_fidc.py`: mostra a classificação de FIC-FIDC e a conferência do CDA, só com contagens, e grava a fila de revisão manual. Veja "FIC-FIDC e conferência do CDA".
 
 ## O que ainda não existe
 
-Coletor, acesso à rede, banco real, dados reais e adaptador para a camada compartilhada. Ficam para etapas futuras do plano de Fundos:
+Coletor, acesso à rede e adaptador para a camada compartilhada. O banco real existe desde 25/11/2026, com o cadastro de 27/10/2026 e o CDA de 10/2026. O informe de FIDC ainda **não** está carregado nele; essa carga fica para outra etapa (veja "Banco real").
+
+Ficam para etapas futuras do plano de Fundos:
 
 - a migration de prioridade das fontes (ADR-010, proposta);
 - o `registro_subclasse` como dado (hoje só entra no manifesto);
@@ -37,7 +41,8 @@ Coletor, acesso à rede, banco real, dados reais e adaptador para a camada compa
 - a evolução das faixas de atraso conferida no dado real: o banco de teste tem uma competência só do informe de FIDC (09/2026). Uma segunda exige baixar outro mês (rede, com aprovação) e carregá-lo numa cópia;
 - a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
 - o mapa de séries sênior, mezanino e subordinada;
-- a resolução de conflitos com `audit_log`.
+- a resolução de conflitos com `audit_log`;
+- a resolução da fila de revisão manual de FIC-FIDC: a decisão de uma pessoa, como entrada MANUAL, só vem depois da migration 005 (ADR-010). Hoje a fila só recebe os assuntos (veja "FIC-FIDC e conferência do CDA").
 
 A tabela dos fundos da casa não entra neste módulo (veja "Regras").
 
@@ -366,11 +371,169 @@ Decidido em 25/11/2026 (decisão 9 de Fundos em `docs/decisoes-em-aberto.md`). O
 ### Fora desta etapa
 
 - a carga dos informes de FIDC e de FIAGRO no banco real;
-- a classificação de FIC-FIDC e a conferência cruzada do CDA com a `tab_I` (FU6.1, partes 3 e 4, etapa 11 do plano de Fundos);
+- a classificação de FIC-FIDC e a conferência do CDA com a `tab_I` no banco real: o código existe (veja "FIC-FIDC e conferência do CDA"), mas o banco real ainda não tem o informe de FIDC de 10/2026, a mesma competência do CDA carregado. O informe foi baixado em 26/11/2026, está na pasta local de originais e foi carregado só numa cópia do banco real;
 - a fase 4 da camada compartilhada (`fundos_cli`) sobre o banco real;
 - o segundo consumidor do banco (com ele, revisita-se o local: disco local de servidor);
 - a mesma guarda de caminho na `fundos_cli` da camada compartilhada (o `--backup-dir`, o `--target-db` no dry-run e a unidade remota no `--fundos-db`) e na leitura dos indicadores (`indicators/reading.py`, que já recusa UNC, mas não unidade remota), em PR próprio;
 - um cadastro mais novo que o de 27/10/2026 (outra competência, com download aprovado).
+
+## FIC-FIDC e conferência do CDA
+
+O `src/fundos/fic_fidc/` calcula na leitura duas coisas, por assunto (a classe ou o fundo) e por competência (FU6.1, partes 3 e 4):
+- a classificação de FIC-FIDC (decisão 6 de `docs/decisoes-em-aberto.md`);
+- a conferência das posições do CDA em cotas de FIDC com a `tab_I` do informe.
+
+Nenhuma das duas é gravada. A única escrita é a fila de revisão manual no `audit_log`, feita só pelo `--commit` do script.
+
+### A classificação (`classification.classify(conexao, competencia, assuntos=None)`)
+
+- **Regra (`fic_fidc.v1`):** `tab_I.TAB_I2H_VL_COTA_FIDC` sobre `tab_I.TAB_I_VL_ATIVO`, na mesma competência.
+  - 95% ou mais: FIC-FIDC.
+  - De 67% a menos de 95%: em revisão manual.
+  - Abaixo de 67%: não classificado.
+
+  É uma regra de corte, não um dado da CVM. Nunca classifica pelo nome.
+- **Exatidão:** a faixa sai da multiplicação cruzada em `Decimal` (100 x cotas contra 95 x ativo e contra 67 x ativo), num contexto que recusa arredondamento. A divisão nunca decide a faixa; o percentual sai só para exibição, com 28 dígitos e sem arredondar.
+- **Os dois números** saem com o campo, a competência, a fonte, a observação de origem e a coleta, pelo `read_competence` dos indicadores. Valem as fontes ativas, depois a prioridade e depois a coleta mais recente, dentro da competência.
+- **Sem dado, com o motivo** (nunca zero, nunca estimado):
+  - `sem_informe_na_competencia`: o assunto pedido não tem a `tab_I` na competência;
+  - `campo_ausente` e `tipo_inesperado`;
+  - `denominador_zero` e `denominador_negativo`: o ativo é 0 ou negativo;
+  - `numerador_negativo`: as cotas de FIDC são negativas.
+
+  Zero informado é zero: cotas 0 com ativo positivo dão "não classificado".
+- **Marcas:**
+  - `acima_de_100`: as cotas passam o ativo; o assunto é classificado, sem cortar;
+  - `conflito_aberto`: um dos dois campos tem conflito aberto no banco;
+  - `tipo_no_cadastro_fiagro`: a classe é FIAGRO no cadastro e tem o informe de FIDC. É classificada pela regra e marcada.
+
+### A conferência (`cda_check.cda_vs_informe(conexao, competencia, assuntos=None)`)
+
+- **O que compara:** a soma de `cda_fie.VL_MERC_POS_FINAL` das posições identificadas (`holdings`) cujo investido é FIDC no cadastro, como classe ou só como registro de fundo, contra `tab_I.TAB_I2H_VL_COTA_FIDC`.
+  - Investido FIAGRO, misto ou fora do cadastro carregado fica fora da soma, à parte e com marca. O banco só tem FIDC e FIAGRO, então FIF, FII e FIP caem em "fora do cadastro carregado".
+  - O consolidado confidencial não separa o tipo do investido e nunca entra na soma.
+  - O tipo do investido é o do cadastro atual (`cda.loader.cadastro_types`). O CNPJ do investido é lido só para buscar o tipo, e nenhum resultado o traz.
+- **Tolerância (decidida em 26/11/2026):** dentro é `|CDA - informe| <= max(R$ 1; 1% do informe)`, conferido por multiplicação cruzada.
+  - **O 1%:** vem da seção 12.5 de `docs/fundos-descoberta.md`. Em 09/2026, só com os investidos FIDC, 266 de 292 e 134 de 173 classes ficaram a até 1% do informe; a faixa seguinte (de 1% a 5%) tinha 8 e 16.
+  - **O R$ 1:** absorve centavo quando o informe é pequeno ou zero.
+- **A divergência é nota de qualidade** (decidido em 26/11/2026), calculada na leitura:
+  - não vai para `data_conflicts`, que liga duas observações do mesmo campo; a posição do CDA não é observação, e as duas fontes não são reapresentação uma da outra;
+  - nada é gravado nem sobrescrito.
+- **Competência:** nunca se compara um mês com outro. Se um dos lados não tem a competência, o resultado é `sem_dado`, com `sem_informe_na_competencia` ou `cda_nao_carregado_na_competencia`, e traz as duas datas.
+- **Os outros motivos de `sem_dado`:**
+  - `holdings_nao_existe`: o banco não tem a migration 004;
+  - `campo_ausente`, `tipo_inesperado` e `valor_negativo`;
+  - `sem_posicao_em_cotas_no_cda` e `so_posicao_confidencial`.
+- **Marcas:**
+  - `conflito_aberto` (no informe) e `conflito_de_posicao` (posição com conflito aberto: vale a mais recente);
+  - `investido_misto`, `investido_fora_do_cadastro` e `tem_posicao_confidencial`;
+  - `sem_cotas_nos_dois_lados`: o informe é 0 e não há posição. É só contado.
+- **FIAGRO detentor:** sem o informe de FIDC, o resultado é `sem_informe_na_competencia`. O CDA não é comparado com o informe de FIAGRO. O relatório conta os detentores por tipo no cadastro e mostra 0 quando não há nenhum, sem concluir a causa.
+
+### A fila de revisão manual (`review_queue`)
+
+**Uma linha no `audit_log`** por assunto em revisão manual, por competência e por evidência:
+
+| Coluna | Valor |
+|---|---|
+| `actor` | `fundos.fic_fidc.v1`, o processo, nunca nome de pessoa |
+| `action` | `fic_fidc_revisao_manual_pendente` |
+| `entity_type` e `entity_id` | `fund_classes` ou `funds`, e o id do assunto |
+| `after_data` | JSON canônico, com a competência, a regra, `fonte_da_decisao` MANUAL (o `audit_log` não tem coluna de fonte) e, de cada campo, o nome e a observação de origem. Nenhum valor, CNPJ nem nome |
+| `reason` | a regra que mandou o assunto para a fila |
+
+**Sem duplicar:**
+- Classificar e ler a fila nunca escrevem.
+- O `--commit` grava só dentro de uma transação e só faz INSERT.
+- A entrada com o mesmo `after_data` não é gravada de novo.
+
+**Reapresentação:** um valor reapresentado muda a observação de origem e gera uma linha nova; a antiga fica. A leitura da fila mostra a mais recente por assunto, com a marca `classificacao_atual_diferente` quando o assunto saiu da faixa de revisão ou a evidência mudou.
+
+**A decisão de uma pessoa não é gravada aqui.** A entrada MANUAL em `observations` só vem depois da migration 005 (ADR-010).
+
+**Limitação:** o `audit_log` não tem trigger de imutabilidade. Este código só faz INSERT, e o teste confere.
+
+### O script (`scripts/classify_fic_fidc.py`)
+
+```powershell
+# na pasta do módulo de Fundos
+python scripts\classify_fic_fidc.py --database C:\<pasta-local>\fundos.db --reference-date 2026-09-30 --dry-run
+python scripts\classify_fic_fidc.py --database C:\<pasta-local>\fundos.db --reference-date 2026-09-30 --commit --backup-dir C:\<pasta-local>\bk\fundos
+```
+
+- **Argumentos:** `--reference-date` é a competência, o último dia do mês; outro dia dá saída 2. `--dry-run` ou `--commit` é obrigatório.
+- **Banco em disco local**, como nos carregadores: banco ou backup em caminho de rede ou longo é recusado antes de abrir o banco, no `--dry-run` também (saída 1).
+- **`--dry-run`:**
+  - abre o banco só para leitura (`mode=ro` e `query_only`), e banco em WAL é recusado;
+  - mostra a regra e as competências de cada lado;
+  - mostra as faixas, os estados da conferência e o cruzamento das faixas com os estados;
+  - diz quantos assuntos já estão na fila e quantos entrariam.
+
+  Não escreve nada.
+- **`--commit`:** só grava a fila.
+  - **Sem entrada nova:** diz "Nada a enfileirar" e não faz backup.
+  - **Com entrada nova:** faz o backup antes e grava numa transação. Confere o que gravou antes do COMMIT e roda `integrity_check` e `foreign_key_check` depois.
+  - **Migrations:** exige as 001 a 003.
+- **Saída:** 0 (sucesso ou nada a fazer), 1 (erro, com "Erro na classificacao de FIC-FIDC: ..." no stderr; o erro inesperado mostra só o tipo do erro) e 2 (argumentos).
+- **O relatório tem só contagens,** nunca CNPJ, nome nem valor de linha.
+
+### Medição em 26/11/2026 (cópias; só contagens)
+
+**09/2026, cópia do banco de teste.** O banco tem o cadastro de 27/10/2026 e o informe de FIDC de 09/2026, sem `holdings`. O SHA-256 da cópia era igual ao do original, e o do original ficou igual depois.
+- **Classificação:** 4.425 assuntos.
+  - FIC-FIDC: 517;
+  - em revisão manual: 374;
+  - não classificado: 3.404;
+  - sem dado: 130, todos `denominador_zero`.
+
+  Marcas: `acima_de_100` em 1 e `tipo_no_cadastro_fiagro` em 2. Os números vêm todos da `CVM_DADOS_ABERTOS`.
+- **Sanidade:** a seção 10.4 de `docs/fundos-descoberta.md` contou 518, 374, 3.407 e 145 sem ativo positivo nas 4.444 linhas do ZIP. A diferença (1, 0, 3 e 15) soma 19, o mesmo número de linhas do ZIP que não viraram assunto carregado (4.444 - 4.425). Não foi conferido se são as mesmas linhas.
+- **Conferência:** os 4.425 assuntos saem `holdings_nao_existe`, porque o banco não tem a 004.
+- **Fila:** o `--commit` gravou 374 linhas, de 370 classes e 4 fundos, com 1 backup, `integrity_check` ok e 0 problemas de chave estrangeira. O segundo `--commit` disse "Nada a enfileirar", sem backup e sem mudar o banco. O `--dry-run` seguinte mostrou 0 a entrar e 374 na fila.
+
+**10/2026, cópia do banco real.** O SHA-256 era igual antes e depois, e não houve backup novo.
+- **O CDA:** tem só a competência 2026-10-31, com 5.746 posições e 136 confidenciais.
+- **O informe:** esta cópia é de antes do download do informe de 10/2026 e não o tinha, então não houve classificação. A medição com o informe está no bloco seguinte.
+- **A conferência:** 635 detentores, todos `sem_informe_na_competencia`. Por tipo no cadastro, 635 são FIDC (5.882 linhas) e 0 são FIAGRO. A marca `investido_fora_do_cadastro` aparece em 435 e `tem_posicao_confidencial` em 136.
+
+**10/2026 contra 10/2026, cópia nova do banco real com o informe de FIDC de 10/2026.** O banco real ficou com o SHA-256 igual antes e depois, e não houve backup novo.
+- **O informe:** `inf_mensal_fidc_202610.zip`, com 3.681.356 bytes, SHA-256 `7f8ca7d7...403817` e `Last-Modified` de 21/11/2026 11:50:03 GMT. Foi baixado em 26/11/2026 com um único GET e guardado na pasta local de originais, somente leitura.
+- **A carga, só na cópia:**
+  - a `tab_I` tem 4.523 linhas (4.492 classes e 31 fundos), das quais 4.506 assuntos estão no cadastro carregado (4.476 classes e 30 fundos) e 17 ficaram fora;
+  - foram 1.592.309 observações, com 0 conflitos;
+  - `integrity_check` ok, 0 problemas de chave estrangeira e a varredura de CPF com 0.
+- **Classificação:** 4.506 assuntos.
+  - FIC-FIDC: 532;
+  - em revisão manual: 365;
+  - não classificado: 3.467;
+  - sem dado: 142, todos `denominador_zero`.
+
+  Marcas: `acima_de_100` em 1 e `tipo_no_cadastro_fiagro` em 1.
+- **Conferência:** 4.508 assuntos, que são os 4.506 do informe e 2 detentores só no CDA.
+  - Dentro da tolerância: 424; fora: 71.
+  - `sem_dado`: 4.013, dos quais `sem_posicao_em_cotas_no_cda` 3.873, `so_posicao_confidencial` 136, `sem_informe_na_competencia` 2 e `valor_negativo` 2.
+  - Marcas: `investido_fora_do_cadastro` em 435, `tem_posicao_confidencial` em 136 e `sem_cotas_nos_dois_lados` em 3.067.
+  - Detentores por tipo no cadastro: 635 FIDC (5.882 linhas) e 0 FIAGRO.
+- **Cruzamento** (dentro, fora e os `sem_dado`):
+
+  | Faixa | Dentro | Fora | Sem posição | Só confidencial | Valor negativo |
+  |---|---|---|---|---|---|
+  | FIC-FIDC | 264 | 29 | 144 | 95 | 0 |
+  | Em revisão manual | 134 | 34 | 161 | 36 | 0 |
+  | Não classificado | 26 | 8 | 3.428 | 5 | 0 |
+  | Sem dado | 0 | 0 | 140 | 0 | 2 |
+- **Sanidade contra a seção 12.5,** sem teste fixo. Com 1% puro, sem o piso de R$ 1 e só nas classes, ficaram dentro 263 de 290 (95% ou mais) e 133 de 167 (de 67% a menos de 95%). Em 09/2026 tinham sido 266 de 292 e 134 de 173. Com classes e fundos, o piso de R$ 1 não mudou nenhuma contagem: 264 de 293 e 134 de 168.
+- **Fila:** o `--commit` gravou 365 linhas, de 363 classes e 2 fundos, com 1 backup, `integrity_check` ok e 0 problemas de chave estrangeira. O segundo `--commit` disse "Nada a enfileirar", e o `--dry-run` seguinte mostrou 0 a entrar e 365 na fila.
+
+### Não confirmado
+
+1. **O critério de valor:** não se sabe se `cda_fie.VL_MERC_POS_FINAL` e `TAB_I2H_VL_COTA_FIDC` seguem o mesmo (seção 12.8 de `docs/fundos-descoberta.md`).
+2. **As classes fora de 1% em 09/2026:** 26 e 39, sem causa explicada.
+3. **O valor confidencial:** não se sabe quanto dele é FIDC.
+4. **FIAGRO no CDA de 10/2026:** há 0 detentores FIAGRO no CDA carregado, contra 272 linhas em 09/2026, e a causa não foi verificada.
+5. **A conferência no banco real:** com dado real, só rodou numa cópia (10/2026 contra 10/2026). O banco real continua sem o informe.
+6. **As classes fora de 1% em 10/2026:** 27 e 34, sem causa explicada, como em 09/2026.
+7. **A norma:** não se sabe se ela define FIC-FIDC. A decisão 6 é regra de corte.
 
 ## Indicadores de carteira vencida
 
