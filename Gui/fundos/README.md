@@ -18,6 +18,7 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - `src/fundos/fic_fidc/`: a classificação de FIC-FIDC (decisão 6 de Fundos) e a conferência das posições do CDA em cotas de FIDC com a `tab_I`, calculadas na leitura, sem gravar nada, e a fila de revisão manual no `audit_log`. Veja "FIC-FIDC e conferência do CDA".
 - `src/fundos/indicators/`: indicadores calculados na leitura a partir do informe de FIDC já carregado (vencidos na carteira, faixas de atraso, a distribuição "Por Prazo de Vencimento (R$)", os cedentes gravados, as alienações do mês a partes relacionadas e a "Provisão para Redução no Valor de Recuperação" com a cobertura dos vencidos), sem gravar nada. Veja "Indicadores de carteira vencida", "Cedentes e alienações a partes relacionadas" e "Provisão para Redução no Valor de Recuperação e cobertura".
 - `src/fundos/indicators/subordinacao.py`: a subordinação das classes de FIDC pelas séries da `tab_X_2`, classificadas pelo `quota_class_map`, calculada na leitura. `scripts/report_subordinacao.py` mostra o relatório, só lendo o banco. Veja "Subordinação (FU6.3)".
+- `src/fundos/indicators/segmentos.py` e `src/fundos/indicators/garantias.py`: a carteira por segmento (`tab_II`) e as garantias (`tab_X_7`), calculadas na leitura (FU11.4). `scripts/report_estrutura.py` mostra o relatório, só lendo o banco. Veja "Estrutura: carteira por segmento, garantias e subordinação (grupo D4)".
 - `scripts/apply_migration.py`: aplica as migrations numeradas, com backup e verificação.
 - `scripts/load_cadastro.py`: carrega os FIDC e FIAGRO do cadastro. Veja "Como carregar o cadastro".
 - `scripts/load_informe_fidc.py`: carrega o informe mensal de FIDC. Veja "Como carregar o informe de FIDC".
@@ -39,7 +40,7 @@ Ficam para etapas futuras do plano de Fundos:
 - as classes de chave repetida no arquivo de FIAGRO **com a mesma `Versao`** (ou empate na maior, ou `Versao` vazia) e as subclasses delas (2 classes e 9 linhas de subclasse em 09/2026, as duas com a mesma `Versao`): só contadas, até decisão do módulo de Fundos;
 - a comparação, na leitura, entre o informe de FIAGRO e o de FIDC e entre o informe e o cadastro (gestor e administradora): a conferência foi feita na FU5.2 (seção 10.5 de `docs/fundos-descoberta.md`) e o Gui decidiu em 04/11/2026 que vale o informe que corresponde ao `Tipo_Classe` e, para gestor e administradora, o cadastro vigente (F-03 e F-05 de `docs/regras-de-exibicao-pendentes.md`). Nada disso está no código: o banco não compara os informes, a comparação fica na camada de leitura (FU9.2) e a view de valor atual dos papéis entra antes da FU9.1. O informe de FII foi amostrado (seção 13 de `docs/fundos-descoberta.md`) e não é carregado;
 - a `tab_VIII` e a `tab_X_4` do informe, lidas e conferidas mas **não carregadas** (várias linhas para o mesmo assunto e campo). A `tab_X_4` (captações, resgates e amortizações por série) fica **indisponível** até uma tarefa própria, com ADR (uma dimensão a mais em `observations`);
-- o uso do percentual do cedente em contas e as métricas de concentração: pela decisão de 24/11/2026 (FU11.2), o percentual é só mostrado como informado, com qualificador, até a base dele ser confirmada, e não há métrica de concentração. A forma de exibir continua em aberto;
+- o uso do percentual do cedente em contas e as métricas de concentração por cedente: pela decisão de 24/11/2026 (FU11.2), o percentual é só mostrado como informado, com qualificador, até a base dele ser confirmada, e não há métrica de concentração. A forma de exibir continua em aberto;
 - **pendência do FIAGRO nos indicadores de carteira vencida (FU11.1):** os campos `Vencidos_*`, `A_Vencer_*` e `Total_Ativos_Prazo_Vencimento` do informe de FIAGRO ficaram fora por falta de descrição oficial. O dicionário de FIAGRO descreve 13 dos 133 campos, e nenhum destes. A inclusão depende da leitura do Anexo Normativo VI da Resolução CVM 175 e do modelo do informe de FIAGRO, que exige aprovação de rede;
 - a evolução das faixas de atraso conferida no dado real: o banco de teste tem uma competência só do informe de FIDC (09/2026). Uma segunda exige baixar outro mês (rede, com aprovação) e carregá-lo numa cópia;
 - a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
@@ -1032,6 +1033,138 @@ Feita em 24/11/2026 na mesma cópia idêntica do banco de teste, aberta com `mod
 3. **O "bruto" do bloco (total + provisão):** só a aritmética de 09/2026 o sugere, e o texto da CVM não.
 4. **Por que há provisão maior que 0 com vencidos iguais a 0:** são 127 assuntos no bloco a e 25 no b.
 5. **A provisão no FIAGRO:** não há campo descrito no dicionário.
+
+## Estrutura: carteira por segmento, garantias e subordinação (grupo D4)
+
+O grupo D4 reúne três leituras da estrutura do FIDC, por assunto (classe ou fundo) e competência. Todas são calculadas na leitura, com a conexão só de leitura e os estados das seções anteriores. Nada é gravado, sem tabela nem migration.
+
+| Parte | Função | Relatório |
+|---|---|---|
+| Carteira por segmento (`tab_II`, FU11.4) | `segmentos.carteira_por_segmento(conexao, competencia, assuntos=None)` | `scripts/report_estrutura.py` |
+| Garantias (`tab_X_7`, FU11.4) | `garantias.garantias(conexao, competencia, assuntos=None)` | `scripts/report_estrutura.py` |
+| Subordinação (`tab_X_2`, FU6.3) | `subordinacao.subordinacao(conexao, competencia, assuntos=None)`, já existente: veja "Subordinação (FU6.3)" | `scripts/report_subordinacao.py` |
+
+### Carteira por segmento (`tab_II`)
+
+- **Campos:** a tabela II do Suplemento G, "Carteira por Segmento": o total `tab_II.TAB_II_VL_CARTEIRA` e os 11 segmentos de topo, de II.a (`TAB_II_A_VL_INDUST`, Industrial) a II.k (`TAB_II_K_VL_MARCA`, Propriedade Intelectual e Marcas & Patentes). Cinco deles têm subitens: c (3), d (4), f (8), h (2) e i (4). São 33 campos, todos em R$, com os nomes do dicionário da CVM.
+- **"Outros":** só existe dentro de f (II.f.8, `TAB_II_F8_VL_OUTRO`) e de i (II.i.4, `TAB_II_I4_VL_OUTRO`). Não há segmento "sem segmento".
+- **Base do %:** `TAB_II_VL_CARTEIRA` informado, o total da própria tabela. O PL não entra (decisão 8). Cada segmento e cada subitem saem com o % nesse total.
+- **Conferências, em `Decimal` exato:** a soma dos 11 segmentos com o total, e a dos subitens com o seu segmento. A diferença vira marca, e o total nunca é recalculado.
+- **Concentração, só nos 11 de topo:** os segmentos maiores que 0, do maior para o menor (no empate, a ordem do modelo); o maior; a quantidade de segmentos diferentes de 0; e o HHI, a soma dos quadrados das parcelas em %, de 0 a 10.000.
+  - É concentração **por segmento informado**, e não por cedente nem por sacado.
+  - O indicador não tem faixa nem limiar. O relatório conta os assuntos em intervalos de contagem, que não classificam a concentração.
+  - Os subitens ficam fora da concentração: os dois "Outros" são heterogêneos e mudariam o sentido do HHI de um fundo para outro.
+
+**Estados:** `calculado` ou `sem_dado`, com o motivo:
+- `campo_ausente` ou `tipo_inesperado`, no total ou num segmento de topo;
+- `denominador_zero` ou `denominador_negativo`: o total é 0 ou negativo. Os valores em R$ continuam presentes, sem o %.
+
+O maior segmento e o HHI só existem com `calculado` e sem segmento negativo. Fora disso, ficam sem dado, com o motivo em `hhi_reason`.
+
+**Marcas:**
+
+| Marca | Quando |
+|---|---|
+| `segmento_negativo` | algum segmento de topo é negativo. O valor e o % saem como informados, e o % dos demais pode passar de 100%. O maior segmento e o HHI ficam sem dado, com o motivo `segmento_negativo` |
+| `soma_dos_segmentos_diferente_do_total` | a soma dos 11 segmentos não é igual ao total |
+| `subitens_diferentes_do_segmento` | a soma dos subitens de algum segmento não é igual a ele |
+| `com_outros` | II.f.8 ou II.i.4 diferente de 0 |
+| `conflito_aberto` | algum campo tem conflito aberto no banco |
+
+### Garantias (`tab_X_7`)
+
+| Item | Campo | Nome (Suplemento G, correspondência pelo nome do campo) | Unidade |
+|---|---|---|---|
+| 7.1 | `tab_X_7.TAB_X_VL_GARANTIA_DIRCRED` | Valor total das garantias vinculadas aos direitos creditórios | R$ |
+| 7.2 | `tab_X_7.TAB_X_PR_GARANTIA_DIRCRED` | Percentual dos direitos creditórios com garantias vinculadas | % |
+
+- **Correspondência:** o dicionário da CVM traz os dois campos sem descrição. Os nomes de 7.1 e 7.2 vêm do Suplemento G, com correspondência pelo nome do campo.
+- **O que o informe não traz:** o tipo da garantia e um campo de presença.
+- **Como saem:** os dois campos como informados, com fonte, competência, observação e coleta. Valor ausente é `sem_dado`, nunca zero; zero informado é zero.
+- **Nada é calculado entre os dois campos.** O percentual não é o valor sobre a carteira. Em 09/2026, dos 28 assuntos com valor maior que 0, só 8 fecham a até 1 ponto percentual com o melhor dos totais testados, e em 9 o valor passa da carteira de direitos creditórios (I.2.a + I.2.b).
+
+**Marcas:**
+
+| Marca | Quando |
+|---|---|
+| `garantia_informada_zero` | valor e percentual informados iguais a 0. A exibição diz "o informe traz 0", sem afirmar que não há garantia |
+| `percentual_acima_de_100` | o percentual passa de 100. Não é cortado |
+| `valor_e_percentual_incoerentes` | um é maior que 0 e o outro é 0 |
+| `valor_negativo` e `percentual_negativo` | o campo informado é negativo |
+| `conflito_aberto` | algum dos dois campos tem conflito aberto no banco |
+
+### O relatório (`scripts/report_estrutura.py`)
+
+```powershell
+# na pasta do módulo de Fundos
+python scripts\report_estrutura.py --database C:\<pasta-local>\fundos.db --reference-date 2026-09-30
+```
+
+- **Leitura:** só lendo o banco (`mode=ro` e `query_only`; banco em WAL é recusado), num só retrato para as duas leituras, com a guarda de caminho de rede e longo. Exige a migration 001.
+- **O que mostra:** só contagens.
+  - **Segmento:**
+    - estados, motivos e marcas;
+    - os segmentos de topo diferentes de 0, nos calculados;
+    - os intervalos de contagem do maior segmento e do HHI, nos calculados sem segmento negativo;
+    - por segmento de topo, os assuntos com valor maior que 0.
+  - **Garantias:**
+    - o valor e o percentual por grupo, e as marcas;
+    - os nomes de 7.1 e 7.2, com "Suplemento G, correspondência pelo nome do campo";
+    - a nota de que o percentual é informado, e não calculado a partir do valor.
+  - **No fim:** a indicação de `scripts/report_subordinacao.py`, o relatório da subordinação.
+- **Nunca traz** CNPJ, nome nem valor de linha. Um erro inesperado mostra só o tipo do erro.
+
+### Medição em 27/11/2026 (cópias, só leitura; só contagens)
+
+`scripts/report_estrutura.py` rodou só lendo duas cópias: a do banco de teste, para 09/2026, e a do banco real com o informe, para 10/2026. O SHA-256 de cada uma ficou igual. O banco real ficou com o SHA-256 igual, sem backup novo.
+
+| | 09/2026 | 10/2026 |
+|---|---|---|
+| Assuntos com a `tab_II` | 4.425 | 4.506 |
+| `calculado` / `sem_dado/denominador_zero` | 3.301 / 1.124 | 3.364 / 1.142 |
+| `segmento_negativo` | 23 | 19 |
+| `soma_dos_segmentos_diferente_do_total` / `subitens_diferentes_do_segmento` | 0 / 0 | 0 / 0 |
+| `com_outros` | 1.964 | 1.952 |
+| Calculados com 1 / 2 / 3 / 4 / 5 ou mais segmentos diferentes de 0 | 2.206 / 432 / 400 / 133 / 130 | 2.254 / 449 / 400 / 127 / 134 |
+| Maior segmento, sem segmento negativo: 100% ou mais / de 90% a menos de 100% / de 50% a menos de 90% / menos de 50% | 2.206 / 257 / 666 / 149 | 2.254 / 262 / 679 / 150 |
+| HHI, mesmos assuntos: 10.000 ou mais / de 5.000 a menos de 10.000 / de 2.500 a menos de 5.000 / menos de 2.500 | 2.206 / 727 / 337 / 8 | 2.254 / 744 / 339 / 8 |
+| Assuntos com a `tab_X_7` | 4.425 | 4.506 |
+| Valor (7.1): maior que 0 / igual a 0 | 28 / 4.397 | 26 / 4.480 |
+| Percentual (7.2): igual a 0 / maior que 0 e até 100 / acima de 100 | 4.397 / 27 / 1 | 4.480 / 25 / 1 |
+| `garantia_informada_zero` | 4.397 | 4.480 |
+| `valor_e_percentual_incoerentes`, valor ou percentual negativo, `conflito_aberto` | 0 | 0 |
+
+**Assuntos com valor maior que 0, por segmento de topo:**
+
+| Segmento | 09/2026 | 10/2026 |
+|---|---|---|
+| II.a Industrial | 428 | 435 |
+| II.b Mercado Imobiliário | 210 | 210 |
+| II.c Comercial | 1.001 | 1.038 |
+| II.d Serviços | 908 | 923 |
+| II.e Agronegócio | 217 | 251 |
+| II.f Financeiro | 2.151 | 1.882 |
+| II.g Cartão de Crédito | 45 | 45 |
+| II.h Factoring | 1 | 0 |
+| II.i Setor Público | 283 | 566 |
+| II.j Ações Judiciais | 230 | 221 |
+| II.k Propriedade Intelectual e Marcas & Patentes | 0 | 0 |
+
+**Por que a base é o total da própria tabela** (medido no mesmo dia, nas mesmas cópias, só lendo):
+- a soma dos 11 segmentos é igual a `TAB_II_VL_CARTEIRA` em todos os assuntos dos dois meses, e cada segmento é igual à soma dos seus subitens;
+- com o total maior que 0, `TAB_II_VL_CARTEIRA` é igual a I.2.a + I.2.b (`tab_I.TAB_I2A_VL_DIRCRED_RISCO` + `tab_I.TAB_I2B_VL_DIRCRED_SEM_RISCO`) em 1.440 de 3.301 assuntos em 09/2026 e em 1.468 de 3.364 em 10/2026;
+- é igual a `tab_I.TAB_I2_VL_CARTEIRA` em 91 e 89 assuntos.
+
+### Não confirmado
+
+1. **O que o segmento classifica:** o informe não define se é o setor do devedor, o do cedente ou a natureza do crédito. A exibição diz "segmento informado", sem interpretar.
+2. **O que `TAB_II_VL_CARTEIRA` cobre:** não fecha com nenhum total da `tab_I` na maioria dos assuntos, e a causa não foi confirmada.
+3. **O HHI:** mede a concentração por segmento informado, e não por cedente nem por sacado. Em 09/2026, 2.206 dos 3.278 assuntos com HHI têm um segmento só (HHI 10.000).
+4. **A correspondência de 7.1 e 7.2** com os dois campos é só pelo nome; o dicionário não descreve os campos.
+5. **A base e a unidade do 7.2:** se é em valor ou em quantidade de direitos creditórios.
+6. **O 0 das garantias:** pode querer dizer "não há garantia" ou "não preenchido", e o informe não separa os dois casos.
+7. **Valor da garantia acima da carteira** de direitos creditórios (9 dos 28 assuntos com valor em 09/2026): sem explicação confirmada.
+8. **De 09/2026 para 10/2026** (observação de dado; a causa não foi confirmada): os assuntos com valor em II.f caem de 2.151 para 1.882, e os com valor em II.i sobem de 283 para 566. As duas cópias vêm de bancos diferentes, com o mesmo cadastro de 27/10/2026.
 
 ## Como renomear
 
