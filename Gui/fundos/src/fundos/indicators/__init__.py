@@ -15,4 +15,6 @@ partes_relacionadas: as ALIENACOES do mes para o cedente e para prestadores
 de servicos e partes relacionadas (tab_VII, itens VII.b.1 e VII.b.2).
 reducao_valor_recuperacao: a "Provisao para Reducao no Valor de
 Recuperacao" de cada bloco, como informada, e a cobertura dos vencidos.
+subordinacao: a subordinacao das classes de FIDC pelas series da tab_X_2,
+classificadas pelo quota_class_map (FU6.3).
 """
