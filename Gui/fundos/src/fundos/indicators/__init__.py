@@ -19,4 +19,8 @@ subordinacao: a subordinacao das classes de FIDC pelas series da tab_X_2,
 classificadas pelo quota_class_map (FU6.3).
 segmentos: a "Carteira por Segmento" (tab_II), com o % de cada segmento no
 total da propria tabela e a concentracao nos 11 segmentos de topo (FU11.4).
+garantias: o valor (7.1) e o percentual (7.2) das garantias (tab_X_7), como
+informados, sem conta entre os dois (FU11.4).
+estrutura_report: as linhas do relatorio de segmento e garantias, so
+contagens.
 """
