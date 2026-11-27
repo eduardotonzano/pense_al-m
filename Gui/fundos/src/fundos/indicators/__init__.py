@@ -17,4 +17,6 @@ reducao_valor_recuperacao: a "Provisao para Reducao no Valor de
 Recuperacao" de cada bloco, como informada, e a cobertura dos vencidos.
 subordinacao: a subordinacao das classes de FIDC pelas series da tab_X_2,
 classificadas pelo quota_class_map (FU6.3).
+segmentos: a "Carteira por Segmento" (tab_II), com o % de cada segmento no
+total da propria tabela e a concentracao nos 11 segmentos de topo (FU11.4).
 """
