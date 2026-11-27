@@ -19,6 +19,7 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - `src/fundos/indicators/`: indicadores calculados na leitura a partir do informe de FIDC já carregado (vencidos na carteira, faixas de atraso, a distribuição "Por Prazo de Vencimento (R$)", os cedentes gravados, as alienações do mês a partes relacionadas e a "Provisão para Redução no Valor de Recuperação" com a cobertura dos vencidos), sem gravar nada. Veja "Indicadores de carteira vencida", "Cedentes e alienações a partes relacionadas" e "Provisão para Redução no Valor de Recuperação e cobertura".
 - `src/fundos/indicators/subordinacao.py`: a subordinação das classes de FIDC pelas séries da `tab_X_2`, classificadas pelo `quota_class_map`, calculada na leitura. `scripts/report_subordinacao.py` mostra o relatório, só lendo o banco. Veja "Subordinação (FU6.3)".
 - `src/fundos/indicators/segmentos.py` e `src/fundos/indicators/garantias.py`: a carteira por segmento (`tab_II`) e as garantias (`tab_X_7`), calculadas na leitura (FU11.4). `scripts/report_estrutura.py` mostra o relatório, só lendo o banco. Veja "Estrutura: carteira por segmento, garantias e subordinação (grupo D4)".
+- `src/fundos/indicators/liquidez.py`, `src/fundos/indicators/rentabilidade.py` e `src/fundos/indicators/desempenho.py`: a liquidez (`tab_X_5`), a rentabilidade (`tab_X_3`) e o desempenho esperado e realizado (`tab_X_6`), como informados, calculados na leitura (FU11.5). `scripts/report_desempenho.py` mostra o relatório, só lendo o banco. Veja "Liquidez, rentabilidade e desempenho (FU11.5)".
 - `scripts/apply_migration.py`: aplica as migrations numeradas, com backup e verificação.
 - `scripts/load_cadastro.py`: carrega os FIDC e FIAGRO do cadastro. Veja "Como carregar o cadastro".
 - `scripts/load_informe_fidc.py`: carrega o informe mensal de FIDC. Veja "Como carregar o informe de FIDC".
@@ -43,6 +44,7 @@ Ficam para etapas futuras do plano de Fundos:
 - o uso do percentual do cedente em contas e as métricas de concentração por cedente: pela decisão de 24/11/2026 (FU11.2), o percentual é só mostrado como informado, com qualificador, até a base dele ser confirmada, e não há métrica de concentração. A forma de exibir continua em aberto;
 - **pendência do FIAGRO nos indicadores de carteira vencida (FU11.1):** os campos `Vencidos_*`, `A_Vencer_*` e `Total_Ativos_Prazo_Vencimento` do informe de FIAGRO ficaram fora por falta de descrição oficial. O dicionário de FIAGRO descreve 13 dos 133 campos, e nenhum destes. A inclusão depende da leitura do Anexo Normativo VI da Resolução CVM 175 e do modelo do informe de FIAGRO, que exige aprovação de rede;
 - a evolução das faixas de atraso conferida no dado real: o banco de teste tem uma competência só do informe de FIDC (09/2026). Uma segunda exige baixar outro mês (rede, com aprovação) e carregá-lo numa cópia;
+- o PL (`tab_IV`) e os cotistas (`tab_X_1` e `tab_X_1_1`), com a variação contra o mês anterior (FU11.5b). Nenhuma das cópias de medição tem duas competências do informe de FIDC;
 - a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
 - a revisão das 4 regras iniciais do mapa das séries por uma pessoa (hoje as 4 estão como `proposto`) e a 006 no banco real. A subordinação calculada já existe (veja "Subordinação (FU6.3)"); no banco real, ela espera a 006 e a carga do informe de FIDC;
 - a resolução de conflitos com `audit_log`;
@@ -1165,6 +1167,109 @@ python scripts\report_estrutura.py --database C:\<pasta-local>\fundos.db --refer
 6. **O 0 das garantias:** pode querer dizer "não há garantia" ou "não preenchido", e o informe não separa os dois casos.
 7. **Valor da garantia acima da carteira** de direitos creditórios (9 dos 28 assuntos com valor em 09/2026): sem explicação confirmada.
 8. **De 09/2026 para 10/2026** (observação de dado; a causa não foi confirmada): os assuntos com valor em II.f caem de 2.151 para 1.882, e os com valor em II.i sobem de 283 para 566. As duas cópias vêm de bancos diferentes, com o mesmo cadastro de 27/10/2026.
+
+## Liquidez, rentabilidade e desempenho (FU11.5)
+
+Três leituras do informe de FIDC, por assunto (classe ou fundo) e competência. São calculadas na leitura, com a conexão só de leitura e os estados das seções anteriores. Nada é gravado, sem tabela nem migration.
+
+| Parte | Função | Nível |
+|---|---|---|
+| Liquidez (`tab_X_5`) | `liquidez.liquidez(conexao, competencia, assuntos=None)` | classe ou fundo |
+| Rentabilidade (`tab_X_3`) | `rentabilidade.rentabilidade(conexao, competencia, assuntos=None)` | série, agrupada pelo assunto |
+| Desempenho esperado e realizado (`tab_X_6`) | `desempenho.desempenho(conexao, competencia, assuntos=None)` | série, agrupada pelo assunto |
+
+Todo valor sai como informado, com fonte, competência, observação e coleta. Valor ausente é `sem_dado`, nunca zero; zero informado é zero; texto vira `tipo_inesperado`, sem repetir o valor. A série é identificada pelo id e pelo rótulo normalizado do `quota_series`.
+
+### Liquidez (`tab_X_5`)
+
+- **Campos:** o item X.5 do Suplemento G, em R$, com as 7 faixas do dicionário da CVM:
+  - `TAB_X_VL_LIQUIDEZ_0`: "Ativos com liquidez imediata";
+  - `TAB_X_VL_LIQUIDEZ_30`, `_60`, `_90`, `_180` e `_360`: "Ativos que podem ser liquidados em até" 30, 60, 90, 180 e 360 dias;
+  - `TAB_X_VL_LIQUIDEZ_MAIOR_360`: "Ativos que podem ser liquidados em mais de 360 dias".
+- **Nada é somado nem dividido:** não há soma, % de cada faixa nem razão contra resgates ou despesas.
+  - O texto diz "em até", o que sugere faixas acumuladas, mas na maioria dos assuntos o dado não cresce de uma faixa para a próxima (veja a medição).
+  - A `tab_X_4` não é carregada, e o informe não tem campo de despesa.
+- **Nota do Suplemento G (item X.5):** "preenchimento compulsório apenas para os fundos abertos". Nenhum resultado usa a `tab_I.CONDOM` para classificar o assunto.
+- **Marcas:** `todas_as_faixas_zero`, `faixa_negativa` e `conflito_aberto`.
+
+### Rentabilidade (`tab_X_3`)
+
+- **Campo:** `tab_X_3.TAB_X_VL_RENTAB_MES`, "Rentabilidade Apurada no Mês" (item X.3), por série. É do mês: não é acumulada nem anualizada.
+- **Nada é calculado:** a rentabilidade não é anualizada, não é comparada com benchmark e não é agregada por classe.
+- **Unidade não confirmada:** o dicionário não a traz.
+- **Marca:** `conflito_aberto`.
+
+### Desempenho esperado e realizado (`tab_X_6`)
+
+| Campo | Nome (Suplemento G, correspondência pelo nome do campo) |
+|---|---|
+| `tab_X_6.TAB_X_PR_DESEMP_ESPERADO` | Desempenho Esperado (Benchmark) |
+| `tab_X_6.TAB_X_PR_DESEMP_REAL` | Desempenho Realizado (Rentabilidade no Mês) |
+
+- **Correspondência:** o dicionário da CVM traz os dois campos sem descrição. Os nomes vêm do item "6) Desempenho Esperado (Benchmark) e o Realizado" do Suplemento G.
+- **Unidade não confirmada;** o prefixo PR do nome sugere percentual, sem confirmação.
+- **Nada é calculado entre os dois campos:** nem diferença nem razão.
+- **Conferência, sem conta:** o Suplemento chama o realizado de "Rentabilidade no Mês". Por isso cada série traz também a `tab_X_3.TAB_X_VL_RENTAB_MES` da mesma série e competência.
+
+**Marcas, por série:**
+
+| Marca | Quando |
+|---|---|
+| `esperado_informado_zero` | o esperado informado é 0. Pode ser "não preenchido"; a marca não afirma nada |
+| `esperado_negativo` | o esperado informado é negativo |
+| `realizado_difere_da_rentabilidade` | o realizado e a `tab_X_3` da mesma série estão presentes e são diferentes |
+| `conflito_aberto` | algum dos três campos tem conflito aberto no banco |
+
+### O relatório (`scripts/report_desempenho.py`)
+
+```powershell
+# na pasta do módulo de Fundos
+python scripts\report_desempenho.py --database C:\<pasta-local>\fundos.db --reference-date 2026-09-30
+```
+
+- **Leitura:** só lendo o banco (`mode=ro` e `query_only`; banco em WAL é recusado), num só retrato para as três leituras, com a guarda de caminho de rede e longo. Exige a migration 001.
+- **O que mostra:** só contagens.
+  - **Liquidez:** cada faixa por grupo (maior que 0, igual a 0, menor que 0, `sem_dado`), a nota do Suplemento G e as marcas.
+  - **Rentabilidade e desempenho:** assuntos e séries, os grupos do valor, os intervalos de contagem, o realizado contra a `tab_X_3` e as marcas.
+  - **Intervalos de contagem:** menos de -10; de -10 a menos de 0; igual a 0; mais de 0 até 1; mais de 1 até 2; mais de 2 até 10; mais de 10. Só contam séries, sem limiar, e não classificam a série.
+  - **Sem o sinal de percentual** junto dos valores da `tab_X_3` e da `tab_X_6`.
+- **Nunca traz** CNPJ, nome nem valor de linha. Um erro inesperado mostra só o tipo do erro.
+
+### Medição em 27/11/2026 (cópias, só leitura; só contagens)
+
+`scripts/report_desempenho.py` rodou só lendo duas cópias: a do banco de teste, para 09/2026, e a do banco real com o informe, para 10/2026. O SHA-256 de cada uma ficou igual. O banco real ficou com o SHA-256 igual, sem backup novo.
+
+| | 09/2026 | 10/2026 |
+|---|---|---|
+| **Liquidez:** assuntos | 4.425 | 4.506 |
+| `todas_as_faixas_zero` / `faixa_negativa` | 2.435 / 1 | 2.506 / 0 |
+| Faixa imediata maior que 0 / faixa de mais de 360 dias maior que 0 | 1.828 / 1.493 | 1.913 / 1.541 |
+| **Rentabilidade:** assuntos / séries | 4.425 / 12.696 | 4.506 / 12.378 |
+| Maior que 0 / igual a 0 / menor que 0 | 7.659 / 3.676 / 1.361 | 7.773 / 3.274 / 1.331 |
+| Intervalos de contagem, na ordem do relatório | 362 / 999 / 3.676 / 893 / 5.468 / 1.080 / 218 | 312 / 1.019 / 3.274 / 861 / 5.576 / 1.069 / 267 |
+| **Desempenho:** assuntos / séries | 4.332 / 12.434 | 4.416 / 12.173 |
+| Esperado maior que 0 / igual a 0 / menor que 0 | 5.498 / 6.430 / 506 | 5.748 / 5.868 / 557 |
+| Realizado maior que 0 / igual a 0 / menor que 0 | 7.471 / 3.661 / 1.302 | 7.628 / 3.252 / 1.293 |
+| Intervalos de contagem do esperado | 166 / 340 / 6.430 / 451 / 4.338 / 519 / 190 | 152 / 405 / 5.868 / 460 / 4.543 / 547 / 198 |
+| Intervalos de contagem do realizado | 345 / 957 / 3.661 / 859 / 5.322 / 1.039 / 251 | 300 / 993 / 3.252 / 845 / 5.457 / 1.047 / 279 |
+| Realizado contra a `tab_X_3`: igual / diferente / série sem `tab_X_3` | 12.270 / 147 / 17 | 12.007 / 94 / 72 |
+| Séries da `tab_X_3` sem `tab_X_6` | 279 | 277 |
+| `conflito_aberto`, nas três partes | 0 | 0 |
+
+**Faixas de liquidez** (medido no mesmo dia, nas mesmas cópias, só lendo; assuntos com alguma faixa diferente de 0 e nenhuma negativa: 1.989 em 09/2026 e 2.000 em 10/2026):
+- as faixas crescem de uma para a próxima, como seria se fossem acumuladas, em só 25 e 21 deles;
+- a soma das 7 faixas é igual a `tab_I.TAB_I_VL_ATIVO` em 1.406 e 1.493, e fica a até 1% do PL em 1.095 e 1.164;
+- por `tab_I.CONDOM`, só para contar (nenhum resultado usa esse campo): ABERTO com valor, 1.119 e 1.118, e todo 0, 73 e 90; FECHADO com valor, 871 e 882, e todo 0, 2.362 e 2.416.
+
+### Não confirmado
+
+1. **A unidade da `tab_X_3`:** o dicionário não a traz.
+2. **A unidade da `tab_X_6`:** não confirmada; o prefixo PR do nome sugere percentual, sem confirmação.
+3. **O que o esperado é:** a meta do regulamento ou o benchmark do mês, e em que base está. É 0 em 6.430 de 12.434 séries em 09/2026 e em 5.868 de 12.173 em 10/2026, e negativo em 506 e 557.
+4. **Se a rentabilidade é líquida ou bruta de taxas.**
+5. **As faixas de liquidez:** se são acumuladas, como "em até" sugere, ou exclusivas, como o dado sugere, e se a soma delas é o ativo.
+6. **A obrigatoriedade da liquidez:** o Suplemento G diz "preenchimento compulsório apenas para os fundos abertos", mas 871 e 882 fundos fechados (`tab_I.CONDOM` igual a FECHADO) informam liquidez em 09 e 10/2026.
+7. **Por que o realizado difere da `tab_X_3`** em 147 e 94 séries.
 
 ## Como renomear
 
