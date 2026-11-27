@@ -54,8 +54,8 @@ def in_transaction(connection, function, *args, **kwargs):
 
 def populate(informe):
     """Classe 1: senior, mezanino e subordinada; classe 2: duas subordinadas sem
-    mezanino; classe 3: so senior; classe 4: um rotulo fora do molde; e uma
-    subclasse de FIAGRO na classe 5."""
+    mezanino; classe 3: so senior; classe 4: um rotulo fora do molde; uma
+    subclasse de FIAGRO na classe 5; classe 6: mezanino e duas subordinadas."""
 
     _, first = informe.fund_and_class(1)
     informe.series(first, "Subclasse Senior S\u00e9rie 1")
@@ -71,6 +71,11 @@ def populate(informe):
     informe.series(fourth, "Cota Unica Ficticia")
     _, fifth = informe.fund_and_class(5)
     informe.fiagro_series(fifth, "Subclasse 1 (ou classe unica)")
+    _, sixth = informe.fund_and_class(6)
+    informe.series(sixth, "Subclasse Senior")
+    informe.series(sixth, "Subclasse Subordinada Mezanino 1 |")
+    informe.series(sixth, "Subclasse Subordinada Subordinada 1 |")
+    informe.series(sixth, "Subclasse Subordinada Subordinada 2 |")
 
 
 def test_report_counts_by_rule_unmapped_and_subjects(informe):
@@ -82,20 +87,23 @@ def test_report_counts_by_rule_unmapped_and_subjects(informe):
     connection = informe.connection
 
     assert september.reference_date == SEP
-    assert september.series == 8
-    assert counted[rule_id(connection, "subclasse senior")] == (3, 2)
-    assert counted[rule_id(connection, "subclasse subordinada mezanino")] == (1, 1)
-    assert counted[rule_id(connection, "subclasse subordinada subordinada")] == (2, 1)
+    assert september.series == 12
+    assert counted[rule_id(connection, "subclasse senior")] == (4, 2)
+    assert counted[rule_id(connection, "subclasse subordinada mezanino")] == (2, 1)
+    assert counted[rule_id(connection, "subclasse subordinada subordinada")] == (4, 2)
     assert counted[rule_id(connection, "subclasse subordinada")] == (1, 1)
     assert [(u.label_key, u.series, u.variants, u.reason) for u in september.unmapped] == [
         ("cota unica ficticia", 1, 1, REASON_UNMAPPED)
     ]
+    # (b): classe 2 (subordinada e ausente, sem mezanino) e classe 6 (duas
+    # subordinadas com mezanino). (a): so a classe 2.
+    assert september.subjects_order_not_informed == 2
     assert september.subjects_without_mezzanine == 1
     assert (september.absent_subtype_series, september.absent_subtype_subjects) == (1, 1)
     assert report.fiagro_series == 1
     assert report.last_review is None
     assert report.new_labels is None
-    assert report.label_keys_total == 6
+    assert report.label_keys_total == 7
 
 
 def test_report_by_competence(informe):
@@ -144,11 +152,15 @@ def test_report_lines_have_only_counts_and_normalized_labels(informe):
     assert "Ultima revisao: nenhuma revisao registrada" in text
     assert "Sem regra (ausente (rotulo nao mapeado)): 1 serie(s), 1 rotulo(s)" in text
     assert "    cota unica ficticia: 1 serie(s), 1 variante(s) original(is), rotulo_nao_mapeado" in text
-    assert "(ordem entre subordinadas nao informada): 1" in text
+    assert (
+        "  Ordem entre subordinadas nao informada (assuntos com 2 ou mais series de subtipo"
+        " subordinada ou ausente, com ou sem mezanino): 2"
+    ) in text
+    assert "  Assuntos com 2 ou mais series nao seniores e nenhum mezanino: 1" in text
     assert "FIAGRO (fora desta etapa): 1 serie(s) de FIAGRO sem mapa" in text
-    assert "nenhuma revisao registrada; 6 rotulo(s) normalizado(s) de FIDC sem revisao" in text
+    assert "nenhuma revisao registrada; 7 rotulo(s) normalizado(s) de FIDC sem revisao" in text
     # Nunca o CNPJ, nem o rotulo original fora do molde com caixa e acento.
-    for n in range(1, 6):
+    for n in range(1, 7):
         assert make_test_cnpj(n) not in text
 
     assert "Cota Unica Ficticia" not in text

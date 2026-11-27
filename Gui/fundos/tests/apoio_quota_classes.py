@@ -30,13 +30,13 @@ class SyntheticSeries(SyntheticInforme):
         )
         return record.id
 
-    def _put(self, series_id, field_name, value, value_type, reference_date, collected_at):
+    def _put(self, series_id, field_name, value, value_type, reference_date, collected_at, source="cvm"):
         return insert_observation(
             self.connection,
             subject=("series", series_id),
-            source=self.source["cvm"],
-            run=self.run["cvm"],
-            raw=self.raw["cvm"],
+            source=self.source[source],
+            run=self.run[source],
+            raw=self.raw[source],
             field_name=field_name,
             value=value,
             value_type=value_type,
@@ -44,14 +44,37 @@ class SyntheticSeries(SyntheticInforme):
             collected_at=collected_at,
         )
 
-    def series(self, parent, label, reference_date=SEP, quantity="10", unit_value="1.5", collected_at=T0):
-        """Serie de FIDC na tab_X_2: o rotulo original, a quantidade e o valor da cota."""
+    def series(
+        self,
+        parent,
+        label,
+        reference_date=SEP,
+        quantity="10",
+        unit_value="1.5",
+        collected_at=T0,
+        source="cvm",
+    ):
+        """Serie de FIDC na tab_X_2: o rotulo original, a quantidade e o valor da cota.
+
+        quantity ou unit_value None nao grava o campo; devolve o id da serie.
+        """
 
         series_id = self._series_id(parent, label)
-        self._put(series_id, LABEL_FIELD, label, "text", reference_date, collected_at)
-        self._put(series_id, "tab_X_2.TAB_X_QT_COTA", quantity, "numeric", reference_date, collected_at)
-        self._put(series_id, "tab_X_2.TAB_X_VL_COTA", unit_value, "numeric", reference_date, collected_at)
+        self._put(series_id, LABEL_FIELD, label, "text", reference_date, collected_at, source)
+
+        for field_name, value in (
+            ("tab_X_2.TAB_X_QT_COTA", quantity),
+            ("tab_X_2.TAB_X_VL_COTA", unit_value),
+        ):
+            if value is not None:
+                self._put(series_id, field_name, value, "numeric", reference_date, collected_at, source)
+
         return series_id
+
+    def series_field(self, series_id, field_name, value, value_type="numeric", reference_date=SEP, collected_at=T0, source="cvm"):
+        """Grava um campo de uma serie que ja existe; devolve o id da observacao."""
+
+        return self._put(series_id, field_name, value, value_type, reference_date, collected_at, source)
 
     def fiagro_series(self, parent, label, reference_date=SEP):
         """Subclasse de FIAGRO: so o rotulo do arquivo de subclasse, sem campo tab_X."""

@@ -44,6 +44,7 @@ from fundos.indicators.reading import check_subjects
 from fundos.indicators.reading import previous_month_end
 from fundos.indicators.reading import read_competence
 from fundos.indicators.reading import read_snapshot
+from fundos.indicators.reading import subjects_with_table
 from fundos.indicators.values import CLASS_SUBJECT
 from fundos.indicators.values import FUND_SUBJECT
 from fundos.indicators.values import NO_DATA
@@ -97,8 +98,8 @@ FLAGS = (ABOVE_100, OPEN_CONFLICT, FIAGRO_IN_CADASTRO)
 # SCOPE do cadastro; um valor fora do mapa fica como OUTSIDE_SCOPE.
 OUTSIDE_SCOPE = "fora do escopo do cadastro"
 
-# Prefixo dos campos da tab_I, com o _ escapado no LIKE.
-_TAB_I_PATTERN = "tab\\_I.%"
+# A tabela do informe que define o universo dos assuntos.
+INFORME_TABLE = "tab_I"
 
 
 @dataclass(frozen=True)
@@ -209,26 +210,7 @@ def subject_types(connection):
 def informe_subjects(connection, reference_date):
     """{(tipo, id): Subject} com alguma observacao da tab_I na competencia (fonte ativa)."""
 
-    rows = connection.execute(
-        "SELECT DISTINCT o.fund_id, o.fund_class_id, f.cnpj, c.cnpj"
-        " FROM observations o JOIN sources s ON s.id = o.source_id"
-        " LEFT JOIN funds f ON f.id = o.fund_id"
-        " LEFT JOIN fund_classes c ON c.id = o.fund_class_id"
-        " WHERE s.active = 1 AND o.quota_series_id IS NULL"
-        " AND o.reference_date = ? AND o.field_name LIKE ? ESCAPE '\\'",
-        (reference_date, _TAB_I_PATTERN),
-    ).fetchall()
-    found = {}
-
-    for fund_id, class_id, fund_cnpj, class_cnpj in rows:
-        if fund_id is not None:
-            subject = Subject(FUND_SUBJECT, int(fund_id), fund_cnpj)
-        else:
-            subject = Subject(CLASS_SUBJECT, int(class_id), class_cnpj)
-
-        found[(subject.kind, subject.id)] = subject
-
-    return found
+    return subjects_with_table(connection, reference_date, INFORME_TABLE)
 
 
 def _no_informe(subject, reference, cadastro_type):
