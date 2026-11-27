@@ -92,8 +92,13 @@ def format_review_report(report):
             )
 
         lines.append(
-            "  Assuntos com 2 ou mais series nao seniores e nenhum mezanino "
-            "(ordem entre subordinadas nao informada): " + str(item.subjects_without_mezzanine)
+            "  Ordem entre subordinadas nao informada (assuntos com 2 ou mais series de "
+            "subtipo subordinada ou ausente, com ou sem mezanino): "
+            + str(item.subjects_order_not_informed)
+        )
+        lines.append(
+            "  Assuntos com 2 ou mais series nao seniores e nenhum mezanino: "
+            + str(item.subjects_without_mezzanine)
         )
         lines.append(
             "  Series com subtipo ausente: " + str(item.absent_subtype_series)

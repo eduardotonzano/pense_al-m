@@ -620,7 +620,8 @@ Só lendo o banco (`mode=ro` e `query_only`; banco em WAL é recusado), com a me
   - as séries de FIDC e os rótulos normalizados;
   - quantas séries e rótulos cada regra classifica;
   - os rótulos sem regra, com as séries, as variantes originais (só a contagem) e o motivo;
-  - os assuntos com 2 ou mais séries não seniores e nenhum mezanino (a ordem entre as subordinadas não é informada);
+  - a **ordem entre subordinadas não informada:** os assuntos com 2 ou mais séries de subtipo subordinada ou ausente, com ou sem mezanino. O rótulo não ordena duas subordinadas da mesma classe, e nada é inferido;
+  - os assuntos com 2 ou mais séries não seniores e nenhum mezanino, só como contagem;
   - as séries com subtipo ausente;
 - os rótulos novos desde a última revisão (a primeira coleta do rótulo depois da maior data de revisão; sem revisão nenhuma, só a contagem);
 - as séries de FIAGRO sem mapa: o FIAGRO fica fora desta etapa, porque as subclasses dele não dizem sênior ou subordinada.
@@ -640,6 +641,7 @@ Cópias novas da pasta da sessão, cada uma com o SHA-256 igual ao da origem; as
 | `subclasse subordinada subordinada` | 2.775 | 2.447 |
 | `subclasse subordinada` (subtipo ausente) | 596 | 516 |
 | Sem regra | 0 | 0 |
+| Ordem entre subordinadas não informada (2 ou mais de subtipo subordinada ou ausente, com ou sem mezanino) | 20 | 21 |
 | Assuntos com 2 ou mais não seniores e nenhum mezanino | 15 | 16 |
 | Séries de FIAGRO sem mapa | 688 | 0 (a cópia não tem o informe de FIAGRO) |
 
@@ -653,15 +655,15 @@ Cópias novas da pasta da sessão, cada uma com o SHA-256 igual ao da origem; as
 ### Não confirmado
 
 1. **O molde:** é do sistema de entrega da CVM, não um domínio documentado, e pode mudar. Em 09 e 10/2026, nenhum rótulo ficou sem regra.
-2. **Os 20 da seção 10.6 contra os 15 do relatório:** a diferença é de definição, e não de base. Medido em 27/11/2026, só lendo a cópia de 09/2026 e o ZIP de 09/2026 (o SHA-256 dos dois ficou igual), com a mesma normalização e as mesmas 4 regras:
+2. **Os 20 da seção 10.6 contra os 15:** a diferença é de definição, e não de base. Medido em 27/11/2026, só lendo a cópia de 09/2026 e o ZIP de 09/2026 (o SHA-256 dos dois ficou igual), com a mesma normalização e as mesmas 4 regras:
 
    | Definição | Banco | ZIP |
    |---|---|---|
-   | (a) 2 ou mais não seniores e nenhum mezanino, a contagem do relatório | 15 | 15 |
+   | (a) 2 ou mais não seniores e nenhum mezanino | 15 | 15 |
    | (b) 2 ou mais séries de subtipo subordinada ou ausente, com ou sem mezanino | **20** | **20** |
    | (c) 2 ou mais não seniores, com ou sem mezanino | 1.034 | 1.038 |
 
-   Os 20 da seção 10.6 são a definição (b). A ordem entre as subordinadas também fica sem informação quando há mezanino acima delas. A definição que a marca de ordem vai usar na subordinação (FU6.3) fica para esse PR.
+   Os 20 da seção 10.6 são a definição (b), porque a ordem entre as subordinadas também fica sem informação quando há mezanino acima delas. Desde 27/11/2026, o relatório conta a (b) como "ordem entre subordinadas não informada" e mantém a (a) com o nome neutro. A subordinação (FU6.3) usa a mesma definição (b) para a marca.
 3. **A regra genérica:** a seção 10.6 contou 599 linhas genéricas no ZIP, e o banco tem 596 séries. A hipótese são os assuntos fora do cadastro carregado, e não foi conferida.
 4. **A ordem** entre duas subordinadas (ou dois mezaninos) da mesma classe não é informada, e nunca é inferida.
 5. **As regras iniciais** são proposta do módulo de Fundos: falta a revisão de uma pessoa no banco real, que ainda não tem a 006.

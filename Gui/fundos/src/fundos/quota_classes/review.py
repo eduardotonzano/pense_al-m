@@ -7,8 +7,11 @@ nome, valor de linha nem o rotulo original):
 - os rotulos de FIDC sem regra (ou com regras em conflito);
 - os rotulos novos desde a ultima revisao (primeira coleta do rotulo depois
   da maior data de revisao); sem revisao nenhuma, so a contagem;
-- os assuntos com 2 ou mais series nao seniores e nenhum mezanino (a ordem
-  entre as subordinadas nao e informada) e as series com subtipo ausente;
+- a ordem entre subordinadas nao informada: os assuntos com 2 ou mais
+  series de subtipo subordinada ou ausente, com ou sem mezanino (o rotulo
+  nao ordena duas subordinadas da mesma classe; nada e inferido);
+- os assuntos com 2 ou mais series nao seniores e nenhum mezanino (so a
+  contagem) e as series com subtipo ausente;
 - as series de FIAGRO, fora desta etapa: as subclasses de FIAGRO nao dizem
   senior ou subordinada.
 As series de FIDC de uma competencia sao as que tem observacao tab_X_2 nela,
@@ -39,6 +42,7 @@ from fundos.quota_classes.mapping import NOT_SENIOR
 from fundos.quota_classes.mapping import PROPOSED
 from fundos.quota_classes.mapping import REJECTED
 from fundos.quota_classes.mapping import REVIEWED
+from fundos.quota_classes.mapping import SUBORDINATE
 from fundos.quota_classes.mapping import ABSENT
 from fundos.quota_classes.mapping import all_rules
 from fundos.quota_classes.mapping import classify_label
@@ -227,6 +231,7 @@ class CompetenceReview:
     label_keys: int
     by_rule: tuple[tuple[int, int, int], ...]
     unmapped: tuple[UnmappedLabel, ...]
+    subjects_order_not_informed: int
     subjects_without_mezzanine: int
     absent_subtype_series: int
     absent_subtype_subjects: int
@@ -307,6 +312,7 @@ def _competence_review(connection, reference_date):
     not_senior = Counter()
     mezzanine = Counter()
     absent = Counter()
+    subordinate_or_absent = Counter()
 
     for _, key, parent in series:
         label = classify_label(key, rules)
@@ -328,6 +334,9 @@ def _competence_review(connection, reference_date):
             if label.subtype == ABSENT:
                 absent[parent] += 1
 
+            if label.subtype in (SUBORDINATE, ABSENT):
+                subordinate_or_absent[parent] += 1
+
     return CompetenceReview(
         reference_date=reference_date,
         series=len(series),
@@ -338,6 +347,9 @@ def _competence_review(connection, reference_date):
         unmapped=tuple(
             UnmappedLabel(key, count, _variants(connection, key), reason)
             for key, (count, reason) in sorted(unmapped.items())
+        ),
+        subjects_order_not_informed=sum(
+            1 for count in subordinate_or_absent.values() if count >= 2
         ),
         subjects_without_mezzanine=sum(
             1 for parent, count in not_senior.items() if count >= 2 and not mezzanine[parent]
