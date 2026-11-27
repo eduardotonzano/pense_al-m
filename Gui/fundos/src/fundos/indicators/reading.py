@@ -15,9 +15,12 @@ caminho de rede e banco em WAL (mode=ro num banco em WAL pode deixar os
 arquivos -wal e -shm ao lado dele). As leituras acontecem numa transacao
 (BEGIN) fechada sempre com ROLLBACK, para que o retrato seja consistente.
 
-So assuntos de classe e de fundo (series ficam de fora). Valor ausente nao
-tem linha e volta como sem_dado (campo_ausente), nunca zero. Valor que nao
-veio como numero volta como sem_dado (tipo_inesperado), sem repetir o valor.
+read_competence le so assuntos de classe e de fundo (series ficam de fora);
+read_series_competence le as series de cotas (quota_series), agrupadas pelo
+pai (a classe ou o fundo), com a mesma regra de ordem, por serie. Valor
+ausente nao tem linha e volta como sem_dado (campo_ausente), nunca zero.
+Valor que nao veio como numero volta como sem_dado (tipo_inesperado), sem
+repetir o valor.
 Campo de identificacao (CPF ou CNPJ no nome) e coluna da lista de cedentes
 da tab_I (TAB_I2A12_* e TAB_I2B12_*, que cedentes le de party_observations)
 sao recusados antes de consultar o banco. As mensagens de erro nunca trazem
@@ -28,6 +31,7 @@ import os
 import re
 import sqlite3
 from contextlib import contextmanager
+from dataclasses import dataclass
 from datetime import date
 from datetime import timedelta
 from decimal import Decimal
@@ -52,6 +56,7 @@ HEADER_SIZE = 100
 WAL_VERSION = 2
 
 FIELD_NAME = re.compile(r"[A-Za-z0-9_]+\.[A-Za-z0-9_]+")
+TABLE_NAME = re.compile(r"[A-Za-z0-9_]+")
 _CEDENTE_LIST = ("TAB_I2A12_", "TAB_I2B12_")
 
 
@@ -348,4 +353,158 @@ def read_competence(connection, reference_date, field_names, subjects=None):
             for name in names
         }
         for subject, values in sorted(found.items())
+    }
+
+
+def subjects_with_table(connection, reference_date, table):
+    """{(tipo, id): Subject} com alguma observacao da tabela na competencia (fonte ativa).
+
+    table e o prefixo do field_name (por exemplo tab_I ou tab_X_2), sem o
+    ponto. So assuntos de classe e de fundo.
+    """
+
+    if not isinstance(table, str) or TABLE_NAME.fullmatch(table) is None:
+        raise ValueError("Tabela fora do formato.")
+
+    reference = normalize_iso_date(reference_date, "Competencia")
+    rows = connection.execute(
+        "SELECT DISTINCT o.fund_id, o.fund_class_id, f.cnpj, c.cnpj"
+        " FROM observations o JOIN sources s ON s.id = o.source_id"
+        " LEFT JOIN funds f ON f.id = o.fund_id"
+        " LEFT JOIN fund_classes c ON c.id = o.fund_class_id"
+        " WHERE s.active = 1 AND o.quota_series_id IS NULL"
+        " AND o.reference_date = ? AND o.field_name LIKE ? ESCAPE '\\'",
+        (reference, table.replace("_", "\\_") + ".%"),
+    ).fetchall()
+    found = {}
+
+    for fund_id, class_id, fund_cnpj, class_cnpj in rows:
+        if fund_id is not None:
+            subject = Subject(FUND_SUBJECT, int(fund_id), fund_cnpj)
+        else:
+            subject = Subject(CLASS_SUBJECT, int(class_id), class_cnpj)
+
+        found[(subject.kind, subject.id)] = subject
+
+    return found
+
+
+@dataclass(frozen=True)
+class SeriesValues:
+    """Os campos de uma serie de cotas numa competencia, com o rotulo normalizado.
+
+    label_key e quota_series.series_label_key (o rotulo original continua
+    nas observacoes). values: {campo: FieldValue}, com o campo que a serie
+    nao tem como sem_dado (campo_ausente).
+    """
+
+    series_id: int
+    label_key: str | None
+    values: dict
+
+
+def read_series_competence(connection, reference_date, field_names, subjects=None):
+    """Valores dos campos das series numa competencia, agrupados pelo pai.
+
+    Devolve {Subject do pai: {series_id: SeriesValues}} so para as series
+    com pelo menos um dos campos na competencia. A regra de ordem e a do
+    read_competence (fontes ativas, prioridade, coleta mais recente e id),
+    por serie e campo. subjects (opcional) limita aos pais informados.
+    """
+
+    reference = normalize_iso_date(reference_date, "Competencia")
+    names = check_field_names(field_names)
+    where, parameters = "", ()
+
+    if subjects is not None:
+        subjects = check_subjects(subjects)
+
+        if not subjects:
+            return {}
+
+        where, parameters = subject_filter(subjects, alias="q")
+
+    with read_snapshot(connection):
+        rows = connection.execute(
+            "SELECT o.id, o.quota_series_id, o.field_name, o.value_type, o.value_numeric,"
+            " o.collected_at, o.source_code, q.fund_id, q.fund_class_id, q.series_label_key,"
+            " f.cnpj AS fund_cnpj, c.cnpj AS class_cnpj"
+            " FROM (SELECT o.*, s.code AS source_code, ROW_NUMBER() OVER ("
+            "   PARTITION BY o.quota_series_id, o.field_name, o.reference_date"
+            "   ORDER BY s.priority DESC, o.collected_at DESC, o.id DESC) AS rn"
+            "  FROM observations o JOIN sources s ON s.id = o.source_id"
+            "  WHERE s.active = 1 AND o.quota_series_id IS NOT NULL"
+            "  AND o.reference_date = ?"
+            "  AND o.field_name IN (" + _placeholders(names) + ")) o"
+            " JOIN quota_series q ON q.id = o.quota_series_id"
+            " LEFT JOIN funds f ON f.id = q.fund_id"
+            " LEFT JOIN fund_classes c ON c.id = q.fund_class_id"
+            " WHERE o.rn = 1" + where,
+            (reference,) + names + parameters,
+        ).fetchall()
+        conflicts = {
+            (row[0], row[1])
+            for row in connection.execute(
+                "SELECT o.quota_series_id, o.field_name"
+                " FROM data_conflicts d JOIN observations o"
+                " ON o.id = d.observation_a_id OR o.id = d.observation_b_id"
+                " WHERE d.status = 'open' AND d.reference_date = ?"
+                " AND o.quota_series_id IS NOT NULL"
+                " AND d.field_name IN (" + _placeholders(names) + ")",
+                (reference,) + names,
+            )
+        }
+
+    found = {}
+    labels = {}
+
+    for row in rows:
+        series_id = int(row[1])
+
+        if row[7] is not None:
+            parent = Subject(FUND_SUBJECT, int(row[7]), row[10])
+        else:
+            parent = Subject(CLASS_SUBJECT, int(row[8]), row[11])
+
+        value = _numeric(row[3], row[4])
+        provenance = {
+            "observation_id": row[0],
+            "source_code": row[6],
+            "collected_at": row[5],
+            "open_conflict": (series_id, row[2]) in conflicts,
+        }
+
+        if value is None:
+            field_value = FieldValue(
+                field_name=row[2],
+                reference_date=reference,
+                state=NO_DATA,
+                reason=REASON_UNEXPECTED_TYPE,
+                **provenance,
+            )
+        else:
+            field_value = FieldValue(
+                field_name=row[2],
+                reference_date=reference,
+                state=PRESENT,
+                value=value,
+                **provenance,
+            )
+
+        found.setdefault(parent, {}).setdefault(series_id, {})[row[2]] = field_value
+        labels[series_id] = row[9]
+
+    return {
+        parent: {
+            series_id: SeriesValues(
+                series_id=series_id,
+                label_key=labels[series_id],
+                values={
+                    name: values.get(name) or FieldValue.missing(name, reference)
+                    for name in names
+                },
+            )
+            for series_id, values in sorted(by_series.items())
+        }
+        for parent, by_series in sorted(found.items())
     }
