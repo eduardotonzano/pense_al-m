@@ -27,4 +27,9 @@ liquidez: as 7 faixas da liquidez (tab_X_5), como informadas, sem soma
 (FU11.5).
 rentabilidade: a rentabilidade apurada no mes, por serie (tab_X_3), como
 informada (FU11.5).
+desempenho: o desempenho esperado e o realizado, por serie (tab_X_6), como
+informados, sem conta entre os dois, com a conferencia do realizado com a
+tab_X_3 (FU11.5).
+desempenho_report: as linhas do relatorio de liquidez, rentabilidade e
+desempenho, so contagens.
 """
