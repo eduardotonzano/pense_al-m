@@ -273,13 +273,19 @@ A decisão trata só do alcance da regra no arquivo original. As regras de guard
 - **A migration** é a 006: a 005 continua reservada para a prioridade de fontes (ADR-010).
 - **Medido em cópias:** 0 rótulos sem regra em 09/2026 (12.700 séries) e em 10/2026 (12.430 séries).
 
+**Implementação da subordinação (27/11/2026, FU6.3):** no módulo de Fundos (`src/fundos/indicators/subordinacao.py`; seção "Subordinação (FU6.3)" do README de Fundos).
+- **A fórmula:** soma de quantidade x valor da cota das séries não seniores / soma de todas as séries, na `tab_X_2` da mesma competência. É calculada na leitura, em `Decimal` exato, e nunca gravada.
+- **O resultado** traz a fórmula, cada insumo com a proveniência, a situação do mapa e o estado `calculado`.
+- **O colchão do sênior** é a subordinação total. O do mezanino é subordinada / total, só com mezanino e nenhum subtipo ausente.
+- **A marca de ordem:** "ordem entre subordinadas não informada" vale com 2 ou mais séries de subtipo subordinada ou ausente, com ou sem mezanino, a definição que dá as 20 classes de 09/2026 da seção 10.6 de `docs/fundos-descoberta.md`. A marca só avisa e a ordem nunca é inferida. O relatório do mapa conta a mesma definição; sem nenhum mezanino são 15, com nome neutro.
+- **Classe só com série sênior:** fica "sem série subordinada", nunca 0% sem explicação.
+- **O PL** (`tab_IV.TAB_IV_A_VL_PL`, 1% puro) é só conferência, com marca.
+- **Medido em cópias,** em 09/2026: 20 classes com a ordem não informada, 596 séries com subtipo ausente, e as faixas e a divisão do PL (65,4%, 7,9% e 26,7%) iguais às da seção 10.6, com diferenças só de base.
+
 **Continua em aberto:**
-- a ordem entre duas subordinadas da mesma classe, que o rótulo não diz.
-  - **As 20 classes de 09/2026** da seção 10.6 de `docs/fundos-descoberta.md` são as que têm 2 ou mais séries de subtipo subordinada ou ausente, **com ou sem mezanino**. Foi medido em 27/11/2026, igual no banco e no ZIP.
-  - **Sem nenhum mezanino** são 15, que é o que o relatório do mapa conta.
-  - **A definição da marca de ordem** na subordinação (FU6.3) fica para esse PR;
+- a ordem entre duas subordinadas (ou dois mezaninos) da mesma classe, que o rótulo não diz e nunca é inferida;
 - a revisão das 4 regras iniciais por uma pessoa, e a 006 no banco real;
-- a subordinação calculada (FU6.3, em PR próprio);
+- a exibição da subordinação na ficha (F-03) e no comparativo da casa (F-02);
 - o FIAGRO, cujas subclasses não dizem sênior ou subordinada (688 séries sem mapa em 09/2026).
 
 ### 9. Banco real de Fundos
@@ -316,5 +322,5 @@ A recusa vem antes de ler o ZIP e de abrir o banco. A mensagem traz só o parâm
 | 5 | Licença ODbL | | aprovada | conferir a licença (citar a fonte e manter a mesma licença) só antes de publicar fora da casa; não bloqueia o uso interno |
 | 6 | FIC-FIDC | F-04 | decidida | resolução da fila depois da migration 005; classificação e conferência no banco real depois da carga do informe de 10/2026 nele (já medidas numa cópia) |
 | 7 | Variante do FIAGRO | F-05 | decidida | |
-| 8 | Sênior e subordinada | F-02, F-03 | decidida | revisão das 4 regras do mapa por uma pessoa; a 006 no banco real; a subordinação calculada (FU6.3); a ordem entre subordinadas |
+| 8 | Sênior e subordinada | F-02, F-03 | decidida | revisão das 4 regras do mapa por uma pessoa; a 006 no banco real; a exibição da subordinação (F-02, F-03); a ordem entre subordinadas |
 | 9 | Banco real de Fundos | | decidida | rever o local com um segundo consumidor; guarda de caminho na `fundos_cli` e na leitura dos indicadores |

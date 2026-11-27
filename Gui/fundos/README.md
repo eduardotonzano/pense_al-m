@@ -17,6 +17,7 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - `src/fundos/cda/`: leitor do CDA da CVM (`cda_fi_AAAAMM.zip`, 12 membros, dos quais só o `cda_fie` e o `cda_fie_CONFID` são lidos), sem banco (`reader.py`, com a lista fechada de colunas em `columns.py`); gravação das posições em cotas de fundos (`loader.py`, com `repositories/holding_repository.py`); e relatório só com agregados (`report.py`).
 - `src/fundos/fic_fidc/`: a classificação de FIC-FIDC (decisão 6 de Fundos) e a conferência das posições do CDA em cotas de FIDC com a `tab_I`, calculadas na leitura, sem gravar nada, e a fila de revisão manual no `audit_log`. Veja "FIC-FIDC e conferência do CDA".
 - `src/fundos/indicators/`: indicadores calculados na leitura a partir do informe de FIDC já carregado (vencidos na carteira, faixas de atraso, a distribuição "Por Prazo de Vencimento (R$)", os cedentes gravados, as alienações do mês a partes relacionadas e a "Provisão para Redução no Valor de Recuperação" com a cobertura dos vencidos), sem gravar nada. Veja "Indicadores de carteira vencida", "Cedentes e alienações a partes relacionadas" e "Provisão para Redução no Valor de Recuperação e cobertura".
+- `src/fundos/indicators/subordinacao.py`: a subordinação das classes de FIDC pelas séries da `tab_X_2`, classificadas pelo `quota_class_map`, calculada na leitura. `scripts/report_subordinacao.py` mostra o relatório, só lendo o banco. Veja "Subordinação (FU6.3)".
 - `scripts/apply_migration.py`: aplica as migrations numeradas, com backup e verificação.
 - `scripts/load_cadastro.py`: carrega os FIDC e FIAGRO do cadastro. Veja "Como carregar o cadastro".
 - `scripts/load_informe_fidc.py`: carrega o informe mensal de FIDC. Veja "Como carregar o informe de FIDC".
@@ -42,7 +43,7 @@ Ficam para etapas futuras do plano de Fundos:
 - **pendência do FIAGRO nos indicadores de carteira vencida (FU11.1):** os campos `Vencidos_*`, `A_Vencer_*` e `Total_Ativos_Prazo_Vencimento` do informe de FIAGRO ficaram fora por falta de descrição oficial. O dicionário de FIAGRO descreve 13 dos 133 campos, e nenhum destes. A inclusão depende da leitura do Anexo Normativo VI da Resolução CVM 175 e do modelo do informe de FIAGRO, que exige aprovação de rede;
 - a evolução das faixas de atraso conferida no dado real: o banco de teste tem uma competência só do informe de FIDC (09/2026). Uma segunda exige baixar outro mês (rede, com aprovação) e carregá-lo numa cópia;
 - a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
-- a subordinação calculada a partir do mapa das séries (FU6.3, em PR próprio, depois deste mapa) e a revisão das 4 regras iniciais por uma pessoa: hoje as 4 estão como `proposto`;
+- a revisão das 4 regras iniciais do mapa das séries por uma pessoa (hoje as 4 estão como `proposto`) e a 006 no banco real. A subordinação calculada já existe (veja "Subordinação (FU6.3)"); no banco real, ela espera a 006 e a carga do informe de FIDC;
 - a resolução de conflitos com `audit_log`;
 - a resolução da fila de revisão manual de FIC-FIDC: a decisão de uma pessoa, como entrada MANUAL, só vem depois da migration 005 (ADR-010). Hoje a fila só recebe os assuntos (veja "FIC-FIDC e conferência do CDA").
 
@@ -667,6 +668,111 @@ Cópias novas da pasta da sessão, cada uma com o SHA-256 igual ao da origem; as
 3. **A regra genérica:** a seção 10.6 contou 599 linhas genéricas no ZIP, e o banco tem 596 séries. A hipótese são os assuntos fora do cadastro carregado, e não foi conferida.
 4. **A ordem** entre duas subordinadas (ou dois mezaninos) da mesma classe não é informada, e nunca é inferida.
 5. **As regras iniciais** são proposta do módulo de Fundos: falta a revisão de uma pessoa no banco real, que ainda não tem a 006.
+
+## Subordinação (FU6.3)
+
+`indicators.subordinacao.subordinacao(conexao, competencia, assuntos=None)` calcula a subordinação de cada assunto (a classe ou o fundo) numa competência (decisão 8 de `docs/decisoes-em-aberto.md`). **Nada é gravado:** o resultado é calculado por cima das observações, que continuam sendo o dado da CVM.
+
+### A fórmula
+
+**Subordinação total** = soma de `TAB_X_QT_COTA x TAB_X_VL_COTA` das séries não seniores / soma de todas as séries, na `tab_X_2` da mesma competência.
+- **Valor de cada série:** o produto é exato, em `Decimal`, sem arredondar.
+- **O percentual:** tem 28 dígitos e não é arredondado; arredondar é decisão de exibição.
+- **Classificação:** cada série é classificada pelo `quota_class_map`, pelo rótulo normalizado, com as regras não rejeitadas e vigentes na competência, `proposto` ou `revisado`.
+- **O resultado traz:**
+  - a fórmula e o estado `calculado`;
+  - cada série, com a regra e a situação dela;
+  - cada insumo, com o campo, a competência, a fonte, a observação e a coleta;
+  - a situação do mapa (`revisado` só quando todas as regras usadas foram revisadas).
+- **A leitura** é `indicators.reading.read_series_competence`: a mesma regra de ordem do `read_competence` (fontes ativas, prioridade, coleta mais recente e id), por série.
+
+### Partes e camadas
+
+- **Partes:** sênior, mezanino, subordinada e subtipo ausente, cada uma com as séries de origem e a parcela no total, quando existem.
+- **Colchão do sênior:** é a subordinação total.
+- **Colchão do mezanino:** subordinada / total, só com mezanino e nenhum subtipo ausente. Vários mezaninos somam como uma camada, com a marca `mais_de_uma_serie_mezanino`, e a ordem entre eles não é inferida.
+
+### Estados, motivos e marcas
+
+**`sem_dado`, com o motivo, nesta ordem:**
+1. `mapa_nao_existe`: o banco não tem a 006;
+2. `sem_tab_X_2_na_competencia`;
+3. `rotulo_nao_mapeado` ou `regras_em_conflito`: nada parcial, "ausente (rótulo não mapeado)";
+4. `campo_ausente`, `tipo_inesperado` ou `valor_negativo`, na quantidade ou no valor da cota de alguma série;
+5. `soma_das_series_zero`.
+
+**Marcas:**
+
+| Marca | Quando |
+|---|---|
+| `sem_serie_subordinada` | só há série sênior. A subordinação é 0, e a exibição diz "sem série subordinada", nunca 0% sem explicação |
+| `ordem_entre_subordinadas_nao_informada` | 2 ou mais séries de subtipo subordinada ou ausente, com ou sem mezanino. **Só avisa:** não muda a subordinação total nem o colchão do mezanino, e a ordem nunca é inferida |
+| `subtipo_ausente` e `mais_de_uma_serie_mezanino` | a classe tem série de subtipo ausente, ou mais de um mezanino |
+| `pl_ausente`, `pl_nao_positivo` e `soma_fora_de_1pct_do_pl` | a conferência da soma das séries com `tab_IV.TAB_IV_A_VL_PL`, com 1% puro e multiplicação cruzada. **A fórmula não usa o PL:** o resultado continua calculado, com a marca |
+| `mapa_proposto` | alguma regra usada ainda não foi revisada por uma pessoa |
+| `conflito_aberto` | algum insumo tem conflito aberto no banco |
+
+### O relatório (`scripts/report_subordinacao.py`)
+
+```powershell
+# na pasta do módulo de Fundos
+python scripts\report_subordinacao.py --database C:\<pasta-local>\fundos.db --reference-date 2026-09-30
+```
+
+- **Leitura:** só lendo o banco (`mode=ro` e `query_only`; banco em WAL é recusado), com a guarda de caminho de rede e longo. Exige as migrations 001 e 006.
+- **O que mostra:** só contagens.
+  - **Estados, motivos e marcas:** as marcas contam todos os assuntos, calculados ou sem dado.
+  - **Só nos calculados:** a conferência com o PL e os assuntos com uma série sênior.
+  - **Faixas e divisão:** só os calculados que fecham com o PL a até 1%, como na seção 10.6 de `docs/fundos-descoberta.md`. As faixas contam só os assuntos com 2 ou mais séries, e a divisão do valor das séries sai em %, com 1 casa só na exibição.
+- **Nunca traz** CNPJ, nome nem valor de linha. Um erro inesperado mostra só o tipo do erro.
+
+### Medição em 27/11/2026 (cópias, só leitura; só contagens)
+
+As cópias da etapa 12, que já têm a 006, foram abertas só para leitura. O SHA-256 de cada uma ficou igual. O banco real ficou com o SHA-256 igual, sem backup novo, e **não tem a 006**.
+
+| | 09/2026 (cópia do banco de teste) | 10/2026 (cópia do banco real com o informe) |
+|---|---|---|
+| Assuntos | 4.425 | 4.506 |
+| `calculado` / `sem_dado` | 4.246 / 179 | 4.306 / 200 |
+| `sem_dado`: `soma_das_series_zero` / `valor_negativo` | 144 / 35 | 159 / 41 |
+| `sem_serie_subordinada` (todos) | 1.076 | 1.571 |
+| `ordem_entre_subordinadas_nao_informada` | 20 | 21 |
+| Séries com subtipo ausente | 596 | 516 |
+| `mais_de_uma_serie_mezanino` | 435 | 454 |
+| Conferência com o PL (calculados): dentro / fora / PL menor ou igual a 0 | 4.142 / 97 / 7 | 4.194 / 108 / 4 |
+| Calculados com uma série, sênior | 987 | 1.453 |
+| Divisão (sênior / mezanino / subordinada / subtipo ausente) | 65,4% / 7,9% / 26,6% / 0,1% | 71,1% / 7,6% / 21,2% / 0,1% |
+
+Em 09/2026, uma das 4 regras da cópia estava revisada (a revisão de teste da etapa 12); em 10/2026, todas eram `proposto`.
+
+**Sanidade contra a seção 10.6** (09/2026, sem teste fixo):
+
+| Medida | Seção 10.6 | Medido |
+|---|---|---|
+| Ordem entre subordinadas não informada | 20 | 20 |
+| Linhas ou séries com subtipo ausente | 599 linhas | 596 séries |
+| Faixas: 0 / abaixo de 5% / 5 a 10% / 10 a 20% / 20 a 30% / 30 a 50% / 50% ou mais | 626 / 91 / 66 / 213 / 225 / 426 / 1.522 | 618 / 91 / 66 / 212 / 225 / 425 / 1.522 |
+| Divisão (sênior / mezanino / subordinada) | 65,5% / 7,9% / 26,6% | 65,4% / 7,9% / 26,7%, contando o subtipo ausente |
+
+As medidas que parecem diferentes são diferença de base, e não de cálculo. Medido só lendo a cópia e o ZIP:
+- **Uma série sênior:** a seção conta 1.056 no ZIP. Com séries no banco, são 1.049 com uma série e 27 com 2 ou mais, todas sênior: os 1.076 da marca. Os 987 do relatório são só os calculados; 62 das séries únicas têm soma zero.
+- **PL:** contando todos os assuntos com séries, e não só os calculados, há 4.150 dentro de 1%, **113 fora** (como na seção) e 162 com PL menor ou igual a 0, contra os 177 com PL "vazio ou menor ou igual a 0" da seção.
+- **Os assuntos fora do cadastro:** a seção conta as 4.444 classes do ZIP; o banco tem 4.425 assuntos.
+
+### Não confirmado
+
+1. **QT x VL:** não se sabe se é a parcela da série no PL. O texto da CVM não diz; só a aritmética fecha, a até 1% em 4.150 dos assuntos com séries em 09/2026.
+2. **A ordem** entre subordinadas e entre mezaninos não é informada, e nunca é inferida.
+3. **Os 15 PL "vazios" da seção 10.6** (177 contra 162): sem PL e com série, o banco não tem nenhum assunto. Não foi conferido se são os assuntos fora do cadastro.
+4. **Revisão do mapa:** a subordinação usa regras ainda `proposto`. Falta a revisão de uma pessoa, e o banco real não tem a 006.
+5. **De 09/2026 para 10/2026** (observação de dado; a causa não foi confirmada): os assuntos só com série sênior passam de 1.076 para 1.571, e as séries `subclasse subordinada subordinada` caem de 2.775 para 2.447.
+
+   Foi medido em 27/11/2026, só lendo as duas cópias (o SHA-256 das duas ficou igual). Os assuntos foram casados pelo CNPJ só em memória, sem imprimir CNPJ, id nem nome:
+   - 4.388 assuntos estão nos dois meses; 37 aparecem só em 09/2026 e 118 só em 10/2026;
+   - dos 3.349 com série não sênior em 09/2026 (subordinada, mezanino ou de subtipo ausente), 489 estão em 10/2026 sem nenhuma série não sênior, e 29 não estão em 10/2026;
+   - dos 489, 298 mantêm as mesmas séries seniores, com os mesmos rótulos normalizados.
+
+   As duas cópias vêm de bancos diferentes, com o mesmo cadastro de 27/10/2026: o de teste, para 09/2026, e o real, para 10/2026.
 
 ## Indicadores de carteira vencida
 
