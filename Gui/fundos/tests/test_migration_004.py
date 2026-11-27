@@ -1,4 +1,5 @@
 import importlib.util
+import shutil
 import sqlite3
 
 import pytest
@@ -201,7 +202,7 @@ def test_applying_twice_changes_nothing(tmp_path):
         connection.close()
 
     assert before == after
-    assert [row[0] for row in versions] == [1, 2, 3, 4]
+    assert [row[0] for row in versions] == [1, 2, 3, 4, 6]
 
 
 def test_accepts_valid_rows(full_connection, base):
@@ -424,13 +425,21 @@ def test_apply_migration_applies_004_over_001_to_003_with_data(tmp_path, capsys)
     with db.connection() as connection:
         seed_base(connection)
 
+    # So 001 a 004: a 006 tem teste proprio e mudaria as tabelas do banco.
+    migrations = tmp_path / "migrations"
+    migrations.mkdir()
+
+    for migration in (MIGRATION_001, MIGRATION_002, MIGRATION_003, MIGRATION_004):
+        shutil.copy(migration, migrations)
+
     before = dump(path)
     script = load_script()
-    dry = script.main(["--database", str(path), "--dry-run"])
+    selected = ["--database", str(path), "--migrations-dir", str(migrations)]
+    dry = script.main([*selected, "--dry-run"])
     dry_output = capsys.readouterr().out
-    committed = script.main(["--database", str(path), "--commit", "--backup-dir", str(tmp_path / "bk")])
+    committed = script.main([*selected, "--commit", "--backup-dir", str(tmp_path / "bk")])
     output = capsys.readouterr().out
-    second = script.main(["--database", str(path), "--commit", "--backup-dir", str(tmp_path / "bk")])
+    second = script.main([*selected, "--commit", "--backup-dir", str(tmp_path / "bk")])
     second_output = capsys.readouterr().out
 
     assert (dry, committed, second) == (0, 0, 0)

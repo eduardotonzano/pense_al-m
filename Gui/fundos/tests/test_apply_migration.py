@@ -127,7 +127,8 @@ def test_create_commit_builds_a_new_database(script, tmp_path, capsys):
     output = capsys.readouterr().out
 
     assert code == 0
-    assert versions(path) == [1, 2, 3, 4]
+    # Sem a 005, reservada para a prioridade de fontes (ADR-010).
+    assert versions(path) == [1, 2, 3, 4, 6]
     assert "Banco novo" in output
     assert "Migrations aplicadas com sucesso." in output
     assert not (path.parent / "backups").exists()
@@ -448,11 +449,14 @@ def test_discover_migrations_rejects_duplicates_and_missing_folder(script, tmp_p
 def test_real_migrations_are_numbered_and_named_like_the_registry(script):
     found = script.discover_migrations(MIGRATIONS_DIR)
 
+    # A 005 fica reservada para a prioridade de fontes (ADR-010): lacuna
+    # proposital na numeracao.
     assert [(version, name) for version, name, _ in found] == [
         (1, "initial_schema"),
         (2, "party_observations"),
         (3, "party_observation_shares"),
         (4, "holdings"),
+        (6, "quota_class_map"),
     ]
 
 

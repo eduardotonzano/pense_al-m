@@ -266,7 +266,21 @@ A decisão trata só do alcance da regra no arquivo original. As regras de guard
 
 **O que depende dela:** o cálculo da subordinação na ficha (F-03) e no comparativo da casa (F-02).
 
-**Continua em aberto:** a ordem entre duas subordinadas da mesma classe, que o rótulo não diz (20 classes em 09/2026).
+**Implementação do mapa (27/11/2026, FU6.2):** no módulo de Fundos (migration 006 e `src/fundos/quota_classes/`; seção "Mapa das séries (`quota_class_map`)" do README de Fundos).
+- **O mapa** é regra por início (ou igualdade) do rótulo normalizado, na forma de `quota_series.series_label_key`, e o rótulo original nunca é alterado. A regra mais específica vence, e o rótulo sem regra fica "ausente (rótulo não mapeado)".
+- **As 4 regras iniciais** entram como `proposto`: `subclasse senior`, `subclasse subordinada mezanino`, `subclasse subordinada subordinada` e `subclasse subordinada` (esta por igualdade, com o subtipo ausente).
+- **A revisão** fica na própria tabela: a situação, o papel de quem revisou (`papel:dono_da_frente_fundos` ou `papel:revisor_fundos`, nunca o nome), a data e a nota, com uma linha no `audit_log`.
+- **A migration** é a 006: a 005 continua reservada para a prioridade de fontes (ADR-010).
+- **Medido em cópias:** 0 rótulos sem regra em 09/2026 (12.700 séries) e em 10/2026 (12.430 séries).
+
+**Continua em aberto:**
+- a ordem entre duas subordinadas da mesma classe, que o rótulo não diz.
+  - **As 20 classes de 09/2026** da seção 10.6 de `docs/fundos-descoberta.md` são as que têm 2 ou mais séries de subtipo subordinada ou ausente, **com ou sem mezanino**. Foi medido em 27/11/2026, igual no banco e no ZIP.
+  - **Sem nenhum mezanino** são 15, que é o que o relatório do mapa conta.
+  - **A definição da marca de ordem** na subordinação (FU6.3) fica para esse PR;
+- a revisão das 4 regras iniciais por uma pessoa, e a 006 no banco real;
+- a subordinação calculada (FU6.3, em PR próprio);
+- o FIAGRO, cujas subclasses não dizem sênior ou subordinada (688 séries sem mapa em 09/2026).
 
 ### 9. Banco real de Fundos
 
@@ -302,5 +316,5 @@ A recusa vem antes de ler o ZIP e de abrir o banco. A mensagem traz só o parâm
 | 5 | Licença ODbL | | aprovada | conferir a licença (citar a fonte e manter a mesma licença) só antes de publicar fora da casa; não bloqueia o uso interno |
 | 6 | FIC-FIDC | F-04 | decidida | resolução da fila depois da migration 005; classificação e conferência no banco real depois da carga do informe de 10/2026 nele (já medidas numa cópia) |
 | 7 | Variante do FIAGRO | F-05 | decidida | |
-| 8 | Sênior e subordinada | F-02, F-03 | decidida | |
+| 8 | Sênior e subordinada | F-02, F-03 | decidida | revisão das 4 regras do mapa por uma pessoa; a 006 no banco real; a subordinação calculada (FU6.3); a ordem entre subordinadas |
 | 9 | Banco real de Fundos | | decidida | rever o local com um segundo consumidor; guarda de caminho na `fundos_cli` e na leitura dos indicadores |

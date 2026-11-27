@@ -8,6 +8,7 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - A migration `migrations/002_party_observations.sql` cria `party_observations` (papéis com vários valores: gestor, administrador, custodiante, controlador e auditor) e `party_conflicts`. Veja "Papéis".
 - A migration `migrations/003_party_observation_shares.sql` cria `party_observation_shares`, com o percentual do cedente do informe de FIDC, 1:1 com a linha do cedente em `party_observations`. Veja "Papéis".
 - A migration `migrations/004_holdings.sql` cria `holdings` e `confidential_holdings` (posições em cotas de fundos do CDA, identificadas e confidenciais), cada uma com a sua tabela de conflitos. Veja "Como carregar o CDA".
+- A migration `migrations/006_quota_class_map.sql` cria o `quota_class_map`, o mapa das séries de FIDC para sênior, mezanino ou subordinada, com as 4 regras iniciais como `proposto`. A 005 continua reservada (veja "Como aplicar a migration"). Veja "Mapa das séries (`quota_class_map`)".
 - `src/fundos/`: conexão (`database.py`), utilitário de CNPJ (`cnpj.py`), guarda de dados pessoais (`personal_data.py`), backup (`backup.py`) e repositórios mínimos (`repositories/`).
 - `src/fundos/cvm_csv.py`: leitura comum dos CSV da CVM (cp1252 estrito, cabeçalho exato, largura das linhas, conversão por tipo, situação do identificador), usada pelo cadastro e pelo informe.
 - `src/fundos/cadastro/`: leitor do cadastro de fundos da CVM (`registro_fundo_classe.zip`), sem banco (`reader.py`, com a lista fechada de colunas em `columns.py`); filtro de FIDC e FIAGRO e escolha do registro vigente (`selection.py`); gravação (`loader.py`); e relatório só com agregados (`report.py`).
@@ -22,6 +23,7 @@ Dono da frente: Gui (`docs/decisoes-em-aberto.md`, decisão 1 de Fundos). O nome
 - `scripts/load_informe_fiagro.py`: carrega o informe mensal de FIAGRO. Veja "Como carregar o informe de FIAGRO".
 - `scripts/load_cda.py`: carrega as posições em cotas de fundos do CDA. Veja "Como carregar o CDA" e, para o primeiro banco real, "Banco real".
 - `scripts/classify_fic_fidc.py`: mostra a classificação de FIC-FIDC e a conferência do CDA, só com contagens, e grava a fila de revisão manual. Veja "FIC-FIDC e conferência do CDA".
+- `src/fundos/quota_classes/`: as regras do `quota_class_map`, a classificação de um rótulo de série, o relatório de revisão e a revisão de uma regra. `scripts/report_quota_class_map.py` mostra o relatório, só lendo o banco, e `scripts/review_quota_class_map.py` grava a revisão de uma pessoa. Veja "Mapa das séries (`quota_class_map`)".
 
 ## O que ainda não existe
 
@@ -31,7 +33,7 @@ Ficam para etapas futuras do plano de Fundos:
 
 - a migration de prioridade das fontes (ADR-010, proposta);
 - o `registro_subclasse` como dado (hoje só entra no manifesto);
-- na reapresentação do informe: registrar no banco a célula que sumiu, guardar o conjunto exato de cedentes de cada ZIP e unir a série que trocou de rótulo à antiga (hoje só são contados; cada um exigiria uma migration nova, com o próximo número livre na hora (a 004 é a das holdings, no ramo do Gui, e a 005 está reservada à prioridade de fontes do ADR-010, ainda proposta), se o Gui quiser);
+- na reapresentação do informe: registrar no banco a célula que sumiu, guardar o conjunto exato de cedentes de cada ZIP e unir a série que trocou de rótulo à antiga (hoje só são contados; cada um exigiria uma migration nova, com o próximo número livre na hora (a 004 é a das holdings, a 005 está reservada à prioridade de fontes do ADR-010, ainda proposta, e a 006 é a do `quota_class_map`), se o módulo de Fundos decidir);
 - **dívida da reapresentação (FU5.3):** a regra de ordem do `--last-modified` (e a mensagem dela) está duplicada entre o informe de FIDC e o de FIAGRO (`reapresentation_problem` nos dois `loader.py`), e a comparação do FIAGRO (`informe_fiagro/compare.py`) repete a estrutura da do FIDC. Fica assim de propósito, para não mexer no FIDC; a extração para uma parte comum fica para quando houver um terceiro uso;
 - as classes de chave repetida no arquivo de FIAGRO **com a mesma `Versao`** (ou empate na maior, ou `Versao` vazia) e as subclasses delas (2 classes e 9 linhas de subclasse em 09/2026, as duas com a mesma `Versao`): só contadas, até decisão do módulo de Fundos;
 - a comparação, na leitura, entre o informe de FIAGRO e o de FIDC e entre o informe e o cadastro (gestor e administradora): a conferência foi feita na FU5.2 (seção 10.5 de `docs/fundos-descoberta.md`) e o Gui decidiu em 04/11/2026 que vale o informe que corresponde ao `Tipo_Classe` e, para gestor e administradora, o cadastro vigente (F-03 e F-05 de `docs/regras-de-exibicao-pendentes.md`). Nada disso está no código: o banco não compara os informes, a comparação fica na camada de leitura (FU9.2) e a view de valor atual dos papéis entra antes da FU9.1. O informe de FII foi amostrado (seção 13 de `docs/fundos-descoberta.md`) e não é carregado;
@@ -40,7 +42,7 @@ Ficam para etapas futuras do plano de Fundos:
 - **pendência do FIAGRO nos indicadores de carteira vencida (FU11.1):** os campos `Vencidos_*`, `A_Vencer_*` e `Total_Ativos_Prazo_Vencimento` do informe de FIAGRO ficaram fora por falta de descrição oficial. O dicionário de FIAGRO descreve 13 dos 133 campos, e nenhum destes. A inclusão depende da leitura do Anexo Normativo VI da Resolução CVM 175 e do modelo do informe de FIAGRO, que exige aprovação de rede;
 - a evolução das faixas de atraso conferida no dado real: o banco de teste tem uma competência só do informe de FIDC (09/2026). Uma segunda exige baixar outro mês (rede, com aprovação) e carregá-lo numa cópia;
 - a política de volume: retenção e frequência das cargas (o cadastro grava o retrato inteiro a cada carga; o informe, cerca de 0,6 GB por competência);
-- o mapa de séries sênior, mezanino e subordinada;
+- a subordinação calculada a partir do mapa das séries (FU6.3, em PR próprio, depois deste mapa) e a revisão das 4 regras iniciais por uma pessoa: hoje as 4 estão como `proposto`;
 - a resolução de conflitos com `audit_log`;
 - a resolução da fila de revisão manual de FIC-FIDC: a decisão de uma pessoa, como entrada MANUAL, só vem depois da migration 005 (ADR-010). Hoje a fila só recebe os assuntos (veja "FIC-FIDC e conferência do CDA").
 
@@ -121,6 +123,13 @@ python scripts\apply_migration.py --database C:\<pasta-local>\fundos.db --commit
 
   O `--dry-run` também recusa a pasta temporária em rede, porque a cópia de teste vai para ela. A mensagem traz só o parâmetro e o motivo, nunca o caminho. Use pasta local curta, também no `--backup-dir` (por exemplo `C:\pense\bk\fundos`).
 - Nova migration: novo arquivo `migrations/NNN_nome.sql` que termina com `INSERT OR IGNORE INTO schema_migrations(version,name) VALUES(NNN,'nome');`. Nunca edite uma migration já aplicada.
+- **Lacuna na numeração:**
+  - **A 005 está reservada** para a prioridade de fontes (ADR-010), e a 006 (`quota_class_map`) é aplicada sem ela.
+  - **O runner** aplica, em ordem de número, toda migration que o banco ainda não registrou. Quando a 005 existir, ela entra depois da 006; as duas são independentes (a 005 mexe na prioridade da fonte e na view `current_observations`, a 006 só cria o mapa).
+  - **Testes ajustados:** os testes das migrations que já existiam passaram a esperar a 006.
+    - A lista de versões `[1, 2, 3, 4]` virou `[1, 2, 3, 4, 6]` em 5 asserções.
+    - A lista das migrations da pasta ganhou a 006.
+    - O teste da 004 com dados passou a usar uma pasta só com 001 a 004, como o da 003 já fazia.
 
 ## Como carregar o cadastro
 
@@ -260,7 +269,7 @@ python scripts\load_informe_fiagro.py --database C:\<pasta-local>\fundos.db --zi
 - **Papéis:** `CNPJ_Administrador` e `Nome_Administrador` (papel `administrador`) e `CNPJ_Gestor` e `Nome_Gestor` (papel `gestor`) vão para `party_observations` da classe, só com CNPJ válido.
   - CPF (11 dígitos ou máscara), vazio ou inválido é descartado junto com o nome e contado; a máscara do CNPJ é tirada; 12 ou 13 dígitos com DV válido ganham os zeros.
   - O gestor e a administradora do cadastro ficam no fundo (`registro_fundo.*`), com a data do retrato. Os do informe convivem com eles, cada um com a sua proveniência, sem conflito; a divergência foi medida na FU5.2 (seção 10.5 de `docs/fundos-descoberta.md`) e, pela decisão de 04/11/2026 (F-03 de `docs/regras-de-exibicao-pendentes.md`), o valor atual é o do cadastro vigente; o banco não compara os dois.
-- **Subclasses:** cada linha vira uma série da classe (`quota_series`) pelo rótulo normalizado, com a regra do FIDC e sem ID da CVM (o arquivo não tem); o rótulo original fica como observação da série. Nada diz sênior ou subordinada (FU6.2).
+- **Subclasses:** cada linha vira uma série da classe (`quota_series`) pelo rótulo normalizado, com a regra do FIDC e sem ID da CVM (o arquivo não tem); o rótulo original fica como observação da série. Nada diz sênior ou subordinada: o mapa das séries (FU6.2, "Mapa das séries (`quota_class_map`)") cobre só o FIDC, e as subclasses de FIAGRO ficam sem mapa.
   - As duas grafias de "Subclasse 1" (`Subclasse 1 (ou classe única)` e `Subclasse 1(ou classe única)`) viram **chaves diferentes**. Em 09/2026 nenhuma classe tem as duas.
   - O par (classe, rótulo normalizado) repetido não entra (3 em 09/2026, todos nas chaves repetidas).
 - **`--last-modified`:** a mesma normalização do FIDC (ISO com fuso, como `2026-10-24T11:46:15Z`, ou o texto do cabeçalho HTTP; sem fuso ou no futuro, recusado), gravado em `raw_records.last_modified` do ZIP e mostrado em UTC, com o aviso quando a data dos membros passa dela em mais de 1 dia. Na primeira carga da competência é opcional: sem ele, `raw_records.last_modified` fica vazio e o relatório diz "Last-Modified do ZIP: nao informado". Na reapresentação é obrigatório.
@@ -359,7 +368,7 @@ Decidido em 25/11/2026 (decisão 9 de Fundos em `docs/decisoes-em-aberto.md`). O
   - o `--zip` não é conferido: ler o ZIP pela rede não tem o risco de trava do SQLite.
 - **Sequência:** cada passo com `--dry-run` antes e `--commit` depois.
   1. Pasta local restrita e cópia dos originais (o cadastro de 27/10/2026 e o CDA de 10/2026), com o SHA-256 antes e depois.
-  2. `scripts\apply_migration.py --create`: as migrations 001 a 004. A 005 fica reservada à prioridade de fontes (ADR-010).
+  2. `scripts\apply_migration.py --create`: as migrations 001 a 004, em 25/11/2026. A 005 fica reservada à prioridade de fontes (ADR-010). A 006 (`quota_class_map`) veio depois e ainda não foi aplicada no banco real.
   3. `scripts\load_cadastro.py --reference-date 2026-10-27`.
   4. `scripts\load_cda.py --last-modified "Tue, 24 Nov 2026 04:05:23 GMT"`: o `Last-Modified` do ZIP na CVM, do manifesto do download. Ele grava a data da fonte e evita recusar uma reapresentação publicada entre essa data e a carga.
   5. Verificação só de leitura:
@@ -534,6 +543,128 @@ python scripts\classify_fic_fidc.py --database C:\<pasta-local>\fundos.db --refe
 5. **A conferência no banco real:** com dado real, só rodou numa cópia (10/2026 contra 10/2026). O banco real continua sem o informe.
 6. **As classes fora de 1% em 10/2026:** 27 e 34, sem causa explicada, como em 09/2026.
 7. **A norma:** não se sabe se ela define FIC-FIDC. A decisão 6 é regra de corte.
+
+## Mapa das séries (`quota_class_map`)
+
+O `quota_class_map` (migration 006, decisão 8 de `docs/decisoes-em-aberto.md`, FU6.2) diz se uma série de FIDC é sênior, mezanino ou subordinada, pelo rótulo dela.
+
+**O rótulo original nunca é alterado.**
+- O rótulo de cada tabela continua como observação da série (`tab_X_2.TAB_X_CLASSE_SERIE` e as outras).
+- A regra casa com o rótulo **normalizado**, na mesma forma de `quota_series.series_label_key`, que o carregador já preenche: sem acento, minúsculo, sem `|` e com os espaços colapsados.
+- É essa forma que já junta a `tab_X_1` e a `tab_X_2` na mesma série.
+- Nenhuma coluna nova foi criada para a forma normalizada.
+
+### As regras
+
+| Coluna | O que guarda |
+|---|---|
+| `pattern` | o padrão, já normalizado |
+| `match_type` | `inicio` (a chave é igual ao padrão ou começa com ele seguido de espaço) ou `igual` (só a chave igual) |
+| `level` e `subtype` | `senior` com `nao_se_aplica`, ou `nao_senior` com `mezanino`, `subordinada` ou `ausente` (o rótulo não diz o subtipo; nada é estimado) |
+| `origin_note` | de onde veio a regra; imutável |
+| `review_status`, `reviewer`, `reviewed_at` e `review_note` | a revisão: `proposto`, `revisado` ou `rejeitado`, o papel de quem revisou, a data e a nota |
+| `valid_from` e `valid_to` | a vigência, por competência; vazia é aberta |
+
+**As 4 regras iniciais,** todas `proposto` e com a vigência aberta, derivadas da seção 10.6 de `docs/fundos-descoberta.md`:
+
+| Padrão | Casamento | Classificação |
+|---|---|---|
+| `subclasse senior` | `inicio` | sênior |
+| `subclasse subordinada mezanino` | `inicio` | não sênior, mezanino |
+| `subclasse subordinada subordinada` | `inicio` | não sênior, subordinada |
+| `subclasse subordinada` | `igual` | não sênior, subtipo ausente |
+
+**Classificação** (`quota_classes.mapping.classify_label`):
+- Valem só as regras não rejeitadas e vigentes na competência.
+- Entre as que casam, vence a mais específica, que é o padrão mais longo. Por isso "Subclasse Subordinada Mezanino 1" cai em mezanino, e não na regra genérica.
+- Duas regras do mesmo comprimento que casam ficam `regras_em_conflito`, e nenhuma vale.
+- Rótulo sem regra fica "ausente (rótulo não mapeado)", nunca um palpite. "Subclasse Subordinada Junior 1", por exemplo, não é classificada.
+- A situação da revisão vai junto de cada classificação.
+
+**Proteções no banco** (triggers da 006):
+- nenhuma regra é apagada;
+- padrão, casamento, nível, subtipo, origem e início da vigência são imutáveis;
+- o fim da vigência só é preenchido uma vez;
+- a revisão só vai de `proposto` para `revisado` ou `rejeitado`, ou de `revisado` para `rejeitado`;
+- `revisado` e `rejeitado` exigem o papel e a data;
+- há uma regra ativa por padrão, casamento e início da vigência.
+
+### Revisão por uma pessoa (`scripts/review_quota_class_map.py`)
+
+Nada vira `revisado` sem uma pessoa. Quem roda o `--commit` é a pessoa que revisou.
+
+- **O revisor:** é identificado por um papel da lista fechada do código, `papel:dono_da_frente_fundos` ou `papel:revisor_fundos`, nunca pelo nome. O banco confere o formato `papel:<id>`.
+- **A nota é conferida antes de tudo:**
+  - só ASCII imprimível, até 200 caracteres;
+  - sem quebra de linha;
+  - sem sequência de 11 dígitos ou mais e sem máscara de CPF ou CNPJ.
+
+  O erro diz só o motivo, nunca o texto, e a saída mostra só o tamanho da nota.
+- **`--dry-run`:** confere a regra e a transição, só lendo o banco.
+- **`--commit`:**
+  - faz o backup e grava a revisão e uma linha no `audit_log` numa transação. A linha leva `actor` = o papel, `action` = `quota_class_map_revisao` e o antes e o depois em JSON;
+  - roda `integrity_check` e `foreign_key_check`;
+  - a mesma revisão de novo diz "Nada a revisar", sem backup.
+- **Caminho:** banco ou backup em caminho de rede ou longo é recusado antes de abrir o banco, no `--dry-run` também. Exige as migrations 001 e 006.
+
+```powershell
+# na pasta do módulo de Fundos
+python scripts\review_quota_class_map.py --database C:\<pasta-local>\fundos.db --rule-id 1 --status revisado --reviewer papel:revisor_fundos --note "<nota>" --dry-run
+```
+
+### Relatório de revisão (`scripts/report_quota_class_map.py`)
+
+Só lendo o banco (`mode=ro` e `query_only`; banco em WAL é recusado), com a mesma guarda de caminho. Sem `--reference-date`, cobre todas as competências com `tab_X_2`. Mostra:
+- as regras, com a situação, o papel, a data e a vigência;
+- por competência:
+  - as séries de FIDC e os rótulos normalizados;
+  - quantas séries e rótulos cada regra classifica;
+  - os rótulos sem regra, com as séries, as variantes originais (só a contagem) e o motivo;
+  - os assuntos com 2 ou mais séries não seniores e nenhum mezanino (a ordem entre as subordinadas não é informada);
+  - as séries com subtipo ausente;
+- os rótulos novos desde a última revisão (a primeira coleta do rótulo depois da maior data de revisão; sem revisão nenhuma, só a contagem);
+- as séries de FIAGRO sem mapa: o FIAGRO fica fora desta etapa, porque as subclasses dele não dizem sênior ou subordinada.
+
+Só contagens e rótulos normalizados de série. O rótulo só aparece onde a revisão precisa dele, sem regra ou novo. Nunca traz CNPJ, nome, valor de linha nem o rótulo original.
+
+### Medição em 26 e 27/11/2026 (cópias; só contagens)
+
+Cópias novas da pasta da sessão, cada uma com o SHA-256 igual ao da origem; as origens ficaram com o hash igual depois. Em cada cópia, `apply_migration.py --dry-run` e depois `--commit`, com `integrity_check` ok, 0 problemas de chave estrangeira e 0 colunas com `cpf`. O banco real ficou com o SHA-256 igual, sem backup novo, e **não tem a 006**.
+
+| | 09/2026 (cópia do banco de teste) | 10/2026 (cópia do banco real com o informe de 10/2026) |
+|---|---|---|
+| Migrations pendentes | 004 e 006 | 006 |
+| Séries de FIDC com `tab_X_2` (rótulos normalizados) | 12.700 (216) | 12.430 (205) |
+| `subclasse senior` | 6.998 | 7.092 |
+| `subclasse subordinada mezanino` | 2.331 | 2.375 |
+| `subclasse subordinada subordinada` | 2.775 | 2.447 |
+| `subclasse subordinada` (subtipo ausente) | 596 | 516 |
+| Sem regra | 0 | 0 |
+| Assuntos com 2 ou mais não seniores e nenhum mezanino | 15 | 16 |
+| Séries de FIAGRO sem mapa | 688 | 0 (a cópia não tem o informe de FIAGRO) |
+
+- **Revisão,** só na cópia de 09/2026:
+  - o `--dry-run` não mudou o banco;
+  - o `--commit` gravou a regra 1 como `revisado`, com `papel:revisor_fundos`, e uma linha no `audit_log`;
+  - o segundo `--commit` disse "Nada a revisar";
+  - o relatório depois mostrou a regra revisada, com a data, e 0 rótulos novos.
+- **Rótulos no relatório:** a contagem de rótulos sem revisão (217 e 206) inclui os rótulos de todas as tabelas `tab_X`, e por isso passa um pouco dos rótulos da `tab_X_2` (216 e 205).
+
+### Não confirmado
+
+1. **O molde:** é do sistema de entrega da CVM, não um domínio documentado, e pode mudar. Em 09 e 10/2026, nenhum rótulo ficou sem regra.
+2. **Os 20 da seção 10.6 contra os 15 do relatório:** a diferença é de definição, e não de base. Medido em 27/11/2026, só lendo a cópia de 09/2026 e o ZIP de 09/2026 (o SHA-256 dos dois ficou igual), com a mesma normalização e as mesmas 4 regras:
+
+   | Definição | Banco | ZIP |
+   |---|---|---|
+   | (a) 2 ou mais não seniores e nenhum mezanino, a contagem do relatório | 15 | 15 |
+   | (b) 2 ou mais séries de subtipo subordinada ou ausente, com ou sem mezanino | **20** | **20** |
+   | (c) 2 ou mais não seniores, com ou sem mezanino | 1.034 | 1.038 |
+
+   Os 20 da seção 10.6 são a definição (b). A ordem entre as subordinadas também fica sem informação quando há mezanino acima delas. A definição que a marca de ordem vai usar na subordinação (FU6.3) fica para esse PR.
+3. **A regra genérica:** a seção 10.6 contou 599 linhas genéricas no ZIP, e o banco tem 596 séries. A hipótese são os assuntos fora do cadastro carregado, e não foi conferida.
+4. **A ordem** entre duas subordinadas (ou dois mezaninos) da mesma classe não é informada, e nunca é inferida.
+5. **As regras iniciais** são proposta do módulo de Fundos: falta a revisão de uma pessoa no banco real, que ainda não tem a 006.
 
 ## Indicadores de carteira vencida
 
