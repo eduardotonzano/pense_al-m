@@ -23,4 +23,8 @@ garantias: o valor (7.1) e o percentual (7.2) das garantias (tab_X_7), como
 informados, sem conta entre os dois (FU11.4).
 estrutura_report: as linhas do relatorio de segmento e garantias, so
 contagens.
+liquidez: as 7 faixas da liquidez (tab_X_5), como informadas, sem soma
+(FU11.5).
+rentabilidade: a rentabilidade apurada no mes, por serie (tab_X_3), como
+informada (FU11.5).
 """
